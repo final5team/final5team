@@ -35,14 +35,14 @@
 								<h1 class="h4 text-gray-900 mb-4">사용자 등록</h1>
 							</div>
 							<hr>
-							<form class="user" method="post" action="${pageContext.request.contextPath}/customer/register">
+							<form method="post" action="${pageContext.request.contextPath}/customer/register">
 								<div class="text-center">
 									<img src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg" style="width: 100px; height: 100px;">
 									<button class="btn-dark btn-sm">이미지 등록</button>
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="text" class="form-control form-control-user" id="mid" name="mid" placeholder="userId">
+										<input type="text" class="form-control form-control-user" id="mid" name="mid" placeholder="아이디">
 									</div>
 									<div class="col-sm-6">
 										<input type="password" class="form-control form-control-user" id="password" name="password" value="1234">
@@ -50,13 +50,14 @@
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="text" class="form-control form-control-user" id="mname" name="mname" placeholder="userName">
+										<input type="text" class="form-control form-control-user" id="mname" name="mname" placeholder="이름">
 									</div>
 									<!-- 시스템 목록 선택으로 수정. -->
 									<div class="col-sm-6">
 										<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" value="시스템">
-											<a href="#none" class="dropdown-item">1번 시스템</a> <a href="#none" class="dropdown-item">2번 시스템</a> <a href="#none" class="dropdown-item">2번 시스템</a>
+										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+											<a href="#none" class="dropdown-item">1번 시스템</a> 
+											<a href="#none" class="dropdown-item">2번 시스템</a> <a href="#none" class="dropdown-item">2번 시스템</a>
 										</div>
 									</div>
 								</div>
@@ -66,27 +67,29 @@
 									</div>
 									<div class="col-sm-6 mb-3 mb-sm-0">
 										<div class="form-check">
-											<input class="form-check-input" type="radio" name="userGender" id="man" value="option1" checked> <label class="form-check-label" for="exampleRadios2"> 남 </label>
+											<input class="form-check-input" type="radio" name="userGender" id="man" value="option1" checked>
+											 <label class="form-check-label" for="exampleRadios2"> 남 </label>
 										</div>
 										<div class="form-check">
-											<input class="form-check-input" type="radio" name="userGender" id="woman" value="option2"> <label class="form-check-label" for="exampleRadios2"> 여 </label>
+											<input class="form-check-input" type="radio" name="userGender" id="woman" value="option2">
+											 <label class="form-check-label" for="exampleRadios2"> 여 </label>
 										</div>
 									</div>
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="전화번호">
+										<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="전화번호" value="010-1234-1234">
 									</div>
 									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="text" class="form-control form-control-user" id="address" name="address" placeholder="주소">
+										<input type="text" class="form-control form-control-user" id="address" name="address" placeholder="주소" value="주소">
 									</div>
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="text" class="form-control form-control-user" id="userRank" placeholder="직급">
+										<input type="text" class="form-control form-control-user" id="userRank" placeholder="직급" value="직급">
 									</div>
 									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="text" class="form-control form-control-user" id="userPart" placeholder="소속기관">
+										<input type="text" class="form-control form-control-user" id="userPart" placeholder="소속기관" value="소속기관">
 									</div>
 								</div>
 								<button class="btn btn-dark btn-sm" type="submit">회원 등록</button>
