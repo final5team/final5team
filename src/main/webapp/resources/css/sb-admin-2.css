@@ -2356,21 +2356,21 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: #fff;
-  background-color: #4e73df;
-  border-color: #4e73df;
+  background-color: #85CE36;
+  border-color: #85CE36;
 }
 
 .btn-primary:hover {
   color: #fff;
-  background-color: #2e59d9;
-  border-color: #2653d4;
+  background-color: #72b22b;
+  border-color: #72b22b;
 }
 
 .btn-primary:focus, .btn-primary.focus {
   color: #fff;
-  background-color: #2e59d9;
-  border-color: #2653d4;
-  box-shadow: 0 0 0 0.2rem rgba(105, 136, 228, 0.5);
+  background-color: #72b22b;
+  border-color: #72b22b;
+  box-shadow: 0 0 0 0.2rem rgba(118, 181, 52, 0.5);
 }
 
 .btn-primary.disabled, .btn-primary:disabled {
@@ -2382,13 +2382,13 @@ fieldset:disabled a.btn {
 .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: #2653d4;
-  border-color: #244ec9;
+  background-color: #72b22b;
+  border-color: #72b22b;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
 .show > .btn-primary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(105, 136, 228, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(118, 181, 52, 0.5);
 }
 
 .btn-secondary {
@@ -4483,6 +4483,7 @@ input[type="button"].btn-block {
 }
 
 .card {
+/* 오리지널
   position: relative;
   display: flex;
   flex-direction: column;
@@ -4492,7 +4493,18 @@ input[type="button"].btn-block {
   background-clip: border-box;
   border: 1px solid #e3e6f0;
   border-radius: 0.35rem;
-  box-shadow: 1px 1px 5px rgb(126 142 159 / 10%);
+  box-shadow: 1px 1px 5px rgb(126 142 159 / 10%); */
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
 }
 
 .card > hr {
@@ -11280,3 +11292,49 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
+
+/*로그인*/
+.auth {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  background-color: #667380;
+  overflow-x: hidden;
+  overflow-y: auto;
+  }
+.auth-container {
+  width: 450px;
+  min-height: 330px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+          transform: translateY(-50%) translateX(-50%); }
+          
+  .auth-container .auth-header {
+    text-align: center;
+    border-bottom: 1px solid #85CE36;
+    }
+    
+  .auth-container .auth-title {
+    color: #97A4B1;
+    padding: 20px;
+    line-height: 30px;
+    font-size: 26px;
+    font-weight: 600;
+    margin: 0; }
+  .auth-container .auth-content {
+    padding: 30px 50px;
+    min-height: 260px; }
+  .auth-container .forgot-btn {
+    line-height: 28px; }
+  .auth-container .checkbox label {
+    padding: 0; }
+  .auth-container .checkbox a {
+    vertical-align: text-top; }
+  .auth-container .checkbox span {
+    color: #4f5f6f; }
+/*로그인*/
+
+
