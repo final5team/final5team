@@ -31,14 +31,18 @@ public class RequestController {
 		log.info("member : " + member.toString());
 		System.out.println(member.toString());
 
-		int result = userRegisterService.register(member);
-
-		if (result == IUserRegisterService.REGISTER_FAIL) {
-			return "redirect:/customer/register";
-		} else {
-			model.addAttribute("registerResult", "FAIL");
-			return "redirect:/login";
-		}
+//		
+//		int result = userRegisterService.register(member);
+//
+//		if (result == IUserRegisterService.REGISTER_FAIL) {
+//			return "redirect:/customer/register";
+//		} else {
+//			model.addAttribute("registerResult", "FAIL");
+//			return "redirect:/login";
+//		}
+//		
+		
+		return "redirect:/login";
 	}
 	
 	

@@ -2,12 +2,15 @@ package com.oti.srm.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 @Data
 public class Member {
 	private String mid;
 	private String mtype;
 	private String mname;
+	@DateTimeFormat(pattern="yyyy-mm-dd")
 	private Date birth;
 	private String gender;
 	private String address;

@@ -52,12 +52,14 @@
 									<div class="col-sm-6 mb-3 mb-sm-0">
 										<input type="text" class="form-control form-control-user" id="mname" name="mname" placeholder="이름">
 									</div>
-									<!-- 시스템 목록 선택으로 수정. -->
 									<div class="col-sm-6">
-										<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-											<a href="#none" class="dropdown-item">1번 시스템</a> 
-											<a href="#none" class="dropdown-item">2번 시스템</a> <a href="#none" class="dropdown-item">2번 시스템</a>
+										<div class="col-sm-6">
+											<select class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="sno">
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+											</select>
 										</div>
 									</div>
 								</div>
@@ -66,14 +68,10 @@
 										<input type="date" class="form-control form-control-user" id="birth" name="birth" placeholder="생년월일">
 									</div>
 									<div class="col-sm-6 mb-3 mb-sm-0">
-										<div class="form-check">
-											<input class="form-check-input" type="radio" name="userGender" id="man" value="option1" checked>
-											 <label class="form-check-label" for="exampleRadios2"> 남 </label>
-										</div>
-										<div class="form-check">
-											<input class="form-check-input" type="radio" name="userGender" id="woman" value="option2">
-											 <label class="form-check-label" for="exampleRadios2"> 여 </label>
-										</div>
+										<input type="radio" id="man" name="gender" value="남">
+										<label for="남">남</label>
+										<input type="radio" id="woman" name="gender" value="여">
+										<label for="여">여</label>
 									</div>
 								</div>
 								<div class="form-group row">
