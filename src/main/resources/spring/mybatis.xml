@@ -16,5 +16,5 @@
 	</bean>
 	
 	<!-- Dao Interface Scan -->
-	<mybatis-spring:scan base-package="com.mycompany.webapp.dao"/>
+	<mybatis-spring:scan base-package="com.oti.srm.dao"/>
 </beans>
