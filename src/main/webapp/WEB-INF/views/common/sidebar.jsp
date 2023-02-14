@@ -59,7 +59,7 @@
 				<span>공지사항</span></a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/statistics">
+			<a class="nav-link" href="${pageContext.request.contextPath}/stats/statistics">
 				<i class="fas fa-fw fa-chart-area"></i>
 				<span>현황통계</span></a>
 		</li>
