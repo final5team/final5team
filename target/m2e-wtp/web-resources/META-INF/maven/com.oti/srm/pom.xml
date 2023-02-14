@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<!-- 프로젝트에 대한 기본 정보 설정 -->
-	<groupId>com.mycompany</groupId>
-	<artifactId>webapp</artifactId>
+	<groupId>com.oti</groupId>
+	<artifactId>srm</artifactId>
 	<name>finalproject</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
