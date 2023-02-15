@@ -3,7 +3,7 @@
 <mapper namespace="com.oti.srm.dao.IUserRegisterDao">
 	<insert id="register" parameterType="com.oti.srm.dto.Member" >
 		insert into members (MID, MTYPE, MNAME, BIRTH, GENDER, ADDRESS, SNO, EMAIL, PASSWORD, ORGAN, PHONE, POSITION)
-		values (#{mid}, 1, #{mname}, sysdate, '남', #{address}, 1, 'aaa@naver.com', #{password}, '공무원', #{phone}, '사원' )
+		values (#{mid}, '고객', #{mname}, sysdate, #{gender}, #{address}, #{sno}, #{email}, #{password}, #{organ}, #{phone}, #{position})
 		
 	</insert>
 	

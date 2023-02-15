@@ -67,7 +67,7 @@
 									<div class="col-sm-6 mb-3 mb-sm-0">
 										<input type="date" class="form-control form-control-user" id="birth" name="birth" placeholder="생년월일">
 									</div>
-									<div class="col-sm-6 mb-3 mb-sm-0">
+									<div class="col-sm-6 mb-3 mb-sm-0" name="gender">
 										<input type="radio" id="man" name="gender" value="남">
 										<label for="남">남</label>
 										<input type="radio" id="woman" name="gender" value="여">
@@ -84,12 +84,21 @@
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="text" class="form-control form-control-user" id="userRank" placeholder="직급" value="직급">
+										<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="직급" value="직급">
 									</div>
 									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="text" class="form-control form-control-user" id="userPart" placeholder="소속기관" value="소속기관">
+										<input type="text" class="form-control form-control-user" id="organ" name="organ" placeholder="소속기관" value="소속기관">
 									</div>
 								</div>
+								<hr>
+								<div class="form-group row">
+									<div class="col-sm-6 mb-3 mb-sm-0">
+										<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="이메일" value="email@oti.com">
+									</div>
+								</div>
+								
+								
+								
 								<button class="btn btn-dark btn-sm" type="submit">회원 등록</button>
 							</form>
 							<hr>
