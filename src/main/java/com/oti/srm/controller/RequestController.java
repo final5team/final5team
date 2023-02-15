@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.oti.srm.dto.Member;
+import com.oti.srm.dto.Request;
+import com.oti.srm.service.IRequestRegisterService;
 import com.oti.srm.service.IUserRegisterService;
 
 import lombok.extern.log4j.Log4j2;
@@ -19,6 +21,8 @@ public class RequestController {
 
 	@Autowired
 	private IUserRegisterService userRegisterService;
+	@Autowired
+	private IRequestRegisterService requestService;
 
 	@GetMapping("/register")
 	public String register() {
@@ -47,9 +51,32 @@ public class RequestController {
 	
 	
 	@GetMapping("/request")
-	public String customerLogin() {
+	public String customerRequest() {
 		return "request/request";
 	}
+		
+	@PostMapping("/request")
+	public String customerRequest(Request request, Model model) {
+		request.setStatusNo(1);
+		
+		//임시 데이터
+		request.setSystemName("가족관계시스템");
+		request.setClient("thddudgns79");
+		
+		System.out.println("컨트롤러");
+		
+		int result = requestService.request(request);
+		if(result == IRequestRegisterService.REQUEST_SUCCESS) {
+			return "redirect:/login";
+		} else {
+			model.addAttribute("requestResult", "FAIL");
+			return "redirect:/customer/request";
+		}
+		
+		
+		
+	}
+	
 	
 	
 	
