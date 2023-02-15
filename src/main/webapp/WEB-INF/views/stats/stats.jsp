@@ -54,8 +54,7 @@
           var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
           chart.draw(data, options);
         }
-      
-      
+
 	      google.charts.load('current', {'packages':['gauge']});
 	      google.charts.setOnLoadCallback(drawGageChart);
 	
@@ -466,11 +465,8 @@
 
 					
 
-
-
-
-
 				
+
                 </div>
                 <!-- 여기에 내용 담기 end -->
 
