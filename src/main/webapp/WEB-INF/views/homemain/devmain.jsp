@@ -28,6 +28,38 @@
                 <!-- End of Topbar -->
 
                 <!-- 여기에 내용 담기 start -->
+                <div class="container-fluid">
+                	<div class="row">
+                		<!-- 최신 요청 start-->
+                		<div class="col-md-3">
+                			<div class="card">
+                				<div class="card-body">
+                					<h4>최신 요청건</h4>
+                					<i></i>
+                				</div>
+                			</div>
+                		</div>
+                		<!-- 재검토 요청 start-->
+                		<div class="col-md-3">
+                			<div class="card">
+                				<div class="card-body">재검토 요청건</div>
+                			</div>
+                		</div>
+                		<!-- 진행 요청 start-->
+                		<div class="col-md-3">
+                			<div class="card">
+                				<div class="card-body">진행 요청건</div>
+                			</div>
+                		</div>
+                		<!-- 완료 요청 start-->
+                		<div class="col-md-3">
+                			<div class="card">
+                				<div class="card-body">완료 요청건</div>
+                			</div>
+                		</div>
+                	</div>
+                
+                </div>
                 <!-- 여기에 내용 담기 end -->
 
             </div>

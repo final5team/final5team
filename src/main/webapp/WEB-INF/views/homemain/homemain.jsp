@@ -28,6 +28,15 @@
                 <!-- End of Topbar -->
 
                 <!-- 여기에 내용 담기 start -->
+                <ul>
+				  <li>
+				  	<a href="${pageContext.request.contextPath}/devmain">개발자 메인</a>
+				  </li>
+				  <li>
+				 	<a href="${pageContext.request.contextPath}/pmmain">pm메인</a>
+				  </li>
+				  <li></li>
+				</ul>
                 <!-- 여기에 내용 담기 end -->
 
             </div>
