@@ -2332,7 +2332,7 @@ textarea.form-control {
 }
 
 .btn:hover {
-  color: #858796;
+  color: #ffffff;
   text-decoration: none;
 }
 
@@ -11363,3 +11363,41 @@ body::-webkit-scrollbar-thumb {
 
 body::-webkit-scrollbar-thumb:window-inactive {
   background: #85CE36; }
+  
+
+/*  .filebox label {
+ 	color: #85CE36;
+    border-color: #85CE36;
+    display: inline-block;
+    padding: 10px 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    height: 40px;
+    border-radius: 0;
+    margin-bottom: 5px;
+    line-height: 1.2;
+}
+.filebox input[type="file"] {
+	position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+} */
+
+/* 버튼 커스터 마이징 */
+.btn-gradient{
+	color: #fff;
+	border-radius: 50px;
+    min-width: 150px;
+}
+.btn-gradient-danger{
+	background:linear-gradient(90deg,#ffbf96,#ff4444);
+}
+.btn-gradient-warning{
+	background:linear-gradient(90deg,#f6e384,#ffd500);
+}
+.btn-gradient-success{
+	background:linear-gradient(90deg,#84d9d2,#07cdae);
+}

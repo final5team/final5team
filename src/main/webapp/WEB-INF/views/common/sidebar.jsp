@@ -62,6 +62,11 @@
 				<i class="fas fa-vial"></i>
 				<span>테스터의 담당요청 상세보기</span></a>
 		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="${pageContext.request.contextPath}/main">
+				<i class="fas fa-vial"></i>
+				<span>현이 메인페이지</span></a>
+		</li>
 
 		<li class="nav-item">
 			<a class="nav-link" href="${pageContext.request.contextPath}/notification">

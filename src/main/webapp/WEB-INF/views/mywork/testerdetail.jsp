@@ -1,58 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
-    <style>
-    	:root {
-		 	--line-fill: #3498db;
-		  	--line-empty: #e0e0e0;
-		  	--now-fill: #F40730;
-		}
-    	.container {
-		 	 text-align: center;
-		}
-		
-    	
-    	.circle {
-    		  margin-left : 25px;
-			  background-color: #fff;
-			  color: #999;
-			  border-radius: 50%;
-			  height: 30px;
-			  width: 150px;
-			  border: 3px solid var(--line-empty);
-			  transition: 0.4s ease;
-		}
-		.bar {
-			  margin-left : 100px;
-			  padding : 0px;
-			  background-color: #fff;
-			  color: #999;
-			  height: 60px;
-			  width: 1px;
-			  align-items: center;
-			  justify-content: center;
-			  border: 3px solid var(--line-empty);
-			  transition: 0.4s ease;
-		}
-		
-		.circle.active {
-		  	border-color: var(--line-fill);
-		}
-		
-		.circle.now {
-		  	border-color: var(--now-fill);
-		}
-		
-		.bar.active {
-		  	border-color: var(--line-fill);
-		}
-    </style>
 </head>
 
 <body id="page-top">
@@ -127,7 +80,8 @@
 							<form>
 								<div>
 									<div class="d-flex justify-content-end">
-										 <button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" data-toggle="modal" data-target="#dateModal" type="button">테스트시작</button>
+										<button class="btn btn-gradient-warning btn-gradient btn-lg mt-3 " type="button">재검토요청</button>
+										<button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" onclick="checkDateToDevelope()" type="button">테스트시작</button>
 									<!-- <button class="btn btn-gradient-success btn-gradient btn-lg mt-3">개발 완료</button> -->
 									</div>
 									<label style="color: #343a40;">개발 완료 예정일</label>
@@ -227,26 +181,8 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-	<!-- date 입력받는 모달창 start -->
-	<!-- <div class="modal fade" id="dateModal" role="dialog" aria-labelledby="developDueDate" aria-hidden="true" >
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="developDueDate">개발 완료 예정일 입력</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-				</div>
-				<div class="modal-body d-flex justify-content-center">
-					<label class="mt-1" style="color: #343a40;">개발 완료 예정일</label>
-					<input type="date" class="form-control ml-2" style="width: 200px; display: inline;">
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <a class="btn btn-primary" onclick="">확인</a>
-				</div>
-			</div>
-		</div>
-	</div> -->
-	<!-- date 입력받는 모달창 end -->
+
+
 </body>
 
 </html>
