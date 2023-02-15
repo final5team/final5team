@@ -59,8 +59,8 @@
 											</div>
 										</div>
 									</div>
-									<div class="mt-2">여기는 내용이지요~~</div>
-									<div class="mt-3">
+									<div class="mt-2 ml-5">여기는 내용이지요~~</div>
+									<div class="mt-3 ml-5">
 										<span>파일이름</span>
 										<a href="#" role="button">
 											<i class="fas fa-cloud-download-alt"></i>
@@ -68,14 +68,68 @@
 									</div>
 								</div>
 							</div>
-							<div class="d-flex">
+							<form>
 								<div>
-								
+									<div class="d-flex ">
+										<button class="btn btn-danger btn-lg ml-auto mt-3">개발시작</button>
+									<!-- <button class="btn btn-info btn-lg ml-auto mt-3">개발 완료</button> -->
+									</div>
+									<label style="color: #343a40;">개발 완료 예정일</label>
+									<input type="date" class="form-control" style="width: 200px; display: inline;">
 								</div>
-								<div>
-									<button class="btn btn-danger btn-lg">개발시작</button>
+							</form>
+							<div class="card mt-4">
+								<div class="card-header">3차 개발 내용</div>
+								<div class="card-body row">
+									<div class="col-sm-3" style="text-align: center;">
+										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+										<div class="ml-3">김레지나</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="ml-3">개발자가 3차때 작성했었던 내용 보입니다.</div>
+									</div>
 								</div>
 							</div>
+
+							<div class="card mt-4">
+								<div class="card-header">3차 결함 내용</div>
+								<div class="card-body row">
+									<div class="col-sm-3" style="text-align: center;">
+										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+										<div class="ml-3">박말자</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="ml-3">테스터가 3차때 작성했었던 내용 보입니다.</div>
+									</div>
+								</div>
+							</div>
+							<!-- 개발자의 개발 요청 글 작성 start-->
+							<div class="card mt-4 mb-5">
+								<div class="card-header">작성하기</div>
+								<div class="card-body row">
+									<div class="col-sm-3" style="text-align:center;">
+										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+										<div class="ml-3">나</div>
+									</div>
+									<div class="col-sm-9">
+										<form role="form">
+											<div class="col-sm-12 form-group">
+												<label class="control-label" >완료예정일</label>
+												<input type="text" class="form-control boxed" value="2023-02-09" readonly>
+											</div>
+											<div class="col-sm-12 form-group">
+												<label class="control-label">개발내용</label>
+												<textarea rows="2" class="form-control boxed"></textarea>
+											</div>
+											<div class="col-sm-12 form-group">
+												<label class="control-label">배포소스</label>
+												<input type="text" class="form-control boxed">
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							<!-- 개발자의 개발 요청 글 작성 end-->
 						</div>
 						<!-- 게시글 상세보기 end -->
 						<!-- 상태 단계 이력 start -->						
