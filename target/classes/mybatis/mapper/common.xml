@@ -5,7 +5,6 @@
 		select
 	    	hno as "hno",
 	        change_date as "changeDate",
-	        mid as "mid",
 	        sh.rno as "rno",
 	        next_status as "nextStatus",
 	        status_name as "statusName",
@@ -80,7 +79,7 @@
 			file_name as "fileName",
 			file_type as "fileType",
 			file_data as "fileData",
-			hno as "hno"
+			sh.hno as "hno"
 		from status_histories sh, status_histories_files shf 
 		where sh.hno = shf.hno
 		and sh.rno = #{rno}
