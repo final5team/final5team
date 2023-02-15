@@ -1,5 +1,7 @@
 package com.oti.srm.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.oti.srm.dto.Member;
+import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
 import com.oti.srm.service.IRequestRegisterService;
 import com.oti.srm.service.IUserRegisterService;
@@ -73,10 +76,18 @@ public class RequestController {
 			return "redirect:/customer/request";
 		}
 		
-		
-		
 	}
 	
+	
+	@GetMapping("requestlist")
+	public String requestList(Request request, Model model, Pager pager) {
+		
+		List<Request> requestList= requestService.getRequestList(request, pager);
+		model.addAttribute("requestList", requestList);
+		log.info(model.toString());
+		
+		return "request/requestlist";
+	}
 	
 	
 	

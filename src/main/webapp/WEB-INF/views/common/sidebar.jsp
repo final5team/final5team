@@ -43,7 +43,7 @@
 
 		<!-- 사이드메뉴 start(사이드바 작업한다고 말해주세요) -->
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/request">
+			<a class="nav-link" href="${pageContext.request.contextPath}/customer/requestlist">
 				<i class="fas fa-fw fa-chart-area"></i>
 				<span>나의 서비스 요청</span></a>
 		</li>

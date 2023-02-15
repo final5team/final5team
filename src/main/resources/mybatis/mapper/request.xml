@@ -6,6 +6,11 @@
 		values(SEQ_REQUESTS.nextval, sysdate, #{reqTitle}, #{reqContent}, #{client}, #{sno}, #{reqExpectDate}, #{statusNo})
 	</insert>
 	
+	<select id="getRequestList" resultType="com.oti.srm.dto.Request">
+		select RNO, REQ_DATE as "reqDate", REQ_TITLE as "reqTitle", REQ_CONTENT as "reqContent",
+				CLIENT, SNO, REQ_EXPECT_DATE as "reqExpectDate", STATUS_NO as "statusNo"
+    	from requests
+	</select>
 
 
 </mapper>

@@ -1,9 +1,12 @@
 package com.oti.srm.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.oti.srm.dao.IRequestDao;
+import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
 import com.oti.srm.service.IRequestRegisterService;
 
@@ -28,6 +31,14 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		log.error(e.toString());
 		return REQUEST_FAIL;
 	}
+	}
+
+	@Override
+	public List<Request> getRequestList(Request request, Pager pager) {
+
+		List<Request> requestList = requestDao.getRequestList();
+		
+		return requestList;
 	}
 	
 	
