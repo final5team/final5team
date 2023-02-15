@@ -62,7 +62,7 @@
 	
 	        var data = google.visualization.arrayToDataTable([
 	          ['Label', 'Value'],
-	          ['지연률', 80],
+	          ['지연율', 78],
 	        ]);
 	
 	        var options = {
@@ -110,6 +110,29 @@
 	
 	        var chart = new google.charts.Bar(document.getElementById('barchart_material'));	
 	        chart.draw(data, google.charts.Bar.convertOptions(options));
+	      }
+	      
+	      google.charts.setOnLoadCallback(drawLineChart);
+
+	      function drawLineChart() {
+	        var data = google.visualization.arrayToDataTable([
+	          ['월', '요청', '완료'],
+	          ['01',  10,      4],
+	          ['02',  11,      4],
+	          ['03',  6,       11],
+	          ['04',  4,       9],
+	          ['05',  10,      5]
+	        ]);
+
+	        var options = {
+	          title: '서비스 요청 추이',
+	          curveType: 'function',
+	          legend: { position: 'bottom' }
+	        };
+
+	        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+	        chart.draw(data, options);
 	      }
     </script>
     
@@ -273,6 +296,9 @@
 						            	<a href="" class="nav-link" data-target="#messages" aria-controls="messages" data-toggle="tab" role="tab" >테스트</a>
 						            </li>
 						            <li class="nav-item">
+						            	<a href="" class="nav-link" data-target="#usertest" aria-controls="usertest" data-toggle="tab" role="tab" >유저테스트</a>
+						            </li>
+						            <li class="nav-item">
 						            	<a href="" class="nav-link" data-target="#settings" aria-controls="settings" data-toggle="tab" role="tab" >배포</a>
 						            </li>
 						        </ul>
@@ -281,7 +307,7 @@
 						        <div class="tab-content tabs-bordered">
 						        	<div>
 						        		<div class="m-3">
-						        		<h5>전체 SR 처리 현황</h5>
+						        			<h5>전체 SR 처리 현황</h5>
 						        			 <!-- 단계 카드들 -->
 											<div class="row">
 
@@ -405,16 +431,305 @@
 						            <div class="tab-pane fade in active" id="home"> 
 						            </div>
 						            <div class="tab-pane fade" id="profile">
-						                <h4>개발 Tab</h4>
-						                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						            	<div class="m-3">
+						            		<h5>개발 현황</h5>
+						            		<div>
+							            		<!-- 단계 카드들 -->
+												<div class="row">
+	
+												    <div class="col-xl-3 col-md-6 mb-4">
+										                <div class="card border-bottom-primary shadow h-100 py-2">
+										                     <div class="card-body">
+										                          <div class="row no-gutters align-items-center">
+										                               <div class="col mr-2">
+										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">전체</div>
+										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">3 건</div>
+										                               </div>
+										                               <div class="col-auto">
+										                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+										                               </div>
+										                           </div>
+										                        </div>
+										                  </div>
+										             </div>
+										                        
+										             <div class="col-xl-3 col-md-6 mb-4">
+										                 <div class="card border-left-success shadow h-100 py-2">
+										                     <div class="card-body">
+										                          <div class="row no-gutters align-items-center">
+										                              <div class="col mr-2">
+										                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">개발 대기</div>
+										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">5 건</div>
+										                              </div>
+										                          	  <div class="col-auto">
+										                                  <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+										                              </div>
+										                          </div>
+										                      </div>
+										                  </div>
+										              </div>
+
+								                        <div class="col-xl-3 col-md-6 mb-4">
+								                            <div class="card border-left-warning shadow h-100 py-2">
+								                                <div class="card-body">
+								                                    <div class="row no-gutters align-items-center">
+								                                        <div class="col mr-2">
+								                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">개발 중</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
+								                                        </div>
+								                                        <div class="col-auto">
+								                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+								                                        </div>
+								                                    </div>
+								                                </div>
+								                            </div>
+								                        </div>
+								                        
+								                        <div class="col-xl-3 col-md-6 mb-4">
+								                            <div class="card border-left-secondary shadow h-100 py-2">
+								                                <div class="card-body">
+								                                    <div class="row no-gutters align-items-center">
+								                                        <div class="col mr-2">
+								                                            <div class="text-sm font-weight-bold text-success text-uppercase mb-1">개발 완료</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
+								                                        </div>
+								                                        <div class="col-auto">
+								                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+								                                        </div>
+								                                    </div>
+								                                </div>
+								                            </div>
+								                        </div>
+	       
+												  </div>
+						            		</div>
+						            	</div>
+						             
 						            </div>
 						            <div class="tab-pane fade" id="messages">
-						                <h4>테스트 Tab</h4>
-						                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						                <div class="m-3">
+						            		<h5>테스트 현황</h5>
+						            		<div>
+							            		<!-- 단계 카드들 -->
+												<div class="row">
+	
+												    <div class="col-xl-3 col-md-6 mb-4">
+										                <div class="card border-bottom-primary shadow h-100 py-2">
+										                     <div class="card-body">
+										                          <div class="row no-gutters align-items-center">
+										                               <div class="col mr-2">
+										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">전체</div>
+										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">3 건</div>
+										                               </div>
+										                               <div class="col-auto">
+										                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+										                               </div>
+										                           </div>
+										                        </div>
+										                  </div>
+										             </div>
+										                        
+										             <div class="col-xl-3 col-md-6 mb-4">
+										                 <div class="card border-left-success shadow h-100 py-2">
+										                     <div class="card-body">
+										                          <div class="row no-gutters align-items-center">
+										                              <div class="col mr-2">
+										                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">테스트 대기</div>
+										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">5 건</div>
+										                              </div>
+										                          	  <div class="col-auto">
+										                                  <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+										                              </div>
+										                          </div>
+										                      </div>
+										                  </div>
+										              </div>
+
+								                        <div class="col-xl-3 col-md-6 mb-4">
+								                            <div class="card border-left-warning shadow h-100 py-2">
+								                                <div class="card-body">
+								                                    <div class="row no-gutters align-items-center">
+								                                        <div class="col mr-2">
+								                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">테스트 중</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
+								                                        </div>
+								                                        <div class="col-auto">
+								                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+								                                        </div>
+								                                    </div>
+								                                </div>
+								                            </div>
+								                        </div>
+								                        
+								                        <div class="col-xl-3 col-md-6 mb-4">
+								                            <div class="card border-left-secondary shadow h-100 py-2">
+								                                <div class="card-body">
+								                                    <div class="row no-gutters align-items-center">
+								                                        <div class="col mr-2">
+								                                            <div class="text-sm font-weight-bold text-success text-uppercase mb-1">테스트 완료</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
+								                                        </div>
+								                                        <div class="col-auto">
+								                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+								                                        </div>
+								                                    </div>
+								                                </div>
+								                            </div>
+								                        </div>
+	       
+												  </div>
+						            		</div>
+						            	</div>
+						            </div>
+						             <div class="tab-pane fade" id="usertest">
+						                <div class="m-3">
+						            		<h5>유저테스트 현황</h5>
+						            		<div>
+							            		<!-- 단계 카드들 -->
+												<div class="row">
+	
+												    <div class="col-xl-3 col-md-6 mb-4">
+										                <div class="card border-bottom-primary shadow h-100 py-2">
+										                     <div class="card-body">
+										                          <div class="row no-gutters align-items-center">
+										                               <div class="col mr-2">
+										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">전체</div>
+										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">3 건</div>
+										                               </div>
+										                               <div class="col-auto">
+										                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+										                               </div>
+										                           </div>
+										                        </div>
+										                  </div>
+										             </div>
+										                        
+										             <div class="col-xl-3 col-md-6 mb-4">
+										                 <div class="card border-left-success shadow h-100 py-2">
+										                     <div class="card-body">
+										                          <div class="row no-gutters align-items-center">
+										                              <div class="col mr-2">
+										                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">테스트 대기</div>
+										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">5 건</div>
+										                              </div>
+										                          	  <div class="col-auto">
+										                                  <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+										                              </div>
+										                          </div>
+										                      </div>
+										                  </div>
+										              </div>
+
+								                        <div class="col-xl-3 col-md-6 mb-4">
+								                            <div class="card border-left-warning shadow h-100 py-2">
+								                                <div class="card-body">
+								                                    <div class="row no-gutters align-items-center">
+								                                        <div class="col mr-2">
+								                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">테스트 중</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
+								                                        </div>
+								                                        <div class="col-auto">
+								                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+								                                        </div>
+								                                    </div>
+								                                </div>
+								                            </div>
+								                        </div>
+								                        
+								                        <div class="col-xl-3 col-md-6 mb-4">
+								                            <div class="card border-left-secondary shadow h-100 py-2">
+								                                <div class="card-body">
+								                                    <div class="row no-gutters align-items-center">
+								                                        <div class="col mr-2">
+								                                            <div class="text-sm font-weight-bold text-success text-uppercase mb-1">테스트 완료</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
+								                                        </div>
+								                                        <div class="col-auto">
+								                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+								                                        </div>
+								                                    </div>
+								                                </div>
+								                            </div>
+								                        </div>
+	       
+												  </div>
+						            		</div>
+						            	</div>
 						            </div>
 						            <div class="tab-pane fade" id="settings">
-						                <h4>배포 Tab</h4>
-						                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						              <div class="m-3">
+						            		<h5>배포 현황</h5>
+						            		<div>
+							            		<!-- 단계 카드들 -->
+												<div class="row">
+	
+												    <div class="col-xl-3 col-md-6 mb-4">
+										                <div class="card border-bottom-primary shadow h-100 py-2">
+										                     <div class="card-body">
+										                          <div class="row no-gutters align-items-center">
+										                               <div class="col mr-2">
+										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">전체</div>
+										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">3 건</div>
+										                               </div>
+										                               <div class="col-auto">
+										                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+										                               </div>
+										                           </div>
+										                        </div>
+										                  </div>
+										             </div>
+										                        
+										             <div class="col-xl-3 col-md-6 mb-4">
+										                 <div class="card border-left-success shadow h-100 py-2">
+										                     <div class="card-body">
+										                          <div class="row no-gutters align-items-center">
+										                              <div class="col mr-2">
+										                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">배포 대기</div>
+										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">5 건</div>
+										                              </div>
+										                          	  <div class="col-auto">
+										                                  <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+										                              </div>
+										                          </div>
+										                      </div>
+										                  </div>
+										              </div>
+
+								                        <div class="col-xl-3 col-md-6 mb-4">
+								                            <div class="card border-left-warning shadow h-100 py-2">
+								                                <div class="card-body">
+								                                    <div class="row no-gutters align-items-center">
+								                                        <div class="col mr-2">
+								                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">배포 중</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
+								                                        </div>
+								                                        <div class="col-auto">
+								                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+								                                        </div>
+								                                    </div>
+								                                </div>
+								                            </div>
+								                        </div>
+								                        
+								                        <div class="col-xl-3 col-md-6 mb-4">
+								                            <div class="card border-left-secondary shadow h-100 py-2">
+								                                <div class="card-body">
+								                                    <div class="row no-gutters align-items-center">
+								                                        <div class="col mr-2">
+								                                            <div class="text-sm font-weight-bold text-success text-uppercase mb-1">배포 완료</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
+								                                        </div>
+								                                        <div class="col-auto">
+								                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+								                                        </div>
+								                                    </div>
+								                                </div>
+								                            </div>
+								                        </div>
+	       
+												  </div>
+						            		</div>
+						            	</div>
 						            </div>
 						        </div>
 						    </div>
@@ -440,23 +755,28 @@
 								</div>
 						        <ul class="nav nav-tabs nav-tabs-bordered">
 						            <li class="nav-item">
-						            	<a href="#home" class="nav-link active" data-target="#home" data-toggle="tab" aria-controls="home" role="tab" >전체</a>
+						            	<a href="#home2" class="nav-link active" data-target="#home2" data-toggle="tab" aria-controls="home2" role="tab" >전체</a>
 						            </li>
 						            <li class="nav-item">
-						            	<a href="#profile" class="nav-link" data-target="#profile" aria-controls="profile" data-toggle="tab" role="tab" >개발</a>
+						            	<a href="#profile2" class="nav-link" data-target="#profile2" aria-controls="profile2" data-toggle="tab" role="tab" >개발</a>
 						            </li>
 						            <li class="nav-item">
-						            	<a href="" class="nav-link" data-target="#messages" aria-controls="messages" data-toggle="tab" role="tab" >테스트</a>
+						            	<a href="" class="nav-link" data-target="#messages2" aria-controls="messages2" data-toggle="tab" role="tab" >테스트</a>
 						            </li>
 						            <li class="nav-item">
-						            	<a href="" class="nav-link" data-target="#settings" aria-controls="settings" data-toggle="tab" role="tab" >배포</a>
+						            	<a href="" class="nav-link" data-target="#usertest2" aria-controls="usertest2" data-toggle="tab" role="tab" >유저테스트</a>
+						            </li>
+						            <li class="nav-item">
+						            	<a href="" class="nav-link" data-target="#settings2" aria-controls="settings2" data-toggle="tab" role="tab" >배포</a>
 						            </li>
 						        </ul>
 						
 						        <!-- Tab panes -->
 						        <div class="tab-content tabs-bordered">
-						        	<h4>graph</h4>
-						        	<p>pharaaaaa</p>
+						        	<div class="m-3">
+						        		<h5>일단 추이 그래프</h5>
+						        		<div id="curve_chart"></div>
+						        	</div>
 						        </div>
 							</div>
 						</div>
