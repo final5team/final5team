@@ -10,6 +10,7 @@ public class StatusHistory {
 	private String mid;
 	private int rno;
 	private int nextStatus;
+	private String statusName;
 	private Date changeDate;
 	private String reply;
 	private String distSource;
