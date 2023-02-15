@@ -1,11 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
+    <style>
+    	:root {
+		 	--line-fill: #3498db;
+		  	--line-empty: #e0e0e0;
+		  	--now-fill: #F40730;
+		}
+    	.container {
+		 	 text-align: center;
+		}
+		
+    	
+    	.circle {
+    		  margin-left : 25px;
+			  background-color: #fff;
+			  color: #999;
+			  border-radius: 50%;
+			  height: 30px;
+			  width: 150px;
+			  border: 3px solid var(--line-empty);
+			  transition: 0.4s ease;
+		}
+		.bar {
+			  margin-left : 100px;
+			  padding : 0px;
+			  background-color: #fff;
+			  color: #999;
+			  height: 60px;
+			  width: 1px;
+			  align-items: center;
+			  justify-content: center;
+			  border: 3px solid var(--line-empty);
+			  transition: 0.4s ease;
+		}
+		
+		.circle.active {
+		  	border-color: var(--line-fill);
+		}
+		
+		.circle.now {
+		  	border-color: var(--now-fill);
+		}
+		
+		.bar.active {
+		  	border-color: var(--line-fill);
+		}
+    </style>
 </head>
 
 <body id="page-top">
