@@ -42,6 +42,7 @@
 										<table class="table table-bordered" id="table_accordion_01">
 											<thead>
 												<tr>
+													<th></th>
 													<th>Order no.</th>
 													<th>시스템</th>
 													<th>유형</th>
@@ -52,6 +53,7 @@
 											<tbody>
 												<c:forEach var="request" items="${requestList}">
 													<tr>
+														<td><i class="fa-solid fa-plus"></i></td>
 														<td class="td_id">${request.rno}</td>
 														<!-- 나중에 시스템 이름으로 바꾸어 줘야 함. -->														
 														<td class="td_customer">${request.sno}이름추가</td>
@@ -90,17 +92,17 @@
 
 
 </body>
+<!-- row collapse 추가 JS -->
 <script>
 
     $(function(){
+
         $('#table_accordion_01').tableAccordion({
-            url: 'customer/jsonrequestlist',
-            id: '.td_id'
+            url: 'data.json'
+            type:get
         });
     });
-    
 </script>
-<!-- row collapse 추가 JS -->
-<script src="${pageContext.request.contextPath}/resources/js/requestlist/tableAccordion.js"></script>
+
 
 </html>
