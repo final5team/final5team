@@ -7,7 +7,6 @@ import lombok.Data;
 @Data
 public class StatusHistory {
 	private int hno;
-	private String mid;
 	private int rno;
 	private int nextStatus;
 	private String statusName;

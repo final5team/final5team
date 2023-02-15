@@ -127,31 +127,31 @@
 							</div>
 							<div class="card mt-3">
 								<div class="card-header">
-									배포 소스 정보
+									개발자 개발내용
 								</div>
 								<div class="card-body">
 									<c:forEach var="statusHistory" varStatus="index" items="${devToTesterHistories}">
 										 <div class="mb-3">
 										 	<div><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
-										 	<div>${statusHistory.distSource}</div>
+										 	<div>${statusHistory.reply}</div>
 										 </div>
 									</c:forEach>
 								</div>
 							</div>
 							<div class="d-flex">
-								<c:if test="${request.statusNo == 7} || ${request.statusNo == 9}">
+								<c:if test="${request.statusNo == 7}">
 									<form action="" method="post">
-										<input type="text" placeholder="배포 완료 예정일 입력" name="usertestexpectdate"/>
+										<input type="text" placeholder="유저테스트 완료 예정일 입력" name="usertestexpectdate"/>
 										<input type="hidden" name="rno" value="${request.rno}"/>
-										<input type="hidden" name="nextStatus" value="10"/>
-										<button class="btn btn-danger btn-lg">배포 시작</button>
+										<input type="hidden" name="nextStatus" value="8"/>
+										<button class="btn btn-danger btn-lg">유저테스트 시작</button>
 									</form>
 								</c:if>		
-								<c:if test="${request.statusNo == 10}">
+								<c:if test="${request.statusNo == 8}">
 									<form action="" method="post">
 										<input type="hidden" name="rno" value="${request.rno}"/>
-										<input type="hidden" name="nextStatus" value="11"/>
-										<button class="btn btn-danger btn-lg">배포 완료</button>
+										<input type="hidden" name="nextStatus" value="9"/>
+										<button class="btn btn-danger btn-lg">유저테스트 완료</button>
 									</form>
 								</c:if>
 							</div>

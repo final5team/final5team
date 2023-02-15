@@ -3,6 +3,12 @@
 <!DOCTYPE html>
 <html>
 	<body>
+		<script type="text/javascript">
+			function checkLogout(){
+				confirm('로그아웃하니?')
+			}
+		</script>
+		
 		<nav class="navbar navbar-expand topbar mb-3 static-top" style="background-color: #d7dde4;">
 
 			<!-- Topbar Navbar -->
@@ -16,7 +22,7 @@
 					</a>
 				</li>
 				<li class="nav-item dropdown no-arrow mx-1">
-					<a class="nav-link dropdown-toggle" href="${pageContext.request.contextPath}/logout" role="button" style="color: #5C6B7A;">
+					<a class="nav-link dropdown-toggle" data-toggle="modal" data-target="#logoutModal" role="button" style="color: #5C6B7A;">
 						<i class="fas fa-sign-out-alt"></i>
 						Logout
 					</a>
@@ -44,7 +50,25 @@
 			</ul>
 
 		</nav>
-		
+		<!-- Logout Modal-->
+	    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	        aria-hidden="true">
+	        <div class="modal-dialog" role="document">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+	                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+	                        <span aria-hidden="true">×</span>
+	                    </button>
+	                </div>
+	                <div class="modal-body">로그아웃을 원하시면 버튼을 눌러주세요.</div>
+	                <div class="modal-footer">
+	                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+	                    <a class="btn btn-primary" href="${pageContext.request.contextPath}/login">Logout</a>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
 	</body>
 </html>
 
