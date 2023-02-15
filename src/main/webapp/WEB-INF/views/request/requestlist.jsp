@@ -94,13 +94,12 @@
 
     $(function(){
         $('#table_accordion_01').tableAccordion({
-            url: '${pageContext.request.contextPath}/resources/js/requestlist/data.json',
+            url: 'customer/jsonrequestlist',
             id: '.td_id'
         });
     });
     
 </script>
-<script src="tableAccordion.js"></script>
 <!-- row collapse 추가 JS -->
 <script src="${pageContext.request.contextPath}/resources/js/requestlist/tableAccordion.js"></script>
 
