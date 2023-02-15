@@ -13,8 +13,6 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class UserRegisterServiceImpl implements IUserRegisterService {
 
-
-	
 	@Autowired
 	private IUserRegisterDao registerDao;
 	
@@ -28,8 +26,9 @@ public class UserRegisterServiceImpl implements IUserRegisterService {
 			log.error(e.toString());
 			return REGISTER_FAIL;
 		}
-		
 	}
+	
+	
 	
 	
 	
