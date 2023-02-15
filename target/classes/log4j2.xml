@@ -8,11 +8,7 @@
   </Appenders>
   <Loggers>
   	<!-- name의 패키지 아래의 클래스에서 발생하는 모든 로그 -->
-<<<<<<< HEAD
   	<Logger name="com.oti.srm" level="info" additivity="false">
-=======
-  	<Logger name="com.mycompany.webapp" level="info" additivity="false">
->>>>>>> branch 'master' of https://github.com/final5team/final5team.git
       <AppenderRef ref="Console"/>
     </Logger>
     <Root level="error">
