@@ -16,6 +16,7 @@ public class Member {
 	private String password;
 	private String organ;
 	private String phone;
+	private String position;
 	private byte[] fileData;
 	private String fileType;
 	private String fileName;
