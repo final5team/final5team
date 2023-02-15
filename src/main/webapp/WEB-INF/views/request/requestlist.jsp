@@ -53,15 +53,16 @@
 											<tbody>
 												<c:forEach var="request" items="${requestList}">
 													<tr>
-														<td><i class="fa-solid fa-plus"></i></td>
-														<td class="td_id">${request.rno}</td>
+														<td onclick="viewStep(${request.rno})">+</td>
+														<td class="rno">${request.rno}</td>
 														<!-- 나중에 시스템 이름으로 바꾸어 줘야 함. -->														
-														<td class="td_customer">${request.sno}이름추가</td>
+														<td class="sno">${request.sno}이름추가</td>
 														<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
-														<td class="td_date">요청타입 (join필요)</td>
-														<td class="td_amount">${request.reqTitle}</td>
-														<td class="td_amount">${request.reqDate}</td>
+														<td class="type">요청타입 (join필요)</td>
+														<td class="reqTitle">${request.reqTitle}</td>
+														<td class="reqDate">${request.reqDate}</td>
 													</tr>
+													<div id="viewStep${request.rno}"></div>
 												</c:forEach>
 											</tbody>
 										</table>
@@ -94,14 +95,22 @@
 </body>
 <!-- row collapse 추가 JS -->
 <script>
+	function viewStep(i){
+		let rno =  i;
+		console.log(rno);
+		$.ajax({
+			url : "/srm/customer/viewstep",
+			type : "get",
+			datatype : "html",
+			success : function(data){
+				
+		}
+			
+		});
+		
+	}
 
-    $(function(){
 
-        $('#table_accordion_01').tableAccordion({
-            url: 'data.json'
-            type:get
-        });
-    });
 </script>
 
 
