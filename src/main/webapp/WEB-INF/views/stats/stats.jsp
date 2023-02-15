@@ -78,6 +78,15 @@
         chart.draw(data, options);           
       }
     </script>
+    
+    <style>
+    .nav.nav-tabs-bordered, .nav.tab-content {
+	    border-style: solid;
+	    border-width: 0 1px 1px 1px;
+	    border-color: #85CE36;
+	    padding: 10px 20px 0;
+	}
+    </style>
 
 </head>
 
