@@ -1,18 +1,31 @@
 package com.oti.srm.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.oti.srm.dto.StatusHistory;
+import com.oti.srm.service.IUserTestService;
 
 @Controller
 public class UserTestController {
+	@Autowired
+	IUserTestService userTestService;
+	
 	// 테스트 상세보기
-	@RequestMapping("/usertest")
+	@GetMapping("/usertest")
 	public String userTestRequest(int rno, HttpSession session, Model model) {
-		// 테스터의 정보는 session의 userInfo에 저장되어 있음
-		// 가장 최근의 개발 -> 테스트 단계 변경 이력 
+		Map<String, List<StatusHistory>> devAndTesterHistories = userTestService.getDevAndTesterHistories(rno);
+		// 개발자 -> 테스터 
+		model.addAttribute("devToTesterHistories", devAndTesterHistories.get("devToTesterHistories"));
+		// 테스터 -> 개발자
+		model.addAttribute("testerToDevHistories", devAndTesterHistories.get("testerToDevHistories"));
 		
 		return "usertest.jsp";
 	}
