@@ -37,6 +37,50 @@
 				  </li>
 				  <li></li>
 				</ul>
+				
+				<div class="row">
+						<div class="col-sm-12">
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary">DataTables
+										Example</h6>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>#</th>
+													<th>First</th>
+													<th>Last</th>
+													<th>Handle</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>1</td>
+													<td>Mark</td>
+													<td>Otto</td>
+													<td>@mdo</td>
+												</tr>
+												<tr>
+													<td>2</td>
+													<td>Jacob</td>
+													<td>Thornton</td>
+													<td>@fat</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="card-footer"></div>
+							</div>
+						</div>
+						</div>
+				
+				
+				
+				
                 <!-- 여기에 내용 담기 end -->
 
             </div>
