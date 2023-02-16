@@ -392,7 +392,7 @@
 							                                <div class="card-body">
 							                                    <div class="row no-gutters align-items-center">
 							                                        <div class="col mr-2">
-							                                            <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">배포</div>
+							                                            <div class="text-sm font-weight-bold text-danger text-uppercase mb-1">배포</div>
 							                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
 							                                        </div>
 							                                        <div class="col-auto">
@@ -408,7 +408,7 @@
 							                                <div class="card-body">
 							                                    <div class="row no-gutters align-items-center">
 							                                        <div class="col mr-2">
-							                                            <div class="text-sm font-weight-bold text-success text-uppercase mb-1">완료</div>
+							                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">완료</div>
 							                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
 							                                        </div>
 							                                        <div class="col-auto">
@@ -490,7 +490,7 @@
 								                                <div class="card-body">
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
-								                                            <div class="text-sm font-weight-bold text-success text-uppercase mb-1">개발 완료</div>
+								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">개발 완료</div>
 								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
@@ -566,7 +566,7 @@
 								                                <div class="card-body">
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
-								                                            <div class="text-sm font-weight-bold text-success text-uppercase mb-1">테스트 완료</div>
+								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">테스트 완료</div>
 								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
@@ -641,7 +641,7 @@
 								                                <div class="card-body">
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
-								                                            <div class="text-sm font-weight-bold text-success text-uppercase mb-1">테스트 완료</div>
+								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">테스트 완료</div>
 								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
@@ -716,7 +716,7 @@
 								                                <div class="card-body">
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
-								                                            <div class="text-sm font-weight-bold text-success text-uppercase mb-1">배포 완료</div>
+								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">배포 완료</div>
 								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
@@ -750,7 +750,7 @@
 						        <!-- Nav tabs -->
 						        <div class="card-title-block">
 									<h3 class="title ml-3 mt-3">
-										개인별 할까 말까 추이나 넣을까
+										서비스 요청 추이
 									</h3>
 								</div>
 						        <ul class="nav nav-tabs nav-tabs-bordered">
@@ -774,7 +774,7 @@
 						        <!-- Tab panes -->
 						        <div class="tab-content tabs-bordered">
 						        	<div class="m-3">
-						        		<h5>일단 추이 그래프</h5>
+						        		<h5>전체 추이 그래프</h5>
 						        		<div id="curve_chart"></div>
 						        	</div>
 						        </div>
