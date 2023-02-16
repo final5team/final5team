@@ -23,4 +23,8 @@
 hs_err_pid*
 *.properties
 !jdbc.properties
+<<<<<<< HEAD
 */target/*
+=======
+*/target/*
+>>>>>>> branch 'master' of https://github.com/final5team/final5team.git
