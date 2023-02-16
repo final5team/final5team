@@ -6,6 +6,32 @@
 
 <head>
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
+<style>
+form .text-center {
+	margin-bottom: 20px;
+}
+
+form .div {
+	font-size: 15px;
+}
+
+.input-group-text, .custom-select {
+	margin-top: 25px;
+}
+
+select#gender, label[for="gender"] {
+	margin-top: 0px;
+}
+
+[name="userType"] {
+	justify-content: center;
+}
+
+[name="imageRegister"] {
+	margin-top: 10px;
+}
+</style>
+
 </head>
 
 <body id="page-top">
@@ -37,24 +63,52 @@
 							<hr>
 							<form method="post" action="${pageContext.request.contextPath}/customer/register">
 								<div class="text-center">
-									<img src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg" style="width: 100px; height: 100px;">
-									<button class="btn-dark btn-sm">이미지 등록</button>
+									<img src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg" style="width: 100px; height: 100px;"> <br>
+									<button name="imageRegister" class="btn-dark btn-sm">이미지 등록</button>
+									<hr>
 								</div>
+								<div name="userType" class="form-group row">
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="inlineRadioOptions" id="user" value="user"> <label class="form-check-label" for="user">고객</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="inlineRadioOptions" id="pm" value="pm"> <label class="form-check-label" for="pm">관리자</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="inlineRadioOptions" id="developer" value="developer"> <label class="form-check-label" for="developer">개발자</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="inlineRadioOptions" id="distributer" value="distributer"> <label class="form-check-label" for="distributer">배포자</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="inlineRadioOptions" id="tester" value="tester"> <label class="form-check-label" for="tester">테스터</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="inlineRadioOptions" id="user_tester" value="user_tester"> <label class="form-check-label" for="user_tester">고객 테스터</label>
+									</div>
+								</div>
+								<hr>
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
+										<div>아이디</div>
 										<input type="text" class="form-control form-control-user" id="mid" name="mid" placeholder="아이디">
 									</div>
 									<div class="col-sm-6">
+										<div>비밀번호</div>
 										<input type="password" class="form-control form-control-user" id="password" name="password" value="1234">
 									</div>
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
+										<div>이름</div>
 										<input type="text" class="form-control form-control-user" id="mname" name="mname" placeholder="이름">
 									</div>
 									<div class="col-sm-6">
-										<div class="col-sm-6">
-											<select class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="sno">
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<label class="input-group-text" for="sno">시스템 선택</label>
+											</div>
+											<select class="custom-select" id="sno" name="sno">
 												<option value="1">1</option>
 												<option value="2">2</option>
 												<option value="3">3</option>
@@ -62,16 +116,22 @@
 											</select>
 										</div>
 									</div>
+
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
 										<input type="date" class="form-control form-control-user" id="birth" name="birth" placeholder="생년월일">
 									</div>
 									<div class="col-sm-6 mb-3 mb-sm-0" name="gender">
-										<input type="radio" id="man" name="gender" value="남">
-										<label for="남">남</label>
-										<input type="radio" id="woman" name="gender" value="여">
-										<label for="여">여</label>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<label class="input-group-text" for="gender">성별</label>
+											</div>
+											<select class="custom-select gender" id="gender" name="gender">
+												<option id="man" value="man" selected>남</option>
+												<option id="woman" value="woman">여</option>
+											</select>
+										</div>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -96,9 +156,9 @@
 										<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="이메일" value="email@oti.com">
 									</div>
 								</div>
-								
-								
-								
+
+
+
 								<button class="btn btn-dark btn-sm" type="submit">회원 등록</button>
 							</form>
 							<hr>
