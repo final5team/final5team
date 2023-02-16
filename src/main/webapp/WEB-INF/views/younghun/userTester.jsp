@@ -113,11 +113,20 @@
 													<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>
 												</div>
 											</div>
+											<c:if test="${request.statusNo == 8}">
+												<div class="d-flex">
+													<div class="pl-5">유저테스트 완료 예정일 :</div>
+													<div class="pl-2 flex-grow-1">
+														<fmt:formatDate value="${requestProcess.userTestExpectDate}" pattern="yyyy-MM-dd"/>
+													</div>
+												</div>
+											</c:if>
 										</div>
 									</div>
 									<div class="mt-2">${request.reqTitle}</div>
 									<div class="mt-2">${request.reqContent}</div>
 									<div class="mt-3">
+										<!-- 요청 첨부 파일 리스트 -->
 										<span>파일이름</span>
 										<a href="#" role="button">
 											<i class="fas fa-cloud-download-alt"></i>
@@ -125,9 +134,10 @@
 									</div>
 								</div>
 							</div>
+						
 							<div class="card mt-3">
 								<div class="card-header">
-									개발자 개발내용
+									개발내용
 								</div>
 								<div class="card-body">
 									<c:forEach var="statusHistory" varStatus="index" items="${devToTesterHistories}">
@@ -138,23 +148,30 @@
 									</c:forEach>
 								</div>
 							</div>
+							
 							<div class="d-flex">
+								<!-- 유저테스트 요청 상태(7) -->
 								<c:if test="${request.statusNo == 7}">
-									<form action="" method="post">
-										<input type="text" placeholder="유저테스트 완료 예정일 입력" name="usertestexpectdate"/>
+									<form action="${pageContext.request.contextPath}/startWork" method="post" class="mt-3">
+										<label for="expectDate"></label>
+										<input type="date" id= "expectDate" name="expectDate" class="form-control"/>
 										<input type="hidden" name="rno" value="${request.rno}"/>
-										<input type="hidden" name="nextStatus" value="8"/>
+										<input type="hidden" name="mtype" value="${userInfo.mtype}"/>
+ 										<input type="hidden" name="nextStatus" value="8"/>
 										<button class="btn btn-danger btn-lg">유저테스트 시작</button>
 									</form>
-								</c:if>		
+								</c:if>
+								<!-- 유저테스트 중 상태(8) -->
 								<c:if test="${request.statusNo == 8}">
-									<form action="" method="post">
+									<form action="${pageContext.request.contextPath}/endwork" method="post" class="mt-3">
 										<input type="hidden" name="rno" value="${request.rno}"/>
+										<input type="hidden" name="mtype" value="${userInfo.mtype}"/>
 										<input type="hidden" name="nextStatus" value="9"/>
-										<button class="btn btn-danger btn-lg">유저테스트 완료</button>
+										<button class="btn btn-primary">유저테스트 완료</button>
 									</form>
 								</c:if>
 							</div>
+							
 						</div>
 						<!-- 게시글 상세보기 end -->
 						<!-- 상태 단계 이력 start -->						

@@ -1,5 +1,6 @@
 package com.oti.srm.service;
 
+import java.util.Date;
 import java.util.List;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.RequestProcess;
@@ -14,5 +15,9 @@ public interface IUserTestService {
 
 	// 요청처리정보 조회
 	public RequestProcess getRequestProcess(int rno);
+
+	public void startWork(StatusHistory statusHistory, Date expectDate, String mtype);
+
+	public void endWork(StatusHistory statusHistory);
 
 }
