@@ -127,8 +127,6 @@ form {
 					</div>
 				</div>
 
-				<!-- 여기에 내용 담기 end -->
-
 			</div>
 			<!-- End of Main Content -->
 
