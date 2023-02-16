@@ -13,9 +13,9 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class PMController {
 	// 통계 페이지
-	@RequestMapping("/pm")
-	public String pm(HttpSession session, Model model) {
+	@RequestMapping("/receipt")
+	public String receipt(HttpSession session, Model model) {
 		
-		return "pm/stats";
+		return "pm/receipt";
 	}
 }
