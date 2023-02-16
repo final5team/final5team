@@ -35,11 +35,18 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 
 	@Override
 	public List<Request> getRequestList(Request request, Pager pager) {
-
 		List<Request> requestList = requestDao.getRequestList();
-		
 		return requestList;
 	}
+
+	@Override
+	public int getPresentStep(int rno) {
+		int result = requestDao.getPresentStep(rno);
+		log.info("서비스" + result);
+		return result;
+	}
+	
+	
 	
 	
 
