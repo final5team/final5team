@@ -6,6 +6,19 @@
 
 <head>
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
+<style>
+	#table_head > #orderNo{
+		width : 70px;
+		overflow:hidden;
+	    text-overflow:ellipsis;
+	    white-space:nowrap;
+	    display:inline-block;
+	}
+	
+	
+	
+</style>
+	
 </head>
 
 <body id="page-top">
@@ -39,17 +52,19 @@
 									<div class="col-sm">
 										<h3>Basic example</h3>
 										<p>Default options</p>
-										<table class="table table-bordered" id="table_accordion_01">
+										<table class="table table-bordered" id="table_head">
 											<thead>
 												<tr>
 													<th></th>
-													<th>Order no.</th>
-													<th>시스템</th>
-													<th>유형</th>
-													<th>요청 제목</th>
-													<th>요청 일자</th>
+													<th id="orderNo">Order no.</th>
+													<th id="sys">시스템</th>
+													<th id="type">유형</th>
+													<th id="title">요청 제목</th>
+													<th id="requestDate">요청 일자</th>
 												</tr>
 											</thead>
+										</table>
+										<table class="table table-bordered" id="table_value">
 											<tbody>
 												<c:forEach var="request" items="${requestList}">
 													<tr>
@@ -95,17 +110,29 @@
 </body>
 <!-- row collapse 추가 JS -->
 <script>
+	$(document).ready(function(){
+		var mainObje = this;
+		var requestRunning = false;
+		
+		
+		
+	})
+	
+	
+
 	function viewStep(i){
 		let rno =  i;
 		console.log(rno);
 		$.ajax({
 			url : "/srm/customer/viewstep",
-			type : "get",
-			datatype : "html",
+			type : "",
+			datatype : "",
 			success : function(data){
 				
-		}
-			
+				
+				
+				
+			}
 		});
 		
 	}
