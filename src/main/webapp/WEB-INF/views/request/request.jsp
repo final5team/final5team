@@ -6,6 +6,25 @@
 
 <head>
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
+<style>
+.body {
+	line-height: 1.5em;
+	margin: 0;
+	font-weight: 300;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+a {
+	text-decoration: none;
+}
+
+form {
+	width: 700px;
+	margin-bottom: 10px;
+}
+</style>
 </head>
 
 <body id="page-top">
@@ -29,52 +48,84 @@
 
 				<!-- 여기에 내용 담기 start -->
 				<div class="container-fluid">
-				<form method="post">
-					<div class="mb-4">
-						<div class="card border-left-primary shadow h-100 py-2">
-							<div class="card-body">
-								<div class="row">
-									<div>성명</div>
-									<input id="clientName" name="clientName" type="text" value="default">
-									<div>연락처</div>
-									<input type="text" value="default">
-								</div>
+					<div class="row" style="justify-content: center;">
 
-									<div class="row">
-										<div>시스템</div>
-										<select class="btn btn-dark btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="sno">
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-										</select>
-										
-										<div>요청 완료<br>희망일</div>
-										<input id="reqExpectDate" name="reqExpectDate" type="date" >
-										
-									</div>
-									<div class="row">
-									<div>제목</div>
-									<input type="text" id="reqTitle" name="reqTitle" value="제목">
-								</div>
-								<div class="row">
-									<div>요청내역</div>
-									<textarea id="reqContent" name="reqContent"></textarea>
-								</div>
-								<div class="row">
-									<div>첨부파일</div>
-									<input type="text">
-									<button class="btn btn-sm btn-dark">파일 첨부하기</button>
-								</div>
-								<button type="submit" class="btn btn-sm btn-dark">요청 등록</button>
+						<div class="card shadow h-100 py-2">
+							<div class="card-header">
+								<div>SR 요청 작성</div>
 							</div>
+							<form method="post">
+								<div class="card-body">
+									<div class="form-group row">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<div class="row">
+												<div>이름</div>
+												<input type="text" class="form-control form-control-user" id="clientName" name="clientName" value="default">
+											</div>
+										</div>
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<div class="row">
+												<div>전화번호</div>
+												<input type="text" class="form-control form-control-user" id="phone" name="phone" value="010-1234-1234">
+											</div>
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<div class="row">
+												<div>직급</div>
+												<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="직급" value="직급">
+											</div>
+										</div>
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<div class="row">
+												<div>소속기관</div>
+												<input type="text" class="form-control form-control-user" id="organ" name="organ" placeholder="소속기관" value="소속기관">
+											</div>
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<div class="row">
+												<div>이메일</div>
+												<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="이메일" value="email@oti.com">
+											</div>
+										</div>
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<div class="row">
+												<div>요청 완료 희망일</div>
+												<input type="date" class="form-control form-control-user" id="reqExpectDate" name="reqExpectDate">
+											</div>
+										</div>
+									</div>
+
+									<div class="card-header">
+										<div>제목</div>
+										<input type="text" id="reqTitle" name="reqTitle" value="제목">
+									</div>
+									<div class="card-body">
+										<div class="form-group row">
+											<div class="col-sm-6 mb-3 mb-sm-0">
+												<div class="row">
+													<div>요청내역</div>
+													<textarea id="reqContent" name="reqContent"></textarea>
+												</div>
+											</div>
+											<div class="input-group mb-3">
+												<div class="input-group-prepend">
+													<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+												</div>
+												<div class="custom-file">
+													<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"> <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
 						</div>
-						</div>
-					</form>
+					</div>
 				</div>
-
-
-				<!-- 여기에 내용 담기 end -->
 
 			</div>
 			<!-- End of Main Content -->
@@ -95,32 +146,5 @@
 
 
 </body>
-<style>
-.row {
-	width: auto;
-	overflow: hidden;
-	margin: 5px;
-}
 
-.row div {
-	width: 100px;
-	text-align: center;
-	display: inline-block;
-	align-items: center;
-}
-
-.row input {
-	width: 150px;
-}
-
-.row textarea {
-	height: 300px;
-	width: 500px;
-}
-select{
-	width :150px;	
-}
-
-
-</style>
 </html>
