@@ -91,8 +91,7 @@
 								<div>
 									<div class="d-flex justify-content-end">
 										<button class="btn btn-gradient-success btn-gradient btn-lg mt-3 " type="button" id="receiptbtn">접수</button>
-										<button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" type="button" id="rejectbtn">반려</button>
-									<!-- <button class="btn btn-gradient-success btn-gradient btn-lg mt-3">개발 완료</button> -->
+										<button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" type="button" id="rejectbtn">반려</button>									
 									</div>								
 								</div>
 							</form>
