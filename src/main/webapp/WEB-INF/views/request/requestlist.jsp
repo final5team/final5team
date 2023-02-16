@@ -7,18 +7,54 @@
 <head>
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
 <style>
-	#table_head > #orderNo{
-		width : 70px;
-		overflow:hidden;
-	    text-overflow:ellipsis;
-	    white-space:nowrap;
-	    display:inline-block;
-	}
-	
-	
-	
+	body{
+        font-size: 15px;
+    }
+    .table{
+        text-align: start;  
+        border: none;
+    }
+    .table tr, td {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+        border: none;
+    }
+    .table td.rno{
+        width: 50px;
+        border: none;
+    }
+    .table td.client{
+        width: 100px;
+        border: none;
+    }
+    .table tr td.sysType{
+        width: 100px;
+        border: none;
+    }
+    .table tr td.reqTitle{
+        width: 500px;
+        border: none;
+    }
+    .table tr td.reqDate{
+        width: 100px;
+        border: none;
+    }
+    .table tr td.stepButton{
+        width: 120px;
+        border: none;
+    }
+    #table_name {
+        background-color: #5a5c69;
+        color: white;
+        border: none;
+    }
+    
+    
 </style>
-	
+
 </head>
 
 <body id="page-top">
@@ -44,60 +80,64 @@
 				<div class="container-fluid">
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+							<h6 class="m-0 font-weight-bold text-primary">내 담당 요청 관리</h6>
 						</div>
 						<div class="card-body">
-							<div class="table-responsive">
-								<div class="row">
-									<div class="col-sm">
-										<h3>Basic example</h3>
-										<p>Default options</p>
-										<table class="table table-bordered" id="table_head">
-											<thead>
-												<tr>
-													<th></th>
-													<th id="orderNo">Order no.</th>
-													<th id="sys">시스템</th>
-													<th id="type">유형</th>
-													<th id="title">요청 제목</th>
-													<th id="requestDate">요청 일자</th>
-												</tr>
-											</thead>
+							<div class="row">
+								<div class="col-sm">
+									<table class="table table-bordered" id="table_name">
+											<tr>
+												<td class="rno">no</td>
+												<td class="client">시스템</td>
+												<td class="sysType">요청 유형</td>
+												<td class="reqTitle">요청 제목</td>
+												<td class="reqDate">요청 일자</td>
+												<td class="stepButton">단계 확인</td>
+											</tr>
+									</table>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm">
+									<c:forEach var="request" items="${requestList}">
+										<table class="table table-bordered" id="table_content">
+											<tr>
+												<td class="rno">${request.rno}</td>
+												<!-- 나중에 시스템 이름으로 바꾸어 줘야 함. -->
+												<td class="client">${request.sno}이름추가</td>
+												<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
+												<td class="sysType">일반, 긴급</td>
+												<td class="reqTitle">${request.reqTitle}</td>
+												<td class="reqDate">${request.reqDate}</td>
+												<td class="stepButton">
+													<button class="btn btn-dark btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample${request.rno}" aria-expanded="false" aria-controls="collapseExample">단계</button>
+												</td>
+											</tr>
 										</table>
-										<table class="table table-bordered" id="table_value">
-											<tbody>
-												<c:forEach var="request" items="${requestList}">
-													<tr>
-														<td onclick="viewStep(${request.rno})">+</td>
-														<td class="rno">${request.rno}</td>
-														<!-- 나중에 시스템 이름으로 바꾸어 줘야 함. -->														
-														<td class="sno">${request.sno}이름추가</td>
-														<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
-														<td class="type">요청타입 (join필요)</td>
-														<td class="reqTitle">${request.reqTitle}</td>
-														<td class="reqDate">${request.reqDate}</td>
-													</tr>
-													<div id="viewStep${request.rno}"></div>
-												</c:forEach>
-											</tbody>
-										</table>
-									</div>
+										<div class="collapse" id="collapseExample${request.rno}">
+												<div class="card card-body">Anim pariatur </div>
+											</div>
+											<br>
+									</c:forEach>
+
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- 여기에 내용 담기 end -->
-
 			</div>
-			<!-- End of Main Content -->
-
-			<!-- Footer -->
-			<%@ include file="/WEB-INF/views/common/footer.jsp"%>
-			<!-- End of Footer -->
-
 		</div>
-		<!-- End of Content Wrapper -->
+		<!-- 여기에 내용 담기 end -->
+
+	</div>
+	<!-- End of Main Content -->
+
+	<!-- Footer -->
+	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+	<!-- End of Footer -->
+
+	</div>
+	<!-- End of Content Wrapper -->
 
 	</div>
 	<!-- End of Page Wrapper -->
@@ -110,35 +150,7 @@
 </body>
 <!-- row collapse 추가 JS -->
 <script>
-	$(document).ready(function(){
-		var mainObje = this;
-		var requestRunning = false;
-		
-		
-		
-	})
 	
-	
-
-	function viewStep(i){
-		let rno =  i;
-		console.log(rno);
-		$.ajax({
-			url : "/srm/customer/viewstep",
-			type : "",
-			datatype : "",
-			success : function(data){
-				
-				
-				
-				
-			}
-		});
-		
-	}
-
-
 </script>
-
 
 </html>
