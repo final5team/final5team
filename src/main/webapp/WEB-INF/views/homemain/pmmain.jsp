@@ -28,6 +28,80 @@
                 <!-- End of Topbar -->
 
                 <!-- 여기에 내용 담기 start -->
+<div class="container-fluid">
+
+	<div class="card">
+		<div class="card-body">
+			<!-- form 태그 시작 -->	
+			<form name="item">
+				<div class="card card-block">
+			
+					<div class="form-group row">
+						<label class="col-sm-2 form-control-label text-xs-right">
+							Name:
+						</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control boxed" placeholder="">
+						</div>
+					</div>
+			
+					<div class="form-group row">
+						<label class="col-sm-2 form-control-label text-xs-right">
+							Content:
+						</label>
+						<div class="col-sm-10">
+			
+								Hello World
+			
+						</div>
+					</div>
+			
+					<div class="form-group row">
+						<label class="col-sm-2 form-control-label text-xs-right">
+							Category:
+						</label>
+						<div class="col-sm-10">
+							<select class="c-select form-control boxed">
+								<option selected>Select Category</option>
+								<option value="1">One</option>
+								<option value="2">Two</option>
+								<option value="3">Three</option>
+							</select>
+						</div>
+					</div>
+			
+			
+					<div class="form-group row">
+						<div class="col-sm-10 col-sm-offset-2">
+							<button type="submit" class="btn btn-secandary">
+								Cancle
+							</button>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-10 col-sm-offset-2">
+							<button type="submit" class="btn btn-primary">
+								Submit
+							</button>
+						</div>
+					</div>
+			
+			
+			
+			
+				</div>
+			</form>                
+			<!-- form 태그 끝 -->	
+		
+		
+		
+		</div>
+	</div>                
+
+</div>
+                
+                
+                
                 <!-- 여기에 내용 담기 end -->
 
             </div>

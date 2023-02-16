@@ -86,11 +86,13 @@
 						<div class="col-xl-9 col-lg-8 col-md-8 col-sm-8">
 							<div class="card">
 								<div class="card-header d-flex">
-									<div class="mr-auto">정규</div>
-									<div>중요도: 상</div>
+									<div class="mr-auto">개발상세보기 ></div>
 								</div>
 								<div class="card-body">
-									<div>개발상세보기 ></div>
+									<div class="d-flex">
+										<div class="ml-3">정규</div>
+										<div class="ml-5">중요도: 상</div>
+									</div>
 									<div>
 										<h3 class="mr-auto font-weight-bold">여기는 제목 자리입니다.</h3>
 									</div>
