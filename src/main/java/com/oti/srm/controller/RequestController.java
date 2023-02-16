@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Pager;
@@ -58,6 +60,7 @@ public class RequestController {
 		return "request/request";
 	}
 		
+	
 	@PostMapping("/request")
 	public String customerRequest(Request request, Model model) {
 		request.setStatusNo(1);
@@ -75,20 +78,31 @@ public class RequestController {
 		
 	}
 	
+	
 	@GetMapping("/requestlist")
 	public String requestList(Request request, Model model, Pager pager) {
 		
 		List<Request> requestList= requestService.getRequestList(request, pager);
 		model.addAttribute("requestList", requestList);
+		
+		
 		log.info(model.toString());
 		
 		return "request/requestlist";
 	}
-	@GetMapping("/viewstep")
-	public String viewStep(Model model) {
-		
+	
+	
+	
+	@PostMapping("/viewstep")
+	@ResponseBody
+	public int viewStep(Model model, Request request) {
 		log.info("viewStep");
-		return "request/viewstep";
+		log.info(request.getRno());
+		int result = requestService.getPresentStep(request.getRno());
+		
+		log.info("리턴값" + result);
+		
+		return result;
 	}
 	
 

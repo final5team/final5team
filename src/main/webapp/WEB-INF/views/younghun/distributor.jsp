@@ -52,6 +52,9 @@
 		.bar.active {
 		  	border-color: var(--line-fill);
 		}
+		.button{
+			background-color: #F40730;
+		}
     </style>
 </head>
 

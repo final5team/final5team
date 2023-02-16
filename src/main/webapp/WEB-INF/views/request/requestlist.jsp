@@ -56,7 +56,7 @@
 	}
 	
 	#table_name {
-		background-color: #5a5c69;
+		background-color: #1cc88a;
 		color: white;
 		border: none;
 	}
@@ -70,29 +70,48 @@
 		border-radius: 10px;
 	}
 	
-	.collapse .card .row .col-2 #status_one {
-		width: 120px;
+	
+	[name="status"], #status_one {
+		width: 150px;
 	}
 	
-	.collapse .card .row .col-2 #status_two {
-		width: 120px;
+	[name="status"], #status_two {
+		width: 150px;
 	}
 	
-	.collapse .card .row .col-2 #status_three {
-		width: 120px;
+	[name="status"], #status_three {
+		width: 150px;
 	}
 	
-	.collapse .card .row .col-2 #status_four {
-		width: 120px;
+	[name="status"], #status_four {
+		width: 150px;
 	}
 	
-	.collapse .card .row .col-2 #status_five {
-		width: 120px;
+	[name="status"], #status_five {
+		width: 150px;
 	}
 	
-	.collapse .card .row .col-2 #status_six {
-		width: 120px;
+	[name="status"], #status_six {
+		width: 150px;
 	}
+	:root {
+		 	--line-fill: #3498db;
+		  	--line-empty: #e0e0e0;
+		  	--now-fill: #1cc88a;
+	}
+    .done{
+        background-color: var(--line-fill);
+    }
+	.now{
+       	border-color: var(--now-fill);
+       	background-color: var(--now-fill);
+       	color: white;
+    }
+	.active{
+       	border-color: var(--now-fill);
+    }
+
+	
 </style>
 
 </head>
@@ -118,19 +137,14 @@
 
 				<!-- 여기에 내용 담기 start -->
 				<div class="container-fluid">
-				<div class="card shadow mb-4">
-					<div class="card-header py-3">
-						<h6 class="m-0 font-weight-bold text-primary">필터</h6>
-					</div>
-					<div class="card-body">
-						<div class="row">
-							
+					<div class="card shadow mb-4">
+						<div class="card-header py-3">
+							<h6 class="m-0 font-weight-bold text-primary">필터</h6>
+						</div>
+						<div class="card-body">
+							<div class="row"></div>
 						</div>
 					</div>
-				</div>
-				
-				
-				
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">내 담당 요청 관리</h6>
@@ -163,32 +177,70 @@
 												<td class="reqTitle">${request.reqTitle}</td>
 												<td class="reqDate">${request.reqDate}</td>
 												<td class="stepButton">
-													<button class="btn btn-dark btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample${request.rno}" aria-expanded="false" aria-controls="collapseExample">단계</button>
+													<button class="btn btn-success btn-sm" type="button" data-toggle="collapse" id="step" data-target="#collapseExample${request.rno}" aria-expanded="false" aria-controls="collapseExample" onclick="sendRno(${request.rno})">단계</button>
+													<input type="hidden" id="requestRno" value="${request.rno}">
 												</td>
 											</tr>
 										</table>
+										<!-- c:if로 정규, 긴급 구분 -->
 										<div class="collapse" id="collapseExample${request.rno}">
 											<div class="card card-body">
-                                                <div class="row row-col-1 row-cols-sm-3 row-cols-md-6 row-cols-xl-6">
-                                                    <div class="col-2">
-                                                        <button id="status_one" class="btn-md">접수중</button>
-                                                    </div>
-                                                    <div class="col-2">
-                                                        <button id="status_two" class="btn-md">개발중</button>
-                                                    </div>
-                                                    <div class="col-2">
-                                                        <button id="status_three" class="btn-md">테스트중</button>
-                                                    </div>
-                                                    <div class="col-2">
-                                                        <button id="status_four" class="btn-md">유저테스트중</button>
-                                                    </div>
-                                                    <div class="col-2">
-                                                        <button id="status_five" class="btn-md">배포중</button>
-                                                    </div>
-                                                    <div class="col-2">
-                                                        <button id="status_six" class="btn-md">완료중</button>
-                                                    </div>
-                                                </div>
+												<div class="row row-col-1 row-cols-sm-3 row-cols-md-6 row-cols-xl-6">
+
+													<div class="col-2">
+														<button name="status" class="btn-md <c:if test="${request.statusNo >= 2}">done</c:if>
+															<c:if test="${request.statusNo == 1}">now</c:if> ">
+															<c:if test="${request.statusNo == 1}">접수중</c:if>
+															<c:if test="${request.statusNo >= 2}">접수완료</c:if>
+														</button>
+													</div>
+													
+													<div class="col-2">
+														<button name="status" id="status_two" class="btn-md <c:if test="${request.statusNo >= 5}">done</c:if>
+									           	 			<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">now</c:if>">
+									           	 			<c:if test="${request.statusNo < 2}">개발단계</c:if>
+					       	    						     <c:if test="${request.statusNo == 2}">개발요청</c:if>
+												           	 <c:if test="${request.statusNo == 3}">개발중</c:if>
+												           	 <c:if test="${request.statusNo == 4}">개발재검토</c:if>
+												           	 <c:if test="${request.statusNo >= 5}">개발완료</c:if>
+														</button>
+													</div>
+													<div class="col-2">
+														<button name="status" id="status_three" class="btn-md <c:if test="${request.statusNo >= 7}">done</c:if>
+									           	 			<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">now</c:if>">
+															<c:if test="${request.statusNo < 5}">테스트단계</c:if>
+												           	 <c:if test="${request.statusNo == 5}">테스트요청</c:if>
+												           	 <c:if test="${request.statusNo == 6}">테스트중</c:if>
+												           	 <c:if test="${request.statusNo >= 7}">테스트완료</c:if>
+														</button>
+													</div>
+													<div class="col-2">
+														<button name="status" id="status_four" class="btn-md <c:if test="${request.statusNo >= 9}">done</c:if>
+									           	 			<c:if test="${request.statusNo >= 7 && request.statusNo <= 8}">now</c:if>">
+									           	 			<c:if test="${request.statusNo < 7}">유저테스트단계</c:if>
+												           	 <c:if test="${request.statusNo == 7}">유저테스트요청</c:if>
+												           	 <c:if test="${request.statusNo == 8}">유저테스트중</c:if>
+												           	 <c:if test="${request.statusNo >= 9}">유저테스트완료</c:if>
+														</button>
+													</div>
+													<div class="col-2">
+														<button name="status" id="status_five" class="btn-md <c:if test="${request.statusNo >= 11}">done</c:if>
+									           	 			<c:if test="${request.statusNo >= 9 && request.statusNo <= 10}">now</c:if>">
+									           	 			<c:if test="${request.statusNo < 9}">배포단계</c:if>
+												           	 <c:if test="${request.statusNo == 9}">배포요청</c:if>
+												           	 <c:if test="${request.statusNo == 10}">배포중</c:if>
+												           	 <c:if test="${request.statusNo >= 11}">배포완료</c:if>
+														</button>
+													</div>
+													<div class="col-2">
+														<button name="status" id="status_six" class="btn-md <c:if test="${request.statusNo >= 13}">done</c:if>
+									           	 			<c:if test="${request.statusNo == 11}">now</c:if>">
+									           	 			<c:if test="${request.statusNo < 11}">최종승인단계</c:if>
+												           	 <c:if test="${request.statusNo == 11}">최종승인요청</c:if>
+												           	 <c:if test="${request.statusNo == 13}">완료</c:if>
+														</button>
+													</div>
+												</div>
 											</div>
 										</div>
 										<br>
@@ -217,9 +269,5 @@
 
 
 </body>
-<!-- row collapse 추가 JS -->
-<script>
-	
-</script>
 
 </html>
