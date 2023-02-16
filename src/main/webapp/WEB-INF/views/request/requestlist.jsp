@@ -7,52 +7,92 @@
 <head>
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
 <style>
-	body{
-        font-size: 15px;
-    }
-    .table{
-        text-align: start;  
-        border: none;
-    }
-    .table tr, td {
-        display: inline-block;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        text-align: center;
-        border: none;
-    }
-    .table td.rno{
-        width: 50px;
-        border: none;
-    }
-    .table td.client{
-        width: 100px;
-        border: none;
-    }
-    .table tr td.sysType{
-        width: 100px;
-        border: none;
-    }
-    .table tr td.reqTitle{
-        width: 500px;
-        border: none;
-    }
-    .table tr td.reqDate{
-        width: 100px;
-        border: none;
-    }
-    .table tr td.stepButton{
-        width: 120px;
-        border: none;
-    }
-    #table_name {
-        background-color: #5a5c69;
-        color: white;
-        border: none;
-    }
-    
-    
+	body {
+		font-size: 15px;
+	}
+	
+	.table {
+		text-align: start;
+		border: none;
+	}
+	
+	.table tr, td {
+		display: inline-block;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		text-align: center;
+		border: none;
+	}
+	
+	.table td.rno {
+		width: 50px;
+		border: none;
+	}
+	
+	.table td.client {
+		width: 100px;
+		border: none;
+	}
+	
+	.table tr td.sysType {
+		width: 100px;
+		border: none;
+	}
+	
+	.table tr td.reqTitle {
+		width: 500px;
+		border: none;
+	}
+	
+	.table tr td.reqDate {
+		width: 100px;
+		border: none;
+	}
+	
+	.table tr td.stepButton {
+		width: 120px;
+		border: none;
+	}
+	
+	#table_name {
+		background-color: #5a5c69;
+		color: white;
+		border: none;
+	}
+	
+	.collapse .card .row .col-2 {
+		text-align: center;
+		align-items: center;
+	}
+	
+	.collapse .card .row button {
+		border-radius: 10px;
+	}
+	
+	.collapse .card .row .col-2 #status_one {
+		width: 120px;
+	}
+	
+	.collapse .card .row .col-2 #status_two {
+		width: 120px;
+	}
+	
+	.collapse .card .row .col-2 #status_three {
+		width: 120px;
+	}
+	
+	.collapse .card .row .col-2 #status_four {
+		width: 120px;
+	}
+	
+	.collapse .card .row .col-2 #status_five {
+		width: 120px;
+	}
+	
+	.collapse .card .row .col-2 #status_six {
+		width: 120px;
+	}
 </style>
 
 </head>
@@ -78,6 +118,19 @@
 
 				<!-- 여기에 내용 담기 start -->
 				<div class="container-fluid">
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">필터</h6>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							
+						</div>
+					</div>
+				</div>
+				
+				
+				
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">내 담당 요청 관리</h6>
@@ -86,14 +139,14 @@
 							<div class="row">
 								<div class="col-sm">
 									<table class="table table-bordered" id="table_name">
-											<tr>
-												<td class="rno">no</td>
-												<td class="client">시스템</td>
-												<td class="sysType">요청 유형</td>
-												<td class="reqTitle">요청 제목</td>
-												<td class="reqDate">요청 일자</td>
-												<td class="stepButton">단계 확인</td>
-											</tr>
+										<tr>
+											<td class="rno">no</td>
+											<td class="client">시스템</td>
+											<td class="sysType">요청 유형</td>
+											<td class="reqTitle">요청 제목</td>
+											<td class="reqDate">요청 일자</td>
+											<td class="stepButton">단계 확인</td>
+										</tr>
 									</table>
 								</div>
 							</div>
@@ -115,11 +168,31 @@
 											</tr>
 										</table>
 										<div class="collapse" id="collapseExample${request.rno}">
-												<div class="card card-body">Anim pariatur </div>
+											<div class="card card-body">
+                                                <div class="row row-col-1 row-cols-sm-3 row-cols-md-6 row-cols-xl-6">
+                                                    <div class="col-2">
+                                                        <button id="status_one" class="btn-md">접수중</button>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <button id="status_two" class="btn-md">개발중</button>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <button id="status_three" class="btn-md">테스트중</button>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <button id="status_four" class="btn-md">유저테스트중</button>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <button id="status_five" class="btn-md">배포중</button>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <button id="status_six" class="btn-md">완료중</button>
+                                                    </div>
+                                                </div>
 											</div>
-											<br>
+										</div>
+										<br>
 									</c:forEach>
-
 								</div>
 							</div>
 						</div>
@@ -136,10 +209,6 @@
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	<!-- End of Footer -->
 
-	</div>
-	<!-- End of Content Wrapper -->
-
-	</div>
 	<!-- End of Page Wrapper -->
 
 	<!-- Scroll to Top Button-->
