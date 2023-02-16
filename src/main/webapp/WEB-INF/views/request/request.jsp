@@ -42,7 +42,7 @@
 
 									<div class="row">
 										<div>시스템</div>
-										<select class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="sno">
+										<select class="btn btn-dark btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="sno">
 											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>

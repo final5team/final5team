@@ -65,8 +65,6 @@ public class RequestController {
 		request.setSystemName("가족관계시스템");
 		request.setClient("thddudgns79");
 		
-		System.out.println("컨트롤러");
-		
 		int result = requestService.request(request);
 		if(result == IRequestRegisterService.REQUEST_SUCCESS) {
 			return "redirect:/login";

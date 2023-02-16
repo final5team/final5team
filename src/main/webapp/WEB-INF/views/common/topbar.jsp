@@ -29,7 +29,7 @@
 					
 				</li>
 				<li class="nav-item dropdown no-arrow mx-1">
-					<a class="nav-link dropdown-toggle" href="#" role="button" style="color: #5C6B7A;">
+					<a class="nav-link dropdown-toggle" href="${pageContext.request.contextPath}/customer/register" role="button" style="color: #5C6B7A;">
 						<i class="fas fa-user-plus"></i>
 						SignUp
 					</a>
