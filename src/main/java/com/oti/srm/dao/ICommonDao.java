@@ -29,15 +29,15 @@ public interface ICommonDao {
 	// -------------------미구현 DAO--------------------------
 	// 개발/테스트/유저테스트/배포/전체 완료 예정일 입력
 	// expectDate = 입력한 예정일, type = 개발/테스트/유저테스트/배포/전체 중 어떤 예정일인지
-    public int updateExpectDate(@Param("rno") int rno, @Param("expectDate") Date expectDate, @Param("type") String type);
+    public int updateExpectDate(@Param("rno") int rno, @Param("expectDate") Date expectDate, @Param("mtype") String mtype);
     
 	// 단계 변경 이력 추가(status_histories 테이블)
-	public int insertStatusHistory(@Param("rno") int rno, @Param("statusHistory") StatusHistory statusHistory);
+	public int insertStatusHistory(StatusHistory statusHistory);
 	
 	// 요청의 현재 단계 최신화
 	public void updateRequestStatus(@Param("rno") int rno, @Param("statusNo") int statusNo);
 	
 	// 단계 변경 이력에 파일 추가(status_histories_files 테이블)
-	public int insertStatusHistoryFile(@Param("hno") int hno, @Param("statusHistoryFile")  StatusHistoryFile statusHistoryFile);
+	public int insertStatusHistoryFile(StatusHistoryFile statusHistoryFile);
 	
 }
