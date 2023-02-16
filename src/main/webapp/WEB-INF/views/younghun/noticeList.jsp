@@ -7,6 +7,22 @@
 
 <head>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
+    <style>
+     #noticelist{
+     	margin-top : 50px;
+     	padding : 40px;
+     	width : 90%;
+     	background-color : white;
+     }
+     .checkboxIcon{
+     	width : 20px;
+     	height : 20px;
+     }
+     .lookaheadicon{
+     	width : 20px;
+     	height : 20px;
+     }
+    </style>
 </head>
 
 <body id="page-top">
@@ -29,69 +45,96 @@
                 <!-- End of Topbar -->
 
                 <!-- 여기에 내용 담기 start -->
-                <div class="d-flex flex-column vh-100">
-					<div class="flex-grow-1 container-fluid">
-						<div class="row h-100">
-							<div class="col-md-4 bg-dark text-white p-3"><%@ include file="/WEB-INF/views/common/menu.jsp" %></div>
-							<div class="col-md-8 p-2">
-								<div class="card m-2">
-									<div class="card-header">
-										공지사항 목록
-									</div>
-									<div class="card-body">
-										<table class="table table-sm table-bordered">
-											<tr>
-												<th style="width:30px">공지사항 번호</th>
-												<th style="width:300px">제목</th>
-												<th style="width:70px">작성자</th>
-												<th style="width:70px">작성일</th>
-											</tr>
-											
-<%-- 											<c:forEach var="board" items="${boards}">
-												<tr>
-													<td></td>
-													<td></td>
-													<td></td>
-													
-												</tr>
-												</c:forEach> --%>
-											
-											<%-- <tr>
-												<td colspan="4" class="text-center">
-													<div>
-														<a class="btn btn-outline-primary btn-sm" href="list?pageNo=1">처음</a>
-														<c:if test="${pager.groupNo>1}">
-															<a class="btn btn-outline-info btn-sm" href="list?pageNo=${pager.startPageNo-1}">이전</a>
-														</c:if>
-														
-														<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
-															<c:if test="${pager.pageNo != i}">
-																<a class="btn btn-outline-success btn-sm" href="list?pageNo=${i}">${i}</a>
-															</c:if>
-															<c:if test="${pager.pageNo == i}">
-																<a class="btn btn-danger btn-sm" href="list?pageNo=${i}">${i}</a>
-															</c:if>
-														</c:forEach>
-														
-														<c:if test="${pager.groupNo<pager.totalGroupNo}">
-															<a class="btn btn-outline-info btn-sm" href="list?pageNo=${pager.endPageNo+1}">다음</a>
-														</c:if>
-														<a class="btn btn-outline-primary btn-sm" href="list?pageNo=${pager.totalPageNo}">맨끝</a>
-													</div>
-												</td>
-											</tr> --%>
-										</table>
-
-										<!-- PM일 때만 출력 -->
-										<div class="mt-2">
-											<a href="#" class="btn btn-sm btn-info">공지사항 작성</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+                <div id="noticelist" class="container">
+                	<h1>공지사항 목록</h1>
+               		<hr/>
+                	<table class="table">
+					  <thead class="thead-light">
+					    <tr>
+					      <th scope="col">글번호</th>
+					      <th scope="col">제목</th>
+					      <th scope="col">작성일</th>
+					      <th scope="col">작성자</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <th scope="row">1</th>
+					      <td>가족관계시스템 전체 담당자 필독</td>
+					      <td>2023-02-16</td>
+					      <td>송영훈</td>
+					    </tr>
+					    <tr>
+					      <th scope="row">2</th>
+					      <td>전자조달시스템 개발자/배포담당자 필독</td>
+					      <td>2023-02-16</td>
+					      <td>송영훈</td>
+					    </tr>
+					    <tr>
+					      <th scope="row">3</th>
+					      <td>전파관리시스템 테스터 필독</td>
+					      <td>2023-02-16</td>
+					      <td>송영훈</td>
+					    </tr>
+					    <tr>
+					      <th scope="row">4</th>
+					      <td>가족관계시스템 전체 담당자 필독</td>
+					      <td>2023-02-16</td>
+					      <td>송영훈</td>
+					    </tr>
+					    <tr>
+					      <th scope="row">5</th>
+					      <td>전자조달시스템 개발자/배포담당자 필독</td>
+					      <td>2023-02-16</td>
+					      <td>송영훈</td>
+					    </tr>
+					    <tr>
+					      <th scope="row">6</th>
+					      <td>가족관계시스템 전체 담당자 필독</td>
+					      <td>2023-02-16</td>
+					      <td>송영훈</td>
+					    </tr>
+					    <tr>
+					      <th scope="row">7</th>
+					      <td>전자조달시스템 개발자/배포담당자 필독</td>
+					      <td>2023-02-16</td>
+					      <td>송영훈</td>
+					    </tr>
+					    <tr>
+					      <th scope="row">8</th>
+					      <td>전파관리시스템 테스터 필독</td>
+					      <td>2023-02-16</td>
+					      <td>송영훈</td>
+					    </tr>
+					    <tr>
+					      <th scope="row">9</th>
+					      <td>가족관계시스템 전체 담당자 필독</td>
+					      <td>2023-02-16</td>
+					      <td>송영훈</td>
+					    </tr>
+					    <tr>
+					      <th scope="row">10</th>
+					      <td>전자조달시스템 개발자/배포담당자 필독</td>
+					      <td>2023-02-16</td>
+					      <td>송영훈</td>
+					    </tr>
+					  </tbody>
+					</table>
+					<nav class="nav justify-content-center" aria-label="Page navigation example">
+					  <ul class="pagination">
+					    <li class="page-item"><a class="page-link" href="#">처음</a></li>
+					    <li class="page-item"><a class="page-link" href="#">다음</a></li>
+					    <li class="page-item"><a class="page-link" href="#">1</a></li>
+					    <li class="page-item"><a class="page-link" href="#">2</a></li>
+					    <li class="page-item"><a class="page-link" href="#">3</a></li>
+					    <li class="page-item"><a class="page-link" href="#">4</a></li>
+					    <li class="page-item"><a class="page-link" href="#">5</a></li>
+					    <li class="page-item"><a class="page-link" href="#">이전</a></li>
+					    <li class="page-item"><a class="page-link" href="#">끝</a></li>
+					  </ul>
+					</nav>
+                </div>
+                
                 <!-- 여기에 내용 담기 end -->
 
             </div>
@@ -113,8 +156,5 @@
     </a>
 
 </body>
-
-</html>
-
 
 

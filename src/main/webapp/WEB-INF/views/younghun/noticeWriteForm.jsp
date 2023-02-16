@@ -7,6 +7,14 @@
 
 <head>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
+    <style>
+     #writeform{
+     	margin-top : 50px;
+     	padding : 40px;
+     	width : 90%;
+     	background-color : white;
+     }
+    </style>
 </head>
 
 <body id="page-top">
@@ -29,41 +37,65 @@
                 <!-- End of Topbar -->
 
                 <!-- 여기에 내용 담기 start -->
-                <div class="d-flex flex-column vh-100">
-					<div class="flex-grow-1 container-fluid">
-						<div class="row h-100">
-							<div class="col-md-4 bg-dark text-white p-3"><%@ include file="/WEB-INF/views/common/menu.jsp" %></div>
-							<div class="col-md-8 p-2">
-								<div class="card m-2">
-									<div class="card-header">
-										게시물 쓰기
-									</div>
-									<div class="card-body">	
-										<form method="post" enctype="multipart/form-data">
-											<div class="form-group">
-												<label for="btitle">Title</label> 
-												<input type="text" class="form-control" id="btitle" name="btitle"> 
-											</div>
-											<div class="form-group">
-												<label for="bcontent">Content</label> 
-												<textarea rows="5" cols="50" id="bcontent" name="bcontent" class="form-control" ></textarea>
-											</div>
-											<div class="form-group">
-												<label for="bwriter">Writer</label> 
-												<input type="text" class="form-control" id="bwriter" name="mid" value="user1" readonly> 
-											</div>
-											<div class="form-group">
-												<label for="battach">Attach</label> 
-												<input type="file" class="form-control" id="battach" name="battach"> 
-											</div>
-											<button type="submit" class="btn btn-info btn-sm">게시물쓰기</button>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+                <div id="writeform" class="container">
+                	<h1 class="">공지사항 작성</h1>
+               		<hr/>
+	                <form action="" method="post" enctype="multipart/form-data">
+	                	<div class="form-group row">
+					    	<label for="systems" class="col-2">시스템</label>
+					    	<select class="form-control col-10" id="sno" name="sno">
+					      		<option value="1">가족관계정보</option>
+					      		<option value="2">전자조달</option>
+					      		<option value="3">국민취업지원제도</option>
+					      		<option value="4">나라장터</option>
+					      		<option value="5">전파관리</option>
+					    	</select>
+					  	</div>
+					  	<div class="form-group row">
+					    	<div class="col-2">공개 설정</div>
+					    	<div class="form-group col-10">
+						    	<div class="form-check form-check-inline">
+						    		<input type="checkbox" class="form-check-input" id="userShow" name="userShow" value="Y">
+							    	<label class="form-check-label mr-4" for="userShow">시스템 사용자(고객)</label>
+						    	</div>
+						    	<div class="form-check form-check-inline">
+						    		<input type="checkbox" class="form-check-input" id="devShow" name="devShow" value="Y">
+							    	<label class="form-check-label mr-4" for="devShow">개발자</label>
+						    	</div>
+						    	<div class="form-check form-check-inline">
+						    		<input type="checkbox" class="form-check-input" id="testerShow" name="testerShow" value="Y">
+							    	<label class="form-check-label mr-4" for="testerShow">테스터</label>
+						    	</div>
+						    	<div class="form-check form-check-inline">
+						    		<input type="checkbox" class="form-check-input" id="distributorShow" name="distributorShow" value="Y"> 
+							    	<label class="form-check-label mr-4" for="distributorShow">배포담당자</label>
+						    	</div>
+						    	<div class="form-check form-check-inline">
+						    		<input type="checkbox" class="form-check-input" id="userTesterShow" name="userTesterShow" value="Y">
+							    	<label class="form-check-label" for="userTesterShow">유저테스터</label>
+						    	</div>
+						  	</div>
+					  	</div>
+					  	<div class="form-group row">
+					    	<label for="noticeTitle" class="col-2">제목</label>
+					    	<input type="text" class="form-control col-10" id="noticeTitle" name="noticeTitle">
+					    	<small id="" class="form-text text-muted"></small>
+					  	</div>
+					    <div class="form-group row">
+					    	<label for="noticeContent" class="col-2">내용</label>
+					    	<textarea class="form-control col-10" rows="10" id="noticeContent" name="noticeContent"></textarea>
+					    </div>
+					  	<div class="form-group row">
+					    	<label for="files" class="col-2">첨부파일</label>
+					    	<input type="file" multiple class="form-control-file col-10" id="files">
+					  	</div>
+					  	<div class="form-group row">
+					    	<a href="#" class="btn btn-danger" style="margin-left : 87%">취소</a>
+				    		<button type="submit" class="btn btn-primary ml-3">등록</button>
+					  	</div>  	
+					</form>
+                </div>
+                
                 <!-- 여기에 내용 담기 end -->
 
             </div>

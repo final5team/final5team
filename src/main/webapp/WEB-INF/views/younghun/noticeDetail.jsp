@@ -2,13 +2,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
-
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
+    <style>
+     #noticeDetail{
+     	margin-top : 50px;
+     	padding : 40px;
+     	width : 90%;
+     	background-color : white;
+     }
+     .checkboxIcon{
+     	width : 20px;
+     	height : 20px;
+     }
+     .lookaheadicon{
+     	width : 20px;
+     	height : 20px;
+     }
+    </style>
 </head>
 
 <body id="page-top">
@@ -31,44 +45,65 @@
                 <!-- End of Topbar -->
 
                 <!-- 여기에 내용 담기 start -->
-               	<div class="d-flex flex-column vh-100">
-					<div class="flex-grow-1 container-fluid">
-						<div class="row h-100">
-							<div class="col-md-4 bg-dark text-white p-3"><%@ include file="/WEB-INF/views/common/menu.jsp" %></div>
-								<div class="col-md-8 p-2">
-								<div class="card m-2">
-									<div class="card-header">
-										게시물 내용
-									</div>
-									<div class="card-body">
-										<form method="post" enctype="multipart/form-data">
-											<input type="hidden" class="form-control" id="bno" name="bno" value="${board.bno}"> 							
-											<div class="form-group">
-												<input type="text" class="form-control" id="btitle" name="btitle" value="${board.btitle}"> 
-											</div>
-											<div class="form-group">
-												<label for="bcontent">Content</label> 
-												<textarea rows="5" cols="50" id="bcontent" name="bcontent" class="form-control">${board.bcontent}</textarea>
-											</div>
-											<div class="form-group">
-												<label for="bwriter">Writer</label> 
-												<input type="text" class="form-control" id="bwriter" name="mid" value="${board.mid}" readonly> 
-											</div>
-											<div class="form-group">
-												<label for="battach">Attach</label> 
-												<input type="file" class="form-control" id="battach" name="battach"> 
-											</div>
-											<button type="submit" class="btn btn-info btn-sm">게시물 수정</button>
-										</form>
-										<a class="btn btn-info btn-sm mt-2" href="#">목록</a>
-										<a class="btn btn-info btn-sm mt-2" href="#">수정</a>
-										<a class="btn btn-info btn-sm mt-2" href="#">삭제</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+                <div id="noticeDetail" class="container">
+                	<h1>공지사항 조회</h1>
+               		<h6>작성일 : 2023-02-16</h6>
+                	<h6>작성자 : 송영훈</h6>
+               		<hr/>
+ 
+                	<div class="row p-2">
+				    	<div class="col-2">시스템</div>
+				    	<input type="text" class="form-control col-10" value="가족관계정보시스템" readonly/>
+				  	</div>
+				  	<div class="row p-2">
+				    	<div class="col-2">공개 설정</div>
+				    	<div class="col-10">
+					    	<img src="resources/img/checkbox.png" class="checkboxIcon"/>
+					    	<span class="mr-1">개발자</span>
+					    	<img src="resources/img/checkbox.png" class="checkboxIcon"/>
+					    	<span class="mr-1">테스터</span>
+					    	<img src="resources/img/checkbox.png" class="checkboxIcon"/>
+					    	<span class="mr-1">배포담당자</span>
+				    	</div>
+				  	</div>
+				  	<div class="row p-2">
+				    	<div class="col-2">제목</div>
+				    	<input type="text" class="form-control col-10" value="가족관계정보시스템 관련 개발/배포담당자 업무 시 참고사항" readonly/>
+				  	</div>
+				    <div class="row p-2">
+				    	<div class="col-2">내용</div>
+				    	<textarea class="form-control col-10" rows="10" readonly>참고사항</textarea>
+				    </div>
+				  	<div class="row p-2">
+				    	<div class="col-2">첨부파일 등록</div>
+				    	<!-- 다운로드 파일 리스트 -->
+				    	<div class="col-10">
+				    		<div>
+					    		<a href="">songyounghun.jpg</a>
+					    		<a href="" class="ml-2">
+					    			<img src="resources/img/lookahead.png" class="lookaheadicon"/>
+					    		</a>
+				    		</div>
+				    		<div>
+					    		<a href="">janghyun.pptx</a>
+					    		<a href="" class="ml-2">
+					    		</a>
+				    		</div>
+				    		<div>
+					    		<a href="">jisung.mpg</a>
+					    		<a href="" class="ml-2">
+					    		</a>
+				    		</div>
+				    		<div>
+					    		<a href="">jiyoung.hwp</a>
+					    		<a href="" class="ml-2">
+					    		</a>
+				    		</div>
+				    	</div>
+				  	</div>
+				  	<a href="" class="btn btn-sm btn-primary">공지사항 목록</a>
+                </div>
+                
                 <!-- 여기에 내용 담기 end -->
 
             </div>
@@ -89,12 +124,4 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-  
-
-
 </body>
-
-</html>
-
-
-

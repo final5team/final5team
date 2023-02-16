@@ -85,4 +85,42 @@
 		and sh.rno = #{rno}
 		and sh.next_status = 1
 	</select>
+	
+	<update id="updateExpectDate" parameterType="map">
+		update request_process 
+		<set>
+			<if test="mtype = 'developer'">
+				dev_expect_date = #{expectDate}
+			</if>
+			<if test="mtype = 'tester'">
+				test_expect_date = #{expectDate}
+			</if>
+			<if test="mtype = 'userTester'">
+				usertest_expect_date = #{expectDate}
+			</if>
+			<if test="mtype = 'distributor'">
+				dist_expect_date = #{expectDate}
+			</if>
+		</set> 
+		where rno = #{rno} 
+	</update>
+	
+	<insert id="insertStatusHistory" parameterType="com.oti.srm.dto.StatusHistory">
+		insert into status_histories
+		values
+		(seq_status_histories.nextval, sysdate, #{rno}, #{reply}, #{statusNo}, #{distSource})
+	</insert>
+	
+	<update id="updateRequestStatus" parameterType="map">
+		update requests
+		set
+			status_no = #{statusNo}
+		where rno = #{rno}
+	</update>
+	
+	<insert id="insertStatusHistoryFile" parameterType="com.oti.srm.dto.StatusHistoryFile">
+		insert into status_histories_files
+		values
+		(seq_status_histories_files.nextval, sysdate, #{fileName}, #{fileData}, #{hno})
+	</insert>
 </mapper>
