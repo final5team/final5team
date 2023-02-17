@@ -1,4 +1,4 @@
-package com.oti.srm.dao;
+package com.oti.srm.dao.notice;
 
 import java.util.List;
 

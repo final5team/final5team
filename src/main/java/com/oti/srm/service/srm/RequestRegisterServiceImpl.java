@@ -1,14 +1,13 @@
-package com.oti.srm.service.impl;
+package com.oti.srm.service.srm;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.oti.srm.dao.IRequestDao;
+import com.oti.srm.dao.srm.IRequestDao;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
-import com.oti.srm.service.IRequestRegisterService;
 
 import lombok.extern.log4j.Log4j2;
 

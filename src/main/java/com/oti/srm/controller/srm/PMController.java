@@ -1,4 +1,4 @@
-package com.oti.srm.controller;
+package com.oti.srm.controller.srm;
 
 import javax.servlet.http.HttpSession;
 
