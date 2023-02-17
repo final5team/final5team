@@ -6,10 +6,12 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.oti.srm.dto.Member;
 import com.oti.srm.dto.StatusHistory;
@@ -36,9 +38,9 @@ public class UserTestDistributeController {
 		Member member = new Member();
 		member.setMid("thddudgns79");
 		member.setMname("송영훈");
-		member.setMtype("pm");
-		member.setOrgan("서울시청");
-		member.setPosition("주임");
+		member.setMtype("userTester");
+		member.setOrgan("오티아이");
+		member.setPosition("대리");
 		session.setAttribute("userInfo", member);
 		// 개발자 -> 테스터
 		model.addAttribute("devToTesterHistories", devToTesterHistories);
@@ -57,9 +59,9 @@ public class UserTestDistributeController {
 		Member member = new Member();
 		member.setMid("thddudgns79");
 		member.setMname("송영훈");
-		member.setMtype("pm");
-		member.setOrgan("서울시청");
-		member.setPosition("주임");
+		member.setMtype("userTester");
+		member.setOrgan("오티아이");
+		member.setPosition("대리");
 		session.setAttribute("userInfo", member);
 		// 개발자 -> 테스터
 		model.addAttribute("devToTesterHistories", devToTesterHistories);
@@ -69,7 +71,8 @@ public class UserTestDistributeController {
 	// 작업 시작(고객테스터 / 배포자 공용)
 	// => requests테이블(현재단계 최신화 + 완료예정일 기입) + status_histories테이블(단계 변경 이력 추가)
 	@PostMapping("/startwork")
-	public String startWork(StatusHistory statusHistory, Date expectDate, String mtype) {
+	public String startWork(StatusHistory statusHistory, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expectDate, String mtype) {
+		log.info(mtype);
 		userTestService.startWork(statusHistory, expectDate, mtype);
 		if(mtype.equals("userTester")) {
 			return "redirect:/usertestdetail?rno=" + statusHistory.getRno();
@@ -85,7 +88,8 @@ public class UserTestDistributeController {
 	// + status_histories_files테이블(단계 변경 이력에 첨부파일 등록)
 	@PostMapping("/endwork")
 	public String endWork(StatusHistory statusHistory, String mtype) {
-		userTestService.endWork(statusHistory);
+		log.info("실행");
+		userTestService.endWork(statusHistory, mtype);
 		if(mtype.equals("userTester")) {
 			return "redirect:/usertestdetail?rno=" + statusHistory.getRno();
 		}

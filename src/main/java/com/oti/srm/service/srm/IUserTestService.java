@@ -18,6 +18,6 @@ public interface IUserTestService {
 
 	public void startWork(StatusHistory statusHistory, Date expectDate, String mtype);
 
-	public void endWork(StatusHistory statusHistory);
+	public void endWork(StatusHistory statusHistory, String mtype);
 
 }
