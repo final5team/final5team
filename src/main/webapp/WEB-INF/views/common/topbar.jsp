@@ -3,11 +3,6 @@
 <!DOCTYPE html>
 <html>
 	<body>
-		<script type="text/javascript">
-			function checkLogout(){
-				confirm('로그아웃하니?')
-			}
-		</script>
 		
 		<nav class="navbar navbar-expand topbar mb-3 static-top" style="background-color: #d7dde4;">
 
@@ -43,7 +38,7 @@
 				<li class="nav-item dropdown no-arrow">
 					<div class="nav-link dropdown-toggle" id="userDropdown">
 						<span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-						<img class="img-profile rounded-circle" src="resources/img/hooni.png">
+						<img class="img-profile rounded-circle" src="${pageContext.request.contextPath}/resources/img/hooni.png">
 					</div>
 				</li>
 
