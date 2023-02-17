@@ -36,10 +36,18 @@
 						<div class="col-xl-9 col-lg-8 col-md-8 col-sm-8 mb-4">
 							<div class="card">
 								<div class="card-header d-flex">
-									<div class="mr-auto">처리 완료</div>									
+									<div class="mr-auto">처리 완료</div>	
+									<div class="d-flex">
+										<div class="ml-3">정규</div>
+										<div class="ml-5">중요도: 상</div>
+									</div>								
 								</div>
 								<div class="card-body">
 									<div>처리완료상세보기 ></div>
+									<div class="d-flex">
+										<div class="ml-3">정규</div>
+										<div class="ml-5">중요도: 상</div>
+									</div>	
 									<div>
 										<h3 class="mr-auto font-weight-bold">여기는 제목 자리입니다.</h3>
 									</div>
@@ -71,68 +79,129 @@
 											<i class="fas fa-cloud-download-alt"></i>
 										</a>
 									</div>
-									<hr/>
-									<div class="mt-2 ml-5">
-										
-										
-										
-												
-												<div class="row col-sm-12 form-group">
-													<div class="col">
-														<label class="control-label">개발 완료 예정일 : 2023-02-12</label>																								 										
-													</div>
-													<div class="col">
-														<label class="control-label">실제 완료일 : 2023-02-15</label>													  												
-													</div>												
+								</div>
+							</div>
+							
+							<div class="card mt-4">
+								<div class="card-header">개발 </div>
+								<div class="card-body row">
+									<div class="col-sm-3" style="text-align: center;">
+										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+										<div class="ml-3">김개발</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="ml-3">
+											<div class="row ml-1">
+												<div class="col row">
+													<label class="control-label mr-2">완료 예정일</label>
+													<input value="2023-02-12" readonly>													 										
 												</div>
-												<div class="col-sm-12 form-group">
-													<label class="control-label" >개발 의견 : 개발 결과가 이렇고</label>													
+												<div class="col">
+													<label class="control-label mr-2">실제 완료일</label>
+													<input value="2023-02-15" readonly> 													  												
+												</div>												
+											</div>
+											<div>
+												<label class="control-label" >개발 의견</label>
+												<input type="text" class="form-control ml-2" style="display: inline;" value="개발 결과가 이렇고 저렇고 개발개발새발"> 
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card mt-4">
+								<div class="card-header">테스트 </div>
+								<div class="card-body row">
+									<div class="col-sm-3" style="text-align: center;">
+										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+										<div class="ml-3">김테스</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="ml-3">
+											<div class="row ml-1">
+												<div class="col row">
+													<label class="control-label mr-2">완료 예정일</label>
+													<input value="2023-02-12" readonly>													 										
 												</div>
-												
-												<div class="row col-sm-12 form-group">
-													<div class="col row">
-														<label class="control-label">테스트 완료 예정일</label>
-														<input name="process" value="2023-02-12" readonly>													 										
-													</div>
-													<div class="col">
-														<label class="control-label">실제 완료일</label>
-														<input name="importance" value="2023-02-15" readonly> 													  												
-													</div>												
+												<div class="col">
+													<label class="control-label mr-2">실제 완료일</label>
+													<input value="2023-02-15" readonly> 													  												
+												</div>												
+											</div>
+											<div>
+												<label class="control-label" >테스트 의견</label>
+												<input type="text" class="form-control ml-2" style="display: inline;" value="테스트결과가 이렇고 저렇고 테스테세텥레"> 
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card mt-4">
+								<div class="card-header">유저테스트 </div>
+								<div class="card-body row">
+									<div class="col-sm-3" style="text-align: center;">
+										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+										<div class="ml-3">테스형</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="ml-3">
+											<div class="row">
+												<div class="col row">
+													<label class="control-label mr-2">완료 예정일</label>
+													<input value="2023-02-12" readonly>													 										
 												</div>
-												<div class="col-sm-12 form-group">
-													<label class="control-label" >테스트 의견</label>
-													<input type="text" class="form-control ml-2" style="display: inline;" value="개발 결과가 이렇고"> 
+												<div class="col">
+													<label class="control-label mr-2">실제 완료일</label>
+													<input value="2023-02-15" readonly> 													  												
+												</div>												
+											</div>											
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card mt-4">
+								<div class="card-header">배포 </div>
+								<div class="card-body row">
+									<div class="col-sm-3" style="text-align: center;">
+										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+										<div class="ml-3">김배포</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="ml-3">
+											<div class="row">
+												<div class="col row">
+													<label class="control-label mr-2">완료 예정일</label>
+													<input value="2023-02-12" readonly>													 										
 												</div>
-												
-												<div class="row col-sm-12 form-group">
-													<div class="col">
-														<label class="control-label">배포 완료 예정일</label>
-														<input name="process" value="2023-02-12" readonly>													 										
-													</div>
-													<div class="col">
-														<label class="control-label">실제 완료일</label>
-														<input name="importance" value="2023-02-15" readonly> 													  												
-													</div>												
+												<div class="col">
+													<label class="control-label mr-2">실제 완료일</label>
+													<input value="2023-02-15" readonly> 													  												
+												</div>												
+											</div>											
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card mt-4">
+								<div class="card-header">서비스 완료</div>
+								<div class="card-body row">
+									<div class="col-sm-3" style="text-align: center;">
+										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+										<div class="ml-3">PM</div>
+									</div>
+									<div class="col-sm-9">
+										<div class="ml-3">
+											<div class="row">
+												<div class="col row">
+													<label class="control-label mr-2">완료 예정일</label>
+													<input value="2023-02-12" readonly>													 										
 												</div>
-												<div class="col-sm-12 form-group">
-													<label class="control-label" >배포 의견</label>
-													<input type="text" class="form-control ml-2" style="display: inline;" value="개발 결과가 이렇고"> 
-												</div>
-												<div class="row col-sm-12 form-group">
-													<div class="col">
-														<label class="control-label">서비스 완료 예정일</label>
-														<input name="process" value="2023-02-12" readonly>													 										
-													</div>
-													<div class="col">
-														<label class="control-label">최종 완료일</label>
-														<input name="importance" value="2023-02-15" readonly> 													  												
-													</div>												
-												</div>
-												
-									
-										
-									
-									
+												<div class="col">
+													<label class="control-label mr-2">최종 완료일</label>
+													<input value="2023-02-15" readonly> 													  												
+												</div>												
+											</div>											
+										</div>
 									</div>
 								</div>
 							</div>

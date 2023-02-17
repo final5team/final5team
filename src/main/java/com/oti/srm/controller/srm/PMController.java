@@ -31,5 +31,8 @@ public class PMController {
 	public String end(HttpSession session, Model model) {
 		
 		return "pm/end";
-	}
+	}	
+	
+	//화면에서 입력한 날짜 컨트롤러의 Date 매개변수에 넣을려면 
+	//@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expectDate
 }
