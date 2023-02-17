@@ -51,7 +51,7 @@ public class RequestController {
 	
 	@GetMapping("/request")
 	public String customerRequest() {
-		return "request/request";
+		return "srm/request";
 	}
 		
 	
@@ -85,7 +85,7 @@ public class RequestController {
 		
 		log.info(model.toString());
 		
-		return "request/requestlist";
+		return "srm/requestlist";
 	}
 	
 	
