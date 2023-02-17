@@ -232,7 +232,7 @@
     
 	<!-- date 입력받는 모달창 start -->
 	 <div class="modal fade" id="datemodal" role="dialog" aria-labelledby="developDueDate" aria-hidden="true" >
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="developDueDate">개발 완료 예정일 입력</h5>
@@ -254,13 +254,11 @@
 		
 	<!-- 경고 모달창 -->
 	<div class="modal fade" id="alartDateTooMuch" aria-hidden="true" aria-labelledby="alartOfTimeTooMuch">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5>
-						<i class="fa-solid fa-triangle-exclamation"></i>
-						경고
-					</h5>
+					<i class="fa-solid fa-message-exclamation"></i>
+					<h5>경고</h5>
 					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 				</div>
 				<div class="modal-body">
@@ -268,15 +266,31 @@
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <a class="btn btn-primary" onclick="getcofirm()" type="button">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 경고 모달창 -->
+	<!-- 데이트 입력 확인 -->
+	<div class="modal fade" id="completeDueDate" aria-hidden="true" aria-labelledby="successOfDueDate">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>확인</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+				</div>
+				<div class="modal-body" style="display: flex; justify-content: center;">
+					<p>입력되었습니다.</p>
+				</div>
+				<div class="modal-footer" style="justify-content: center;">
                     <a class="btn btn-primary" data-dismiss="modal" type="button">확인</a>
 				</div>
 			</div>
 		</div>
 	</div>
-		
-
-	<!-- 경고 모달창 -->
 	<script>
+	<!-- 데이트 입력 확인 /-->
 	function getDatemodal(){
 		$('#datemodal').modal('show');
 		
@@ -284,6 +298,10 @@
 	function closedatemodal(){
 		$('#datemodal').modal('hide');
 		$('#alartDateTooMuch').modal('show');
+	}
+	function getcofirm(){
+		$('#alartDateTooMuch').modal('hide');
+		$('#completeDueDate').modal('show');
 	}
 	</script>
 </body>
