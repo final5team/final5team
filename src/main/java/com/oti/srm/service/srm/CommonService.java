@@ -14,7 +14,7 @@ import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.StatusHistory;
 
 @Service
-public class UserTestService implements IUserTestService {
+public class CommonService implements ICommonService {
 	@Autowired
 	ICommonDao commonDao;
 
