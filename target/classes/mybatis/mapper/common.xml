@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oti.srm.dao.srm.ICommonDao">
+	<select id="getRequestHistories" parameterType="int" resultType="com.oti.srm.dto.StatusHistory">
+		select
+	    	hno as "hno",
+	        change_date as "changeDate",
+	        sh.rno as "rno",
+	        next_status as "nextStatus",
+	        status_name as "statusName",
+	        reply as "reply",
+	        dist_source as "distSource"
+		from status_histories sh, status s
+		where sh.next_status = s.status_no 
+		and sh.rno = #{rno}
+		order by change_date desc
+	</select>
+	
+	<select id="getStatusHistoryFiles" parameterType="int" resultType="com.oti.srm.dto.StatusHistoryFile">
+		select
+	    	fno as "fno",
+	    	saved_date as "savedDate",
+	    	file_name as "fileName",
+	    	file_type as "fileType",
+	    	file_data as "fileData",
+	    	hno as "hno"
+		from status_histories_files
+		where hno = #{hno}
+	</select>
+	
+	<select id="getRequest" parameterType="int" resultType="com.oti.srm.dto.Request">
+		select
+	    	rno as "rno",
+	    	req_date as "reqDate",
+	    	req_title as "reqTitle",
+	    	req_content as "reqContent",
+	    	client as "client",
+	    	mname as "clientName",
+	    	r.sno as "sno",
+	    	system_name as "systemName",
+	    	req_expect_date as "reqExpectDate",
+	    	r.status_no as "statusNo",
+	    	status_name as "statusName"
+		from requests r, status s, systems sy, members m
+		where s.status_no = r.status_no 
+		and r.sno = sy.sno
+		and r.client = m.mid
+		and rno = #{rno}
+	</select>
+	
+	<select id="getRequestProcess" parameterType="int" resultType="com.oti.srm.dto.RequestProcess">
+		select
+	    	rno as "rno",
+	    	req_type as "reqType",
+	    	priority as "priority",
+	    	dev_expect_date as "devExpectDate",
+	    	test_expect_date as "testExpectDate",
+	    	dist_expect_date as "distExpectDate",
+	    	all_expect_date as "allExpectDate",
+	    	usertest_expect_date as "userTestExpectDate",
+	    	dev_comp_date as "devCompDate",
+	    	test_comp_date as "testCompDate",
+	    	dist_comp_date as "distCompDate",
+	    	all_comp_date as "allCompDate",
+	    	usertest_comp_date as "userTestCompDate",
+	    	pm as "pm",
+	    	developer as "developer",
+	    	tester as "tester",
+	    	distributor as "distributor",
+	    	user_tester as "userTester"
+		from request_process
+		where rno = #{rno}
+	</select>
+	
+	<select id="getRequestFiles" parameterType="int" resultType="com.oti.srm.dto.StatusHistoryFile">
+		select 
+			fno as "fno",
+			saved_date as "savedDate",
+			file_name as "fileName",
+			file_type as "fileType",
+			file_data as "fileData",
+			sh.hno as "hno"
+		from status_histories sh, status_histories_files shf 
+		where sh.hno = shf.hno
+		and sh.rno = #{rno}
+		and sh.next_status = 1
+	</select>
+	
+	<update id="updateExpectDate" parameterType="map">
+		update request_process 
+		<set>
+			<if test="mtype = 'developer'">
+				dev_expect_date = #{expectDate}
+			</if>
+			<if test="mtype = 'tester'">
+				test_expect_date = #{expectDate}
+			</if>
+			<if test="mtype = 'userTester'">
+				usertest_expect_date = #{expectDate}
+			</if>
+			<if test="mtype = 'distributor'">
+				dist_expect_date = #{expectDate}
+			</if>
+		</set> 
+		where rno = #{rno} 
+	</update>
+	
+	<insert id="insertStatusHistory" parameterType="com.oti.srm.dto.StatusHistory">
+		insert into status_histories
+		values
+		(seq_status_histories.nextval, sysdate, #{rno}, #{reply}, #{statusNo}, #{distSource})
+	</insert>
+	
+	<update id="updateRequestStatus" parameterType="map">
+		update requests
+		set
+			status_no = #{statusNo}
+		where rno = #{rno}
+	</update>
+	
+	<insert id="insertStatusHistoryFile" parameterType="com.oti.srm.dto.StatusHistoryFile">
+		insert into status_histories_files
+		values
+		(seq_status_histories_files.nextval, sysdate, #{fileName}, #{fileData}, #{hno})
+	</insert>
+</mapper>
