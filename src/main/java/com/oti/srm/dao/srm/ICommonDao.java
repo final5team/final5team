@@ -26,11 +26,10 @@ public interface ICommonDao {
 	// 요청처리정보(request_process 테이블) 조회
 	public RequestProcess getRequestProcess(int rno);
 	
-	// -------------------미구현 DAO--------------------------
-	// 개발/테스트/유저테스트/배포/전체 완료 예정일 입력
-	// expectDate = 입력한 예정일, type = 개발/테스트/유저테스트/배포/전체 중 어떤 예정일인지
+	// 완료 예정일 기입
     public int updateExpectDate(@Param("rno") int rno, @Param("expectDate") Date expectDate, @Param("mtype") String mtype);
     
+    // 완료일 기입
     public int updateCompDate(@Param("rno") int rno, @Param("mtype") String mtype);
     
 	// 단계 변경 이력 추가(status_histories 테이블)

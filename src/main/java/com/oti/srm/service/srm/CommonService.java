@@ -18,10 +18,15 @@ public class CommonService implements ICommonService {
 	@Autowired
 	ICommonDao commonDao;
 
+	 /*
+	   <이 메소드는 본인 맡은 업무에 맞게 서비스 메소드 따로 만들어야 함>
+	   1. commonDao.getRequestHistories(rno) 통해 모든 단계 변경 이력을 긁어온 다음
+	   2. 본인이 조회해야할 단계 변경 이력만 필터링 
+	 */
+	// 개발완료 시 단계 변경 이력 가져오기
 	@Override
 	@Transactional
 	public List<StatusHistory> getDevToTesterHistories(int rno) {
-		// 요청에 딸린 전체 단계 이력 가져오기
 		List<StatusHistory> requestHistories = commonDao.getRequestHistories(rno);
 
 		List<StatusHistory> devToTesterHistories = new ArrayList<StatusHistory>();
@@ -36,7 +41,8 @@ public class CommonService implements ICommonService {
 
 		return devToTesterHistories;
 	}
-
+	
+	// 요청정보 조회(+해당 요청에 첨부된 파일들까지)
 	@Override
 	@Transactional
 	public Request getRequest(int rno) {
@@ -45,6 +51,7 @@ public class CommonService implements ICommonService {
 		return request;
 	}
 
+	// 요청 처리 정보 조회
 	@Override
 	public RequestProcess getRequestProcess(int rno) {
 		RequestProcess requestProcess = commonDao.getRequestProcess(rno);
@@ -52,7 +59,11 @@ public class CommonService implements ICommonService {
 	}
 
 	// 작업 시작
-	// => requests테이블(현재단계 최신화 + 완료예정일 기입) + status_histories테이블(단계 변경 이력 추가)
+	/* 
+	   1. requests 테이블 => 현재 단계 갱신
+	   2. request_process 테이블 => 완료 예정일(expect_date) 기입  
+	   3. status_histories 테이블 => 단계 변경 이력 추가
+	*/
 	@Override
 	@Transactional
 	public void startWork(StatusHistory statusHistory, Date expectDate, String mtype) {
@@ -61,9 +72,13 @@ public class CommonService implements ICommonService {
 		commonDao.insertStatusHistory(statusHistory);
 	}
 
-	// 작업 완료/재검토
-	// => requests테이블(현재단계 최신화) + status_histories테이블(단계 변경 이력 추가) 
-	// * 파일이 있다면 status_histories_files테이블(단계 변경 이력에 첨부파일 등록)
+	
+	// 작업 완료 or 재검토
+	/* 
+	   1. requests 테이블 => 현재 단계 갱신
+	   2. request_process 테이블 => 완료일(comp_date) 기입  
+	   3. status_histories 테이블 => 단계 변경 이력 추가
+	*/
 	@Override
 	@Transactional
 	public void endWork(StatusHistory statusHistory, String mtype) {
