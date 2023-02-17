@@ -52,12 +52,6 @@
 		.bar.active {
 		  	border-color: var(--line-fill);
 		}
-		.reply-from-work{
-			 border: 2px solid #d7dde4;
- 			 border-radius: 8px;
-	    	width: 870px;
-			margin: 20px 17px;
-		}
 		
     </style>
 </head>
@@ -139,7 +133,7 @@
 							</div>
 							<div class="card mt-4">
 								<div class="card-header">개발 내용</div>
-								<div class="card-body row reply-from-work">
+								<div class="card-body row border border-success ml-4 mr-4 mt-3 mb-3">
 									<div class="col-sm-2 d-flex align-items-center" style="text-align: center;">
 										<div>
 											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
@@ -162,7 +156,7 @@
 										</a>
 									</div>
 								</div>
-								<div class="card-body row reply-from-work">
+								<div class="card-body row border border-success ml-4 mr-4 mt-3 mb-3">
 									<div class="col-sm-2 d-flex align-items-center" style="text-align: center;">
 										<div>
 											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
@@ -185,26 +179,28 @@
 										</a>
 									</div>
 								</div>
+								
 							</div>
 
 							<div class="card mt-4">
 								<div class="card-header">결함 내용</div>
-								<div class="card-body row reply-from-work">
+								<div class="card-body row border border-success ml-4 mr-4 mt-3 mb-3">
 									<div class="col-sm-2 d-flex align-items-center" style="text-align: center;">
 										<div>
-											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="60%">
+											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
 											<div class="ml-3">박말자</div>
 										
 										</div>
 									</div>
 									<div class="col-sm-10">
 										<div class="d-flex justify-content-end mr-5">
-											<div>1차 테스트</div>
+											<div>1차 결함</div>
 											<div class="ml-auto">2023-02-10</div>
 										</div>
 										<div>
-											결함내용: 테스터가 1차때 작성했었던 내용 보입니다.
+											결함 내용: 테스터가 n차때 작성했었던 내용 보입니다.
 										</div>
+										<div>배포소스:familydocument.java</div>
 										<span>첨부파일: 파일이름</span>
 										<a href="#" role="button">
 											<i class="fas fa-cloud-download-alt"></i>
