@@ -37,8 +37,6 @@ public class RequestController {
 	public String register(Member member, Model model) {
 		log.info("등록 실행");
 		log.info("member : " + member.toString());
-		
-		
 		int result = userRegisterService.register(member);
 		
 		if (result == IUserRegisterService.REGISTER_FAIL) {
@@ -47,9 +45,7 @@ public class RequestController {
 			model.addAttribute("registerResult", "FAIL");
 			return "redirect:/login";
 		}
-		
-		
-//		return "redirect:/login";
+
 	}
 	
 	
@@ -63,17 +59,20 @@ public class RequestController {
 	public String customerRequest(Request request, Model model) {
 		request.setStatusNo(1);
 		
-		request.setSystemName("가족관계시스템");
-		request.setClient("thddudgns79");
+
+		log.info(model.toString());
 		
-		int result = requestService.request(request);
-		if(result == IRequestRegisterService.REQUEST_SUCCESS) {
-			return "redirect:/login";
-		} else {
-			model.addAttribute("requestResult", "FAIL");
-			return "redirect:/customer/request";
-		}
 		
+//		
+//		int result = requestService.request(request);
+//		if(result == IRequestRegisterService.REQUEST_SUCCESS) {
+//			return "redirect:/login";
+//		} else {
+//			model.addAttribute("requestResult", "FAIL");
+//			return "redirect:/customer/request";
+//		}
+//		
+		return "redirect:/login";
 	}
 	
 	
