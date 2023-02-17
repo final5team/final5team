@@ -101,7 +101,9 @@
 				    		</div>
 				    	</div>
 				  	</div>
-				  	<a href="" class="btn btn-sm btn-primary">공지사항 목록</a>
+				  	<a href="${pageContext.request.contextPath}/noticelist" class="btn btn-sm btn-primary">목록</a>
+				  	<a href="${pageContext.request.contextPath}/noticeupdateform" class="btn btn-sm btn-primary">수정</a>
+				  	<a href="#" class="btn btn-sm btn-primary">삭제</a>
                 </div>
                 
                 <!-- 여기에 내용 담기 end -->

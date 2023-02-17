@@ -69,7 +69,7 @@
 		</li>
 
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/notification">
+			<a class="nav-link" href="${pageContext.request.contextPath}/noticelist">
 				<i class="fas fa-fw fa-chart-area"></i>
 				<span>공지사항</span></a>
 		</li>
