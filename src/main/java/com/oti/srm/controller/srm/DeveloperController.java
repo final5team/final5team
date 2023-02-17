@@ -15,6 +15,6 @@ public class DeveloperController {
 	public String developerDetail() {
 		log.info("실행");
 		
-		return "mywork/developerdetail";
+		return "srm/developerdetail";
 	}
 }

@@ -13,6 +13,6 @@ public class TesterController {
 	public String developerDetail() {
 		log.info("실행");
 		
-		return "mywork/testerdetail";
+		return "srm/testerdetail";
 	}
 }
