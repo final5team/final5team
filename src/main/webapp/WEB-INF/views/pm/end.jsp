@@ -197,7 +197,11 @@
 													<label class="control-label mr-2">최종 완료일</label>
 													<input value="2023-02-15" readonly> 													  												
 												</div>												
-											</div>											
+											</div>	
+											<div>
+												<label class="control-label" >완료 의견</label>
+												<input type="text" class="form-control ml-2" style="display: inline;" value="기한 내 서비스 요청 완료"> 
+											</div>										
 										</div>
 									</div>
 								</div>
