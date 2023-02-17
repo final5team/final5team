@@ -44,7 +44,12 @@
 						<div class="col-xl-9 col-lg-8 col-md-8 col-sm-8 mb-4">
 							<div class="card">
 								<div class="card-header d-flex">
-									<div class="mr-auto">배포 완료</div>									
+									<div class="mr-auto">배포 완료</div>	
+									<div class="d-flex">
+										<div class="ml-3">유형: 정규</div>
+										<div class="ml-3">|</div>
+										<div class="ml-3">중요도: 상</div>
+									</div>									
 								</div>
 								<div class="card-body">
 									<div>배포완료상세보기 ></div>
