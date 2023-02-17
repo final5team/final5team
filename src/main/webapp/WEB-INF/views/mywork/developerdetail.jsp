@@ -52,6 +52,13 @@
 		.bar.active {
 		  	border-color: var(--line-fill);
 		}
+		.reply-from-work{
+			 border: 2px solid #d7dde4;
+ 			 border-radius: 8px;
+	    	width: 870px;
+			margin: 20px 17px;
+		}
+		
     </style>
 </head>
 
@@ -87,12 +94,10 @@
 							<div class="card">
 								<div class="card-header d-flex">
 									<div class="mr-auto">개발상세보기 ></div>
+									<div class="ml-3">정규</div>
+									<div class="ml-5 mr-4">중요도: 상</div>
 								</div>
 								<div class="card-body">
-									<div class="d-flex">
-										<div class="ml-3">정규</div>
-										<div class="ml-5">중요도: 상</div>
-									</div>
 									<div>
 										<h3 class="mr-auto font-weight-bold">여기는 제목 자리입니다.</h3>
 									</div>
@@ -126,36 +131,84 @@
 									</div>
 								</div>
 							</div>
-							
 							<div>
 								<div class="d-flex justify-content-end">
 									 <button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">테스트시작</button>
 								<!-- <button class="btn btn-gradient-success btn-gradient btn-lg mt-3">개발 완료</button> -->
 								</div>
 							</div>
-							
 							<div class="card mt-4">
-								<div class="card-header">3차 개발 내용</div>
-								<div class="card-body row">
-									<div class="col-sm-3" style="text-align: center;">
-										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
-										<div class="ml-3">김레지나</div>
+								<div class="card-header">개발 내용</div>
+								<div class="card-body row reply-from-work">
+									<div class="col-sm-2 d-flex align-items-center" style="text-align: center;">
+										<div>
+											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
+											<div class="ml-3">김레지나</div>
+										
+										</div>
 									</div>
-									<div class="col-sm-9">
-										<div class="ml-3">개발자가 3차때 작성했었던 내용 보입니다.</div>
+									<div class="col-sm-10">
+										<div class="d-flex justify-content-end mr-5">
+											<div>1차 개발</div>
+											<div class="ml-auto">2023-02-10</div>
+										</div>
+										<div>
+											개발내용: 개발자가 n차때 작성했었던 내용 보입니다.
+										</div>
+										<div>배포소스:familydocument.java</div>
+										<span>첨부파일: 파일이름</span>
+										<a href="#" role="button">
+											<i class="fas fa-cloud-download-alt"></i>
+										</a>
+									</div>
+								</div>
+								<div class="card-body row reply-from-work">
+									<div class="col-sm-2 d-flex align-items-center" style="text-align: center;">
+										<div>
+											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
+											<div class="ml-3">김레지나</div>
+										
+										</div>
+									</div>
+									<div class="col-sm-10">
+										<div class="d-flex justify-content-end mr-5">
+											<div>2차 개발</div>
+											<div class="ml-auto">2023-02-10</div>
+										</div>
+										<div>
+											개발내용: 개발자가 n차때 작성했었던 내용 보입니다.
+										</div>
+										<div>배포소스:familydocument.java</div>
+										<span>첨부파일: 파일이름</span>
+										<a href="#" role="button">
+											<i class="fas fa-cloud-download-alt"></i>
+										</a>
 									</div>
 								</div>
 							</div>
 
 							<div class="card mt-4">
-								<div class="card-header">3차 결함 내용</div>
-								<div class="card-body row">
-									<div class="col-sm-3" style="text-align: center;">
-										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
-										<div class="ml-3">박말자</div>
+								<div class="card-header">결함 내용</div>
+								<div class="card-body row reply-from-work">
+									<div class="col-sm-2 d-flex align-items-center" style="text-align: center;">
+										<div>
+											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="60%">
+											<div class="ml-3">박말자</div>
+										
+										</div>
 									</div>
-									<div class="col-sm-9">
-										<div class="ml-3">테스터가 3차때 작성했었던 내용 보입니다.</div>
+									<div class="col-sm-10">
+										<div class="d-flex justify-content-end mr-5">
+											<div>1차 테스트</div>
+											<div class="ml-auto">2023-02-10</div>
+										</div>
+										<div>
+											결함내용: 테스터가 1차때 작성했었던 내용 보입니다.
+										</div>
+										<span>첨부파일: 파일이름</span>
+										<a href="#" role="button">
+											<i class="fas fa-cloud-download-alt"></i>
+										</a>
 									</div>
 								</div>
 							</div>
@@ -163,9 +216,11 @@
 							<div class="card mt-4 mb-5">
 								<div class="card-header">작성하기</div>
 								<div class="card-body row">
-									<div class="col-sm-3" style="text-align:center;">
-										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
-										<div class="ml-3">나</div>
+									<div class="col-sm-3 d-flex align-items-center" style="text-align:center;">
+										<div>
+											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="70%">
+											<div class="mt-3">나</div>
+										</div>
 									</div>
 									<div class="col-sm-9">
 										<form role="form">
@@ -255,12 +310,13 @@
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<i class="fa-solid fa-message-exclamation"></i>
+					<i class="fa fa-exclamation-circle mr-2" aria-hidden="true" style="font-size: 25px; color: red;"></i>
 					<h5>경고</h5>
 					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<p>입력 시간이 완료 예정일 대비 50% 이상 차지합니다. 확인을 누르시면 수정이 불가능합니다.</p>
+					<p>입력하시겠습니까?. 확인을 누르시면 수정이 불가능합니다.</p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
