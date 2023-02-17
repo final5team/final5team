@@ -1,11 +1,10 @@
-package com.oti.srm.service.impl;
+package com.oti.srm.service.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.oti.srm.dao.IUserRegisterDao;
+import com.oti.srm.dao.member.IUserRegisterDao;
 import com.oti.srm.dto.Member;
-import com.oti.srm.service.IUserRegisterService;
 
 import lombok.extern.log4j.Log4j2;
 
