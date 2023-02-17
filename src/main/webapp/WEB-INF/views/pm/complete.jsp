@@ -44,7 +44,12 @@
 						<div class="col-xl-9 col-lg-8 col-md-8 col-sm-8 mb-4">
 							<div class="card">
 								<div class="card-header d-flex">
-									<div class="mr-auto">배포 완료</div>									
+									<div class="mr-auto">배포 완료</div>	
+									<div class="d-flex">
+										<div class="ml-3">유형: 정규</div>
+										<div class="ml-3">|</div>
+										<div class="ml-3">중요도: 상</div>
+									</div>									
 								</div>
 								<div class="card-body">
 									<div>배포완료상세보기 ></div>
@@ -78,9 +83,30 @@
 										<a href="#" role="button">
 											<i class="fas fa-cloud-download-alt"></i>
 										</a>
+									</div>									
+								</div>
+							</div>
+							<div class="card mt-4">
+								<div class="card-header">배포 </div>
+								<div class="card-body row">
+									<div class="col-sm-3" style="text-align: center;">
+										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+										<div class="ml-3">김배포</div>
 									</div>
-									<hr/>
-									<div class="mt-2 ml-5">대상 소스 어쩌구</div>
+									<div class="col-sm-9">
+										<div class="ml-3">
+											<div class="row">
+												<div class="col">
+													<label class="control-label mr-2">완료 예정일</label>
+													<input value="2023-02-12" readonly>													 										
+												</div>
+												<div class="col">
+													<label class="control-label mr-2">실제 완료일</label>
+													<input value="2023-02-15" readonly> 													  												
+												</div>												
+											</div>											
+										</div>
+									</div>
 								</div>
 							</div>
 							<form>

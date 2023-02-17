@@ -6,117 +6,7 @@
 
 <head>
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
-<style>
-	body {
-		font-size: 15px;
-	}
-	
-	.table {
-		text-align: start;
-		border: none;
-	}
-	
-	.table tr, td {
-		display: inline-block;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		text-align: center;
-		border: none;
-	}
-	
-	.table td.rno {
-		width: 50px;
-		border: none;
-	}
-	
-	.table td.client {
-		width: 100px;
-		border: none;
-	}
-	
-	.table tr td.sysType {
-		width: 100px;
-		border: none;
-	}
-	
-	.table tr td.reqTitle {
-		width: 500px;
-		border: none;
-	}
-	
-	.table tr td.reqDate {
-		width: 100px;
-		border: none;
-	}
-	
-	.table tr td.stepButton {
-		width: 120px;
-		border: none;
-	}
-	
-	#table_name {
-		background-color: #1cc88a;
-		color: white;
-		border: none;
-	}
-	
-	.collapse .card .row .col-2 {
-		text-align: center;
-		align-items: center;
-	}
-	
-	.collapse .card .row button {
-		border-radius: 10px;
-	}
-	
-	
-	[name="status"], #status_one {
-		width: 150px;
-	}
-	
-	[name="status"], #status_two {
-		width: 150px;
-	}
-	
-	[name="status"], #status_three {
-		width: 150px;
-	}
-	
-	[name="status"], #status_four {
-		width: 150px;
-	}
-	
-	[name="status"], #status_five {
-		width: 150px;
-	}
-	
-	[name="status"], #status_six {
-		width: 150px;
-	}
-	:root {
-		 	--line-fill: #3498db;
-		  	--line-empty: #e0e0e0;
-		  	--now-fill: #1cc88a;
-	}
-    .done{
-        background-color: var(--line-fill);
-    }
-	.now{
-       	border-color: var(--now-fill);
-       	background-color: var(--now-fill);
-       	color: white;
-    }
-	.active{
-       	border-color: var(--now-fill);
-    }
-    .card-header{
-    	margin-left : 20px;
-    	align-items: center;
-    }
-
-	
-</style>
+<link href="${pageContext.request.contextPath}/resources/css/requestlist.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -145,16 +35,67 @@
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">필터</h6>
 						</div>
-						<hr>
-						<div class="card-body">
-							<div class="row"></div>
+						<div class="filter card-body">
+							<div class="col">
+								<div class="row">
+									<div class="filterlabel">유형 선택</div>
+									<div class="col-sm-6">
+										<div class="input-group mb-3">
+											<select class="custom-select" id="req_type" name="req_type">
+												<option value="1" selected>1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+											</select>
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="filterlabel">날짜 선택</div>
+									<div class="col-sm-6">
+										<div class="row">
+											<input type="date" class="filter form-control form-control-user" id="birth" name="birth"> <i class="fa fa-minus"></i> <input type="date" class="filter form-control form-control-user" id="birth" name="birth">
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="filterlabel">시스템 선택</div>
+									<div class="col-sm-6">
+										<div class="input-group mb-3">
+											<select class="custom-select" id="sno" name="sno">
+												<option value="1" selected>1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="filterlabel">단계 선택</div>
+									<div class="col-sm-6">
+										<div class="input-group mb-3">
+											<select class="custom-select" id="sno" name="sno">
+												<option value="1" selected>1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+											</select>
+										</div>
+									</div>
+									<button class="btn btn-sm btn-primary">검색</button>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">내 담당 요청 관리</h6>
 						</div>
-						<hr>
 						<div class="card-body">
 							<div class="row">
 								<div class="col-sm">
@@ -200,50 +141,50 @@
 															<c:if test="${request.statusNo >= 2}">접수완료</c:if>
 														</button>
 													</div>
-													
+
 													<div class="col-2">
 														<button name="status" id="status_two" class="btn-md <c:if test="${request.statusNo >= 5}">done</c:if>
 									           	 			<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">now</c:if>">
-									           	 			<c:if test="${request.statusNo < 2}">개발단계</c:if>
-					       	    						     <c:if test="${request.statusNo == 2}">개발요청</c:if>
-												           	 <c:if test="${request.statusNo == 3}">개발중</c:if>
-												           	 <c:if test="${request.statusNo == 4}">개발재검토</c:if>
-												           	 <c:if test="${request.statusNo >= 5}">개발완료</c:if>
+															<c:if test="${request.statusNo < 2}">개발단계</c:if>
+															<c:if test="${request.statusNo == 2}">개발요청</c:if>
+															<c:if test="${request.statusNo == 3}">개발중</c:if>
+															<c:if test="${request.statusNo == 4}">개발재검토</c:if>
+															<c:if test="${request.statusNo >= 5}">개발완료</c:if>
 														</button>
 													</div>
 													<div class="col-2">
 														<button name="status" id="status_three" class="btn-md <c:if test="${request.statusNo >= 7}">done</c:if>
 									           	 			<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">now</c:if>">
 															<c:if test="${request.statusNo < 5}">테스트단계</c:if>
-												           	 <c:if test="${request.statusNo == 5}">테스트요청</c:if>
-												           	 <c:if test="${request.statusNo == 6}">테스트중</c:if>
-												           	 <c:if test="${request.statusNo >= 7}">테스트완료</c:if>
+															<c:if test="${request.statusNo == 5}">테스트요청</c:if>
+															<c:if test="${request.statusNo == 6}">테스트중</c:if>
+															<c:if test="${request.statusNo >= 7}">테스트완료</c:if>
 														</button>
 													</div>
 													<div class="col-2">
 														<button name="status" id="status_four" class="btn-md <c:if test="${request.statusNo >= 9}">done</c:if>
 									           	 			<c:if test="${request.statusNo >= 7 && request.statusNo <= 8}">now</c:if>">
-									           	 			<c:if test="${request.statusNo < 7}">유저테스트단계</c:if>
-												           	 <c:if test="${request.statusNo == 7}">유저테스트요청</c:if>
-												           	 <c:if test="${request.statusNo == 8}">유저테스트중</c:if>
-												           	 <c:if test="${request.statusNo >= 9}">유저테스트완료</c:if>
+															<c:if test="${request.statusNo < 7}">유저테스트단계</c:if>
+															<c:if test="${request.statusNo == 7}">유저테스트요청</c:if>
+															<c:if test="${request.statusNo == 8}">유저테스트중</c:if>
+															<c:if test="${request.statusNo >= 9}">유저테스트완료</c:if>
 														</button>
 													</div>
 													<div class="col-2">
 														<button name="status" id="status_five" class="btn-md <c:if test="${request.statusNo >= 11}">done</c:if>
 									           	 			<c:if test="${request.statusNo >= 9 && request.statusNo <= 10}">now</c:if>">
-									           	 			<c:if test="${request.statusNo < 9}">배포단계</c:if>
-												           	 <c:if test="${request.statusNo == 9}">배포요청</c:if>
-												           	 <c:if test="${request.statusNo == 10}">배포중</c:if>
-												           	 <c:if test="${request.statusNo >= 11}">배포완료</c:if>
+															<c:if test="${request.statusNo < 9}">배포단계</c:if>
+															<c:if test="${request.statusNo == 9}">배포요청</c:if>
+															<c:if test="${request.statusNo == 10}">배포중</c:if>
+															<c:if test="${request.statusNo >= 11}">배포완료</c:if>
 														</button>
 													</div>
 													<div class="col-2">
 														<button name="status" id="status_six" class="btn-md <c:if test="${request.statusNo >= 13}">done</c:if>
 									           	 			<c:if test="${request.statusNo == 11}">now</c:if>">
-									           	 			<c:if test="${request.statusNo < 11}">최종승인단계</c:if>
-												           	 <c:if test="${request.statusNo == 11}">최종승인요청</c:if>
-												           	 <c:if test="${request.statusNo == 13}">완료</c:if>
+															<c:if test="${request.statusNo < 11}">최종승인단계</c:if>
+															<c:if test="${request.statusNo == 11}">최종승인요청</c:if>
+															<c:if test="${request.statusNo == 13}">완료</c:if>
 														</button>
 													</div>
 												</div>
@@ -256,6 +197,38 @@
 						</div>
 					</div>
 				</div>
+				<div class="pager d-flex justify-content-center my-3">
+					<div class="flex-fulfill"></div>
+					<div class="pagingButtonSet d-flex justify-content-center">
+						<c:if test="${pager.pageNo > 1}">
+							<a href="1" type="button" class="btn btn-muted shadow">◀◀</a>
+						</c:if>
+
+						<c:if test="${pager.groupNo > 1}">
+							<a href="${pager.startPageNo-1}" type="button" class="btn btn-muted shadow">◀</a>
+						</c:if>
+
+						<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
+							<c:if test="${pager.pageNo != i}">
+								<a href="${i}" type="button" class="btn btn-white shadow">${i}</a>
+							</c:if>
+							<c:if test="${pager.pageNo == i}">
+								<a href="${i}" type="button" class="btn btn-dark shadow">${i}</a>
+							</c:if>
+						</c:forEach>
+
+						<c:if test="${pager.groupNo < pager.totalGroupNo }">
+							<a href="${pager.endPageNo+1}" type="button" class="btn btn-muted shadow">▶</a>
+
+						</c:if>
+						<c:if test="${pager.pageNo < pager.totalPageNo}">
+							<a href="${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
+						</c:if>
+					</div>
+					<div class="flex-fulfill"></div>
+					<a type="button" href="<c:url value='/community/write/1'/>" class="btn btn-muted shadow">글 작성</a>
+				</div>
+
 			</div>
 		</div>
 		<!-- 여기에 내용 담기 end -->

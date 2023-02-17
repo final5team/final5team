@@ -134,42 +134,43 @@
 									</div>
 								</div>
 							</div>
-						
+							
+							<div>
+								<!-- 유저테스트 요청 상태(7) -->
+								<c:if test="${request.statusNo == 7}">
+									<div class="d-flex justify-content-end">
+										 <button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">유저테스트 시작</button>
+									</div>
+								</c:if>
+								<!-- 유저테스트 중 상태(8) -->
+								<c:if test="${request.statusNo == 8}">
+									<div class="d-flex justify-content-end">
+										<form action="${pageContext.request.contextPath}/endwork" method="post" class="mt-3">
+											<input type="hidden" name="rno" value="${request.rno}"/>
+											<input type="hidden" name="mtype" value="${userInfo.mtype}"/>
+											<input type="hidden" name="nextStatus" value="9"/>
+											<button class="btn btn-gradient-success btn-gradient btn-lg mt-3">유저테스트 완료</button>
+										</form>
+									</div>
+								</c:if>
+							</div>
+							
 							<div class="card mt-3">
 								<div class="card-header">
 									개발내용
 								</div>
 								<div class="card-body">
 									<c:forEach var="statusHistory" varStatus="index" items="${devToTesterHistories}">
-										 <div class="mb-3">
-										 	<div><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
-										 	<div>${statusHistory.reply}</div>
-										 </div>
+										<div class="card mt-3">
+											<div class="card-header">
+												<fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/>
+											</div>
+											<div class="card-body">
+												${statusHistory.reply}
+											</div>
+										</div>
 									</c:forEach>
 								</div>
-							</div>
-							
-							<div class="d-flex">
-								<!-- 유저테스트 요청 상태(7) -->
-								<c:if test="${request.statusNo == 7}">
-									<form action="${pageContext.request.contextPath}/startwork" method="post" class="mt-3">
-										<label for="expectDate"></label>
-										<input type="date" id= "expectDate" name="expectDate" class="form-control"/>
-										<input type="hidden" name="rno" value="${request.rno}"/>
-										<input type="hidden" name="mtype" value="${userInfo.mtype}"/>
- 										<input type="hidden" name="nextStatus" value="8"/>
-										<button class="btn btn-danger btn-lg">유저테스트 시작</button>
-									</form>
-								</c:if>
-								<!-- 유저테스트 중 상태(8) -->
-								<c:if test="${request.statusNo == 8}">
-									<form action="${pageContext.request.contextPath}/endwork" method="post" class="mt-3">
-										<input type="hidden" name="rno" value="${request.rno}"/>
-										<input type="hidden" name="mtype" value="${userInfo.mtype}"/>
-										<input type="hidden" name="nextStatus" value="9"/>
-										<button class="btn btn-primary">유저테스트 완료</button>
-									</form>
-								</c:if>
 							</div>
 							
 						</div>
@@ -329,8 +330,103 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+    <!-- date 입력받는 모달창 start -->
+	 <div class="modal fade" id="datemodal" role="dialog" aria-labelledby="developDueDate" aria-hidden="true" >
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="developDueDate">유저테스트 완료 예정일 입력</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex justify-content-center">
+					<form action="" method="post" name="startWork" class="mt-3">
+						<label class="mt-1" style="color: #343a40;" for="expectDate">유저테스트 완료 예정일</label>
+						<input type="date" id= "expectDate" name="expectDate" class="form-control ml-2" style="width: 200px; display: inline;"/>
+						<input type="hidden" name="rno" value="${request.rno}"/>
+						<input type="hidden" name="mtype" value="${userInfo.mtype}"/>
+						<input type="hidden" name="nextStatus" value="8"/>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <a class="btn btn-primary" onclick="closedatemodal()">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- date 입력받는 모달창 end -->
+		
+	<!-- 경고 모달창 -->
+	<div class="modal fade" id="alartDateTooMuch" aria-hidden="true" aria-labelledby="alartOfTimeTooMuch">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<i class="fa-solid fa-message-exclamation"></i>
+					<h5>경고</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>입력 시간이 완료 예정일 대비 50% 이상 차지합니다. 확인을 누르시면 수정이 불가능합니다.</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <a class="btn btn-primary" onclick="startWork()" type="button">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 경고 모달창 -->
+	<!-- 데이트 입력 확인 -->
+	<div class="modal fade" id="completeDueDate" aria-hidden="true" aria-labelledby="successOfDueDate">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>확인</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" style="display: flex; justify-content: center;">
+					<p>입력되었습니다.</p>
+				</div>
+				<div class="modal-footer" style="justify-content: center;">
+                    <a class="btn btn-primary" data-dismiss="modal" type="button">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+		<!-- 데이트 입력 확인 /-->
+		function getDatemodal(){
+			$('#datemodal').modal('show');
+			
+		}
+		function closedatemodal(){
+			$('#datemodal').modal('hide');
+			$('#alartDateTooMuch').modal('show');
+		}
+		function getcofirm(){
+			$('#alartDateTooMuch').modal('hide');
+			$('#completeDueDate').modal('show');
+		}
+		
+		function startWork(){
+			var queryString = $("form[name=startWork]").serialize() ;
 
-
+			$.ajax({
+				type : 'post',
+				url : '${pageContext.request.contextPath}/startwork',
+				data : queryString,
+				dataType : 'json',
+				error: function(xhr, status, error){
+					alert(error);
+				},
+				success : function(json){
+					alert(json)
+				}
+			});
+		}
+	</script>
 </body>
 
 </html>

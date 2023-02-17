@@ -55,24 +55,29 @@
 					    	<div class="col-2">공개 설정</div>
 					    	<div class="form-group col-10">
 						    	<div class="form-check form-check-inline">
+						    		<span class="mr-2">시스템 사용자(고객)</span>
 						    		<input type="checkbox" class="form-check-input" id="userShow" name="userShow" value="Y">
-							    	<label class="form-check-label mr-4" for="userShow">시스템 사용자(고객)</label>
+							    	<label class="form-check-label mr-4" for="userShow"></label>
 						    	</div>
 						    	<div class="form-check form-check-inline">
+						    		<span class="mr-2">개발자</span>
 						    		<input type="checkbox" class="form-check-input" id="devShow" name="devShow" value="Y">
-							    	<label class="form-check-label mr-4" for="devShow">개발자</label>
+							    	<label class="form-check-label mr-4" for="devShow"></label>
 						    	</div>
 						    	<div class="form-check form-check-inline">
+						    		<span class="mr-2">테스터</span>
 						    		<input type="checkbox" class="form-check-input" id="testerShow" name="testerShow" value="Y">
-							    	<label class="form-check-label mr-4" for="testerShow">테스터</label>
+							    	<label class="form-check-label mr-4" for="testerShow"></label>
 						    	</div>
 						    	<div class="form-check form-check-inline">
+						    		<span class="mr-2">배포담당자</span>
 						    		<input type="checkbox" class="form-check-input" id="distributorShow" name="distributorShow" value="Y"> 
-							    	<label class="form-check-label mr-4" for="distributorShow">배포담당자</label>
+							    	<label class="form-check-label mr-4" for="distributorShow"></label>
 						    	</div>
 						    	<div class="form-check form-check-inline">
+						    		<span class="mr-2">유저테스터</span>
 						    		<input type="checkbox" class="form-check-input" id="userTesterShow" name="userTesterShow" value="Y">
-							    	<label class="form-check-label" for="userTesterShow">유저테스터</label>
+							    	<label class="form-check-label" for="userTesterShow"></label>
 						    	</div>
 						  	</div>
 					  	</div>

@@ -47,6 +47,7 @@
                 <!-- 여기에 내용 담기 start -->
                 <div id="noticelist" class="container">
                 	<h1>공지사항 목록</h1>
+                	<a href="${pageContext.request.contextPath}/noticewriteform" class="btn btn-sm btn-primary">공지사항 작성</a>
                		<hr/>
                 	<table class="table">
 					  <thead class="thead-light">
@@ -58,61 +59,61 @@
 					    </tr>
 					  </thead>
 					  <tbody>
-					    <tr>
+					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
 					      <th scope="row">1</th>
 					      <td>가족관계시스템 전체 담당자 필독</td>
 					      <td>2023-02-16</td>
 					      <td>송영훈</td>
 					    </tr>
-					    <tr>
+					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
 					      <th scope="row">2</th>
 					      <td>전자조달시스템 개발자/배포담당자 필독</td>
 					      <td>2023-02-16</td>
 					      <td>송영훈</td>
 					    </tr>
-					    <tr>
+					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
 					      <th scope="row">3</th>
 					      <td>전파관리시스템 테스터 필독</td>
 					      <td>2023-02-16</td>
 					      <td>송영훈</td>
 					    </tr>
-					    <tr>
+					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
 					      <th scope="row">4</th>
 					      <td>가족관계시스템 전체 담당자 필독</td>
 					      <td>2023-02-16</td>
 					      <td>송영훈</td>
 					    </tr>
-					    <tr>
+					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
 					      <th scope="row">5</th>
 					      <td>전자조달시스템 개발자/배포담당자 필독</td>
 					      <td>2023-02-16</td>
 					      <td>송영훈</td>
 					    </tr>
-					    <tr>
+					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
 					      <th scope="row">6</th>
 					      <td>가족관계시스템 전체 담당자 필독</td>
 					      <td>2023-02-16</td>
 					      <td>송영훈</td>
 					    </tr>
-					    <tr>
+					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
 					      <th scope="row">7</th>
 					      <td>전자조달시스템 개발자/배포담당자 필독</td>
 					      <td>2023-02-16</td>
 					      <td>송영훈</td>
 					    </tr>
-					    <tr>
+					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
 					      <th scope="row">8</th>
 					      <td>전파관리시스템 테스터 필독</td>
 					      <td>2023-02-16</td>
 					      <td>송영훈</td>
 					    </tr>
-					    <tr>
+					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
 					      <th scope="row">9</th>
 					      <td>가족관계시스템 전체 담당자 필독</td>
 					      <td>2023-02-16</td>
 					      <td>송영훈</td>
 					    </tr>
-					    <tr>
+					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
 					      <th scope="row">10</th>
 					      <td>전자조달시스템 개발자/배포담당자 필독</td>
 					      <td>2023-02-16</td>
