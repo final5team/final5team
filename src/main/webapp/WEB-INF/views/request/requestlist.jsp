@@ -110,6 +110,10 @@
 	.active{
        	border-color: var(--now-fill);
     }
+    .card-header{
+    	margin-left : 20px;
+    	align-items: center;
+    }
 
 	
 </style>
@@ -141,6 +145,7 @@
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">필터</h6>
 						</div>
+						<hr>
 						<div class="card-body">
 							<div class="row"></div>
 						</div>
@@ -149,6 +154,7 @@
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">내 담당 요청 관리</h6>
 						</div>
+						<hr>
 						<div class="card-body">
 							<div class="row">
 								<div class="col-sm">

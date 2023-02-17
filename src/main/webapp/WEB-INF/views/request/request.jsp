@@ -24,6 +24,16 @@ form {
 	width: 700px;
 	margin-bottom: 10px;
 }
+
+.card-header {
+	margin-left: 20px;
+	align-items: center;
+}
+
+#reqContent {
+	width: inherit;
+	height: 400px;
+}
 </style>
 </head>
 
@@ -54,51 +64,52 @@ form {
 							<div class="card-header">
 								<div>SR 요청 작성</div>
 							</div>
-							<form method="post">
-								<div class="card-body">
-									<div class="form-group row">
-										<div class="col-sm-6 mb-3 mb-sm-0">
-											<div class="row">
-												<div>이름</div>
-												<input type="text" class="form-control form-control-user" id="clientName" name="clientName" value="default">
+							<div class="card-body">
+								<form method="post">
+									<div class="card-body">
+										<div class="form-group row">
+											<div class="col-sm-6 mb-3 mb-sm-0">
+												<div class="row">
+													<div>작성자</div>
+													<input type="text" class="form-control form-control-user" id="clientName" name="clientName" value="default">
+												</div>
+											</div>
+											<div class="col-sm-6 mb-3 mb-sm-0">
+												<div class="row">
+													<div>전화번호</div>
+													<input type="text" class="form-control form-control-user" id="phone" name="phone" value="010-1234-1234">
+												</div>
 											</div>
 										</div>
-										<div class="col-sm-6 mb-3 mb-sm-0">
-											<div class="row">
-												<div>전화번호</div>
-												<input type="text" class="form-control form-control-user" id="phone" name="phone" value="010-1234-1234">
+										<div class="form-group row">
+											<div class="col-sm-6 mb-3 mb-sm-0">
+												<div class="row">
+													<div>직급</div>
+													<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="직급" value="직급">
+												</div>
+											</div>
+											<div class="col-sm-6 mb-3 mb-sm-0">
+												<div class="row">
+													<div>소속기관</div>
+													<input type="text" class="form-control form-control-user" id="organ" name="organ" placeholder="소속기관" value="소속기관">
+												</div>
+											</div>
+										</div>
+										<div class="form-group row">
+											<div class="col-sm-6 mb-3 mb-sm-0">
+												<div class="row">
+													<div>이메일</div>
+													<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="이메일" value="email@oti.com">
+												</div>
+											</div>
+											<div class="col-sm-6 mb-3 mb-sm-0">
+												<div class="row">
+													<div>요청 완료 희망일</div>
+													<input type="date" class="form-control form-control-user" id="reqExpectDate" name="reqExpectDate">
+												</div>
 											</div>
 										</div>
 									</div>
-									<div class="form-group row">
-										<div class="col-sm-6 mb-3 mb-sm-0">
-											<div class="row">
-												<div>직급</div>
-												<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="직급" value="직급">
-											</div>
-										</div>
-										<div class="col-sm-6 mb-3 mb-sm-0">
-											<div class="row">
-												<div>소속기관</div>
-												<input type="text" class="form-control form-control-user" id="organ" name="organ" placeholder="소속기관" value="소속기관">
-											</div>
-										</div>
-									</div>
-									<div class="form-group row">
-										<div class="col-sm-6 mb-3 mb-sm-0">
-											<div class="row">
-												<div>이메일</div>
-												<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="이메일" value="email@oti.com">
-											</div>
-										</div>
-										<div class="col-sm-6 mb-3 mb-sm-0">
-											<div class="row">
-												<div>요청 완료 희망일</div>
-												<input type="date" class="form-control form-control-user" id="reqExpectDate" name="reqExpectDate">
-											</div>
-										</div>
-									</div>
-
 									<div class="card-header">
 										<div>제목</div>
 										<input type="text" id="reqTitle" name="reqTitle" value="제목">
@@ -106,10 +117,8 @@ form {
 									<div class="card-body">
 										<div class="form-group row">
 											<div class="col-sm-6 mb-3 mb-sm-0">
-												<div class="row">
-													<div>요청내역</div>
-													<textarea id="reqContent" name="reqContent"></textarea>
-												</div>
+												<div>요청내역</div>
+												<textarea id="reqContent" name="reqContent"></textarea>
 											</div>
 											<div class="input-group mb-3">
 												<div class="input-group-prepend">
@@ -121,8 +130,9 @@ form {
 											</div>
 										</div>
 									</div>
-								</div>
-							</form>
+
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
