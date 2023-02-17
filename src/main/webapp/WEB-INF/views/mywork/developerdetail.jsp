@@ -129,7 +129,7 @@
 							<form>
 								<div>
 									<div class="d-flex justify-content-end">
-										 <button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" data-toggle="modal" data-target="#dateModal" type="button">테스트시작</button>
+										 <button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">테스트시작</button>
 									<!-- <button class="btn btn-gradient-success btn-gradient btn-lg mt-3">개발 완료</button> -->
 									</div>
 									<label style="color: #343a40;">개발 완료 예정일</label>
@@ -229,8 +229,9 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+    
 	<!-- date 입력받는 모달창 start -->
-	<!-- <div class="modal fade" id="dateModal" role="dialog" aria-labelledby="developDueDate" aria-hidden="true" >
+	 <div class="modal fade" id="datemodal" role="dialog" aria-labelledby="developDueDate" aria-hidden="true" >
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -239,16 +240,52 @@
 				</div>
 				<div class="modal-body d-flex justify-content-center">
 					<label class="mt-1" style="color: #343a40;">개발 완료 예정일</label>
-					<input type="date" class="form-control ml-2" style="width: 200px; display: inline;">
+					<input type="date" class="form-control ml-2" id="developDueDate" style="width: 200px; display: inline;">
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <a class="btn btn-primary" onclick="">확인</a>
+                    <a class="btn btn-primary" onclick="closedatemodal()">확인</a>
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div>
+	
 	<!-- date 입력받는 모달창 end -->
+		
+	<!-- 경고 모달창 -->
+	<div class="modal fade" id="alartDateTooMuch" aria-hidden="true" aria-labelledby="alartOfTimeTooMuch">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>
+						<i class="fa-solid fa-triangle-exclamation"></i>
+						경고
+					</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+				</div>
+				<div class="modal-body">
+					<p>입력 시간이 완료 예정일 대비 50% 이상 차지합니다. 확인을 누르시면 수정이 불가능합니다.</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <a class="btn btn-primary" data-dismiss="modal" type="button">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+
+	<!-- 경고 모달창 -->
+	<script>
+	function getDatemodal(){
+		$('#datemodal').modal('show');
+		
+	}
+	function closedatemodal(){
+		$('#datemodal').modal('hide');
+		$('#alartDateTooMuch').modal('show');
+	}
+	</script>
 </body>
 
 </html>
