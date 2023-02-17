@@ -44,7 +44,7 @@ public class UserTestDistributeController {
 		session.setAttribute("userInfo", member);
 		// 개발자 -> 테스터
 		model.addAttribute("devToTesterHistories", devToTesterHistories);
-		return "younghun/userTester";
+		return "srm/userTester";
 	}
 
 	@GetMapping("/distributedetail")
@@ -65,7 +65,7 @@ public class UserTestDistributeController {
 		session.setAttribute("userInfo", member);
 		// 개발자 -> 테스터
 		model.addAttribute("devToTesterHistories", devToTesterHistories);
-		return "younghun/distributor";
+		return "srm/distributor";
 	}
 
 	// 작업 시작(고객테스터 / 배포자 공용)

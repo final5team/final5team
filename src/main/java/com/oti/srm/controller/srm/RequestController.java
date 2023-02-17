@@ -30,7 +30,7 @@ public class RequestController {
 
 	@GetMapping("/register")
 	public String register() {
-		return "user/userregister";
+		return "member/userregister";
 	}
 
 	@PostMapping("/register")
