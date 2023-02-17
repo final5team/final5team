@@ -60,6 +60,16 @@
         #reqTitle{
             width: 670px;
         }
+        [name="status"]{
+            width: 100px;
+            font-size: 10px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            
+        }
+        [name="status"][id="status_one"]{
+            background-color: #1cc88a;
+        }
 
 
     </style>
@@ -145,6 +155,40 @@
                                         </div>
                                     </div>
                                     <br>
+                                    <div class="card card-body">
+                                        <div class="row row-col-1 row-cols-sm-3 row-cols-md-6 row-cols-xl-6">
+                                            <div class="col-2">
+                                                <button name="status" id="status_one" class="btn-md">
+                                                    접수중
+                                                </button>
+                                            </div>
+                                            <div class="col-2">
+                                                <button name="status" id="status_two" class="btn-md">
+                                                        개발요청
+                                                </button>
+                                            </div>
+                                            <div class="col-2">
+                                                <button name="status" id="status_three" class="btn-md">
+                                                        테스트요청
+                                                </button>
+                                            </div>
+                                            <div class="col-2">
+                                                <button name="status" id="status_four" class="btn-md">
+                                                        유저테스트요청
+                                                </button>
+                                            </div>
+                                            <div class="col-2">
+                                                <button name="status" id="status_five" class="btn-md">
+                                                    배포요청
+                                                </button>
+                                            </div>
+                                            <div class="col-2">
+                                                <button name="status" id="status_six" class="btn-md">
+                                                        최종승인요청
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <hr>
                                     <br>
                                     <div class="write">
