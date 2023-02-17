@@ -6,63 +6,7 @@
 
 <head>
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
-<style>
-        .body {
-            line-height: 1.5em;
-            margin: 0px
-            font-weight: 300;
-            justify-content: center;
-            align-items: center;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        form {
-            width: 700px;
-            margin-bottom: 10px;
-        }
-
-        .card-header {
-            margin-left: 20px;
-            align-items: center;
-        }
-        .card-body{
-            margin: 10px;
-        }
-
-        #reqContent {
-            width: inherit;
-            height: 200px;
-            border-radius: 5px;
-        }
-        #privacy{
-            text-align: center;
-            
-        }
-        #privacy .label{
-            width: 90px;
-            display: inline-block;
-            align-items: center;
-            margin-top: 5px;
-        }
-        #privacy .right{
-            margin-left: 30%;
-            
-        }
-        #privacy input {
-            width: 150px;
-        }
-        .write{
-            margin: 15px 15px;
-        }
-        #reqTitle{
-            width: 670px;
-        }
-
-
-    </style>
+<link href="${pageContext.request.contextPath}/resources/css/request.css" rel="stylesheet" type="text/css">
 </head>
 
 <body id="page-top">
@@ -145,6 +89,40 @@
                                         </div>
                                     </div>
                                     <br>
+                                    <div class="card card-body">
+                                        <div class="row row-col-1 row-cols-sm-3 row-cols-md-6 row-cols-xl-6">
+                                            <div class="col-2">
+                                                <button name="status" id="status_one" class="btn-md">
+                                                    접수중
+                                                </button>
+                                            </div>
+                                            <div class="col-2">
+                                                <button name="status" id="status_two" class="btn-md">
+                                                        개발요청
+                                                </button>
+                                            </div>
+                                            <div class="col-2">
+                                                <button name="status" id="status_three" class="btn-md">
+                                                        테스트요청
+                                                </button>
+                                            </div>
+                                            <div class="col-2">
+                                                <button name="status" id="status_four" class="btn-md">
+                                                        유저테스트요청
+                                                </button>
+                                            </div>
+                                            <div class="col-2">
+                                                <button name="status" id="status_five" class="btn-md">
+                                                    배포요청
+                                                </button>
+                                            </div>
+                                            <div class="col-2">
+                                                <button name="status" id="status_six" class="btn-md">
+                                                        최종승인요청
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <hr>
                                     <br>
                                     <div class="write">

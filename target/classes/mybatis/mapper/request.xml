@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oti.srm.dao.srm.IRequestDao">
+	<insert id="request" parameterType="com.oti.srm.dto.Request" >
+		insert into requests (RNO, REQ_DATE, REQ_TITLE, REQ_CONTENT, CLIENT, SNO, REQ_EXPECT_DATE, STATUS_NO)
+		values(SEQ_REQUESTS.nextval, sysdate, #{reqTitle}, #{reqContent}, #{client}, #{sno}, #{reqExpectDate}, #{statusNo})
+	</insert>
+	
+	<select id="getRequestList" resultType="com.oti.srm.dto.Request">
+		select RNO, REQ_DATE as "reqDate", REQ_TITLE as "reqTitle", REQ_CONTENT as "reqContent",
+				CLIENT, SNO, REQ_EXPECT_DATE as "reqExpectDate", STATUS_NO as "statusNo"
+    	from requests
+	</select>
+	
+	<select id="getPresentStep" parameterType="int" resultType="int">
+		select NEXT_STATUS
+			from (
+			    select rownum as rnum, NEXT_STATUS,CHANGE_DATE
+			        from(
+			            select rownum, NEXT_STATUS,CHANGE_DATE from status_histories
+			            where rno = #{rno}
+			            order by CHANGE_DATE desc
+			            )
+			    order by rnum
+			    )
+		where rnum=1
+	</select>
+	
+	
+	
+	
+
+
+</mapper>
