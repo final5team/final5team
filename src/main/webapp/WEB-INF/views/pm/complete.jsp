@@ -83,9 +83,30 @@
 										<a href="#" role="button">
 											<i class="fas fa-cloud-download-alt"></i>
 										</a>
+									</div>									
+								</div>
+							</div>
+							<div class="card mt-4">
+								<div class="card-header">배포 </div>
+								<div class="card-body row">
+									<div class="col-sm-3" style="text-align: center;">
+										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+										<div class="ml-3">김배포</div>
 									</div>
-									<hr/>
-									<div class="mt-2 ml-5">대상 소스 어쩌구</div>
+									<div class="col-sm-9">
+										<div class="ml-3">
+											<div class="row">
+												<div class="col">
+													<label class="control-label mr-2">완료 예정일</label>
+													<input value="2023-02-12" readonly>													 										
+												</div>
+												<div class="col">
+													<label class="control-label mr-2">실제 완료일</label>
+													<input value="2023-02-15" readonly> 													  												
+												</div>												
+											</div>											
+										</div>
+									</div>
 								</div>
 							</div>
 							<form>
