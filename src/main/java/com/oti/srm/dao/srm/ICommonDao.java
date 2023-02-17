@@ -1,4 +1,4 @@
-package com.oti.srm.dao;
+package com.oti.srm.dao.srm;
 
 import java.util.Date;
 import java.util.List;
