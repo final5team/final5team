@@ -23,7 +23,7 @@ select#gender, label[for="gender"] {
 	margin-top: 0px;
 }
 
-[name="userType"] {
+[name="mtype"] {
 	justify-content: center;
 }
 
@@ -31,6 +31,14 @@ select#gender, label[for="gender"] {
 	margin-top: 10px;
 }
 </style>
+<script>
+	function imageRegist(){
+		let myInput = document.getElementById('i_file');
+		myInput.click();
+	}
+	
+	
+</script>
 
 </head>
 
@@ -55,6 +63,7 @@ select#gender, label[for="gender"] {
 
 				<!-- 여기에 내용 담기 start -->
 				<div class="container-fluid">
+				<input type="file" id="i_file" name="file" style="visibility: hidden;" accept="image/*"> 
 					<div class="row" style="justify-content: center;">
 						<div class="col-lg-7">
 							<div class="text-center">
@@ -63,28 +72,34 @@ select#gender, label[for="gender"] {
 							<hr>
 							<form method="post" action="${pageContext.request.contextPath}/customer/register">
 								<div class="text-center">
-									<img src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg" style="width: 100px; height: 100px;"> <br>
-									<button name="imageRegister" class="btn-dark btn-sm">이미지 등록</button>
+									<img id="img_file" src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg" style="width: 150px; height: 150px;"> <br>
+										<button name="imageRegister" class="btn-dark btn-sm" onclick="imageRegist()">이미지 등록</button>
 									<hr>
 								</div>
-								<div name="userType" class="form-group row">
+								<div name="mtype" class="form-group row">
 									<div class="form-check form-check-inline">
-										<input class="form-check-input" type="radio" name="inlineRadioOptions" id="user" value="user"> <label class="form-check-label" for="user">고객</label>
+										<input class="form-check-input" type="radio" name="mtype" id="user" value="user">
+										<label class="form-check-label" for="user">고객</label>
 									</div>
 									<div class="form-check form-check-inline">
-										<input class="form-check-input" type="radio" name="inlineRadioOptions" id="pm" value="pm"> <label class="form-check-label" for="pm">관리자</label>
+										<input class="form-check-input" type="radio" name="mtype" id="pm" value="pm">
+										<label class="form-check-label" for="pm">관리자</label>
 									</div>
 									<div class="form-check form-check-inline">
-										<input class="form-check-input" type="radio" name="inlineRadioOptions" id="developer" value="developer"> <label class="form-check-label" for="developer">개발자</label>
+										<input class="form-check-input" type="radio" name="mtype" id="developer" value="developer"> 
+										<label class="form-check-label" for="developer">개발자</label>
 									</div>
 									<div class="form-check form-check-inline">
-										<input class="form-check-input" type="radio" name="inlineRadioOptions" id="distributer" value="distributer"> <label class="form-check-label" for="distributer">배포자</label>
+										<input class="form-check-input" type="radio" name="mtype" id="distributer" value="distributer"> 
+										<label class="form-check-label" for="distributer">배포자</label>
 									</div>
 									<div class="form-check form-check-inline">
-										<input class="form-check-input" type="radio" name="inlineRadioOptions" id="tester" value="tester"> <label class="form-check-label" for="tester">테스터</label>
+										<input class="form-check-input" type="radio" name="mtype" id="tester" value="tester"> 
+										<label class="form-check-label" for="tester">테스터</label>
 									</div>
 									<div class="form-check form-check-inline">
-										<input class="form-check-input" type="radio" name="inlineRadioOptions" id="user_tester" value="user_tester"> <label class="form-check-label" for="user_tester">고객 테스터</label>
+										<input class="form-check-input" type="radio" name="mtype" id="user_tester" value="user_tester"> 
+										<label class="form-check-label" for="user_tester">고객 테스터</label>
 									</div>
 								</div>
 								<hr>
@@ -144,10 +159,31 @@ select#gender, label[for="gender"] {
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="직급" value="직급">
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<label class="input-group-text" for="position">직급 선택</label>
+											</div>
+											<select class="custom-select" id="position" name="position">
+												<option value="사원">사원</option>
+												<option value="대리">대리</option>
+												<option value="과장">과장</option>
+												<option value="차장">차장</option>
+											</select>
+										</div>
 									</div>
 									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="text" class="form-control form-control-user" id="organ" name="organ" placeholder="소속기관" value="소속기관">
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<label class="input-group-text" for="position">소속 기관 선택</label>
+											</div>
+											<select class="custom-select" id="organ" name="organ">
+												<option value="oti">OTI</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+											</select>
+										</div>
+										
 									</div>
 								</div>
 								<hr>

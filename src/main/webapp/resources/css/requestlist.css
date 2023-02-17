@@ -8,7 +8,12 @@ body {
 	text-align: start;
 	border: none;
 }
-
+:root { -
+	-line-fill: #3498db; -
+	-line-empty: #e0e0e0; -
+	-now-fill: #1cc88a;
+	
+}
 .table tr, td {
 	display: inline-block;
 	white-space: nowrap;
@@ -16,6 +21,7 @@ body {
 	text-overflow: ellipsis;
 	text-align: center;
 	border: none;
+	color: rgba(128, 128, 128, 0.806);
 }
 
 .table td.rno {
@@ -58,7 +64,6 @@ body {
 	text-align: center;
 	align-items: center;
 }
-
 .collapse .card .row button {
 	border-radius: 10px;
 }
@@ -86,25 +91,18 @@ body {
 [name="status"], #status_six {
 	width: 150px;
 }
-
-:root { -
-	-line-fill: #3498db; -
-	-line-empty: #e0e0e0; -
-	-now-fill: #1cc88a;
+[name="status"].done {
+	background-color: rgba(128, 128, 128, 0.806);
 }
 
-.done {
-	background-color: var(- -line-fill);
-}
-
-.now {
-	border-color: var(- -now-fill);
-	background-color: var(- -now-fill);
+[name="status"].now {
+	border-color: var(--now-fill);
+	background-color: #1cc88a;
 	color: white;
 }
 
-.active {
-	border-color: var(- -now-fill);
+[name="status"].active {
+	border-color: #1cc88a;
 }
 
 .card-header.div {

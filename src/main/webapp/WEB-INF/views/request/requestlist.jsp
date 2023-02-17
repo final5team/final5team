@@ -87,6 +87,7 @@
 											</select>
 										</div>
 									</div>
+									<button class="btn btn-sm btn-primary">검색</button>
 								</div>
 							</div>
 						</div>
