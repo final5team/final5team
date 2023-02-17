@@ -16,21 +16,21 @@ public class PMController {
 	@RequestMapping("/receipt")
 	public String receipt(HttpSession session, Model model) {
 		
-		return "pm/receipt";
+		return "srm/receipt";
 	}
 	
 	// 완료 처리
 	@RequestMapping("/complete")
 	public String complete(HttpSession session, Model model) {
 		
-		return "pm/complete";
+		return "srm/complete";
 	}
 	
 	// 완료 상세
 	@RequestMapping("/end")
 	public String end(HttpSession session, Model model) {
 		
-		return "pm/end";
+		return "srm/end";
 	}	
 	
 	//화면에서 입력한 날짜 컨트롤러의 Date 매개변수에 넣을려면 
