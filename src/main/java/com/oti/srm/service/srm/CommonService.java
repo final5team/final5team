@@ -1,6 +1,7 @@
 package com.oti.srm.service.srm;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.StatusHistory;
 
 @Service
-public class DistributeService implements IDistributeService {
+public class CommonService implements ICommonService {
 	@Autowired
 	ICommonDao commonDao;
 
@@ -48,6 +49,27 @@ public class DistributeService implements IDistributeService {
 	public RequestProcess getRequestProcess(int rno) {
 		RequestProcess requestProcess = commonDao.getRequestProcess(rno);
 		return requestProcess;
+	}
+
+	// 작업 시작
+	// => requests테이블(현재단계 최신화 + 완료예정일 기입) + status_histories테이블(단계 변경 이력 추가)
+	@Override
+	@Transactional
+	public void startWork(StatusHistory statusHistory, Date expectDate, String mtype) {
+		commonDao.updateRequestStatus(statusHistory.getRno(), statusHistory.getNextStatus());
+		commonDao.updateExpectDate(statusHistory.getRno(), expectDate, mtype);
+		commonDao.insertStatusHistory(statusHistory);
+	}
+
+	// 작업 완료/재검토
+	// => requests테이블(현재단계 최신화) + status_histories테이블(단계 변경 이력 추가) 
+	// * 파일이 있다면 status_histories_files테이블(단계 변경 이력에 첨부파일 등록)
+	@Override
+	@Transactional
+	public void endWork(StatusHistory statusHistory, String mtype) {
+		commonDao.updateRequestStatus(statusHistory.getRno(), statusHistory.getNextStatus());
+		commonDao.updateCompDate(statusHistory.getRno(), mtype);
+		commonDao.insertStatusHistory(statusHistory);
 	}
 
 }
