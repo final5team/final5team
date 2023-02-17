@@ -152,7 +152,7 @@
 							<div class="d-flex">
 								<!-- 유저테스트 요청 상태(7) -->
 								<c:if test="${request.statusNo == 7}">
-									<form action="${pageContext.request.contextPath}/startWork" method="post" class="mt-3">
+									<form action="${pageContext.request.contextPath}/startwork" method="post" class="mt-3">
 										<label for="expectDate"></label>
 										<input type="date" id= "expectDate" name="expectDate" class="form-control"/>
 										<input type="hidden" name="rno" value="${request.rno}"/>

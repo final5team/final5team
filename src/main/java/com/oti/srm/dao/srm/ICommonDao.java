@@ -31,6 +31,8 @@ public interface ICommonDao {
 	// expectDate = 입력한 예정일, type = 개발/테스트/유저테스트/배포/전체 중 어떤 예정일인지
     public int updateExpectDate(@Param("rno") int rno, @Param("expectDate") Date expectDate, @Param("mtype") String mtype);
     
+    public int updateCompDate(@Param("rno") int rno, @Param("mtype") String mtype);
+    
 	// 단계 변경 이력 추가(status_histories 테이블)
 	public int insertStatusHistory(StatusHistory statusHistory);
 	
