@@ -2430,22 +2430,22 @@ fieldset:disabled a.btn {
 }
 
 .btn-success {
-  color: #fff;
-  background-color: #1cc88a;
-  border-color: #1cc88a;
+  color: #212529;
+  background-color: #4bcf99;
+  border-color: #4bcf99;
 }
 
 .btn-success:hover {
   color: #fff;
-  background-color: #17a673;
-  border-color: #169b6b;
+  background-color: #33c087;
+  border-color: #33c087;
 }
 
 .btn-success:focus, .btn-success.focus {
   color: #fff;
-  background-color: #17a673;
-  border-color: #169b6b;
-  box-shadow: 0 0 0 0.2rem rgba(62, 208, 156, 0.5);
+  background-color: #33c087;
+  border-color: #33c087;
+  box-shadow: 0 0 0 0.2rem rgba(69, 182, 136, 0.5); }
 }
 
 .btn-success.disabled, .btn-success:disabled {
