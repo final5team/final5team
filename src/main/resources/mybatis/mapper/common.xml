@@ -89,17 +89,42 @@
 	<update id="updateExpectDate" parameterType="map">
 		update request_process 
 		<set>
-			<if test="mtype = 'developer'">
-				dev_expect_date = #{expectDate}
+			<if test="mtype == 'pm'">
+				all_expect_date = #{expectDate},
 			</if>
-			<if test="mtype = 'tester'">
-				test_expect_date = #{expectDate}
+			<if test="mtype == 'developer'">
+				dev_expect_date = #{expectDate},
 			</if>
-			<if test="mtype = 'userTester'">
-				usertest_expect_date = #{expectDate}
+			<if test="mtype == 'tester'">
+				test_expect_date = #{expectDate},
 			</if>
-			<if test="mtype = 'distributor'">
+			<if test="mtype == 'userTester'">
+				usertest_expect_date = #{expectDate},
+			</if>
+			<if test="mtype == 'distributor'">
 				dist_expect_date = #{expectDate}
+			</if>
+		</set> 
+		where rno = #{rno} 
+	</update>
+	
+	<update id="updateCompDate" parameterType="map">
+		update request_process 
+		<set>
+			<if test="mtype == 'pm'">
+				all_comp_date = sysdate,
+			</if>
+			<if test="mtype == 'developer'">
+				dev_comp_date = sysdate,
+			</if>
+			<if test="mtype == 'tester'">
+				test_comp_date = sysdate,
+			</if>
+			<if test="mtype == 'userTester'">
+				usertest_comp_date = sysdate,
+			</if>
+			<if test="mtype == 'distributor'">
+				dist_comp_date = sysdate
 			</if>
 		</set> 
 		where rno = #{rno} 
@@ -107,8 +132,9 @@
 	
 	<insert id="insertStatusHistory" parameterType="com.oti.srm.dto.StatusHistory">
 		insert into status_histories
-		values
-		(seq_status_histories.nextval, sysdate, #{rno}, #{reply}, #{statusNo}, #{distSource})
+		(hno, change_date, rno, reply, next_status, dist_source)
+		values 
+		(seq_status_histories.nextval, sysdate, #{rno}, #{reply}, #{nextStatus}, #{distSource})
 	</insert>
 	
 	<update id="updateRequestStatus" parameterType="map">
