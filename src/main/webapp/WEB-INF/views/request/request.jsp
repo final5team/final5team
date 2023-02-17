@@ -92,27 +92,27 @@
                                     <div class="card card-body">
                                         <div class="row row-col-1 row-cols-sm-3 row-cols-md-6 row-cols-xl-6">
                                             <div class="col-2">
-                                                <button name="status" id="status_one" class="btn-md">
+                                                <button name="status" id="status_one" class="btn-md" >
                                                     접수중
                                                 </button>
                                             </div>
                                             <div class="col-2">
-                                                <button name="status" id="status_two" class="btn-md">
+                                                <button name="status" id="status_two" class="btn-md" >
                                                         개발요청
                                                 </button>
                                             </div>
                                             <div class="col-2">
-                                                <button name="status" id="status_three" class="btn-md">
+                                                <button name="status" id="status_three" class="btn-md" >
                                                         테스트요청
                                                 </button>
                                             </div>
                                             <div class="col-2">
-                                                <button name="status" id="status_four" class="btn-md">
+                                                <button name="status" id="status_four" class="btn-md" >
                                                         유저테스트요청
                                                 </button>
                                             </div>
                                             <div class="col-2">
-                                                <button name="status" id="status_five" class="btn-md">
+                                                <button name="status" id="status_five" class="btn-md" >
                                                     배포요청
                                                 </button>
                                             </div>
