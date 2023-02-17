@@ -38,16 +38,13 @@
 								<div class="card-header d-flex">
 									<div class="mr-auto">처리 완료</div>	
 									<div class="d-flex">
-										<div class="ml-3">정규</div>
-										<div class="ml-5">중요도: 상</div>
+										<div class="ml-3">유형: 정규</div>
+										<div class="ml-3">|</div>
+										<div class="ml-3">중요도: 상</div>
 									</div>								
 								</div>
 								<div class="card-body">
-									<div>처리완료상세보기 ></div>
-									<div class="d-flex">
-										<div class="ml-3">정규</div>
-										<div class="ml-5">중요도: 상</div>
-									</div>	
+									<div>처리완료상세보기 ></div>									
 									<div>
 										<h3 class="mr-auto font-weight-bold">여기는 제목 자리입니다.</h3>
 									</div>
@@ -91,8 +88,8 @@
 									</div>
 									<div class="col-sm-9">
 										<div class="ml-3">
-											<div class="row ml-1">
-												<div class="col row">
+											<div class="row">
+												<div class="col">
 													<label class="control-label mr-2">완료 예정일</label>
 													<input value="2023-02-12" readonly>													 										
 												</div>
@@ -118,8 +115,8 @@
 									</div>
 									<div class="col-sm-9">
 										<div class="ml-3">
-											<div class="row ml-1">
-												<div class="col row">
+											<div class="row">
+												<div class="col">
 													<label class="control-label mr-2">완료 예정일</label>
 													<input value="2023-02-12" readonly>													 										
 												</div>
@@ -146,7 +143,7 @@
 									<div class="col-sm-9">
 										<div class="ml-3">
 											<div class="row">
-												<div class="col row">
+												<div class="col">
 													<label class="control-label mr-2">완료 예정일</label>
 													<input value="2023-02-12" readonly>													 										
 												</div>
@@ -169,7 +166,7 @@
 									<div class="col-sm-9">
 										<div class="ml-3">
 											<div class="row">
-												<div class="col row">
+												<div class="col">
 													<label class="control-label mr-2">완료 예정일</label>
 													<input value="2023-02-12" readonly>													 										
 												</div>
@@ -192,7 +189,7 @@
 									<div class="col-sm-9">
 										<div class="ml-3">
 											<div class="row">
-												<div class="col row">
+												<div class="col">
 													<label class="control-label mr-2">완료 예정일</label>
 													<input value="2023-02-12" readonly>													 										
 												</div>
