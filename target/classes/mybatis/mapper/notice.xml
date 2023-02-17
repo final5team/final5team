@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.oti.srm.dao.INoticeDao">
+<mapper namespace="com.oti.srm.dao.notice.INoticeDao">
 	<select id="getNoticeList" parameterType="map" resultType="com.oti.srm.dto.Notice">
 		select 
 			nno as "nno",
