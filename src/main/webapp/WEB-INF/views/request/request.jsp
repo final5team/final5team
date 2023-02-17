@@ -7,16 +7,12 @@
 <head>
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
 <style>
-        *{
-            font-size: 14px;
-        }
         .body {
             line-height: 1.5em;
             margin: 0px
             font-weight: 300;
             justify-content: center;
             align-items: center;
-            
         }
 
         a {
@@ -46,7 +42,7 @@
             
         }
         #privacy .label{
-            width: 80px;
+            width: 90px;
             display: inline-block;
             align-items: center;
             margin-top: 5px;
