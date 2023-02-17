@@ -1,11 +1,65 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
+    <style>
+    	:root {
+		 	--line-fill: #3498db;
+		  	--line-empty: #e0e0e0;
+		  	--now-fill: #F40730;
+		}
+    	.container {
+		 	 text-align: center;
+		}
+		
+    	
+    	.circle {
+    		  margin-left : 25px;
+			  background-color: #fff;
+			  color: #999;
+			  border-radius: 50%;
+			  height: 30px;
+			  width: 150px;
+			  border: 3px solid var(--line-empty);
+			  transition: 0.4s ease;
+		}
+		.bar {
+			  margin-left : 100px;
+			  padding : 0px;
+			  background-color: #fff;
+			  color: #999;
+			  height: 60px;
+			  width: 1px;
+			  align-items: center;
+			  justify-content: center;
+			  border: 3px solid var(--line-empty);
+			  transition: 0.4s ease;
+		}
+		
+		.circle.active {
+		  	border-color: var(--line-fill);
+		}
+		
+		.circle.now {
+		  	border-color: var(--now-fill);
+		}
+		
+		.bar.active {
+		  	border-color: var(--line-fill);
+		}
+		.reply-from-work{
+			 border: 2px solid #d7dde4;
+ 			 border-radius: 8px;
+	    	width: 870px;
+			margin: 20px 17px;
+		}
+		
+    </style>
 </head>
 
 <body id="page-top">
@@ -39,17 +93,17 @@
 						<div class="col-xl-9 col-lg-8 col-md-8 col-sm-8">
 							<div class="card">
 								<div class="card-header d-flex">
-									<div class="mr-auto">정규</div>
-									<div>중요도: 상</div>
+									<div class="mr-auto">개발상세보기 ></div>
+									<div class="ml-3">정규</div>
+									<div class="ml-5 mr-4">중요도: 상</div>
 								</div>
 								<div class="card-body">
-									<div>개발상세보기 ></div>
 									<div>
 										<h3 class="mr-auto font-weight-bold">여기는 제목 자리입니다.</h3>
 									</div>
 									<div class="row">
 										<div class="col-sm-6">
-											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="20%">
+											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="20%">
 											<span class="font-weight-bold ml-2">홍길동</span>
 											<span class="ml-3">서울강남고용센터</span>
 										</div>
@@ -77,39 +131,85 @@
 									</div>
 								</div>
 							</div>
-							<form>
-								<div>
-									<div class="d-flex justify-content-end">
-										<button class="btn btn-gradient-warning btn-gradient btn-lg mt-3 " type="button">재검토요청</button>
-										<button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" onclick="checkDateToDevelope()" type="button">테스트시작</button>
-									<!-- <button class="btn btn-gradient-success btn-gradient btn-lg mt-3">개발 완료</button> -->
-									</div>
-									<label style="color: #343a40;">개발 완료 예정일</label>
-									<input type="date" class="form-control ml-2" style="width: 200px; display: inline;">
+							<div>
+								<div class="d-flex justify-content-end">
+									 <button class="btn btn-gradient-warning btn-gradient btn-lg mt-3 " type="button">재검토요청</button>
+									 <button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">테스트시작</button>
+								<!-- <button class="btn btn-gradient-success btn-gradient btn-lg mt-3">개발 완료</button> -->
 								</div>
-							</form>
+							</div>
 							<div class="card mt-4">
-								<div class="card-header">3차 개발 내용</div>
-								<div class="card-body row">
-									<div class="col-sm-3" style="text-align: center;">
-										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
-										<div class="ml-3">김레지나</div>
+								<div class="card-header">개발 내용</div>
+								<div class="card-body row reply-from-work">
+									<div class="col-sm-2 d-flex align-items-center" style="text-align: center;">
+										<div>
+											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
+											<div class="ml-3">김레지나</div>
+										
+										</div>
 									</div>
-									<div class="col-sm-9">
-										<div class="ml-3">개발자가 3차때 작성했었던 내용 보입니다.</div>
+									<div class="col-sm-10">
+										<div class="d-flex justify-content-end mr-5">
+											<div>1차 개발</div>
+											<div class="ml-auto">2023-02-10</div>
+										</div>
+										<div>
+											개발내용: 개발자가 n차때 작성했었던 내용 보입니다.
+										</div>
+										<div>배포소스:familydocument.java</div>
+										<span>첨부파일: 파일이름</span>
+										<a href="#" role="button">
+											<i class="fas fa-cloud-download-alt"></i>
+										</a>
+									</div>
+								</div>
+								<div class="card-body row reply-from-work">
+									<div class="col-sm-2 d-flex align-items-center" style="text-align: center;">
+										<div>
+											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
+											<div class="ml-3">김레지나</div>
+										
+										</div>
+									</div>
+									<div class="col-sm-10">
+										<div class="d-flex justify-content-end mr-5">
+											<div>2차 개발</div>
+											<div class="ml-auto">2023-02-10</div>
+										</div>
+										<div>
+											개발내용: 개발자가 n차때 작성했었던 내용 보입니다.
+										</div>
+										<div>배포소스:familydocument.java</div>
+										<span>첨부파일: 파일이름</span>
+										<a href="#" role="button">
+											<i class="fas fa-cloud-download-alt"></i>
+										</a>
 									</div>
 								</div>
 							</div>
 
 							<div class="card mt-4">
-								<div class="card-header">3차 결함 내용</div>
-								<div class="card-body row">
-									<div class="col-sm-3" style="text-align: center;">
-										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
-										<div class="ml-3">박말자</div>
+								<div class="card-header">결함 내용</div>
+								<div class="card-body row reply-from-work">
+									<div class="col-sm-2 d-flex align-items-center" style="text-align: center;">
+										<div>
+											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
+											<div class="ml-3">박말자</div>
+										
+										</div>
 									</div>
-									<div class="col-sm-9">
-										<div class="ml-3">테스터가 3차때 작성했었던 내용 보입니다.</div>
+									<div class="col-sm-10">
+										<div class="d-flex justify-content-end mr-5">
+											<div>1차 테스트</div>
+											<div class="ml-auto">2023-02-10</div>
+										</div>
+										<div>
+											결함내용: 테스터가 1차때 작성했었던 내용 보입니다.
+										</div>
+										<span>첨부파일: 파일이름</span>
+										<a href="#" role="button">
+											<i class="fas fa-cloud-download-alt"></i>
+										</a>
 									</div>
 								</div>
 							</div>
@@ -117,9 +217,11 @@
 							<div class="card mt-4 mb-5">
 								<div class="card-header">작성하기</div>
 								<div class="card-body row">
-									<div class="col-sm-3" style="text-align:center;">
-										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
-										<div class="ml-3">나</div>
+									<div class="col-sm-3 d-flex align-items-center" style="text-align:center;">
+										<div>
+											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="70%">
+											<div class="mt-3">나</div>
+										</div>
 									</div>
 									<div class="col-sm-9">
 										<form role="form">
@@ -128,12 +230,8 @@
 												<input type="text" class="form-control boxed" value="2023-02-09" readonly>
 											</div>
 											<div class="col-sm-12 form-group">
-												<label class="control-label">개발내용</label>
+												<label class="control-label">결함내용</label>
 												<textarea rows="2" class="form-control boxed"></textarea>
-											</div>
-											<div class="col-sm-12 form-group">
-												<label class="control-label">배포소스</label>
-												<input type="text" class="form-control boxed">
 											</div>
 											<div class="filebox">
 												<label for="file">Choose a file</label>
@@ -181,8 +279,82 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
-
+    
+	<!-- date 입력받는 모달창 start -->
+	 <div class="modal fade" id="datemodal" role="dialog" aria-labelledby="developDueDate" aria-hidden="true" >
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="developDueDate">테스트 완료 예정일 입력</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body d-flex justify-content-center">
+					<label class="mt-1" style="color: #343a40;">테스트 완료 예정일</label>
+					<input type="date" class="form-control ml-2" id="developDueDate" style="width: 200px; display: inline;">
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <a class="btn btn-primary" onclick="closedatemodal()">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- date 입력받는 모달창 end -->
+		
+	<!-- 경고 모달창 -->
+	<div class="modal fade" id="alartDateTooMuch" aria-hidden="true" aria-labelledby="alartOfTimeTooMuch">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<i class="fa fa-exclamation-circle mr-2" aria-hidden="true" style="font-size: 25px; color: red;"></i>
+					<h5>경고</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>입력 시간이 완료 예정일 대비 50% 이상 차지합니다. 확인을 누르시면 수정이 불가능합니다.</p>
+					<p>입력하시겠습니까?. 확인을 누르시면 수정이 불가능합니다.</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <a class="btn btn-primary" onclick="getcofirm()" type="button">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 경고 모달창 -->
+	<!-- 데이트 입력 확인 -->
+	<div class="modal fade" id="completeDueDate" aria-hidden="true" aria-labelledby="successOfDueDate">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>확인</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" style="display: flex; justify-content: center;">
+					<p>입력되었습니다.</p>
+				</div>
+				<div class="modal-footer" style="justify-content: center;">
+                    <a class="btn btn-primary" data-dismiss="modal" type="button">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+	<!-- 데이트 입력 확인 /-->
+	function getDatemodal(){
+		$('#datemodal').modal('show');
+		
+	}
+	function closedatemodal(){
+		$('#datemodal').modal('hide');
+		$('#alartDateTooMuch').modal('show');
+	}
+	function getcofirm(){
+		$('#alartDateTooMuch').modal('hide');
+		$('#completeDueDate').modal('show');
+	}
+	</script>
 </body>
 
 </html>
