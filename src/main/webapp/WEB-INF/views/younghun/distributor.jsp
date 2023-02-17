@@ -7,7 +7,7 @@
 
 <head>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
-    <style>
+   <style>
     	:root {
 		 	--line-fill: #3498db;
 		  	--line-empty: #e0e0e0;
@@ -41,7 +41,7 @@
 			  transition: 0.4s ease;
 		}
 		
-		.circle.done {
+		.circle.active {
 		  	border-color: var(--line-fill);
 		}
 		
@@ -52,6 +52,7 @@
 		.bar.active {
 		  	border-color: var(--line-fill);
 		}
+		
     </style>
 </head>
 
@@ -81,9 +82,10 @@
 						<!-- 게시글 상세보기 start -->
 						<div class="col-xl-9 col-lg-8 col-md-8 col-sm-8">
 							<div class="card">
-								<div class="card-header">
-									<span class="mr-5">요청유형 : ${requestProcess.reqType}</span>
-									<span>중요도 : ${requestProcess.priority}</span>									
+								<div class="card-header d-flex">
+									<div class="mr-auto">배포 상세보기 ></div>
+									<div class="ml-3">${requestProcess.reqType}</div>
+									<div class="ml-5 mr-4">중요도 : ${requestProcess.priority}</div>										
 								</div>
 								<div class="card-body">
 									<div>
@@ -157,20 +159,32 @@
 							
 							<div class="card mt-3">
 								<div class="card-header">
-									배포 소스 
+									배포 소스 내용
 								</div>
-								<div class="card-body">
-									<c:forEach var="statusHistory" varStatus="index" items="${devToTesterHistories}">
-										<div class="card mt-3">
-											<div class="card-header">
-												<fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/>
-											</div>
-											<div class="card-body">
-												${statusHistory.distSource}
+								<c:forEach var="statusHistory" varStatus="index" items="${devToTesterHistories}">
+									<div class="card-body row border border-success ml-4 mr-4 mt-3 mb-3">
+										<div class="col-sm-2 d-flex align-items-center" style="text-align: center;">
+											<div>
+												<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
+												<div class="ml-3">김레지나</div>
+											
 											</div>
 										</div>
-									</c:forEach>
-								</div>
+										<div class="col-sm-10">
+											<div class="d-flex justify-content-end mr-5">
+												<div>${index.count}차 개발</div>
+												<div class="ml-auto"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
+											</div>
+											<div>
+												배포소스: ${statusHistory.distSource}
+											</div>
+											<span>첨부파일: 파일이름</span>
+											<a href="#" role="button">
+												<i class="fas fa-cloud-download-alt"></i>
+											</a>
+										</div>
+									</div>
+								</c:forEach>
 							</div>
 							
 						</div>
