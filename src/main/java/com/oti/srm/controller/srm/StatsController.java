@@ -16,6 +16,6 @@ public class StatsController {
 	@RequestMapping("/statistics")
 	public String statistics(HttpSession session, Model model) {
 		
-		return "stats/stats";
+		return "srm/stats";
 	}
 }

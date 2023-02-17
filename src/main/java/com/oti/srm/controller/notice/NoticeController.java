@@ -12,19 +12,19 @@ public class NoticeController {
 	// 공지사항 목록
 	@GetMapping("/noticelist")
 	public String noticeList() {
-		return "younghun/noticeList";
+		return "notice/noticeList";
 	}
 
 	// 공지사항 상세
 	@GetMapping("/noticedetail")
 	public String noticeDetail() {
-		return "younghun/noticeDetail";
+		return "notice/noticeDetail";
 	}
 
 	// 공지사항 작성 폼
 	@GetMapping("/noticewriteform")
 	public String noticeWriteForm() {
-		return "younghun/noticeWriteForm";
+		return "notice/noticeWriteForm";
 	}
 
 	// 공지사항 작성
@@ -36,7 +36,7 @@ public class NoticeController {
 	// 공지사항 수정 폼
 	@GetMapping("/noticeupdateform")
 	public String noticeUpdateForm() {
-		return "younghun/noticeUpdateForm";
+		return "notice/noticeUpdateForm";
 	}
 
 	// 공지사항 수정 

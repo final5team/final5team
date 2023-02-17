@@ -84,7 +84,7 @@
 				
 					<div class="row">
 						<!-- 게시글 상세보기 start -->
-						<div class="col-xl-9">
+						<div class="col-xl-9 col-lg-8 col-md-8 col-sm-8">
 							<div class="card">
 								<div class="card-header d-flex">
 									<div class="mr-auto">개발상세보기 ></div>
@@ -123,10 +123,12 @@
 											<i class="fas fa-cloud-download-alt"></i>
 										</a>
 									</div>
-									<div class="d-flex justify-content-end">
-										 <button class="btn btn-primary btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">개발시작</button>
-									     <!-- <button class="btn btn-success btn-lg mt-3">개발 완료</button> --> 
-									</div>
+								</div>
+							</div>
+							<div>
+								<div class="d-flex justify-content-end">
+									 <button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">테스트시작</button>
+								<!-- <button class="btn btn-gradient-success btn-gradient btn-lg mt-3">개발 완료</button> -->
 								</div>
 							</div>
 							<div class="card mt-4">
@@ -242,7 +244,7 @@
 						</div>
 						<!-- 게시글 상세보기 end -->
 						<!-- 상태 단계 이력 start -->						
-						<div class="col-xl-3">
+						<div class="col-xl-3 col-lg-4 col-md-4 col-sm-4">
 							<div class="card">
 								<div class="card-header">
 									<h6 class="m-0 font-weight-bold text-primary">단계 상태</h6>

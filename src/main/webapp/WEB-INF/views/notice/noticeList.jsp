@@ -124,13 +124,13 @@
 					<nav class="nav justify-content-center" aria-label="Page navigation example">
 					  <ul class="pagination">
 					    <li class="page-item"><a class="page-link" href="#">처음</a></li>
-					    <li class="page-item"><a class="page-link" href="#">다음</a></li>
+					    <li class="page-item"><a class="page-link" href="#">이전</a></li>
 					    <li class="page-item"><a class="page-link" href="#">1</a></li>
 					    <li class="page-item"><a class="page-link" href="#">2</a></li>
 					    <li class="page-item"><a class="page-link" href="#">3</a></li>
 					    <li class="page-item"><a class="page-link" href="#">4</a></li>
 					    <li class="page-item"><a class="page-link" href="#">5</a></li>
-					    <li class="page-item"><a class="page-link" href="#">이전</a></li>
+					    <li class="page-item"><a class="page-link" href="#">다음</a></li>
 					    <li class="page-item"><a class="page-link" href="#">끝</a></li>
 					  </ul>
 					</nav>
