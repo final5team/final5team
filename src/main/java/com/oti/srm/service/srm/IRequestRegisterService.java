@@ -1,4 +1,4 @@
-package com.oti.srm.service;
+package com.oti.srm.service.srm;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.oti.srm.controller;
+package com.oti.srm.controller.srm;
 
 import java.util.Date;
 import java.util.List;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.oti.srm.dto.Member;
 import com.oti.srm.dto.StatusHistory;
-import com.oti.srm.service.IUserTestService;
+import com.oti.srm.service.srm.IUserTestService;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -72,10 +72,10 @@ public class UserTestDistributeController {
 	public String startWork(StatusHistory statusHistory, Date expectDate, String mtype) {
 		userTestService.startWork(statusHistory, expectDate, mtype);
 		if(mtype.equals("userTester")) {
-			return "redirect:/usertestdetail";
+			return "redirect:/usertestdetail?rno=" + statusHistory.getRno();
 		}
 		else {
-			return "redirect:/distributedetail";
+			return "redirect:/distributedetail?rno=" + statusHistory.getRno();
 		}
 
 	}
@@ -87,10 +87,10 @@ public class UserTestDistributeController {
 	public String endWork(StatusHistory statusHistory, String mtype) {
 		userTestService.endWork(statusHistory);
 		if(mtype.equals("userTester")) {
-			return "redirect:/usertestdetail";
+			return "redirect:/usertestdetail?rno=" + statusHistory.getRno();
 		}
 		else {
-			return "redirect:/distributedetail";
+			return "redirect:/distributedetail?rno=" + statusHistory.getRno();
 		}
 	}
 
