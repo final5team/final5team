@@ -36,6 +36,7 @@ select#gender, label[for="gender"] {
 		let myInput = document.getElementById('i_file');
 		myInput.click();
 	}
+	$()
 	
 	
 </script>

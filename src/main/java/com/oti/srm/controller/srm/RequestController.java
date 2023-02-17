@@ -45,7 +45,7 @@ public class RequestController {
 			model.addAttribute("registerResult", "FAIL");
 			return "redirect:/login";
 		}
-
+		
 	}
 	
 	
