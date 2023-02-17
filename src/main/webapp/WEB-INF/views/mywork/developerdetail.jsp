@@ -126,16 +126,14 @@
 									</div>
 								</div>
 							</div>
-							<form>
-								<div>
-									<div class="d-flex justify-content-end">
-										 <button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">테스트시작</button>
-									<!-- <button class="btn btn-gradient-success btn-gradient btn-lg mt-3">개발 완료</button> -->
-									</div>
-									<label style="color: #343a40;">개발 완료 예정일</label>
-									<input type="date" class="form-control ml-2" style="width: 200px; display: inline;">
+							
+							<div>
+								<div class="d-flex justify-content-end">
+									 <button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">테스트시작</button>
+								<!-- <button class="btn btn-gradient-success btn-gradient btn-lg mt-3">개발 완료</button> -->
 								</div>
-							</form>
+							</div>
+							
 							<div class="card mt-4">
 								<div class="card-header">3차 개발 내용</div>
 								<div class="card-body row">
@@ -236,7 +234,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="developDueDate">개발 완료 예정일 입력</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body d-flex justify-content-center">
 					<label class="mt-1" style="color: #343a40;">개발 완료 예정일</label>
@@ -259,7 +257,7 @@
 				<div class="modal-header">
 					<i class="fa-solid fa-message-exclamation"></i>
 					<h5>경고</h5>
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<p>입력 시간이 완료 예정일 대비 50% 이상 차지합니다. 확인을 누르시면 수정이 불가능합니다.</p>
@@ -278,7 +276,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5>확인</h5>
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body" style="display: flex; justify-content: center;">
 					<p>입력되었습니다.</p>
