@@ -265,16 +265,9 @@ textarea:focus::placeholder {
 							<article class="submit-button">
 								<button class="btn btn-dark btn-sm" type="submit">요청 작성</button>
 							</article>
-
 						</section>
-
-
-
 					</form>
-
-
 				</div>
-
 			</div>
 			<!-- End of Main Content -->
 
