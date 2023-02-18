@@ -16,7 +16,7 @@ form {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 800px;
+	height: 600px;
 	width: 1050px;
 	position: relative;
 	background-color: #fff;
@@ -31,7 +31,7 @@ form {
 .section1 {
 	width: 1047px;
 	overflow: hidden;
-	text-align: center;
+	text-align: start;
 	align-items: center;
 	position: absolute;
 	top: 0;
@@ -39,11 +39,16 @@ form {
 	background-color: #f8f9fc;
 	border-bottom: 1px solid #e3e6f0;
 }
+.section1 h4{
+	color: #68a329;
+	font: bold;
+	margin: 15px 15px;
+}
 
 .section1 .step {
 	width: 1047px;
 	overflow: hidden;
-	text-align: center;
+	text-align: start;
 	justify-content: center;
 }
 
@@ -72,7 +77,7 @@ form {
 
 .section2 h6 {
 	margin-bottom : 10px;
-	font-size : 13px;
+	font-size : 15px;
 	font : bold;
 }
 
@@ -300,7 +305,7 @@ textarea:focus::placeholder {
 					<form method="post" action="${pageContext.request.contextPath}/customer/register">
 						<section class="section1">
 							<h4>요청 작성</h4>
-							<article class="step">
+							<!-- <article class="step">
 								<button>접수</button>
 								<span class="dash"></span>
 								<button>개발</button>
@@ -312,7 +317,7 @@ textarea:focus::placeholder {
 								<button>배포</button>
 								<span class="dash"></span>
 								<button>최종</button>
-							</article>
+							</article> -->
 						</section>
 						<section class="section2">
 							<article class="label item">
