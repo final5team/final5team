@@ -12,7 +12,6 @@ a {
 }
 
 form {
-	border:1px solid black;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -22,7 +21,6 @@ form {
 }
 
 .section1 {
-	border: 1px solid black;
 	width: 800px;
 	overflow: hidden;
 	text-align: center;
@@ -31,26 +29,22 @@ form {
 }
 
 .section2 article {
-	border: 1px solid black;
 	width: 200px;
 	height: 200px;
 	overflow: hidden;
-	position: relative;
-	margin: 120px 50px;
-}
-
-.section2 #img_file {
 	position: absolute;
+	margin: 120px 50px;
+	left : 0%;
+	top : 10%;
+}
+.section2 img{
 	width: 150px;
 	height: 150px;
-	left: 50%;
-	top: 30%;
-	transform: translate(-50%, -50%);
 }
 
 .section2 article button {
 	position: absolute;
-	left: 50%;
+	left: 35%;
 	top: 90%;
 	transform: translate(-50%, -50%);
 }
@@ -59,7 +53,7 @@ form {
 	position: absolute;
 	width: inherit;
 	height: 250px;
-	left: 47%;
+	left: 20%;
 	top: 5%;
 }
 
@@ -71,7 +65,6 @@ form {
 }
 
 .item input {
-	border: 1px solid lightgray;
 	height: 40px;
 	width: inherit;
 	border-radius: 5px;
@@ -98,7 +91,6 @@ form {
 }
 
 .item select {
-	border: 1px solid lightgray;
 	height: 40px;
 	width: inherit;
 	border-radius: 5px;
@@ -110,7 +102,6 @@ form {
 }
 
 .item input:focus {
-	border: 1px solid #85ce36;
 	box-shadow: 0 0 5px #85ce36;
 }
 
@@ -127,25 +118,22 @@ form {
 }
 
 .item select:focus {
-	border: 1px solid #85ce36;
 	box-shadow: 0 0 5px #85ce36;
 }
 
 .section2 .userData2 {
-	border: 1px solid black;
 	position: absolute;
 	width: 300px;
 	height: 250px;
-	left: 61%;
+	left: 45%;
 	top: 5%;
 }
 
 .section2 .submit-button {
-	border: 1px solid black;
 	position: absolute;
 	width: 200px;
 	height: 50px;
-	left: 50%;
+	left: 35%;
 	top: 40%;
 }
 
@@ -195,7 +183,7 @@ form {
 					<form method="post" action="${pageContext.request.contextPath}/customer/register">
 						<section class="section2">
 							<article class="photo">
-								<img id="img_file" src="undraw_profile_1.svg">
+								<img id="img_file" src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg">
 								<button name="imageRegister" class="btn-dark btn-sm" onclick="imageRegist()">이미지 등록</button>
 							</article>
 							<article class="userData">

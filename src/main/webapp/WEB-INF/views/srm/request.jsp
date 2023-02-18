@@ -75,7 +75,7 @@ form {
 .section2 .label2 {
 	position: absolute;
 	width: 110px;
-	left: 45%;
+	left: 40%;
 	top: 10%;
 	overflow: hidden;
 	text-align: start;
@@ -84,7 +84,7 @@ form {
 .section2 .inputData2 {
 	position: absolute;
 	width: 250px;
-	left: 55%;
+	left: 50%;
 	top: 9%;
 	overflow: hidden;
 	text-align: start;
@@ -97,7 +97,7 @@ form {
 .section2 .titleLabel {
 	position: absolute;
 	width: 50px;
-	left: 20%;
+	left: 10%;
 	top: 30%;
 	overflow: hidden;
 	text-align: start;
@@ -106,7 +106,7 @@ form {
 .section2 .titleInput {
 	position: absolute;
 	width: 500px;
-	left: 25%;
+	left: 15%;
 	top: 30%;
 	overflow: hidden;
 	text-align: start;
@@ -119,7 +119,7 @@ form {
 .section2 .titleBody {
 	position: absolute;
 	width: 50px;
-	left: 20%;
+	left: 10%;
 	top: 35%;
 	overflow: hidden;
 	text-align: start;
@@ -128,7 +128,7 @@ form {
 .section2 .bodyInput {
 	position: absolute;
 	width: 500px;
-	left: 25%;
+	left: 15%;
 	top: 35%;
 	overflow: hidden;
 	text-align: start;
