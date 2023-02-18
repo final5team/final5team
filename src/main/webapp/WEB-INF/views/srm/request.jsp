@@ -7,6 +7,186 @@
 <head>
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
 <link href="${pageContext.request.contextPath}/resources/css/request.css" rel="stylesheet" type="text/css">
+<style>
+a {
+	text-decoration: none;
+}
+
+form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 800px;
+	width : 1050px;
+	position : relative;
+}
+
+.section1 {
+	width: 800px;
+	overflow: hidden;
+	text-align: center;
+	align-items: center;
+	position : absolute;
+}
+
+.section1 .step {
+	width: 800px;
+	overflow: hidden;
+	text-align: center;
+	justify-content: center;
+}
+
+.section1 button {
+	margin: 0px 10px;
+	background-color: #85ce36;
+	color: white;
+	border: none;
+}
+
+.section1 .step span {
+	display: inline-block;
+	background-color: #85ce36;
+	width: 8px;
+	height: 6px;
+}
+
+.section2 .label {
+	position: absolute;
+	width: 100px;
+	left: 0%;
+	top: 10%;
+	overflow: hidden;
+	text-align: start;
+}
+
+.section2 h6 {
+	margin-bottom: 15px;
+}
+
+.section2 .inputData {
+	position: absolute;
+	width: 250px;
+	left: 10%;
+	top: 9%;
+	overflow: hidden;
+	text-align: start;
+}
+
+.section2 .label2 {
+	position: absolute;
+	width: 110px;
+	left: 45%;
+	top: 10%;
+	overflow: hidden;
+	text-align: start;
+}
+
+.section2 .inputData2 {
+	position: absolute;
+	width: 250px;
+	left: 55%;
+	top: 9%;
+	overflow: hidden;
+	text-align: start;
+}
+
+.section2 .inputData input {
+	height: 35px;
+}
+
+.section2 .titleLabel {
+	position: absolute;
+	width: 50px;
+	left: 20%;
+	top: 30%;
+	overflow: hidden;
+	text-align: start;
+}
+
+.section2 .titleInput {
+	position: absolute;
+	width: 500px;
+	left: 25%;
+	top: 30%;
+	overflow: hidden;
+	text-align: start;
+}
+
+.section2 .titleInput input {
+	width: inherit;
+}
+
+.section2 .titleBody {
+	position: absolute;
+	width: 50px;
+	left: 20%;
+	top: 35%;
+	overflow: hidden;
+	text-align: start;
+}
+
+.section2 .bodyInput {
+	position: absolute;
+	width: 500px;
+	left: 25%;
+	top: 35%;
+	overflow: hidden;
+	text-align: start;
+}
+
+.section2 .bodyInput textarea {
+	width: inherit;
+}
+
+.section2 .submit-button {
+	position: absolute;
+	width: 200px;
+	height: 50px;
+	left: 30%;
+	top: 40%;
+}
+
+.section2 .submit-button button {
+	position: absolute;
+	left: 30%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+[type="text"]:focus::placeholder {
+	visibility: hidden;
+}
+
+textarea:focus::placeholder {
+	visibility: hidden;
+}
+
+.item select, .item textarea, .item input {
+	border: 1px solid lightgray;
+	height: 40px;
+	width: inherit;
+	border-radius: 5px;
+	padding: 10px;
+	box-sizing: border-box;
+	padding-left: 40px;
+	outline: none;
+	transition: 0.3s;
+}
+
+.item input:focus {
+	border: 1px solid #85ce36;
+	box-shadow: 0 0 5px #85ce36;
+}
+
+.item input:focus::placeholder {
+	visibility: hidden;
+}
+
+.item textarea:focus {
+	border: 1px solid #85ce36;
+	box-shadow: 0 0 5px #85ce36;
+}
+</style>
 </head>
 
 <body id="page-top">
@@ -30,110 +210,69 @@
 
 				<!-- 여기에 내용 담기 start -->
 				<div class="container-fluid">
-					<div class="row" style="justify-content: center;">
+					<section class="section1">
+						<h4>요청 작성</h4>
+						<article class="step">
+							<button>접수</button>
+							<span class="dash"></span>
+							<button>개발</button>
+							<span class="dash"></span>
+							<button>테스트</button>
+							<span class="dash"></span>
+							<button>유저</button>
+							<span class="dash"></span>
+							<button>배포</button>
+							<span class="dash"></span>
+							<button>최종</button>
 
-						<div class="card shadow h-100 py-2">
-							<div class="card-header">
-								<div>SR 요청 작성</div>
-							</div>
-							<div class="card-body">
-								<form method="post">
-									<div id="privacy">
-										<div class="form-group row">
-											<div class="col-sm-6 mb-3 mb-sm-0">
-												<div class="row">
-													<div class="label">작성자</div>
-													<input type="text" class="form-control form-control-user" id="clientName" name="clientName" value="default">
-												</div>
-											</div>
-											<div class="col-sm-6 mb-3 mb-sm-0">
-												<div class="row">
-													<div class="label right">전화번호</div>
-													<input type="text" class="form-control form-control-user" id="phone" name="phone" value="010-1234-1234">
-												</div>
-											</div>
-										</div>
-										<div class="form-group row">
-											<div class="col-sm-6 mb-3 mb-sm-0">
-												<div class="row">
-													<div class="label">직급</div>
-													<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="직급" value="직급">
-												</div>
-											</div>
-											<div class="col-sm-6 mb-3 mb-sm-0">
-												<div class="row">
-													<div class="label right">소속기관</div>
-													<input type="text" class="form-control form-control-user" id="organ" name="organ" placeholder="소속기관" value="소속기관">
-												</div>
-											</div>
-										</div>
-										<div class="form-group row">
-											<div class="col-sm-6 mb-3 mb-sm-0">
-												<div class="row">
-													<div class="label">이메일</div>
-													<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="이메일" value="email@oti.com">
-												</div>
-											</div>
-											<div class="col-sm-6 mb-3 mb-sm-0">
-												<div class="row">
-													<div class="label right">완료 희망일</div>
-													<input type="date" class="form-control form-control-user" id="reqExpectDate" name="reqExpectDate">
-												</div>
-											</div>
-										</div>
-									</div>
-									<br>
-									<div class="card card-body">
-										<div class="row row-col-1 row-cols-sm-3 row-cols-md-6 row-cols-xl-6">
-											<div class="col-2">
-												<button name="status" id="status_one" class="btn-md">접수중</button>
-											</div>
-											<div class="col-2">
-												<button name="status" id="status_two" class="btn-md">개발요청</button>
-											</div>
-											<div class="col-2">
-												<button name="status" id="status_three" class="btn-md">테스트요청</button>
-											</div>
-											<div class="col-2">
-												<button name="status" id="status_four" class="btn-md">유저테스트요청</button>
-											</div>
-											<div class="col-2">
-												<button name="status" id="status_five" class="btn-md">배포요청</button>
-											</div>
-											<div class="col-2">
-												<button name="status" id="status_six" class="btn-md">최종승인요청</button>
-											</div>
-										</div>
-									</div>
-									<hr>
-									<br>
-									<div class="write">
-										<div class="header">
-											<div>요청 제목</div>
-											<input type="text" id="reqTitle" name="reqTitle" value="제목">
-										</div>
-										<br>
-										<div class="writebody">
-											<div class="form-group row">
-												<div class="col mb-3 mb-sm-0">
-													<div>요청내역</div>
-													<textarea id="reqContent" name="reqContent"></textarea>
-												</div>
-												<div class="input-group mb-3">
-													<div class="input-group-prepend">
-														<span class="input-group-text" id="inputGroupFileAddon01">File</span>
-													</div>
-													<div class="custom-file">
-														<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"> <label class="custom-file-label" for="inputGroupFile01"> 첨부파일</label>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
+
+						</article>
+
+					</section>
+
+					<form method="post" action="${pageContext.request.contextPath}/customer/register">
+						<section class="section2">
+							<article class="label item">
+								<h6>작성자</h6>
+								<h6>전화번호</h6>
+								<h6>직급</h6>
+							</article>
+							<article class="inputData item">
+								<input type="text" class="form-control form-control-user" id="clientName" name="clientName" placeholder="default"> <input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="010-1234-1234"> <input type="text" class="form-control form-control-user" id="position" name="position" placeholder="직급">
+
+							</article>
+							<article class="label2 item">
+								<h6>소속기관</h6>
+								<h6>이메일</h6>
+								<h6>완료 희망 일자</h6>
+							</article>
+							<article class="inputData2 item">
+								<input type="text" class="form-control form-control-user" id="organ" name="organ" placeholder="소속기관"> <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="email@oti.com"> <input type="date" class="form-control form-control-user" id="reqExpectDate" name="reqExpectDate">
+							</article>
+							<article class="titleLabel item">
+								<h6>제목</h6>
+							</article>
+							<article class="titleInput item">
+								<input type="text" id="reqTitle" name="reqTitle" placeholder="제목">
+							</article>
+							<article class="titleBody item">
+								<h6>내용</h6>
+							</article>
+							<article class="bodyInput item">
+								<textarea id="reqContent" name="reqContent" placeholder="내용"></textarea>
+							</article>
+
+							<article class="submit-button">
+								<button class="btn btn-dark btn-sm" type="submit">요청 작성</button>
+							</article>
+
+						</section>
+
+
+
+					</form>
+
+
 				</div>
 
 			</div>
