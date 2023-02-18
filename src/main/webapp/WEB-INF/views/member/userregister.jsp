@@ -16,16 +16,33 @@ form {
 	justify-content: center;
 	align-items: center;
 	height: 800px;
-	width : 1050px;
-	position : relative;
+	width: 1050px;
+	position: relative;
+	background-color: #fff;
+	border-radius: 5px;
+	border: 1px solid rgba(0, 0, 0, 0.125);
+	border-radius: 0.25rem;
+	-webkit-box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
+	box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
+	margin-bottom: 50px;
 }
 
 .section1 {
-	width: 800px;
+	width: 1047px;
 	overflow: hidden;
-	text-align: center;
+	text-align: start;
 	align-items: center;
-	position : absolute;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #f8f9fc;
+	border-bottom: 1px solid #e3e6f0;
+}
+
+.section1 h4 {
+	color: #68a329;
+	font: bold;
+	margin: 15px 15px;
 }
 
 .section2 article {
@@ -34,10 +51,11 @@ form {
 	overflow: hidden;
 	position: absolute;
 	margin: 120px 50px;
-	left : 0%;
-	top : 10%;
+	left: 5%;
+	top: 10%;
 }
-.section2 img{
+
+.section2 img {
 	width: 150px;
 	height: 150px;
 }
@@ -53,7 +71,7 @@ form {
 	position: absolute;
 	width: inherit;
 	height: 250px;
-	left: 20%;
+	left: 25%;
 	top: 5%;
 }
 
@@ -125,23 +143,29 @@ form {
 	position: absolute;
 	width: 300px;
 	height: 250px;
-	left: 45%;
+	left: 55%;
 	top: 5%;
 }
 
-.section2 .submit-button {
-	position: absolute;
-	width: 200px;
-	height: 50px;
-	left: 35%;
-	top: 40%;
+]
+.submit-button {
+	width: 70px;
+	height: 25px;
 }
 
-.section2 .submit-button button {
-	position: absolute;
+.return-button {
+	width: 70px;
+	height: 25px;
+}
+
+.section2 article.submit-button {
+	left: 35%;
+	top: 20%;
+}
+
+.section2 article.return-button {
 	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
+	top: 22%;
 }
 </style>
 
@@ -176,11 +200,11 @@ form {
 
 				<!-- 여기에 내용 담기 start -->
 				<div class="container-fluid">
-					<section class="section1">
-						<h4>사용자 등록</h4>
-					</section>
-
 					<form method="post" action="${pageContext.request.contextPath}/customer/register">
+						<section class="section1">
+							<h4>사용자 등록</h4>
+						</section>
+
 						<section class="section2">
 							<article class="photo">
 								<img id="img_file" src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg">
@@ -270,6 +294,10 @@ form {
 
 							<article class="submit-button">
 								<button class="btn btn-dark btn-sm" type="submit">회원 등록</button>
+
+							</article>
+							<article class="return-button">
+								<button class="btn btn-dark btn-sm" type="submit">취소</button>
 							</article>
 						</section>
 					</form>
@@ -285,10 +313,10 @@ form {
 			<!-- End of Content Wrapper -->
 		</div>
 		<!-- End of Page Wrapper -->
-		</div>
-		<!-- Scroll to Top Button-->
-		<a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
-		</a>
+	</div>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
+	</a>
 </body>
 
 </html>
