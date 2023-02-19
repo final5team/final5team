@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,14 +21,14 @@
 				</header>
 				<div class="auth-content">
 					<p class="text-center">LOGIN TO CONTINUE</p>
-					<form id="login-form"  action="${pageContext.request.contextPath}/login" method="GET" novalidate>
+					<form id="login-form"  action="${pageContext.request.contextPath}/login" method="POST" novalidate>
 						<div class="form-group">
-							<label for="username" >Username</label>
-							<input type="email" class="form-control underlined" name="username" id="username" placeholder="Your email address" required>
+							<label for="mid" >UserId</label>
+							<input type="email" class="form-control underlined" name="mid" id="mid" value="${member.mid}" placeholder="Your email address" required>
 						</div>
 						<div class="form-group">
 							<label for="password" >Password</label>
-							<input type="password" class="form-control underlined" name="password" id="password" placeholder="Your password" required>
+							<input type="password" class="form-control underlined" name="password" id="password" value="${member.password}" placeholder="Your password" required>
 						</div>
 						<div class="form-group">
 							<label for="remember">
@@ -34,11 +36,14 @@
 								<span>Remember me</span>
 							</label>
 						</div>
+						<c:if test="${loginResult != null}">
+							<div class="text-warning">${loginResult}</div>
+						</c:if>
 						<div class="form-group">
 							<button type="submit" class="btn btn-block btn-primary">Login</button>
 						</div>
 						<div class="form-group">
-							<p class="text-muted text-center">Do not have an account? <a href="signup.html">Sign Up</a></p>
+							<p class="text-muted text-center">Do not have an account? <a href="#">Sign Up</a></p>
 						</div>
 					</form>
 				</div>
