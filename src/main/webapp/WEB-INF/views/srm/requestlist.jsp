@@ -7,6 +7,203 @@
 <head>
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
 <link href="${pageContext.request.contextPath}/resources/css/requestlist.css" rel="stylesheet" type="text/css">
+<style>
+a {
+	text-decoration: none;
+}
+
+main {
+	display: flex;
+	height: 100vh;
+	width: 1100px;
+	position: relative;
+	justify-content: center;
+	align-items: center;
+	font-size: 15px;
+}
+
+.filter {
+	width: 1050px;
+	height: 200px;
+	overflow: hidden;
+	text-align: start;
+	align-items: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #fff;
+	border-bottom: 1px solid #e3e6f0;
+	border-radius: 5px;
+	border: 1px solid rgba(0, 0, 0, 0.125);
+	border-radius: 0.25rem;
+	-webkit-box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
+	box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
+}
+
+.filter .filter-head {
+	background-color: #f8f9fc;
+	border-bottom: 1px solid #e3e6f0;
+}
+
+.filter .filter-head h4 {
+	background-color: #f8f9fc;
+	color: #68a329;
+	font: bold;
+	margin-left: 15px;
+}
+
+.filter .filter-name {
+	width: 100px;
+	height: 200px;
+	position: absolute;
+	margin: 0;
+	left: 2%;
+	top: 20%;
+}
+
+.filter .filter-name h6 {
+	font-size: 15px;
+	margin: 20px 10px;
+}
+
+.filter .filter-name2 {
+	width: 100px;
+	height: 200px;
+	position: absolute;
+	margin: 0;
+	left: 60%;
+	top: 20%;
+}
+
+.filter .filter-name2 h6 {
+	font-size: 15px;
+	margin: 20px 10px;
+}
+
+.filter .filter-body {
+	width: 300px;
+	height: 200px;
+	overflow: hidden;
+	position: absolute;
+	left: 13%;
+	top: 20%;
+	float: left;
+}
+
+.filter .filter-body .input-group {
+	width: 100px;
+	margin: 8px;
+}
+
+.filter .filter-body .date_form {
+	margin: 6px;
+}
+
+.filter .filter-body2 {
+	width: 300px;
+	height: 200px;
+	overflow: hidden;
+	position: absolute;
+	left: 70%;
+	top: 20%;
+	float: left;
+}
+
+.filter .filter-body2 .input-group {
+	width: 100px;
+	margin: 5px;
+}
+
+.table {
+	width: 1050px;
+	height: inherit;
+	overflow: hidden;
+	text-align: start;
+	align-items: center;
+	position: absolute;
+	top: 20%;
+	left: 0;
+	background-color: #fff;
+	border-bottom: 1px solid #e3e6f0;
+	border-radius: 5px;
+	border: 1px solid rgba(0, 0, 0, 0.125);
+	border-radius: 0.25rem;
+	-webkit-box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
+	box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
+}
+
+.table .table-header {
+	background-color: #f8f9fc;
+	border-bottom: 1px solid #e3e6f0;
+	border-bottom: 1px solid #e3e6f0;
+}
+
+.table .table-header h4 {
+	background-color: #f8f9fc;
+	color: #68a329;
+	font: bold;
+	margin-left: 15px;
+}
+
+.table .table-body {
+	position: absolute;
+	top: 4%;
+	left: 0%;
+	height: inherit;
+}
+
+.member {
+	width: inherit;
+	background-color: #fff;
+	border-collapse: collapse;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.member caption {
+	font-size: 30px;
+	margin-bottom: 30px;
+}
+
+.member tr {
+	border-bottom: 1px solid #eee;
+	transition: 0.3s;
+}
+
+.member tr:last-child {
+	border: none;
+}
+
+/* .member tr:hover {
+                        background-color: #eee;
+                      } */
+.member tr:nth-child(odd) {
+	background-color: #eee;
+}
+
+.member th, .member td {
+	padding: 12px;
+	text-align: center;
+}
+
+.member tr th {
+	background-color: #85ce36;
+	color: #fff;
+}
+
+.member tr th:first-child {
+	border-radius: 5px 0 0 0;
+}
+
+.member tr th:last-child {
+	border-radius: 0 5px 0 0;
+}
+
+.member tr td:last-child {
+	color: red;
+}
+</style>
 
 </head>
 
@@ -31,179 +228,98 @@
 
 				<!-- 여기에 내용 담기 start -->
 				<div class="container-fluid">
-					<div class="card shadow mb-4">
-						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">필터</h6>
-						</div>
-						<div class="filter card-body">
-							<div class="col">
-								<div class="row">
-									<div class="filterlabel">유형 선택</div>
-									<div class="col-sm-6">
-										<div class="input-group mb-3">
-											<select class="custom-select" id="req_type" name="req_type">
-												<option value="1" selected>1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-											</select>
-										</div>
-									</div>
-								</div>
+					<main class="all">
+					<section method="post" class="filter">
+						<article class="filter-head">
+							<h4>필터</h4>
+						</article>
 
-								<div class="row">
-									<div class="filterlabel">날짜 선택</div>
-									<div class="col-sm-6">
-										<div class="row">
-											<input type="date" class="filter form-control form-control-user" id="birth" name="birth"> <i class="fa fa-minus"></i> <input type="date" class="filter form-control form-control-user" id="birth" name="birth">
-										</div>
-									</div>
-								</div>
+						<article class="filter-name">
+							<h6>유형 선택</h6>
+							<h6>작성 날짜</h6>
+						</article>
 
-								<div class="row">
-									<div class="filterlabel">시스템 선택</div>
-									<div class="col-sm-6">
-										<div class="input-group mb-3">
-											<select class="custom-select" id="sno" name="sno">
-												<option value="1" selected>1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-											</select>
-										</div>
-									</div>
+						<article class="filter-name2">
+							<h6>단계 선택</h6>
+							<h6>시스템</h6>
+						</article>
+						<form action="">
+							<article class="filter-body">
+								<div class="input-group">
+									<select class="custom-select" id="req_type" name="req_type">
+										<option value="1" selected>1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+									</select>
 								</div>
-								<div class="row">
-									<div class="filterlabel">단계 선택</div>
-									<div class="col-sm-6">
-										<div class="input-group mb-3">
-											<select class="custom-select" id="sno" name="sno">
-												<option value="1" selected>1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option value="6">6</option>
-											</select>
-										</div>
-									</div>
-									<button class="btn btn-sm btn-primary">검색</button>
+								<div class="date_form">
+									<input type="date" id="birth_first" name="birth_first"> <i class="fa fa-minus"></i> <input type="date" id="birth_last" name="birth_last">
 								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card shadow mb-4">
-						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">내 담당 요청 관리</h6>
-						</div>
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm">
-									<table class="table table-bordered" id="table_name">
-										<tr>
-											<td class="rno">no</td>
-											<td class="client">시스템</td>
-											<td class="sysType">요청 유형</td>
-											<td class="reqTitle">요청 제목</td>
-											<td class="reqDate">요청 일자</td>
-											<td class="stepButton">단계 확인</td>
-										</tr>
-									</table>
+							</article>
+							<article class="filter-body2">
+								<div class="input-group">
+									<select class="custom-select" id="sno" name="sno">
+										<option value="1" selected>1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+									</select>
 								</div>
-							</div>
-							<div class="row">
-								<div class="col-sm">
-									<c:forEach var="request" items="${requestList}">
-										<table class="table table-bordered" id="table_content">
-											<tr>
-												<td class="rno">${request.rno}</td>
-												<!-- 나중에 시스템 이름으로 바꾸어 줘야 함. -->
-												<td class="client">${request.sno}이름추가</td>
-												<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
-												<td class="sysType">일반, 긴급</td>
-												<td class="reqTitle">${request.reqTitle}</td>
-												<td class="reqDate">${request.reqDate}</td>
-												<td class="stepButton">
-													<button class="btn btn-success btn-sm" type="button" data-toggle="collapse" id="step" data-target="#collapseExample${request.rno}" aria-expanded="false" aria-controls="collapseExample" onclick="sendRno(${request.rno})">단계</button>
-													<input type="hidden" id="requestRno" value="${request.rno}">
-												</td>
-											</tr>
-										</table>
-										<!-- c:if로 정규, 긴급 구분 -->
-										<div class="collapse" id="collapseExample${request.rno}">
-											<div class="card card-body">
-												<div class="row row-col-1 row-cols-sm-3 row-cols-md-6 row-cols-xl-6">
+								<div class="input-group">
+									<select class="custom-select" id="sno" name="sno">
+										<option value="1" selected>1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+									</select>
+								</div>
+							</article>
+						</form>
+					</section>
+					<section class="table">
+						<article class="table-header">
+							<h4>리스트</h4>
+						</article>
+						<article class="member table-body">
 
-													<div class="col-2">
-														<button name="status" class="btn-md <c:if test="${request.statusNo >= 2}">done</c:if>
-															<c:if test="${request.statusNo == 1}">now</c:if> ">
-															<c:if test="${request.statusNo == 1}">접수중</c:if>
-															<c:if test="${request.statusNo >= 2}">접수완료</c:if>
-														</button>
-													</div>
-
-													<div class="col-2">
-														<button name="status" id="status_two" class="btn-md <c:if test="${request.statusNo >= 5}">done</c:if>
-									           	 			<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">now</c:if>">
-															<c:if test="${request.statusNo < 2}">개발단계</c:if>
-															<c:if test="${request.statusNo == 2}">개발요청</c:if>
-															<c:if test="${request.statusNo == 3}">개발중</c:if>
-															<c:if test="${request.statusNo == 4}">개발재검토</c:if>
-															<c:if test="${request.statusNo >= 5}">개발완료</c:if>
-														</button>
-													</div>
-													<div class="col-2">
-														<button name="status" id="status_three" class="btn-md <c:if test="${request.statusNo >= 7}">done</c:if>
-									           	 			<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">now</c:if>">
-															<c:if test="${request.statusNo < 5}">테스트단계</c:if>
-															<c:if test="${request.statusNo == 5}">테스트요청</c:if>
-															<c:if test="${request.statusNo == 6}">테스트중</c:if>
-															<c:if test="${request.statusNo >= 7}">테스트완료</c:if>
-														</button>
-													</div>
-													<div class="col-2">
-														<button name="status" id="status_four" class="btn-md <c:if test="${request.statusNo >= 9}">done</c:if>
-									           	 			<c:if test="${request.statusNo >= 7 && request.statusNo <= 8}">now</c:if>">
-															<c:if test="${request.statusNo < 7}">유저테스트단계</c:if>
-															<c:if test="${request.statusNo == 7}">유저테스트요청</c:if>
-															<c:if test="${request.statusNo == 8}">유저테스트중</c:if>
-															<c:if test="${request.statusNo >= 9}">유저테스트완료</c:if>
-														</button>
-													</div>
-													<div class="col-2">
-														<button name="status" id="status_five" class="btn-md <c:if test="${request.statusNo >= 11}">done</c:if>
-									           	 			<c:if test="${request.statusNo >= 9 && request.statusNo <= 10}">now</c:if>">
-															<c:if test="${request.statusNo < 9}">배포단계</c:if>
-															<c:if test="${request.statusNo == 9}">배포요청</c:if>
-															<c:if test="${request.statusNo == 10}">배포중</c:if>
-															<c:if test="${request.statusNo >= 11}">배포완료</c:if>
-														</button>
-													</div>
-													<div class="col-2">
-														<button name="status" id="status_six" class="btn-md <c:if test="${request.statusNo >= 13}">done</c:if>
-									           	 			<c:if test="${request.statusNo == 11}">now</c:if>">
-															<c:if test="${request.statusNo < 11}">최종승인단계</c:if>
-															<c:if test="${request.statusNo == 11}">최종승인요청</c:if>
-															<c:if test="${request.statusNo == 13}">완료</c:if>
-														</button>
-													</div>
-												</div>
-											</div>
-										</div>
-										<br>
-									</c:forEach>
-								</div>
-							</div>
-						</div>
-					</div>
+							<table class="member" id="table_content">
+								<tr>
+									<th>No.</th>
+									<th>시스템</th>
+									<th>요청 유형</th>
+									<th>요청 제목</th>
+									<th>요청 일자</th>
+									<th>단계</th>
+								</tr>
+								<c:forEach var="request" items="${requestList}">
+									<tr>
+										<td class="rno">${request.rno}</td>
+										<!-- 나중에 시스템 이름으로 바꾸어 줘야 함. -->
+										<td class="client">${request.sno}이름추가</td>
+										<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
+										<td class="sysType">일반, 긴급</td>
+										<td class="reqTitle">${request.reqTitle}</td>
+										<td class="reqDate">${request.reqDate}</td>
+										<td class="reqDate">${request.reqDate}</td>
+									</tr>
+								</c:forEach>
+							</table>
+						</article>
+					</section>
+					</main>
 				</div>
+				<div class="container-fluid"></div>
 				<div class="pager d-flex justify-content-center my-3">
 					<div class="flex-fulfill"></div>
 					<div class="pagingButtonSet d-flex justify-content-center">
 						<c:if test="${pager.pageNo > 1}">
 							<a href="1" type="button" class="btn btn-muted shadow">◀◀</a>
 						</c:if>
-
 						<c:if test="${pager.groupNo > 1}">
 							<a href="${pager.startPageNo-1}" type="button" class="btn btn-muted shadow">◀</a>
 						</c:if>
