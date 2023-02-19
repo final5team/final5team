@@ -146,7 +146,7 @@ form {
 }
 
 .section2 .titleInput input {
-	width: inherit;
+	width: 700px;
 	height : 25px;
 }
 
@@ -173,7 +173,7 @@ form {
 }
 
 .section2 .bodyInput textarea {
-	width: inherit;
+	width: 700px;
 	font-size : 15px;
 	font: bold;  
 	height : 50px;
