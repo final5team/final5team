@@ -50,6 +50,7 @@ main {
 	color: #68a329;
 	font: bold;
 	margin-left: 15px;
+	font-size: 15px;
 }
 
 .filter .filter-name {
@@ -78,6 +79,7 @@ main {
 .filter .filter-name2 h6 {
 	font-size: 15px;
 	margin: 20px 10px;
+	font-size: 15px;
 }
 
 .filter .filter-body {
@@ -190,6 +192,10 @@ main {
 .member tr th {
 	background-color: #85ce36;
 	color: #fff;
+}
+
+.member tr td {
+	font-size: 13px;
 }
 
 .member tr th:first-child {
