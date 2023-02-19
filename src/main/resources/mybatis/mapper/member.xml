@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oti.srm.dao.member.IMemberDao">
+	
+	<select id="getMember" parameterType="com.oti.srm.dto.Member" resultType="com.oti.srm.dto.Member">
+		select  MID as"mid",
+				MTYPE as"mtype",
+				MNAME as"mname",
+				BIRTH as"birth",
+				GENDER as"gender",
+				ADDRESS as"address",
+				SNO as"sno",
+				EMAIL as"email",
+				PASSWORD as"password",
+				ORGAN as"organ",
+				POSITION as"position",
+				PHONE as"phone",
+				FILE_DATA as"fileData",
+				FILE_TYPE as"fileType",
+				FILE_NAME as"fileName",
+				SAVED_DATE as"savedDate"
+				from members
+				where mid = #{mid}
+	
+	</select>
+	
+	
+
+</mapper>
