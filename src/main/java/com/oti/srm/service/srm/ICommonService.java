@@ -20,4 +20,6 @@ public interface ICommonService {
 
 	public void endWork(StatusHistory statusHistory, String mtype);
 
+	public List<StatusHistory> getTesterToDevHistories(int rno);
+
 }

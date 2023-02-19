@@ -128,12 +128,10 @@
 											<i class="fas fa-cloud-download-alt"></i>
 										</a>
 									</div>
-								</div>
-							</div>
-							<div>
-								<div class="d-flex justify-content-end">
-									 <button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">테스트시작</button>
-								<!-- <button class="btn btn-gradient-success btn-gradient btn-lg mt-3">개발 완료</button> -->
+									<div class="d-flex justify-content-end">
+										 <button class="btn btn-primary btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">테스트시작</button>
+									<!-- <button class="btn btn-info btn-lg mt-3">개발 완료</button> -->
+									</div>
 								</div>
 							</div>
 							<!-- 개발자의 개발 요청 글 작성 start-->
@@ -169,17 +167,83 @@
 								</div>
 							</div>
 							<!-- 개발자의 개발 요청 글 작성 end-->
-							<div class="row">
+							<div class="row mb-3">
 								<!-- 개발자의 개발내용 start -->
 								<div class="col-md-6">
-									<div class="card">
-										<div class="card-header">asdf</div>
-										<div class="card-body">asdf</div>
+									<div class="card" style="height: 262px;">
+										<div class="card-header d-flex justify-content-end">
+											<div>1차 개발</div>
+											<div class="ml-auto ml-1">2023-02-10</div>
+										</div>
+										<div class="card-body p-1">
+											<div class="row">
+												<div class="col-sm-3 d-flex align-items-center" style="text-align: center;">
+													<div>
+														<img class="rounded-circle mt-1" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
+														<div class="ml-2">김레지나</div>
+													
+													</div>
+												</div>
+												<div class="col-sm-9">
+													<div class="d-flex justify-content-end">
+													</div>
+													<div>
+														<label class="control-label">개발내용</label>
+														<textarea class="form-control boxed " readonly style="background-color: transparent;" rows="2">asdfasdfasdfasdfasdfasdfasd</textarea>
+													</div>
+													<div class=" mt-2">
+														<label class="control-label">배포소스</label>
+														<input class="form-control boxed" value="sfamilydocument.java" readonly style="background-color: transparent;">
+													</div>
+													<div class="mt-2">
+														<span>첨부파일: 파일이름</span>
+														<a href="#" role="button">
+															<i class="fas fa-cloud-download-alt"></i>
+														</a>
+													</div>
+												</div>
+											</div>	
+
+										</div>
 									</div>
 								</div>
 								<!-- 개발자의 개발내용 end -->
 								<!-- 테스터의 개발내용 start -->
-								<div class="col-md-6"></div>
+								<div class="col-md-6">
+									<div class="card" style="height: 262px;">
+										<div class="card-header d-flex justify-content-end">
+											<div>1차 결함</div>
+											<div class="ml-auto ml-1">2023-02-10</div>
+										</div>
+										<div class="card-body p-1">
+											<div class="row">
+												<div class="col-sm-3 d-flex align-items-center" style="text-align: center;">
+													<div>
+														<img class="rounded-circle mt-1" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
+														<div class="ml-2">김레지나</div>
+													
+													</div>
+												</div>
+												<div class="col-sm-9">
+													<div class="d-flex justify-content-end">
+													</div>
+													<div>
+														<label class="control-label">결함내용</label>
+														<textarea class="form-control boxed " readonly style="background-color: transparent;" rows="3">asdfasdfasdfasdfasdfasdfasd</textarea>
+													</div>
+													<div class="mt-2">
+														<span>첨부파일: 파일이름</span>
+														<a href="#" role="button">
+															<i class="fas fa-cloud-download-alt"></i>
+														</a>
+													</div>
+												</div>
+											</div>	
+
+										</div>
+									</div>								
+								
+								</div>
 								<!-- 테스터의 개발내용 end -->
 							</div>
 

@@ -87,4 +87,21 @@ public class CommonService implements ICommonService {
 		commonDao.insertStatusHistory(statusHistory);
 	}
 
+	
+//	(테스터 -> 개발자) 재검토 요청에 대한 단계 변경 이력
+	@Override
+	@Transactional
+	public List<StatusHistory> getTesterToDevHistories(int rno) {
+		List<StatusHistory> allHistories = commonDao.getRequestHistories(rno);
+		List<StatusHistory> testerToDevHistories = new ArrayList<>();
+		for(StatusHistory tester: allHistories) {
+			if(tester.getNextStatus() == 3 ) {
+				tester.setFileList(commonDao.getStatusHistoryFiles(tester.getHno()));
+				testerToDevHistories.add(tester);
+			}
+		}
+		
+		return testerToDevHistories;
+	}
+	
 }

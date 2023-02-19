@@ -53,7 +53,7 @@
 				<span>내 담당 요청 관리</span></a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/developer">
+			<a class="nav-link" href="${pageContext.request.contextPath}/developerdetail">
 				<i class="fas fa-file-code"></i>
 				<span>개발자의 담당요청 상세보기</span></a>
 		</li>
