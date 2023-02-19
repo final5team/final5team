@@ -14,6 +14,7 @@ public class RequestProcess {
 	private Date distExpectDate;
 	private Date userTestExpectDate;
 	private Date allExpectDate;
+	private String allExpectDateStr;
 	
 	private Date devCompDate;
 	private Date testCompDate;

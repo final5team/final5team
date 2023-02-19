@@ -1,5 +1,6 @@
 package com.oti.srm.controller.srm;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.oti.srm.dto.Member;
+import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.StatusHistory;
 import com.oti.srm.service.srm.ICommonService;
 
@@ -33,7 +35,12 @@ public class UserTestDistributeController {
 		model.addAttribute("request", commonService.getRequest(rno));
 		// Validation(내 담당건 맞는지)
 		// 요청 처리정보
-		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
+		RequestProcess rp = commonService.getRequestProcess(rno);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String str = format.format(rp.getAllExpectDate());
+		rp.setAllExpectDateStr(str);
+		log.info(str);
+		model.addAttribute("requestProcess", rp);
 		List<StatusHistory> devToTesterHistories = commonService.getDevToTesterHistories(rno);
 		Member member = new Member();
 		member.setMid("thddudgns79");
@@ -73,7 +80,6 @@ public class UserTestDistributeController {
 	@PostMapping("/startwork")
 	public String startWork(StatusHistory statusHistory,
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expectDate, String mtype) {
-		log.info(mtype);
 		commonService.startWork(statusHistory, expectDate, mtype);
 		if (mtype.equals("userTester")) {
 			return "redirect:/usertestdetail?rno=" + statusHistory.getRno();
