@@ -147,7 +147,53 @@ form {
 	top: 5%;
 }
 
-]
+.section2 .address-input {
+	position: absolute;
+	margin: 0;
+	width: 580px;
+	height: 150px;
+	left: 29%;
+	top: 52%;
+	box-sizing: border-box;
+}
+
+.section2 .address-input div {
+	float: left;
+}
+
+.section2 .address-input .address1, .section2 .address-input .address3 {
+	margin-left: 7px;
+}
+
+.section2 .address-input .address1 {
+	width: 180px;
+}
+
+.section2 .address-input .address2 {
+	margin-left: 10px;
+	width: 290px;
+}
+
+.section2 .address-input .address3 {
+	width: 510px;
+}
+
+.section2 .address-input .address-button {
+	position: absolute;
+	left: 77%;
+	top: 15%;
+}
+
+.section2 article.submit-button {
+	left: 35%;
+	top: 30%;
+}
+
+.section2 article.return-button {
+	left: 50%;
+	top: 30%;
+}
+
 .submit-button {
 	width: 70px;
 	height: 25px;
@@ -157,23 +203,31 @@ form {
 	width: 70px;
 	height: 25px;
 }
-
-.section2 article.submit-button {
-	left: 35%;
-	top: 20%;
-}
-
-.section2 article.return-button {
-	left: 50%;
-	top: 22%;
-}
 </style>
-
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
 	function imageRegist() {
 		let myInput = document.getElementById('i_file');
 		myInput.click();
+	}
+	function findAddress() {
+		new daum.Postcode({
+			oncomplete : function(data) {
+				var addr1 = data.roadAddress; // 도로명 주소
+				var addr3 = ''; // 상세 주소
+
+				// 우편번호와 주소 정보 넣기
+				document.getElementById("postcode").value = data.zonecode;
+				document.getElementById("addr1").value = data.roadAddress;
+
+				if (addr1 !== '') {
+					document.getElementById("addr1").value = addr1;
+				} else {
+					document.getElementById("addr3").value = '';
+				}
+			}
+		}).open();
 	}
 </script>
 
@@ -288,13 +342,25 @@ form {
 										</select>
 										<i class="fa fa-user"></i>
 									</div>
-
+								</div>
+							</article>
+							<article class="address-input">
+								<div class="item address1">
+									<input type="text" class="form-control form-control-user" id="postcode" name="postcode" placeholder="우편번호" readonly> <i class="fa fa-user"></i>
+								</div>
+								<div class="item address2">
+									<input type="text" class="form-control form-control-user" id="addr1" name="addr1" placeholder="도로명 주소" readonly> <i class="fa fa-user"></i>
+								</div>
+								<div class="item address3">
+									<input type="text" id="addr3" name="addr3" placeholder="상세 주소"> <i class="fa fa-user"></i>
+								</div>
+								<div class="item address-button">
+									<button type="button" class="btn btn-dark btn-sm" id="address" name="address" onclick="findAddress()">우편번호</button>
 								</div>
 							</article>
 
 							<article class="submit-button">
 								<button class="btn btn-dark btn-sm" type="submit">회원 등록</button>
-
 							</article>
 							<article class="return-button">
 								<button class="btn btn-dark btn-sm" type="submit">취소</button>
