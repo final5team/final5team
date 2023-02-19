@@ -14,7 +14,7 @@ a {
 
 main {
 	display: flex;
-	height: 100vh;
+	height: 80vh;
 	width: 1100px;
 	position: relative;
 	justify-content: center;
@@ -50,6 +50,7 @@ main {
 	color: #68a329;
 	font: bold;
 	margin-left: 15px;
+	font-size: 15px;
 }
 
 .filter .filter-name {
@@ -78,6 +79,7 @@ main {
 .filter .filter-name2 h6 {
 	font-size: 15px;
 	margin: 20px 10px;
+	font-size: 15px;
 }
 
 .filter .filter-body {
@@ -116,12 +118,12 @@ main {
 
 .table {
 	width: 1050px;
-	height: inherit;
+	height: 500px;
 	overflow: hidden;
 	text-align: start;
 	align-items: center;
 	position: absolute;
-	top: 20%;
+	top: 25%;
 	left: 0;
 	background-color: #fff;
 	border-bottom: 1px solid #e3e6f0;
@@ -147,7 +149,7 @@ main {
 
 .table .table-body {
 	position: absolute;
-	top: 4%;
+	top: 10%;
 	left: 0%;
 	height: inherit;
 }
@@ -192,6 +194,10 @@ main {
 	color: #fff;
 }
 
+.member tr td {
+	font-size: 13px;
+}
+
 .member tr th:first-child {
 	border-radius: 5px 0 0 0;
 }
@@ -202,6 +208,10 @@ main {
 
 .member tr td:last-child {
 	color: red;
+}
+
+.member tr:hover {
+	background-color: rgba(0, 128, 0, 0.404);
 }
 </style>
 
