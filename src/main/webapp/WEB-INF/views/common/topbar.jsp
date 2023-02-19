@@ -37,7 +37,7 @@
 				<!-- Nav Item - User Information -->
 				<li class="nav-item dropdown no-arrow">
 					<div class="nav-link dropdown-toggle" id="userDropdown">
-						<span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+						<span class="mr-2 d-none d-lg-inline text-gray-600 small">${member.mid}</span>
 						<img class="img-profile rounded-circle" src="${pageContext.request.contextPath}/resources/img/hooni.png">
 					</div>
 				</li>
@@ -59,7 +59,7 @@
 	                <div class="modal-body">로그아웃을 원하시면 버튼을 눌러주세요.</div>
 	                <div class="modal-footer">
 	                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-	                    <a class="btn btn-primary" href="${pageContext.request.contextPath}/login">Logout</a>
+	                    <a class="btn btn-primary" href="${pageContext.request.contextPath}/logout">Logout</a>
 	                </div>
 	            </div>
 	        </div>

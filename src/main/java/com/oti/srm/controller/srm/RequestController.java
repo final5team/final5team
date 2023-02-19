@@ -1,5 +1,6 @@
 package com.oti.srm.controller.srm;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Pager;
@@ -36,33 +38,57 @@ public class RequestController {
 	@PostMapping("/register")
 	public String register(Member member, Model model) {
 		log.info("등록 실행");
-		log.info("member : " + member.toString());
-		int result = userRegisterService.register(member);
+		String address = member.getPostcode() + member.getAddr1() + member.getAddr2();
+		member.setAddress(address);
 		
-		if (result == IUserRegisterService.REGISTER_FAIL) {
-			return "redirect:/customer/register";
-		} else {
+		MultipartFile mfile = member.getMfile();
+		log.info(member.toString());
+		
+		try {
+
+			if (mfile != null && !mfile.isEmpty()) {
+				log.info(mfile.toString());
+				member.setFileName(mfile.getOriginalFilename());
+				member.setSavedDate(new Date());
+				member.setFileType(mfile.getContentType());
+				member.setFileData(mfile.getBytes());
+				
+				int result  = userRegisterService.registerWithFile(member);
+				if(result == IUserRegisterService.REGISTER_FAIL) {
+					return "redirect:/customer/register";
+					//성공
+				} else {
+					return "redirect:/srm";
+				}
+				
+			} else {
+				int result = userRegisterService.register(member);
+				if (result == IUserRegisterService.REGISTER_FAIL) {
+					return "redirect:/customer/register";
+					//성공
+				} else {
+					return "redirect:/srm";
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 			model.addAttribute("registerResult", "FAIL");
-			return "redirect:/login";
+			return "redirect:/customer/register";
 		}
-		
+
 	}
-	
-	
+
 	@GetMapping("/request")
 	public String customerRequest() {
 		return "srm/request";
 	}
-		
-	
+
 	@PostMapping("/request")
 	public String customerRequest(Request request, Model model) {
 		request.setStatusNo(1);
-		
 
 		log.info(model.toString());
-		
-		
+
 //		
 //		int result = requestService.request(request);
 //		if(result == IRequestRegisterService.REQUEST_SUCCESS) {
@@ -74,37 +100,28 @@ public class RequestController {
 //		
 		return "redirect:/login";
 	}
-	
-	
+
 	@GetMapping("/requestlist")
 	public String requestList(Request request, Model model, Pager pager) {
-		
-		List<Request> requestList= requestService.getRequestList(request, pager);
+
+		List<Request> requestList = requestService.getRequestList(request, pager);
 		model.addAttribute("requestList", requestList);
-		
-		
+
 		log.info(model.toString());
-		
+
 		return "srm/requestlist";
 	}
-	
-	
-	
+
 	@PostMapping("/viewstep")
 	@ResponseBody
 	public int viewStep(Model model, Request request) {
 		log.info("viewStep");
 		log.info(request.getRno());
 		int result = requestService.getPresentStep(request.getRno());
-		
+
 		log.info("리턴값" + result);
-		
+
 		return result;
 	}
-	
-	
-	
-	
-
 
 }
