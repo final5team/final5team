@@ -46,18 +46,28 @@ form {
 }
 
 .section2 article {
-	width: 200px;
+	width: 500px;
 	height: 200px;
 	overflow: hidden;
 	position: absolute;
 	margin: 120px 50px;
-	left: 5%;
+	left: 2%;
 	top: 10%;
 }
 
 .section2 img {
 	width: 150px;
 	height: 150px;
+	position: absolute;
+	border-radius: 50%;
+	left: 7%;
+}
+
+.section2 #mfile {
+	position: absolute;
+	top: 80%;
+	left: 0%;
+	width: 220px;
 }
 
 .section2 article button {
@@ -147,6 +157,7 @@ form {
 	height: 300px;
 	left: 55%;
 	top: -1%;
+	z-index: 5;
 }
 
 .section2 .address-input {
@@ -157,6 +168,7 @@ form {
 	left: 29%;
 	top: 52%;
 	box-sizing: border-box;
+	z-index: 5;
 }
 
 .section2 .address-input div {
@@ -187,23 +199,20 @@ form {
 }
 
 .section2 article.submit-button {
-	left: 35%;
-	top: 30%;
+	width: 120px;
+	height: 150px;
+	left: 50%;
+	top: 50%;
+	margin: 0;
+	z-index: 5;
 }
 
 .section2 article.return-button {
-	left: 50%;
-	top: 30%;
-}
-
-.submit-button {
-	width: 70px;
-	height: 25px;
-}
-
-.return-button {
-	width: 70px;
-	height: 25px;
+	width: 120px;
+	height: 150px;
+	left: 55%;
+	top: 35%;
+	z-index: 5;
 }
 </style>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -227,6 +236,17 @@ form {
 			}
 		}).open();
 	}
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				document.getElementById('preview').src = e.target.result;
+			};
+			reader.readAsDataURL(input.files[0]);
+		} else {
+			document.getElementById('preview').src = "";
+		}
+	}
 </script>
 
 </head>
@@ -248,7 +268,7 @@ form {
 				<!-- Topbar -->
 				<%@ include file="/WEB-INF/views/common/topbar.jsp"%>
 				<!-- End of Topbar -->
-				
+
 				<!-- 여기에 내용 담기 start -->
 				<div class="container-fluid">
 					<form method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data">
@@ -258,12 +278,13 @@ form {
 
 						<section class="section2">
 							<article class="photo">
-								<c:if test="">
-									<img id="img_file" src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg">
-								</c:if>
+								<img id="preview" src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg" /> <input type="file" class="btn btn-sm btn-dark" id="mfile" name="mfile" onchange="readURL(this);">
+								<%-- 						<img  id="img_file" src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg">
 								<button type="button" name="img-add" class="btn-dark btn-sm" onclick="onclick=document.all.mfile.click()">이미지 등록</button>
 								<input type="file" id="mfile" name="mfile" style="display:none"  accept="image/*" />
+ --%>
 							</article>
+
 							<article class="userData">
 								<div class="item">
 									<div class="input-group">
@@ -314,8 +335,8 @@ form {
 								<div class="item">
 									<div class="input-group">
 										<select class="custom-select" id="gender" name="gender">
-											<option value="man">남</option>
-											<option value="woman">여</option>
+											<option value="1">남</option>
+											<option value="2">여</option>
 										</select>
 										<i class="fa fa-user"></i>
 									</div>
