@@ -8,6 +8,7 @@ import com.oti.srm.dto.Member;
 public interface IUserRegisterDao {
 
 	public int register(Member member);
-
+	public int registerWithFile(Member member);
+	
 	
 }

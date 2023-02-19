@@ -11,5 +11,6 @@ public interface IUserRegisterService {
 	public static final int REGISTER_FAIL = 1;
 
 	public int register(Member member);
-
+	public int registerWithFile(Member member);
+	
 }

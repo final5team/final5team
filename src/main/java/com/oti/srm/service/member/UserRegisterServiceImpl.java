@@ -14,23 +14,21 @@ public class UserRegisterServiceImpl implements IUserRegisterService {
 
 	@Autowired
 	private IUserRegisterDao registerDao;
-	
+
 	@Override
 	public int register(Member member) {
 		log.info("가입 실행");
-		try {
-			int rows = registerDao.register(member);
-			return REGISTER_SUCCESS;
-		} catch(Exception e) {
-			log.error(e.toString());
-			return REGISTER_FAIL;
-		}
+		int rows = registerDao.register(member);
+		return REGISTER_SUCCESS;
 	}
-	
-	
-	
-	
-	
-	
 
+	@Override
+	public int registerWithFile(Member member) {
+		int rows = registerDao.registerWithFile(member);
+		return REGISTER_SUCCESS;
+	}
+
+	
+	
+	
 }

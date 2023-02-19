@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -70,9 +70,11 @@ form {
 .section2 .userData {
 	position: absolute;
 	width: inherit;
-	height: 250px;
+	height: 300px;
 	left: 25%;
-	top: 5%;
+	top: -1%;
+	height: 300px;
+	left: 25%;
 }
 
 .item {
@@ -142,9 +144,9 @@ form {
 .section2 .userData2 {
 	position: absolute;
 	width: 300px;
-	height: 250px;
+	height: 300px;
 	left: 55%;
-	top: 5%;
+	top: -1%;
 }
 
 .section2 .address-input {
@@ -207,10 +209,6 @@ form {
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
-	function imageRegist() {
-		let myInput = document.getElementById('i_file');
-		myInput.click();
-	}
 	function findAddress() {
 		new daum.Postcode({
 			oncomplete : function(data) {
@@ -247,27 +245,29 @@ form {
 
 			<!-- Main Content -->
 			<div id="content">
-
 				<!-- Topbar -->
 				<%@ include file="/WEB-INF/views/common/topbar.jsp"%>
 				<!-- End of Topbar -->
-
+				
 				<!-- 여기에 내용 담기 start -->
 				<div class="container-fluid">
-					<form method="post" action="${pageContext.request.contextPath}/customer/register">
+					<form method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data">
 						<section class="section1">
 							<h4>사용자 등록</h4>
 						</section>
 
 						<section class="section2">
 							<article class="photo">
-								<img id="img_file" src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg">
-								<button name="imageRegister" class="btn-dark btn-sm" onclick="imageRegist()">이미지 등록</button>
+								<c:if test="">
+									<img id="img_file" src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg">
+								</c:if>
+								<button type="button" name="img-add" class="btn-dark btn-sm" onclick="onclick=document.all.mfile.click()">이미지 등록</button>
+								<input type="file" id="mfile" name="mfile" style="display:none"  accept="image/*" />
 							</article>
 							<article class="userData">
 								<div class="item">
 									<div class="input-group">
-										<select class="custom-select" id="sno" name="sno">
+										<select class="custom-select" id="mtype" name="mtype">
 											<option selected>TYPE 선택</option>
 											<option value="1">user</option>
 											<option value="2">pm</option>
@@ -288,14 +288,29 @@ form {
 									</div>
 									<!-- 비밀번호 확인 -->
 									<div class="item">
-										<input type="password" class="form-control form-control-user" id="password" name="password" placeholder="비밀번호 확인"> <i class="fa fa-envelope"></i>
+										<input type="password" class="form-control form-control-user" id="password_confirm" name="password_confirm" placeholder="비밀번호 확인"> <i class="fa fa-envelope"></i>
 									</div>
 									<div class="item">
 										<input type="text" class="form-control form-control-user" id="mname" name="mname" placeholder="이름"> <i class="fa fa-phone"></i>
 									</div>
+									<div class="item">
+										<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="이메일"> <i class="fa fa-phone"></i>
+									</div>
 								</div>
 							</article>
 							<article class="userData2">
+								<div class="item">
+									<div class="input-group">
+										<select class="custom-select" id="sno" name="sno">
+											<option selected>시스템 선택</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+										</select>
+										<i class="fa fa-user"></i>
+									</div>
+								</div>
 								<div class="item">
 									<div class="input-group">
 										<select class="custom-select" id="gender" name="gender">
@@ -333,14 +348,14 @@ form {
 								</div>
 								<div class="item">
 									<div class="input-group">
-										<i class="fa fa-user"></i>
-										<select class="custom-select" id="organ" name="organ">
-											<option selected=>소속기관 선택</option>
-											<option value="1">2</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-										</select>
-										<i class="fa fa-user"></i>
+										<div class="date_form">
+											<input type="date" id="birth" name="birth"> <i class="fa fa-user"></i>
+										</div>
+									</div>
+									<div class="input-group">
+										<div class="item" style="margin-top: 10px;">
+											<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="핸드폰"> <i class="fa fa-user"></i>
+										</div>
 									</div>
 								</div>
 							</article>
@@ -352,7 +367,7 @@ form {
 									<input type="text" class="form-control form-control-user" id="addr1" name="addr1" placeholder="도로명 주소" readonly> <i class="fa fa-user"></i>
 								</div>
 								<div class="item address3">
-									<input type="text" id="addr3" name="addr3" placeholder="상세 주소"> <i class="fa fa-user"></i>
+									<input type="text" id="addr2" name="addr2" placeholder="상세 주소"> <i class="fa fa-user"></i>
 								</div>
 								<div class="item address-button">
 									<button type="button" class="btn btn-dark btn-sm" id="address" name="address" onclick="findAddress()">우편번호</button>

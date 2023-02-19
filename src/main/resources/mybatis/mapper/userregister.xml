@@ -5,7 +5,12 @@
 		insert into members (MID, MTYPE, MNAME, BIRTH, GENDER, ADDRESS, SNO, EMAIL, PASSWORD, ORGAN, PHONE, POSITION)
 		values (#{mid}, #{mtype}, #{mname}, sysdate, #{gender}, #{address}, #{sno}, #{email}, #{password}, #{organ}, #{phone}, #{position})
 	</insert>
-	
+	<insert id="registerWithFile" parameterType="com.oti.srm.dto.Member">
+		insert into members (MID, MTYPE, MNAME, BIRTH, GENDER, ADDRESS, SNO, EMAIL, PASSWORD, ORGAN, PHONE, POSITION, FILE_DATA , FILE_TYPE , FILE_NAME , SAVED_DATE)
+		
+		values (#{mid}, #{mtype}, #{mname}, sysdate, #{gender}, #{address}, #{sno}, #{email}, #{password}, #{organ}, #{phone}, #{position}, #{fileData}, #{fileType}, #{fileName}, #{savedDate} )
+		
+	</insert>
 
 
 </mapper>
