@@ -88,53 +88,69 @@
 							<div class="card">
 								<div class="card-header d-flex  ">
 									<h6 class="mr-auto text-primary font-weight-bold">개발상세보기 ></h6>
+									<c:if test="${requestProcess.reqType eq '정규'}">
 									<div class="ml-3">정규<i class="far fa-registered text-secondary"></i></div>
+									</c:if>
+									<c:if test="${requestProcess.reqType eq '긴급'}">
 									<div class="ml-3">긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
-									<div class="ml-5 mr-4">중요도: 
+									</c:if>
+									<div class="ml-5 mr-4">중요도:
+										<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
 										<span class="fa fa-star checked" style="color: orange;"></span>
+										</c:if>
+										<c:if test="${requestProcess.priority eq '중' || requestProcess.priority eq '상'}">
 										<span class="fa fa-star checked" style="color: orange;"></span>
+										</c:if>
+										<c:if test="${requestProcess.priority eq '상'}">
 										<span class="fa fa-star checked" style="color: orange;"></span>
+										</c:if>
 									</div>
 								</div>
 								<div class="card-body">
 									<div>
-										<h3 class="mr-auto font-weight-bold">여기는 제목 자리입니다.</h3>
+										<h3 class="mr-auto font-weight-bold">${request.reqTitle}</h3>
 									</div>
 									<div class="row">
 										<div class="col-sm-6">
 											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="20%">
-											<span class="font-weight-bold ml-2">홍길동</span>
-											<span class="ml-3">서울강남고용센터</span>
+											<span class="font-weight-bold ml-2">${request.clientName}</span>
+											<span class="ml-3">${request.organ}</span>
 										</div>
 										<div class="col-sm-6 ml-auto">
 											<div class="d-flex">
 												<div class="pl-5">시스템:</div>
-												<div class="pl-2 flex-grow-1">무슨시스템</div>
+												<div class="pl-2 flex-grow-1">${request.systemName}</div>
 											</div>
 											<div class="d-flex">
 												<div class="pl-5">요청일:</div>
-												<div class="pl-2 flex-grow-1">2023-02-03</div>
+												<div class="pl-2 flex-grow-1">${request.reqDate}</div>
 											</div>
 											<div class="d-flex">
 												<div class="pl-5">요청완료예정일:</div>
-												<div class="pl-2 flex-grow-1">2023-04-10</div>
+												<div class="pl-2 flex-grow-1">${request.reqExpectDate}</div>
 											</div>
 										</div>
 									</div>
-									<div class="mt-2 ml-5">여기는 내용이지요~~</div>
-									<div class="mt-3 ml-5">
-										<span>파일이름</span>
-										<a href="#" role="button">
-											<i class="fas fa-cloud-download-alt"></i>
-										</a>
-									</div>
+									<div class="mt-2 ml-5">${request.reqContent}</div>
+									<c:if test=""></c:if>
+										<div class="mt-3 ml-5">
+											<span>파일이름</span>
+											<a href="#" role="button">
+												<i class="fas fa-cloud-download-alt"></i>
+											</a>
+										</div>
 									<div class="d-flex justify-content-end">
-										 <button class="btn btn-primary btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">테스트시작</button>
-									<!-- <button class="btn btn-info btn-lg mt-3">개발 완료</button> -->
+										<c:if test="${request.statusNo == 2 || request.statusNo == 3}">
+										<button class="btn btn-primary btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">테스트시작</button>
+										</c:if>
+										<c:if test="${request.statusNo == 4}">
+										<button class="btn btn-info btn-lg mt-3">개발 완료</button>
+										</c:if>
 									</div>
 								</div>
 							</div>
 							<!-- 개발자의 개발 요청 글 작성 start-->
+							<c:if test="${request.statusNo == 4}">
 							<div class="card mt-4 mb-5">
 								<div class="card-header">작성하기</div>
 								<div class="card-body row">
@@ -148,7 +164,7 @@
 										<form role="form">
 											<div class="col-sm-12 form-group">
 												<label class="control-label" >완료예정일</label>
-												<input type="text" class="form-control boxed" value="2023-02-09" readonly>
+												<input type="text" class="form-control boxed" value="${requestProcess.devExpectDate}" readonly>
 											</div>
 											<div class="col-sm-12 form-group">
 												<label class="control-label">개발내용</label>
@@ -166,21 +182,24 @@
 									</div>
 								</div>
 							</div>
+							</c:if>
 							<!-- 개발자의 개발 요청 글 작성 end-->
 							<div class="row mb-3">
 								<!-- 개발자의 개발내용 start -->
 								<div class="col-md-6">
+								<c:if test="${devToTester.statusHistory != null}">
+								<c:forEach var="statusHistory" items="${devToTester.statusHistory}">
 									<div class="card" style="height: 262px;">
 										<div class="card-header d-flex justify-content-end">
 											<div>1차 개발</div>
-											<div class="ml-auto ml-1">2023-02-10</div>
+											<div class="ml-auto ml-1">${requestProcess.devExpectDate}</div>
 										</div>
 										<div class="card-body p-1">
 											<div class="row">
 												<div class="col-sm-3 d-flex align-items-center" style="text-align: center;">
 													<div>
 														<img class="rounded-circle mt-1" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
-														<div class="ml-2">김레지나</div>
+														<div class="ml-2">${requestProcess.developer}</div>
 													
 													</div>
 												</div>
@@ -189,11 +208,11 @@
 													</div>
 													<div>
 														<label class="control-label">개발내용</label>
-														<textarea class="form-control boxed " readonly style="background-color: transparent;" rows="2">asdfasdfasdfasdfasdfasdfasd</textarea>
+														<textarea class="form-control boxed " readonly style="background-color: transparent;" rows="2">${statusHistory.reply}</textarea>
 													</div>
 													<div class=" mt-2">
 														<label class="control-label">배포소스</label>
-														<input class="form-control boxed" value="sfamilydocument.java" readonly style="background-color: transparent;">
+														<input class="form-control boxed" value="${statusHistory.distSources}" readonly style="background-color: transparent;">
 													</div>
 													<div class="mt-2">
 														<span>첨부파일: 파일이름</span>
@@ -206,21 +225,26 @@
 
 										</div>
 									</div>
+								</c:forEach>
+								</c:if>
 								</div>
 								<!-- 개발자의 개발내용 end -->
 								<!-- 테스터의 개발내용 start -->
 								<div class="col-md-6">
+								<c:if test="${testerToDev.statusHistory != null}">
+								<c:forEach var="statusHistory" items="${testerToDev.statusHistory}">							
+
 									<div class="card" style="height: 262px;">
 										<div class="card-header d-flex justify-content-end">
 											<div>1차 결함</div>
-											<div class="ml-auto ml-1">2023-02-10</div>
+											<div class="ml-auto ml-1">${requestProcess.testExpectDate}</div>
 										</div>
 										<div class="card-body p-1">
 											<div class="row">
 												<div class="col-sm-3 d-flex align-items-center" style="text-align: center;">
 													<div>
 														<img class="rounded-circle mt-1" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
-														<div class="ml-2">김레지나</div>
+														<div class="ml-2">${requestProcess.tester}</div>
 													
 													</div>
 												</div>
@@ -229,7 +253,7 @@
 													</div>
 													<div>
 														<label class="control-label">결함내용</label>
-														<textarea class="form-control boxed " readonly style="background-color: transparent;" rows="3">asdfasdfasdfasdfasdfasdfasd</textarea>
+														<textarea class="form-control boxed " readonly style="background-color: transparent;" rows="3">${statusHistory.reply}</textarea>
 													</div>
 													<div class="mt-2">
 														<span>첨부파일: 파일이름</span>
@@ -242,7 +266,8 @@
 
 										</div>
 									</div>								
-								
+								</c:forEach>
+								</c:if>
 								</div>
 								<!-- 테스터의 개발내용 end -->
 							</div>

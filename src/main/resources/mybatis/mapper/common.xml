@@ -41,6 +41,7 @@
 	    	req_expect_date as "reqExpectDate",
 	    	r.status_no as "statusNo",
 	    	status_name as "statusName"
+	    	m.organ as "organ"
 		from requests r, status s, systems sy, members m
 		where s.status_no = r.status_no 
 		and r.sno = sy.sno

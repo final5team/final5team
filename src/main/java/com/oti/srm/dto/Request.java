@@ -22,5 +22,5 @@ public class Request {
 	@DateTimeFormat(pattern="yyyy-mm-dd")
 	private Date reqExpectDate;
 	private List<StatusHistoryFile> files;
-	
+	private String organ;
 }
