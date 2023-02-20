@@ -12,7 +12,7 @@ public interface IRequestRegisterService {
 	public static final int REQUEST_SUCCESS = 0;
 	public static final int REQUEST_FAIL = 1;
 	
-	public int request(Request request);
+	public int getRequest(Request request);
 
 	public List<Request> getRequestList(Request request, Pager pager);
 

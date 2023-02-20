@@ -53,12 +53,11 @@ public class RequestController {
 				member.setFileType(mfile.getContentType());
 				member.setFileData(mfile.getBytes());
 				
-				int result  = userRegisterService.registerWithFile(member);
+				int result  = userRegisterService.register(member);
 				if(result == IUserRegisterService.REGISTER_FAIL) {
 					return "redirect:/customer/register";
-					//성공
 				} else {
-					return "redirect:/srm";
+					return "redirect:/";
 				}
 				
 			} else {
@@ -67,7 +66,7 @@ public class RequestController {
 					return "redirect:/customer/register";
 					//성공
 				} else {
-					return "redirect:/srm";
+					return "redirect:/";
 				}
 			}
 		} catch (Exception e) {

@@ -8,7 +8,7 @@ import com.oti.srm.dto.Request;
 
 @Mapper
 public interface IRequestDao {
-	public int request(Request request);
+	public int insertRequest(Request request);
 	public List<Request> getRequestList();
 	public int getPresentStep(int rno);
 	
