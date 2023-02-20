@@ -151,7 +151,7 @@
 								<!-- 유저테스트 요청 상태(7) -->
 								<c:if test="${request.statusNo == 7}">
 									<div class="d-flex justify-content-end">
-										 <button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">유저테스트 시작</button>
+										 <button class="btn btn-primary btn-lg mt-3" onclick="getDatemodal()" type="button">유저테스트 시작</button>
 									</div>
 								</c:if>
 								<!-- 유저테스트 중 상태(8) -->
@@ -159,9 +159,8 @@
 									<div class="d-flex justify-content-end">
 										<form action="${pageContext.request.contextPath}/endwork" method="post" class="mt-3">
 											<input type="hidden" name="rno" value="${request.rno}"/>
-											<input type="hidden" name="mtype" value="${userInfo.mtype}"/>
 											<input type="hidden" name="nextStatus" value="9"/>
-											<button class="btn btn-gradient-success btn-gradient btn-lg mt-3">유저테스트 완료</button>
+											<button class="btn btn-info btn-lg mt-3">유저테스트 완료</button>
 										</form>
 									</div>
 								</c:if>
@@ -247,7 +246,6 @@
 						<label class="mt-1" style="color: #343a40;" for="expectDate">유저테스트 완료 예정일</label>
 						<input type="date" id= "expectDate" name="expectDate" class="form-control ml-2" style="width: 200px; display: inline;"/>
 						<input type="hidden" name="rno" value="${request.rno}"/>
-						<input type="hidden" name="mtype" value="${userInfo.mtype}"/>
 						<input type="hidden" name="nextStatus" value="8"/>
 					</form>
 				</div>
@@ -315,18 +313,16 @@
 				return;
 			}
 			
-			console.log($('#allExpectDate').text());
-			console.log($('#expectDate').val());
-			var aed = new Date($('#allExpectDate').text()).getTime(); 
-			var ied = new Date($('#expectDate').val()).getTime();
+			var all_expect_date = new Date($('#allExpectDate').text()).getTime(); 
+			var input_expect_date = new Date($('#expectDate').val()).getTime();
+			var test_comp_date = new Date ()
 			var today = new Date().getTime();
-			console.log(aed);
-			console.log(ied);
 			// 2. 테스트완료일보다 미래 + 요청완료 예정일보다 과거 선택해야 함
 			if(aed <= ied){
 				$('#noInputDate').text("요청 완료 예정일보다 과거여야합니다.");
 				return;
 			}
+			if(ied <=)
 			// 3. (입력 완료 예정일 - 현재날짜) / (요청완료 예정일 - 현재날짜) >= 50%
 			if(((ied - today)/ (aed - today)) >= 0.5){
 				$('#datemodal').modal('hide');
