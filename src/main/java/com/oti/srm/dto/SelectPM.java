@@ -6,8 +6,13 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
+
 @Data
-public class Request {
+public class SelectPM {
+//	member 항목
+	private String mtype; 
+	
+// request 항목
 	private int rno;
 	private int sno;
 	private String systemName;
@@ -21,13 +26,16 @@ public class Request {
 	private String clientName;
 	@DateTimeFormat(pattern="yyyy-mm-dd")
 	private Date reqExpectDate;
-	private List<StatusHistoryFile> files;
 	private String organ;
 	
-	//검색 필요 정보
-	private String mid; 
-	private String mtype;
-	private int startRowNo;
-	private int endRowNo;
+//	request_Process 항목
+	private String reqType;
+	private String developer;
+	private String tester;
+	private String pm;
+	private String userTester;
+	private String distributor;
 	
+	
+
 }

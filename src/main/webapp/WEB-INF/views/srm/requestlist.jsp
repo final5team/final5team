@@ -408,7 +408,7 @@ main {
 						</c:if>
 					</div>
 					<div class="flex-fulfill"></div>
-					<a type="button" href="<c:url value='/community/write/1'/>" class="btn btn-muted shadow">글 작성</a>
+					<a type="button" href="<c:url value='/customer/requestlist/1'/>" class="btn btn-muted shadow">글 작성</a>
 				</div>
 
 			</div>

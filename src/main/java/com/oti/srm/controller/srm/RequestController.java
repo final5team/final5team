@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
+import com.oti.srm.dto.SelectPM;
 import com.oti.srm.service.member.IUserRegisterService;
 import com.oti.srm.service.srm.IRequestRegisterService;
 
@@ -91,16 +91,16 @@ public class RequestController {
 
 		log.info(model.toString());
 
-//		
-//		int result = requestService.request(request);
-//		if(result == IRequestRegisterService.REQUEST_SUCCESS) {
-//			return "redirect:/login";
-//		} else {
-//			model.addAttribute("requestResult", "FAIL");
-//			return "redirect:/customer/request";
-//		}
-//		
-		return "redirect:/login";
+		
+		int result = requestService.writeRequest(request);
+		if(result == IRequestRegisterService.REQUEST_SUCCESS) {
+			return "redirect:/login";
+		} else {
+			model.addAttribute("requestResult", "FAIL");
+			return "redirect:/customer/request";
+		}
+		
+
 	}
 
 	/** member type별 요청 조회 처리
@@ -109,44 +109,45 @@ public class RequestController {
 	@GetMapping("/requestlist")
 	public String requestList(Request request, Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo) {
 		
-		
-		Pager pager = new Pager();
-		
-		
 		Member member = (Member) session.getAttribute("member");
+		request.setMid(member.getMid());
+		
+		
+		//PM case
 		if(member.getMtype().equals("pm")) {
-			int totalRows = requestService.getTotalRows();
-			
+			int totalRows = requestService.getPmTotalRows();
 			//pageNo 1인 경우
 			
 			if(pageNo == 1) {
 				log.info(pageNo + "pageNo1인 경우");
+				Pager pager = new Pager(5, 5,totalRows, pageNo);
+				List<SelectPM> requestList = requestService.getPmRequestList(request, pager);
+				model.addAttribute("requestList", requestList);
+				
 				
 				
 				
 			} else {
 				//요청한 페이지로 이동.
 				log.info(pageNo + "pageNo1 아닌 경우");
-				
+				Pager pager = new Pager(5, 5,totalRows, pageNo);
 				
 				
 				requestService.getPmRequestList(request, pager);
 			}
 			
 			
-			requestService.getPmRequestList(request, pager);
 			
 			
-			
-		//pm 이외의 경우	
+		//Not PM
 		} else {
-			
+			log.info("PM 아닌경우");
 			
 		}
 
 		
 		
-		
+		Pager pager = new Pager(5, 5, 10, pageNo);
 		List<Request> requestList = requestService.getRequestList(request, pager);
 		model.addAttribute("requestList", requestList);
 		return "srm/requestlist";
