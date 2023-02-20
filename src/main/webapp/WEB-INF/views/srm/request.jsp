@@ -12,6 +12,11 @@ a {
 	text-decoration: none;
 }
 
+<
+style>a {
+	text-decoration: none;
+}
+
 form {
 	display: flex;
 	justify-content: center;
@@ -39,7 +44,8 @@ form {
 	background-color: #f8f9fc;
 	border-bottom: 1px solid #e3e6f0;
 }
-.section1 h4{
+
+.section1 h4 {
 	color: #68a329;
 	font: bold;
 	margin: 15px 15px;
@@ -76,124 +82,170 @@ form {
 }
 
 .section2 h6 {
-	margin-bottom : 10px;
-	font-size : 15px;
-	font : bold;
+	margin-top: 3px;
+	margin-bottom: 24px;
+	font-size: 15px;
+	font: bold;
 }
 
 .section2 .inputData {
 	position: absolute;
 	width: 250px;
+	height: 200px;
 	left: 18%;
 	top: 15%;
 	overflow: hidden;
 	text-align: start;
-	
 }
 
 .section2 .label2 {
 	position: absolute;
 	width: 110px;
-	left: 60%;
+	left: 45%;
 	top: 15%;
 	overflow: hidden;
 	text-align: start;
+	margin-bottom: 24px;
 }
 
 .section2 .inputData2 {
 	position: absolute;
 	width: 250px;
-	left: 72%;
+	height: 130px;
+	left: 55%;
 	top: 15%;
 	overflow: hidden;
 	text-align: start;
 }
+
 .section2 .inputData2 input {
-	height: 25px;
-	width : 200px;
-	font-size : 13px;
+	height: 30px;
+	width: 200px;
+	font-size: 13px;
 }
+
 .section2 .inputData input {
-	height: 25px;
-	width : 200px;
-	font-size : 13px;
+	height: 30px;
+	width: 200px;
+	font-size: 13px;
 }
 
 .section2 .titleLabel {
 	position: absolute;
 	width: 50px;
 	left: 8%;
-	top: 35%;
+	top: 48%;
 	overflow: hidden;
 	text-align: start;
-	font-size : 15px;
-}
-.section2 .titleLabel h6{
-	font: bold; 
+	font-size: 15px;
 }
 
+.section2 .titleLabel h6 {
+	font: bold;
+}
 
 .section2 .titleInput {
 	position: absolute;
-	width: 700px;
+	width: 590px;
 	left: 18%;
-	top: 34%;
+	top: 48%;
 	overflow: hidden;
 	text-align: start;
-	font-size : 15px;
-	font: bold;  
-	
+	font-size: 15px;
+	font: bold;
 }
 
 .section2 .titleInput input {
-	width: 700px;
-	height : 25px;
+	width: 590px;
+	height: 25px;
 }
 
 .section2 .titleBody {
 	position: absolute;
-	width: 700px;
+	width: 300px;
 	left: 8%;
-	top: 45%;
+	top: 55%;
 	overflow: hidden;
 	text-align: start;
-	font-size : 15px;
-	font: bold;  
+	font-size: 15px;
+	font: bold;
 }
 
 .section2 .bodyInput {
 	position: absolute;
-	width: 700px;
+	width: 590px;
 	left: 18%;
-	top: 44%;
+	top: 55%;
 	overflow: hidden;
 	text-align: start;
-	font-size : 15px;
-	font: bold;  
+	font-size: 15px;
+	font: bold;
 }
-.section2 .bodyInput textarea{
-    width: 100%;
-	font-size : 15px;
-	font: bold;  
-	height : 50px;
-	resize : none;
+
+.section2 .bodyInput textarea {
+	width: 590px;
+	font-size: 15px;
+	font: bold;
+	height: 80px;
+	resize: none;
 }
+
+.section2 .fileTitle {
+	position: absolute;
+	width: 700px;
+	left: 8%;
+	top: 70%;
+	overflow: hidden;
+	text-align: start;
+	font-size: 15px;
+	font: bold;
+}
+
+.section2 .fileBody {
+	position: absolute;
+	width: 700px;
+	left: 18%;
+	top: 70%;
+	overflow: hidden;
+	text-align: start;
+	font-size: 15px;
+	font: bold;
+}
+
 .section2 .submit-button {
 	position: absolute;
 	width: 80px;
 	height: 50px;
-	left: 85%;
-	top: 47%;
+	left: 50%;
+	top: 80%;
 }
-.section2 .return-button{
+
+.section2 .return-button {
 	position: absolute;
 	width: 80px;
 	height: 50px;
-	left: 90%;
-	top: 47%;
+	left: 55%;
+	top: 80%;
 }
 
+.section2 .item .select-group select {
+	width: 200px;
+	height: 35px;
+	font-size: 13px;
+	padding-left: 37px;
+	padding-top: 0;
+	padding-bottom: 0;
+}
 
+.section2 .include {
+	border: 1px solid black;
+	position: absolute;
+	width: 200px;
+	height: 500px;
+	left: 80%;
+	top: 15%;
+	z-index: 5;
+}
 
 [type="text"]:focus::placeholder {
 	visibility: hidden;
@@ -235,8 +287,8 @@ textarea:focus::placeholder {
 
 .item .fa {
 	position: absolute;
-	top: -8px;
-	left: -3px;
+	top: -4px;
+	left: -5px;
 	color: gray;
 	font-size: 20px;
 	width: 40px;
@@ -269,12 +321,10 @@ textarea:focus::placeholder {
 .item input:focus+.fa {
 	color: #85ce36;
 }
+
 .item select:focus {
 	box-shadow: 0 0 5px #85ce36;
 }
-
-
-
 </style>
 </head>
 
@@ -301,41 +351,38 @@ textarea:focus::placeholder {
 				<div class="container-fluid">
 
 
-					<form method="post" action="${pageContext.request.contextPath}/customer/register">
+					<form method="post" action="${pageContext.request.contextPath}/customer/request">
 						<section class="section1">
 							<h4>요청 작성</h4>
-							<!-- <article class="step">
-								<button>접수</button>
-								<span class="dash"></span>
-								<button>개발</button>
-								<span class="dash"></span>
-								<button>테스트</button>
-								<span class="dash"></span>
-								<button>유저</button>
-								<span class="dash"></span>
-								<button>배포</button>
-								<span class="dash"></span>
-								<button>최종</button>
-							</article> -->
 						</section>
 						<section class="section2">
 							<article class="label item">
 								<h6>작성자</h6>
 								<h6>전화번호</h6>
 								<h6>직급</h6>
+								<h6>시스템</h6>
 							</article>
 							<article class="inputData">
 								<div class="item">
-									<input type="text" class="form-control form-control-user" id="clientName" name="clientName" placeholder="default" readonly> 
-									<i class="fa fa-phone"></i>
+									<input type="text" class="form-control form-control-user" id="clientName" name="clientName" placeholder="${sessionScope.member.mname}" value="${sessionScope.member.mname}" readonly> <i class="fa fa-phone"></i>
 								</div>
 								<div class="item">
-									<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="010-1234-1234" readonly> 
-									<i class="fa fa-phone"></i>
+									<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="${sessionScope.member.phone}" value="${sessionScope.member.phone}" readonly> <i class="fa fa-phone"></i>
 								</div>
 								<div class="item">
-									<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="직급" readonly>
-									<i class="fa fa-phone"></i>
+									<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="${sessionScope.member.position}" value="${sessionScope.member.position}" readonly> <i class="fa fa-phone"></i>
+								</div>
+								<div class="item">
+									<div class="select-group">
+										<select class="custom-select" id="sno" name="sno">
+											<option selected>시스템 선택</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+										</select>
+										<i class="fa fa-user"></i>
+									</div>
 								</div>
 							</article>
 							<article class="label2">
@@ -345,16 +392,13 @@ textarea:focus::placeholder {
 							</article>
 							<article class="inputData2">
 								<div class="item">
-									<input type="text" class="form-control form-control-user" id="organ" name="organ" placeholder="소속기관" readonly> 
-									<i class="fa fa-phone"></i>
+									<input type="text" class="form-control form-control-user" id="organ" name="organ" placeholder="${sessionScope.member.organ}" value="${sessionScope.member.organ}" readonly> <i class="fa fa-phone"></i>
 								</div>
 								<div class="item">
-									<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="email@oti.com" readonly> 
-									<i class="fa fa-phone"></i>
+									<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="${sessionScope.member.email}" value="${sessionScope.member.email}" readonly> <i class="fa fa-phone"></i>
 								</div>
 								<div class="item">
-									<input type="date" class="form-control form-control-user" id="reqExpectDate" name="reqExpectDate" readonly>
-									<i class="fa fa-phone"></i>
+									<input type="date" class="form-control form-control-user" id="reqExpectDate" name="reqExpectDate"> <i class="fa fa-phone"></i>
 								</div>
 							</article>
 							<article class="titleLabel">
@@ -373,6 +417,15 @@ textarea:focus::placeholder {
 									<textarea id="reqContent" cols="30" name="reqContent" placeholder="내용"></textarea>
 								</div>
 							</article>
+							<article class="fileTitle">
+								<h6>파일첨부</h6>
+							</article>
+							<article class="fileBody">
+								<div class="item">
+									<button type="button" name="img-add" class="btn-dark btn-sm" onclick="onclick=document.all.mfile.click()">파일 등록</button>
+									<input class="file" type="file" id="mfile" name="mfile" style="display: none" /> <label class="file" for="mfile">파일첨부</label>
+								</div>
+							</article>
 
 							<article class="submit-button">
 								<button class="btn btn-dark btn-sm" type="submit">작성</button>
@@ -380,6 +433,8 @@ textarea:focus::placeholder {
 							<article class="return-button">
 								<button class="btn btn-dark btn-sm" type="submit">취소</button>
 							</article>
+							<article class="include"></article>
+
 						</section>
 					</form>
 				</div>

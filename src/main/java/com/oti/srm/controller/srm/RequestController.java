@@ -81,16 +81,20 @@ public class RequestController {
 	}
 
 	@GetMapping("/request")
-	public String customerRequest() {
+	public String customerRequest(Member member) {
+		
+		
+		
 		return "srm/request";
 	}
 
 	@PostMapping("/request")
-	public String customerRequest(Request request, Model model) {
+	public String customerRequest(Request request, Model model, HttpSession session) {
+		//요청 상태값은 1
 		request.setStatusNo(1);
-
-		log.info(model.toString());
-
+		request.setSno(1);
+		Member member = (Member) session.getAttribute("member");
+		request.setClient(member.getMname());
 		
 		int result = requestService.writeRequest(request);
 		if(result == IRequestRegisterService.REQUEST_SUCCESS) {
