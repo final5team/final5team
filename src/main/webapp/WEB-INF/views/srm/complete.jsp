@@ -87,7 +87,7 @@
 										</a>
 									</div>	
 									<div class="d-flex justify-content-end">
-										<button class="btn btn-primary btn-lg mt-3 ml-3" type="button" id="completebtn">배포 완료</button>									
+										<button class="btn btn-primary btn-lg mt-3 ml-3" type="button" id="completebtn">처리 완료</button>									
 									</div>																
 								</div>
 							</div>
@@ -136,7 +136,7 @@
 												</div>
 											</div>
 											<div class="d-flex justify-content-end">
-												<button class="btn btn-primary btn-lg mt-3 ml-3" type="button">처리 완료</button>
+												<button class="btn btn-primary btn-lg mt-3 ml-3" type="button">최종 완료</button>
 												<button class="btn btn-secondary btn-lg mt-3 ml-3" id="completebtn">취소</button>									
 											</div>
 										</div>
