@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oti.srm.dao.srm.IPMDao">
+	<select id="selectStaffBySno" parameterType="map" resultType="com.oti.srm.dto.Member">
+		select MID, MNAME, MTYPE	    	
+	    from MEMBERS
+	    where SNO=#{sno} and MTYPE=#{mtype}	
+	</select>	
+	<select id="selectQuota" parameterType="map" resultType="int">
+		select count(*) as quota 
+		from REQUEST_PROCESS 
+		where 
+		<if test="mtype == 'developer'">
+		DEV_COMP_DATE is null and DEVELOPER
+		</if>
+		<if test="mtype == 'tester'">
+		TEST_COMP_DATE is null and TESTER
+		</if>
+		<if test="mtype == 'usertester'">
+		USERTEST_COMP_DATE is null and USER_TESTER
+		</if>
+		<if test="mtype == 'distributor'">
+		DIST_COMP_DATE is null and DISTRIBUTOR
+		</if>
+		=#{mid}
+	</select>	
+	
+</mapper>

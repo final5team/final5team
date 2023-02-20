@@ -33,6 +33,8 @@ public class Member {
 	//파일
 	private MultipartFile mfile;
 	
+	//담당 건수
+	private int quota;
 	
 	
 }
