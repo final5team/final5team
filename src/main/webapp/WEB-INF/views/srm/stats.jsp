@@ -125,7 +125,7 @@
 	        ]);
 
 	        var options = {
-	          title: '서비스 요청 추이',
+	          title: '전체 서비스 요청 및 완료',
 	          curveType: 'function',
 	          legend: { position: 'bottom' }
 	        };
@@ -753,28 +753,8 @@
 										서비스 요청 추이
 									</h3>
 								</div>
-						        <ul class="nav nav-tabs nav-tabs-bordered">
-						            <li class="nav-item">
-						            	<a href="#home2" class="nav-link active" data-target="#home2" data-toggle="tab" aria-controls="home2" role="tab" >전체</a>
-						            </li>
-						            <li class="nav-item">
-						            	<a href="#profile2" class="nav-link" data-target="#profile2" aria-controls="profile2" data-toggle="tab" role="tab" >개발</a>
-						            </li>
-						            <li class="nav-item">
-						            	<a href="" class="nav-link" data-target="#messages2" aria-controls="messages2" data-toggle="tab" role="tab" >테스트</a>
-						            </li>
-						            <li class="nav-item">
-						            	<a href="" class="nav-link" data-target="#usertest2" aria-controls="usertest2" data-toggle="tab" role="tab" >유저테스트</a>
-						            </li>
-						            <li class="nav-item">
-						            	<a href="" class="nav-link" data-target="#settings2" aria-controls="settings2" data-toggle="tab" role="tab" >배포</a>
-						            </li>
-						        </ul>
-						
-						        <!-- Tab panes -->
 						        <div class="tab-content tabs-bordered">
 						        	<div class="m-3">
-						        		<h5>전체 추이 그래프</h5>
 						        		<div id="curve_chart"></div>
 						        	</div>
 						        </div>
