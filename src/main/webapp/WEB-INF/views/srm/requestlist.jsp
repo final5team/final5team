@@ -182,8 +182,8 @@ main {
 }
 
 /* .member tr:hover {
-                                    background-color: #eee;
-                                  } */
+                                                            background-color: #eee;
+                                                          } */
 .member tr:nth-child(odd) {
 	background-color: #eee;
 }
@@ -254,6 +254,40 @@ main {
 .step_tr .step_td .inner_step .bar {
 	background-color: none;
 	width: 10px;
+}
+
+.inner_step .circle {
+	background-color: #fff;
+	text-align: center;
+	border: 3px solid #e0e0e0;
+	transition: 0.4s ease;
+}
+
+.step_td.inner_step .bar {
+	border: 1px solid black;
+	background-color: #fff;
+	color: #999;
+	height: 30px;
+	width: 1px;
+	align-items: center;
+	justify-content: center;
+	border: 3px solid #e0e0e0;
+	transition: 0.4s ease;
+}
+
+.inner_step .circle.done {
+	border-color: #87cd36;
+	color: #87cd36;
+}
+
+.inner_step .circle.now {
+	border-color: white;
+	color: white;
+	background-color: #87cd36;
+}
+
+.inner_step .bar.active {
+	border-color: #87cd36;
 }
 </style>
 
@@ -362,22 +396,22 @@ main {
 										<td class="reqDate">${request.reqDate}</td>
 
 										<td class="step_td">
-											
+
 											<table class="inner_step">
-												<td class="circle">요청완료</td>
-												<td class="bar"></td>
-												<td class="circle">접수완료</td>
-												<td class="bar"></td>
-												<td class="circle">개발완료</td>
-												<td class="bar"></td>
-												<td class="circle">테스트완료</td>
-												<td class="bar"></td>
-												<td class="circle">유저테스트</td>
-												<td class="bar"></td>
-												<td class="circle">배포단계</td>
-												<td class="bar"></td>
-												<td class="circle">최종승인</td>
-											</table>
+                                                    <td class="circle">요청완료</td>
+                                                    <td class="bar" style="background-color: white; border: none;"></td>
+                                                    <td class="circle">접수완료</td>
+                                                    <td class="bar" style="background-color: white; border: none;"></td>
+                                                    <td class="circle">개발완료</td>
+                                                    <td class="bar" style="background-color: white; border: none;"></td>
+                                                    <td class="circle">테스트완료</td>
+                                                    <td class="bar" style="background-color: white; border: none;"></td>
+                                                    <td class="circle">유저테스트</td>
+                                                    <td class="bar" style="background-color: white; border: none;"></td>
+                                                    <td class="circle">배포단계</td>
+                                                    <td class="bar" style="background-color: white; border: none;"></td>
+                                                    <td class="circle">최종승인</td>
+                                                </table>
 										</td>
 
 									</tr>

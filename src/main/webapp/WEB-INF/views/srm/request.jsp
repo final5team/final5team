@@ -12,11 +12,6 @@ a {
 	text-decoration: none;
 }
 
-<
-style>a {
-	text-decoration: none;
-}
-
 form {
 	display: flex;
 	justify-content: center;
