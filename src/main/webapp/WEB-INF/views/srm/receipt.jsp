@@ -122,7 +122,7 @@
 													<div class="row col-sm-12 form-group">
 														<div class="col">
 															<label class="control-label">요청 유형</label>
-															<input list="process" name="process">
+															<input list="process" name="reqType">
 															  <datalist id="process">
 															    <option value="정규">
 															    <option value="긴급">												   
@@ -130,7 +130,7 @@
 														</div>
 														<div class="col">
 															<label class="control-label">중요도</label>
-															<input list="importance" name="importance">
+															<input list="importance" name="priority">
 															  <datalist id="importance">
 															    <option value="상">
 															    <option value="중">	
@@ -145,7 +145,7 @@
 													
 													<div class="col-sm-12 form-group">
 														<label class="control-label" >개발 담당자 선택</label>
-														<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="dev">
+														<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer">
 															<c:forEach var="staff" varStatus="index" items="${devStaffList}">
 																<option value="${index.count}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 															</c:forEach>															
@@ -161,7 +161,7 @@
 													</div>
 													<div class="col-sm-12 form-group">
 														<label class="control-label" >유저테스트 담당자 선택</label>
-														<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="utester">
+														<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester">
 															<c:forEach var="staff" varStatus="index" items="${uteStaffList}">
 																<option value="${index.count}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 															</c:forEach>
@@ -169,7 +169,7 @@
 													</div>
 													<div class="col-sm-12 form-group">
 														<label class="control-label" >배포 담당자 선택</label>
-														<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="dist">
+														<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor">
 															<c:forEach var="staff" varStatus="index" items="${disStaffList}">
 																<option value="${index.count}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 															</c:forEach>
@@ -182,13 +182,14 @@
 													</div>											
 													<div class="filebox">
 														<label for="file">첨부파일</label>
-														<input type="file" id="file" name="file">
+														<input type="file" id="fileList" name="fileList">
+														<input type="hidden" name="rno" value=${request.rno}>
 													</div>
 													
 												</div>
 											</div>
 											<div class="d-flex justify-content-end">						
-												<button class="btn btn-primary btn-lg mt-3 ml-3" type="button">접수 완료</button>
+												<button class="btn btn-primary btn-lg mt-3 ml-3" type="submit" value=2 name="nextStatus">접수 완료</button>
 												<a class="btn btn-secondary btn-lg mt-3 ml-3" onclick="receiptCancel()">취소</a>												
 											</div>
 											</form>											
@@ -223,7 +224,7 @@
 												</div>
 											</div>
 											<div class="d-flex justify-content-end">									
-												<button class="btn btn-danger btn-lg mt-3 ml-3" type="button">반려 완료</button>												
+												<button class="btn btn-danger btn-lg mt-3 ml-3" type="button" value=12 name="nextStatus">반려 완료</button>												
 												<a class="btn btn-secondary btn-lg mt-3 ml-3" onclick="rejectCancel()">취소</a>									
 											</div>
 										</div>

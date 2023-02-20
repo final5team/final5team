@@ -132,10 +132,13 @@
 	</update>
 	
 	<insert id="insertStatusHistory" parameterType="com.oti.srm.dto.StatusHistory">
+		<selectKey keyProperty="hno" resultType="int" order="BEFORE">
+          SELECT seq_status_histories.nextval FROM dual
+       </selectKey>		
 		insert into status_histories
 		(hno, change_date, rno, reply, next_status, dist_source, writer)
 		values 
-		(seq_status_histories.nextval, sysdate, #{rno}, #{reply}, #{nextStatus}, #{distSource}, #{writer})
+		(#{hno}, sysdate, #{rno}, #{reply}, #{nextStatus}, #{distSource}, #{writer})
 	</insert>
 	
 	<update id="updateRequestStatus" parameterType="map">
@@ -148,6 +151,6 @@
 	<insert id="insertStatusHistoryFile" parameterType="com.oti.srm.dto.StatusHistoryFile">
 		insert into status_histories_files
 		values
-		(seq_status_histories_files.nextval, sysdate, #{fileName}, #{fileData}, #{hno})
+		(seq_status_histories_files.nextval, sysdate, #{fileName}, #{fileType}, #{fileData}, #{hno})
 	</insert>
 </mapper>
