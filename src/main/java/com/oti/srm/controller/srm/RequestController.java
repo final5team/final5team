@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
+import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.SelectPM;
 import com.oti.srm.service.member.IUserRegisterService;
 import com.oti.srm.service.srm.IRequestRegisterService;
@@ -81,9 +82,15 @@ public class RequestController {
 	}
 
 	@GetMapping("/request")
-	public String customerRequest(Member member) {
+	public String customerRequest(Member member, Request request, Model model, RequestProcess requestProcess) {
+		request.setStatusName("접수중");
+		request.setStatusNo(1);
+		requestProcess.setReqType("정규");
 		
 		
+		
+		model.addAttribute("request", request);
+		model.addAttribute("requestProcess", requestProcess);
 		
 		return "srm/request";
 	}

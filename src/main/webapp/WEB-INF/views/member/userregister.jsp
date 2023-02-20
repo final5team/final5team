@@ -147,6 +147,10 @@ form {
 	color: #85ce36;
 }
 
+.item select:focus+.fa {
+	color: #85ce36;
+}
+
 .item select:focus {
 	box-shadow: 0 0 5px #85ce36;
 }

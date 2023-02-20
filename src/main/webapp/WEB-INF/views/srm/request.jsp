@@ -238,13 +238,16 @@ form {
 }
 
 .section2 .include {
-	border: 1px solid black;
 	position: absolute;
-	width: 200px;
+	width: 240px;
 	height: 500px;
-	left: 80%;
+	left: 76%;
 	top: 15%;
 	z-index: 5;
+	width: 240px;
+	height: 500px;
+	left: 76%;
+	top: 15%;
 }
 
 [type="text"]:focus::placeholder {
@@ -324,6 +327,55 @@ textarea:focus::placeholder {
 
 .item select:focus {
 	box-shadow: 0 0 5px #85ce36;
+}
+
+.include {
+	margin: 0;
+	font-size: 15px;
+	padding: 10px;
+}
+
+article.include div {
+	margin: 0px 50px;
+	box-sizing: border-box;
+}
+
+.include .circle {
+	background-color: #fff;
+	text-align: center;
+	color: #999;
+	height: 28px;
+	width: 120px;
+	font-size: 15px;
+	border: 3px solid #e0e0e0;
+	transition: 0.4s ease;
+}
+
+.include .bar {
+	margin: 0px 110px;
+	background-color: #fff;
+	color: #999;
+	height: 30px;
+	width: 1px;
+	align-items: center;
+	justify-content: center;
+	border: 3px solid #e0e0e0;
+	transition: 0.4s ease;
+}
+
+.include .circle.done {
+	border-color: #87cd36;
+	color: #87cd36;
+}
+
+.include .circle.now {
+	border-color: white;
+	color: white;
+	background-color: #87cd36;
+}
+
+.include .bar.active {
+	border-color: #87cd36;
 }
 </style>
 </head>
@@ -422,18 +474,20 @@ textarea:focus::placeholder {
 							</article>
 							<article class="fileBody">
 								<div class="item">
-									<button type="button" name="img-add" class="btn-dark btn-sm" onclick="onclick=document.all.mfile.click()">파일 등록</button>
+									<button type="button" name="img-add" class="btn-primary btn-sm" onclick="onclick=document.all.mfile.click()">파일 등록</button>
 									<input class="file" type="file" id="mfile" name="mfile" style="display: none" /> <label class="file" for="mfile">파일첨부</label>
 								</div>
 							</article>
 
 							<article class="submit-button">
-								<button class="btn btn-dark btn-sm" type="submit">작성</button>
+								<button class="btn btn-primary btn-sm" type="submit">작성</button>
 							</article>
 							<article class="return-button">
-								<button class="btn btn-dark btn-sm" type="submit">취소</button>
+								<button class="btn btn-primary btn-sm" type="submit">취소</button>
 							</article>
-							<article class="include"></article>
+							<article class="include">
+								<%@ include file="/WEB-INF/views/srm/restatus/nowstatushorizon.jsp"%>
+							</article>
 
 						</section>
 					</form>
