@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
 <!DOCTYPE html>
@@ -20,6 +22,16 @@
 			  $("#rejectdiv").toggle();
 		   });
 		});
+		function receiptCancel(){
+			$("#receiptdiv").hide();
+			$("input").val("");
+			$("textarea").val("");		
+		}
+		function rejectCancel(){
+			$("#rejectdiv").hide();
+			$("input").val("");
+			$("textarea").val("");
+		}
 	</script>
 </head>
 
@@ -55,32 +67,32 @@
 								<div class="card-body">
 									<div>접수상세보기 ></div>
 									<div>
-										<h3 class="mr-auto font-weight-bold">여기는 제목 자리입니다.</h3>
+										<h3 class="mr-auto font-weight-bold">${request.reqTitle}</h3>
 									</div>
 									<div class="row">
 										<div class="col-sm-6">
 											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="20%">
-											<span class="font-weight-bold ml-2">홍길동</span>
-											<span class="ml-3">서울강남고용센터</span>
+											<span class="font-weight-bold ml-2">${request.clientName}</span>
+											<span class="ml-3">request.organ</span>
 										</div>
 										<div class="col-sm-6 ml-auto">
 											<div class="d-flex">
 												<div class="pl-5">시스템:</div>
-												<div class="pl-2 flex-grow-1">무슨시스템</div>
+												<div class="pl-2 flex-grow-1">${request.systemName}</div>
 											</div>
 											<div class="d-flex">
 												<div class="pl-5">요청일:</div>
-												<div class="pl-2 flex-grow-1">2023-02-03</div>
+												<div class="pl-2 flex-grow-1"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd"/></div>												
 											</div>
 											<div class="d-flex">
 												<div class="pl-5">요청완료희망일:</div>
-												<div class="pl-2 flex-grow-1">2023-04-10</div>
+												<div class="pl-2 flex-grow-1"><fmt:formatDate value="${request.reqExpectDate}" pattern="yyyy-MM-dd"/></div>
 											</div>
 										</div>
 									</div>
-									<div class="mt-2 ml-5">여기는 내용이지요~~</div>
+									<div class="mt-2 ml-5">${request.reqContent}</div>
 									<div class="mt-3 ml-5">
-										<span>파일이름</span>
+										<span>첨부파일: <c:forEach var="file" items="${request.files}">${file.fileName}</c:forEach></span>
 										<a href="#" role="button">
 											<i class="fas fa-cloud-download-alt"></i>
 										</a>
@@ -94,11 +106,12 @@
 
 							<!-- 접수 -->
 							<div id="receiptdiv"> 						            
-								<form>
+								
 									<!-- 요청 접수 card start-->
 									<div class="card mt-4 mb-1">
 										<div class="card-header">서비스 요청 접수</div>
 										<div class="card-body">
+										<form method="post" action="${pageContext.request.contextPath}/pm/receipt">
 											<div class="row">
 												<div class="col-sm-3" style="text-align:center;">
 													<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
@@ -127,67 +140,62 @@
 													</div>
 													<div class="col-sm-12 form-group">
 														<label class="control-label" >완료예정일</label>
-														<input type="date" class="form-control ml-2" style="width: 200px; display: inline;">
+														<input type="date" class="form-control ml-2" style="width: 200px; display: inline;" name="allExpectDate">
 													</div>
 													
 													<div class="col-sm-12 form-group">
 														<label class="control-label" >개발 담당자 선택</label>
 														<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="dev">
-															<option value="1">장영훈 | 현재담당건수(5)</option>
-															<option value="2">장영훈 | 현재담당건수(5)</option>
-															<option value="3">장영훈 | 현재담당건수(5)</option>
-															<option value="4">장영훈 | 현재담당건수(5)</option>
+															<c:forEach var="staff" varStatus="index" items="${devStaffList}">
+																<option value="${index.count}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+															</c:forEach>															
 														</select>
 													</div>
 													<div class="col-sm-12 form-group">
 														<label class="control-label" >테스트 담당자 선택</label>
 														<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester">
-															<option value="1">장영훈 | 현재담당건수(5)</option>
-															<option value="2">장영훈 | 현재담당건수(5)</option>
-															<option value="3">장영훈 | 현재담당건수(5)</option>
-															<option value="4">장영훈 | 현재담당건수(5)</option>
+															<c:forEach var="staff" varStatus="index" items="${tesStaffList}">
+																<option value="${index.count}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+															</c:forEach>
 														</select>
 													</div>
 													<div class="col-sm-12 form-group">
 														<label class="control-label" >유저테스트 담당자 선택</label>
 														<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="utester">
-															<option value="1">장영훈 | 현재담당건수(5)</option>
-															<option value="2">장영훈 | 현재담당건수(5)</option>
-															<option value="3">장영훈 | 현재담당건수(5)</option>
-															<option value="4">장영훈 | 현재담당건수(5)</option>
+															<c:forEach var="staff" varStatus="index" items="${uteStaffList}">
+																<option value="${index.count}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+															</c:forEach>
 														</select>
 													</div>
 													<div class="col-sm-12 form-group">
 														<label class="control-label" >배포 담당자 선택</label>
 														<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="dist">
-															<option value="1">장영훈 | 현재담당건수(5)</option>
-															<option value="2">장영훈 | 현재담당건수(5)</option>
-															<option value="3">장영훈 | 현재담당건수(5)</option>
-															<option value="4">장영훈 | 현재담당건수(5)</option>
+															<c:forEach var="staff" varStatus="index" items="${disStaffList}">
+																<option value="${index.count}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+															</c:forEach>
 														</select>
 													</div>
 												
 													<div class="col-sm-12 form-group">
 														<label class="control-label">의견 내용</label>
-														<textarea rows="2" class="form-control boxed"></textarea>
+														<textarea rows="2" class="form-control boxed" name="reply"></textarea>
 													</div>											
 													<div class="filebox">
 														<label for="file">첨부파일</label>
-														<input type="file" id="file">
+														<input type="file" id="file" name="file">
 													</div>
 													
 												</div>
 											</div>
 											<div class="d-flex justify-content-end">						
 												<button class="btn btn-primary btn-lg mt-3 ml-3" type="button">접수 완료</button>
-												<button class="btn btn-secondary btn-lg mt-3 ml-3" id="receiptbtn">취소</button>												
+												<a class="btn btn-secondary btn-lg mt-3 ml-3" onclick="receiptCancel()">취소</a>												
 											</div>
-										</div>
-										
+											</form>											
+										</div>										
 									</div>
 									<!-- 요청 접수 card end-->
-									
-								</form>
+																
 							</div>
 							
 							<!-- 반려 -->
@@ -215,8 +223,8 @@
 												</div>
 											</div>
 											<div class="d-flex justify-content-end">									
-												<button class="btn btn-danger btn-lg mt-3 ml-3" type="button">반려 완료</button>
-												<button class="btn btn-secondary btn-lg mt-3 ml-3" id="rejectbtn">취소</button>									
+												<button class="btn btn-danger btn-lg mt-3 ml-3" type="button">반려 완료</button>												
+												<a class="btn btn-secondary btn-lg mt-3 ml-3" onclick="rejectCancel()">취소</a>									
 											</div>
 										</div>
 									</div>
