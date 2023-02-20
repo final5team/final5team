@@ -11485,3 +11485,24 @@ input[type="checkbox"]:checked + label:after {
 	font-family: 'Font Awesome 5 Free'; */
 	color: #85CE36;
 }      
+/*각 카드 스크롤 넣기*/
+/* Let's get this party started */
+.cardscroller{
+    overflow-y: scroll;
+}
+
+.cardscroller::-webkit-scrollbar {
+  width: 7px;
+  height: 7px; }
+
+/* Track */
+.cardscroller::-webkit-scrollbar-track {
+  border-radius: 0; }
+
+/* Handle */
+.cardscroller::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background: #78bd2e; }
+
+.cardscroller::-webkit-scrollbar-thumb:window-inactive {
+  background: #85CE36; }
