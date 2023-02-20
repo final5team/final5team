@@ -220,7 +220,7 @@ main {
 }
 
 .member tr:hover {
-	background-color: rgba(0, 128, 0, 0.404);
+	background-color: rgba(211, 211, 211, 0.438);
 }
 
 .filter .search-button {
@@ -243,14 +243,16 @@ main {
 }
 
 .step_tr .step_td .inner_step {
-	
+	background-color: none;
 }
 
 .step_tr .step_td .inner_step .circle {
+	background-color: none;
 	width: 70px;
 }
 
 .step_tr .step_td .inner_step .bar {
+	background-color: none;
 	width: 10px;
 }
 </style>
@@ -360,6 +362,7 @@ main {
 										<td class="reqDate">${request.reqDate}</td>
 
 										<td class="step_td">
+											
 											<table class="inner_step">
 												<td class="circle">요청완료</td>
 												<td class="bar"></td>
