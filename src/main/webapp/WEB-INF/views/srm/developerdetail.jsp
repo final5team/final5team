@@ -17,6 +17,7 @@
 		 	 text-align: center;
 		}
 		
+		
     	
     	.circle {
     		  margin-left : 25px;

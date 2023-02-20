@@ -13,6 +13,9 @@ import com.oti.srm.dto.Request;
 import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.StatusHistory;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 @Service
 public class CommonService implements ICommonService {
 	@Autowired
@@ -55,6 +58,7 @@ public class CommonService implements ICommonService {
 	@Override
 	public RequestProcess getRequestProcess(int rno) {
 		RequestProcess requestProcess = commonDao.getRequestProcess(rno);
+		log.info(requestProcess);
 		return requestProcess;
 	}
 
