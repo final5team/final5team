@@ -120,7 +120,7 @@
 			<if test="mtype == 'tester'">
 				test_comp_date = sysdate,
 			</if>
-			<if test="mtype == 'userTester'">
+			<if test="mtype == 'usertester'">
 				usertest_comp_date = sysdate,
 			</if>
 			<if test="mtype == 'distributor'">
@@ -132,9 +132,9 @@
 	
 	<insert id="insertStatusHistory" parameterType="com.oti.srm.dto.StatusHistory">
 		insert into status_histories
-		(hno, change_date, rno, reply, next_status, dist_source)
+		(hno, change_date, rno, reply, next_status, dist_source, writer)
 		values 
-		(seq_status_histories.nextval, sysdate, #{rno}, #{reply}, #{nextStatus}, #{distSource})
+		(seq_status_histories.nextval, sysdate, #{rno}, #{reply}, #{nextStatus}, #{distSource}, #{writer})
 	</insert>
 	
 	<update id="updateRequestStatus" parameterType="map">

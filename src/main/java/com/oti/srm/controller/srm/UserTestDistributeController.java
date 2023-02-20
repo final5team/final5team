@@ -31,19 +31,17 @@ public class UserTestDistributeController {
 	@GetMapping("/usertestdetail")
 	public String userTestDetail(int rno, HttpSession session, Model model) {
 		log.info("요청번호" + rno);
+		// Validation(내 담당건 맞는지)
 		// 요청정보
 		model.addAttribute("request", commonService.getRequest(rno));
-		// Validation(내 담당건 맞는지)
 		// 요청 처리정보
 		RequestProcess rp = commonService.getRequestProcess(rno);
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String str = format.format(rp.getAllExpectDate());
 		rp.setAllExpectDateStr(str);
-		log.info(str);
 		model.addAttribute("requestProcess", rp);
-		List<StatusHistory> devToTesterHistories = commonService.getDevToTesterHistories(rno);
 		// 개발자 -> 테스터
-		model.addAttribute("devToTesterHistories", devToTesterHistories);
+		model.addAttribute("devToTesterHistories", commonService.getDevToTesterHistories(rno));
 		return "srm/userTester";
 	}
 
@@ -51,14 +49,14 @@ public class UserTestDistributeController {
 	@GetMapping("/distributedetail")
 	public String distributeDetail(int rno, HttpSession session, Model model) {
 		log.info("요청번호" + rno);
+		// Validation(내 담당건 맞는지)
 		// 요청정보
 		model.addAttribute("request", commonService.getRequest(rno));
 		// Validation(내 담당건 맞는지)
 		// 요청 처리정보
 		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
-		List<StatusHistory> devToTesterHistories = commonService.getDevToTesterHistories(rno);
 		// 개발자 -> 테스터
-		model.addAttribute("devToTesterHistories", devToTesterHistories);
+		model.addAttribute("devToTesterHistories", commonService.getDevToTesterHistories(rno));
 		return "srm/distributor";
 	}
 	
@@ -67,9 +65,12 @@ public class UserTestDistributeController {
 	// => requests테이블(현재단계 최신화 + 완료예정일 기입) + status_histories테이블(단계 변경 이력 추가)
 	@PostMapping("/startwork")
 	public String startWork(StatusHistory statusHistory,
-			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expectDate, String mtype) {
-		commonService.startWork(statusHistory, expectDate, mtype);
-		if (mtype.equals("userTester")) {
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expectDate, HttpSession session) {
+		log.info("실행");
+		Member me = (Member) session.getAttribute("member");
+		statusHistory.setWriter(me.getMid());
+		commonService.startWork(statusHistory, expectDate, me.getMtype());
+		if (me.getMtype().equals("usertester")) {
 			return "redirect:/usertestdetail?rno=" + statusHistory.getRno();
 		} else {
 			return "redirect:/distributedetail?rno=" + statusHistory.getRno();
@@ -82,10 +83,13 @@ public class UserTestDistributeController {
 	// => requests테이블(현재단계 최신화) + status_histories테이블(단계 변경 이력 추가)
 	// + status_histories_files테이블(단계 변경 이력에 첨부파일 등록)
 	@PostMapping("/endwork")
-	public String endWork(StatusHistory statusHistory, String mtype) {
+	public String endWork(StatusHistory statusHistory, HttpSession session) {
 		log.info("실행");
-		commonService.endWork(statusHistory, mtype);
-		if (mtype.equals("userTester")) {
+		Member me = (Member) session.getAttribute("member");
+		statusHistory.setWriter(me.getMid());
+		log.info(me.getMtype());
+		commonService.endWork(statusHistory, me.getMtype());
+		if (me.getMtype().equals("usertester")) {
 			return "redirect:/usertestdetail?rno=" + statusHistory.getRno();
 		} else {
 			return "redirect:/distributedetail?rno=" + statusHistory.getRno();
