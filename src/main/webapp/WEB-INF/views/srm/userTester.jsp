@@ -22,8 +22,10 @@
     		  margin-left : 25px;
 			  background-color: #fff;
 			  color: #999;
-			  height: 30px;
+			  height: 40px;
 			  width: 150px;
+			  font-size : 20px;
+			  line-height : 40px;
 			  border: 3px solid var(--line-empty);
 			  transition: 0.4s ease;
 		}
@@ -42,10 +44,13 @@
 		
 		.circle.done {
 		  	border-color: var(--line-fill);
+		  	color : var(--line-fill);
 		}
 		
 		.circle.now {
-		  	border-color: var(--now-fill);
+			border-color : white;
+			color : white;
+		  	background-color : var(--line-fill);
 		}
 		
 		.bar.active {
