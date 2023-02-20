@@ -37,11 +37,13 @@
 							<div class="card">
 								<div class="card-header d-flex">
 									<div class="mr-auto">처리 완료</div>	
-									<div class="d-flex">
-										<div class="ml-3">유형: 정규</div>
-										<div class="ml-3">|</div>
-										<div class="ml-3">중요도: 상</div>
-									</div>								
+									<div class="ml-3">정규<i class="far fa-registered text-secondary"></i></div>
+									<div class="ml-3">긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
+									<div class="ml-5 mr-4">중요도: 
+										<span class="fa fa-star checked" style="color: orange;"></span>
+										<span class="fa fa-star checked" style="color: orange;"></span>
+										<span class="fa fa-star checked" style="color: orange;"></span>
+									</div>							
 								</div>
 								<div class="card-body">
 									<div>처리완료상세보기 ></div>									
@@ -102,6 +104,10 @@
 												<label class="control-label" >개발 의견</label>
 												<input type="text" class="form-control ml-2" style="display: inline;" value="개발 결과가 이렇고 저렇고 개발개발새발"> 
 											</div>
+											<div class="mt-2">
+												<label class="control-label" >배포 소스</label>
+												<input type="text" class="form-control ml-2" style="display: inline;" value="배포 소스가 이렇고 저렇고 개발개발새발"> 
+											</div>
 										</div>
 									</div>
 								</div>
@@ -126,7 +132,7 @@
 												</div>												
 											</div>
 											<div>
-												<label class="control-label" >테스트 의견</label>
+												<label class="control-label" >재검토 의견</label>
 												<input type="text" class="form-control ml-2" style="display: inline;" value="테스트결과가 이렇고 저렇고 테스테세텥레"> 
 											</div>
 										</div>
@@ -197,11 +203,11 @@
 													<label class="control-label mr-2">최종 완료일</label>
 													<input value="2023-02-15" readonly> 													  												
 												</div>												
-											</div>	
+											</div>
 											<div>
 												<label class="control-label" >완료 의견</label>
-												<input type="text" class="form-control ml-2" style="display: inline;" value="기한 내 서비스 요청 완료"> 
-											</div>										
+												<input type="text" class="form-control ml-2" style="display: inline;" value="서비스 요청을 기한 내에 마무리 하여 "> 
+											</div>																					
 										</div>
 									</div>
 								</div>
