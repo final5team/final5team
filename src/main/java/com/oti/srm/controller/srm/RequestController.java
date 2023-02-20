@@ -3,18 +3,23 @@ package com.oti.srm.controller.srm;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
+import com.oti.srm.dto.RequestProcess;
+import com.oti.srm.dto.SelectPM;
 import com.oti.srm.service.member.IUserRegisterService;
 import com.oti.srm.service.srm.IRequestRegisterService;
 
@@ -77,36 +82,85 @@ public class RequestController {
 	}
 
 	@GetMapping("/request")
-	public String customerRequest() {
+	public String customerRequest(Member member, Request request, Model model, RequestProcess requestProcess) {
+		request.setStatusName("접수중");
+		request.setStatusNo(1);
+		requestProcess.setReqType("정규");
+		
+		
+		
+		model.addAttribute("request", request);
+		model.addAttribute("requestProcess", requestProcess);
+		
 		return "srm/request";
 	}
 
 	@PostMapping("/request")
-	public String customerRequest(Request request, Model model) {
+	public String customerRequest(Request request, Model model, HttpSession session) {
+		//요청 상태값은 1
 		request.setStatusNo(1);
+		request.setSno(1);
+		Member member = (Member) session.getAttribute("member");
+		request.setClient(member.getMname());
+		
+		int result = requestService.writeRequest(request);
+		if(result == IRequestRegisterService.REQUEST_SUCCESS) {
+			return "redirect:/login";
+		} else {
+			model.addAttribute("requestResult", "FAIL");
+			return "redirect:/customer/request";
+		}
+		
 
-		log.info(model.toString());
-
-//		
-//		int result = requestService.request(request);
-//		if(result == IRequestRegisterService.REQUEST_SUCCESS) {
-//			return "redirect:/login";
-//		} else {
-//			model.addAttribute("requestResult", "FAIL");
-//			return "redirect:/customer/request";
-//		}
-//		
-		return "redirect:/login";
 	}
 
+	/** member type별 요청 조회 처리
+	 * 
+	 */
 	@GetMapping("/requestlist")
-	public String requestList(Request request, Model model, Pager pager) {
+	public String requestList(Request request, Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo) {
+		
+		Member member = (Member) session.getAttribute("member");
+		request.setMid(member.getMid());
+		
+		
+		//PM case
+		if(member.getMtype().equals("pm")) {
+			int totalRows = requestService.getPmTotalRows();
+			//pageNo 1인 경우
+			
+			if(pageNo == 1) {
+				log.info(pageNo + "pageNo1인 경우");
+				Pager pager = new Pager(5, 5,totalRows, pageNo);
+				List<SelectPM> requestList = requestService.getPmRequestList(request, pager);
+				model.addAttribute("requestList", requestList);
+				
+				
+				
+				
+			} else {
+				//요청한 페이지로 이동.
+				log.info(pageNo + "pageNo1 아닌 경우");
+				Pager pager = new Pager(5, 5,totalRows, pageNo);
+				
+				
+				requestService.getPmRequestList(request, pager);
+			}
+			
+			
+			
+			
+		//Not PM
+		} else {
+			log.info("PM 아닌경우");
+			
+		}
 
+		
+		
+		Pager pager = new Pager(5, 5, 10, pageNo);
 		List<Request> requestList = requestService.getRequestList(request, pager);
 		model.addAttribute("requestList", requestList);
-
-		log.info(model.toString());
-
 		return "srm/requestlist";
 	}
 

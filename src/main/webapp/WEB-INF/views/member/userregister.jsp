@@ -147,6 +147,10 @@ form {
 	color: #85ce36;
 }
 
+.item select:focus+.fa {
+	color: #85ce36;
+}
+
 .item select:focus {
 	box-shadow: 0 0 5px #85ce36;
 }
@@ -290,12 +294,12 @@ form {
 									<div class="input-group">
 										<select class="custom-select" id="mtype" name="mtype">
 											<option selected>TYPE 선택</option>
-											<option value="1">user</option>
-											<option value="2">pm</option>
-											<option value="3">developer</option>
-											<option value="4">distributer</option>
-											<option value="5">tester</option>
-											<option value="6">user_tester</option>
+											<option value="user">user</option>
+											<option value="pm">pm</option>
+											<option value="developer">developer</option>
+											<option value="distributer">distributer</option>
+											<option value="tester">tester</option>
+											<option value="user_tester">user_tester</option>
 										</select>
 										<i class="fa fa-user"></i>
 									</div>

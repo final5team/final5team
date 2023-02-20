@@ -143,8 +143,8 @@ main {
 .table .table-header h4 {
 	color: #68a329;
 	font: bold;
-	margin : 10px 15px;
-	font-size : 15px;
+	margin: 10px 15px;
+	font-size: 15px;
 }
 
 .table .table-body {
@@ -199,7 +199,7 @@ main {
 
 .member tr td {
 	width: 1050px;
-	border : 1px solid black;
+	border: 1px solid black;
 	font-size: 13px;
 }
 
@@ -217,6 +217,56 @@ main {
 
 .member tr:hover {
 	background-color: rgba(0, 128, 0, 0.404);
+}
+
+.container .step {
+	text-align: center;
+}
+
+:root { -
+	-line-fill: #87cd36; -
+	-line-empty: #e0e0e0; -
+	-now-fill: #F40730;
+}
+
+.circle {
+	margin-left: 25px;
+	background-color: #fff;
+	color: #999;
+	height: 40px;
+	width: 150px;
+	font-size: 20px;
+	line-height: 40px;
+	border: 3px solid var(- -line-empty);
+	transition: 0.4s ease;
+}
+
+.bar {
+	margin-left: 100px;
+	padding: 0px;
+	background-color: #fff;
+	color: #999;
+	height: 30px;
+	width: 1px;
+	align-items: center;
+	justify-content: center;
+	border: 3px solid var(- -line-empty);
+	transition: 0.4s ease;
+}
+
+.circle.done {
+	border-color: var(- -line-fill);
+	color: var(- -line-fill);
+}
+
+.circle.now {
+	border-color: white;
+	color: white;
+	background-color: var(- -line-fill);
+}
+
+.bar.active {
+	border-color: var(- -line-fill);
 }
 </style>
 
@@ -311,16 +361,18 @@ main {
 									<th>단계</th>
 								</tr>
 								<c:forEach var="request" items="${requestList}">
-								<tr>
-									<td class="rno">${request.rno}</td>
-									<!-- 나중에 시스템 이름으로 바꾸어 줘야 함. -->
-									<td class="client">${request.sno}이름추가</td>
-									<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
-									<td class="sysType">일반, 긴급</td>
-									<td class="reqTitle">${request.reqTitle}</td>
-									<td class="reqDate">${request.reqDate}</td>
-									<td class="reqDate">${request.reqDate}</td>
-								</tr>
+									<tr>
+										<%-- 										<td class="rno">${request.rno}</td> --%>
+										<!-- 										나중에 시스템 이름으로 바꾸어 줘야 함. -->
+										<%-- 										<td class="client">${request.sno}이름추가</td> --%>
+										<!-- 										요청 유형 테이블에서 req type 가져와야 함. -->
+										<!-- 										<td class="sysType">일반, 긴급</td> -->
+										<%-- 										<td class="reqTitle">${request.reqTitle}</td> --%>
+										<%-- 										<td class="reqDate">${request.reqDate}</td> --%>
+
+
+										<td class="step"><%@ include file="/WEB-INF/views/srm/nowstatushorizon.jsp"%></td>
+									</tr>
 								</c:forEach>
 							</table>
 						</article>
@@ -356,7 +408,7 @@ main {
 						</c:if>
 					</div>
 					<div class="flex-fulfill"></div>
-					<a type="button" href="<c:url value='/community/write/1'/>" class="btn btn-muted shadow">글 작성</a>
+					<a type="button" href="<c:url value='/customer/requestlist/1'/>" class="btn btn-muted shadow">글 작성</a>
 				</div>
 
 			</div>
