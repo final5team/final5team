@@ -51,8 +51,4 @@ public class NoticeController {
 		return "redirect:/noticeList";
 	}
 	
-	@GetMapping("/horizon")
-	public String horizon() {
-		return "notice/horizon";
-	}
 }

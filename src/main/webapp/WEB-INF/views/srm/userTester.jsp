@@ -121,8 +121,8 @@
 											</div>
 											<div class="d-flex">
 												<div class="pl-5">요청 완료 예정일:</div>
-												<div class="pl-2 flex-grow-1">
-													<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>
+												<div class="pl-2 flex-grow-1" id="allExpectDate">
+													${requestProcess.allExpectDateStr}
 												</div>
 											</div>
 											<c:if test="${request.statusNo == 8}">
@@ -151,7 +151,7 @@
 								<!-- 유저테스트 요청 상태(7) -->
 								<c:if test="${request.statusNo == 7}">
 									<div class="d-flex justify-content-end">
-										 <button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">유저테스트 시작</button>
+										 <button class="btn btn-primary btn-lg mt-3" onclick="getDatemodal()" type="button">유저테스트 시작</button>
 									</div>
 								</c:if>
 								<!-- 유저테스트 중 상태(8) -->
@@ -159,9 +159,8 @@
 									<div class="d-flex justify-content-end">
 										<form action="${pageContext.request.contextPath}/endwork" method="post" class="mt-3">
 											<input type="hidden" name="rno" value="${request.rno}"/>
-											<input type="hidden" name="mtype" value="${userInfo.mtype}"/>
 											<input type="hidden" name="nextStatus" value="9"/>
-											<button class="btn btn-gradient-success btn-gradient btn-lg mt-3">유저테스트 완료</button>
+											<button class="btn btn-info btn-lg mt-3">유저테스트 완료</button>
 										</form>
 									</div>
 								</c:if>
@@ -247,7 +246,6 @@
 						<label class="mt-1" style="color: #343a40;" for="expectDate">유저테스트 완료 예정일</label>
 						<input type="date" id= "expectDate" name="expectDate" class="form-control ml-2" style="width: 200px; display: inline;"/>
 						<input type="hidden" name="rno" value="${request.rno}"/>
-						<input type="hidden" name="mtype" value="${userInfo.mtype}"/>
 						<input type="hidden" name="nextStatus" value="8"/>
 					</form>
 				</div>
@@ -257,7 +255,6 @@
                     <a class="btn btn-primary" 
                     	onclick="validationCheck()">
                      	확인</a>
-                     <small id="allExpectDate">${requestProcess.allExpectDateStr}</small>
 				</div>
 			</div>
 		</div>
@@ -302,7 +299,6 @@
 			</div>
 		</div>
 	</div>
-	
 	<script>
 		<!-- 데이트 입력 확인 /-->
 		function getDatemodal(){
@@ -315,44 +311,49 @@
 				return;
 			}
 			
-			console.log($('#allExpectDate').text());
-			console.log($('#expectDate').val());
 			var aed = new Date($('#allExpectDate').text()).getTime(); 
 			var ied = new Date($('#expectDate').val()).getTime();
 			var today = new Date().getTime();
-			console.log(aed);
-			console.log(ied);
-			// 2. 테스트완료일보다 미래 + 요청완료 예정일보다 과거 선택해야 함
-			if(aed <= ied){
-				$('#noInputDate').text("요청 완료 예정일보다 과거여야합니다.");
+			// 2. 요청완료 예정일 이하 
+			if(aed < ied){
+				$('#noInputDate').text("요청 완료 예정일 이전으로 선택해주세요.");
 				return;
 			}
-			// 3. (입력 완료 예정일 - 현재날짜) / (요청완료 예정일 - 현재날짜) >= 50%
+			// 3. 오늘 날짜 이상
+			if(today > ied){
+				$('#noInputDate').text("오늘날짜 이후로 선택해주세요.");
+				return;
+			}
+			// 4. (입력 완료 예정일 - 현재날짜) / (요청완료 예정일 - 현재날짜) >= 50%
 			if(((ied - today)/ (aed - today)) >= 0.5){
 				$('#datemodal').modal('hide');
 				$('#alartDateTooMuch').modal('show');
 			}else{
 				startWork();
-				$('#alartDateTooMuch').modal('hide');
-				$('#completeDueDate').modal('show');
+				$('#datemodal').modal('hide');
 			}
 		}
 		
 		function go(){
 			startWork();
 			$('#alartDateTooMuch').modal('hide');
-			$('#completeDueDate').modal('show');
 		}
 		
 		
 		
 		function startWork(){
-			var queryString = $("form[name=startWork]").serialize() ;	
+			var queryString = $("#startWork").serialize() ;	
 			$.ajax({
 				type : 'post',
-				url : '${pageContext.request.contextPath}/startwork',
+				url : '${pageContext.request.contextPath}/startwork', 
 				data : queryString,
-				dataType : 'json'
+				dataType : 'html',
+				success : function(data){
+					$('#content').html(data);
+				},
+				error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                	alert("통신 실패")
+            	}
 			});
 		}
 	</script>
