@@ -45,10 +45,12 @@
 							<div class="card">
 								<div class="card-header d-flex">
 									<div class="mr-auto">배포 완료</div>	
-									<div class="d-flex">
-										<div class="ml-3">유형: 정규</div>
-										<div class="ml-3">|</div>
-										<div class="ml-3">중요도: 상</div>
+									<div class="ml-3">정규<i class="far fa-registered text-secondary"></i></div>
+									<div class="ml-3">긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
+									<div class="ml-5 mr-4">중요도: 
+										<span class="fa fa-star checked" style="color: orange;"></span>
+										<span class="fa fa-star checked" style="color: orange;"></span>
+										<span class="fa fa-star checked" style="color: orange;"></span>
 									</div>									
 								</div>
 								<div class="card-body">
@@ -83,7 +85,10 @@
 										<a href="#" role="button">
 											<i class="fas fa-cloud-download-alt"></i>
 										</a>
-									</div>									
+									</div>	
+									<div class="d-flex justify-content-end">
+										<button class="btn btn-primary btn-lg mt-3 ml-3" type="button" id="completebtn">배포 완료</button>									
+									</div>																
 								</div>
 							</div>
 							<div class="card mt-4">
@@ -108,14 +113,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
-							<form>
-								<div>
-									<div class="d-flex justify-content-end">
-										<button class="btn btn-gradient-success btn-gradient btn-lg mt-3 " type="button" id="completebtn">배포 완료</button>									
-									</div>								
-								</div>
-							</form>
+							</div>							
 
 							<!-- 완료 -->
 							<div id="completediv"> 						            
@@ -123,29 +121,27 @@
 									<!-- 요청 접수 card start-->
 									<div class="card mt-4 mb-1">
 										<div class="card-header">처리 완료</div>
-										<div class="card-body row">
-											<div class="col-sm-3" style="text-align:center;">
-												<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
-												<div class="ml-3">PM</div>
-											</div>
-											<div class="col-sm-9">	
-												<div class="col-sm-12 form-group">
-													<label class="control-label">완료 의견</label>
-													<textarea rows="2" class="form-control boxed"></textarea>
-												</div>											
-												<div class="filebox">
-													<label for="file">첨부파일</label>
-													<input type="file" id="file">
+										<div class="card-body">
+											<div class="row">
+												<div class="col-sm-3" style="text-align:center;">
+													<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+													<div class="ml-3">PM</div>
 												</div>
-												
+												<div class="col-sm-9">	
+													<div class="col-sm-12 form-group">
+														<label class="control-label">완료 의견</label>
+														<textarea rows="2" class="form-control boxed"></textarea>
+													</div>																								
+													
+												</div>
+											</div>
+											<div class="d-flex justify-content-end">
+												<button class="btn btn-primary btn-lg mt-3 ml-3" type="button">처리 완료</button>
+												<button class="btn btn-secondary btn-lg mt-3 ml-3" id="completebtn">취소</button>									
 											</div>
 										</div>
 									</div>
-									<!-- 요청 접수 card end-->
-									<div class="d-flex justify-content-end">
-										<button class="btn btn-gradient-success btn-gradient btn-lg mt-3" type="button">처리 완료</button>
-										<button class="btn btn-gradient btn-lg mt-3 ml-3" style="background-image: linear-gradient(to right, #859398  51%, #616161  100%);" id="completebtn">취소</button>									
-									</div>
+									<!-- 요청 접수 card end-->								
 								</form>
 							</div>
 
