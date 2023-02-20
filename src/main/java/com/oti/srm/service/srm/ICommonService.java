@@ -5,6 +5,7 @@ import java.util.List;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.StatusHistory;
+import com.oti.srm.dto.StatusHistoryFile;
 
 public interface ICommonService {
 	// 개발자 -> 테스터 단계 변경 이력 조회
@@ -21,5 +22,7 @@ public interface ICommonService {
 	public void endWork(StatusHistory statusHistory, String mtype);
 
 	public List<StatusHistory> getTesterToDevHistories(int rno);
+
+	public void uploadFile(StatusHistoryFile statusHistoryFile);
 
 }
