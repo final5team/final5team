@@ -187,11 +187,10 @@
 							<div class="row mb-3">
 								<!-- 개발자의 개발내용 start -->
 								<div class="col-md-6">
-								<c:if test="${devToTester.statusHistory != null}">
-								<c:forEach var="statusHistory" items="${devToTester.statusHistory}">
-									<div class="card" style="height: 262px;">
+								<c:forEach varStatus="i" var="statusHistory" items="${devToTester}">
+									<div class="card mt-3" style="height: 262px;">
 										<div class="card-header d-flex justify-content-end">
-											<div>1차 개발</div>
+											<div>${i.count}차 개발</div>
 											<div class="ml-auto ml-1">${requestProcess.devExpectDate}</div>
 										</div>
 										<div class="card-body p-1">
@@ -212,7 +211,7 @@
 													</div>
 													<div class=" mt-2">
 														<label class="control-label">배포소스</label>
-														<input class="form-control boxed" value="${statusHistory.distSources}" readonly style="background-color: transparent;">
+														<input class="form-control boxed" value="${statusHistory.distSource}" readonly style="background-color: transparent;">
 													</div>
 													<div class="mt-2">
 														<span>첨부파일: 파일이름</span>
@@ -226,17 +225,15 @@
 										</div>
 									</div>
 								</c:forEach>
-								</c:if>
 								</div>
 								<!-- 개발자의 개발내용 end -->
 								<!-- 테스터의 개발내용 start -->
 								<div class="col-md-6">
-								<c:if test="${testerToDev.statusHistory != null}">
-								<c:forEach var="statusHistory" items="${testerToDev.statusHistory}">							
+								<c:forEach varStatus="i" var="statusHistory" items="${testerToDev}">							
 
-									<div class="card" style="height: 262px;">
+									<div class="card mt-3" style="height: 262px;">
 										<div class="card-header d-flex justify-content-end">
-											<div>1차 결함</div>
+											<div>${i.count}차 결함</div>
 											<div class="ml-auto ml-1">${requestProcess.testExpectDate}</div>
 										</div>
 										<div class="card-body p-1">
@@ -267,7 +264,6 @@
 										</div>
 									</div>								
 								</c:forEach>
-								</c:if>
 								</div>
 								<!-- 테스터의 개발내용 end -->
 							</div>
