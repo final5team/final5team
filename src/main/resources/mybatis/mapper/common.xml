@@ -99,7 +99,7 @@
 			<if test="mtype == 'tester'">
 				test_expect_date = #{expectDate},
 			</if>
-			<if test="mtype == 'userTester'">
+			<if test="mtype == 'usertester'">
 				usertest_expect_date = #{expectDate},
 			</if>
 			<if test="mtype == 'distributor'">
