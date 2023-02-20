@@ -7,9 +7,9 @@
 
 <head>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
-   <style>
+    <style>
     	:root {
-		 	--line-fill: #3498db;
+		 	--line-fill: #87cd36;
 		  	--line-empty: #e0e0e0;
 		  	--now-fill: #F40730;
 		}
@@ -22,9 +22,10 @@
     		  margin-left : 25px;
 			  background-color: #fff;
 			  color: #999;
-			  border-radius:10px;
-			  height: 30px;
+			  height: 40px;
 			  width: 150px;
+			  font-size : 20px;
+			  line-height : 40px;
 			  border: 3px solid var(--line-empty);
 			  transition: 0.4s ease;
 		}
@@ -33,7 +34,7 @@
 			  padding : 0px;
 			  background-color: #fff;
 			  color: #999;
-			  height: 10px;
+			  height: 30px;
 			  width: 1px;
 			  align-items: center;
 			  justify-content: center;
@@ -43,10 +44,13 @@
 		
 		.circle.done {
 		  	border-color: var(--line-fill);
+		  	color : var(--line-fill);
 		}
 		
 		.circle.now {
-		  	border-color: var(--now-fill);
+			border-color : white;
+			color : white;
+		  	background-color : var(--line-fill);
 		}
 		
 		.bar.active {
@@ -100,9 +104,9 @@
 									<div class="row">
 										<div class="col-sm-6">
 											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="20%">
-											<span class="font-weight-bold ml-2">${userInfo.mname}</span>
-											<span class="ml-3">${userInfo.organ}</span>
-											<span class="ml-3">${userInfo.position}</span>
+											<span class="font-weight-bold ml-2">${member.mname}</span>
+											<span class="ml-3">${member.organ}</span>
+											<span class="ml-3">${member.position}</span>
 										</div>
 										<div class="col-sm-6 ml-auto">
 											<div class="d-flex">
@@ -144,20 +148,19 @@
 							</div>
 							
 							<div>
-								<!-- 유저테스트 요청 상태(7) -->
-								<c:if test="${request.statusNo == 7}">
+								<!-- 배포 요청 상태() -->
+								<c:if test="${request.statusNo == 7 || request.statusNo == 9}">
 									<div class="d-flex justify-content-end">
-										 <button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">배포 시작</button>
+										 <button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">유저테스트 시작</button>
 									</div>
 								</c:if>
-								<!-- 유저테스트 중 상태(8) -->
-								<c:if test="${request.statusNo == 8}">
+								<!-- 배포중 상태(8) -->
+								<c:if test="${request.statusNo == 10}">
 									<div class="d-flex justify-content-end">
 										<form action="${pageContext.request.contextPath}/endwork" method="post" class="mt-3">
 											<input type="hidden" name="rno" value="${request.rno}"/>
-											<input type="hidden" name="mtype" value="${userInfo.mtype}"/>
-											<input type="hidden" name="nextStatus" value="9"/>
-											<button class="btn btn-gradient-success btn-gradient btn-lg mt-3">배포 완료</button>
+											<input type="hidden" name="nextStatus" value="11"/>
+											<button class="btn btn-gradient-success btn-gradient btn-lg mt-3">유저테스트 완료</button>
 										</form>
 									</div>
 								</c:if>
@@ -165,10 +168,10 @@
 							
 							<div class="card mt-3">
 								<div class="card-header">
-									배포 소스 내용
+									배포 소스
 								</div>
 								<c:forEach var="statusHistory" varStatus="index" items="${devToTesterHistories}">
-									<div class="card-body row border border-success ml-4 mr-4 mt-3 mb-3">
+									<div class="card-body row  border-success ml-4 mr-4 mt-3 mb-3">
 										<div class="col-sm-2 d-flex align-items-center" style="text-align: center;">
 											<div>
 												<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
@@ -203,127 +206,7 @@
 								</div>
 								<div class="card-body">
 									<!-- request.statusName(현재 상태)에 따라 다른 단계 화면 표시-->
-									<c:if test="${request.statusName != '반려'}">
-										<c:if test="${requestProcess.reqType == null || requestProcess.reqType == '정규'}">
-											<div class="container">
-									           <div class="circle done">요청완료</div>
-									           <div class="bar active"></div>
-									           <div class="circle 
-									           	 <c:if test="${request.statusNo >= 2}">done</c:if>
-									           	 <c:if test="${request.statusNo == 1}">now</c:if>">
-									           	 <c:if test="${request.statusNo == 1}">접수중</c:if>
-									           	 <c:if test="${request.statusNo >= 2}">접수완료</c:if>
-									           </div>
-									           <div class="bar <c:if test="${request.statusNo >= 2}">active</c:if>"></div>
-									           <div class="circle
-									           	 <c:if test="${request.statusNo >= 5}">done</c:if>
-									           	 <c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">now</c:if>">
-									             <c:if test="${request.statusNo < 2}">개발단계</c:if>
-		       	    						     <c:if test="${request.statusNo == 2}">개발요청</c:if>
-									           	 <c:if test="${request.statusNo == 3}">개발중</c:if>
-									           	 <c:if test="${request.statusNo == 4}">개발재검토</c:if>
-									           	 <c:if test="${request.statusNo >= 5}">개발완료</c:if>
-									           </div>
-									           <div class="bar <c:if test="${request.statusNo >= 5}">active</c:if>"></div>
-									           <div class="circle
-									           	 <c:if test="${request.statusNo >= 7}">done</c:if>
-									           	 <c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">now</c:if>">
-									           	 <c:if test="${request.statusNo < 5}">테스트단계</c:if>
-									           	 <c:if test="${request.statusNo == 5}">테스트요청</c:if>
-									           	 <c:if test="${request.statusNo == 6}">테스트중</c:if>
-									           	 <c:if test="${request.statusNo >= 7}">테스트완료</c:if>
-									           </div>
-									           <div class="bar <c:if test="${request.statusNo >= 7}">active</c:if>"></div>
-									           <div class="circle
-									           	 <c:if test="${request.statusNo >= 9}">done</c:if>
-									           	 <c:if test="${request.statusNo >= 7 && request.statusNo <= 8}">now</c:if>">
-									           	 <c:if test="${request.statusNo < 7}">유저테스트단계</c:if>
-									           	 <c:if test="${request.statusNo == 7}">유저테스트요청</c:if>
-									           	 <c:if test="${request.statusNo == 8}">유저테스트중</c:if>
-									           	 <c:if test="${request.statusNo >= 9}">유저테스트완료</c:if>
-									           </div>
-									           <div class="bar <c:if test="${request.statusNo >= 9}">active</c:if>"></div>
-									           <div class="circle
-									             <c:if test="${request.statusNo >= 11}">done</c:if>
-									           	 <c:if test="${request.statusNo >= 9 && request.statusNo <= 10}">now</c:if>">	
-									             <c:if test="${request.statusNo < 9}">배포단계</c:if>
-									           	 <c:if test="${request.statusNo == 9}">배포요청</c:if>
-									           	 <c:if test="${request.statusNo == 10}">배포중</c:if>
-									           	 <c:if test="${request.statusNo >= 11}">배포완료</c:if>
-									           </div>
-									           <div class="bar <c:if test="${request.statusNo >= 11}">active</c:if>"></div>
-									           <div class="circle
-									           	 <c:if test="${request.statusNo >= 13}">done</c:if>
-									           	 <c:if test="${request.statusNo == 11}">now</c:if>">	
-									             <c:if test="${request.statusNo < 11}">최종승인단계</c:if>
-									           	 <c:if test="${request.statusNo == 11}">최종승인요청</c:if>
-									           	 <c:if test="${request.statusNo == 13}">완료</c:if>
-									           </div>
-										    </div>
-										</c:if>
-										<c:if test="${requestProcess.reqType == '긴급'}">
-											<div class="container">
-									           <div class="circle done">요청완료</div>
-									           <div class="bar active"></div>
-									           <div class="circle 
-									           	 <c:if test="${request.statusNo >= 2}">done</c:if>
-									           	 <c:if test="${request.statusNo == 1}">now</c:if>">
-									           	 <c:if test="${request.statusNo == 1}">접수중</c:if>
-									           	 <c:if test="${request.statusNo >= 2}">접수완료</c:if>
-									           </div>
-									           <div class="bar <c:if test="${request.statusNo >= 2}">active</c:if>"></div>
-									           <div class="circle
-									             <c:if test="${request.statusNo >= 5}">done</c:if>
-									             <c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">now</c:if>">
-									             <c:if test="${request.statusNo < 2}">개발단계</c:if>
-		       	    						     <c:if test="${request.statusNo == 2}">개발요청</c:if>
-									           	 <c:if test="${request.statusNo == 3}">개발중</c:if>
-									           	 <c:if test="${request.statusNo == 4}">개발재검토</c:if>
-									           	 <c:if test="${request.statusNo >= 5}">개발완료</c:if>
-									           </div>
-									           <div class="bar <c:if test="${request.statusNo >= 5}">active</c:if>"></div>
-									           <div class="circle
-									           	 <c:if test="${request.statusNo >= 7}">done</c:if>
-									           	 <c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">now</c:if>">
-									           	 <c:if test="${request.statusNo < 5}">테스트단계</c:if>
-									           	 <c:if test="${request.statusNo == 5}">테스트요청</c:if>
-									           	 <c:if test="${request.statusNo == 6}">테스트중</c:if>
-									           	 <c:if test="${request.statusNo >= 7}">테스트완료</c:if>
-									           </div>
-									           <div class="bar <c:if test="${request.statusNo >= 7}">active</c:if>"></div>
-									           <div class="circle
-									           	 <c:if test="${request.statusNo >= 11}">done</c:if>
-									           	 <c:if test="${request.statusNo >= 7 && request.statusNo <= 10}">now</c:if>">	
-									             <c:if test="${request.statusNo < 7}">배포단계</c:if>
-									           	 <c:if test="${request.statusNo == 7}">배포요청</c:if>
-									           	 <c:if test="${request.statusNo == 10}">배포중</c:if>
-									           	 <c:if test="${request.statusNo >= 11}">배포완료</c:if>
-									           </div>
-									           <div class="bar <c:if test="${request.statusNo >= 11}">active</c:if>"></div>
-									           <div class="circle
-									           	 <c:if test="${request.statusNo >= 13}">done</c:if>
-									           	 <c:if test="${request.statusNo == 11}">now</c:if>">	
-									             <c:if test="${request.statusNo < 11}">최종승인단계</c:if>
-									           	 <c:if test="${request.statusNo == 11}">최종승인요청</c:if>
-									           	 <c:if test="${request.statusNo == 13}">완료</c:if>
-									           </div>
-										    </div>
-										</c:if>
-									</c:if>
-									<c:if test="${request.statusName == '반려'}">
-										<div class="container">
-									           <div class="circle done">요청완료</div>
-									           <div class="bar active"></div>
-									           <div class="circle done">
-													접수완료
-									           </div>
-									           <div class="bar active"></div>   
-									           <div class="circle now">	
-									           		반려
-									           </div>
-										    </div>
-									</c:if>
-									
+									<%@ include file="/WEB-INF/views/srm/nowstatusvertical.jsp" %>
 								</div>
 							</div>
 						</div>
@@ -359,17 +242,20 @@
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body d-flex justify-content-center">
-					<form action="" method="post" name="startWork" class="mt-3">
+					<form action="" method="post" name="startWork" class="mt-3" id="startWork">
 						<label class="mt-1" style="color: #343a40;" for="expectDate">배포 완료 예정일</label>
 						<input type="date" id= "expectDate" name="expectDate" class="form-control ml-2" style="width: 200px; display: inline;"/>
 						<input type="hidden" name="rno" value="${request.rno}"/>
-						<input type="hidden" name="mtype" value="${userInfo.mtype}"/>
-						<input type="hidden" name="nextStatus" value="8"/>
+						<input type="hidden" name="nextStatus" value="10"/>
 					</form>
 				</div>
 				<div class="modal-footer">
+					<small id="noInputDate" style="color : red;"></small>
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <a class="btn btn-primary" onclick="closedatemodal()">확인</a>
+                    <a class="btn btn-primary" 
+                    	onclick="validationCheck()">
+                     	확인</a>
+                     <small id="allExpectDate">${requestProcess.allExpectDateStr}</small>
 				</div>
 			</div>
 		</div>
@@ -391,13 +277,13 @@
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <a class="btn btn-primary" onclick="startWork()" type="button">확인</a>
+                    <a class="btn btn-primary" onclick="go()" type="button">확인</a>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- 경고 모달창 -->
-	<!-- 데이트 입력 확인 -->
+
+	<!-- 완료창 -->
 	<div class="modal fade" id="completeDueDate" aria-hidden="true" aria-labelledby="successOfDueDate">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
@@ -419,31 +305,52 @@
 		<!-- 데이트 입력 확인 /-->
 		function getDatemodal(){
 			$('#datemodal').modal('show');
+		}
+		function validationCheck(){
+			// 1. 날짜 선택했는지 여부 
+			if($('#expectDate').val() == ""){
+				$('#noInputDate').text("배포 완료 예정일을 입력하세요");
+				return;
+			}
 			
+			console.log($('#allExpectDate').text());
+			console.log($('#expectDate').val());
+			var aed = new Date($('#allExpectDate').text()).getTime(); 
+			var ied = new Date($('#expectDate').val()).getTime();
+			var today = new Date().getTime();
+			console.log(aed);
+			console.log(ied);
+			// 2. 테스트완료일보다 미래 + 요청완료 예정일보다 과거 선택해야 함
+			if(aed <= ied){
+				$('#noInputDate').text("요청 완료 예정일보다 과거여야합니다.");
+				return;
+			}
+			// 3. (입력 완료 예정일 - 현재날짜) / (요청완료 예정일 - 현재날짜) >= 50%
+			if(((ied - today)/ (aed - today)) >= 0.5){
+				$('#datemodal').modal('hide');
+				$('#alartDateTooMuch').modal('show');
+			}else{
+				startWork();
+				$('#alartDateTooMuch').modal('hide');
+				$('#completeDueDate').modal('show');
+			}
 		}
-		function closedatemodal(){
-			$('#datemodal').modal('hide');
-			$('#alartDateTooMuch').modal('show');
-		}
-		function getcofirm(){
+		
+		function go(){
+			startWork();
 			$('#alartDateTooMuch').modal('hide');
 			$('#completeDueDate').modal('show');
 		}
 		
+		
+		
 		function startWork(){
-			var queryString = $("form[name=startWork]").serialize() ;
-
+			var queryString = $("form[name=startWork]").serialize() ;	
 			$.ajax({
 				type : 'post',
 				url : '${pageContext.request.contextPath}/startwork',
 				data : queryString,
-				dataType : 'json',
-				error: function(xhr, status, error){
-					alert(error);
-				},
-				success : function(json){
-					alert(json)
-				}
+				dataType : 'json'
 			});
 		}
 	</script>

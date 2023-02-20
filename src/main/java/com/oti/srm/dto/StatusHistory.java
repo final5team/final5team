@@ -13,5 +13,6 @@ public class StatusHistory {
 	private Date changeDate;
 	private String reply;
 	private String distSource;
+	private String writer;
 	private List<StatusHistoryFile> fileList;
 }

@@ -207,7 +207,7 @@
 								</div>
 								<div class="card-body">
 									<!-- request.statusName(현재 상태)에 따라 다른 단계 화면 표시-->
-									<%@ include file="/WEB-INF/views/srm/nowstatus.jsp" %>
+									<%@ include file="/WEB-INF/views/srm/nowstatusvertical.jsp" %>
 								</div>
 							</div>
 						</div>
