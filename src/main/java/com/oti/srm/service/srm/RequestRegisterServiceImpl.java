@@ -46,10 +46,47 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	}
 
 	@Override
-	public int getTotalRows() {
+	public void getPmRequestList(Request request, Pager pager) {
 		
+		
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public int getTotalRows() {
+		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 	
 	
 	

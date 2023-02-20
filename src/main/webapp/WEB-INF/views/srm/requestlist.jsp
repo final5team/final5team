@@ -218,9 +218,11 @@ main {
 .member tr:hover {
 	background-color: rgba(0, 128, 0, 0.404);
 }
-.container .step{
-   	text-align: center;
+
+.container .step {
+	text-align: center;
 }
+
 :root { -
 	-line-fill: #87cd36; -
 	-line-empty: #e0e0e0; -
@@ -228,24 +230,26 @@ main {
 }
 
 .circle {
+	margin-left: 25px;
 	background-color: #fff;
 	color: #999;
 	height: 40px;
-	line-height: 40px;
 	width: 150px;
 	font-size: 20px;
-	text-align: center;
+	line-height: 40px;
 	border: 3px solid var(- -line-empty);
 	transition: 0.4s ease;
 }
 
 .bar {
+	margin-left: 100px;
 	padding: 0px;
 	background-color: #fff;
 	color: #999;
-	margin-top: 15px;
-	height: 1px;
-	width: 30px;
+	height: 30px;
+	width: 1px;
+	align-items: center;
+	justify-content: center;
 	border: 3px solid var(- -line-empty);
 	transition: 0.4s ease;
 }
@@ -358,16 +362,16 @@ main {
 								</tr>
 								<c:forEach var="request" items="${requestList}">
 									<tr>
-<%-- 										<td class="rno">${request.rno}</td> --%>
-<!-- 										나중에 시스템 이름으로 바꾸어 줘야 함. -->
-<%-- 										<td class="client">${request.sno}이름추가</td> --%>
-<!-- 										요청 유형 테이블에서 req type 가져와야 함. -->
-<!-- 										<td class="sysType">일반, 긴급</td> -->
-<%-- 										<td class="reqTitle">${request.reqTitle}</td> --%>
-<%-- 										<td class="reqDate">${request.reqDate}</td> --%>
-										
-										
-										<td class="step"><%@ include file="/WEB-INF/views/srm/nowstatushorizon.jsp" %></td>
+										<%-- 										<td class="rno">${request.rno}</td> --%>
+										<!-- 										나중에 시스템 이름으로 바꾸어 줘야 함. -->
+										<%-- 										<td class="client">${request.sno}이름추가</td> --%>
+										<!-- 										요청 유형 테이블에서 req type 가져와야 함. -->
+										<!-- 										<td class="sysType">일반, 긴급</td> -->
+										<%-- 										<td class="reqTitle">${request.reqTitle}</td> --%>
+										<%-- 										<td class="reqDate">${request.reqDate}</td> --%>
+
+
+										<td class="step"><%@ include file="/WEB-INF/views/srm/nowstatushorizon.jsp"%></td>
 									</tr>
 								</c:forEach>
 							</table>

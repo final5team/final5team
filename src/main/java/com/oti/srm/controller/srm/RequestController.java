@@ -110,17 +110,40 @@ public class RequestController {
 	public String requestList(Request request, Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo) {
 		
 		
-		Member member = (Member) session.getAttribute("member");
-		if(member.getMtype().equals("pm")) {
-			
-		}
-
-		
-		
-		int totalRows = requestService.getTotalRows();
 		Pager pager = new Pager();
 		
 		
+		Member member = (Member) session.getAttribute("member");
+		if(member.getMtype().equals("pm")) {
+			int totalRows = requestService.getTotalRows();
+			
+			//pageNo 1인 경우
+			
+			if(pageNo == 1) {
+				log.info(pageNo + "pageNo1인 경우");
+				
+				
+				
+			} else {
+				//요청한 페이지로 이동.
+				log.info(pageNo + "pageNo1 아닌 경우");
+				
+				
+				
+				requestService.getPmRequestList(request, pager);
+			}
+			
+			
+			requestService.getPmRequestList(request, pager);
+			
+			
+			
+		//pm 이외의 경우	
+		} else {
+			
+			
+		}
+
 		
 		
 		

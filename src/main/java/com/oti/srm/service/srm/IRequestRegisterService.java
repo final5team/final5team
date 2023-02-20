@@ -18,6 +18,8 @@ public interface IRequestRegisterService {
 
 	public int getPresentStep(int rno);
 
+	public void getPmRequestList(Request request, Pager pager);
+
 	public int getTotalRows();
 
 	
