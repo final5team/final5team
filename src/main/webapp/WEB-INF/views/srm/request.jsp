@@ -151,6 +151,7 @@ form {
 }
 
 .section2 .titleBody {
+	border : 1px solid black;
 	position: absolute;
 	width: 50px;
 	left: 8%;
@@ -162,6 +163,7 @@ form {
 }
 
 .section2 .bodyInput {
+	border : 1px solid black;
 	position: absolute;
 	width: 700px;
 	left: 18%;
@@ -173,6 +175,7 @@ form {
 }
 
 .section2 .bodyInput textarea {
+	border : 1px solid black;
 	width: 700px;
 	font-size : 15px;
 	font: bold;  

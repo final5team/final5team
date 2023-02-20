@@ -75,7 +75,6 @@ public class RequestController {
 			model.addAttribute("registerResult", "FAIL");
 			return "redirect:/customer/register";
 		}
-
 	}
 
 	@GetMapping("/request")
