@@ -46,9 +46,9 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	}
 
 	@Override
-	public Pager getPager(String pageNo) {
-		Pager pager = new Pager();
-		return pager;
+	public int getTotalRows() {
+		
+		return 0;
 	}
 	
 	

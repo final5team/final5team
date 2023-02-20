@@ -103,11 +103,24 @@ public class RequestController {
 		return "redirect:/login";
 	}
 
+	/** member type별 요청 조회 처리
+	 * 
+	 */
 	@GetMapping("/requestlist")
-	public String requestList(Request request, Model model, HttpSession session) {
+	public String requestList(Request request, Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo) {
+		
+		
+		Member member = (Member) session.getAttribute("member");
+		if(member.getMtype().equals("pm")) {
+			
+		}
 
-
+		
+		
+		int totalRows = requestService.getTotalRows();
 		Pager pager = new Pager();
+		
+		
 		
 		
 		

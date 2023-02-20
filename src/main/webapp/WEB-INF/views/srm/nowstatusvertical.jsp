@@ -4,7 +4,7 @@
 
 <c:if test="${request.statusName != '반려'}">
 	<c:if test="${requestProcess.reqType == null || requestProcess.reqType == '정규'}">
-		<div class="container">
+		<div class="container step">
            <div class="circle done">요청완료</div>
            <div class="bar active"></div>
            <div class="circle 
