@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.oti.srm.dto.Member;
+import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.StatusHistory;
 import com.oti.srm.service.srm.ICommonService;
 import com.oti.srm.service.srm.IPMService;
@@ -63,16 +65,21 @@ public class PMController {
 	 */
 	// 접수
 	@RequestMapping("/receipt")
-	public String receipt(StatusHistory statusHistory, HttpSession session, Model model) {
+	public String receipt(StatusHistory statusHistory, RequestProcess requestProcess, HttpSession session, Model model) {
 		log.info("접수");
 		// 작성자 입력
-		Member me = (Member) session.getAttribute("member");
-		
+		Member me = (Member) session.getAttribute("member");		
 		statusHistory.setWriter(me.getMid());
+		requestProcess.setPm(me.getMid());
+		log.info(me.getMid());
+		log.info(statusHistory);
+		log.info(requestProcess);
 		// 접수 완료
-		pMService.receipt(statusHistory);
-
-		return "srm/receipt"; //목록 가든가 개발 상세 가든가
+		int result=pMService.receipt(statusHistory, requestProcess);
+		if(result==1) {
+			return "srm/receipt"; //목록 가든가 개발 상세 가든가
+		}
+		return "redirect:/";
 	}
 	
 	// 완료 처리

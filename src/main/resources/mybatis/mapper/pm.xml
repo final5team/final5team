@@ -24,5 +24,12 @@
 		</if>
 		=#{mid}
 	</select>	
+	<insert id="insertRequestProcess" parameterType="com.oti.srm.dto.RequestProcess">
+		insert into REQUEST_PROCESS
+		(RNO, REQ_TYPE, PRIORITY, ALL_EXPECT_DATE, DEVELOPER, TESTER, USER_TESTER, DISTRIBUTOR, PM)
+		values 
+		(#{rno}, #{reqType}, #{priority}, #{allExpectDate}, #{developer}, #{tester}, #{userTester}, #{distributor}, #{pm})
+	</insert>
+	
 	
 </mapper>

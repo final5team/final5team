@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.oti.srm.dto.Member;
+import com.oti.srm.dto.RequestProcess;
 
 /**
  * @author KIM JI YOUNG
@@ -19,6 +20,8 @@ public interface IPMDao {
 	public List<Member> selectStaffBySno(@Param("sno")int sno, @Param("mtype")String mtype);
 
 	public int selectQuota(@Param("mid")String mid, @Param("mtype")String mtype);
+
+	public int insertRequestProcess(RequestProcess requestProcess);
 	
 	
 	
