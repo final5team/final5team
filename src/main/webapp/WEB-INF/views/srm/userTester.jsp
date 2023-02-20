@@ -9,7 +9,7 @@
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
     <style>
     	:root {
-		 	--line-fill: #3498db;
+		 	--line-fill: #87cd36;
 		  	--line-empty: #e0e0e0;
 		  	--now-fill: #F40730;
 		}
@@ -22,7 +22,6 @@
     		  margin-left : 25px;
 			  background-color: #fff;
 			  color: #999;
-			  border-radius:10px;
 			  height: 30px;
 			  width: 150px;
 			  border: 3px solid var(--line-empty);
@@ -33,7 +32,7 @@
 			  padding : 0px;
 			  background-color: #fff;
 			  color: #999;
-			  height: 10px;
+			  height: 30px;
 			  width: 1px;
 			  align-items: center;
 			  justify-content: center;
@@ -100,9 +99,9 @@
 									<div class="row">
 										<div class="col-sm-6">
 											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="20%">
-											<span class="font-weight-bold ml-2">${userInfo.mname}</span>
-											<span class="ml-3">${userInfo.organ}</span>
-											<span class="ml-3">${userInfo.position}</span>
+											<span class="font-weight-bold ml-2">${member.mname}</span>
+											<span class="ml-3">${member.organ}</span>
+											<span class="ml-3">${member.position}</span>
 										</div>
 										<div class="col-sm-6 ml-auto">
 											<div class="d-flex">
