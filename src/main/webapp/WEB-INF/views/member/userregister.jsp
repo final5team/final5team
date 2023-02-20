@@ -51,7 +51,7 @@ form {
 	overflow: hidden;
 	position: absolute;
 	margin: 120px 50px;
-	left: 2%;
+	left: 0%;
 	top: 10%;
 }
 
@@ -97,7 +97,6 @@ form {
 .item input {
 	height: 40px;
 	width: inherit;
-	border-radius: 5px;
 	padding: 10px;
 	box-sizing: border-box;
 	padding-left: 40px;
@@ -282,7 +281,8 @@ form {
 
 						<section class="section2">
 							<article class="photo">
-								<img id="preview" src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg" /> <input type="file" class="btn btn-sm btn-dark" id="mfile" name="mfile" onchange="readURL(this);">
+								<img id="preview" src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg" /> 
+								<input type="file" class="btn btn-sm btn-primary" id="mfile" name="mfile" onchange="readURL(this);">
 								<%-- 						<img  id="img_file" src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg">
 								<button type="button" name="img-add" class="btn-dark btn-sm" onclick="onclick=document.all.mfile.click()">이미지 등록</button>
 								<input type="file" id="mfile" name="mfile" style="display:none"  accept="image/*" />
@@ -395,15 +395,15 @@ form {
 									<input type="text" id="addr2" name="addr2" placeholder="상세 주소"> <i class="fa fa-user"></i>
 								</div>
 								<div class="item address-button">
-									<button type="button" class="btn btn-dark btn-sm" id="address" name="address" onclick="findAddress()">우편번호</button>
+									<button type="button" class="btn btn-primary btn-sm" id="address" name="address" onclick="findAddress()">우편번호</button>
 								</div>
 							</article>
 
 							<article class="submit-button">
-								<button class="btn btn-dark btn-sm" type="submit">회원 등록</button>
+								<button class="btn btn-primary btn-sm" type="submit">회원 등록</button>
 							</article>
 							<article class="return-button">
-								<button class="btn btn-dark btn-sm" type="submit">취소</button>
+								<button class="btn btn-primary btn-sm" type="submit">취소</button>
 							</article>
 						</section>
 					</form>

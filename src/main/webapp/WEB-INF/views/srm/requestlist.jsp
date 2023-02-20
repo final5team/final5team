@@ -14,8 +14,8 @@ a {
 
 main {
 	display: flex;
-	height: 80vh;
-	width: 1100px;
+	height: 800px;
+	width: 1050px;
 	position: relative;
 	justify-content: center;
 	align-items: center;
@@ -46,10 +46,10 @@ main {
 }
 
 .filter .filter-head h4 {
-	background-color: #f8f9fc;
 	color: #68a329;
 	font: bold;
-	margin-left: 15px;
+	padding-top: 10px;
+	padding-left: 15px;
 	font-size: 15px;
 }
 
@@ -59,7 +59,7 @@ main {
 	position: absolute;
 	margin: 0;
 	left: 2%;
-	top: 20%;
+	top: 22%;
 }
 
 .filter .filter-name h6 {
@@ -72,8 +72,8 @@ main {
 	height: 200px;
 	position: absolute;
 	margin: 0;
-	left: 60%;
-	top: 20%;
+	left: 42%;
+	top: 22%;
 }
 
 .filter .filter-name2 h6 {
@@ -88,7 +88,7 @@ main {
 	overflow: hidden;
 	position: absolute;
 	left: 13%;
-	top: 20%;
+	top: 23%;
 	float: left;
 }
 
@@ -106,8 +106,8 @@ main {
 	height: 200px;
 	overflow: hidden;
 	position: absolute;
-	left: 70%;
-	top: 20%;
+	left: 50%;
+	top: 23%;
 	float: left;
 }
 
@@ -117,13 +117,14 @@ main {
 }
 
 .table {
-	width: 1050px;
+	text-align: center;
+	width: inherit;
 	height: 500px;
 	overflow: hidden;
 	text-align: start;
 	align-items: center;
 	position: absolute;
-	top: 25%;
+	top: 28%;
 	left: 0;
 	background-color: #fff;
 	border-bottom: 1px solid #e3e6f0;
@@ -143,7 +144,8 @@ main {
 .table .table-header h4 {
 	color: #68a329;
 	font: bold;
-	margin: 10px 15px;
+	padding-top: 10px;
+	padding-left: 15px;
 	font-size: 15px;
 }
 
@@ -180,16 +182,19 @@ main {
 }
 
 /* .member tr:hover {
-                        background-color: #eee;
-                      } */
+                                    background-color: #eee;
+                                  } */
 .member tr:nth-child(odd) {
 	background-color: #eee;
 }
 
 .member th, .member td {
+	font-size: 12px;
 	width: 1050px;
-	padding: 12px;
+	padding: 5px;
 	text-align: center;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .member tr th {
@@ -199,8 +204,7 @@ main {
 
 .member tr td {
 	width: 1050px;
-	border: 1px solid black;
-	font-size: 13px;
+	font-size: 12px;
 }
 
 .member tr th:first-child {
@@ -219,54 +223,35 @@ main {
 	background-color: rgba(0, 128, 0, 0.404);
 }
 
-.container .step {
-	text-align: center;
+.filter .search-button {
+	position: absolute;
+	width: 80px;
+	height: 50px;
+	left: 61%;
+	top: 70%;
 }
 
-:root { -
-	-line-fill: #87cd36; -
-	-line-empty: #e0e0e0; -
-	-now-fill: #F40730;
-}
-
-.circle {
-	margin-left: 25px;
-	background-color: #fff;
-	color: #999;
-	height: 40px;
-	width: 150px;
-	font-size: 20px;
-	line-height: 40px;
-	border: 3px solid var(- -line-empty);
-	transition: 0.4s ease;
-}
-
-.bar {
-	margin-left: 100px;
-	padding: 0px;
-	background-color: #fff;
-	color: #999;
-	height: 30px;
-	width: 1px;
+.step_tr {
 	align-items: center;
-	justify-content: center;
-	border: 3px solid var(- -line-empty);
-	transition: 0.4s ease;
 }
 
-.circle.done {
-	border-color: var(- -line-fill);
-	color: var(- -line-fill);
+.step_tr .step_td {
+	display: flex;
+	max-width: 550px;
+	width: 550px;
+	padding: 0;
 }
 
-.circle.now {
-	border-color: white;
-	color: white;
-	background-color: var(- -line-fill);
+.step_tr .step_td .inner_step {
+	
 }
 
-.bar.active {
-	border-color: var(- -line-fill);
+.step_tr .step_td .inner_step .circle {
+	width: 70px;
+}
+
+.step_tr .step_td .inner_step .bar {
+	width: 10px;
 }
 </style>
 
@@ -307,6 +292,9 @@ main {
 						<article class="filter-name2">
 							<h6>단계 선택</h6>
 							<h6>시스템</h6>
+						</article>
+						<article class="search-button">
+							<button class="btn btn-primary btn-sm" type="submit">검색</button>
 						</article>
 						<form action="">
 							<article class="filter-body">
@@ -359,19 +347,36 @@ main {
 									<th>요청 제목</th>
 									<th>요청 일자</th>
 									<th>단계</th>
+
 								</tr>
 								<c:forEach var="request" items="${requestList}">
 									<tr>
-										<%-- 										<td class="rno">${request.rno}</td> --%>
+										<td class="rno">${request.rno}</td>
 										<!-- 										나중에 시스템 이름으로 바꾸어 줘야 함. -->
-										<%-- 										<td class="client">${request.sno}이름추가</td> --%>
-										<!-- 										요청 유형 테이블에서 req type 가져와야 함. -->
-										<!-- 										<td class="sysType">일반, 긴급</td> -->
-										<%-- 										<td class="reqTitle">${request.reqTitle}</td> --%>
-										<%-- 										<td class="reqDate">${request.reqDate}</td> --%>
+										<td class="client">${request.sno}이름추가</td>
+										<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
+										<td class="sysType">N Q</td>
+										<td class="reqTitle">${request.reqTitle}</td>
+										<td class="reqDate">${request.reqDate}</td>
 
+										<td class="step_td">
+											<table class="inner_step">
+												<td class="circle">요청완료</td>
+												<td class="bar"></td>
+												<td class="circle">접수완료</td>
+												<td class="bar"></td>
+												<td class="circle">개발완료</td>
+												<td class="bar"></td>
+												<td class="circle">테스트완료</td>
+												<td class="bar"></td>
+												<td class="circle">유저테스트</td>
+												<td class="bar"></td>
+												<td class="circle">배포단계</td>
+												<td class="bar"></td>
+												<td class="circle">최종승인</td>
+											</table>
+										</td>
 
-										<td class="step"><%@ include file="/WEB-INF/views/srm/nowstatushorizon.jsp"%></td>
 									</tr>
 								</c:forEach>
 							</table>
