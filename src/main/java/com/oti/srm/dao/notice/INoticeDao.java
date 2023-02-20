@@ -2,12 +2,15 @@ package com.oti.srm.dao.notice;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.oti.srm.dto.Notice;
 import com.oti.srm.dto.NoticeFile;
 import com.oti.srm.dto.Pager;
 
+@Mapper
+// 공지사항 관련 dao 메소드
 public interface INoticeDao {
 	public List<Notice> getNoticeList(@Param("userType") String userType, @Param("searchWord") String searchWord, @Param("pager") Pager pager);
 	

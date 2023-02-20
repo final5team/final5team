@@ -3,6 +3,7 @@ package com.oti.srm.dao.srm;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.oti.srm.dto.Request;
@@ -10,6 +11,8 @@ import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.StatusHistory;
 import com.oti.srm.dto.StatusHistoryFile;
 
+@Mapper
+// 단계 상세 페이지 단계 처리 관련 dao 메소드 
 public interface ICommonDao {
 	// 요청의 단계 이력(status_histories 테이블) 모두 조회
 	public List<StatusHistory> getRequestHistories(int rno);

@@ -6,5 +6,7 @@ import com.oti.srm.dto.Member;
 
 @Mapper
 public interface IMemberDao {
-	Member getMember(Member member);
+	public Member getMember(Member member);
+	public int register(Member member);
+	public int registerWithFile(Member member);
 }
