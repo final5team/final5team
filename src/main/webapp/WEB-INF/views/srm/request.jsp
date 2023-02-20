@@ -152,7 +152,7 @@ form {
 
 .section2 .titleBody {
 	position: absolute;
-	width: 50px;
+	width: 700px;
 	left: 8%;
 	top: 45%;
 	overflow: hidden;
@@ -171,14 +171,13 @@ form {
 	font-size : 15px;
 	font: bold;  
 }
-
-.section2 .bodyInput textarea {
-	width: 700px;
+.section2 .bodyInput textarea{
+    width: 100%;
 	font-size : 15px;
 	font: bold;  
 	height : 50px;
+	resize : none;
 }
-
 .section2 .submit-button {
 	position: absolute;
 	width: 80px;
@@ -371,7 +370,7 @@ textarea:focus::placeholder {
 							</article>
 							<article class="bodyInput">
 								<div class="item">
-									<textarea id="reqContent" name="reqContent" placeholder="내용"></textarea>
+									<textarea id="reqContent" cols="30" name="reqContent" placeholder="내용"></textarea>
 								</div>
 							</article>
 

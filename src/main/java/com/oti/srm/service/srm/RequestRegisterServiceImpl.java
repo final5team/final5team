@@ -20,11 +20,11 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	
 	
 	@Override
-	public int request(Request request) {
+	public int getRequest(Request request) {
 	log.info("가입 실행");
 	System.out.println(request.toString());
 	try {
-		int rows = requestDao.request(request);
+		int rows = requestDao.insertRequest(request);
 		return REQUEST_SUCCESS;
 	} catch(Exception e) {
 		log.error(e.toString());

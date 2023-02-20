@@ -141,10 +141,10 @@ main {
 }
 
 .table .table-header h4 {
-	background-color: #f8f9fc;
 	color: #68a329;
 	font: bold;
-	margin-left: 15px;
+	margin : 10px 15px;
+	font-size : 15px;
 }
 
 .table .table-body {
@@ -152,6 +152,7 @@ main {
 	top: 10%;
 	left: 0%;
 	height: inherit;
+	width: 1050px;
 }
 
 .member {
@@ -169,6 +170,7 @@ main {
 }
 
 .member tr {
+	width: 1050px;
 	border-bottom: 1px solid #eee;
 	transition: 0.3s;
 }
@@ -185,6 +187,7 @@ main {
 }
 
 .member th, .member td {
+	width: 1050px;
 	padding: 12px;
 	text-align: center;
 }
@@ -195,6 +198,8 @@ main {
 }
 
 .member tr td {
+	width: 1050px;
+	border : 1px solid black;
 	font-size: 13px;
 }
 
@@ -296,7 +301,6 @@ main {
 							<h4>리스트</h4>
 						</article>
 						<article class="member table-body">
-
 							<table class="member" id="table_content">
 								<tr>
 									<th>No.</th>
@@ -307,16 +311,16 @@ main {
 									<th>단계</th>
 								</tr>
 								<c:forEach var="request" items="${requestList}">
-									<tr>
-										<td class="rno">${request.rno}</td>
-										<!-- 나중에 시스템 이름으로 바꾸어 줘야 함. -->
-										<td class="client">${request.sno}이름추가</td>
-										<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
-										<td class="sysType">일반, 긴급</td>
-										<td class="reqTitle">${request.reqTitle}</td>
-										<td class="reqDate">${request.reqDate}</td>
-										<td class="reqDate">${request.reqDate}</td>
-									</tr>
+								<tr>
+									<td class="rno">${request.rno}</td>
+									<!-- 나중에 시스템 이름으로 바꾸어 줘야 함. -->
+									<td class="client">${request.sno}이름추가</td>
+									<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
+									<td class="sysType">일반, 긴급</td>
+									<td class="reqTitle">${request.reqTitle}</td>
+									<td class="reqDate">${request.reqDate}</td>
+									<td class="reqDate">${request.reqDate}</td>
+								</tr>
 								</c:forEach>
 							</table>
 						</article>

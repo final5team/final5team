@@ -7,10 +7,9 @@ public interface IUserRegisterService {
 		SUCCESS, FAIL;
 	}
 
-	public static final int REGISTER_SUCCESS = 0;
-	public static final int REGISTER_FAIL = 1;
+	public static final int REGISTER_SUCCESS = 1;
+	public static final int REGISTER_FAIL = 0;
 
 	public int register(Member member);
-	public int registerWithFile(Member member);
 	
 }

@@ -17,16 +17,10 @@ public class UserRegisterServiceImpl implements IUserRegisterService {
 
 	@Override
 	public int register(Member member) {
-		log.info("가입 실행");
-		int rows = memberDao.register(member);
+		int rows = memberDao.insertMember(member);
 		return REGISTER_SUCCESS;
 	}
 
-	@Override
-	public int registerWithFile(Member member) {
-		int rows = memberDao.registerWithFile(member);
-		return REGISTER_SUCCESS;
-	}
 
 	
 	
