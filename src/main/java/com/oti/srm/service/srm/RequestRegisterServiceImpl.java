@@ -44,6 +44,12 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		log.info("서비스" + result);
 		return result;
 	}
+
+	@Override
+	public Pager getPager(String pageNo) {
+		Pager pager = new Pager();
+		return pager;
+	}
 	
 	
 	

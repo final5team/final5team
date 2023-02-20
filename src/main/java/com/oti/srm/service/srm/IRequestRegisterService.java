@@ -17,6 +17,9 @@ public interface IRequestRegisterService {
 	public List<Request> getRequestList(Request request, Pager pager);
 
 	public int getPresentStep(int rno);
+
+	public Pager getPager(String pageNo);
+
 	
 	
 	
