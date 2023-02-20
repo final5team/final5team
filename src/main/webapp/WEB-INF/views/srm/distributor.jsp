@@ -83,10 +83,15 @@
 						<!-- 게시글 상세보기 start -->
 						<div class="col-xl-9 col-lg-8 col-md-8 col-sm-8">
 							<div class="card">
-								<div class="card-header d-flex">
-									<div class="mr-auto">배포 상세보기 ></div>
-									<div class="ml-3">${requestProcess.reqType}</div>
-									<div class="ml-5 mr-4">중요도 : ${requestProcess.priority}</div>										
+								<div class="card-header d-flex">						
+									<h6 class="mr-auto text-primary font-weight-bold">유저테스트 상세보기 ></h6>
+									<div class="ml-3">정규<i class="far fa-registered text-secondary"></i></div>
+									<div class="ml-3">긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
+									<div class="ml-5 mr-4">중요도: 
+										<span class="fa fa-star checked" style="color: orange;"></span>
+										<span class="fa fa-star checked" style="color: orange;"></span>
+										<span class="fa fa-star checked" style="color: orange;"></span>
+									</div>					
 								</div>
 								<div class="card-body">
 									<div>
