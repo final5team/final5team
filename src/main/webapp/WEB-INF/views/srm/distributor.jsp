@@ -134,7 +134,7 @@
 													<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>
 												</div>
 											</div>
-											<c:if test="${request.statusNo == 8 || request.statusNo == 9}">
+											<c:if test="${(request.statusNo == 8 || request.statusNo == 9) && (member.mtype == 'distributor')}">
 												<div class="d-flex">
 													<div class="pl-5">배포 완료 예정일 :</div>
 													<div class="pl-2 flex-grow-1">
@@ -142,7 +142,7 @@
 													</div>
 												</div>
 											</c:if>
-											<c:if test="${request.statusNo >= 9}">
+											<c:if test="${request.statusNo >= 9 && member.mtype == 'distributor'}">
 												<div class="d-flex">
 													<div class="pl-5">배포 완료일 :</div>
 													<div class="pl-2 flex-grow-1">
@@ -165,11 +165,12 @@
 									</div>
 									<div class="d-flex justify-content-end">
 										<!-- 배포 요청 상태(7(긴급) or 9(정규)) -->
-										<c:if test="${request.statusNo == 7 || request.statusNo == 9}">
+										<c:if test="${(requestProcess.reqType == '긴급' && request.statusNo == 7 && request.statusNo == 9) ||
+										 (requestProcess.reqType == '정규' && request.statusNo == 9 && member.mtype == 'distributor')}">
 										 	<button class="btn btn-primary btn-lg mt-3" onclick="getDatemodal()" type="button">배포 시작</button>
 										</c:if>
 										<!-- 배포 중 상태(10) -->
-										<c:if test="${request.statusNo == 8}">
+										<c:if test="${request.statusNo == 10 && member.mtype == 'distributor'}">
 											<form action="${pageContext.request.contextPath}/endwork" method="post" class="mt-3">
 												<input type="hidden" name="rno" value="${request.rno}"/>
 												<button class="btn btn-info btn-lg mt-3">배포 완료</button>
