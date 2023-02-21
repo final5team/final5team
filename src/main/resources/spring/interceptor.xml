@@ -10,6 +10,7 @@
 			<mvc:exclude-mapping path="/js/**"/>
 			<mvc:exclude-mapping path="/css/**"/>
 			<mvc:exclude-mapping path="/images/**"/>
+			<mvc:exclude-mapping path="/resources/**"/>
 			<mvc:exclude-mapping path="/login"/>		
 			<bean class="com.oti.srm.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>
