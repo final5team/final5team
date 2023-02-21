@@ -1,21 +1,109 @@
 package com.oti.srm.controller.srm;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.oti.srm.dto.Member;
+import com.oti.srm.dto.Request;
+import com.oti.srm.dto.RequestProcess;
+import com.oti.srm.dto.StatusHistory;
+import com.oti.srm.dto.StatusHistoryFile;
+import com.oti.srm.service.srm.ICommonService;
 
 import lombok.extern.log4j.Log4j2;
 
 @Controller
 @Log4j2
 public class TesterController {
+	@Autowired
+	ICommonService commonService;
 
-	@GetMapping("/tester")
-	public String developerDetail(int rno, Model model, HttpSession session) {
+	/**
+	 * @author : 장현
+	 * @param rno         상세보기할 번호 주입
+	 * @param model       view로 전달을 위한 model객체 주입
+	 * @param Httpsession 객체 주입
+	 * @return rno에 맞는 view 리턴
+	 */
+	@GetMapping("/testerdetail")
+	public String testerDetail(int rno, Model model, HttpSession session) {
 		log.info("실행");
+
+		Request request = commonService.getRequest(rno);
+		RequestProcess requestProcess = commonService.getRequestProcess(rno);
+		List<StatusHistory> devToTester = commonService.getDevToTesterHistories(rno);
+		List<StatusHistory> testerToDev = commonService.getTesterToDevHistories(rno);
+		Date receiptDoneDate = commonService.getReceiptDoneDate(rno);
+		log.info("testerToDev" + testerToDev);
+		model.addAttribute("request", request);
+		model.addAttribute("devToTester", devToTester);
+		model.addAttribute("testerToDev", testerToDev);
+		model.addAttribute("requestProcess", requestProcess);
+		model.addAttribute("receiptDoneDate", receiptDoneDate);
 		
 		return "srm/testerdetail";
 	}
+
+	/**
+	 * @author : 장현
+	 * @param statusHistory  form 태그에서 받은 필드값 저장
+	 * @param testExpectDate RequestProcess에 테스트완료 예정일 업데이트
+	 * @param session        HttpSession을 통해 StatusHistory 필드의 writer에 주입
+	 * @return rno에 맞는 view 리턴
+	 */
+	@PostMapping("/testinprogress")
+	public String switchTestInProgress(StatusHistory statusHistory,
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date testExpectDate, HttpSession session) {
+		log.info(testExpectDate);
+		Member member = (Member) session.getAttribute("member");
+		statusHistory.setWriter(member.getMid());
+		statusHistory.setNextStatus(6);
+		commonService.startWork(statusHistory, testExpectDate, member.getMtype());
+
+		return "redirect:/testerdetail?rno=" + statusHistory.getRno();
+	}
+	
+	
+	@PostMapping("/askreexam")
+	public String switchReexam(StatusHistory statusHistory, MultipartFile[] files, HttpSession session) {
+		Member member = (Member) session.getAttribute("member");
+		statusHistory.setWriter(member.getMid());
+		statusHistory.setNextStatus(3);
+		List<StatusHistoryFile> sFiles = new ArrayList<StatusHistoryFile>();
+
+		try {
+			if (files != null) {
+				for (MultipartFile file : files) {
+					if (!file.isEmpty()) {
+						StatusHistoryFile shf = new StatusHistoryFile();
+						shf.setFileData(file.getBytes());
+						shf.setFileName(file.getOriginalFilename());
+						shf.setFileType(file.getContentType());
+						sFiles.add(shf);
+					}
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		commonService.endWork(statusHistory, member.getMtype());
+		return "redirect:/testerdetail?rno=" + statusHistory.getRno();
+		
+	}
+
 }
