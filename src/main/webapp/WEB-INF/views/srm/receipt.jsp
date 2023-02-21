@@ -73,7 +73,7 @@
 										<div class="col-sm-6">
 											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="20%">
 											<span class="font-weight-bold ml-2">${request.clientName}</span>
-											<span class="ml-3">request.organ</span>
+											<span class="ml-3">${request.organ}</span>
 										</div>
 										<div class="col-sm-6 ml-auto">
 											<div class="d-flex">
@@ -122,20 +122,18 @@
 													<div class="row col-sm-12 form-group">
 														<div class="col">
 															<label class="control-label">요청 유형</label>
-															<input list="process" name="reqType">
-															  <datalist id="process">
-															    <option value="정규">
-															    <option value="긴급">												   
-															  </datalist>											
+															<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="reqType" style="width: 150px">															
+																<option value="정규"  class="text-center">정규</option>
+															    <option value="정규"  class="text-center">긴급</option>																																																						
+															</select>																								
 														</div>
 														<div class="col">
 															<label class="control-label">중요도</label>
-															<input list="importance" name="priority">
-															  <datalist id="importance">
-															    <option value="상">
-															    <option value="중">	
-															    <option value="하">											   
-															  </datalist>													
+															<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="priority" style="width: 150px">															
+																<option value="상" class="text-center">상 (★★★)</option>
+																<option value="중" class="text-center">중 (★★)</option>
+																<option value="하" class="text-center">하 (★)</option>															    																																																						
+															</select>												
 														</div>												
 													</div>
 													<div class="col-sm-12 form-group">
@@ -146,32 +144,32 @@
 													<div class="col-sm-12 form-group">
 														<label class="control-label" >개발 담당자 선택</label>
 														<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer">
-															<c:forEach var="staff" varStatus="index" items="${devStaffList}">
-																<option value="${index.count}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+															<c:forEach var="staff" items="${devStaffList}">
+																<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 															</c:forEach>															
 														</select>
 													</div>
 													<div class="col-sm-12 form-group">
 														<label class="control-label" >테스트 담당자 선택</label>
 														<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester">
-															<c:forEach var="staff" varStatus="index" items="${tesStaffList}">
-																<option value="${index.count}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+															<c:forEach var="staff" items="${tesStaffList}">
+																<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 															</c:forEach>
 														</select>
 													</div>
 													<div class="col-sm-12 form-group">
 														<label class="control-label" >유저테스트 담당자 선택</label>
 														<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester">
-															<c:forEach var="staff" varStatus="index" items="${uteStaffList}">
-																<option value="${index.count}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+															<c:forEach var="staff" items="${uteStaffList}">
+																<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 															</c:forEach>
 														</select>
 													</div>
 													<div class="col-sm-12 form-group">
 														<label class="control-label" >배포 담당자 선택</label>
 														<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor">
-															<c:forEach var="staff" varStatus="index" items="${disStaffList}">
-																<option value="${index.count}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+															<c:forEach var="staff" items="${disStaffList}">
+																<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 															</c:forEach>
 														</select>
 													</div>
