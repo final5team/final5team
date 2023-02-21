@@ -111,7 +111,7 @@
 									<div class="card mt-4 mb-1">
 										<div class="card-header">서비스 요청 접수</div>
 										<div class="card-body">
-										<form method="post" action="${pageContext.request.contextPath}/pm/receipt">
+										<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data">
 											<div class="row">
 												<div class="col-sm-3" style="text-align:center;">
 													<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
@@ -182,8 +182,8 @@
 													</div>											
 													<div class="filebox">
 														<label for="file">첨부파일</label>
-														<input type="file" id="fileList" name="fileList">
-														<input type="hidden" name="rno" value=${request.rno}>
+														<input type="file" id="fileList" multiple>
+														<input type="hidden" name="rno" value="${request.rno}">
 													</div>
 													
 												</div>
@@ -201,7 +201,7 @@
 							
 							<!-- 반려 -->
 							<div id="rejectdiv"> 						            
-								<form>
+								<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data">
 									<!-- 요청 접수 card start-->
 									<div class="card mt-4 mb-1">
 										<div class="card-header">서비스 요청 반려</div>
@@ -214,17 +214,18 @@
 												<div class="col-sm-9">	
 													<div class="col-sm-12 form-group">
 														<label class="control-label">반려 사유</label>
-														<textarea rows="2" class="form-control boxed"></textarea>
+														<textarea rows="2" class="form-control boxed" name="reply"></textarea>
 													</div>											
 													<div class="filebox">
 														<label for="file">첨부파일</label>
 														<input type="file" id="file">
+														<input type="hidden" name="rno" value="${request.rno}">
 													</div>
 													
 												</div>
 											</div>
 											<div class="d-flex justify-content-end">									
-												<button class="btn btn-danger btn-lg mt-3 ml-3" type="button" value=12 name="nextStatus">반려 완료</button>												
+												<button class="btn btn-danger btn-lg mt-3 ml-3" type="submit" value=12 name="nextStatus">반려 완료</button>												
 												<a class="btn btn-secondary btn-lg mt-3 ml-3" onclick="rejectCancel()">취소</a>									
 											</div>
 										</div>

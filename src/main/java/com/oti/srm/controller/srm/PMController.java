@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.oti.srm.dto.Member;
 import com.oti.srm.dto.RequestProcess;
@@ -59,12 +59,14 @@ public class PMController {
 	/**
 	 * 
 	 * @author: KIM JI YOUNG
+	 * @param statusHistory
+	 * @param requestProcess
 	 * @param session
 	 * @param model
 	 * @return
 	 */
 	// 접수
-	@RequestMapping("/receipt")
+	@RequestMapping(value="/receipt", method = RequestMethod.POST)
 	public String receipt(StatusHistory statusHistory, RequestProcess requestProcess, HttpSession session, Model model) {
 		log.info("접수");
 		// 작성자 입력
@@ -76,8 +78,9 @@ public class PMController {
 		log.info(requestProcess);
 		// 접수 완료
 		int result=pMService.receipt(statusHistory, requestProcess);
+		log.info("result: "+result);
 		if(result==1) {
-			return "srm/receipt"; //목록 가든가 개발 상세 가든가
+			return "srm/request"; //목록 가든가 개발 상세 가든가
 		}
 		return "redirect:/";
 	}

@@ -42,19 +42,31 @@ public class PMService implements IPMService {
 	@Transactional
 	public int receipt(StatusHistory statusHistory, RequestProcess requestProcess) {
 		try {
+			log.info("service진입");
 			// 서비스 요청->접수 완료
 			commonDao.updateRequestStatus(statusHistory.getRno(), statusHistory.getNextStatus());	
+			log.info("updateRequestStatus");
 			// 접수 완료 이력 작성
 			commonDao.insertStatusHistory(statusHistory);
+			log.info("insertStatusHistory");
 			List<StatusHistoryFile> fileList =statusHistory.getFileList();
-			for(StatusHistoryFile file: fileList) {
-				file.setHno(statusHistory.getHno());
-				commonDao.insertStatusHistoryFile(file);
-			}
-			// 서비스 요청 처리
-			int result=pMDao.insertRequestProcess(requestProcess);
-			return (result==1)?1:0;		
+			if(fileList !=null) {
+				for(StatusHistoryFile file: fileList) {
+					file.setHno(statusHistory.getHno());
+					commonDao.insertStatusHistoryFile(file);
+				}
+			}			
+			log.info("file");
+			// 서비스 요청 처리 프로세스
+			if(statusHistory.getNextStatus()==2) {
+				int result=pMDao.insertRequestProcess(requestProcess);
+				log.info("insertRequestProcess: "+result);
+				return (result==1)?1:0;	
+			} else {
+				return 1;
+			}			
 		} catch(Exception e) {
+			e.printStackTrace();
 			return 0;
 		}
 				
