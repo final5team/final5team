@@ -158,7 +158,8 @@ main {
 }
 
 .member {
-	width: inherit;
+	margin: 5px 10px;
+	width: 1000px;
 	background-color: #fff;
 	border-collapse: collapse;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
@@ -181,11 +182,12 @@ main {
 	border: none;
 }
 
-/* .member tr:hover {
-                                                            background-color: #eee;
-                                                          } */
-.member tr:nth-child(odd) {
+.member tr:hover {
 	background-color: #eee;
+}
+
+.member tr:nth-child(odd) {
+	
 }
 
 .member th, .member td {
@@ -216,7 +218,7 @@ main {
 }
 
 .member tr td:last-child {
-	color: red;
+	
 }
 
 .member tr:hover {
@@ -232,7 +234,16 @@ main {
 }
 
 .step_tr {
+	border: none;
+}
+
+.inner_step {
+	border: none;
+}
+
+.step_tr {
 	align-items: center;
+	border: none;
 }
 
 .step_tr .step_td {
@@ -240,55 +251,61 @@ main {
 	max-width: 550px;
 	width: 550px;
 	padding: 0;
+	border: none;
+	white-space: nowrap;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
 .step_tr .step_td .inner_step {
 	background-color: none;
+	position: relative;
 }
 
 .step_tr .step_td .inner_step .circle {
-	background-color: none;
 	width: 70px;
+	background-color: none;
 }
 
 .step_tr .step_td .inner_step .bar {
+	width: 5px;
+	height: 0px;
 	background-color: none;
-	width: 10px;
+	position: absolute;
 }
 
-.inner_step .circle {
+.pager {
+}
+
+.circle {
 	background-color: #fff;
+	color: #999;
+	font-size: 10px;
 	text-align: center;
 	border: 3px solid #e0e0e0;
 	transition: 0.4s ease;
 }
 
-.step_td.inner_step .bar {
-	border: 1px solid black;
+.bar {
+	padding: 0;
 	background-color: #fff;
 	color: #999;
-	height: 30px;
-	width: 1px;
-	align-items: center;
-	justify-content: center;
-	border: 3px solid #e0e0e0;
+	width: 30px;
 	transition: 0.4s ease;
+	border: none;
 }
 
-.inner_step .circle.done {
+.circle.done {
 	border-color: #87cd36;
 	color: #87cd36;
 }
 
-.inner_step .circle.now {
-	border-color: white;
+.circle.now {
+	border-color: #87cd36;
 	color: white;
 	background-color: #87cd36;
 }
 
-.inner_step .bar.active {
-	border-color: #87cd36;
-}
 </style>
 
 </head>
@@ -392,26 +409,11 @@ main {
 										<td class="client">${request.sno}이름추가</td>
 										<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
 										<td class="sysType">N Q</td>
-										<td class="reqTitle">${request.reqTitle}</td>
-										<td class="reqDate">${request.reqDate}</td>
+										<td class="reqTitle" style="max-width: 100px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
+										<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">${request.reqDate}</td>
 
 										<td class="step_td">
-
-											<table class="inner_step">
-                                                    <td class="circle">요청완료</td>
-                                                    <td class="bar" style="background-color: white; border: none;"></td>
-                                                    <td class="circle">접수완료</td>
-                                                    <td class="bar" style="background-color: white; border: none;"></td>
-                                                    <td class="circle">개발완료</td>
-                                                    <td class="bar" style="background-color: white; border: none;"></td>
-                                                    <td class="circle">테스트완료</td>
-                                                    <td class="bar" style="background-color: white; border: none;"></td>
-                                                    <td class="circle">유저테스트</td>
-                                                    <td class="bar" style="background-color: white; border: none;"></td>
-                                                    <td class="circle">배포단계</td>
-                                                    <td class="bar" style="background-color: white; border: none;"></td>
-                                                    <td class="circle">최종승인</td>
-                                                </table>
+											<%@ include file="/WEB-INF/views/srm/restatus/nowstatusvertical.jsp"%>
 										</td>
 
 									</tr>

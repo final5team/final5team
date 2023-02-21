@@ -35,11 +35,19 @@ public class RequestController {
 	@Autowired
 	private IRequestRegisterService requestService;
 
+
+	
+	/** Kang Ji Seong
+	 *  유저 등록 폼 요청 
+	 */
 	@GetMapping("/register")
 	public String register() {
 		return "member/userregister";
 	}
-
+	
+	/** Kang Ji Seong
+	 *  유저 등록 폼 요청 
+	 */
 	@PostMapping("/register")
 	public String register(Member member, Model model) {
 		log.info("등록 실행");
@@ -81,6 +89,9 @@ public class RequestController {
 		}
 	}
 
+	/** Kang Ji Seong
+	 *  요청 등록 폼 요청
+	 */
 	@GetMapping("/request")
 	public String customerRequest(Member member, Request request, Model model, RequestProcess requestProcess) {
 		request.setStatusName("접수중");
@@ -94,7 +105,10 @@ public class RequestController {
 		
 		return "srm/request";
 	}
-
+	
+	/** 
+	 *  요청 등록 폼 작성
+	 */
 	@PostMapping("/request")
 	public String customerRequest(Request request, Model model, HttpSession session) {
 		//요청 상태값은 1
@@ -114,8 +128,8 @@ public class RequestController {
 
 	}
 
-	/** member type별 요청 조회 처리
-	 * 
+	/** Kang Ji Seong
+	 * 	member type별 요청 조회
 	 */
 	@GetMapping("/requestlist")
 	public String requestList(Request request, Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo) {
@@ -163,7 +177,10 @@ public class RequestController {
 		model.addAttribute("requestList", requestList);
 		return "srm/requestlist";
 	}
-
+	
+	/** Kang Ji Seong
+	 * 	member type 단계 처리 가져오기
+	 */
 	@PostMapping("/viewstep")
 	@ResponseBody
 	public int viewStep(Model model, Request request) {
