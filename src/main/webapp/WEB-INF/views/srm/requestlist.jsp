@@ -360,7 +360,8 @@ main {
 									</select>
 								</div>
 								<div class="date_form">
-									<input type="date" id="date_first" name="date_first"> <i class="fa fa-minus"></i> <input type="date" id="date_second" name="date_second">
+									<input type="date" id="date_first" name="date_first"> <i class="fa fa-minus"></i> 
+									<input type="date" id="date_last" name="date_last">
 								</div>
 							</article>
 							<article class="filter-body2">
