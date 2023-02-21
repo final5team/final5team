@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.oti.srm.dto.Member;
+import com.oti.srm.dto.Request;
 import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.StatusHistory;
 import com.oti.srm.dto.StatusHistoryFile;
@@ -39,24 +40,24 @@ public class PMController {
 	 * 
 	 * @author: KIM JI YOUNG
 	 * @param rno
-	 * @param sno
 	 * @param session
 	 * @param model
 	 * @return
 	 */
 	// 접수 상세보기
 	@GetMapping("/receiptdetail")
-	public String receiptDetail(int rno, int sno, HttpSession session, Model model) {
+	public String receiptDetail(int rno, HttpSession session, Model model) {
 		// 요청정보
-		model.addAttribute("request", commonService.getRequest(rno));
+		Request request=commonService.getRequest(rno);
+		model.addAttribute("request", request);
 		// 개발자 정보
-		model.addAttribute("devStaffList", pMService.getStaffBySno(sno, "developer"));
+		model.addAttribute("devStaffList", pMService.getStaffBySno(request.getSno(), "developer"));
 		// 테스터 정보
-		model.addAttribute("tesStaffList", pMService.getStaffBySno(sno, "tester"));
+		model.addAttribute("tesStaffList", pMService.getStaffBySno(request.getSno(), "tester"));
 		// 유저테스터 정보
-		model.addAttribute("uteStaffList", pMService.getStaffBySno(sno, "usertester"));
+		model.addAttribute("uteStaffList", pMService.getStaffBySno(request.getSno(), "usertester"));
 		// 배포자 정보
-		model.addAttribute("disStaffList", pMService.getStaffBySno(sno, "distributor"));
+		model.addAttribute("disStaffList", pMService.getStaffBySno(request.getSno(), "distributor"));
 		
 		return "srm/receipt";
 	}
