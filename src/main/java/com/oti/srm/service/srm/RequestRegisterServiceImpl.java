@@ -75,9 +75,22 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		request.setStartRowNo(pager.getStartRowNo());
 		request.setEndRowNo(pager.getEndRowNo());
 		request.setReqType(listFilter.getReqType());
-		request.setDateFirst(listFilter.getDateFirst());
-		request.setDateLast(listFilter.getDateLast());
 		
+		if(listFilter.getDateFirst().isEmpty() && listFilter.getDateLast().isEmpty()) {
+			request.setDateFirst("sysdate");
+			request.setDateLast("null");
+		} else if (listFilter.getDateLast().isEmpty()) {
+			request.setDateLast("sysdate");
+		} else if(listFilter.getDateFirst().isEmpty()) {
+			request.setDateFirst("null");
+		} else {
+			request.setDateFirst(listFilter.getDateFirst());
+			request.setDateLast(listFilter.getDateLast());
+		}
+		
+		
+		
+		log.info(request.toString());
 		
 		List<SelectPM> result = requestDao.selectAll(request);
 		log.info(result.size());

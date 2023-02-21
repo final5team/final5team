@@ -141,7 +141,8 @@ public class RequestController {
 			@RequestParam(defaultValue="")String date_first, @RequestParam(defaultValue="")String date_last,
 			@RequestParam(defaultValue="0")int sno, @RequestParam(defaultValue="전체")String req_type ) {
 
-		log.info(req_type);
+		log.info(date_first);
+		log.info(date_last);
 		
 		//전달받은 필터 값 저장
 		
