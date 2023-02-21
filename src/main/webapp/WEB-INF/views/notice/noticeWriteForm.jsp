@@ -89,8 +89,8 @@
 					    	<textarea class="form-control col-10" rows="10" id="noticeContent" name="noticeContent"></textarea>
 					    </div>
 					  	<div class="form-group row">
-					    	<label for="files" class="col-2">첨부파일</label>
-					    	<input type="file" multiple class="form-control-file col-10" id="files">
+					    	<label for="files" class="col-2">첨부파일 등록</label>
+					    	<input type="file" multiple class="form-control-file col-10" name="files" id="files">
 					  	</div>
 					  	<div class="form-group row">
 					    	<a href="#" class="btn btn-danger" style="margin-left : 87%">취소</a>

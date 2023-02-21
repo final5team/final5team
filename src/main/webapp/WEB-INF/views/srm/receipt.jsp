@@ -97,10 +97,12 @@
 											<i class="fas fa-cloud-download-alt"></i>
 										</a>
 									</div>
-									<div class="d-flex justify-content-end">
-										<button class="btn btn-primary btn-lg mt-3 ml-3" type="button" id="receiptbtn">접수</button>
-										<button class="btn btn-danger btn-lg mt-3 ml-3" type="button" id="rejectbtn">반려</button>
-									</div>
+									<c:if test="${request.statusNo==1}">
+										<div class="d-flex justify-content-end">
+											<button class="btn btn-primary btn-lg mt-3 ml-3" type="button" id="receiptbtn">접수</button>
+											<button class="btn btn-danger btn-lg mt-3 ml-3" type="button" id="rejectbtn">반려</button>
+										</div>
+									</c:if>
 								</div>
 							</div>							
 
@@ -122,52 +124,52 @@
 													<div class="row col-sm-12 form-group">
 														<div class="col">
 															<label class="control-label">요청 유형</label>
-															<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="reqType" style="width: 150px">															
+															<select class="dropdown-toggle ml-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="reqType" style="width: 200px">															
 																<option value="정규"  class="text-center">정규</option>
 															    <option value="정규"  class="text-center">긴급</option>																																																						
 															</select>																								
 														</div>
 														<div class="col">
 															<label class="control-label">중요도</label>
-															<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="priority" style="width: 150px">															
+															<select class="dropdown-toggle ml-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="priority" style="width: 200px">															
 																<option value="상" class="text-center">상 (★★★)</option>
 																<option value="중" class="text-center">중 (★★)</option>
 																<option value="하" class="text-center">하 (★)</option>															    																																																						
 															</select>												
 														</div>												
 													</div>
-													<div class="col-sm-12 form-group">
-														<label class="control-label" >완료예정일</label>
-														<input type="date" class="form-control ml-2" style="width: 200px; display: inline;" name="allExpectDate">
+													<div class="col-sm-12 form-group row">
+														<label class="control-label col-lg-6" >완료예정일</label>
+														<input type="date" class="form-control col-lg-6" name="allExpectDate">
 													</div>
 													
-													<div class="col-sm-12 form-group">
-														<label class="control-label" >개발 담당자 선택</label>
-														<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer">
+													<div class="col-sm-12 form-group row">
+														<label class="control-label col-lg-6">개발 담당자 선택</label>
+														<select class="dropdown-toggle col-lg-6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer">
 															<c:forEach var="staff" items="${devStaffList}">
 																<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 															</c:forEach>															
 														</select>
 													</div>
-													<div class="col-sm-12 form-group">
-														<label class="control-label" >테스트 담당자 선택</label>
-														<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester">
+													<div class="col-sm-12 form-group row">
+														<label class="control-label col-lg-6">테스트 담당자 선택</label>
+														<select class="dropdown-toggle col-lg-6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester">
 															<c:forEach var="staff" items="${tesStaffList}">
 																<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 															</c:forEach>
 														</select>
 													</div>
-													<div class="col-sm-12 form-group">
-														<label class="control-label" >유저테스트 담당자 선택</label>
-														<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester">
+													<div class="col-sm-12 form-group row">
+														<label class="control-label col-lg-6">유저테스트 담당자 선택</label>
+														<select class="dropdown-toggle col-lg-6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester">
 															<c:forEach var="staff" items="${uteStaffList}">
 																<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 															</c:forEach>
 														</select>
 													</div>
-													<div class="col-sm-12 form-group">
-														<label class="control-label" >배포 담당자 선택</label>
-														<select class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor">
+													<div class="col-sm-12 form-group row">
+														<label class="control-label col-lg-6">배포 담당자 선택</label>
+														<select class="dropdown-toggle col-lg-6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor">
 															<c:forEach var="staff" items="${disStaffList}">
 																<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 															</c:forEach>
@@ -228,10 +230,59 @@
 											</div>
 										</div>
 									</div>
-									<!-- 요청 접수 card end-->
-									
+									<!-- 요청 접수 card end-->									
 								</form>
 							</div>
+							
+							<!-- 서비스 요청 접수 완료 후 start-->
+							<c:if test="${request.statusNo!=1}">
+								<div class="card mt-4 mb-1">
+									<div class="card-header">서비스 요청 접수 완료</div>
+									<div class="card-body">									
+										<div class="row">
+											<div class="col-sm-3" style="text-align:center;">
+												<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+												<div class="ml-3">PM</div>
+											</div>
+											<div class="col-sm-9">
+												
+												<div class="row col-sm-12 form-group">
+													<div class="col">
+														<label class="control-label">요청 유형</label>
+														<input value="${reqProcess.reqType}" style="width: 200px" class="text-center ml-4" readonly>																																													
+													</div>
+													<div class="col">
+														<label class="control-label">중요도</label>
+														<input value="${reqProcess.priority}" style="width: 200px" class="text-center ml-5" readonly>																																																														
+													</div>												
+												</div>
+												<div class="col-sm-12 form-group row">
+													<label class="control-label col-lg-6" >완료예정일</label>
+													<input name="allExpectDate" class="col-lg-6 text-center" value="<fmt:formatDate value="${reqProcess.allExpectDate}" pattern="yyyy-MM-dd"/>" readonly>
+												</div>
+												
+												<div class="col-sm-12 form-group row">
+													<label class="control-label col-lg-6" >개발 담당자 선택</label>
+													<input name="developer" value="${reqProcess.developer}" class="col-lg-6 text-center" readonly>	
+												</div>
+												<div class="col-sm-12 form-group row">
+													<label class="control-label col-lg-6" >테스트 담당자 선택</label>
+													<input name="tester" value="${reqProcess.tester}" class="col-lg-6 text-center" readonly>
+												</div>
+												<div class="col-sm-12 form-group row">
+													<label class="control-label col-lg-6" >유저테스트 담당자 선택</label>
+													<input name="userTester" value="${reqProcess.userTester}" class="col-lg-6 text-center" readonly>
+												</div>
+												<div class="col-sm-12 form-group row">
+													<label class="control-label col-lg-6" >배포 담당자 선택</label>
+													<input name="distributor" value="${reqProcess.distributor}" class="col-lg-6 text-center" readonly>
+												</div>										
+											</div>
+										</div>																					
+									</div>										
+								</div>
+							</c:if>
+							<!-- 서비스 요청 접수 완료 후 end-->
 
 						</div>
 						<!-- 게시글 상세보기 end -->

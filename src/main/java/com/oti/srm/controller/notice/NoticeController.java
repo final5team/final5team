@@ -6,6 +6,10 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,10 +71,11 @@ public class NoticeController {
 	// 공지사항 작성
 	@PostMapping("/noticewrite")
 	public String noticeWrite(Notice notice, MultipartFile[] files, Model model, HttpSession session) {
+		log.info("실행");
 		if (notice.getUserShow() == null) {
 			notice.setUserShow("N");
 		}
-		if (notice.getDevShow()== null) {
+		if (notice.getDevShow() == null) {
 			notice.setDevShow("N");
 		}
 		if (notice.getTesterShow() == null) {
@@ -107,20 +112,76 @@ public class NoticeController {
 
 	// 공지사항 수정 폼
 	@GetMapping("/noticeupdateform")
-	public String noticeUpdateForm() {
+	public String noticeUpdateForm(int nno, Model model) {
+		model.addAttribute("notice", noticeService.getNotice(nno));
+		model.addAttribute("systemList", noticeService.getSystemList());
 		return "notice/noticeUpdateForm";
 	}
 
 	// 공지사항 수정
-	@GetMapping("/noticeupdate")
-	public String noticeUpdate() {
-		return "redirect:/noticeList";
+	@PostMapping("/noticeupdate")
+	public String noticeUpdate(Notice notice, MultipartFile[] files) {
+		log.info("실행");
+		if (notice.getUserShow() == null) {
+			notice.setUserShow("N");
+		}
+		if (notice.getDevShow() == null) {
+			notice.setDevShow("N");
+		}
+		if (notice.getTesterShow() == null) {
+			notice.setTesterShow("N");
+		}
+		if (notice.getUserTesterShow() == null) {
+			notice.setUserTesterShow("N");
+		}
+		if (notice.getDistributorShow() == null) {
+			notice.setDistributorShow("N");
+		}
+		List<NoticeFile> fileList = new ArrayList<NoticeFile>();
+		try {
+			if (files != null) {
+				for (MultipartFile file : files) {
+					if (!file.isEmpty()) {
+						NoticeFile noticeFile = new NoticeFile();
+						noticeFile.setFileName(file.getOriginalFilename());
+						noticeFile.setFileType(file.getContentType());
+						noticeFile.setFileData(file.getBytes());
+						fileList.add(noticeFile);
+					}
+				}
+			}
+			notice.setFileList(fileList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		noticeService.noticeUpdate(notice);
+		return "redirect:/noticedetail?nno=" + notice.getNno();
 	}
 
 	// 공지사항 삭제
 	@GetMapping("/noticedelete")
-	public String noticeDelete() {
-		return "redirect:/noticeList";
+	public String noticeDelete(int nno) {
+		noticeService.deleteNotice(nno);
+		return "redirect:/noticelist";
 	}
+	
+	// 공지사항 단일 파일 삭제 
+	@GetMapping("/noticefiledelete")
+	public String noticeFileDelete(int fno, int nno, Model model) {
+		noticeService.deleteNoticeFile(fno);
+		model.addAttribute("noticeFileList", noticeService.getNoticeFileList(nno));
+		return "srm/noticeFileListFragment";
+	}
+	// 공지사항 다운로드
+	@GetMapping("/noticefiledownload")
+	public  ResponseEntity<byte[]> noticeFileDownload(int fno) {
+		NoticeFile noticeFile = noticeService.downloadNoticeFile(fno);
+		final HttpHeaders headers = new HttpHeaders();
+		String[] mtypes = noticeFile.getFileType().split("/");
+		headers.setContentType(new MediaType(mtypes[0], mtypes[1]));
+		headers.setContentDispositionFormData("attachment", noticeFile.getFileName());
+		return new ResponseEntity<byte[]>(noticeFile.getFileData(), headers, HttpStatus.OK);
+	}
+	
 
 }

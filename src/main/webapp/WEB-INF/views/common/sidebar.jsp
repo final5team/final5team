@@ -6,8 +6,17 @@
     .navbar-nav .sidebar-brand .sidebar-brand-icon img{
         height: 50px;
     }
-
-</style>
+	@keyframes keepturningLogo{
+		from{
+			transform: rotateY(0);
+		}
+		to {
+		 transform: rotateY(360deg);
+		}
+	}
+	#mainlogo{
+        animation: keepturningLogo 7s ease-in-out infinite;    
+	}</style>
 <body>
 
 	<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #3A4651;">
@@ -16,7 +25,7 @@
 		<a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/">
 			
 			<div class="sidebar-brand-icon">
-				<img src="${pageContext.request.contextPath}/resources/img/logo.png">
+				<img id="mainlogo" src="${pageContext.request.contextPath}/resources/img/logo.png">
 			</div>
 			<div class="sidebar-brand-text mx-3"> OTI SRM</div>
 		</a>

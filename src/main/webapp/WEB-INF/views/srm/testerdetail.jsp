@@ -151,7 +151,7 @@
 										<button class="btn btn-primary btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">테스트시작</button>
 										</c:if>
 										<c:if test="${member.mtype =='tester' && request.statusNo == 6}">
-										<button class="btn btn-info btn-lg mt-3 ml-3" onclick="devEnd()">테스트완료</button>
+										<button class="btn btn-info btn-lg mt-3 ml-3" onclick="devEnd(${request.rno})">테스트완료</button>
 										</c:if>
 									</div>
 								</div>
@@ -258,10 +258,12 @@
 														<textarea class="form-control boxed " readonly style="background-color: transparent;" rows="3">${statusHistory.reply}</textarea>
 													</div>
 													<div class="mt-2">
-														<span>첨부파일: 파일이름</span>
-														<a href="#" role="button">
-															<i class="fas fa-cloud-download-alt"></i>
-														</a>
+														<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+															<span>${statusHistoryFile.fileName}</span>
+															<a href="#" role="button">
+																<i class="fas fa-cloud-download-alt"></i>
+															</a><br>
+														</c:forEach>
 													</div>
 												</div>
 											</div>	
@@ -424,6 +426,12 @@
 		
 		$('#completeDueDate').modal('show');
 	}
+	function devEnd(rno){
+		let rnoNum = rno;
+		location.href='${pageContext.request.contextPath}/testdone?rno=' + rnoNum;
+	}
+	
+	
 	</script>
 </body>
 
