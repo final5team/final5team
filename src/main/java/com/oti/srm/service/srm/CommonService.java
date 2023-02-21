@@ -30,14 +30,14 @@ public class CommonService implements ICommonService {
 	@Override
 	@Transactional
 	public List<StatusHistory> getDevToTesterHistories(int rno) {
-		List<StatusHistory> requestHistories = commonDao.getRequestHistories(rno);
+		List<StatusHistory> requestHistories = commonDao.selectRequestHistories(rno);
 
 		List<StatusHistory> devToTesterHistories = new ArrayList<StatusHistory>();
 
 		for (StatusHistory sh : requestHistories) {
 			// 개발자 -> 테스터 단계 이력만 담기
 			if (sh.getNextStatus() == 5) {
-				sh.setFileList(commonDao.getStatusHistoryFiles(sh.getHno()));
+				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
 				devToTesterHistories.add(sh);
 			}
 		}
@@ -49,15 +49,15 @@ public class CommonService implements ICommonService {
 	@Override
 	@Transactional
 	public Request getRequest(int rno) {
-		Request request = commonDao.getRequest(rno);
-		request.setFiles(commonDao.getRequestFiles(rno));
+		Request request = commonDao.selectRequest(rno);
+		request.setFiles(commonDao.selectRequestFiles(rno));
 		return request;
 	}
 
 	// 요청 처리 정보 조회
 	@Override
 	public RequestProcess getRequestProcess(int rno) {
-		RequestProcess requestProcess = commonDao.getRequestProcess(rno);
+		RequestProcess requestProcess = commonDao.selectRequestProcess(rno);
 		log.info(requestProcess);
 		return requestProcess;
 	}
@@ -98,11 +98,11 @@ public class CommonService implements ICommonService {
 	@Override
 	@Transactional
 	public List<StatusHistory> getTesterToDevHistories(int rno) {
-		List<StatusHistory> allHistories = commonDao.getRequestHistories(rno);
+		List<StatusHistory> allHistories = commonDao.selectRequestHistories(rno);
 		List<StatusHistory> testerToDevHistories = new ArrayList<>();
 		for (StatusHistory tester : allHistories) {
 			if (tester.getNextStatus() == 3) {
-				tester.setFileList(commonDao.getStatusHistoryFiles(tester.getHno()));
+				tester.setFileList(commonDao.selectStatusHistoryFiles(tester.getHno()));
 				testerToDevHistories.add(tester);
 			}
 		}
@@ -121,7 +121,7 @@ public class CommonService implements ICommonService {
 	 */
 	@Override
 	public Date getReceiptDoneDate(int rno) {
-		List<StatusHistory> requestHistories = commonDao.getRequestHistories(rno);
+		List<StatusHistory> requestHistories = commonDao.selectRequestHistories(rno);
 		StatusHistory receiptDoneDate = new StatusHistory();
 		
 		for(StatusHistory sh : requestHistories ) {

@@ -44,15 +44,15 @@
                 <div id="writeform" class="container">
                 	<h1 class="">공지사항 수정</h1>
                		<hr/>
-	                <form action="" method="post" enctype="multipart/form-data">
+	                <form action="${pageContext.request.contextPath}/noticeupdate" method="post" enctype="multipart/form-data">
 	                	<div class="form-group row">
 					    	<label for="systems" class="col-2">시스템</label>
 					    	<select class="form-control col-10" id="sno" name="sno">
-					      		<option value="1">가족관계정보</option>
-					      		<option value="2">전자조달</option>
-					      		<option value="3">국민취업지원제도</option>
-					      		<option value="4">나라장터</option>
-					      		<option value="5">전파관리</option>
+					    		<c:forEach var="system" items="${systemList}">
+					    			<option value="${system.sno}" <c:if test="${notice.sno == system.sno}">selected</c:if>>
+					    				${system.systemName}
+					    			</option>
+					    		</c:forEach>
 					    	</select>
 					  	</div>
 					  	<div class="form-group row">
@@ -60,68 +60,52 @@
 					    	<div class="form-group col-10">
 						    	<div class="form-check form-check-inline">
 						    		<span class="mr-2">시스템 사용자(고객)</span>
-						    		<input type="checkbox" class="form-check-input" id="userShow" name="userShow" value="Y">
+						    		<input type="checkbox" class="form-check-input" id="userShow" name="userShow" value="Y"
+						    			<c:if test="${notice.userShow == 'Y'}">checked</c:if>>
 							    	<label class="form-check-label mr-4" for="userShow"></label>
 						    	</div>
 						    	<div class="form-check form-check-inline">
 						    		<span class="mr-2">개발자</span>
-						    		<input type="checkbox" class="form-check-input" id="devShow" name="devShow" value="Y">
+						    		<input type="checkbox" class="form-check-input" id="devShow" name="devShow" value="Y"
+						    			<c:if test="${notice.devShow == 'Y'}">checked</c:if>>
 							    	<label class="form-check-label mr-4" for="devShow"></label>
 						    	</div>
 						    	<div class="form-check form-check-inline">
 						    		<span class="mr-2">테스터</span>
-						    		<input type="checkbox" class="form-check-input" id="testerShow" name="testerShow" value="Y">
+						    		<input type="checkbox" class="form-check-input" id="testerShow" name="testerShow" value="Y"
+						    			<c:if test="${notice.testerShow == 'Y'}">checked</c:if>>
 							    	<label class="form-check-label mr-4" for="testerShow"></label>
 						    	</div>
 						    	<div class="form-check form-check-inline">
 						    		<span class="mr-2">배포담당자</span>
-						    		<input type="checkbox" class="form-check-input" id="distributorShow" name="distributorShow" value="Y"> 
+						    		<input type="checkbox" class="form-check-input" id="distributorShow" name="distributorShow" value="Y"
+						    			<c:if test="${notice.distributorShow == 'Y'}">checked</c:if>> 
 							    	<label class="form-check-label mr-4" for="distributorShow"></label>
 						    	</div>
 						    	<div class="form-check form-check-inline">
 						    		<span class="mr-2">유저테스터</span>
-						    		<input type="checkbox" class="form-check-input" id="userTesterShow" name="userTesterShow" value="Y">
+						    		<input type="checkbox" class="form-check-input" id="userTesterShow" name="userTesterShow" value="Y"
+						    			<c:if test="${notice.userTesterShow == 'Y'}">checked</c:if>>
 							    	<label class="form-check-label" for="userTesterShow"></label>
 						    	</div>
 						  	</div>
 					  	</div>
 					  	<div class="form-group row">
 					    	<label for="noticeTitle" class="col-2">제목</label>
-					    	<input type="text" class="form-control col-10" id="noticeTitle" name="noticeTitle">
+					    	<input type="text" class="form-control col-10" id="noticeTitle" name="noticeTitle" value="${notice.noticeTitle}">
 					    	<small id="" class="form-text text-muted"></small>
 					  	</div>
 					    <div class="form-group row">
 					    	<label for="noticeContent" class="col-2">내용</label>
-					    	<textarea class="form-control col-10" rows="10" id="noticeContent" name="noticeContent"></textarea>
+					    	<textarea class="form-control col-10" rows="10" id="noticeContent" name="noticeContent">${notice.noticeContent}</textarea>
 					    </div>
 					    <div class="row p-2">
-					    <!-- 이미 등록된 파일 리스트 -->
 					    	<div class="col-2">기존 첨부파일</div>
-					    	<div class="col-10">
-					    		<div>
-						    		<a href="">songyounghun.jpg</a>
-						    		<a href="" class="ml-2">
-						    			<img src="resources/img/deleteicon.png" class="deleteicon"/>
-						    		</a>
-					    		</div>
-					    		<div>
-						    		<a href="">janghyun.pptx</a>
-						    		<a href="" class="ml-2">
-						    			<img src="resources/img/deleteicon.png" class="deleteicon"/>
-						    		</a>
-					    		</div>
-					    		<div>
-						    		<a href="">jisung.mpg</a>
-						    		<a href="" class="ml-2">
-						    			<img src="resources/img/deleteicon.png" class="deleteicon"/>
-						    		</a>
-					    		</div>
-					    		<div>
-						    		<a href="">jiyoung.hwp</a>
-						    		<a href="" class="ml-2">
-						    			<img src="resources/img/deleteicon.png" class="deleteicon"/>
-						    		</a>
-					    		</div>
+					    	<div class="col-2">
+					    		<c:forEach var="noticeFile" items="${notice.fileList}">
+					    			<a href="${pageContext.request.contextPath}/noticefiledownload?fno=${noticeFile.fno}">${noticeFile.fileName}</a>
+					    			<button onclick="deleteNoticeFile(${noticeFile.fno})">파일 삭제</button>
+				    			</c:forEach>
 					    	</div>
 					    </div>
 					  	<div class="form-group row p-2">

@@ -1,6 +1,5 @@
 package com.oti.srm.controller.notice;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -114,14 +112,52 @@ public class NoticeController {
 
 	// 공지사항 수정 폼
 	@GetMapping("/noticeupdateform")
-	public String noticeUpdateForm() {
+	public String noticeUpdateForm(int nno, Model model) {
+		model.addAttribute("notice", noticeService.getNotice(nno));
+		model.addAttribute("systemList", noticeService.getSystemList());
 		return "notice/noticeUpdateForm";
 	}
 
 	// 공지사항 수정
 	@GetMapping("/noticeupdate")
-	public String noticeUpdate() {
-		return "redirect:/noticeList";
+	public String noticeUpdate(Notice notice, MultipartFile[] files) {
+		log.info("실행");
+		if (notice.getUserShow() == null) {
+			notice.setUserShow("N");
+		}
+		if (notice.getDevShow() == null) {
+			notice.setDevShow("N");
+		}
+		if (notice.getTesterShow() == null) {
+			notice.setTesterShow("N");
+		}
+		if (notice.getUserTesterShow() == null) {
+			notice.setUserTesterShow("N");
+		}
+		if (notice.getDistributorShow() == null) {
+			notice.setDistributorShow("N");
+		}
+		Member member = (Member) session.getAttribute("member");
+		notice.setMid(member.getMid());
+		List<NoticeFile> fileList = new ArrayList<NoticeFile>();
+		try {
+			if (files != null) {
+				for (MultipartFile file : files) {
+					if (!file.isEmpty()) {
+						NoticeFile noticeFile = new NoticeFile();
+						noticeFile.setFileName(file.getOriginalFilename());
+						noticeFile.setFileType(file.getContentType());
+						noticeFile.setFileData(file.getBytes());
+						fileList.add(noticeFile);
+					}
+				}
+			}
+			notice.setFileList(fileList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		noticeService.noticeWrite(notice);
+		return "redirect:/noticedetail?nno=" + notice.getNno();
 	}
 
 	// 공지사항 삭제
