@@ -64,32 +64,15 @@ public class UserTestDistributeController {
 	// 작업 시작(고객테스터 / 배포자 공용)
 	// => requests테이블(현재단계 최신화 + 완료예정일 기입) + status_histories테이블(단계 변경 이력 추가)
 	@PostMapping("/startwork")
-	public String startWork(StatusHistory statusHistory,
-			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expectDate, HttpSession session, Model model) {
+	public String startWork(StatusHistory statusHistory, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expectDate, HttpSession session, Model model) {
 		log.info("실행");
 		Member me = (Member) session.getAttribute("member");
 		statusHistory.setWriter(me.getMid());
+		statusHistory.setNextStatus(8);
 		commonService.startWork(statusHistory, expectDate, me.getMtype());
 		if (me.getMtype().equals("usertester")) {
-			// 요청정보
-			model.addAttribute("request", commonService.getRequest(statusHistory.getRno()));
-			// 요청 처리정보
-			RequestProcess rp = commonService.getRequestProcess(statusHistory.getRno());
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-	        String str = format.format(rp.getAllExpectDate());
-			rp.setAllExpectDateStr(str);
-			model.addAttribute("requestProcess", rp);
-			// 개발자 -> 테스터
-			model.addAttribute("devToTesterHistories", commonService.getDevToTesterHistories(statusHistory.getRno()));
-			return "srm/usertestfragment";
+			return "redirect:/usertestdetail?rno=" + statusHistory.getRno();
 		} else {
-			// 요청정보
-			model.addAttribute("request", commonService.getRequest(statusHistory.getRno()));
-			// Validation(내 담당건 맞는지)
-			// 요청 처리정보
-			model.addAttribute("requestProcess", commonService.getRequestProcess(statusHistory.getRno()));
-			// 개발자 -> 테스터
-			model.addAttribute("devToTesterHistories", commonService.getDevToTesterHistories(statusHistory.getRno()));
 			return "redirect:/distributedetail?rno=" + statusHistory.getRno();
 		}
 
@@ -104,7 +87,7 @@ public class UserTestDistributeController {
 		log.info("실행");
 		Member me = (Member) session.getAttribute("member");
 		statusHistory.setWriter(me.getMid());
-		log.info(me.getMtype());
+		statusHistory.setNextStatus(9);
 		commonService.endWork(statusHistory, me.getMtype());
 		if (me.getMtype().equals("usertester")) {
 			return "redirect:/usertestdetail?rno=" + statusHistory.getRno();
