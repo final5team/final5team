@@ -15,19 +15,19 @@ import com.oti.srm.dto.StatusHistoryFile;
 // 단계 상세 페이지 단계 처리 관련 dao 메소드 
 public interface ICommonDao {
 	// 요청의 단계 이력(status_histories 테이블) 모두 조회
-	public List<StatusHistory> getRequestHistories(int rno);
+	public List<StatusHistory> selectRequestHistories(int rno);
 
 	// 단계 이력에 첨부된 파일(status_histories_files) 조회
-	public List<StatusHistoryFile> getStatusHistoryFiles(int hno);
+	public List<StatusHistoryFile> selectStatusHistoryFiles(int hno);
 
 	// 요청정보(requests 테이블) 조회
-	public Request getRequest(int rno);
+	public Request selectRequest(int rno);
 	
 	// 요청 첨부 파일 조회
-	public List<StatusHistoryFile> getRequestFiles(int rno);
+	public List<StatusHistoryFile> selectRequestFiles(int rno);
 	
 	// 요청처리정보(request_process 테이블) 조회
-	public RequestProcess getRequestProcess(int rno);
+	public RequestProcess selectRequestProcess(int rno);
 	
 	// 완료 예정일 기입
     public int updateExpectDate(@Param("rno") int rno, @Param("expectDate") Date expectDate, @Param("mtype") String mtype);

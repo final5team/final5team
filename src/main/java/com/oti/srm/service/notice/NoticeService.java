@@ -12,6 +12,8 @@ import com.oti.srm.dto.NoticeFile;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.System;
 
+import lombok.extern.log4j.Log4j2;
+@Log4j2
 @Service
 public class NoticeService implements INoticeService {
 	@Autowired
@@ -44,10 +46,23 @@ public class NoticeService implements INoticeService {
 	@Transactional
 	public void noticeWrite(Notice notice) {
 		noticeDao.insertNotice(notice);
+		log.info(notice.getFileList().size());
 		for(NoticeFile noticeFile : notice.getFileList()) {
 			noticeFile.setNno(notice.getNno());
 			noticeDao.insertNoticeFile(noticeFile);
 		}
+	}
+
+	@Override
+	@Transactional
+	public void deleteNotice(int nno) {
+		noticeDao.deleteNoticeFiles(nno);
+		noticeDao.deleteNotice(nno);
+	}
+
+	@Override
+	public NoticeFile downloadNoticeFile(int fno) {
+		return noticeDao.selectNoticeFile(fno);
 	}
 
 }
