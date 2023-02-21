@@ -30,4 +30,10 @@ public class Request {
 	private int startRowNo;
 	private int endRowNo;
 	
+	//리스트 필더 값
+	private String reqType;
+	private String dateFirst;
+	private String dateLast;
+	
+	
 }

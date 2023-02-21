@@ -30,17 +30,7 @@
 		where rnum=1
 	</select>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	
@@ -67,7 +57,18 @@
 		                    rp.REQ_TYPE, rp.DEVELOPER, rp.TESTER, rp.DISTRIBUTOR, rp.PM, rp.USER_TESTER
 		            from requests r inner join request_process rp
 		            on r.RNO = rp.RNO
-		 
+		 ]]>
+		 <where>
+			<if test="sno != 0">
+				sno = #{sno}
+			</if>
+			<if test="reqType != '전체'">
+				REQ_TYPE = #{reqType}
+			</if>
+			
+			
+		 </where>
+		 <![CDATA[
 		            order by r.req_date desc
 		            ) j
 		        where rnum <= #{endRowNo}

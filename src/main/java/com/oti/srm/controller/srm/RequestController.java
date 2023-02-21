@@ -132,36 +132,52 @@ public class RequestController {
 
 	/** Kang Ji Seong
 	 * 	member type별 요청 조회
+	 * 
+		
+		
 	 */
 	@GetMapping("/requestlist")
 	public String requestList(Request request, Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo,
-			@RequestParam(defaultValue="0")int sno) {
+			@RequestParam(defaultValue="")String date_first, @RequestParam(defaultValue="")String date_last,
+			@RequestParam(defaultValue="0")int sno, @RequestParam(defaultValue="전체")String req_type ) {
+
+		log.info(req_type);
 		
+		//전달받은 필터 값 저장
+		
+		ListFilter listFilter = new ListFilter();
+		listFilter.setReqType(req_type);
+		listFilter.setDateFirst(date_first);
+		listFilter.setDateLast(date_last);
+		listFilter.setSno(sno);
+		
+		//유저 권한 확인
 		Member member = (Member) session.getAttribute("member");
 		request.setMid(member.getMid());
-		
+
 		
 		//PM case
 		if(member.getMtype().equals("pm")) {
+			//PM은 전체 조회가 가능함.
 			int totalRows = requestService.getPmTotalRows();
-			//pageNo 1인 경우
 			
 			if(pageNo == 1) {
-				log.info(pageNo + "pageNo1인 경우");
+				//pageNo 1인 경우
+				log.info("1page 요청");
 				Pager pager = new Pager(5, 5,totalRows, pageNo);
-				List<SelectPM> requestList = requestService.getPmRequestList(request, pager);
+				List<SelectPM> requestList = requestService.getPmRequestList(request, listFilter, pager);
 				model.addAttribute("requestList", requestList);
 				
-				
-				
+				log.info(requestList.size());
 				return "srm/requestlist";
+				
 			} else {
 				//요청한 페이지로 이동.
-				log.info(pageNo + "pageNo1 아닌 경우");
+				log.info(pageNo + "pageNo != 1");
 				Pager pager = new Pager(5, 5,totalRows, pageNo);
 				
 				
-				requestService.getPmRequestList(request, pager);
+				requestService.getPmRequestList(request, listFilter, pager);
 				return "srm/requestlist";
 			}
 			
@@ -175,11 +191,12 @@ public class RequestController {
 		}
 
 		
-		
-		Pager pager = new Pager(5, 5, 10, pageNo);
-		List<Request> requestList = requestService.getRequestList(request, pager);
-		model.addAttribute("requestList", requestList);
+//		
+//		Pager pager = new Pager(5, 5, 10, pageNo);
+//		List<Request> requestList = requestService.getRequestList(request, pager);
+//		model.addAttribute("requestList", requestList);
 		return "srm/requestlist";
+//		
 	}
 	
 	/** Kang Ji Seong

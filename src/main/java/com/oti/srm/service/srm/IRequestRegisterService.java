@@ -2,6 +2,7 @@ package com.oti.srm.service.srm;
 
 import java.util.List;
 
+import com.oti.srm.dto.ListFilter;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.SelectPM;
@@ -38,7 +39,7 @@ public interface IRequestRegisterService {
 	
 	// PM 조회
 	public int getPmTotalRows();
-	public List<SelectPM> getPmRequestList(Request request, Pager pager);
+	public List<SelectPM> getPmRequestList(Request request, ListFilter listFilter, Pager pager);
 	
 
 
