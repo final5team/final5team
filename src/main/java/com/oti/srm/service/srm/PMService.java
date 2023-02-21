@@ -69,4 +69,14 @@ public class PMService implements IPMService {
 		return 0;		
 	}
 
+	@Override
+	public StatusHistory getStatusHistory(int rno, String string) {
+		// 전체 요청 처리 내역
+		commonDao.getRequestHistories(rno);
+		// 해당 태스크별 처리 내역
+		
+		
+		return null;
+	}
+
 }

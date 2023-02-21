@@ -37,43 +37,53 @@
 							<div class="card">
 								<div class="card-header d-flex">
 									<div class="mr-auto">처리 완료</div>	
-									<div class="ml-3">정규<i class="far fa-registered text-secondary"></i></div>
-									<div class="ml-3">긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
+									<c:if test="${reqProcess.reqType eq '정규'}">
+										<div class="ml-3">정규<i class="far fa-registered text-secondary"></i></div>
+									</c:if>
+									<c:if test="${reqProcess.reqType eq '긴급'}">
+										<div class="ml-3">긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
+									</c:if>	
 									<div class="ml-5 mr-4">중요도: 
-										<span class="fa fa-star checked" style="color: orange;"></span>
-										<span class="fa fa-star checked" style="color: orange;"></span>
-										<span class="fa fa-star checked" style="color: orange;"></span>
+										<c:if test="${reqProcess.priority eq '하' || reqProcess.priority eq '중' ||reqProcess.priority eq '상'}">
+											<span class="fa fa-star checked" style="color: orange;"></span>
+										</c:if>
+										<c:if test="${reqProcess.priority eq '중' || reqProcess.priority eq '상'}">
+											<span class="fa fa-star checked" style="color: orange;"></span>
+										</c:if>
+										<c:if test="${reqProcess.priority eq '상'}">
+											<span class="fa fa-star checked" style="color: orange;"></span>
+										</c:if>
 									</div>							
 								</div>
 								<div class="card-body">
 									<div>처리완료상세보기 ></div>									
 									<div>
-										<h3 class="mr-auto font-weight-bold">여기는 제목 자리입니다.</h3>
+										<h3 class="mr-auto font-weight-bold">${request.reqTitle}</h3>
 									</div>
 									<div class="row">
 										<div class="col-sm-6">
 											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="20%">
-											<span class="font-weight-bold ml-2">홍길동</span>
-											<span class="ml-3">서울강남고용센터</span>
+											<span class="font-weight-bold ml-2">${request.clientName}</span>
+											<span class="ml-3">${request.organ}</span>
 										</div>
 										<div class="col-sm-6 ml-auto">
 											<div class="d-flex">
 												<div class="pl-5">시스템:</div>
-												<div class="pl-2 flex-grow-1">무슨시스템</div>
+												<div class="pl-2 flex-grow-1">${request.systemName}</div>
 											</div>
 											<div class="d-flex">
 												<div class="pl-5">요청일:</div>
-												<div class="pl-2 flex-grow-1">2023-02-03</div>
+												<div class="pl-2 flex-grow-1"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd"/></div>
 											</div>
 											<div class="d-flex">
 												<div class="pl-5">요청완료희망일:</div>
-												<div class="pl-2 flex-grow-1">2023-04-10</div>
+												<div class="pl-2 flex-grow-1"><fmt:formatDate value="${request.reqExpectDate}" pattern="yyyy-MM-dd"/></div>
 											</div>
 										</div>
 									</div>
-									<div class="mt-2 ml-5">여기는 내용이지요~~</div>
+									<div class="mt-2 ml-5">${request.reqContent}</div>
 									<div class="mt-3 ml-5">
-										<span>파일이름</span>
+										<span>첨부파일: <c:forEach var="file" items="${request.files}">${file.fileName}</c:forEach></span>
 										<a href="#" role="button">
 											<i class="fas fa-cloud-download-alt"></i>
 										</a>
@@ -86,23 +96,23 @@
 								<div class="card-body row">
 									<div class="col-sm-3" style="text-align: center;">
 										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
-										<div class="ml-3">김개발</div>
+										<div class="ml-3">${reqProcess.developer}</div>
 									</div>
 									<div class="col-sm-9">
 										<div class="ml-3">
 											<div class="row">
 												<div class="col">
 													<label class="control-label mr-2">완료 예정일</label>
-													<input value="2023-02-12" readonly>													 										
+													<input value="${reqProcess.devExpectDate}" readonly>													 										
 												</div>
 												<div class="col">
 													<label class="control-label mr-2">실제 완료일</label>
-													<input value="2023-02-15" readonly> 													  												
+													<input value="${reqProcess.devCompDate}" readonly> 													  												
 												</div>												
 											</div>
 											<div>
 												<label class="control-label" >개발 의견</label>
-												<input type="text" class="form-control ml-2" style="display: inline;" value="개발 결과가 이렇고 저렇고 개발개발새발"> 
+												<input type="text" class="form-control ml-2" style="display: inline;" value="${reqProcess.devCompDate}"> 
 											</div>
 											<div class="mt-2">
 												<label class="control-label" >배포 소스</label>
