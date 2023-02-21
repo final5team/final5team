@@ -134,7 +134,7 @@ public class RequestController {
 	 * 	member type별 요청 조회
 	 */
 	@GetMapping("/requestlist")
-	public String requestList(Request request, Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo
+	public String requestList(Request request, Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo,
 			@RequestParam(defaultValue="0")int sno) {
 		
 		Member member = (Member) session.getAttribute("member");

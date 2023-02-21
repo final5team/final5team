@@ -366,7 +366,7 @@ main {
 							<article class="filter-body2">
 								<div class="input-group">
 									<select class="custom-select" id="sno" name="sno">
-										<option value="" selected>전체</option>
+										<option value="0" selected>전체</option>
 										<option value="1">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>
