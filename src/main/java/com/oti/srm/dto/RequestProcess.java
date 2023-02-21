@@ -2,6 +2,8 @@ package com.oti.srm.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 @Data
 public class RequestProcess {
@@ -13,6 +15,7 @@ public class RequestProcess {
 	private Date testExpectDate;
 	private Date distExpectDate;
 	private Date userTestExpectDate;
+	@DateTimeFormat(pattern="yyyy-mm-dd")
 	private Date allExpectDate;
 	private String allExpectDateStr;
 	
@@ -20,6 +23,7 @@ public class RequestProcess {
 	private Date testCompDate;
 	private Date distCompDate;
 	private Date userTestCompDate;
+	@DateTimeFormat(pattern="yyyy-mm-dd")
 	private Date allCompDate;
 	
 	private String developer;
