@@ -9,53 +9,50 @@
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
     <style>
     	:root {
-          --line-fill: #87cd36;
-           --line-empty: #e0e0e0;
-           --now-fill: #F40730;
-      }
-       .container {
-           text-align: center;
-      }
-      
-       
-       .circle {
-            margin-left : 25px;
-           background-color: #fff;
-           color: #999;
-           height: 40px;
-           width: 150px;
-           font-size : 20px;
-           line-height : 40px;
-           border: 3px solid var(--line-empty);
-           transition: 0.4s ease;
-      }
-      .bar {
-           margin-left : 100px;
-           padding : 0px;
-           background-color: #fff;
-           color: #999;
-           height: 30px;
-           width: 1px;
-           align-items: center;
-           justify-content: center;
-           border: 3px solid var(--line-empty);
-           transition: 0.4s ease;
-      }
-      
-      .circle.done {
-           border-color: var(--line-fill);
-           color : var(--line-fill);
-      }
-      
-      .circle.now {
-         border-color : white;
-         color : white;
-           background-color : var(--line-fill);
-      }
-      
-      .bar.active {
-           border-color: var(--line-fill);
-      }
+		 	--line-fill: #3498db;
+		  	--line-empty: #e0e0e0;
+		  	--now-fill: #F40730;
+		}
+    	.container {
+		 	 text-align: center;
+		}
+		
+		
+    	
+    	.circle {
+    		  margin-left : 25px;
+			  background-color: #fff;
+			  color: #999;
+			  border-radius: 50%;
+			  height: 30px;
+			  width: 150px;
+			  border: 3px solid var(--line-empty);
+			  transition: 0.4s ease;
+		}
+		.bar {
+			  margin-left : 100px;
+			  padding : 0px;
+			  background-color: #fff;
+			  color: #999;
+			  height: 60px;
+			  width: 1px;
+			  align-items: center;
+			  justify-content: center;
+			  border: 3px solid var(--line-empty);
+			  transition: 0.4s ease;
+		}
+		
+		.circle.active {
+		  	border-color: var(--line-fill);
+		}
+		
+		.circle.now {
+		  	border-color: var(--now-fill);
+		}
+		
+		.bar.active {
+		  	border-color: var(--line-fill);
+		}
 		
     </style>
 </head>
@@ -127,31 +124,28 @@
 											</div>
 											<div class="d-flex">
 												<div class="pl-5">요청일:</div>
-												<div class="pl-2 flex-grow-1"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd"/></div>
+												<div class="pl-2 flex-grow-1">${request.reqDate}</div>
 											</div>
 											<div class="d-flex">
 												<div class="pl-5">요청완료예정일:</div>
-												<div class="pl-2 flex-grow-1" id="reqExpectDate"><fmt:formatDate value="${request.reqExpectDate}" pattern="yyyy-MM-dd"/></div>
+												<div class="pl-2 flex-grow-1">${request.reqExpectDate}</div>
 											</div>
 										</div>
 									</div>
-									<div class="mt-2 ml-5">${request.reqContent}</div>	
+									<div class="mt-2 ml-5">${request.reqContent}</div>
+									<c:if test=""></c:if>
 										<div class="mt-3 ml-5">
-										<c:if test="${request.files != null}">
-										<c:forEach var="statusHistoryFile" items="${request.files}">
-											<span>${statusHistoryFile.fileName}</span>
+											<span>파일이름</span>
 											<a href="#" role="button">
 												<i class="fas fa-cloud-download-alt"></i>
 											</a>
-										</c:forEach>
-										</c:if>
 										</div>
 									<div class="d-flex justify-content-end">
 										<c:if test="${request.statusNo == 2 || request.statusNo == 3}">
-										<button class="btn btn-primary btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">개발시작</button>
+										<button class="btn btn-primary btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">테스트시작</button>
 										</c:if>
 										<c:if test="${request.statusNo == 4}">
-										<button class="btn btn-info btn-lg mt-3" onclick="devEnd()">개발 완료</button>
+										<button class="btn btn-info btn-lg mt-3">개발 완료</button>
 										</c:if>
 									</div>
 								</div>
@@ -164,27 +158,26 @@
 									<div class="col-sm-3 d-flex align-items-center" style="text-align:center;">
 										<div>
 											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="70%">
-											<div class="mt-3">${member.mname}</div>
+											<div class="mt-3">나</div>
 										</div>
 									</div>
 									<div class="col-sm-9">
-										<form role="form" id="writeform" action="${pageContext.request.contextPath}/devdone" method="POST" enctype="multipart/form-data">
-											<input type="hidden" name="rno" value="${request.rno}">
+										<form role="form">
 											<div class="col-sm-12 form-group">
 												<label class="control-label" >완료예정일</label>
-												<input type="text" class="form-control boxed" value="<fmt:formatDate value="${requestProcess.devExpectDate}" pattern="yyyy-MM-dd"/>" readonly>
+												<input type="text" class="form-control boxed" value="${requestProcess.devExpectDate}" readonly>
 											</div>
 											<div class="col-sm-12 form-group">
 												<label class="control-label">개발내용</label>
-												<textarea rows="2" class="form-control boxed" name="reply"></textarea>
+												<textarea rows="2" class="form-control boxed"></textarea>
 											</div>
 											<div class="col-sm-12 form-group">
 												<label class="control-label">배포소스</label>
-												<input type="text" class="form-control boxed" name="distSource">
+												<input type="text" class="form-control boxed">
 											</div>
 											<div class="filebox">
 												<label for="file">Choose a file</label>
-												<input type="file" id="file" name="files" multiple>
+												<input type="file" id="file">
 											</div>
 										</form>
 									</div>
@@ -201,7 +194,7 @@
 											<div>${i.count}차 개발</div>
 											<div class="ml-auto ml-1">${requestProcess.devExpectDate}</div>
 										</div>
-										<div class="card-body p-1 cardscroller">
+										<div class="card-body p-1">
 											<div class="row">
 												<div class="col-sm-3 d-flex align-items-center" style="text-align: center;">
 													<div>
@@ -222,12 +215,10 @@
 														<input class="form-control boxed" value="${statusHistory.distSource}" readonly style="background-color: transparent;">
 													</div>
 													<div class="mt-2">
-														<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-															<span>${statusHistoryFile.fileName}</span>
-															<a href="#" role="button">
-																<i class="fas fa-cloud-download-alt"></i>
-															</a><br>
-														</c:forEach>
+														<span>첨부파일: 파일이름</span>
+														<a href="#" role="button">
+															<i class="fas fa-cloud-download-alt"></i>
+														</a>
 													</div>
 												</div>
 											</div>	
@@ -286,9 +277,8 @@
 								<div class="card-header">
 									<h6 class="m-0 font-weight-bold text-primary">단계 상태</h6>
 								</div>
-								<div class="card-body mx-auto">
-							        <%@ include file="/WEB-INF/views/srm/nowstatusvertical.jsp" %>
-								
+								<div class="card-body">
+									<div></div>
 									<div class="mt-4 text-center small"></div>
 								</div>
 							</div>
@@ -326,17 +316,12 @@
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body d-flex justify-content-center">
-					<form id="formUpdateExpectDate" action="${pageContext.request.contextPath}/devinprogress" method="POST">
-						<label class="mt-1" style="color: #343a40;" for="developExpectDate">개발 완료 예정일</label>
-						<input type="date" class="form-control ml-2" id="developExpectDate" name="developExpectDate" style="width: 200px; display: inline;">
-						<input type="hidden" name="rno" value="${request.rno}">
-						<input type="hidden" name="nextStatus" value="4">
-					</form>
+					<label class="mt-1" style="color: #343a40;">개발 완료 예정일</label>
+					<input type="date" class="form-control ml-2" id="developDueDate" style="width: 200px; display: inline;">
 				</div>
 				<div class="modal-footer">
-					<small id="noInputDate" style="color : red;"></small>
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <a class="btn btn-primary" onclick="checkDate()">확인</a>
+                    <a class="btn btn-primary" onclick="closedatemodal()">확인</a>
 				</div>
 			</div>
 		</div>
@@ -344,7 +329,7 @@
 	
 	<!-- date 입력받는 모달창 end -->
 		
-	<!-- 경고 모달창 (50% 이상일 경우)-->
+	<!-- 경고 모달창 -->
 	<div class="modal fade" id="alartDateTooMuch" aria-hidden="true" aria-labelledby="alartOfTimeTooMuch">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
@@ -354,16 +339,17 @@
 					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<p id="pContent"></p>
+					<p>입력 시간이 완료 예정일 대비 50% 이상 차지합니다. 확인을 누르시면 수정이 불가능합니다.</p>
+					<p>입력하시겠습니까?. 확인을 누르시면 수정이 불가능합니다.</p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <a class="btn btn-primary" onclick="getconfirm()" type="button">확인</a>
+                    <a class="btn btn-primary" onclick="getcofirm()" type="button">확인</a>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- 경고 모달창 (50% 이상일 경우) -->
+	<!-- 경고 모달창 -->
 	<!-- 데이트 입력 확인 -->
 	<div class="modal fade" id="completeDueDate" aria-hidden="true" aria-labelledby="successOfDueDate">
 		<div class="modal-dialog modal-dialog-centered" role="document">
@@ -387,48 +373,13 @@
 		$('#datemodal').modal('show');
 		
 	}
-	function checkDate(){
-		$('#noInputDate').text("");
-		
-		if($('#developExpectDate').val() == ""){
-			$('#noInputDate').text("날짜를 입력해주세요.");
-			return;
-		}
-		
-		let today = new Date().getTime();   
-		var developExpectDate = new Date($('#developExpectDate').val()).getTime();
-		var reqExpectDate = new Date($('#reqExpectDate').text()).getTime();
-		
-		//오늘보다 이전 날짜를 입력할 경우
-		if(today > developExpectDate){
-			$('#noInputDate').text("현재보다 앞선 날짜를 입력해주세요.");
-			return;
-		}
-		//총완료예정일보다 큰 일정을 입력할 경우
-		if(reqExpectDate <= developExpectDate){
-			$('#noInputDate').text("완료예정일보다 과거여야 합니다.");
-			return;
-		}
-		if(((developExpectDate-today)/(reqExpectDate-today))>=0.5){
-			$('#pContent').text('');
-			$('#pContent').text('입력 시간이 완료 예정일 대비 50% 이상 차지합니다. 확인을 누르시면 수정이 불가능합니다.');
-			$('#alartDateTooMuch').modal('show');
-		} else{
-			$('#pContent').text('');
-			$('#pContent').text('입력하시겠습니까?. 확인을 누르시면 수정이 불가능합니다.');
-			$('#alartDateTooMuch').modal('show');
-		}
-		
+	function closedatemodal(){
+		$('#datemodal').modal('hide');
+		$('#alartDateTooMuch').modal('show');
 	}
-	function getconfirm(){
+	function getcofirm(){
 		$('#alartDateTooMuch').modal('hide');
-		//컨트롤러로 값 전달하기
-		$('#formUpdateExpectDate').submit();
-		
 		$('#completeDueDate').modal('show');
-	}
-	function devEnd(){
-		$('#writeform').submit();
 	}
 	</script>
 </body>

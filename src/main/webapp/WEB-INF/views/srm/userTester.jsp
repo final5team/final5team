@@ -242,11 +242,10 @@
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body d-flex justify-content-center">
-					<form action="" method="post" name="startWork" class="mt-3" id="startWork">
+					<form action="${pageContext.request.contextPath}/startwork" method="post" class="mt-3" id="startWork">
 						<label class="mt-1" style="color: #343a40;" for="expectDate">유저테스트 완료 예정일</label>
 						<input type="date" id= "expectDate" name="expectDate" class="form-control ml-2" style="width: 200px; display: inline;"/>
 						<input type="hidden" name="rno" value="${request.rno}"/>
-						<input type="hidden" name="nextStatus" value="8"/>
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -262,7 +261,7 @@
 	
 	<!-- date 입력받는 모달창 end -->
 		
-	<!-- 경고 모달창 -->
+	<!-- form 제출하는 모달창 -->
 	<div class="modal fade" id="alartDateTooMuch" aria-hidden="true" aria-labelledby="alartOfTimeTooMuch">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
@@ -272,11 +271,11 @@
 					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<p>입력 시간이 완료 예정일 대비 50% 이상 차지합니다. 확인을 누르시면 수정이 불가능합니다.</p>
+					<p></p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <a class="btn btn-primary" onclick="go()" type="button">확인</a>
+                    <a class="btn btn-primary" onclick="startWork()" type="button">확인</a>
 				</div>
 			</div>
 		</div>
@@ -329,32 +328,15 @@
 				$('#datemodal').modal('hide');
 				$('#alartDateTooMuch').modal('show');
 			}else{
-				startWork();
 				$('#datemodal').modal('hide');
+				$('#alartDateTooMuch').modal('show');
 			}
 		}
-		
-		function go(){
-			startWork();
-			$('#alartDateTooMuch').modal('hide');
-		}
-		
-		
-		
+
 		function startWork(){
-			var queryString = $("#startWork").serialize() ;	
-			$.ajax({
-				type : 'post',
-				url : '${pageContext.request.contextPath}/startwork', 
-				data : queryString,
-				dataType : 'html',
-				success : function(data){
-					$('#content').html(data);
-				},
-				error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
-                	alert("통신 실패")
-            	}
-			});
+			$('#alartDateTooMuch').modal('hide');
+			$('#completeDueDate').modal('show');
+			$('#startWork').submit();
 		}
 	</script>
 </body>
