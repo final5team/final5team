@@ -46,18 +46,37 @@ public class PMService implements IPMService {
 			commonDao.updateRequestStatus(statusHistory.getRno(), statusHistory.getNextStatus());	
 			// 접수 완료 이력 작성
 			commonDao.insertStatusHistory(statusHistory);
+			// 첨부 파일 등록
 			List<StatusHistoryFile> fileList =statusHistory.getFileList();
-			for(StatusHistoryFile file: fileList) {
-				file.setHno(statusHistory.getHno());
-				commonDao.insertStatusHistoryFile(file);
-			}
-			// 서비스 요청 처리
-			int result=pMDao.insertRequestProcess(requestProcess);
-			return (result==1)?1:0;		
+			if(fileList !=null) {
+				for(StatusHistoryFile file: fileList) {
+					file.setHno(statusHistory.getHno());
+					commonDao.insertStatusHistoryFile(file);
+				}
+			}			
+			// 서비스 요청 처리 프로세스
+			// 접수 완료
+			if(statusHistory.getNextStatus()==2) {
+				int result=pMDao.insertRequestProcess(requestProcess);
+				return (result==1)?1:0;	
+			//반려	
+			} else if(statusHistory.getNextStatus()==12){
+				return 1;
+			}			
 		} catch(Exception e) {
-			return 0;
+			e.printStackTrace();			
 		}
-				
+		return 0;		
 	}
-	
+
+	@Override
+	public StatusHistory getStatusHistory(int rno, String string) {
+		// 전체 요청 처리 내역
+		commonDao.getRequestHistories(rno);
+		// 해당 태스크별 처리 내역
+		
+		
+		return null;
+	}
+
 }

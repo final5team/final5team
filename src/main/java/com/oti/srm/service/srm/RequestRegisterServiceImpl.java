@@ -1,12 +1,12 @@
 package com.oti.srm.service.srm;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.oti.srm.dao.srm.IRequestDao;
+import com.oti.srm.dto.ListFilter;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.SelectPM;
@@ -46,19 +46,6 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		log.info("서비스" + result);
 		return result;
 	}
-
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -77,7 +64,6 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	
 	
 	// PM 조회
-	
 	@Override
 	public int getPmTotalRows() {
 		int rows = requestDao.countPm();
@@ -85,12 +71,33 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	}
 	
 	@Override
-	public List<SelectPM> getPmRequestList(Request request, Pager pager) {
-		request.setStartRowNo(pager.getStartRowIndex());
-		request.setEndRowNo(pager.getEndPageNo());
+	public List<SelectPM> getPmRequestList(Request request, ListFilter listFilter, Pager pager) {
+		request.setStartRowNo(pager.getStartRowNo());
+		request.setEndRowNo(pager.getEndRowNo());
+		request.setReqType(listFilter.getReqType());
+		
+		if(listFilter.getDateFirst().isEmpty() && listFilter.getDateLast().isEmpty()) {
+			request.setDateFirst("sysdate");
+			
+			request.setDateLast("null");
+		} else if (listFilter.getDateLast().isEmpty()) {
+			request.setDateLast("sysdate");
+		} else if(listFilter.getDateFirst().isEmpty()) {
+			
+			request.setDateFirst("null");
+		} else {
+			request.setDateFirst(listFilter.getDateFirst());
+			request.setDateLast(listFilter.getDateLast());
+		}
+		
+		
+		
+		log.info(request.toString());
+		
 		List<SelectPM> result = requestDao.selectAll(request);
-	
-				
+		log.info(result.size());
+		
+		
 		return result;
 	}
 

@@ -18,8 +18,8 @@
            	 <c:if test="${request.statusNo >= 5}">done</c:if>
            	 <c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">now</c:if>">
              <c:if test="${request.statusNo < 2}">개발단계</c:if>
-	    	 <c:if test="${request.statusNo == 2}">개발요청</c:if>
-	         <c:if test="${request.statusNo == 3}">개발재검토</c:if>
+             <c:if test="${request.statusNo == 2}">개발요청</c:if>
+             <c:if test="${request.statusNo == 3}">개발재검토</c:if>
            	 <c:if test="${request.statusNo == 4}">개발중</c:if>
            	 <c:if test="${request.statusNo >= 5}">개발완료</c:if>
            </div>

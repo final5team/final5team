@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.oti.srm.dto.ListFilter;
 import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
@@ -34,12 +35,21 @@ public class RequestController {
 	private IUserRegisterService userRegisterService;
 	@Autowired
 	private IRequestRegisterService requestService;
+	
 
+
+	
+	/** Kang Ji Seong
+	 *  유저 등록 폼 요청 
+	 */
 	@GetMapping("/register")
 	public String register() {
 		return "member/userregister";
 	}
-
+	
+	/** Kang Ji Seong
+	 *  유저 등록 폼 요청 
+	 */
 	@PostMapping("/register")
 	public String register(Member member, Model model) {
 		log.info("등록 실행");
@@ -81,6 +91,9 @@ public class RequestController {
 		}
 	}
 
+	/** Kang Ji Seong
+	 *  요청 등록 폼 요청
+	 */
 	@GetMapping("/request")
 	public String customerRequest(Member member, Request request, Model model, RequestProcess requestProcess) {
 		request.setStatusName("접수중");
@@ -94,7 +107,10 @@ public class RequestController {
 		
 		return "srm/request";
 	}
-
+	
+	/** 
+	 *  요청 등록 폼 작성
+	 */
 	@PostMapping("/request")
 	public String customerRequest(Request request, Model model, HttpSession session) {
 		//요청 상태값은 1
@@ -114,37 +130,56 @@ public class RequestController {
 
 	}
 
-	/** member type별 요청 조회 처리
+	/** Kang Ji Seong
+	 * 	member type별 요청 조회
 	 * 
+		
+		
 	 */
 	@GetMapping("/requestlist")
-	public String requestList(Request request, Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo) {
+	public String requestList(Request request, Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo,
+			@RequestParam(defaultValue="")String date_first, @RequestParam(defaultValue="")String date_last,
+			@RequestParam(defaultValue="0")int sno, @RequestParam(defaultValue="전체")String req_type ) {
+
+		log.info(date_first);
+		log.info(date_last);
 		
+		//전달받은 필터 값 저장
+		
+		ListFilter listFilter = new ListFilter();
+		listFilter.setReqType(req_type);
+		listFilter.setDateFirst(date_first);
+		listFilter.setDateLast(date_last);
+		listFilter.setSno(sno);
+		
+		//유저 권한 확인
 		Member member = (Member) session.getAttribute("member");
 		request.setMid(member.getMid());
-		
+
 		
 		//PM case
 		if(member.getMtype().equals("pm")) {
+			//PM은 전체 조회가 가능함.
 			int totalRows = requestService.getPmTotalRows();
-			//pageNo 1인 경우
 			
 			if(pageNo == 1) {
-				log.info(pageNo + "pageNo1인 경우");
+				//pageNo 1인 경우
+				log.info("1page 요청");
 				Pager pager = new Pager(5, 5,totalRows, pageNo);
-				List<SelectPM> requestList = requestService.getPmRequestList(request, pager);
+				List<SelectPM> requestList = requestService.getPmRequestList(request, listFilter, pager);
 				model.addAttribute("requestList", requestList);
 				
-				
-				
+				log.info(requestList.size());
+				return "srm/requestlist";
 				
 			} else {
 				//요청한 페이지로 이동.
-				log.info(pageNo + "pageNo1 아닌 경우");
+				log.info(pageNo + "pageNo != 1");
 				Pager pager = new Pager(5, 5,totalRows, pageNo);
 				
 				
-				requestService.getPmRequestList(request, pager);
+				requestService.getPmRequestList(request, listFilter, pager);
+				return "srm/requestlist";
 			}
 			
 			
@@ -153,17 +188,21 @@ public class RequestController {
 		//Not PM
 		} else {
 			log.info("PM 아닌경우");
-			
+
 		}
 
 		
-		
-		Pager pager = new Pager(5, 5, 10, pageNo);
-		List<Request> requestList = requestService.getRequestList(request, pager);
-		model.addAttribute("requestList", requestList);
+//		
+//		Pager pager = new Pager(5, 5, 10, pageNo);
+//		List<Request> requestList = requestService.getRequestList(request, pager);
+//		model.addAttribute("requestList", requestList);
 		return "srm/requestlist";
+//		
 	}
-
+	
+	/** Kang Ji Seong
+	 * 	member type 단계 처리 가져오기
+	 */
 	@PostMapping("/viewstep")
 	@ResponseBody
 	public int viewStep(Model model, Request request) {

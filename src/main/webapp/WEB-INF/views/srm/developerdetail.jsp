@@ -136,16 +136,16 @@
 										</div>
 									</div>
 									<div class="mt-2 ml-5">${request.reqContent}</div>	
-										<div class="mt-3 ml-5">
+									<div class="mt-3 ml-5">
 										<c:if test="${request.files != null}">
-										<c:forEach var="statusHistoryFile" items="${request.files}">
-											<span>${statusHistoryFile.fileName}</span>
-											<a href="#" role="button">
-												<i class="fas fa-cloud-download-alt"></i>
-											</a>
-										</c:forEach>
+											<c:forEach var="statusHistoryFile" items="${request.files}">
+												<span>${statusHistoryFile.fileName}</span>
+												<a href="#" role="button">
+													<i class="fas fa-cloud-download-alt"></i>
+												</a>
+											</c:forEach>
 										</c:if>
-										</div>
+									</div>
 									<div class="d-flex justify-content-end">
 										<c:if test="${member.mtype =='developer' && (request.statusNo == 2 || request.statusNo == 3)}">
 										<button class="btn btn-primary btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">개발시작</button>

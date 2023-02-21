@@ -88,14 +88,24 @@
 						<div class="col-xl-9 col-lg-8 col-md-8 col-sm-8">
 							<div class="card">
 								<div class="card-header d-flex">						
-									<h6 class="mr-auto text-primary font-weight-bold">유저테스트 상세보기 ></h6>
-									<div class="ml-3">정규<i class="far fa-registered text-secondary"></i></div>
-									<div class="ml-3">긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
-									<div class="ml-5 mr-4">중요도: 
-										<span class="fa fa-star checked" style="color: orange;"></span>
-										<span class="fa fa-star checked" style="color: orange;"></span>
-										<span class="fa fa-star checked" style="color: orange;"></span>
-									</div>					
+									<h6 class="mr-auto text-primary font-weight-bold">배포 상세보기 ></h6>
+									<c:if test="${requestProcess.reqType eq '정규'}">
+										<div class="ml-3">정규<i class="far fa-registered text-secondary"></i></div>
+									</c:if>
+									<c:if test="${requestProcess.reqType eq '긴급'}">
+										<div class="ml-3">긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
+									</c:if>
+									<div class="ml-5 mr-4">중요도:
+										<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
+											<span class="fa fa-star checked" style="color: orange;"></span>
+										</c:if>
+										<c:if test="${requestProcess.priority eq '중' || requestProcess.priority eq '상'}">
+											<span class="fa fa-star checked" style="color: orange;"></span>
+										</c:if>
+										<c:if test="${requestProcess.priority eq '상'}">
+											<span class="fa fa-star checked" style="color: orange;"></span>
+										</c:if>
+									</div>				
 								</div>
 								<div class="card-body">
 									<div>
@@ -104,9 +114,8 @@
 									<div class="row">
 										<div class="col-sm-6">
 											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="20%">
-											<span class="font-weight-bold ml-2">${member.mname}</span>
-											<span class="ml-3">${member.organ}</span>
-											<span class="ml-3">${member.position}</span>
+											<span class="font-weight-bold ml-2">${request.clientName}</span>
+											<span class="ml-3">${request.organ}</span>
 										</div>
 										<div class="col-sm-6 ml-auto">
 											<div class="d-flex">
@@ -121,80 +130,92 @@
 											</div>
 											<div class="d-flex">
 												<div class="pl-5">요청 완료 예정일:</div>
-												<div class="pl-2 flex-grow-1">
+												<div class="pl-2 flex-grow-1" id="allExpectDate">
 													<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>
 												</div>
 											</div>
-											<c:if test="${request.statusNo == 8}">
+											<c:if test="${(request.statusNo == 8 || request.statusNo == 9) && (member.mtype == 'distributor')}">
 												<div class="d-flex">
-													<div class="pl-5">유저테스트 완료 예정일 :</div>
+													<div class="pl-5">배포 완료 예정일 :</div>
 													<div class="pl-2 flex-grow-1">
-														<fmt:formatDate value="${requestProcess.userTestExpectDate}" pattern="yyyy-MM-dd"/>
+														<fmt:formatDate value="${requestProcess.distExpectDate}" pattern="yyyy-MM-dd"/>
+													</div>
+												</div>
+											</c:if>
+											<c:if test="${request.statusNo >= 9 && member.mtype == 'distributor'}">
+												<div class="d-flex">
+													<div class="pl-5">배포 완료일 :</div>
+													<div class="pl-2 flex-grow-1">
+														<fmt:formatDate value="${requestProcess.distCompDate}" pattern="yyyy-MM-dd"/>
 													</div>
 												</div>
 											</c:if>
 										</div>
 									</div>
-									<div class="mt-2">${request.reqTitle}</div>
-									<div class="mt-2">${request.reqContent}</div>
-									<div class="mt-3">
-										<!-- 요청 첨부 파일 리스트 -->
-										<span>파일이름</span>
-										<a href="#" role="button">
-											<i class="fas fa-cloud-download-alt"></i>
-										</a>
+									<div class="mt-2 ml-5">${request.reqContent}</div>
+									<div class="mt-3 ml-5">
+										<c:if test="${request.files != null}">
+											<c:forEach var="statusHistoryFile" items="${request.files}">
+												<span>${statusHistoryFile.fileName}</span>
+												<a href="#" role="button">
+													<i class="fas fa-cloud-download-alt"></i>
+												</a>
+											</c:forEach>
+										</c:if>
+									</div>
+									<div class="d-flex justify-content-end">
+										<!-- 배포 요청 상태(7(긴급) or 9(정규)) -->
+										<c:if test="${(requestProcess.reqType == '긴급' && request.statusNo == 7 && request.statusNo == 9) ||
+										 (requestProcess.reqType == '정규' && request.statusNo == 9 && member.mtype == 'distributor')}">
+										 	<button class="btn btn-primary btn-lg mt-3" onclick="getDatemodal()" type="button">배포 시작</button>
+										</c:if>
+										<!-- 배포 중 상태(10) -->
+										<c:if test="${request.statusNo == 10 && member.mtype == 'distributor'}">
+											<form action="${pageContext.request.contextPath}/endwork" method="post" class="mt-3">
+												<input type="hidden" name="rno" value="${request.rno}"/>
+												<button class="btn btn-info btn-lg mt-3">배포 완료</button>
+											</form>
+										</c:if>
 									</div>
 								</div>
 							</div>
-							
-							<div>
-								<!-- 배포 요청 상태() -->
-								<c:if test="${request.statusNo == 7 || request.statusNo == 9}">
-									<div class="d-flex justify-content-end">
-										 <button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">유저테스트 시작</button>
-									</div>
-								</c:if>
-								<!-- 배포중 상태(8) -->
-								<c:if test="${request.statusNo == 10}">
-									<div class="d-flex justify-content-end">
-										<form action="${pageContext.request.contextPath}/endwork" method="post" class="mt-3">
-											<input type="hidden" name="rno" value="${request.rno}"/>
-											<input type="hidden" name="nextStatus" value="11"/>
-											<button class="btn btn-gradient-success btn-gradient btn-lg mt-3">유저테스트 완료</button>
-										</form>
-									</div>
-								</c:if>
-							</div>
-							
-							<div class="card mt-3">
-								<div class="card-header">
-									배포 소스
-								</div>
-								<c:forEach var="statusHistory" varStatus="index" items="${devToTesterHistories}">
-									<div class="card-body row  border-success ml-4 mr-4 mt-3 mb-3">
-										<div class="col-sm-2 d-flex align-items-center" style="text-align: center;">
-											<div>
-												<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
-												<div class="ml-3">김레지나</div>
-											
-											</div>
+
+							<c:forEach varStatus="i" var="statusHistory" items="${devToTesterHistories}">
+									<div class="card mt-3 cardscroller" style="height: 262px;">
+										<div class="card-header d-flex justify-content-end">
+											<div>${i.count}차 개발</div>
+											<div class="ml-auto ml-1"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
 										</div>
-										<div class="col-sm-10">
-											<div class="d-flex justify-content-end mr-5">
-												<div>${index.count}차 개발</div>
-												<div class="ml-auto"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
-											</div>
-											<div>
-												배포소스: ${statusHistory.distSource}
-											</div>
-											<span>첨부파일: 파일이름</span>
-											<a href="#" role="button">
-												<i class="fas fa-cloud-download-alt"></i>
-											</a>
+										<div class="card-body p-1 cardscroller-block">
+											<div class="row mr-3">
+												<div class="col-sm-3 d-flex align-items-center" style="text-align: center;">
+													<div>
+														<img class="rounded-circle mt-1" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
+														<div class="ml-2">${statusHistory.writer}</div>
+													
+													</div>
+												</div>
+												<div class="col-sm-9">
+													<div class="d-flex justify-content-end">
+													</div>
+													<div>
+														<label class="control-label">배포소스</label>
+														<textarea class="form-control boxed " readonly style="background-color: transparent;" rows="5">${statusHistory.distSource}</textarea>
+													</div>
+													<div class="mt-2">
+														<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+															<span>${statusHistoryFile.fileName}</span>
+															<a href="#" role="button">
+																<i class="fas fa-cloud-download-alt"></i>
+															</a><br>
+														</c:forEach>
+													</div>
+												</div>
+											</div>	
+
 										</div>
 									</div>
 								</c:forEach>
-							</div>
 							
 						</div>
 						<!-- 게시글 상세보기 end -->
@@ -242,11 +263,10 @@
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body d-flex justify-content-center">
-					<form action="" method="post" name="startWork" class="mt-3" id="startWork">
+					<form action="${pageContext.request.contextPath}/startwork" method="post" class="mt-3" id="startWork">
 						<label class="mt-1" style="color: #343a40;" for="expectDate">배포 완료 예정일</label>
 						<input type="date" id= "expectDate" name="expectDate" class="form-control ml-2" style="width: 200px; display: inline;"/>
 						<input type="hidden" name="rno" value="${request.rno}"/>
-						<input type="hidden" name="nextStatus" value="10"/>
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -255,15 +275,13 @@
                     <a class="btn btn-primary" 
                     	onclick="validationCheck()">
                      	확인</a>
-                     <small id="allExpectDate">${requestProcess.allExpectDateStr}</small>
 				</div>
 			</div>
 		</div>
 	</div>
 	
-	<!-- date 입력받는 모달창 end -->
 		
-	<!-- 경고 모달창 -->
+	<!-- form 제출하는 모달창 -->
 	<div class="modal fade" id="alartDateTooMuch" aria-hidden="true" aria-labelledby="alartOfTimeTooMuch">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
@@ -273,11 +291,11 @@
 					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<p>입력 시간이 완료 예정일 대비 50% 이상 차지합니다. 확인을 누르시면 수정이 불가능합니다.</p>
+					<p></p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <a class="btn btn-primary" onclick="go()" type="button">확인</a>
+                    <a class="btn btn-primary" onclick="startWork()" type="button">확인</a>
 				</div>
 			</div>
 		</div>
@@ -300,7 +318,6 @@
 			</div>
 		</div>
 	</div>
-	
 	<script>
 		<!-- 데이트 입력 확인 /-->
 		function getDatemodal(){
@@ -309,49 +326,37 @@
 		function validationCheck(){
 			// 1. 날짜 선택했는지 여부 
 			if($('#expectDate').val() == ""){
-				$('#noInputDate').text("배포 완료 예정일을 입력하세요");
+				$('#noInputDate').text("유저테스트 완료 예정일을 입력하세요");
 				return;
 			}
 			
-			console.log($('#allExpectDate').text());
-			console.log($('#expectDate').val());
 			var aed = new Date($('#allExpectDate').text()).getTime(); 
 			var ied = new Date($('#expectDate').val()).getTime();
 			var today = new Date().getTime();
-			console.log(aed);
-			console.log(ied);
-			// 2. 테스트완료일보다 미래 + 요청완료 예정일보다 과거 선택해야 함
-			if(aed <= ied){
-				$('#noInputDate').text("요청 완료 예정일보다 과거여야합니다.");
+			// 2. 요청완료 예정일 이하 
+			if(aed < ied){
+				$('#noInputDate').text("요청 완료 예정일 이전으로 선택해주세요.");
 				return;
 			}
-			// 3. (입력 완료 예정일 - 현재날짜) / (요청완료 예정일 - 현재날짜) >= 50%
+			// 3. 오늘 날짜 이상
+			if(today > ied){
+				$('#noInputDate').text("오늘날짜 이후로 선택해주세요.");
+				return;
+			}
+			// 4. (입력 완료 예정일 - 현재날짜) / (요청완료 예정일 - 현재날짜) >= 50%
 			if(((ied - today)/ (aed - today)) >= 0.5){
 				$('#datemodal').modal('hide');
 				$('#alartDateTooMuch').modal('show');
 			}else{
-				startWork();
-				$('#alartDateTooMuch').modal('hide');
-				$('#completeDueDate').modal('show');
+				$('#datemodal').modal('hide');
+				$('#alartDateTooMuch').modal('show');
 			}
 		}
-		
-		function go(){
-			startWork();
+
+		function startWork(){
 			$('#alartDateTooMuch').modal('hide');
 			$('#completeDueDate').modal('show');
-		}
-		
-		
-		
-		function startWork(){
-			var queryString = $("form[name=startWork]").serialize() ;	
-			$.ajax({
-				type : 'post',
-				url : '${pageContext.request.contextPath}/startwork',
-				data : queryString,
-				dataType : 'json'
-			});
+			$('#startWork').submit();
 		}
 	</script>
 </body>

@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>Login to start</title>
     <link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.css" rel="stylesheet">
@@ -24,11 +25,11 @@
 					<form id="login-form"  action="${pageContext.request.contextPath}/login" method="POST" novalidate>
 						<div class="form-group">
 							<label for="mid" >UserId</label>
-							<input type="email" class="form-control underlined" name="mid" id="mid" value="${member.mid}" placeholder="Your email address" required>
+							<input type="email" class="form-control underlined" name="mid" id="mid" value="developer1" placeholder="Your email address" required>
 						</div>
 						<div class="form-group">
 							<label for="password" >Password</label>
-							<input type="password" class="form-control underlined" name="password" id="password" value="${member.password}" placeholder="Your password" required>
+							<input type="password" class="form-control underlined" name="password" id="password" value="1234" placeholder="Your password" required>
 						</div>
 						<div class="form-group">
 							<label for="remember">

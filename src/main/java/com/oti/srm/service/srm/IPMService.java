@@ -16,5 +16,7 @@ public interface IPMService {
 
 	public int receipt(StatusHistory statusHistory, RequestProcess requestProcess);
 
+	public StatusHistory getStatusHistory(int rno, String string);
+
 
 }
