@@ -42,13 +42,11 @@ public class PMService implements IPMService {
 	@Transactional
 	public int receipt(StatusHistory statusHistory, RequestProcess requestProcess) {
 		try {
-			log.info("service진입");
 			// 서비스 요청->접수 완료
 			commonDao.updateRequestStatus(statusHistory.getRno(), statusHistory.getNextStatus());	
-			log.info("updateRequestStatus");
 			// 접수 완료 이력 작성
 			commonDao.insertStatusHistory(statusHistory);
-			log.info("insertStatusHistory");
+			// 첨부 파일 등록
 			List<StatusHistoryFile> fileList =statusHistory.getFileList();
 			if(fileList !=null) {
 				for(StatusHistoryFile file: fileList) {
@@ -56,12 +54,12 @@ public class PMService implements IPMService {
 					commonDao.insertStatusHistoryFile(file);
 				}
 			}			
-			log.info("file");
 			// 서비스 요청 처리 프로세스
+			// 접수 완료
 			if(statusHistory.getNextStatus()==2) {
 				int result=pMDao.insertRequestProcess(requestProcess);
-				log.info("insertRequestProcess: "+result);
 				return (result==1)?1:0;	
+			//반려	
 			} else {
 				return 1;
 			}			
