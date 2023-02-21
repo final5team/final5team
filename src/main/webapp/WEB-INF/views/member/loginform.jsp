@@ -5,13 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<<<<<<< HEAD
+
 <meta charset="UTF-8">
 <title>Login to start</title>
     <link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.css" rel="stylesheet">
-=======
->>>>>>> branch 'master' of https://github.com/final5team/final5team.git
-	<%@ include file="/WEB-INF/views/common/head.jsp"%>
+    <%@ include file="/WEB-INF/views/common/head.jsp" %>
 </head>
 <body>
 	<div class="auth">
