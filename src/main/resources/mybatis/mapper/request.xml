@@ -36,10 +36,11 @@
 		where rnum=1
 	</select>
 
-
-
-
-
+	<select id="selectRequest" parameterType="String" resultType="int">
+		select max(rno) as "rno"
+		from requests
+		where client = #{client}
+	</select>
 
 
 

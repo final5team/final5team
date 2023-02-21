@@ -372,6 +372,8 @@ article.include div {
 .include .bar.active {
 	border-color: #87cd36;
 }
+
+
 </style>
 </head>
 
@@ -398,7 +400,7 @@ article.include div {
 				<div class="container-fluid">
 
 
-					<form method="post" action="${pageContext.request.contextPath}/customer/request">
+					<form method="post" action="${pageContext.request.contextPath}/customer/request" enctype="multipart/form-data">
 						<section class="section1">
 							<h4>요청 작성</h4>
 						</section>
@@ -469,8 +471,8 @@ article.include div {
 							</article>
 							<article class="fileBody">
 								<div class="item">
-									<button type="button" name="img-add" class="btn-primary btn-sm" onclick="onclick=document.all.mfile.click()">파일 등록</button>
-									<input class="file" type="file" id="mfile" name="mfile" style="display: none" /> <label class="file" for="mfile">파일첨부</label>
+									<button type="button" name="img-add" class="btn-primary btn-sm" onclick="onclickUpload()">파일 등록</button>
+									<input multiple="multiple" type="file" id="mfile" name="mfile[]" style="display: none" /> <label class="file" for="file">파일첨부</label>
 								</div>
 							</article>
 
@@ -483,7 +485,6 @@ article.include div {
 							<article class="include">
 								<%@ include file="/WEB-INF/views/srm/restatus/nowstatushorizon.jsp"%>
 							</article>
-
 						</section>
 					</form>
 				</div>
@@ -504,6 +505,16 @@ article.include div {
 	<a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
 	</a>
 
+	<script>
+		function onclickUpload() {
+			let fileUpload = document.getElementById('mfile');
+			fileUpload.click();
+		}
+
+		
+		
+		
+	</script>
 
 </body>
 
