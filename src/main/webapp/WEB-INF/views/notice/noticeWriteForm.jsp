@@ -40,15 +40,13 @@
                 <div id="writeform" class="container">
                 	<h1 class="">공지사항 작성</h1>
                		<hr/>
-	                <form action="" method="post" enctype="multipart/form-data">
+	                <form action="${pageContext.request.contextPath}/noticewrite" method="post" enctype="multipart/form-data">
 	                	<div class="form-group row">
 					    	<label for="systems" class="col-2">시스템</label>
 					    	<select class="form-control col-10" id="sno" name="sno">
-					      		<option value="1">가족관계정보</option>
-					      		<option value="2">전자조달</option>
-					      		<option value="3">국민취업지원제도</option>
-					      		<option value="4">나라장터</option>
-					      		<option value="5">전파관리</option>
+					    		<c:forEach var="system" items="${systemList}">
+					    			<option value="${system.sno}">${system.systemName}</option>
+					    		</c:forEach>
 					    	</select>
 					  	</div>
 					  	<div class="form-group row">

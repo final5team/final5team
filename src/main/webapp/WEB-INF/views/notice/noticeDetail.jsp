@@ -47,63 +47,57 @@
                 <!-- 여기에 내용 담기 start -->
                 <div id="noticeDetail" class="container">
                 	<h1>공지사항 조회</h1>
-               		<h6>작성일 : 2023-02-16</h6>
-                	<h6>작성자 : 송영훈</h6>
+               		<h6>작성일 : <fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd"/></h6>
+                	<h6>작성자 : ${notice.mid}</h6>
                		<hr/>
  
                 	<div class="row p-2">
 				    	<div class="col-2">시스템</div>
-				    	<input type="text" class="form-control col-10" value="가족관계정보시스템" readonly/>
+				    	<input type="text" class="form-control col-10" value="${notice.systemName}" readonly/>
 				  	</div>
 				  	<div class="row p-2">
 				    	<div class="col-2">공개 설정</div>
 				    	<div class="col-10">
-					    	<img src="resources/img/checkbox.png" class="checkboxIcon"/>
+				    	<c:if test="${notice.userShow == 'Y'}">
+				    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
+					    	<span class="mr-1">고객</span>
+				    	</c:if>
+				    	<c:if test="${notice.devShow == 'Y'}">
+				    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
 					    	<span class="mr-1">개발자</span>
-					    	<img src="resources/img/checkbox.png" class="checkboxIcon"/>
+				    	</c:if>
+				    	<c:if test="${notice.testerShow == 'Y'}">
+				    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
 					    	<span class="mr-1">테스터</span>
-					    	<img src="resources/img/checkbox.png" class="checkboxIcon"/>
+				    	</c:if>
+				    	<c:if test="${notice.userTesterShow == 'Y'}">
+				    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
+					    	<span class="mr-1">고객테스터</span>
+				    	</c:if>
+				    	<c:if test="${notice.distributorShow == 'Y'}">
+				    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
 					    	<span class="mr-1">배포담당자</span>
+				    	</c:if>
 				    	</div>
 				  	</div>
 				  	<div class="row p-2">
 				    	<div class="col-2">제목</div>
-				    	<input type="text" class="form-control col-10" value="가족관계정보시스템 관련 개발/배포담당자 업무 시 참고사항" readonly/>
+				    	<input type="text" class="form-control col-10" value="${notice.noticeTitle}" readonly/>
 				  	</div>
 				    <div class="row p-2">
 				    	<div class="col-2">내용</div>
-				    	<textarea class="form-control col-10" rows="10" readonly>참고사항</textarea>
+				    	<textarea class="form-control col-10" rows="10" readonly>${notice.noticeContent}</textarea>
 				    </div>
 				  	<div class="row p-2">
-				    	<div class="col-2">첨부파일 등록</div>
-				    	<!-- 다운로드 파일 리스트 -->
-				    	<div class="col-10">
-				    		<div>
-					    		<a href="">songyounghun.jpg</a>
-					    		<a href="" class="ml-2">
-					    			<img src="resources/img/lookahead.png" class="lookaheadicon"/>
-					    		</a>
-				    		</div>
-				    		<div>
-					    		<a href="">janghyun.pptx</a>
-					    		<a href="" class="ml-2">
-					    		</a>
-				    		</div>
-				    		<div>
-					    		<a href="">jisung.mpg</a>
-					    		<a href="" class="ml-2">
-					    		</a>
-				    		</div>
-				    		<div>
-					    		<a href="">jiyoung.hwp</a>
-					    		<a href="" class="ml-2">
-					    		</a>
-				    		</div>
-				    	</div>
+			    		<c:forEach var="noticeFile" items="${notice.fileList}">
+			    			<div>
+				    			<a href="${pageContext.request.contextPath}/noticefiledownload?fno=${noticeFile.fno}">${noticeFile.fileName}</a>
+			    			</div>
+			    		</c:forEach>
 				  	</div>
 				  	<a href="${pageContext.request.contextPath}/noticelist" class="btn btn-sm btn-primary">목록</a>
-				  	<a href="${pageContext.request.contextPath}/noticeupdateform" class="btn btn-sm btn-primary">수정</a>
-				  	<a href="#" class="btn btn-sm btn-primary">삭제</a>
+				  	<a href="${pageContext.request.contextPath}/noticeupdateform?nno=${notice.nno}" class="btn btn-sm btn-primary">수정</a>
+				  	<a href="${pageContext.request.contextPath}/noticedelete?nno=${notice.nno}" class="btn btn-sm btn-primary">삭제</a>
                 </div>
                 
                 <!-- 여기에 내용 담기 end -->

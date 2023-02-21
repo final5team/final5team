@@ -1,38 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oti.srm.dao.notice.INoticeDao">
-	<select id="getNoticeList" parameterType="map" resultType="com.oti.srm.dto.Notice">
+	<select id="selectNoticeList" parameterType="map" resultType="com.oti.srm.dto.Notice">
 		select 
 			nno as "nno",
 			notice_title as "noticeTitle",
-			notice_content as "noticeContent",
 			notice_date as "noticeDate",
-			mid as "mid",
-			user_show as "userShow",
-			dev_show as "devShow",
-			tester_show as "testerShow",
-			distributor_show as "distributorShow",
-			user_tester_show as "userTesterShow",
-			sno as "sno"
+			mid as "mid"
 		from notices 
 		<where>
-			<if test="searchWord != null">
-				notice_title like #{searchWord}
+			<if test="searchWord != ''">
+				<if test="searchType == '제목'">notice_title like #{searchWord}</if>
+				<if test="searchType == '작성자'">mid like #{searchWord}</if>
 			</if>
-			<if test="userType == 'developer'">
+			<if test="mtype == 'developer'">
 				and dev_show = 'Y'
 			</if>
-			<if test="userType == 'tester'">
+			<if test="mtype == 'tester'">
 				and tester_show = 'Y'
 			</if>
-			<if test="userType == 'userTester'">
+			<if test="mtype == 'userTester'">
 				and user_tester_show = 'Y'
 			</if>
-			<if test="userType == 'distributor'">
+			<if test="mtype == 'distributor'">
 				and distributor_show = 'Y'
 			</if>
-			<if test="userType == 'user'">
+			<if test="mtype == 'user'">
 				and user_show = 'Y'
+			</if>
+			<if test="sno != 0">
+				and sno = #{sno}
 			</if>
 		</where>
 		order by notice_date desc
@@ -40,43 +37,36 @@
 		FETCH NEXT #{pager.rowsPerPage} ROWS ONLY
 	</select>
 	
-	<select id="getNoticeListCount" parameterType="map" resultType="int">
-		select 
-			nno as "nno",
-			notice_title as "noticeTitle",
-			notice_content as "noticeContent",
-			notice_date as "noticeDate",
-			mid as "mid",
-			user_show as "userShow",
-			dev_show as "devShow",
-			tester_show as "testerShow",
-			distributor_show as "distributorShow",
-			user_tester_show as "userTesterShow",
-			sno as "sno"
+	<select id="selectNoticeListCount" parameterType="map" resultType="int">
+		select count(*)
 		from notices 
 		<where>
-			<if test="searchWord != null">
-				notice_title like #{searchWord}
+			<if test="searchWord != ''">
+				<if test="searchType == '제목'">notice_title like #{searchWord}</if>
+				<if test="searchType == '작성자'">mid like #{searchWord}</if>
 			</if>
-			<if test="userType == 'developer'">
+			<if test="mtype == 'developer'">
 				and dev_show = 'Y'
 			</if>
-			<if test="userType == 'tester'">
+			<if test="mtype == 'tester'">
 				and tester_show = 'Y'
 			</if>
-			<if test="userType == 'userTester'">
+			<if test="mtype == 'userTester'">
 				and user_tester_show = 'Y'
 			</if>
-			<if test="userType == 'distributor'">
+			<if test="mtype == 'distributor'">
 				and distributor_show = 'Y'
 			</if>
-			<if test="userType == 'user'">
+			<if test="mtype == 'user'">
 				and user_show = 'Y'
+			</if>
+			<if test="sno != 0">
+				and sno = #{sno}
 			</if>
 		</where>
 	</select>
 	
-	<select id="getNotice" parameterType="int" resultType="com.oti.srm.dto.Notice">
+	<select id="selectNotice" parameterType="int" resultType="com.oti.srm.dto.Notice">
 		select 
 			nno as "nno",
 			notice_title as "noticeTitle",
@@ -88,15 +78,20 @@
 			tester_show as "testerShow",
 			distributor_show as "distributorShow",
 			user_tester_show as "userTesterShow",
-			sno as "sno"
-		from notices 
-		where nno = #{nno}
+			n.sno as "sno",
+			system_name as "systemName"
+		from notices n, systems s
+		where n.sno = s.sno 
+		and nno = #{nno}
 	</select>
 	
 	<insert id="insertNotice" parameterType="com.oti.srm.dto.Notice">
+		<selectKey keyProperty="nno" resultType="int" order="BEFORE">
+ 			SELECT seq_notices.nextval FROM dual
+ 		</selectKey>
 		insert into notices 
 		values
-		(seq_notices.nextval, #{noticeTitle}, #{noticeContent}, sysdate, 
+		(#{nno}, #{noticeTitle}, #{noticeContent}, sysdate, 
 		#{mid}, #{userShow}, #{devShow}, #{testerShow}, #{sno}, #{distributorShow}, #{userTesterShow})
 	</insert>
 	
@@ -127,7 +122,7 @@
 		where nno = #{nno}
 	</delete>
 	
-	<select id="getNoticeFiles" parameterType="int" resultType="com.oti.srm.dto.NoticeFile">
+	<select id="selectNoticeFiles" parameterType="int" resultType="com.oti.srm.dto.NoticeFile">
 		select 
 			fno as "fno",
 			saved_date as "savedDate",
@@ -150,4 +145,11 @@
 		from notice_files
 		where fno = #{fno}
 	</delete>
+	
+	<select id="selectSystemList" resultType="com.oti.srm.dto.System">
+		select 
+			sno as "sno",
+			system_name as "systemName"
+		from systems
+	</select>
 </mapper>
