@@ -37,7 +37,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "/login";
+		return "/home";
 	}
 	
 	@GetMapping("/main")
