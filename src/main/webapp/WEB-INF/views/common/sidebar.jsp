@@ -73,12 +73,12 @@
 				<span>개발자의 담당요청 상세보기</span></a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/testdetail?rno=41">
+			<a class="nav-link" href="${pageContext.request.contextPath}/testerdetail?rno=41">
 				<i class="fas fa-vial"></i>
 				<span>테스터의 담당요청 상세보기</span></a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/usertesterdetail?rno=41">
+			<a class="nav-link" href="${pageContext.request.contextPath}/usertestdetail?rno=41">
 				<i class="fas fa-vial"></i>
 				<span>유저테스터의 담당요청 상세보기</span></a>
 		</li>
