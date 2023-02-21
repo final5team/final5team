@@ -1,8 +1,6 @@
 package com.oti.srm.controller.srm;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.oti.srm.dto.Member;
-import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.StatusHistory;
 import com.oti.srm.service.srm.ICommonService;
 
@@ -35,11 +32,7 @@ public class UserTestDistributeController {
 		// 요청정보
 		model.addAttribute("request", commonService.getRequest(rno));
 		// 요청 처리정보
-		RequestProcess rp = commonService.getRequestProcess(rno);
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String str = format.format(rp.getAllExpectDate());
-		rp.setAllExpectDateStr(str);
-		model.addAttribute("requestProcess", rp);
+		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
 		// 개발자 -> 테스터
 		model.addAttribute("devToTesterHistories", commonService.getDevToTesterHistories(rno));
 		return "srm/userTester";
@@ -52,7 +45,6 @@ public class UserTestDistributeController {
 		// Validation(내 담당건 맞는지)
 		// 요청정보
 		model.addAttribute("request", commonService.getRequest(rno));
-		// Validation(내 담당건 맞는지)
 		// 요청 처리정보
 		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
 		// 개발자 -> 테스터
@@ -68,14 +60,15 @@ public class UserTestDistributeController {
 		log.info("실행");
 		Member me = (Member) session.getAttribute("member");
 		statusHistory.setWriter(me.getMid());
-		statusHistory.setNextStatus(8);
-		commonService.startWork(statusHistory, expectDate, me.getMtype());
 		if (me.getMtype().equals("usertester")) {
+			statusHistory.setNextStatus(8);
+			commonService.startWork(statusHistory, expectDate, me.getMtype());
 			return "redirect:/usertestdetail?rno=" + statusHistory.getRno();
 		} else {
+			statusHistory.setNextStatus(10);
+			commonService.startWork(statusHistory, expectDate, me.getMtype());
 			return "redirect:/distributedetail?rno=" + statusHistory.getRno();
 		}
-
 	}
 	
 	// 작성자 : 송영훈
@@ -87,11 +80,13 @@ public class UserTestDistributeController {
 		log.info("실행");
 		Member me = (Member) session.getAttribute("member");
 		statusHistory.setWriter(me.getMid());
-		statusHistory.setNextStatus(9);
-		commonService.endWork(statusHistory, me.getMtype());
 		if (me.getMtype().equals("usertester")) {
+			statusHistory.setNextStatus(9);
+			commonService.endWork(statusHistory, me.getMtype());
 			return "redirect:/usertestdetail?rno=" + statusHistory.getRno();
 		} else {
+			statusHistory.setNextStatus(11);
+			commonService.endWork(statusHistory, me.getMtype());
 			return "redirect:/distributedetail?rno=" + statusHistory.getRno();
 		}
 	}
