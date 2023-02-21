@@ -77,15 +77,17 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		request.setReqType(listFilter.getReqType());
 		
 		if(listFilter.getDateFirst().isEmpty() && listFilter.getDateLast().isEmpty()) {
-			request.setDateFirst("sysdate");
+			request.setDateValue("zero");
+		} else if ( listFilter.getDateFirst().isEmpty()) {
+			request.setDateValue("first");
+			request.setDateLast(listFilter.getDateLast());
 			
-			request.setDateLast("null");
-		} else if (listFilter.getDateLast().isEmpty()) {
-			request.setDateLast("sysdate");
-		} else if(listFilter.getDateFirst().isEmpty()) {
+		} else if(listFilter.getDateLast().isEmpty()) {
+			request.setDateValue("last");
+			request.setDateFirst(listFilter.getDateFirst());
 			
-			request.setDateFirst("null");
 		} else {
+			request.setDateValue("both");
 			request.setDateFirst(listFilter.getDateFirst());
 			request.setDateLast(listFilter.getDateLast());
 		}
