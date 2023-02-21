@@ -1,14 +1,20 @@
 package com.oti.srm.controller.notice;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -67,10 +73,11 @@ public class NoticeController {
 	// 공지사항 작성
 	@PostMapping("/noticewrite")
 	public String noticeWrite(Notice notice, MultipartFile[] files, Model model, HttpSession session) {
+		log.info("실행");
 		if (notice.getUserShow() == null) {
 			notice.setUserShow("N");
 		}
-		if (notice.getDevShow()== null) {
+		if (notice.getDevShow() == null) {
 			notice.setDevShow("N");
 		}
 		if (notice.getTesterShow() == null) {
@@ -119,8 +126,21 @@ public class NoticeController {
 
 	// 공지사항 삭제
 	@GetMapping("/noticedelete")
-	public String noticeDelete() {
-		return "redirect:/noticeList";
+	public String noticeDelete(int nno) {
+		noticeService.deleteNotice(nno);
+		return "redirect:/noticelist";
 	}
+
+	// 공지사항 다운로드
+	@GetMapping("/noticefiledownload")
+	public  ResponseEntity<byte[]> noticeFileDownload(int fno) {
+		NoticeFile noticeFile = noticeService.downloadNoticeFile(fno);
+		final HttpHeaders headers = new HttpHeaders();
+		String[] mtypes = noticeFile.getFileType().split("/");
+		headers.setContentType(new MediaType(mtypes[0], mtypes[1]));
+		headers.setContentDispositionFormData("attachment", noticeFile.getFileName());
+		return new ResponseEntity<byte[]>(noticeFile.getFileData(), headers, HttpStatus.OK);
+	}
+	
 
 }

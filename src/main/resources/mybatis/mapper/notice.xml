@@ -152,4 +152,16 @@
 			system_name as "systemName"
 		from systems
 	</select>
+	
+	<select id="selectNoticeFile" parameterType="int" resultType="com.oti.srm.dto.NoticeFile">
+		select	
+			fno as "fno",
+			saved_date as "savedDate",
+			file_name as "fileName",
+			file_type as "fileType",
+			file_data as "fileData",
+			nno as "nno"
+		from notice_files
+		where fno = #{fno}
+	</select>
 </mapper>

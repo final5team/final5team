@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oti.srm.dao.srm.ICommonDao">
-	<select id="getRequestHistories" parameterType="int" resultType="com.oti.srm.dto.StatusHistory">
+	<select id="selectRequestHistories" parameterType="int" resultType="com.oti.srm.dto.StatusHistory">
 		select
 	    	hno as "hno",
 	        change_date as "changeDate",
@@ -13,10 +13,10 @@
 		from status_histories sh, status s
 		where sh.next_status = s.status_no 
 		and sh.rno = #{rno}
-		order by change_date desc
+		order by change_date asc
 	</select>
 	
-	<select id="getStatusHistoryFiles" parameterType="int" resultType="com.oti.srm.dto.StatusHistoryFile">
+	<select id="selectStatusHistoryFiles" parameterType="int" resultType="com.oti.srm.dto.StatusHistoryFile">
 		select
 	    	fno as "fno",
 	    	saved_date as "savedDate",
@@ -28,7 +28,7 @@
 		where hno = #{hno}
 	</select>
 	
-	<select id="getRequest" parameterType="int" resultType="com.oti.srm.dto.Request">
+	<select id="selectRequest" parameterType="int" resultType="com.oti.srm.dto.Request">
 		select
 	    	rno as "rno",
 	    	req_date as "reqDate",
@@ -49,7 +49,7 @@
 		and rno = #{rno}
 	</select>
 	
-	<select id="getRequestProcess" parameterType="int" resultType="com.oti.srm.dto.RequestProcess">
+	<select id="selectRequestProcess" parameterType="int" resultType="com.oti.srm.dto.RequestProcess">
 		select
 	    	rno as "rno",
 	    	req_type as "reqType",
@@ -73,7 +73,7 @@
 		where rno = #{rno}
 	</select>
 	
-	<select id="getRequestFiles" parameterType="int" resultType="com.oti.srm.dto.StatusHistoryFile">
+	<select id="selectRequestFiles" parameterType="int" resultType="com.oti.srm.dto.StatusHistoryFile">
 		select 
 			fno as "fno",
 			saved_date as "savedDate",

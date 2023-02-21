@@ -35,4 +35,6 @@ public interface INoticeDao {
 
 	public List<System> selectSystemList();
 	
+	public NoticeFile selectNoticeFile(int fno);
+	
 }

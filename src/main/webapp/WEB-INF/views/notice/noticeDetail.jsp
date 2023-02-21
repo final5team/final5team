@@ -89,15 +89,18 @@
 				    	<textarea class="form-control col-10" rows="10" readonly>${notice.noticeContent}</textarea>
 				    </div>
 				  	<div class="row p-2">
-			    		<c:forEach var="noticeFile" items="${notice.fileList}">
-			    			<div>
-				    			<a href="${pageContext.request.contextPath}/noticefiledownload?fno=${noticeFile.fno}">${noticeFile.fileName}</a>
-			    			</div>
-			    		</c:forEach>
+				  		<div class="col-2">첨부파일</div>
+				  		<div class="col-2">
+				    		<c:forEach var="noticeFile" items="${notice.fileList}">
+					    			<a href="${pageContext.request.contextPath}/noticefiledownload?fno=${noticeFile.fno}">${noticeFile.fileName}</a>
+				    		</c:forEach>
+			    		</div>
 				  	</div>
 				  	<a href="${pageContext.request.contextPath}/noticelist" class="btn btn-sm btn-primary">목록</a>
-				  	<a href="${pageContext.request.contextPath}/noticeupdateform?nno=${notice.nno}" class="btn btn-sm btn-primary">수정</a>
-				  	<a href="${pageContext.request.contextPath}/noticedelete?nno=${notice.nno}" class="btn btn-sm btn-primary">삭제</a>
+				  	<c:if test="${member.mid == notice.mid}">
+				  		<a href="${pageContext.request.contextPath}/noticeupdateform?nno=${notice.nno}" class="btn btn-sm btn-primary">수정</a>
+				  		<a href="${pageContext.request.contextPath}/noticedelete?nno=${notice.nno}" class="btn btn-sm btn-primary">삭제</a>
+				  	</c:if>
                 </div>
                 
                 <!-- 여기에 내용 담기 end -->
