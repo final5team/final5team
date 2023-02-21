@@ -9,55 +9,53 @@
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
     <style>
     	:root {
-		 	--line-fill: #3498db;
-		  	--line-empty: #e0e0e0;
-		  	--now-fill: #F40730;
-		}
-    	.container {
-		 	 text-align: center;
-		}
-		
-    	
-    	.circle {
-    		  margin-left : 25px;
-			  background-color: #fff;
-			  color: #999;
-			  border-radius: 50%;
-			  height: 30px;
-			  width: 150px;
-			  border: 3px solid var(--line-empty);
-			  transition: 0.4s ease;
-		}
-		.bar {
-			  margin-left : 100px;
-			  padding : 0px;
-			  background-color: #fff;
-			  color: #999;
-			  height: 60px;
-			  width: 1px;
-			  align-items: center;
-			  justify-content: center;
-			  border: 3px solid var(--line-empty);
-			  transition: 0.4s ease;
-		}
-		
-		.circle.active {
-		  	border-color: var(--line-fill);
-		}
-		
-		.circle.now {
-		  	border-color: var(--now-fill);
-		}
-		
-		.bar.active {
-		  	border-color: var(--line-fill);
-		}
-		.reply-from-work{
-			 border: 2px solid #d7dde4;
- 			 border-radius: 8px;
-	    	width: 870px;
-			margin: 20px 17px;
-		}
+          --line-fill: #87cd36;
+           --line-empty: #e0e0e0;
+           --now-fill: #F40730;
+      }
+       .container {
+           text-align: center;
+      }
+      
+       
+       .circle {
+            margin-left : 25px;
+           background-color: #fff;
+           color: #999;
+           height: 40px;
+           width: 150px;
+           font-size : 20px;
+           line-height : 40px;
+           border: 3px solid var(--line-empty);
+           transition: 0.4s ease;
+      }
+      .bar {
+           margin-left : 100px;
+           padding : 0px;
+           background-color: #fff;
+           color: #999;
+           height: 30px;
+           width: 1px;
+           align-items: center;
+           justify-content: center;
+           border: 3px solid var(--line-empty);
+           transition: 0.4s ease;
+      }
+      
+      .circle.done {
+           border-color: var(--line-fill);
+           color : var(--line-fill);
+      }
+      
+      .circle.now {
+         border-color : white;
+         color : white;
+           background-color : var(--line-fill);
+      }
+      
+      .bar.active {
+           border-color: var(--line-fill);
+      }
 		
     </style>
 </head>
@@ -92,156 +90,191 @@
 						<!-- 게시글 상세보기 start -->
 						<div class="col-xl-9 col-lg-8 col-md-8 col-sm-8">
 							<div class="card">
-								<div class="card-header d-flex">
-									<div class="mr-auto">개발상세보기 ></div>
-									<div class="ml-3">정규</div>
-									<div class="ml-5 mr-4">중요도: 상</div>
+								<div class="card-header d-flex  ">
+									<h6 class="mr-auto text-primary font-weight-bold">개발상세보기 ></h6>
+									<c:if test="${requestProcess.reqType eq '정규'}">
+									<div class="ml-3">정규<i class="far fa-registered text-secondary"></i></div>
+									</c:if>
+									<c:if test="${requestProcess.reqType eq '긴급'}">
+									<div class="ml-3">긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
+									</c:if>
+									<div class="ml-5 mr-4">중요도:
+										<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
+										<span class="fa fa-star checked" style="color: orange;"></span>
+										</c:if>
+										<c:if test="${requestProcess.priority eq '중' || requestProcess.priority eq '상'}">
+										<span class="fa fa-star checked" style="color: orange;"></span>
+										</c:if>
+										<c:if test="${requestProcess.priority eq '상'}">
+										<span class="fa fa-star checked" style="color: orange;"></span>
+										</c:if>
+									</div>
 								</div>
 								<div class="card-body">
 									<div>
-										<h3 class="mr-auto font-weight-bold">여기는 제목 자리입니다.</h3>
+										<h3 class="mr-auto font-weight-bold">${request.reqTitle}</h3>
 									</div>
 									<div class="row">
 										<div class="col-sm-6">
-											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="20%">
-											<span class="font-weight-bold ml-2">홍길동</span>
-											<span class="ml-3">서울강남고용센터</span>
+											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="20%">
+											<span class="font-weight-bold ml-2">${request.clientName}</span>
+											<span class="ml-3">${request.organ}</span>
 										</div>
 										<div class="col-sm-6 ml-auto">
 											<div class="d-flex">
 												<div class="pl-5">시스템:</div>
-												<div class="pl-2 flex-grow-1">무슨시스템</div>
+												<div class="pl-2 flex-grow-1">${request.systemName}</div>
 											</div>
 											<div class="d-flex">
 												<div class="pl-5">요청일:</div>
-												<div class="pl-2 flex-grow-1">2023-02-03</div>
+												<div class="pl-2 flex-grow-1"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd"/></div>
 											</div>
 											<div class="d-flex">
 												<div class="pl-5">요청완료예정일:</div>
-												<div class="pl-2 flex-grow-1">2023-04-10</div>
+												<div class="pl-2 flex-grow-1" id="reqExpectDate"><fmt:formatDate value="${request.reqExpectDate}" pattern="yyyy-MM-dd"/></div>
 											</div>
 										</div>
 									</div>
-									<div class="mt-2 ml-5">여기는 내용이지요~~</div>
-									<div class="mt-3 ml-5">
-										<span>파일이름</span>
-										<a href="#" role="button">
-											<i class="fas fa-cloud-download-alt"></i>
-										</a>
+									<div class="mt-2 ml-5">${request.reqContent}</div>	
+										<div class="mt-3 ml-5">
+										<c:if test="${request.files != null}">
+										<c:forEach var="statusHistoryFile" items="${request.files}">
+											<span>${statusHistoryFile.fileName}</span>
+											<a href="#" role="button">
+												<i class="fas fa-cloud-download-alt"></i>
+											</a>
+										</c:forEach>
+										</c:if>
+										</div>
+									<div class="d-flex justify-content-end">
+										<c:if test="${request.statusNo == 5}">
+										<button class="btn btn-primary btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">테스트시작</button>
+										</c:if>
+										<c:if test="${request.statusNo == 6}">
+										<button class="btn btn-warning btn-lg mt-3" onclick="askReexam()">재검토요청</button>
+										<button class="btn btn-info btn-lg mt-3" onclick="devEnd()">테스트완료</button>
+										</c:if>
 									</div>
 								</div>
 							</div>
-							<div>
-								<div class="d-flex justify-content-end">
-									 <button class="btn btn-gradient-warning btn-gradient btn-lg mt-3 " type="button">재검토요청</button>
-									 <button class="btn btn-gradient-danger btn-gradient btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">테스트시작</button>
-								<!-- <button class="btn btn-gradient-success btn-gradient btn-lg mt-3">개발 완료</button> -->
-								</div>
-							</div>
-							<div class="card mt-4">
-								<div class="card-header">개발 내용</div>
-								<div class="card-body row reply-from-work">
-									<div class="col-sm-2 d-flex align-items-center" style="text-align: center;">
-										<div>
-											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
-											<div class="ml-3">김레지나</div>
-										
-										</div>
-									</div>
-									<div class="col-sm-10">
-										<div class="d-flex justify-content-end mr-5">
-											<div>1차 개발</div>
-											<div class="ml-auto">2023-02-10</div>
-										</div>
-										<div>
-											개발내용: 개발자가 n차때 작성했었던 내용 보입니다.
-										</div>
-										<div>배포소스:familydocument.java</div>
-										<span>첨부파일: 파일이름</span>
-										<a href="#" role="button">
-											<i class="fas fa-cloud-download-alt"></i>
-										</a>
-									</div>
-								</div>
-								<div class="card-body row reply-from-work">
-									<div class="col-sm-2 d-flex align-items-center" style="text-align: center;">
-										<div>
-											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
-											<div class="ml-3">김레지나</div>
-										
-										</div>
-									</div>
-									<div class="col-sm-10">
-										<div class="d-flex justify-content-end mr-5">
-											<div>2차 개발</div>
-											<div class="ml-auto">2023-02-10</div>
-										</div>
-										<div>
-											개발내용: 개발자가 n차때 작성했었던 내용 보입니다.
-										</div>
-										<div>배포소스:familydocument.java</div>
-										<span>첨부파일: 파일이름</span>
-										<a href="#" role="button">
-											<i class="fas fa-cloud-download-alt"></i>
-										</a>
-									</div>
-								</div>
-							</div>
-
-							<div class="card mt-4">
-								<div class="card-header">결함 내용</div>
-								<div class="card-body row reply-from-work">
-									<div class="col-sm-2 d-flex align-items-center" style="text-align: center;">
-										<div>
-											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
-											<div class="ml-3">박말자</div>
-										
-										</div>
-									</div>
-									<div class="col-sm-10">
-										<div class="d-flex justify-content-end mr-5">
-											<div>1차 테스트</div>
-											<div class="ml-auto">2023-02-10</div>
-										</div>
-										<div>
-											결함내용: 테스터가 1차때 작성했었던 내용 보입니다.
-										</div>
-										<span>첨부파일: 파일이름</span>
-										<a href="#" role="button">
-											<i class="fas fa-cloud-download-alt"></i>
-										</a>
-									</div>
-								</div>
-							</div>
-							<!-- 개발자의 개발 요청 글 작성 start-->
+							<!-- 테스터의 개발 요청 글 작성 start-->
+							<c:if test="${request.statusNo == 6}">
 							<div class="card mt-4 mb-5">
 								<div class="card-header">작성하기</div>
 								<div class="card-body row">
 									<div class="col-sm-3 d-flex align-items-center" style="text-align:center;">
 										<div>
 											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="70%">
-											<div class="mt-3">나</div>
+											<div class="mt-3">${member.mname}</div>
 										</div>
 									</div>
 									<div class="col-sm-9">
-										<form role="form">
+										<form role="form" id="writeform" action="${pageContext.request.contextPath}/devdone" method="POST" enctype="multipart/form-data">
+											<input type="hidden" name="rno" value="${request.rno}">
 											<div class="col-sm-12 form-group">
 												<label class="control-label" >완료예정일</label>
-												<input type="text" class="form-control boxed" value="2023-02-09" readonly>
+												<input type="text" class="form-control boxed" value="<fmt:formatDate value="${requestProcess.devExpectDate}" pattern="yyyy-MM-dd"/>" readonly>
 											</div>
 											<div class="col-sm-12 form-group">
-												<label class="control-label">결함내용</label>
-												<textarea rows="2" class="form-control boxed"></textarea>
+												<label class="control-label">개발내용</label>
+												<textarea rows="2" class="form-control boxed" name="reply"></textarea>
 											</div>
 											<div class="filebox">
 												<label for="file">Choose a file</label>
-												<input type="file" id="file">
+												<input type="file" id="file" name="files" multiple>
 											</div>
 										</form>
 									</div>
 								</div>
 							</div>
+							</c:if>
 							<!-- 개발자의 개발 요청 글 작성 end-->
+							<div class="row mb-3">
+								<!-- 개발자의 개발내용 start -->
+								<div class="col-md-6">
+								<c:forEach varStatus="i" var="statusHistory" items="${devToTester}">
+									<div class="card mt-3 cardscroller" style="height: 262px;">
+										<div class="card-header d-flex justify-content-end">
+											<div>${i.count}차 개발</div>
+											<div class="ml-auto ml-1">${requestProcess.devExpectDate}</div>
+										</div>
+										<div class="card-body p-1 cardscroller-block">
+											<div class="row mr-3">
+												<div class="col-sm-3 d-flex align-items-center" style="text-align: center;">
+													<div>
+														<img class="rounded-circle mt-1" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
+														<div class="ml-2">${requestProcess.developer}</div>
+													
+													</div>
+												</div>
+												<div class="col-sm-9">
+													<div class="d-flex justify-content-end">
+													</div>
+													<div>
+														<label class="control-label">개발내용</label>
+														<textarea class="form-control boxed " readonly style="background-color: transparent;" rows="2">${statusHistory.reply}</textarea>
+													</div>
+													<div class=" mt-2">
+														<label class="control-label">배포소스</label>
+														<input class="form-control boxed" value="${statusHistory.distSource}" readonly style="background-color: transparent;">
+													</div>
+													<div class="mt-2">
+														<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+															<span>${statusHistoryFile.fileName}</span>
+															<a href="#" role="button">
+																<i class="fas fa-cloud-download-alt"></i>
+															</a><br>
+														</c:forEach>
+													</div>
+												</div>
+											</div>	
+
+										</div>
+									</div>
+								</c:forEach>
+								</div>
+								<!-- 개발자의 개발내용 end -->
+								<!-- 테스터의 개발내용 start -->
+								<div class="col-md-6">
+								<c:forEach varStatus="i" var="statusHistory" items="${testerToDev}">							
+
+									<div class="card mt-3" style="height: 262px;">
+										<div class="card-header d-flex justify-content-end">
+											<div>${i.count}차 결함</div>
+											<div class="ml-auto ml-1">${requestProcess.testExpectDate}</div>
+										</div>
+										<div class="card-body p-1">
+											<div class="row">
+												<div class="col-sm-3 d-flex align-items-center" style="text-align: center;">
+													<div>
+														<img class="rounded-circle mt-1" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
+														<div class="ml-2">${requestProcess.tester}</div>
+													
+													</div>
+												</div>
+												<div class="col-sm-9">
+													<div class="d-flex justify-content-end">
+													</div>
+													<div>
+														<label class="control-label">결함내용</label>
+														<textarea class="form-control boxed " readonly style="background-color: transparent;" rows="3">${statusHistory.reply}</textarea>
+													</div>
+													<div class="mt-2">
+														<span>첨부파일: 파일이름</span>
+														<a href="#" role="button">
+															<i class="fas fa-cloud-download-alt"></i>
+														</a>
+													</div>
+												</div>
+											</div>	
+
+										</div>
+									</div>								
+								</c:forEach>
+								</div>
+								<!-- 테스터의 개발내용 end -->
+							</div>
+
 						</div>
 						<!-- 게시글 상세보기 end -->
 						<!-- 상태 단계 이력 start -->						
@@ -250,8 +283,9 @@
 								<div class="card-header">
 									<h6 class="m-0 font-weight-bold text-primary">단계 상태</h6>
 								</div>
-								<div class="card-body">
-									<div></div>
+								<div class="card-body mx-auto">
+							        <%@ include file="/WEB-INF/views/srm/nowstatusvertical.jsp" %>
+								
 									<div class="mt-4 text-center small"></div>
 								</div>
 							</div>
@@ -285,16 +319,21 @@
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="developDueDate">테스트 완료 예정일 입력</h5>
+					<h5 class="modal-title" id="developDueDate">개발 완료 예정일 입력</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body d-flex justify-content-center">
-					<label class="mt-1" style="color: #343a40;">테스트 완료 예정일</label>
-					<input type="date" class="form-control ml-2" id="developDueDate" style="width: 200px; display: inline;">
+					<form id="formUpdateExpectDate" action="${pageContext.request.contextPath}/devinprogress" method="POST">
+						<label class="mt-1" style="color: #343a40;" for="developExpectDate">개발 완료 예정일</label>
+						<input type="date" class="form-control ml-2" id="developExpectDate" name="developExpectDate" style="width: 200px; display: inline;">
+						<input type="hidden" name="rno" value="${request.rno}">
+						<input type="hidden" name="nextStatus" value="4">
+					</form>
 				</div>
 				<div class="modal-footer">
+					<small id="noInputDate" style="color : red;"></small>
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <a class="btn btn-primary" onclick="closedatemodal()">확인</a>
+                    <a class="btn btn-primary" onclick="checkDate()">확인</a>
 				</div>
 			</div>
 		</div>
@@ -302,7 +341,7 @@
 	
 	<!-- date 입력받는 모달창 end -->
 		
-	<!-- 경고 모달창 -->
+	<!-- 경고 모달창 (50% 이상일 경우)-->
 	<div class="modal fade" id="alartDateTooMuch" aria-hidden="true" aria-labelledby="alartOfTimeTooMuch">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
@@ -312,17 +351,16 @@
 					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<p>입력 시간이 완료 예정일 대비 50% 이상 차지합니다. 확인을 누르시면 수정이 불가능합니다.</p>
-					<p>입력하시겠습니까?. 확인을 누르시면 수정이 불가능합니다.</p>
+					<p id="pContent"></p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <a class="btn btn-primary" onclick="getcofirm()" type="button">확인</a>
+                    <a class="btn btn-primary" onclick="getconfirm()" type="button">확인</a>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- 경고 모달창 -->
+	<!-- 경고 모달창 (50% 이상일 경우) -->
 	<!-- 데이트 입력 확인 -->
 	<div class="modal fade" id="completeDueDate" aria-hidden="true" aria-labelledby="successOfDueDate">
 		<div class="modal-dialog modal-dialog-centered" role="document">
@@ -346,13 +384,48 @@
 		$('#datemodal').modal('show');
 		
 	}
-	function closedatemodal(){
-		$('#datemodal').modal('hide');
-		$('#alartDateTooMuch').modal('show');
+	function checkDate(){
+		$('#noInputDate').text("");
+		
+		if($('#developExpectDate').val() == ""){
+			$('#noInputDate').text("날짜를 입력해주세요.");
+			return;
+		}
+		
+		let today = new Date().getTime();   
+		var developExpectDate = new Date($('#developExpectDate').val()).getTime();
+		var reqExpectDate = new Date($('#reqExpectDate').text()).getTime();
+		
+		//오늘보다 이전 날짜를 입력할 경우
+		if(today > developExpectDate){
+			$('#noInputDate').text("현재보다 앞선 날짜를 입력해주세요.");
+			return;
+		}
+		//총완료예정일보다 큰 일정을 입력할 경우
+		if(reqExpectDate <= developExpectDate){
+			$('#noInputDate').text("완료예정일보다 과거여야 합니다.");
+			return;
+		}
+		if(((developExpectDate-today)/(reqExpectDate-today))>=0.5){
+			$('#pContent').text('');
+			$('#pContent').text('입력 시간이 완료 예정일 대비 50% 이상 차지합니다. 확인을 누르시면 수정이 불가능합니다.');
+			$('#alartDateTooMuch').modal('show');
+		} else{
+			$('#pContent').text('');
+			$('#pContent').text('입력하시겠습니까?. 확인을 누르시면 수정이 불가능합니다.');
+			$('#alartDateTooMuch').modal('show');
+		}
+		
 	}
-	function getcofirm(){
+	function getconfirm(){
 		$('#alartDateTooMuch').modal('hide');
+		//컨트롤러로 값 전달하기
+		$('#formUpdateExpectDate').submit();
+		
 		$('#completeDueDate').modal('show');
+	}
+	function devEnd(){
+		$('#writeform').submit();
 	}
 	</script>
 </body>

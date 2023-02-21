@@ -11487,22 +11487,24 @@ input[type="checkbox"]:checked + label:after {
 }      
 /*각 카드 스크롤 넣기*/
 /* Let's get this party started */
-.cardscroller{
+.cardscroller .cardscroller-block{
     overflow-y: scroll;
+    overflow-x: hidden;
+    margin: 0;
 }
 
-.cardscroller::-webkit-scrollbar {
+.cardscroller-block::-webkit-scrollbar {
   width: 7px;
   height: 7px; }
 
 /* Track */
-.cardscroller::-webkit-scrollbar-track {
+.cardscroller-block::-webkit-scrollbar-track {
   border-radius: 0; }
 
 /* Handle */
-.cardscroller::-webkit-scrollbar-thumb {
+.cardscroller-block::-webkit-scrollbar-thumb {
   border-radius: 0;
-  background: #78bd2e; }
+  background: #d7dde4; }
 
-.cardscroller::-webkit-scrollbar-thumb:window-inactive {
-  background: #85CE36; }
+.cardscroller-block::-webkit-scrollbar-thumb:window-inactive {
+  background: #3a4651; }
