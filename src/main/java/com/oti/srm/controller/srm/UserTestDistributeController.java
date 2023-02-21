@@ -68,7 +68,7 @@ public class UserTestDistributeController {
 		log.info("실행");
 		Member me = (Member) session.getAttribute("member");
 		statusHistory.setWriter(me.getMid());
-		statusHistory.setNextStatus(7);
+		statusHistory.setNextStatus(8);
 		commonService.startWork(statusHistory, expectDate, me.getMtype());
 		if (me.getMtype().equals("usertester")) {
 			return "redirect:/usertestdetail?rno=" + statusHistory.getRno();
@@ -87,7 +87,7 @@ public class UserTestDistributeController {
 		log.info("실행");
 		Member me = (Member) session.getAttribute("member");
 		statusHistory.setWriter(me.getMid());
-		statusHistory.setNextStatus(8);
+		statusHistory.setNextStatus(9);
 		commonService.endWork(statusHistory, me.getMtype());
 		if (me.getMtype().equals("usertester")) {
 			return "redirect:/usertestdetail?rno=" + statusHistory.getRno();
