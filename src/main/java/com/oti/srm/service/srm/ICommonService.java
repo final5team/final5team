@@ -25,4 +25,6 @@ public interface ICommonService {
 
 	public void uploadFile(StatusHistoryFile statusHistoryFile);
 
+	public Date getReceiptDoneDate(int rno);
+
 }

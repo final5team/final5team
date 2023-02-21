@@ -1,50 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oti.srm.dao.srm.IRequestDao">
-	<insert id="insertRequest" parameterType="com.oti.srm.dto.Request" >
+	<insert id="insertRequest"
+		parameterType="com.oti.srm.dto.Request">
 		<selectKey keyProperty="rno" resultType="int" order="BEFORE">
-			select SEQ_REQUESTS.nextval
+			select
+			SEQ_REQUESTS.nextval
 			from dual
 		</selectKey>
-		insert into requests (RNO, REQ_DATE, REQ_TITLE, REQ_CONTENT, CLIENT, SNO, REQ_EXPECT_DATE, STATUS_NO)
-		values(#{rno}, sysdate, #{reqTitle}, #{reqContent}, #{client}, #{sno}, #{reqExpectDate}, #{statusNo})
+		insert into requests (RNO, REQ_DATE, REQ_TITLE, REQ_CONTENT, CLIENT,
+		SNO, REQ_EXPECT_DATE, STATUS_NO)
+		values(#{rno}, sysdate, #{reqTitle},
+		#{reqContent}, #{client}, #{sno}, #{reqExpectDate}, #{statusNo})
 	</insert>
-	
-	<select id="getRequestList" resultType="com.oti.srm.dto.Request">
-		select RNO, REQ_DATE as "reqDate", REQ_TITLE as "reqTitle", REQ_CONTENT as "reqContent",
-				CLIENT, SNO, REQ_EXPECT_DATE as "reqExpectDate", STATUS_NO as "statusNo"
-    	from requests
-	</select>
-	
-	<select id="getPresentStep" parameterType="int" resultType="int">
-		select NEXT_STATUS
-			from (
-			    select rownum as rnum, NEXT_STATUS,CHANGE_DATE
-			        from(
-			            select rownum, NEXT_STATUS,CHANGE_DATE from status_histories
-			            where rno = #{rno}
-			            order by CHANGE_DATE desc
-			            )
-			    order by rnum
-			    )
-		where rnum=1
-	</select>
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<select id="countPm" parameterType="int" resultType="int">
-		select count(*)
+	<select id="getRequestList" resultType="com.oti.srm.dto.Request">
+		select RNO, REQ_DATE as
+		"reqDate", REQ_TITLE as "reqTitle", REQ_CONTENT as "reqContent",
+		CLIENT, SNO, REQ_EXPECT_DATE as "reqExpectDate", STATUS_NO as
+		"statusNo"
 		from requests
 	</select>
-	<select id="selectAll" parameterType="com.oti.srm.dto.Request" resultType="com.oti.srm.dto.SelectPM">
+
+	<select id="getPresentStep" parameterType="int" resultType="int">
+		select NEXT_STATUS
+		from (
+		select rownum as rnum, NEXT_STATUS,CHANGE_DATE
+		from(
+		select rownum, NEXT_STATUS,CHANGE_DATE from status_histories
+		where rno = #{rno}
+		order by CHANGE_DATE desc
+		)
+		order by rnum
+		)
+		where rnum=1
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+	<select id="countPm" parameterType="int" resultType="int">
+		select
+		count(*)
+		from requests
+	</select>
+	<select id="selectAll" parameterType="com.oti.srm.dto.Request"
+		resultType="com.oti.srm.dto.SelectPM">
 		<![CDATA[
 		select rownum, jj.RNO, jj.REQ_DATE as "reqDate" , jj.REQ_TITLE as "reqTitle", jj.REQ_CONTENT as "reqContent", 
                 jj.CLIENT, jj.SNO, jj.REQ_EXPECT_DATE as "reqExpectDate", jj.STATUS_NO as "statusNo",
@@ -58,16 +66,18 @@
 		            from requests r inner join request_process rp
 		            on r.RNO = rp.RNO
 		 ]]>
-		 <where>
+		<where>
 			<if test="sno != 0">
 				sno = #{sno}
 			</if>
 			<if test="reqType != '전체'">
 				REQ_TYPE = #{reqType}
 			</if>
-			
-			
-		 </where>
+
+
+
+
+		</where>
 		 <![CDATA[
 		            order by r.req_date desc
 		            ) j
@@ -75,7 +85,7 @@
 		    ) jj where rownum >=#{startRowNo}
 		]]>
 	</select>
-	
+
 
 
 </mapper>

@@ -147,17 +147,17 @@
 										</c:if>
 									</div>
 									<div class="d-flex justify-content-end">
-										<c:if test="${request.statusNo == 2 || request.statusNo == 3}">
+										<c:if test="${member.mtype =='developer' && (request.statusNo == 2 || request.statusNo == 3)}">
 										<button class="btn btn-primary btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">개발시작</button>
 										</c:if>
-										<c:if test="${request.statusNo == 4}">
+										<c:if test="${member.mtype =='developer' && request.statusNo == 4}">
 										<button class="btn btn-info btn-lg mt-3" onclick="devEnd()">개발 완료</button>
 										</c:if>
 									</div>
 								</div>
 							</div>
 							<!-- 개발자의 개발 요청 글 작성 start-->
-							<c:if test="${request.statusNo == 4}">
+							<c:if test="${member.mtype =='developer' && request.statusNo == 4}">
 							<div class="card mt-4 mb-5">
 								<div class="card-header">작성하기</div>
 								<div class="card-body row">
@@ -183,8 +183,8 @@
 												<input type="text" class="form-control boxed" name="distSource">
 											</div>
 											<div class="filebox">
-												<label for="file">Choose a file</label>
-												<input type="file" id="file" name="files" multiple>
+												<label for="files">Choose a file</label>
+												<input type="file" id="files" name="files" multiple>
 											</div>
 										</form>
 									</div>
@@ -199,7 +199,7 @@
 									<div class="card mt-3 cardscroller" style="height: 262px;">
 										<div class="card-header d-flex justify-content-end">
 											<div>${i.count}차 개발</div>
-											<div class="ml-auto ml-1">${requestProcess.devExpectDate}</div>
+											<div class="ml-auto ml-1">완료일: <fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
 										</div>
 										<div class="card-body p-1 cardscroller-block">
 											<div class="row mr-3">
@@ -244,7 +244,7 @@
 									<div class="card mt-3" style="height: 262px;">
 										<div class="card-header d-flex justify-content-end">
 											<div>${i.count}차 결함</div>
-											<div class="ml-auto ml-1">${requestProcess.testExpectDate}</div>
+											<div class="ml-auto ml-1">완료일: <fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
 										</div>
 										<div class="card-body p-1">
 											<div class="row">
@@ -330,7 +330,7 @@
 						<label class="mt-1" style="color: #343a40;" for="developExpectDate">개발 완료 예정일</label>
 						<input type="date" class="form-control ml-2" id="developExpectDate" name="developExpectDate" style="width: 200px; display: inline;">
 						<input type="hidden" name="rno" value="${request.rno}">
-						<input type="hidden" name="nextStatus" value="4">
+						<input type="hidden" name="receiptDoneDate" value="<fmt:formatDate value='${receiptDoneDate}' pattern='yyyy-MM-dd'/>">
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -399,6 +399,8 @@
 		let today = new Date().getTime();   
 		var developExpectDate = new Date($('#developExpectDate').val()).getTime();
 		var reqExpectDate = new Date($('#reqExpectDate').text()).getTime();
+		var receiptDoneDate = new Date($('input[name="receiptDoneDate"]').val()).getTime();
+		console.log(receiptDoneDate);
 		
 		//오늘보다 이전 날짜를 입력할 경우
 		if(today > developExpectDate){
@@ -410,7 +412,7 @@
 			$('#noInputDate').text("완료예정일보다 과거여야 합니다.");
 			return;
 		}
-		if(((developExpectDate-today)/(reqExpectDate-today))>=0.5){
+		if(((developExpectDate-receiptDoneDate)/(reqExpectDate-receiptDoneDate))>=0.5){
 			$('#pContent').text('');
 			$('#pContent').text('입력 시간이 완료 예정일 대비 50% 이상 차지합니다. 확인을 누르시면 수정이 불가능합니다.');
 			$('#alartDateTooMuch').modal('show');
@@ -431,6 +433,7 @@
 	function devEnd(){
 		$('#writeform').submit();
 	}
+	
 	
 	</script>
 </body>
