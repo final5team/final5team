@@ -196,13 +196,13 @@
 								<!-- 개발자의 개발내용 start -->
 								<div class="col-md-6">
 								<c:forEach varStatus="i" var="statusHistory" items="${devToTester}">
-									<div class="card mt-3" style="height: 262px;">
+									<div class="card mt-3 cardscroller" style="height: 262px;">
 										<div class="card-header d-flex justify-content-end">
 											<div>${i.count}차 개발</div>
 											<div class="ml-auto ml-1">${requestProcess.devExpectDate}</div>
 										</div>
-										<div class="card-body p-1 cardscroller">
-											<div class="row">
+										<div class="card-body p-1 cardscroller-block">
+											<div class="row mr-3">
 												<div class="col-sm-3 d-flex align-items-center" style="text-align: center;">
 													<div>
 														<img class="rounded-circle mt-1" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
@@ -430,6 +430,7 @@
 	function devEnd(){
 		$('#writeform').submit();
 	}
+	
 	</script>
 </body>
 
