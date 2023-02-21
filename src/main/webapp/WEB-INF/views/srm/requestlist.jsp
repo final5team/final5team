@@ -6,7 +6,6 @@
 
 <head>
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
-<link href="${pageContext.request.contextPath}/resources/css/requestlist.css" rel="stylesheet" type="text/css">
 <style>
 a {
 	text-decoration: none;
@@ -231,6 +230,7 @@ main {
 	height: 50px;
 	left: 61%;
 	top: 70%;
+	z-index: 5;
 }
 
 .step_tr {
@@ -275,6 +275,7 @@ main {
 }
 
 .pager {
+	
 }
 
 .circle {
@@ -305,9 +306,6 @@ main {
 	color: white;
 	background-color: #87cd36;
 }
-
-
-
 </style>
 
 </head>
@@ -332,48 +330,48 @@ main {
 				<!-- End of Topbar -->
 
 				<!-- 여기에 내용 담기 start -->
+
 				<div class="container-fluid">
 					<main class="all">
-					<section method="post" class="filter">
-						<article class="filter-head">
-							<h4>필터</h4>
-						</article>
+					<section class="filter">
+						<form action="requestlist" method="get">
+							<article class="filter-head">
+								<h4>필터</h4>
+							</article>
 
-						<article class="filter-name">
-							<h6>유형 선택</h6>
-							<h6>작성 날짜</h6>
-						</article>
+							<article class="filter-name">
+								<h6>유형 선택</h6>
+								<h6>작성 날짜</h6>
+							</article>
 
-						<article class="filter-name2">
-							<h6>단계 선택</h6>
-							<h6>시스템</h6>
-						</article>
-						<article class="search-button">
-							<button class="btn btn-primary btn-sm" type="submit">검색</button>
-						</article>
-						<form action="">
+							<article class="filter-name2">
+								<h6>단계 선택</h6>
+								<h6>시스템</h6>
+							</article>
+							<article class="search-button">
+								<button class="btn btn-primary btn-sm" type="submit">검색</button>
+							</article>
 							<article class="filter-body">
 								<div class="input-group">
 									<select class="custom-select" id="req_type" name="req_type">
-										<option value="1" selected>1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
+										<option value="전체" selected>전체</option>
+										<option value="정규">정규</option>
+										<option value="긴급">긴급</option>
 									</select>
 								</div>
 								<div class="date_form">
-									<input type="date" id="birth_first" name="birth_first"> <i class="fa fa-minus"></i> <input type="date" id="birth_last" name="birth_last">
+									<input type="date" id="date_first" name="date_first"> <i class="fa fa-minus"></i> <input type="date" id="date_second" name="date_second">
 								</div>
 							</article>
 							<article class="filter-body2">
 								<div class="input-group">
 									<select class="custom-select" id="sno" name="sno">
-										<option value="1" selected>1</option>
+										<option value="" selected>전체</option>
+										<option value="1">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>
 										<option value="4">4</option>
 										<option value="5">5</option>
-										<option value="6">6</option>
 									</select>
 								</div>
 								<div class="input-group">
@@ -425,36 +423,35 @@ main {
 					</section>
 					</main>
 				</div>
-				<div class="container-fluid"></div>
 				<div class="pager d-flex justify-content-center my-3">
 					<div class="flex-fulfill"></div>
 					<div class="pagingButtonSet d-flex justify-content-center">
 						<c:if test="${pager.pageNo > 1}">
-							<a href="1" type="button" class="btn btn-muted shadow">◀◀</a>
+							<a href="requestlist?pageNo=1" type="button" class="btn btn-muted shadow">◀◀</a>
 						</c:if>
 						<c:if test="${pager.groupNo > 1}">
-							<a href="${pager.startPageNo-1}" type="button" class="btn btn-muted shadow">◀</a>
+							<a href="requestlist?pageNo=${pager.startPageNo-1}" type="button" class="btn btn-muted shadow">◀</a>
 						</c:if>
 
 						<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
 							<c:if test="${pager.pageNo != i}">
-								<a href="${i}" type="button" class="btn btn-white shadow">${i}</a>
+								<a href="requestlist?pageNo=${i}" type="button" class="btn btn-white shadow">${i}</a>
 							</c:if>
 							<c:if test="${pager.pageNo == i}">
-								<a href="${i}" type="button" class="btn btn-dark shadow">${i}</a>
+								<a href="requestlist?pageNo=${i}" type="button" class="btn btn-dark shadow">${i}</a>
 							</c:if>
 						</c:forEach>
 
 						<c:if test="${pager.groupNo < pager.totalGroupNo }">
-							<a href="${pager.endPageNo+1}" type="button" class="btn btn-muted shadow">▶</a>
+							<a href="requestlist?pageNo=${pager.endPageNo+1}" type="button" class="btn btn-muted shadow">▶</a>
 
 						</c:if>
 						<c:if test="${pager.pageNo < pager.totalPageNo}">
-							<a href="${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
+							<a href="requestlist?pageNo=${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
 						</c:if>
 					</div>
 					<div class="flex-fulfill"></div>
-					<a type="button" href="<c:url value='/customer/requestlist/1'/>" class="btn btn-muted shadow">글 작성</a>
+					<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-muted shadow">글 작성</a>
 				</div>
 
 			</div>

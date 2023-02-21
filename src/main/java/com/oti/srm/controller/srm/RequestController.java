@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.oti.srm.dto.ListFilter;
 import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
@@ -34,6 +35,7 @@ public class RequestController {
 	private IUserRegisterService userRegisterService;
 	@Autowired
 	private IRequestRegisterService requestService;
+	
 
 
 	
@@ -132,7 +134,8 @@ public class RequestController {
 	 * 	member type별 요청 조회
 	 */
 	@GetMapping("/requestlist")
-	public String requestList(Request request, Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo) {
+	public String requestList(Request request, Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo
+			@RequestParam(defaultValue="0")int sno) {
 		
 		Member member = (Member) session.getAttribute("member");
 		request.setMid(member.getMid());
@@ -151,7 +154,7 @@ public class RequestController {
 				
 				
 				
-				
+				return "srm/requestlist";
 			} else {
 				//요청한 페이지로 이동.
 				log.info(pageNo + "pageNo1 아닌 경우");
@@ -159,6 +162,7 @@ public class RequestController {
 				
 				
 				requestService.getPmRequestList(request, pager);
+				return "srm/requestlist";
 			}
 			
 			
@@ -167,7 +171,7 @@ public class RequestController {
 		//Not PM
 		} else {
 			log.info("PM 아닌경우");
-			
+
 		}
 
 		
