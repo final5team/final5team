@@ -101,16 +101,16 @@
 					    </div>
 					    <div class="row p-2">
 					    	<div class="col-2">기존 첨부파일</div>
-					    	<div class="col-2">
+					    	<div class="col-2" id="fileContainer">
 					    		<c:forEach var="noticeFile" items="${notice.fileList}">
 					    			<a href="${pageContext.request.contextPath}/noticefiledownload?fno=${noticeFile.fno}">${noticeFile.fileName}</a>
-					    			<button onclick="deleteNoticeFile(${noticeFile.fno})">파일 삭제</button>
+					    			<button class="btn btn-sm btn-primary" onclick="deleteNoticeFile(${noticeFile.fno}, ${noticeFile.nno})">파일 삭제</button>
 				    			</c:forEach>
 					    	</div>
 					    </div>
 					  	<div class="form-group row p-2">
 					    	<label for="files" class="col-2">첨부파일 등록</label>
-					    	<input type="file" multiple class="form-control-file col-10" id="files">
+					    	<input type="file" multiple class="form-control-file col-10" id="files" name="files">
 					  	</div>
 					  	<div class="form-group row">
 					    	<a href="#" class="btn btn-danger" style="margin-left : 87%">취소</a>
@@ -138,6 +138,19 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+    
+    <script>
+    	function deleteNoticeFile(fno, nno){
+    		$.ajax({
+    			type: "POST", //요청 메소드 방식
+    			url:"${pageContext.request.contextPath}/noticefiledelete?fno=" + fno + "&nno=" + nno,
+    			dataType:"html", 
+    			success : function(result){
+    				$('#fileContainer').html(result);
+    			}
+    		});
+    	}
+    </script>
 
 </body>
 
