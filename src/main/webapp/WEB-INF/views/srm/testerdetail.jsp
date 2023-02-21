@@ -91,7 +91,7 @@
 						<div class="col-xl-9 col-lg-8 col-md-8 col-sm-8">
 							<div class="card">
 								<div class="card-header d-flex  ">
-									<h6 class="mr-auto text-primary font-weight-bold">개발상세보기 ></h6>
+									<h6 class="mr-auto text-primary font-weight-bold">테스터상세보기 ></h6>
 									<c:if test="${requestProcess.reqType eq '정규'}">
 									<div class="ml-3">정규<i class="far fa-registered text-secondary"></i></div>
 									</c:if>
@@ -147,20 +147,19 @@
 										</c:if>
 										</div>
 									<div class="d-flex justify-content-end">
-										<c:if test="${request.statusNo == 5}">
+										<c:if test="${member.mtype =='tester' && request.statusNo == 5}">
 										<button class="btn btn-primary btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">테스트시작</button>
 										</c:if>
-										<c:if test="${request.statusNo == 6}">
-										<button class="btn btn-warning btn-lg mt-3" onclick="askReexam()">재검토요청</button>
-										<button class="btn btn-info btn-lg mt-3" onclick="devEnd()">테스트완료</button>
+										<c:if test="${member.mtype =='tester' && request.statusNo == 6}">
+										<button class="btn btn-info btn-lg mt-3 ml-3" onclick="devEnd()">테스트완료</button>
 										</c:if>
 									</div>
 								</div>
 							</div>
 							<!-- 테스터의 개발 요청 글 작성 start-->
-							<c:if test="${request.statusNo == 6}">
+							<c:if test="${member.mtype =='tester' && request.statusNo == 6}">
 							<div class="card mt-4 mb-5">
-								<div class="card-header">작성하기</div>
+								<div class="card-header">결함내용 작성하기</div>
 								<div class="card-body row">
 									<div class="col-sm-3 d-flex align-items-center" style="text-align:center;">
 										<div>
@@ -169,7 +168,7 @@
 										</div>
 									</div>
 									<div class="col-sm-9">
-										<form role="form" id="writeform" action="${pageContext.request.contextPath}/devdone" method="POST" enctype="multipart/form-data">
+										<form role="form" id="writeform" action="${pageContext.request.contextPath}/askreexam" method="POST" enctype="multipart/form-data">
 											<input type="hidden" name="rno" value="${request.rno}">
 											<div class="col-sm-12 form-group">
 												<label class="control-label" >완료예정일</label>
@@ -182,6 +181,9 @@
 											<div class="filebox">
 												<label for="file">Choose a file</label>
 												<input type="file" id="file" name="files" multiple>
+											</div>
+											<div class="d-flex justify-content-end">
+												<button class="btn btn-warning btn-lg mt-3" type="submit">재검토요청</button>
 											</div>
 										</form>
 									</div>
@@ -196,7 +198,7 @@
 									<div class="card mt-3 cardscroller" style="height: 262px;">
 										<div class="card-header d-flex justify-content-end">
 											<div>${i.count}차 개발</div>
-											<div class="ml-auto ml-1">${requestProcess.devExpectDate}</div>
+											<div class="ml-auto ml-1">완료일: <fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
 										</div>
 										<div class="card-body p-1 cardscroller-block">
 											<div class="row mr-3">
@@ -213,10 +215,6 @@
 													<div>
 														<label class="control-label">개발내용</label>
 														<textarea class="form-control boxed " readonly style="background-color: transparent;" rows="2">${statusHistory.reply}</textarea>
-													</div>
-													<div class=" mt-2">
-														<label class="control-label">배포소스</label>
-														<input class="form-control boxed" value="${statusHistory.distSource}" readonly style="background-color: transparent;">
 													</div>
 													<div class="mt-2">
 														<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
@@ -238,13 +236,13 @@
 								<div class="col-md-6">
 								<c:forEach varStatus="i" var="statusHistory" items="${testerToDev}">							
 
-									<div class="card mt-3" style="height: 262px;">
+									<div class="card mt-3 cardscroller" style="height: 262px;">
 										<div class="card-header d-flex justify-content-end">
 											<div>${i.count}차 결함</div>
-											<div class="ml-auto ml-1">${requestProcess.testExpectDate}</div>
+											<div class="ml-auto ml-1">완료일: <fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
 										</div>
-										<div class="card-body p-1">
-											<div class="row">
+										<div class="card-body p-1 cardscroller-block">
+											<div class="row align-items-center">
 												<div class="col-sm-3 d-flex align-items-center" style="text-align: center;">
 													<div>
 														<img class="rounded-circle mt-1" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
@@ -323,12 +321,12 @@
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body d-flex justify-content-center">
-					<form id="formUpdateExpectDate" action="${pageContext.request.contextPath}/devinprogress" method="POST">
-						<label class="mt-1" style="color: #343a40;" for="developExpectDate">개발 완료 예정일</label>
-						<input type="date" class="form-control ml-2" id="developExpectDate" name="developExpectDate" style="width: 200px; display: inline;">
+					<form id="formUpdateExpectDate" action="${pageContext.request.contextPath}/testinprogress" method="POST">
+						<label class="mt-1" style="color: #343a40;" for="testExpectDate">테스트 완료 예정일</label>
+						<input type="date" class="form-control ml-2" id="testExpectDate" name="testExpectDate" style="width: 200px; display: inline;">
 						<input type="hidden" name="rno" value="${request.rno}">
-						<input type="hidden" name="nextStatus" value="4">
 					</form>
+					<input type="hidden" name="receiptDoneDate" value="<fmt:formatDate value='${receiptDoneDate}' pattern='yyyy-MM-dd'/>">
 				</div>
 				<div class="modal-footer">
 					<small id="noInputDate" style="color : red;"></small>
@@ -380,6 +378,7 @@
 	</div>
 	<script>
 	<!-- 데이트 입력 확인 /-->
+	
 	function getDatemodal(){
 		$('#datemodal').modal('show');
 		
@@ -387,28 +386,29 @@
 	function checkDate(){
 		$('#noInputDate').text("");
 		
-		if($('#developExpectDate').val() == ""){
+		if($('#testExpectDate').val() == ""){
 			$('#noInputDate').text("날짜를 입력해주세요.");
 			return;
 		}
 		
 		let today = new Date().getTime();   
-		var developExpectDate = new Date($('#developExpectDate').val()).getTime();
+		var testExpectDate = new Date($('#testExpectDate').val()).getTime();
 		var reqExpectDate = new Date($('#reqExpectDate').text()).getTime();
-		
+		var receiptDoneDate = new Date($('input[name="receiptDoneDate"]').val()).getTime();
+
 		//오늘보다 이전 날짜를 입력할 경우
-		if(today > developExpectDate){
+		if(today > testExpectDate){
 			$('#noInputDate').text("현재보다 앞선 날짜를 입력해주세요.");
 			return;
 		}
 		//총완료예정일보다 큰 일정을 입력할 경우
-		if(reqExpectDate <= developExpectDate){
+		if(reqExpectDate <= testExpectDate){
 			$('#noInputDate').text("완료예정일보다 과거여야 합니다.");
 			return;
 		}
-		if(((developExpectDate-today)/(reqExpectDate-today))>=0.5){
+		if(((testExpectDate-receiptDoneDate)/(reqExpectDate-receiptDoneDate))>=0.2){
 			$('#pContent').text('');
-			$('#pContent').text('입력 시간이 완료 예정일 대비 50% 이상 차지합니다. 확인을 누르시면 수정이 불가능합니다.');
+			$('#pContent').text('입력 시간이 완료 예정일 대비 20% 이상 차지합니다. 확인을 누르시면 수정이 불가능합니다.');
 			$('#alartDateTooMuch').modal('show');
 		} else{
 			$('#pContent').text('');
@@ -423,9 +423,6 @@
 		$('#formUpdateExpectDate').submit();
 		
 		$('#completeDueDate').modal('show');
-	}
-	function devEnd(){
-		$('#writeform').submit();
 	}
 	</script>
 </body>

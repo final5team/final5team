@@ -86,7 +86,7 @@ public class CommonService implements ICommonService {
 		commonDao.updateRequestStatus(statusHistory.getRno(), statusHistory.getNextStatus());
 		commonDao.updateCompDate(statusHistory.getRno(), mtype);
 		commonDao.insertStatusHistory(statusHistory);
-		if(statusHistory.getFileList() != null) {
+		if(statusHistory.getFileList() != null && statusHistory.getFileList().size()>0) {
 			for(StatusHistoryFile file :statusHistory.getFileList()) {
 				file.setHno(statusHistory.getHno());
 				commonDao.insertStatusHistoryFile(file);
@@ -116,4 +116,21 @@ public class CommonService implements ICommonService {
 
 	}
 
+	/* 작성자: 장현
+	 * 접수예정일 받는 메소드
+	 */
+	@Override
+	public Date getReceiptDoneDate(int rno) {
+		List<StatusHistory> requestHistories = commonDao.getRequestHistories(rno);
+		StatusHistory receiptDoneDate = new StatusHistory();
+		
+		for(StatusHistory sh : requestHistories ) {
+			if(sh.getNextStatus() == 2) {
+				receiptDoneDate = sh;
+				break;
+			}
+		}
+		return receiptDoneDate.getChangeDate();
+	}
+	
 }

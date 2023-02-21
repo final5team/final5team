@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Login to start</title>
     <link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.css" rel="stylesheet">
-</head>
+	<%@ include file="/WEB-INF/views/common/head.jsp"%></head>
 <body>
 	<div class="auth">
 		<div class="auth-container">

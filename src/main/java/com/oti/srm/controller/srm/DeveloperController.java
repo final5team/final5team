@@ -44,20 +44,22 @@ public class DeveloperController {
 		List<StatusHistory> devToTester = commonService.getDevToTesterHistories(rno);
 		// 테스터가 개발자에게 보내는 결함내용(재검토) -장현
 		List<StatusHistory> testerToDev = commonService.getTesterToDevHistories(rno);
-
+		// 접수완료일자 받기 (각 실무자의 할당시간 체크 용도)
+		Date receiptDoneDate = commonService.getReceiptDoneDate(rno);
+		
 		// 요청, 요청프로세스, 작성내용들 모달에 담기 -장현
 		model.addAttribute("request", request);
 		model.addAttribute("devToTester", devToTester);
 		model.addAttribute("testerToDev", testerToDev);
 		model.addAttribute("requestProcess", requestProcess);
-
+		model.addAttribute("receiptDoneDate", receiptDoneDate);
+		
 		return "srm/developerdetail";
 	}
 
 	@PostMapping("/devinprogress")
 	public String switchDevInProgress(StatusHistory statusHistory,
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date developExpectDate, HttpSession session) {
-		log.info("statusHistory: " + statusHistory);
 		Member member = (Member) session.getAttribute("member");
 		statusHistory.setWriter(member.getMid());
 		statusHistory.setNextStatus(4);
@@ -67,20 +69,23 @@ public class DeveloperController {
 	}
 
 	@PostMapping("/devdone")
-	public String switchDevDone(StatusHistory statusHistory, HttpSession session, MultipartFile[] files) {
+	public String switchDevDone(StatusHistory statusHistory, HttpSession session, @RequestParam MultipartFile[] files) {
 		log.info("실행");
+		log.info(files[0].getOriginalFilename());
 		Member member = (Member) session.getAttribute("member");
 		statusHistory.setWriter(member.getMid());
 		statusHistory.setNextStatus(5);
 		List<StatusHistoryFile> sFiles = new ArrayList<>();
 		try {
-			if (files != null) {
+			if (files != null ) {
 				for (MultipartFile file : files) {
-					StatusHistoryFile statusHistoryFile = new StatusHistoryFile();
-					statusHistoryFile.setFileName(file.getOriginalFilename());
-					statusHistoryFile.setFileType(file.getContentType());
-					statusHistoryFile.setFileData(file.getBytes());
-					sFiles.add(statusHistoryFile);
+					if(!file.isEmpty()) {
+						StatusHistoryFile statusHistoryFile = new StatusHistoryFile();
+						statusHistoryFile.setFileName(file.getOriginalFilename());
+						statusHistoryFile.setFileType(file.getContentType());
+						statusHistoryFile.setFileData(file.getBytes());
+						sFiles.add(statusHistoryFile);
+					}
 				}
 				
 			}
