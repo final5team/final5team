@@ -165,11 +165,11 @@
 									</div>
 									<div class="d-flex justify-content-end">
 										<!-- 유저테스트 요청 상태(7) -->
-										<c:if test="${request.statusNo == 7}">
+										<c:if test="${request.statusNo == 7 && member.mtype == 'usertester'}">
 										 	<button class="btn btn-primary btn-lg mt-3" onclick="getDatemodal()" type="button">유저테스트 시작</button>
 										</c:if>
 										<!-- 유저테스트 중 상태(8) -->
-										<c:if test="${request.statusNo == 8}">
+										<c:if test="${request.statusNo == 8 && member.mtype == 'usertester'}">
 											<form action="${pageContext.request.contextPath}/endwork" method="post" class="mt-3">
 												<input type="hidden" name="rno" value="${request.rno}"/>
 												<button class="btn btn-info btn-lg mt-3">유저테스트 완료</button>
@@ -190,7 +190,7 @@
 												<div class="col-sm-3 d-flex align-items-center" style="text-align: center;">
 													<div>
 														<img class="rounded-circle mt-1" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
-														<div class="ml-2">${requestProcess.userTester}</div>
+														<div class="ml-2">${statusHistory.writer}</div>
 													
 													</div>
 												</div>
