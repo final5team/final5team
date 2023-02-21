@@ -60,14 +60,13 @@ public class PMService implements IPMService {
 				int result=pMDao.insertRequestProcess(requestProcess);
 				return (result==1)?1:0;	
 			//반려	
-			} else {
+			} else if(statusHistory.getNextStatus()==12){
 				return 1;
 			}			
 		} catch(Exception e) {
-			e.printStackTrace();
-			return 0;
+			e.printStackTrace();			
 		}
-				
+		return 0;		
 	}
-	
+
 }
