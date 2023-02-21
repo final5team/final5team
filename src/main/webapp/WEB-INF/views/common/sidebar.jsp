@@ -53,17 +53,17 @@
 				<span>내 담당 요청 관리</span></a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/receiptdetail?rno=41&sno=1">
+			<a class="nav-link" href="${pageContext.request.contextPath}/pm/receiptdetail?rno=41&sno=1">
 				<i class="fas fa-vial"></i>
 				<span>pm의 담당요청 상세보기(접수)</span></a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/completedetail?rno=41">
+			<a class="nav-link" href="${pageContext.request.contextPath}/pm/completedetail?rno=41">
 				<i class="fas fa-vial"></i>
 				<span>pm의 담당요청 상세보기(완료전)</span></a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/enddetail?rno=41">
+			<a class="nav-link" href="${pageContext.request.contextPath}/pm/enddetail?rno=41">
 				<i class="fas fa-vial"></i>
 				<span>pm의 담당요청 상세보기(완료후)</span></a>
 		</li>
