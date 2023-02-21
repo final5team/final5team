@@ -117,6 +117,14 @@ public class PMController {
 		return "srm/complete";
 	}
 	
+	/**
+	 * 
+	 * @author: KIM JI YOUNG
+	 * @param statusHistory
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	// 완료 처리하기
 	@RequestMapping("/complete")
 	public String complete(StatusHistory statusHistory, HttpSession session, Model model) {		
@@ -132,8 +140,16 @@ public class PMController {
 	
 	// 완료 후 상세보기
 	@RequestMapping("/enddetail")
-	public String endDetail(HttpSession session, Model model) {
-		
+	public String endDetail(int rno, HttpSession session, Model model) {
+		// 서비스 요청 정보
+		model.addAttribute("request", commonService.getRequest(rno));	
+		// 요청 처리 정보
+		model.addAttribute("reqProcess", commonService.getRequestProcess(rno));
+		// 요청 처리 내역
+		model.addAttribute("devStatusHistory", pMService.getStatusHistory(rno, "developer"));
+		model.addAttribute("tesStatusHistory", pMService.getStatusHistory(rno, "tester"));
+		model.addAttribute("uteStatusHistory", pMService.getStatusHistory(rno, "usertester"));
+		model.addAttribute("disStatusHistory", pMService.getStatusHistory(rno, "distributor"));
 		return "srm/end";
 	}	
 	
