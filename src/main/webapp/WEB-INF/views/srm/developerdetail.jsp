@@ -263,10 +263,12 @@
 														<textarea class="form-control boxed " readonly style="background-color: transparent;" rows="3">${statusHistory.reply}</textarea>
 													</div>
 													<div class="mt-2">
-														<span>첨부파일: 파일이름</span>
-														<a href="#" role="button">
-															<i class="fas fa-cloud-download-alt"></i>
-														</a>
+														<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+															<span>${statusHistoryFile.fileName}</span>
+															<a href="#" role="button">
+																<i class="fas fa-cloud-download-alt"></i>
+															</a><br>
+														</c:forEach>
 													</div>
 												</div>
 											</div>	

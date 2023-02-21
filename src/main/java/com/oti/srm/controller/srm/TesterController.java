@@ -78,6 +78,13 @@ public class TesterController {
 	}
 	
 	
+	/**
+	 * @author : 장현
+	 * @param statusHistory 상태 업데이트
+	 * @param files 파일 입력
+	 * @param session 저장된 member객체로 StatusHistory에 주입
+	 * @return testerdetail로 rno에 맞는 view 리턴
+	 */
 	@PostMapping("/askreexam")
 	public String switchReexam(StatusHistory statusHistory, MultipartFile[] files, HttpSession session) {
 		Member member = (Member) session.getAttribute("member");
@@ -100,10 +107,22 @@ public class TesterController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		statusHistory.setFileList(sFiles);
 		commonService.endWork(statusHistory, member.getMtype());
 		return "redirect:/testerdetail?rno=" + statusHistory.getRno();
 		
+	}
+	@GetMapping("/testdone")
+	public String switchTestDone(int rno, HttpSession session) {
+		
+		Member member = (Member)session.getAttribute("member");
+		StatusHistory statusHistory = new StatusHistory();
+		statusHistory.setRno(rno);
+		statusHistory.setNextStatus(7);
+		statusHistory.setWriter(member.getMid());
+		commonService.endWork(statusHistory, member.getMtype());
+		
+		return "redirect:/testerdetail?rno=" + statusHistory.getRno();
 	}
 
 }

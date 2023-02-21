@@ -32,8 +32,14 @@ public class DeveloperController {
 	@Autowired
 	ICommonService commonService;
 
+	/**
+	 * @author : 장현
+	 * @param model view에 전달할 객체 주입
+	 * @param rno Request객체 내용 출력위해 rno주입
+	 * @return developerdetail로 리턴
+	 */
 	@GetMapping("/developerdetail")
-	public String getDeveloperDetail(Model model, int rno, HttpSession session) {
+	public String getDeveloperDetail(Model model, int rno) {
 		log.info("실행");
 
 		// 요청내용 출력 -장현
@@ -57,6 +63,13 @@ public class DeveloperController {
 		return "srm/developerdetail";
 	}
 
+	/**
+	 * @author : 장현
+	 * @param statusHistory StatusHistory객체 주입
+	 * @param developExpectDate RequestProcess에 업데이트
+	 * @param session 세션에 저장된 member 통해서 StatusHistory의 writer 주입
+	 * @return developerdetail로 리다이렉트
+	 */
 	@PostMapping("/devinprogress")
 	public String switchDevInProgress(StatusHistory statusHistory,
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date developExpectDate, HttpSession session) {
@@ -68,6 +81,13 @@ public class DeveloperController {
 		return "redirect:/developerdetail?rno=" + statusHistory.getRno();
 	}
 
+	/**
+	 * @author : 장현
+	 * @param statusHistory 상태 업데이트
+	 * @param session member객체로 statusHistory에 wrtier주입
+	 * @param files 파일 입력
+	 * @return developerdetail로 view전달
+	 */
 	@PostMapping("/devdone")
 	public String switchDevDone(StatusHistory statusHistory, HttpSession session, @RequestParam MultipartFile[] files) {
 		log.info("실행");
@@ -97,5 +117,5 @@ public class DeveloperController {
 		return "redirect:/developerdetail?rno=" + statusHistory.getRno();
 	}
 	
-
+	
 }
