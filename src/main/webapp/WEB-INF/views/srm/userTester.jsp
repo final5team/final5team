@@ -88,7 +88,7 @@
 						<div class="col-xl-9 col-lg-8 col-md-8 col-sm-8">
 							<div class="card">
 								<div class="card-header d-flex">						
-									<h6 class="mr-auto text-primary font-weight-bold">개발상세보기 ></h6>
+									<h6 class="mr-auto text-primary font-weight-bold">고객테스트 상세보기 ></h6>
 									<c:if test="${requestProcess.reqType eq '정규'}">
 										<div class="ml-3">정규<i class="far fa-registered text-secondary"></i></div>
 									</c:if>
@@ -131,7 +131,7 @@
 											<div class="d-flex">
 												<div class="pl-5">요청 완료 예정일:</div>
 												<div class="pl-2 flex-grow-1" id="allExpectDate">
-													${requestProcess.allExpectDateStr}
+													<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>
 												</div>
 											</div>
 											<c:if test="${request.statusNo == 8 || request.statusNo == 9}">
@@ -153,13 +153,16 @@
 										</div>
 									</div>
 									<div class="mt-2 ml-5">${request.reqContent}</div>
-									<c:if test=""></c:if>
-										<div class="mt-3 ml-5">
-											<span>파일이름</span>
-											<a href="#" role="button">
-												<i class="fas fa-cloud-download-alt"></i>
-											</a>
-										</div>
+									<div class="mt-3 ml-5">
+										<c:if test="${request.files != null}">
+											<c:forEach var="statusHistoryFile" items="${request.files}">
+												<span>${statusHistoryFile.fileName}</span>
+												<a href="#" role="button">
+													<i class="fas fa-cloud-download-alt"></i>
+												</a>
+											</c:forEach>
+										</c:if>
+									</div>
 									<div class="d-flex justify-content-end">
 										<!-- 유저테스트 요청 상태(7) -->
 										<c:if test="${request.statusNo == 7}">
@@ -176,35 +179,42 @@
 								</div>
 							</div>
 
-							<div class="card mt-3">
-								<div class="card-header">
-									개발 내용
-								</div>
-								<c:forEach var="statusHistory" varStatus="index" items="${devToTesterHistories}">
-									<div class="card-body row  border-success ml-4 mr-4 mt-3 mb-3">
-										<div class="col-sm-2 d-flex align-items-center" style="text-align: center;">
-											<div>
-												<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
-												<div class="ml-3">김레지나</div>
-											
-											</div>
+							<c:forEach varStatus="i" var="statusHistory" items="${devToTesterHistories}">
+									<div class="card mt-3 cardscroller" style="height: 262px;">
+										<div class="card-header d-flex justify-content-end">
+											<div>${i.count}차 개발</div>
+											<div class="ml-auto ml-1"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
 										</div>
-										<div class="col-sm-10">
-											<div class="d-flex justify-content-end mr-5">
-												<div>${index.count}차 개발</div>
-												<div class="ml-auto"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
-											</div>
-											<div>
-												개발내용: ${statusHistory.reply}
-											</div>
-											<span>첨부파일: 파일이름</span>
-											<a href="#" role="button">
-												<i class="fas fa-cloud-download-alt"></i>
-											</a>
+										<div class="card-body p-1 cardscroller-block">
+											<div class="row mr-3">
+												<div class="col-sm-3 d-flex align-items-center" style="text-align: center;">
+													<div>
+														<img class="rounded-circle mt-1" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
+														<div class="ml-2">${requestProcess.userTester}</div>
+													
+													</div>
+												</div>
+												<div class="col-sm-9">
+													<div class="d-flex justify-content-end">
+													</div>
+													<div>
+														<label class="control-label">개발내용</label>
+														<textarea class="form-control boxed " readonly style="background-color: transparent;" rows="5">${statusHistory.reply}</textarea>
+													</div>
+													<div class="mt-2">
+														<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+															<span>${statusHistoryFile.fileName}</span>
+															<a href="#" role="button">
+																<i class="fas fa-cloud-download-alt"></i>
+															</a><br>
+														</c:forEach>
+													</div>
+												</div>
+											</div>	
+
 										</div>
 									</div>
 								</c:forEach>
-							</div>
 							
 						</div>
 						<!-- 게시글 상세보기 end -->
