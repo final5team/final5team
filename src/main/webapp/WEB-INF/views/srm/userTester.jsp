@@ -88,14 +88,24 @@
 						<div class="col-xl-9 col-lg-8 col-md-8 col-sm-8">
 							<div class="card">
 								<div class="card-header d-flex">						
-									<h6 class="mr-auto text-primary font-weight-bold">유저테스트 상세보기 ></h6>
-									<div class="ml-3">정규<i class="far fa-registered text-secondary"></i></div>
-									<div class="ml-3">긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
-									<div class="ml-5 mr-4">중요도: 
-										<span class="fa fa-star checked" style="color: orange;"></span>
-										<span class="fa fa-star checked" style="color: orange;"></span>
-										<span class="fa fa-star checked" style="color: orange;"></span>
-									</div>					
+									<h6 class="mr-auto text-primary font-weight-bold">개발상세보기 ></h6>
+									<c:if test="${requestProcess.reqType eq '정규'}">
+										<div class="ml-3">정규<i class="far fa-registered text-secondary"></i></div>
+									</c:if>
+									<c:if test="${requestProcess.reqType eq '긴급'}">
+										<div class="ml-3">긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
+									</c:if>
+									<div class="ml-5 mr-4">중요도:
+										<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
+											<span class="fa fa-star checked" style="color: orange;"></span>
+										</c:if>
+										<c:if test="${requestProcess.priority eq '중' || requestProcess.priority eq '상'}">
+											<span class="fa fa-star checked" style="color: orange;"></span>
+										</c:if>
+										<c:if test="${requestProcess.priority eq '상'}">
+											<span class="fa fa-star checked" style="color: orange;"></span>
+										</c:if>
+									</div>				
 								</div>
 								<div class="card-body">
 									<div>
@@ -104,9 +114,8 @@
 									<div class="row">
 										<div class="col-sm-6">
 											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="20%">
-											<span class="font-weight-bold ml-2">${member.mname}</span>
-											<span class="ml-3">${member.organ}</span>
-											<span class="ml-3">${member.position}</span>
+											<span class="font-weight-bold ml-2">${request.clientName}</span>
+											<span class="ml-3">${request.organ}</span>
 										</div>
 										<div class="col-sm-6 ml-auto">
 											<div class="d-flex">
@@ -125,7 +134,7 @@
 													${requestProcess.allExpectDateStr}
 												</div>
 											</div>
-											<c:if test="${request.statusNo == 8}">
+											<c:if test="${request.statusNo == 8 || request.statusNo == 9}">
 												<div class="d-flex">
 													<div class="pl-5">유저테스트 완료 예정일 :</div>
 													<div class="pl-2 flex-grow-1">
@@ -133,39 +142,40 @@
 													</div>
 												</div>
 											</c:if>
+											<c:if test="${request.statusNo >= 9}">
+												<div class="d-flex">
+													<div class="pl-5">유저테스트 완료일 :</div>
+													<div class="pl-2 flex-grow-1">
+														<fmt:formatDate value="${requestProcess.userTestCompDate}" pattern="yyyy-MM-dd"/>
+													</div>
+												</div>
+											</c:if>
 										</div>
 									</div>
-									<div class="mt-2">${request.reqTitle}</div>
-									<div class="mt-2">${request.reqContent}</div>
-									<div class="mt-3">
-										<!-- 요청 첨부 파일 리스트 -->
-										<span>파일이름</span>
-										<a href="#" role="button">
-											<i class="fas fa-cloud-download-alt"></i>
-										</a>
+									<div class="mt-2 ml-5">${request.reqContent}</div>
+									<c:if test=""></c:if>
+										<div class="mt-3 ml-5">
+											<span>파일이름</span>
+											<a href="#" role="button">
+												<i class="fas fa-cloud-download-alt"></i>
+											</a>
+										</div>
+									<div class="d-flex justify-content-end">
+										<!-- 유저테스트 요청 상태(7) -->
+										<c:if test="${request.statusNo == 7}">
+										 	<button class="btn btn-primary btn-lg mt-3" onclick="getDatemodal()" type="button">유저테스트 시작</button>
+										</c:if>
+										<!-- 유저테스트 중 상태(8) -->
+										<c:if test="${request.statusNo == 8}">
+											<form action="${pageContext.request.contextPath}/endwork" method="post" class="mt-3">
+												<input type="hidden" name="rno" value="${request.rno}"/>
+												<button class="btn btn-info btn-lg mt-3">유저테스트 완료</button>
+											</form>
+										</c:if>
 									</div>
 								</div>
 							</div>
-							
-							<div>
-								<!-- 유저테스트 요청 상태(7) -->
-								<c:if test="${request.statusNo == 7}">
-									<div class="d-flex justify-content-end">
-										 <button class="btn btn-primary btn-lg mt-3" onclick="getDatemodal()" type="button">유저테스트 시작</button>
-									</div>
-								</c:if>
-								<!-- 유저테스트 중 상태(8) -->
-								<c:if test="${request.statusNo == 8}">
-									<div class="d-flex justify-content-end">
-										<form action="${pageContext.request.contextPath}/endwork" method="post" class="mt-3">
-											<input type="hidden" name="rno" value="${request.rno}"/>
-											<input type="hidden" name="nextStatus" value="9"/>
-											<button class="btn btn-info btn-lg mt-3">유저테스트 완료</button>
-										</form>
-									</div>
-								</c:if>
-							</div>
-							
+
 							<div class="card mt-3">
 								<div class="card-header">
 									개발 내용
@@ -259,7 +269,6 @@
 		</div>
 	</div>
 	
-	<!-- date 입력받는 모달창 end -->
 		
 	<!-- form 제출하는 모달창 -->
 	<div class="modal fade" id="alartDateTooMuch" aria-hidden="true" aria-labelledby="alartOfTimeTooMuch">
