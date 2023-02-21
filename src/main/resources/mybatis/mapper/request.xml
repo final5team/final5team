@@ -73,10 +73,26 @@
 			<if test="reqType != '전체'">
 				REQ_TYPE = #{reqType}
 			</if>
-
-
-
-
+			<if test='dateValue== "zero"' >
+				<![CDATA[
+					REQ_DATE <= sysdate
+				]]>
+			</if>
+			<if test='dateValue== "first"'>
+				<![CDATA[
+					REQ_DATE <= to_date(#{dateLast}, 'YYYY-MM-DD')
+				]]>
+			</if>
+			<if test='dateValue== "last"'>
+				<![CDATA[
+					to_date(#{dateFirst}, 'YYYY-MM-DD') <= REQ_DATE 
+				]]>
+			</if>
+			<if test='dateValue== "both"'>
+				<![CDATA[
+					REQ_DATE between to_date(#{dateFirst}, 'YYYY-MM-DD') and to_date(#{dateLast}, 'YYYY-MM-DD')
+				]]>
+			</if>
 		</where>
 		 <![CDATA[
 		            order by r.req_date desc
