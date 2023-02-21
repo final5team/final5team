@@ -65,4 +65,26 @@ public class NoticeService implements INoticeService {
 		return noticeDao.selectNoticeFile(fno);
 	}
 
+	@Override
+	@Transactional
+	public void noticeUpdate(Notice notice) {
+		noticeDao.updateNotice(notice);
+		log.info(notice.getFileList().size());
+		for(NoticeFile noticeFile : notice.getFileList()) {
+			noticeFile.setNno(notice.getNno());
+			noticeDao.insertNoticeFile(noticeFile);
+		}
+		
+	}
+
+	@Override
+	public void deleteNoticeFile(int fno) {
+		noticeDao.deleteNoticeFile(fno);
+	}
+
+	@Override
+	public List<NoticeFile> getNoticeFileList(int nno) {
+		return noticeDao.selectNoticeFiles(nno);
+	}
+
 }

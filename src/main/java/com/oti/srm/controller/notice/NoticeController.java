@@ -119,7 +119,7 @@ public class NoticeController {
 	}
 
 	// 공지사항 수정
-	@GetMapping("/noticeupdate")
+	@PostMapping("/noticeupdate")
 	public String noticeUpdate(Notice notice, MultipartFile[] files) {
 		log.info("실행");
 		if (notice.getUserShow() == null) {
@@ -137,8 +137,6 @@ public class NoticeController {
 		if (notice.getDistributorShow() == null) {
 			notice.setDistributorShow("N");
 		}
-		Member member = (Member) session.getAttribute("member");
-		notice.setMid(member.getMid());
 		List<NoticeFile> fileList = new ArrayList<NoticeFile>();
 		try {
 			if (files != null) {
@@ -156,7 +154,7 @@ public class NoticeController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		noticeService.noticeWrite(notice);
+		noticeService.noticeUpdate(notice);
 		return "redirect:/noticedetail?nno=" + notice.getNno();
 	}
 
@@ -166,7 +164,14 @@ public class NoticeController {
 		noticeService.deleteNotice(nno);
 		return "redirect:/noticelist";
 	}
-
+	
+	// 공지사항 단일 파일 삭제 
+	@GetMapping("/noticefiledelete")
+	public String noticeFileDelete(int fno, int nno, Model model) {
+		noticeService.deleteNoticeFile(fno);
+		model.addAttribute("noticeFileList", noticeService.getNoticeFileList(nno));
+		return "srm/noticeFileListFragment";
+	}
 	// 공지사항 다운로드
 	@GetMapping("/noticefiledownload")
 	public  ResponseEntity<byte[]> noticeFileDownload(int fno) {
