@@ -48,9 +48,18 @@
                 <div id="noticelist" class="container">
                 	<h1>공지사항 목록</h1>
                 	<a href="${pageContext.request.contextPath}/noticewriteform" class="btn btn-sm btn-primary">공지사항 작성</a>
+                	<form class="form-group form-inline mt-2" action="${pageContext.request.contextPath}/noticelist" method="get">
+					    <label for="searchType"></label>
+					    <select class="form-control" id="searchType" name="searchType">
+					        <option value="제목">제목</option>
+					        <option value="작성자">작성자</option>
+					    </select>
+					    <input type="text" class="form-control ml-2" name="searchWord" value="${selectWord}"/>
+					    <button type="submit" class="btn btn-sm btn-primary ml-2">검색</button>
+					</form>
                		<hr/>
                 	<table class="table">
-					  <thead class="thead-light">
+					  <thead class="thead" style="background-color:#85ce36; color:white">
 					    <tr>
 					      <th scope="col">글번호</th>
 					      <th scope="col">제목</th>
@@ -59,80 +68,43 @@
 					    </tr>
 					  </thead>
 					  <tbody>
-					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
-					      <th scope="row">1</th>
-					      <td>가족관계시스템 전체 담당자 필독</td>
-					      <td>2023-02-16</td>
-					      <td>송영훈</td>
-					    </tr>
-					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
-					      <th scope="row">2</th>
-					      <td>전자조달시스템 개발자/배포담당자 필독</td>
-					      <td>2023-02-16</td>
-					      <td>송영훈</td>
-					    </tr>
-					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
-					      <th scope="row">3</th>
-					      <td>전파관리시스템 테스터 필독</td>
-					      <td>2023-02-16</td>
-					      <td>송영훈</td>
-					    </tr>
-					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
-					      <th scope="row">4</th>
-					      <td>가족관계시스템 전체 담당자 필독</td>
-					      <td>2023-02-16</td>
-					      <td>송영훈</td>
-					    </tr>
-					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
-					      <th scope="row">5</th>
-					      <td>전자조달시스템 개발자/배포담당자 필독</td>
-					      <td>2023-02-16</td>
-					      <td>송영훈</td>
-					    </tr>
-					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
-					      <th scope="row">6</th>
-					      <td>가족관계시스템 전체 담당자 필독</td>
-					      <td>2023-02-16</td>
-					      <td>송영훈</td>
-					    </tr>
-					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
-					      <th scope="row">7</th>
-					      <td>전자조달시스템 개발자/배포담당자 필독</td>
-					      <td>2023-02-16</td>
-					      <td>송영훈</td>
-					    </tr>
-					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
-					      <th scope="row">8</th>
-					      <td>전파관리시스템 테스터 필독</td>
-					      <td>2023-02-16</td>
-					      <td>송영훈</td>
-					    </tr>
-					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
-					      <th scope="row">9</th>
-					      <td>가족관계시스템 전체 담당자 필독</td>
-					      <td>2023-02-16</td>
-					      <td>송영훈</td>
-					    </tr>
-					    <tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail"'>
-					      <th scope="row">10</th>
-					      <td>전자조달시스템 개발자/배포담당자 필독</td>
-					      <td>2023-02-16</td>
-					      <td>송영훈</td>
-					    </tr>
+					  	<c:forEach var="notice" items="${noticeList}">
+						  	<tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail?nno=${notice.nno}"'>
+						       <th scope="row">${notice.nno}</th>
+						       <td>${notice.noticeTitle}</td>
+						       <td><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd"/></td>
+						       <td>${notice.mid}</td>
+						    </tr>
+					  	</c:forEach>
 					  </tbody>
 					</table>
 					<nav class="nav justify-content-center" aria-label="Page navigation example">
-					  <ul class="pagination">
-					    <li class="page-item"><a class="page-link" href="#">처음</a></li>
-					    <li class="page-item"><a class="page-link" href="#">이전</a></li>
-					    <li class="page-item"><a class="page-link" href="#">1</a></li>
-					    <li class="page-item"><a class="page-link" href="#">2</a></li>
-					    <li class="page-item"><a class="page-link" href="#">3</a></li>
-					    <li class="page-item"><a class="page-link" href="#">4</a></li>
-					    <li class="page-item"><a class="page-link" href="#">5</a></li>
-					    <li class="page-item"><a class="page-link" href="#">다음</a></li>
-					    <li class="page-item"><a class="page-link" href="#">끝</a></li>
-					  </ul>
+					  <div class="pagination">
+					    <a class="btn btn-outline-primary btn-sm" 
+					    	href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=1">처음</a>
+						<c:if test="${pager.groupNo > 1}">
+							<a class="btn btn-outline-info btn-sm" 
+							href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${pager.startPageNo-1}">이전</a>
+						</c:if>
+						
+						<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
+							<c:if test="${pager.pageNo != i}">
+								<a class="btn btn-outline-success btn-sm" 
+								href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${i}">${i}</a>
+							</c:if>
+							<c:if test="${pager.pageNo == i}">
+								<a class="btn btn-danger btn-sm" 
+								href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${i}">${i}</a>
+							</c:if>
+						</c:forEach>
+						
+						<c:if test="${pager.groupNo<pager.totalGroupNo}">
+							<a class="btn btn-outline-info btn-sm" 
+							href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${pager.endPageNo+1}">다음</a>
+						</c:if>
+						<a class="btn btn-outline-primary btn-sm" 
+						href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${pager.totalPageNo}">맨끝</a>
+					  </div>
 					</nav>
                 </div>
                 

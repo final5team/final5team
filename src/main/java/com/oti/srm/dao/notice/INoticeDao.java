@@ -8,15 +8,16 @@ import org.apache.ibatis.annotations.Param;
 import com.oti.srm.dto.Notice;
 import com.oti.srm.dto.NoticeFile;
 import com.oti.srm.dto.Pager;
+import com.oti.srm.dto.System;
 
 @Mapper
 // 공지사항 관련 dao 메소드
 public interface INoticeDao {
-	public List<Notice> getNoticeList(@Param("userType") String userType, @Param("searchWord") String searchWord, @Param("pager") Pager pager);
+	public List<Notice> selectNoticeList(@Param("searchType") String searchType, @Param("searchWord") String searchWord, @Param("mtype") String mtype, @Param("sno") int sno, @Param("pager") Pager pager);
 	
-	public int getNoticeListCount(@Param("userType") String userType, @Param("searchWord") String searchWord);
+	public int selectNoticeListCount(@Param("searchType") String searchType, @Param("searchWord") String searchWord, @Param("mtype") String mtype, @Param("sno") int sno);
 	
-	public Notice getNotice(int nno);
+	public Notice selectNotice(int nno);
 	
 	public int insertNotice(Notice notice);
 	
@@ -26,10 +27,12 @@ public interface INoticeDao {
 	
 	public void deleteNoticeFiles(int nno);
 	
-	public List<NoticeFile> getNoticeFiles(int nno);
+	public List<NoticeFile> selectNoticeFiles(int nno);
 	
 	public int insertNoticeFile(NoticeFile noticeFile);
 	
 	public void deleteNoticeFile(int fno);
+
+	public List<System> selectSystemList();
 	
 }
