@@ -44,7 +44,7 @@ public class PMController {
 	 * @param model
 	 * @return
 	 */
-	// 상세보기
+	// 접수 상세보기
 	@GetMapping("/receiptdetail")
 	public String receiptDetail(int rno, int sno, HttpSession session, Model model) {
 		// 요청정보
@@ -71,7 +71,7 @@ public class PMController {
 	 * @param model
 	 * @return
 	 */
-	// 접수
+	// 접수하기
 	@RequestMapping(value="/receipt", method = RequestMethod.POST)
 	public String receipt(StatusHistory statusHistory, RequestProcess requestProcess, MultipartFile[] files, HttpSession session, Model model) {
 		try {
@@ -106,20 +106,37 @@ public class PMController {
 		return "redirect:/";
 	}
 	
-	// 완료 처리
-	@RequestMapping("/complete")
-	public String complete(HttpSession session, Model model) {
+	// 완료 전 상세보기
+	@GetMapping("/completedetail")
+	public String completedetail(int rno, HttpSession session, Model model) {
+		// 서비스 요청 정보
+		model.addAttribute("request", commonService.getRequest(rno));	
+		// 요청 처리 정보
+		model.addAttribute("reqProcess", commonService.getRequestProcess(rno));
 		
 		return "srm/complete";
 	}
 	
-	// 완료 상세
-	@RequestMapping("/end")
-	public String end(HttpSession session, Model model) {
+	// 완료 처리하기
+	@RequestMapping("/complete")
+	public String complete(StatusHistory statusHistory, HttpSession session, Model model) {		
+		// 작성자 입력
+		Member me = (Member) session.getAttribute("member");		
+		statusHistory.setWriter(me.getMid());
+		
+		//최종 완료 처리
+		statusHistory.setNextStatus(13);
+		commonService.endWork(statusHistory, me.getMtype());
+		return "redirect:/enddetail?rno=" + statusHistory.getRno();
+	}
+	
+	// 완료 후 상세보기
+	@RequestMapping("/enddetail")
+	public String endDetail(HttpSession session, Model model) {
 		
 		return "srm/end";
 	}	
 	
-	//화면에서 입력한 날짜 컨트롤러의 Date 매개변수에 넣으려면 
+	//화면에서 입력한 날짜 컨트롤러의 Date 매개변수에 넣기
 	//@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expectDate
 }
