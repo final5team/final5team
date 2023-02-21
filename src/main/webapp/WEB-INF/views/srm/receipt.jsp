@@ -182,7 +182,7 @@
 													</div>											
 													<div class="filebox">
 														<label for="file">첨부파일</label>
-														<input type="file" id="fileList" multiple>
+														<input type="file" id="files" name="files" multiple>
 														<input type="hidden" name="rno" value="${request.rno}">
 													</div>
 													
@@ -218,7 +218,7 @@
 													</div>											
 													<div class="filebox">
 														<label for="file">첨부파일</label>
-														<input type="file" id="file">
+														<input type="file" id="files" name="files" multiple>
 														<input type="hidden" name="rno" value="${request.rno}">
 													</div>
 													

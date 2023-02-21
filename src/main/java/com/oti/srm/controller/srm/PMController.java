@@ -1,5 +1,8 @@
 package com.oti.srm.controller.srm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.oti.srm.dto.Member;
 import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.StatusHistory;
+import com.oti.srm.dto.StatusHistoryFile;
 import com.oti.srm.service.srm.ICommonService;
 import com.oti.srm.service.srm.IPMService;
 
@@ -61,27 +66,43 @@ public class PMController {
 	 * @author: KIM JI YOUNG
 	 * @param statusHistory
 	 * @param requestProcess
+	 * @param files
 	 * @param session
 	 * @param model
 	 * @return
 	 */
 	// 접수
 	@RequestMapping(value="/receipt", method = RequestMethod.POST)
-	public String receipt(StatusHistory statusHistory, RequestProcess requestProcess, HttpSession session, Model model) {
-		log.info("접수");
-		// 작성자 입력
-		Member me = (Member) session.getAttribute("member");		
-		statusHistory.setWriter(me.getMid());
-		requestProcess.setPm(me.getMid());
-		log.info(me.getMid());
-		log.info(statusHistory);
-		log.info(requestProcess);
-		// 접수 완료
-		int result=pMService.receipt(statusHistory, requestProcess);
-		log.info("result: "+result);
-		if(result==1) {
-			return "srm/request"; //목록 가든가 개발 상세 가든가
-		}
+	public String receipt(StatusHistory statusHistory, RequestProcess requestProcess, MultipartFile[] files, HttpSession session, Model model) {
+		try {
+			// 작성자 입력
+			Member me = (Member) session.getAttribute("member");		
+			statusHistory.setWriter(me.getMid());
+			requestProcess.setPm(me.getMid());
+			
+			// 첨부파일 매핑
+			if(files!=null) {
+				List<StatusHistoryFile> fileList=new ArrayList<>();
+				for(MultipartFile file : files) {
+					if(file!=null && !file.isEmpty()) {
+						StatusHistoryFile shf = new StatusHistoryFile();
+						
+						shf.setFileName(file.getOriginalFilename());
+						shf.setFileType(file.getContentType());
+						shf.setFileData(file.getBytes());
+						fileList.add(shf);
+					}
+				}
+				statusHistory.setFileList(fileList);
+			}			
+			// 접수 완료
+			int result=pMService.receipt(statusHistory, requestProcess);
+			if(result==1) {
+				return "srm/request"; //목록 가든가 개발 상세 가든가
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}		
 		return "redirect:/";
 	}
 	
