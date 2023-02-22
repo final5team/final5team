@@ -46,7 +46,8 @@ public class NoticeService implements INoticeService {
 	@Override
 	@Transactional
 	public void noticeWrite(Notice notice) {
-		noticeDao.insertNotice(notice);
+		int rows = noticeDao.insertNotice(notice);
+		log.info(rows);
 		log.info(notice.getFileList().size());
 		for(NoticeFile noticeFile : notice.getFileList()) {
 			noticeFile.setNno(notice.getNno());
