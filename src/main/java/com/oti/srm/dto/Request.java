@@ -25,6 +25,8 @@ public class Request {
 	private List<StatusHistoryFile> files;
 	private String organ;
 
+	// d-day 완료일
+	private Date ddayExpectDate;
 	// 검색 필요 정보
 	private String mid;
 	private String mtype;

@@ -1,7 +1,11 @@
 package com.oti.srm.service.srm;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.StatusHistory;
@@ -26,5 +30,11 @@ public interface ICommonService {
 	public void uploadFile(StatusHistoryFile statusHistoryFile);
 
 	public Date getReceiptDoneDate(int rno);
+
+	public HashMap<String,Integer> getWorkingStatus(Member member);
+
+	public List<Request> getListOf7daysLeft(Member member);
+
+	public Map<String, Object> getWorkCompletionRate(Member member);
 
 }
