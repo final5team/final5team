@@ -94,6 +94,7 @@ public class RequestController {
 					return "redirect:/";
 				}
 
+				
 			} else {
 				int result = userRegisterService.register(member);
 				if (result == IUserRegisterService.REGISTER_FAIL) {
