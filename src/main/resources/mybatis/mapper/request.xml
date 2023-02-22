@@ -51,12 +51,16 @@
 	<select id="countPm" parameterType="com.oti.srm.dto.ListFilter"
 		resultType="int">
 		select count(*)
-		from ( select rownum as rnum, r.RNO, r.REQ_DATE, r.REQ_TITLE,
-		r.REQ_CONTENT, r.CLIENT, r.SNO, r.REQ_EXPECT_DATE, r.STATUS_NO,
-		rp.REQ_TYPE, rp.DEVELOPER, rp.TESTER, rp.DISTRIBUTOR, rp.PM,
+		from ( select rownum as rnum, r.RNO, r.REQ_DATE,
+		r.REQ_TITLE,
+		r.REQ_CONTENT, r.CLIENT, r.SNO, r.REQ_EXPECT_DATE,
+		r.STATUS_NO,
+		rp.REQ_TYPE, rp.DEVELOPER, rp.TESTER, rp.DISTRIBUTOR,
+		rp.PM,
 		rp.USER_TESTER
 		from requests r left join request_process rp
-		on r.RNO = rp.RNO
+		on
+		r.RNO = rp.RNO
 		order by r.req_date desc
 		)
 		<where>
@@ -67,7 +71,9 @@
 				REQ_TYPE = #{reqType}
 			</if>
 			<if test="statusNo neq 0">
-				statusNo = #{statusNo}
+				<![CDATA[
+				 STATUS_NO = #{statusNo}
+				]]>
 			</if>
 			<if test='dateValue.equals("zero")'>
 				<![CDATA[
@@ -112,9 +118,7 @@
 				sno = #{listFilter.sno}
 			</if>
 			<if test='listFilter.reqType neq"전체"'>
-				<![CDATA[
-					REQ_TYPE = #{listFilter.reqType}
-				]]>
+				REQ_TYPE = #{listFilter.reqType}
 			</if>
 			<if test='listFilter.dateValue.equals("zero")'>
 				<![CDATA[
@@ -136,14 +140,55 @@
 					and REQ_DATE between to_date(#{listFilter.dateFirst}, 'YYYY-MM-DD') and to_date(#{listFilter.dateLast}, 'YYYY-MM-DD')
 				]]>
 			</if>
-			
-			
+			<if test='listFilter.statusValue neq"0"'>
+				<if test='listFilter.statusValue eq"접수"'>
+				<![CDATA[
+					and status_no in (1)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"개발"'>
+				<![CDATA[
+					and status_no in (2, 3, 4)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"테스트"'>
+				<![CDATA[
+					and status_no in (5, 6, 7)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"유저테스트"'>
+				<![CDATA[
+					and status_no in (8)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"배포"'>
+				<![CDATA[
+					and status_no in (10)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"완료"'>
+				<![CDATA[
+					and status_no in (11, 13)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"반려"'>
+				<![CDATA[
+					and status_no in (12)
+				]]>
+				</if>
+			</if>
+
+
+
+
+
 		</where>
-			
-			order by r.req_date desc
-			) j offset #{pager.startRowNo} rows fetch next #{pager.endRowNo} rows only
-			
-			
+
+		order by r.req_date desc
+		) j offset #{pager.startRowNo} rows fetch next #{pager.endRowNo} rows
+		only
+
+
 	</select>
 
 
