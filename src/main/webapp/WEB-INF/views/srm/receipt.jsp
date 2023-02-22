@@ -28,6 +28,8 @@
 			// 완료 예정일에 현재 날짜 이후 날짜만 선택 가능하게 만들기
 		  document.getElementById("allExpectDate").min
 		  = new Date().toISOString().slice(0, 10);
+			
+			
 		});
 		// 접수 토글 숨기고 입력 내용 삭제하기
 		function receiptCancel(){
@@ -41,6 +43,15 @@
 			$("input").val("");
 			$("textarea").val("");
 		}	
+	</script>
+	<script>
+	function urg(){
+		var urg = $("#reqType").val();
+		if(urg == '긴급'){
+			$("#utester").hide();
+		}
+		
+	}
 	</script>
 </head>
 
@@ -71,7 +82,7 @@
 						<div class="col-xl-9 col-lg-8 col-md-8 col-sm-8 mb-4">
 							<div class="card">
 								<div class="card-header d-flex">
-									<div class="mr-auto">서비스 요청</div>									
+									<div class="mr-auto">서비스 요청</div>	<button onclick="ut()">ddd</button>								
 								</div>
 								<div class="card-body">
 									<div>접수 상세보기 ></div>
@@ -135,14 +146,14 @@
 													<div class="row col-sm-12 form-group">
 														<div class="col">
 															<label class="control-label">요청 유형</label>
-															<select class="dropdown-toggle ml-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="reqType" style="width: 200px">															
-																<option value="정규"  class="text-center">정규</option>
-															    <option value="정규"  class="text-center">긴급</option>																																																						
+															<select class="dropdown-toggle ml-4" data-toggle="dropdown" name="reqType" id="reqType" style="width: 200px" onchange="urg()">															
+																<option value="정규" class="text-center">정규</option>
+															    <option value="긴급" class="text-center">긴급</option>																																																						
 															</select>																								
 														</div>
 														<div class="col">
 															<label class="control-label">중요도</label>
-															<select class="dropdown-toggle ml-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="priority" style="width: 200px">															
+															<select class="dropdown-toggle ml-5" data-toggle="dropdown" name="priority" style="width: 200px">															
 																<option value="상" class="text-center">상 (★★★)</option>
 																<option value="중" class="text-center">중 (★★)</option>
 																<option value="하" class="text-center">하 (★)</option>															    																																																						
@@ -171,7 +182,7 @@
 															</c:forEach>
 														</select>
 													</div>
-													<div class="col-sm-12 form-group row">
+													<div class="col-sm-12 form-group row" id="utester">
 														<label class="control-label col-lg-6">유저테스트 담당자 선택</label>
 														<select class="dropdown-toggle col-lg-6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester">
 															<c:forEach var="staff" items="${uteStaffList}">

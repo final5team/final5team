@@ -13,4 +13,14 @@
 		where To_CHAR(ALL_COMP_DATE, 'YYYYMM') = #{month}
 	</select>
 	
+	<select id="selectAllRate" resultType="int">
+		select count(*) as cnt
+		from REQUESTS
+	</select>
+	<select id="selectComRate" resultType="int">
+		select count(*) as cnt
+		from REQUESTS
+		where STATUS_NO >=12
+	</select>
+	
 </mapper>

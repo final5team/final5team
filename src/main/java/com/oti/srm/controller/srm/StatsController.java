@@ -37,6 +37,9 @@ public class StatsController {
 		// 전체 SR 처리 현황
 		//model.addAttribute("allState", statsService.getSRState("all"));
 		
+		// 전체 완료율 구하기
+		model.addAttribute("comRate", statsService.getComRate());
+		
 		// 월별 서비스 요청 건수 구하기
 		model.addAttribute("SRChange", statsService.getSRChange(0));
 		// 월별 서비스  완료 건수 구하기
