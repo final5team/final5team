@@ -31,7 +31,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	@Transactional
 	public int writeRequest(Request request, List<StatusHistoryFile> fileList) {
 		log.info("작성 실행");
-		System.out.println(request.toString());
+		
 		try {
 			int rows = requestDao.insertRequest(request);
 
@@ -41,31 +41,30 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 				
 				// 상태 이력을 남기기 위한 DTO 생성
 				StatusHistory statusHistory = new StatusHistory();
-			
+				
 				// DTO에 필요한 값 넣기
 				statusHistory.setRno(requestRno);
 				statusHistory.setNextStatus(2);
 				statusHistory.setReply("요청 작성 단계");
 				statusHistory.setWriter(request.getClient());
+				log.info(request.getClient());
 				
 				// 상태 변경 이력 작성하기
 				int historyResult = commonDao.insertStatusHistory(statusHistory);
 				if(historyResult == 1) {
 					// 작성한 상태 변경 이력 가져오기
-					List<StatusHistory> statusHistoryList = commonDao.getRequestHistories(requestRno);
+					List<StatusHistory> statusHistoryList = commonDao.selectRequestHistories(requestRno);
 					StatusHistory newstatusHistory = statusHistoryList.get(0);
-					
 					
 					//파일 첨부하기
 					if(fileList != null) {
 						for (StatusHistoryFile file : fileList) {
-							
-							
+							file.setHno(newstatusHistory.getHno());
+							commonDao.insertStatusHistoryFile(file);
 						}
 					}
-					
 				}
-				
+				//DB 입력 실패
 			} else {
 				return REQUEST_FAIL;
 			}

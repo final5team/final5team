@@ -197,6 +197,7 @@ form {
 }
 
 .section2 .fileBody {
+	border : 1px solid black;
 	position: absolute;
 	width: 700px;
 	left: 18%;
@@ -471,8 +472,7 @@ article.include div {
 							</article>
 							<article class="fileBody">
 								<div class="item">
-									<button type="button" name="img-add" class="btn-primary btn-sm" onclick="onclickUpload()">파일 등록</button>
-									<input multiple="multiple" type="file" id="mfile" name="mfile[]" style="display: none" /> <label class="file" for="file">파일첨부</label>
+									<input class="btn btn-primary btn-sm" multiple="multiple" type="file" id="mfile" name="mfile[]" /> 
 								</div>
 							</article>
 
@@ -509,8 +509,11 @@ article.include div {
 		function onclickUpload() {
 			let fileUpload = document.getElementById('mfile');
 			fileUpload.click();
+			
+			
+			
 		}
-
+		
 		
 		
 		

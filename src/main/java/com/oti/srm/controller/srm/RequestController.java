@@ -125,7 +125,7 @@ public class RequestController {
 		Member member = (Member) session.getAttribute("member");
 		request.setClient(member.getMname());
 		
-		log.info(files.length);
+		log.info("파일 길이 : " + files.length);
 		
 		List<StatusHistoryFile> fileList = new ArrayList<>();
 		
@@ -142,15 +142,12 @@ public class RequestController {
 				}
 			}
 		}
-			
-			
-		
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 			int result = requestService.writeRequest(request, fileList);
 			if(result == IRequestRegisterService.REQUEST_SUCCESS) {
-				return "redirect:/login";
+				return "redirect:/customer/requestlist";
 			} else {
 				model.addAttribute("requestResult", "FAIL");
 				return "redirect:/customer/request";
@@ -208,15 +205,13 @@ public class RequestController {
 				requestService.getPmRequestList(request, listFilter, pager);
 				return "srm/requestlist";
 			}
-			
 		//Not PM
 		} else {
 			log.info("not PM");
-			
-			
-
 		}
 
+		
+		
 		
 //		
 //		Pager pager = new Pager(5, 5, 10, pageNo);
