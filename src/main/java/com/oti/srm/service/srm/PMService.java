@@ -59,7 +59,7 @@ public class PMService implements IPMService {
 			if(statusHistory.getNextStatus()==2) {
 				int result=pMDao.insertRequestProcess(requestProcess);
 				return (result==1)?1:0;	
-			//반려	
+			//반려 처리	
 			} else if(statusHistory.getNextStatus()==12){
 				return 1;
 			}			
@@ -73,8 +73,7 @@ public class PMService implements IPMService {
 	public StatusHistory getStatusHistory(int rno, String string) {
 		// 전체 요청 처리 내역
 		commonDao.selectRequestHistories(rno);
-		// 해당 태스크별 처리 내역
-		
+		// 해당 태스크별 처리 내역		
 		
 		return null;
 	}

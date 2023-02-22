@@ -11,27 +11,36 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script>
 		$(document).ready(function(){
+			// 접수 토글 숨기기
 		  $("#receiptdiv").hide();
+			// 반려 토글 숨기기
 		  $("#rejectdiv").hide();
+			// 접수 토글 열고 반려 토글 숨기기
 		  $("#receiptbtn").click(function(){
 			  $("#rejectdiv").hide();
 		      $("#receiptdiv").toggle();
 		  });
+			// 반려 토글 열고 접수 토글 숨기기
 		  $("#rejectbtn").click(function(){
 			  $("#receiptdiv").hide();
 			  $("#rejectdiv").toggle();
 		   });
+			// 완료 예정일에 현재 날짜 이후 날짜만 선택 가능하게 만들기
+		  document.getElementById("allExpectDate").min
+		  = new Date().toISOString().slice(0, 10);
 		});
+		// 접수 토글 숨기고 입력 내용 삭제하기
 		function receiptCancel(){
 			$("#receiptdiv").hide();
 			$("input").val("");
 			$("textarea").val("");		
 		}
+		// 반려 토글 숨기고 입력 내용 삭제하기
 		function rejectCancel(){
 			$("#rejectdiv").hide();
 			$("input").val("");
 			$("textarea").val("");
-		}
+		}	
 	</script>
 </head>
 
@@ -65,7 +74,7 @@
 									<div class="mr-auto">서비스 요청</div>									
 								</div>
 								<div class="card-body">
-									<div>접수상세보기 ></div>
+									<div>접수 상세보기 ></div>
 									<div>
 										<h3 class="mr-auto font-weight-bold">${request.reqTitle}</h3>
 									</div>
@@ -97,7 +106,7 @@
 											<i class="fas fa-cloud-download-alt"></i>
 										</a>
 									</div>
-									<c:if test="${request.statusNo==1}">
+									<c:if test="${request.statusNo==1 && member.mtype =='pm'}">
 										<div class="d-flex justify-content-end">
 											<button class="btn btn-primary btn-lg mt-3 ml-3" type="button" id="receiptbtn">접수</button>
 											<button class="btn btn-danger btn-lg mt-3 ml-3" type="button" id="rejectbtn">반려</button>
@@ -115,9 +124,11 @@
 										<div class="card-body">
 										<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data">
 											<div class="row">
-												<div class="col-sm-3" style="text-align:center;">
-													<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
-													<div class="ml-3">PM</div>
+												<div class="col-sm-3 d-flex align-items-center" style="text-align:center;">
+													<div>
+														<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+														<div class="ml-3">[PM] ${member.mname}</div>
+													</div>
 												</div>
 												<div class="col-sm-9">
 													
@@ -140,7 +151,8 @@
 													</div>
 													<div class="col-sm-12 form-group row">
 														<label class="control-label col-lg-6" >완료예정일</label>
-														<input type="date" class="form-control col-lg-6" name="allExpectDate">
+														<input type="date" class="form-control col-lg-6" name="allExpectDate" id="allExpectDate" required pattern="\d{4}-\d{2}-\d{2}">
+														<span class="validity"></span>
 													</div>
 													
 													<div class="col-sm-12 form-group row">
@@ -178,7 +190,7 @@
 												
 													<div class="col-sm-12 form-group">
 														<label class="control-label">의견 내용</label>
-														<textarea rows="2" class="form-control boxed" name="reply"></textarea>
+														<textarea rows="2" class="form-control boxed" name="reply" required></textarea>
 													</div>											
 													<div class="filebox">
 														<label for="file">첨부파일</label>
@@ -207,14 +219,16 @@
 										<div class="card-header">서비스 요청 반려</div>
 										<div class="card-body">
 											<div class="row">
-												<div class="col-sm-3" style="text-align:center;">
-													<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
-													<div class="ml-3">PM</div>
+												<div class="col-sm-3 d-flex align-items-center" style="text-align:center;">
+													<div>
+														<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+														<div class="ml-3">[PM] ${member.mname}</div>
+													</div>
 												</div>
 												<div class="col-sm-9">	
 													<div class="col-sm-12 form-group">
 														<label class="control-label">반려 사유</label>
-														<textarea rows="2" class="form-control boxed" name="reply"></textarea>
+														<textarea rows="2" class="form-control boxed" name="reply" required></textarea>
 													</div>											
 													<div class="filebox">
 														<label for="file">첨부파일</label>
@@ -235,14 +249,16 @@
 							</div>
 							
 							<!-- 서비스 요청 접수 완료 후 start-->
-							<c:if test="${request.statusNo!=1}">
+							<c:if test="${request.statusNo!=1 && member.mtype !='user'}">
 								<div class="card mt-4 mb-1">
 									<div class="card-header">서비스 요청 접수 완료</div>
 									<div class="card-body">									
 										<div class="row">
-											<div class="col-sm-3" style="text-align:center;">
-												<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
-												<div class="ml-3">PM</div>
+											<div class="col-sm-3 d-flex align-items-center" style="text-align:center;">
+												<div>
+													<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+													<div class="ml-3">[PM] ${reqProcess.pm}</div>
+												</div>
 											</div>
 											<div class="col-sm-9">
 												
@@ -262,19 +278,19 @@
 												</div>
 												
 												<div class="col-sm-12 form-group row">
-													<label class="control-label col-lg-6" >개발 담당자 선택</label>
+													<label class="control-label col-lg-6">개발 담당자 선택</label>
 													<input name="developer" value="${reqProcess.developer}" class="col-lg-6 text-center" readonly>	
 												</div>
 												<div class="col-sm-12 form-group row">
-													<label class="control-label col-lg-6" >테스트 담당자 선택</label>
+													<label class="control-label col-lg-6">테스트 담당자 선택</label>
 													<input name="tester" value="${reqProcess.tester}" class="col-lg-6 text-center" readonly>
 												</div>
 												<div class="col-sm-12 form-group row">
-													<label class="control-label col-lg-6" >유저테스트 담당자 선택</label>
+													<label class="control-label col-lg-6">유저테스트 담당자 선택</label>
 													<input name="userTester" value="${reqProcess.userTester}" class="col-lg-6 text-center" readonly>
 												</div>
 												<div class="col-sm-12 form-group row">
-													<label class="control-label col-lg-6" >배포 담당자 선택</label>
+													<label class="control-label col-lg-6">배포 담당자 선택</label>
 													<input name="distributor" value="${reqProcess.distributor}" class="col-lg-6 text-center" readonly>
 												</div>										
 											</div>

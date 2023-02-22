@@ -87,8 +87,7 @@
 	    	        ['요청', 0.2, 0.3, 0.1, 0.1, 0.1, 0.2, '']	    	      
 	    	      ]);
 
-	    	      var options = {
-	    	    		  width: 1250,
+	    	  var options = {	    	   		
 	    	        height: 100,
 	    	        hAxis: {	    	        	  
 	    	        	  textStyle: {
@@ -422,7 +421,7 @@
 						        		
 						        		</div>
 						        		<div>
-						        			<div id="barchart_material" style="box-sizing: border-box;"></div>
+						        			<div id="barchart_material"></div>
 						        		</div>
 						        		
 						        	
