@@ -381,7 +381,7 @@ main {
 								<c:if test="${sessionScope.member.mtype == 'pm'}">
 									<div class="input-group">
 										<select class="custom-select" id="sno" name="sno">
-											<option selected>시스템 선택</option>
+											<option selected>시스템</option>
 											<c:forEach var="system" items="${systemList}">
 												<option value="${system.sno}">${system.systemName}</option>
 											</c:forEach>
@@ -414,8 +414,8 @@ main {
 										<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
 										<td class="sysType">N Q</td>
 										<td class="reqTitle" style="max-width: 100px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
-										<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">${request.reqDate}</td>
-
+										<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" /></td>
+										
 										<td class="step_td">
 											<%@ include file="/WEB-INF/views/srm/restatus/nowstatusvertical.jsp"%>
 										</td>
