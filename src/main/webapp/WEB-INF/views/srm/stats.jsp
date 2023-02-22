@@ -109,17 +109,24 @@
 	        var chart = new google.charts.Bar(document.getElementById('barchart_material'));	
 	        chart.draw(data, google.charts.Bar.convertOptions(options));
 	      }
-	      
+	      // 서비스 요청 추이 꺾은 선 그래프 그리기
 	      google.charts.setOnLoadCallback(drawLineChart);
 
 	      function drawLineChart() {
 	        var data = google.visualization.arrayToDataTable([
 	          ['월', '요청', '완료'],
-	          ['01',  10,      4],
-	          ['02',  11,      4],
-	          ['03',  6,       11],
-	          ['04',  4,       9],
-	          ['05',  10,      5]
+	          ['01월',  ${SRChange['1']},	${SRComChange['1']}],
+	          ['02월',  ${SRChange['2']},	${SRComChange['2']}],
+	          ['03월',  ${SRChange['3']},	${SRComChange['3']}],
+	          ['04월',  ${SRChange['4']},	${SRComChange['4']}],
+	          ['05월',  ${SRChange['5']},	${SRComChange['5']}],
+	          ['06월',  ${SRChange['6']},	${SRComChange['6']}],
+	          ['07월',  ${SRChange['7']},	${SRComChange['7']}],
+	          ['08월',  ${SRChange['8']},	${SRComChange['8']}],
+	          ['09월',  ${SRChange['9']},	${SRComChange['9']}],
+	          ['10월',  ${SRChange['10']},	${SRComChange['10']}],
+	          ['11월',  ${SRChange['11']},	${SRComChange['11']}],
+	          ['12월',  ${SRChange['12']},	${SRComChange['12']}]
 	        ]);
 
 	        var options = {
@@ -221,7 +228,7 @@
 	                                <div class="row">
 	                                	<div class="col-md-7"> <div id="donutchart"></div></div>
 	                                	<div class="col-md-5">
-	                                		<p>Task</p>
+	                                		<p style="color: green">Task</p>
 		                                	<p>개발: 65%</p>
 		                                	<p>테스트: 63%</p>
 		                                	<p>고객테: 60%</p>
@@ -259,7 +266,7 @@
 	                                		<div id="chart_div" style="width: 400px; height: 120px;" class="ml-4 mt-3"></div> 
 	                                	</div>
 	                                	<div class="col-md-5">
-	                                		<p>Task</p>
+	                                		<p style="color: green">Task</p>
 		                                	<p>개발: 65%</p>
 		                                	<p>테스트: 63%</p>
 		                                	<p>고객테: 60%</p>
@@ -334,7 +341,7 @@
 									                                  <div class="h5 mb-0 font-weight-bold text-gray-800">5 건</div>
 									                              </div>
 									                          	  <div class="col-auto">
-									                                  <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+									                                  <i class="fas fa-pen fa-2x text-gray-300"></i>
 									                              </div>
 									                          </div>
 									                      </div>
@@ -460,7 +467,7 @@
 										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">5 건</div>
 										                              </div>
 										                          	  <div class="col-auto">
-										                                  <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+										                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
 										                              </div>
 										                          </div>
 										                      </div>
@@ -536,7 +543,7 @@
 										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">5 건</div>
 										                              </div>
 										                          	  <div class="col-auto">
-										                                  <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+										                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
 										                              </div>
 										                          </div>
 										                      </div>
@@ -611,7 +618,7 @@
 										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">5 건</div>
 										                              </div>
 										                          	  <div class="col-auto">
-										                                  <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+										                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
 										                              </div>
 										                          </div>
 										                      </div>
@@ -686,7 +693,7 @@
 										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">5 건</div>
 										                              </div>
 										                          	  <div class="col-auto">
-										                                  <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+										                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
 										                              </div>
 										                          </div>
 										                      </div>
@@ -753,7 +760,7 @@
 								</div>
 						        <div class="tab-content tabs-bordered">
 						        	<div class="m-3">
-						        		<div id="curve_chart"></div>
+						        		<div id="curve_chart"></div>						        		
 						        	</div>
 						        </div>
 							</div>
