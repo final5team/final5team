@@ -153,4 +153,232 @@
 		values
 		(seq_status_histories_files.nextval, sysdate, #{fileName}, #{fileType}, #{fileData}, #{hno})
 	</insert>
+	
+	<select id="selectRequestRecent" parameterType="com.oti.srm.dto.Member" resultType="int">
+		select count(*)
+		from request_process
+		<where>
+			<if test="mtype == 'pm'">
+				pm = #{mid}
+			and all_expect_date is null
+			</if>
+			<if test="mtype == 'developer'">
+				developer = #{mid}
+			and dev_expect_date is null
+			</if>
+			<if test="mtype == 'tester'">
+				tester = #{mid}
+			and test_expect_date is null
+			</if>
+			<if test="mtype == 'usertester'">
+				usertester = #{mid}
+			and usertest_expect_date is null
+			</if>
+			<if test="mtype == 'distributor'">
+				distributor = #{mid}
+			and dist_expect_date is null
+			</if>
+		</where>
+	</select>	
+	
+	<select id="selectRequestInProgress" parameterType="com.oti.srm.dto.Member" resultType="int">
+		select count(*)
+		from request_process rp, requests r
+		<where>rp.rno = r.rno
+		
+			<if test="mtype == 'pm'">
+				and r.STATUS_NO between  2 and 11
+				and pm = #{mid}
+			</if>
+			<if test="mtype == 'developer'">
+				and r.STATUS_NO = 4
+				and developer = #{mid}
+			</if>
+			<if test="mtype == 'tester'">
+				and r.STATUS_NO = 6
+				and tester = #{mid}
+			</if>
+			<if test="mtype == 'usertester'">
+				and r.STATUS_NO = 8
+				and usertester = #{mid}
+			</if>
+			<if test="mtype == 'distributor'">
+				and r.STATUS_NO = 10
+				and distributor = #{mid}
+			</if>
+		</where> 
+	</select>
+	
+	<select id="selectRequestDone" parameterType="com.oti.srm.dto.Member" resultType="int">
+		select count(*)
+		from request_process rp, requests r
+		<where>rp.rno = r.rno
+		
+			<if test="mtype == 'pm'">
+				and r.STATUS_NO = 13 
+				and pm = #{mid}
+			</if>
+			<if test="mtype == 'developer'">
+				and r.STATUS_NO = 5
+				and developer = #{mid}
+			</if>
+			<if test="mtype == 'tester'">
+				and r.STATUS_NO = 7
+				and tester = #{mid}
+			</if>
+			<if test="mtype == 'usertester'">
+				and r.STATUS_NO = 9
+				and usertester = #{mid}
+			</if>
+			<if test="mtype == 'distributor'">
+				and r.STATUS_NO = 11
+				and distributor = #{mid}
+			</if>
+		</where> 
+	</select>
+	<select id="selectRequestReexam" parameterType="com.oti.srm.dto.Member" resultType="int">
+		select count(*)
+		from request_process rp, requests r
+		where rp.rno = r.rno
+		and r.STATUS_NO = 3
+		and developer = #{mid}
+	</select>
+	<select id="selectRequestReject" parameterType="com.oti.srm.dto.Member" resultType="int">
+		select count(*)
+		from request_process rp, requests r
+		where rp.rno = r.rno
+		and r.STATUS_NO = 12
+		and pm = #{mid}
+	</select>
+	
+	<select id="selectListOf7daysLeft" parameterType="com.oti.srm.dto.Member" resultType="com.oti.srm.dto.Request">
+		SELECT 
+			r.RNO as "rno",
+			REQ_TITLE as "reqTitle",
+			REQ_DATE as "reqDate", 
+		<if test="mtype == 'pm'">ALL_EXPECT_DATE as "ddayExpectDate"</if>
+		<if test="mtype == 'developer'"> DEV_EXPECT_DATE as "ddayExpectDate"</if>
+		<if test="mtype == 'tester'">TEST_EXPECT_DATE as "ddayExpectDate"</if>
+		<if test="mtype == 'usertester'">USERTEST_EXPECT_DATE as "ddayExpectDate"</if>
+		<if test="mtype == 'distributor'">DIST_EXPECT_DATE as "ddayExpectDate"</if>
+		FROM request_process rp, requests r
+		<where> rp.rno = r.rno
+		
+			<if test="mtype == 'pm'">
+				and (ALL_EXPECT_DATE-sysdate) <![CDATA[<=]]>7
+				and pm = #{mid}
+		    	and ALL_EXPECT_DATE is not null
+				and ALL_COMP_DATE is null
+			</if>
+			<if test="mtype == 'developer'">
+				and (DEV_EXPECT_DATE-sysdate)<![CDATA[<=]]> 7
+				and DEV_EXPECT_DATE is not null
+				and DEV_COMP_DATE is null
+				and developer = #{mid}
+			</if>
+			<if test="mtype == 'tester'">
+				and (TEST_EXPECT_DATE-sysdate) <![CDATA[<=]]>7
+				and TEST_EXPECT_DATE is not null
+				and TEST_COMP_DATE is null
+				and tester = #{mid}
+			</if>
+			<if test="mtype == 'usertester'">
+				and (USERTEST_EXPECT_DATE-sysdate) <![CDATA[<=]]>7
+				and USERTEST_EXPECT_DATE is not null
+		   		and USERTEST_COMP_DATE is null
+				and usertester = #{mid}
+			</if>
+			<if test="mtype == 'distributor'">
+				and (DIST_EXPECT_DATE-sysdate) <![CDATA[<=]]>7
+				and DIST_EXPECT_DATE is not null
+				and DIST_COMP_DATE is null
+				and distributor = #{mid}
+			</if>
+		</where>
+			<if test="mtype == 'pm'">
+				order by (ALL_EXPECT_DATE-sysdate) asc
+			</if>
+			<if test="mtype == 'developer'">
+				order by (DEV_EXPECT_DATE-sysdate) asc
+			</if>
+			<if test="mtype == 'tester'">
+				order by (TEST_EXPECT_DATE-sysdate) asc
+			</if>
+			<if test="mtype == 'usertester'">
+				order by (USERTEST_EXPECT_DATE-sysdate) asc
+			</if>
+			<if test="mtype == 'distributor'">
+				order by (DIST_EXPECT_DATE-sysdate) asc
+			</if>
+	</select>
+	
+	<select id="selectAllMyRequests" parameterType="com.oti.srm.dto.Member" resultType="int">
+		select count(*) 
+		from request_process
+		<where>			
+			<if test="mtype == 'pm'">
+			 PM = #{mid}
+			 and ALL_EXPECT_DATE is not null
+			 and ALL_COMP_DATE is not null
+			</if>
+			<if test="mtype == 'developer'">
+			 DEVELOPER = #{mid}
+			and DEV_EXPECT_DATE is not null
+			and DEV_COMP_DATE is not null
+			</if>
+			<if test="mtype == 'tester'">
+			 TESTER = #{mid}
+			 and TEST_EXPECT_DATE is not null
+			 and TEST_COMP_DATE is not null
+			</if>
+			<if test="mtype == 'usertester'">
+		   	 USER_TESTER = #{mid}
+		   	 and USERTEST_EXPECT_DATE is not null
+		   	 and USERTEST_COMP_DATE is not null
+			</if>
+			<if test="mtype == 'distributor'">
+			 DISTRIBUTOR = #{mid}
+			 and DIST_EXPECT_DATE is not null
+			 and DIST_COMP_DATE is not null
+			</if>
+		</where>
+	</select>
+	<select id="selectDelayRequests" parameterType="com.oti.srm.dto.Member" resultType="int">
+		select count(*) 
+		from request_process
+		<where>			
+			<if test="mtype == 'pm'">
+			 PM = #{mid}
+			 and ALL_EXPECT_DATE is not null
+			 and ALL_COMP_DATE is not null
+			 and ALL_EXPECT_DATE <![CDATA[<]]> ALL_COMP_DATE
+			</if>
+			<if test="mtype == 'developer'">
+			 DEVELOPER = #{mid}
+			and DEV_EXPECT_DATE is not null
+			and DEV_COMP_DATE is not null
+			and DEV_EXPECT_DATE <![CDATA[<]]> DEV_COMP_DATE
+			</if>
+			<if test="mtype == 'tester'">
+			 TESTER = #{mid}
+			 and TEST_EXPECT_DATE is not null
+			 and TEST_COMP_DATE is not null
+			 and TEST_EXPECT_DATE <![CDATA[<]]> TEST_COMP_DATE
+			</if>
+			<if test="mtype == 'usertester'">
+		   	 USER_TESTER = #{mid}
+		   	 and USERTEST_EXPECT_DATE is not null
+		   	 and USERTEST_COMP_DATE is not null
+		   	 and USERTEST_EXPECT_DATE <![CDATA[<]]> USERTEST_COMP_DATE
+			</if>
+			<if test="mtype == 'distributor'">
+			 DISTRIBUTOR = #{mid}
+			 and DIST_EXPECT_DATE is not null
+			 and DIST_COMP_DATE is not null
+			 and DIST_EXPECT_DATE <![CDATA[<]]> DIST_COMP_DATE
+			</if>
+		</where>
+	</select>
+	
+	
 </mapper>

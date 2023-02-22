@@ -47,11 +47,11 @@
                 					<h4 class="font-weight-normal mb-3">최신 요청건
                 						<i class="fas fa-star-of-david float-right"></i>
                 					</h4>
-                					<h2 class="mb-5">3 건</h2>
-                					<h6 class="">2023년 2월 현황</h6>
+                					<h2 class="mb-5"><c:out value="${workingStatus.requestRecent}"/> 건</h2>
                 				</div>
                 			</div>
                 		</div>
+                		<c:if test="${member.mtype == 'developer'}">
                 		<!-- 재검토 요청 start-->
                 		<div class="col-xl-3 stretch-card">
                 			<div class="card text-white bg-gradient-warning" style="padding: 2.5rem;">
@@ -60,11 +60,25 @@
                 					<h4 class="font-weight-normal mb-3">재검토 요청
                 						<i class="fas fa-star-of-david float-right"></i>
                 					</h4>
-                					<h2 class="mb-5">3 건</h2>
-                					<h6 class="">2023년 2월 현황</h6>
+                					<h2 class="mb-5"><c:out value="${workingStatus.requestReexam}"/>건</h2>
                 				</div>
                 			</div>
                 		</div>
+                		</c:if>
+                		<c:if test="${member.mtype == 'pm'}">
+                		<!-- 반려건 start-->
+                		<div class="col-xl-3 stretch-card">
+                			<div class="card text-white bg-gradient-warning" style="padding: 2.5rem;">
+                				<div class="card-body">
+		           					<img style="position: absolute;top: 0; right: 0; height: 100%;" src="${pageContext.request.contextPath}/resources/img/circle.1541da91.svg">
+                					<h4 class="font-weight-normal mb-3">반려건
+                						<i class="fas fa-star-of-david float-right"></i>
+                					</h4>
+                					<h2 class="mb-5"><c:out value="${workingStatus.requestReject}"/>건</h2>
+                				</div>
+                			</div>
+                		</div>
+                		</c:if>
                 		
                 		<!-- 진행 요청 start-->
                 		<div class="col-xl-3 stretch-card">
@@ -74,8 +88,7 @@
                 					<h4 class="font-weight-normal mb-3">진행 요청건
                 						<i class="fas fa-star-of-david float-right"></i>
                 					</h4>
-                					<h2 class="mb-5">3 건</h2>
-                					<h6 class="">2023년 2월 현황</h6>
+                					<h2 class="mb-5"><c:out value="${workingStatus.requestInProgress}"/> 건</h2>
                 				</div>
                 			</div>
                 		</div>
@@ -87,8 +100,7 @@
                 					<h4 class="font-weight-normal mb-3">완료 요청건
                 						<i class="fas fa-star-of-david float-right"></i>
                 					</h4>
-                					<h2 class="mb-5">3 건</h2>
-                					<h6 class="">2023년 2월 현황</h6>
+                					<h2 class="mb-5"><c:out value="${workingStatus.requestDone}"/> 건</h2>
                 				</div>
                 			</div>
                 		</div>
@@ -102,7 +114,7 @@
 								<div class="card-block">
 									<div class="tasks-block" style="height: 350px;">
 										<div class=" card-title-blcok mb-4">
-											<h3 class="title">List to finish</h3>
+											<h3 class="title">List to finish [D-7]</h3>
 										</div>
 										<table class="table tasks-block">
 											<thead>
@@ -114,87 +126,33 @@
 												</tr>
 											</thead>
 											<tbody >
-												<tr>
-													<td>
-														<input class="checkbox" id="customCheckbox" type="checkbox">
-														<label for="customCheckbox"></label>
-													</td>
-													<td class="tableContent">
-														가족관계증명서ddddddddddddddddddddssssssssssssssssssssssssssssssssssssssssdddddddddddddddddd
-													</td>
-													<td>2022.12.05</td>
-													<td>2023.02.28</td>
-												</tr>
-												<tr>
-													<td>
-														<input class="checkbox" type="checkbox">
-													</td>
-													<td class="tableContent">
-														가족관계증명서ssssssssssssdddddddddcccccccccccccccccccdddddddd
-													</td>
-													<td>2022.12.05</td>
-													<td>2023.02.28</td>
-												</tr>
-												<tr>
-													<td>
-														<input class="checkbox" type="checkbox">
-													</td>
-													<td class="tableContent">
-														가족관계증명서ssssssssssssddddddddddddddddd
-													</td>
-													<td>2022.12.05</td>
-													<td>2023.02.28</td>
-												</tr><tr>
-													<td>
-														<input class="checkbox" type="checkbox">
-													</td>
-													<td class="tableContent">
-														가족관계증명서ssssssssssssddddddddddddddddd
-													</td>
-													<td>2022.12.05</td>
-													<td>2023.02.28</td>
-												</tr>
-												<tr>
-													<td>
-														<input class="checkbox" type="checkbox">
-													</td>
-													<td class="tableContent">
-														가족관계증명서ssssssssssssddddddddddddddddd
-													</td>
-													<td>2022.12.05</td>
-													<td>2023.02.28</td>
-												</tr>
-												<tr>
-													<td>
-														<input class="checkbox" type="checkbox">
-													</td>
-													<td class="tableContent">
-														가족관계증명서ssssssssssssddddddddddddddddd
-													</td>
-													<td>2022.12.05</td>
-													<td>2023.02.28</td>
-												</tr>
-												<tr>
-													<td>
-														<input class="checkbox" type="checkbox">
-													</td>
-													<td class="tableContent">
-														가족관계증명서ssssssssssssddddddddddddddddd
-													</td>
-													<td>2022.12.05</td>
-													<td>2023.02.28</td>
-												</tr>
-												<tr>
-													<td>
-														<input class="checkbox" type="checkbox">
-													</td>
-													<td class="tableContent">
-														가족관계증명서ssssssssssssddddddddddddddddd
-													</td>
-													<td>2022.12.05</td>
-													<td>2023.02.28</td>
-												</tr>
-												
+												<c:forEach var="aDay" items="${listOf7daysLeft}">
+													<tr>
+														<td>
+															<input class="checkbox" id="customCheckbox" type="checkbox">
+															<label for="customCheckbox"></label>
+														</td>
+														<td class="tableContent pl-0 pb-0 mt-1">
+															<c:if test="${member.mtype eq 'pm'}">
+																<a href="${pageContext.request.contextPath}/completedetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
+															</c:if>	
+															<c:if test="${member.mtype eq 'developer'}">
+																<a href="${pageContext.request.contextPath}/developerdetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
+															</c:if>	
+															<c:if test="${member.mtype eq 'tester'}">
+																<a href="${pageContext.request.contextPath}/testerdetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
+															</c:if>	
+															<c:if test="${member.mtype eq 'usertester'}">
+																<a href="${pageContext.request.contextPath}/usertestdetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
+															</c:if>	
+															<c:if test="${member.mtype eq 'distributor'}">
+																<a href="${pageContext.request.contextPath}/distributedetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
+															</c:if>	
+														</td>
+														<td><fmt:formatDate value="${aDay.reqDate}" pattern="yyyy-MM-dd"/></td>
+														<td><fmt:formatDate value="${aDay.ddayExpectDate}" pattern="yyyy-MM-dd"/></td>
+													</tr>
+												</c:forEach>
 											</tbody>
 										</table>
 									</div>
@@ -236,7 +194,7 @@
     </a>
 <script>
 var xValues = ["지연율", "정상처리율"];
-var yValues = [10, 90];
+var yValues = [<c:out value="${workCompletionRate.delayRate}"/>, <c:out value="${workCompletionRate.normalRate}"/>];
 var barColors = [
   "#70b02b",
   "#9ed85f"

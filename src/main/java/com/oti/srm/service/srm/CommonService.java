@@ -2,13 +2,16 @@ package com.oti.srm.service.srm;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.oti.srm.dao.srm.ICommonDao;
+import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.StatusHistory;
@@ -131,6 +134,62 @@ public class CommonService implements ICommonService {
 			}
 		}
 		return receiptDoneDate.getChangeDate();
+	}
+
+	/* 작성자: 장현
+	 * 최신 요청 개수, 진행중인 요청 개수, 진행 완료 개수, 개발자일 경우 재검토, pm일 경우 반려건 개수 출력
+	 */
+	@Override
+	@Transactional
+	public HashMap<String,Integer> getWorkingStatus(Member member) {
+		
+		HashMap<String, Integer> map = new HashMap<>();
+		//최신 요청 개수 가져오기
+		int requestRecent = commonDao.selectRequestRecent(member);
+		//진행 중인 요청 개수 가져오기
+		int requestInProgress = commonDao.selectRequestInProgress(member);
+		//진행 완료인 요청 개수 가져오기
+		int requestDone = commonDao.selectRequestDone(member);
+		//개발자 - 재검토 요청 개수 가져오기
+		int requestReexam = commonDao.selectRequestReexam(member);
+		//pm - 반려건 개수 가져오기
+		int requestReject = commonDao.selectRequestReject(member);
+		
+		map.put("requestRecent", requestRecent);
+		map.put("requestInProgress", requestInProgress);
+		map.put("requestDone", requestDone);
+		map.put("requestReexam", requestReexam);
+		map.put("requestReject", requestReject);
+		
+		return map;
+	}
+
+	@Override
+	public List<Request> getListOf7daysLeft(Member member) {
+		ArrayList<Request> list = new ArrayList<>();
+		list = commonDao.selectListOf7daysLeft(member);
+		return list;
+	}
+
+	@Override
+	public Map<String, Object> getWorkCompletionRate(Member member) {
+		Map<String, Object> map = new HashMap<>();
+		int allMyRequests = commonDao.selectAllMyRequests(member);
+		int delayRequests = commonDao.selectDelayRequests(member);
+		//지연율 넣기
+		double delayRate = 0;
+		double normalRate = 100;
+		if(allMyRequests != 0) {
+			delayRate = delayRequests/allMyRequests * 100;
+			normalRate = 100 - delayRate;
+		} 
+		map.put("allMyRequests", allMyRequests);
+		map.put("delayRequests", delayRequests);
+		map.put("delayRate", delayRate);
+		map.put("normalRate", normalRate);
+		
+		
+		return map;
 	}
 	
 }

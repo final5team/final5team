@@ -1,11 +1,13 @@
 package com.oti.srm.dao.srm;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.StatusHistory;
@@ -43,5 +45,26 @@ public interface ICommonDao {
 	
 	// 단계 변경 이력에 파일 추가(status_histories_files 테이블)
 	public int insertStatusHistoryFile(StatusHistoryFile statusHistoryFile);
+	
+	//신규 요청건 개수 출력
+	public int selectRequestRecent(Member member);
+	
+	//진행중인 요청 개수 출력
+	public int selectRequestInProgress(Member member);
+	
+	//완료된 요청 개수 출력
+	public int selectRequestDone(Member member);
+	
+	//개발자일경우 재검토 요청 개수 출력
+	public int selectRequestReexam(Member member);
+	
+	//pm일 경우 반려 요청 개수 출력
+	public int selectRequestReject(Member member);
+	//7일 남은 리스트 출력
+	public ArrayList<Request> selectListOf7daysLeft(Member member);
+
+	public int selectAllMyRequests(Member member);
+
+	public int selectDelayRequests(Member member);
 	
 }
