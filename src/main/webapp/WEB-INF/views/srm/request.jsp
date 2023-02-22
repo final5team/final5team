@@ -197,7 +197,6 @@ form {
 }
 
 .section2 .fileBody {
-	border : 1px solid black;
 	position: absolute;
 	width: 700px;
 	left: 18%;
