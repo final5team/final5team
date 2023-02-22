@@ -8,4 +8,7 @@ public class ListFilter{
 	private String dateLast;
 	private int sno;
 	
+	private String dateValue;
+	private int statusNo;
+	
 }

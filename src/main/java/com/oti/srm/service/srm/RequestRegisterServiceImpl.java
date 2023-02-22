@@ -1,5 +1,6 @@
 package com.oti.srm.service.srm;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import com.oti.srm.dao.srm.IRequestDao;
 import com.oti.srm.dto.ListFilter;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
-import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.SelectPM;
 import com.oti.srm.dto.StatusHistory;
 import com.oti.srm.dto.StatusHistoryFile;
@@ -90,27 +90,31 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 
 	// PM 리스트 전체 열 개수 조회
 	@Override
-	public int getPmTotalRows() {
-		int rows = requestDao.countPm();
+	public int getPmTotalRows(ListFilter listFilter) {
+		int rows = requestDao.countPm(dateFilterList(listFilter));
+		log.info("검색 성공");
 		return rows;
 	}
 
 	// 리스트 조회
 	@Override
 	public List<SelectPM> getPmRequestList(Request request, ListFilter listFilter, Pager pager) {
-		request.setStartRowNo(pager.getStartRowNo());
-		request.setEndRowNo(pager.getEndRowNo());
 		
-		log.info("service page NO" +  "- start :" + pager.getStartRowNo() +  " end : " + pager.getEndRowNo());
-		log.info("start" + request.getStartRowNo() + "end" + request.getEndRowNo());
 		
-		request.setReqType(listFilter.getReqType());
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("request", request);
+		map.put("listFilter", dateFilterList(listFilter));
+		map.put("pager", pager);
 		
-		// 날짜 필터 메소드 사용해서 request 값 조정 후 조회
-		List<SelectPM> result = requestDao.selectAll(dateFilter(listFilter, request));
-		log.info(result.size());
+		log.info(listFilter.toString());
+		
+		
+//		List<SelectPM> result = requestDao.selectPmRequestList(request, dateFilterList(listFilter), pager);
+		List<SelectPM> result = requestDao.selectPmRequestList(map);
+		
 		
 		return result;
+
 	}
 
 	// 각 담당자 리스트 열 개수 조회
@@ -129,24 +133,44 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		// 날짜 필터 조건 - 지정 안한 경우
 		if (listFilter.getDateFirst().isEmpty() && listFilter.getDateLast().isEmpty()) {
 			request.setDateValue("zero");
+			listFilter.setDateValue("zero");
 
 			// 날짜 필터 조건 - 시작 날짜만 지정한 경우
 		} else if (listFilter.getDateFirst().isEmpty()) {
 			request.setDateValue("first");
 			request.setDateLast(listFilter.getDateLast());
+			listFilter.setDateValue("first");
 
 			// 날짜 필터 조건 - 종료 날짜만 지정한 경우
 		} else if (listFilter.getDateLast().isEmpty()) {
 			request.setDateValue("last");
 			request.setDateFirst(listFilter.getDateFirst());
+			listFilter.setDateValue("last");
 
 			// 날짜 필터 조건 - 모두 지정한 경우
 		} else {
 			request.setDateValue("both");
 			request.setDateFirst(listFilter.getDateFirst());
 			request.setDateLast(listFilter.getDateLast());
+			listFilter.setDateValue("both");
 		}
 		return request;
 	}
-
+	//날짜 필터링 메소드
+	public ListFilter dateFilterList(ListFilter listFilter) {
+		// 날짜 필터 조건 - 지정 안한 경우
+		if (listFilter.getDateFirst().isEmpty() && listFilter.getDateLast().isEmpty()) {
+			listFilter.setDateValue("zero");
+			// 날짜 필터 조건 - 시작 날짜만 지정한 경우
+		} else if (listFilter.getDateFirst().isEmpty()) {
+			listFilter.setDateValue("first");
+			// 날짜 필터 조건 - 종료 날짜만 지정한 경우
+		} else if (listFilter.getDateLast().isEmpty()) {
+			listFilter.setDateValue("last");
+			// 날짜 필터 조건 - 모두 지정한 경우
+		} else {
+			listFilter.setDateValue("both");
+		}
+		return listFilter;
+	}
 }

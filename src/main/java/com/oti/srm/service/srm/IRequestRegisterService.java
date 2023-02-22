@@ -39,7 +39,7 @@ public interface IRequestRegisterService {
 	
 	
 	// PM 조회
-	public int getPmTotalRows();
+	public int getPmTotalRows(ListFilter listFilter);
 	public List<SelectPM> getPmRequestList(Request request, ListFilter listFilter, Pager pager);
 
 	//개발자 조회

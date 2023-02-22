@@ -241,6 +241,7 @@ public class RequestController {
 		listFilter.setDateFirst(date_first);
 		listFilter.setDateLast(date_last);
 		listFilter.setSno(sno);
+		listFilter.setStatusNo(statusNo);
 
 		// 유저 권한 확인
 		Member member = (Member) session.getAttribute("member");
@@ -250,8 +251,7 @@ public class RequestController {
 		// PM case
 		if (member.getMtype().equals("pm") ){
 			// PM은 전체 조회가 가능함.
-			
-			int totalRows = requestService.getPmTotalRows();
+			int totalRows = requestService.getPmTotalRows(listFilter);
 
 			Pager pager = new Pager(7, 5, totalRows, pageNo);
 			List<SelectPM> requestList = requestService.getPmRequestList(request, listFilter, pager);
@@ -264,7 +264,7 @@ public class RequestController {
 
 			return "srm/requestlist";
 
-			// 담당자 (sno만 구분해서 출력)
+		// 담당자 (sno만 구분해서 출력)
 		} else {
 			log.info("담당자");
 			int workerSno = member.getSno();
