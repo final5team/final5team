@@ -59,7 +59,12 @@
 		<li class="nav-item">
 			<a class="nav-link" href="${pageContext.request.contextPath}/customer/requestlist">
 				<i class="fas fa-fw fa-chart-area"></i>
-				<span>내 담당 요청 관리</span></a>
+				<span>내 요청 관리</span></a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="${pageContext.request.contextPath}/customer/requestlist">
+				<i class="fas fa-fw fa-chart-area"></i>
+				<span>담당 요청 관리</span></a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" href="${pageContext.request.contextPath}/pm/receiptdetail?rno=41&sno=1">
@@ -117,6 +122,11 @@
 			<a class="nav-link" href="${pageContext.request.contextPath}/customer/register">
 				<i class="fas fa-fw fa-chart-area"></i>
 				<span>마이페이지</span></a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="${pageContext.request.contextPath}/customer/register">
+				<i class="fas fa-fw fa-chart-area"></i>
+				<span>사용자 등록</span></a>
 		</li>
 		<!-- 사이드메뉴 end(사이드바 작업한다고 말해주세요) -->
 
