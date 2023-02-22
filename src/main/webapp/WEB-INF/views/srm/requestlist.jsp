@@ -410,9 +410,9 @@ main {
 									<tr>
 										<td class="rno">${request.rno}</td>
 										<!-- 나중에 시스템 이름으로 바꾸어 줘야 함. -->
-										<td class="client">${request.sno}이름추가</td>
+										<td class="client">${request.sno}</td>
 										<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
-										<td class="sysType">N Q</td>
+										<td class="sysType">${request.reqType}</td>
 										<td class="reqTitle" style="max-width: 100px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
 										<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" /></td>
 										
@@ -430,9 +430,7 @@ main {
 				<div class="pager d-flex justify-content-center my-3">
 					<div class="flex-fulfill"></div>
 					<div class="pagingButtonSet d-flex justify-content-center">
-						<c:if test="${pager.pageNo > 1}">
-							<a href="requestlist?pageNo=1" type="button" class="btn btn-muted shadow">◀◀</a>
-						</c:if>
+						<a href="requestlist?pageNo=1" type="button" class="btn btn-muted shadow">◀◀</a>
 						<c:if test="${pager.groupNo > 1}">
 							<a href="requestlist?pageNo=${pager.startPageNo-1}" type="button" class="btn btn-muted shadow">◀</a>
 						</c:if>
@@ -450,9 +448,7 @@ main {
 							<a href="requestlist?pageNo=${pager.endPageNo+1}" type="button" class="btn btn-muted shadow">▶</a>
 
 						</c:if>
-						<c:if test="${pager.pageNo < pager.totalPageNo}">
-							<a href="requestlist?pageNo=${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
-						</c:if>
+						<a href="requestlist?pageNo=${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
 					</div>
 					<div class="flex-fulfill"></div>
 					<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-muted shadow">글 작성</a>
