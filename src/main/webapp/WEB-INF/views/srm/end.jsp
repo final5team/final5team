@@ -56,7 +56,7 @@
 									</div>							
 								</div>
 								<div class="card-body">
-									<div>처리완료상세보기 ></div>									
+									<div>처리 완료 상세보기 ></div>									
 									<div>
 										<h3 class="mr-auto font-weight-bold">${request.reqTitle}</h3>
 									</div>
@@ -90,134 +90,119 @@
 									</div>
 								</div>
 							</div>
-							
-							<div class="card mt-4">
-								<div class="card-header">개발 </div>
-								<div class="card-body row">
-									<div class="col-sm-3" style="text-align: center;">
-										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
-										<div class="ml-3">${reqProcess.developer}</div>
-									</div>
-									<div class="col-sm-9">
-										<div class="ml-3">
-											<div class="row">
-												<div class="col">
-													<label class="control-label mr-2">완료 예정일</label>
-													<input value="${reqProcess.devExpectDate}" readonly>													 										
-												</div>
-												<div class="col">
-													<label class="control-label mr-2">실제 완료일</label>
-													<input value="${reqProcess.devCompDate}" readonly> 													  												
-												</div>												
-											</div>
-											<div>
-												<label class="control-label" >개발 의견</label>
-												<input type="text" class="form-control ml-2" style="display: inline;" value="${reqProcess.devCompDate}"> 
-											</div>
-											<div class="mt-2">
-												<label class="control-label" >배포 소스</label>
-												<input type="text" class="form-control ml-2" style="display: inline;" value="배포 소스가 이렇고 저렇고 개발개발새발"> 
+							<c:if test="${member.mtype !='user'}">
+								<div class="card mt-4">
+									<div class="card-header">개발 </div>
+									<div class="card-body row">
+										<div class="col-sm-3" style="text-align: center;">
+											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+											<div class="ml-3">${reqProcess.developer}</div>
+										</div>
+										<div class="col-sm-9 d-flex align-items-center">
+											<div class="ml-3">
+												<div class="row">
+													<div class="col">
+														<label class="control-label mr-2">완료 예정일</label>
+														<input value="<fmt:formatDate value="${reqProcess.devExpectDate}" pattern="yyyy-MM-dd"/>" readonly>													 										
+													</div>
+													<div class="col">
+														<label class="control-label mr-2">실제 완료일</label>
+														<input value="<fmt:formatDate value="${reqProcess.devCompDate}" pattern="yyyy-MM-dd"/>" readonly> 													  												
+													</div>												
+												</div>											
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="card mt-4">
-								<div class="card-header">테스트 </div>
-								<div class="card-body row">
-									<div class="col-sm-3" style="text-align: center;">
-										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
-										<div class="ml-3">김테스</div>
-									</div>
-									<div class="col-sm-9">
-										<div class="ml-3">
-											<div class="row">
-												<div class="col">
-													<label class="control-label mr-2">완료 예정일</label>
-													<input value="2023-02-12" readonly>													 										
-												</div>
-												<div class="col">
-													<label class="control-label mr-2">실제 완료일</label>
-													<input value="2023-02-15" readonly> 													  												
-												</div>												
-											</div>
-											<div>
-												<label class="control-label" >재검토 의견</label>
-												<input type="text" class="form-control ml-2" style="display: inline;" value="테스트결과가 이렇고 저렇고 테스테세텥레"> 
+								<div class="card mt-4">
+									<div class="card-header">테스트 </div>
+									<div class="card-body row">
+										<div class="col-sm-3" style="text-align: center;">
+											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+											<div class="ml-3">${reqProcess.tester}</div>
+										</div>
+										<div class="col-sm-9 d-flex align-items-center">
+											<div class="ml-3">
+												<div class="row">
+													<div class="col">
+														<label class="control-label mr-2">완료 예정일</label>
+														<input value="<fmt:formatDate value="${reqProcess.testExpectDate}" pattern="yyyy-MM-dd"/>" readonly>													 										
+													</div>
+													<div class="col">
+														<label class="control-label mr-2">실제 완료일</label>
+														<input value="<fmt:formatDate value="${reqProcess.testCompDate}" pattern="yyyy-MM-dd"/>" readonly> 													  												
+													</div>												
+												</div>										
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="card mt-4">
-								<div class="card-header">유저테스트 </div>
-								<div class="card-body row">
-									<div class="col-sm-3" style="text-align: center;">
-										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
-										<div class="ml-3">테스형</div>
-									</div>
-									<div class="col-sm-9">
-										<div class="ml-3">
-											<div class="row">
-												<div class="col">
-													<label class="control-label mr-2">완료 예정일</label>
-													<input value="2023-02-12" readonly>													 										
-												</div>
-												<div class="col">
-													<label class="control-label mr-2">실제 완료일</label>
-													<input value="2023-02-15" readonly> 													  												
-												</div>												
-											</div>											
+								<div class="card mt-4">
+									<div class="card-header">유저테스트 </div>
+									<div class="card-body row">
+										<div class="col-sm-3" style="text-align: center;">
+											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+											<div class="ml-3">${reqProcess.userTester}</div>
+										</div>
+										<div class="col-sm-9 d-flex align-items-center">
+											<div class="ml-3">
+												<div class="row">
+													<div class="col">
+														<label class="control-label mr-2">완료 예정일</label>
+														<input value="<fmt:formatDate value="${reqProcess.userTestExpectDate}" pattern="yyyy-MM-dd"/>" readonly>													 										
+													</div>
+													<div class="col">
+														<label class="control-label mr-2">실제 완료일</label>
+														<input value="<fmt:formatDate value="${reqProcess.userTestCompDate}" pattern="yyyy-MM-dd"/>" readonly> 													  												
+													</div>												
+												</div>											
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="card mt-4">
-								<div class="card-header">배포 </div>
-								<div class="card-body row">
-									<div class="col-sm-3" style="text-align: center;">
-										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
-										<div class="ml-3">김배포</div>
-									</div>
-									<div class="col-sm-9">
-										<div class="ml-3">
-											<div class="row">
-												<div class="col">
-													<label class="control-label mr-2">완료 예정일</label>
-													<input value="2023-02-12" readonly>													 										
-												</div>
-												<div class="col">
-													<label class="control-label mr-2">실제 완료일</label>
-													<input value="2023-02-15" readonly> 													  												
-												</div>												
-											</div>											
+								<div class="card mt-4">
+									<div class="card-header">배포 </div>
+									<div class="card-body row">
+										<div class="col-sm-3" style="text-align: center;">
+											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+											<div class="ml-3">${reqProcess.distributor}</div>
+										</div>
+										<div class="col-sm-9 d-flex align-items-center">
+											<div class="ml-3">
+												<div class="row">
+													<div class="col">
+														<label class="control-label mr-2">완료 예정일</label>
+														<input value="<fmt:formatDate value="${reqProcess.distExpectDate}" pattern="yyyy-MM-dd"/>" readonly>													 										
+													</div>
+													<div class="col">
+														<label class="control-label mr-2">실제 완료일</label>
+														<input value="<fmt:formatDate value="${reqProcess.distCompDate}" pattern="yyyy-MM-dd"/>" readonly> 													  												
+													</div>												
+												</div>											
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
+							</c:if>
 							<div class="card mt-4">
 								<div class="card-header">서비스 완료</div>
 								<div class="card-body row">
 									<div class="col-sm-3" style="text-align: center;">
 										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
-										<div class="ml-3">PM</div>
+										<div class="ml-3">${reqProcess.pm}</div>
 									</div>
-									<div class="col-sm-9">
+									<div class="col-sm-9 d-flex align-items-center">
 										<div class="ml-3">
 											<div class="row">
 												<div class="col">
 													<label class="control-label mr-2">완료 예정일</label>
-													<input value="2023-02-12" readonly>													 										
+													<input value="<fmt:formatDate value="${reqProcess.allExpectDate}" pattern="yyyy-MM-dd"/>" readonly>													 										
 												</div>
 												<div class="col">
 													<label class="control-label mr-2">최종 완료일</label>
-													<input value="2023-02-15" readonly> 													  												
+													<input value="<fmt:formatDate value="${reqProcess.allCompDate}" pattern="yyyy-MM-dd"/>" readonly> 													  												
 												</div>												
-											</div>
-											<div>
-												<label class="control-label" >완료 의견</label>
-												<input type="text" class="form-control ml-2" style="display: inline;" value="서비스 요청을 기한 내에 마무리 하여 "> 
-											</div>																					
+											</div>																															
 										</div>
 									</div>
 								</div>
