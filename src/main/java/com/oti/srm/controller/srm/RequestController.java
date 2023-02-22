@@ -66,6 +66,7 @@ public class RequestController {
 		return "member/userregister";
 	}
 
+	
 	/**
 	 * Kang Ji Seong 유저 등록
 	 */
@@ -93,6 +94,7 @@ public class RequestController {
 					return "redirect:/";
 				}
 
+				
 			} else {
 				int result = userRegisterService.register(member);
 				if (result == IUserRegisterService.REGISTER_FAIL) {
@@ -230,25 +232,26 @@ public class RequestController {
 
 		// 필터에 출력할 시스템 리스트 조회
 		List<System> systemList = userRegisterService.getSystemList();
-
+		
 		log.info("요청 페이지 번호" + pageNo);
-
+		
 		// 전달받은 필터 값 저장
 		ListFilter listFilter = new ListFilter();
 		listFilter.setReqType(req_type);
 		listFilter.setDateFirst(date_first);
 		listFilter.setDateLast(date_last);
 		listFilter.setSno(sno);
+		listFilter.setStatusNo(statusNo);
 
 		// 유저 권한 확인
 		Member member = (Member) session.getAttribute("member");
 		// 유저 id 저장
 		request.setMid(member.getMid());
-
+		
 		// PM case
-		if (member.getMtype().equals("pm") || member.getMtype().equals("user")) {
+		if (member.getMtype().equals("pm") ){
 			// PM은 전체 조회가 가능함.
-			int totalRows = requestService.getPmTotalRows();
+			int totalRows = requestService.getPmTotalRows(listFilter);
 
 			Pager pager = new Pager(7, 5, totalRows, pageNo);
 			List<SelectPM> requestList = requestService.getPmRequestList(request, listFilter, pager);
@@ -261,7 +264,7 @@ public class RequestController {
 
 			return "srm/requestlist";
 
-			// 담당자 (sno만 구분해서 출력)
+		// 담당자 (sno만 구분해서 출력)
 		} else {
 			log.info("담당자");
 			int workerSno = member.getSno();
