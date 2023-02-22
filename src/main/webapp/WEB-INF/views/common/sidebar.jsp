@@ -15,8 +15,15 @@
 		}
 	}
 	#mainlogo{
-        animation: keepturningLogo 7s ease-in-out infinite;    
-	}</style>
+        animation: keepturningLogo 7s ease-in-out infinite; 
+	}
+	
+	.nav-link .active{
+	color: white;
+	background-color: #85CE36 !important;
+	}
+	
+	</style>
 <body>
 
 	<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #3A4651;">
@@ -34,7 +41,7 @@
 		<hr class="sidebar-divider my-0">
 
 		<!-- Nav Item - Dashboard -->
-		<li class="nav-item active">
+		<li class="nav-item">
 			<a class="nav-link" href="${pageContext.request.contextPath}/">
 				<i class="fas fa-fw fa-tachometer-alt"></i>
 				<span>Dashboard</span></a>
@@ -50,7 +57,7 @@
 		</div>
 
 
-		<!-- 사이드메뉴 start(사이드바 작업한다고 말해주세요) -->
+		<!-- 사이드메뉴 start -->
 		<li class="nav-item">
 			<a class="nav-link" href="${pageContext.request.contextPath}/customer/request">
 				<i class="fas fa-fw fa-chart-area"></i>
@@ -132,7 +139,17 @@
 
 
 	</ul>
-
+	<script type="text/javascript">
+		var button = $('nav-link');
+		$('nav-link').click(function(event){
+			button.each(function() {
+				$(this).removeClass("active");
+			});
+			$(event.target).addClass("active");
+		});
+		
+		
+	</script>
 </body>
 
 </html>

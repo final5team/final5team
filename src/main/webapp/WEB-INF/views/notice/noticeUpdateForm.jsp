@@ -45,6 +45,7 @@
                 	<h1 class="">공지사항 수정</h1>
                		<hr/>
 	                <form action="${pageContext.request.contextPath}/noticeupdate" method="post" enctype="multipart/form-data">
+	                	<input type="hidden" name="nno" value="${notice.nno}"/>
 	                	<div class="form-group row">
 					    	<label for="systems" class="col-2">시스템</label>
 					    	<select class="form-control col-10" id="sno" name="sno">
@@ -101,10 +102,16 @@
 					    </div>
 					    <div class="row p-2">
 					    	<div class="col-2">기존 첨부파일</div>
-					    	<div class="col-2" id="fileContainer">
+					    	<div class="col-10" id="fileContainer">
 					    		<c:forEach var="noticeFile" items="${notice.fileList}">
-					    			<a href="${pageContext.request.contextPath}/noticefiledownload?fno=${noticeFile.fno}">${noticeFile.fileName}</a>
-					    			<button class="btn btn-sm btn-primary" onclick="deleteNoticeFile(${noticeFile.fno}, ${noticeFile.nno})">파일 삭제</button>
+					    			<div>
+					    				<a href="${pageContext.request.contextPath}/noticefiledownload?fno=${noticeFile.fno}">${noticeFile.fileName}</a>
+					    				<input type="hidden" value="${noticeFile.fno}"/>
+					    				<button type="button" class="btn btn-sm btn-white deletefilebutton">
+					    					<img src="${pageContext.request.contextPath}/resources/img/deleteicon.png"
+					    					style="width:25px; height:25px"/>
+					    				</button>
+				    				</div>
 				    			</c:forEach>
 					    	</div>
 					    </div>
@@ -114,7 +121,9 @@
 					  	</div>
 					  	<div class="form-group row">
 					    	<a href="#" class="btn btn-danger" style="margin-left : 87%">취소</a>
-				    		<button type="submit" class="btn btn-primary ml-3">등록</button>
+				    		<button type="submit" class="btn btn-primary ml-3">
+				    			등록
+				    		</button>
 					  	</div>  	
 					</form>
                 </div>
@@ -140,16 +149,19 @@
     </a>
     
     <script>
-    	function deleteNoticeFile(fno, nno){
+    	$('.deletefilebutton').click(function(){
+    		var fno = $(this).prev().val();
+    		var deleteDiv = $(this).parent();
     		$.ajax({
     			type: "POST", //요청 메소드 방식
-    			url:"${pageContext.request.contextPath}/noticefiledelete?fno=" + fno + "&nno=" + nno,
-    			dataType:"html", 
+    			url:"${pageContext.request.contextPath}/noticefiledelete?fno=" + fno,
+    			dataType:"json", 
     			success : function(result){
-    				$('#fileContainer').html(result);
+    				deleteDiv.remove();
     			}
-    		});
+    		})
     	}
+    );
     </script>
 
 </body>
