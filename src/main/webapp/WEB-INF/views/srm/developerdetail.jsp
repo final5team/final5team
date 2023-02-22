@@ -140,7 +140,7 @@
 										<c:if test="${request.files != null}">
 											<c:forEach var="statusHistoryFile" items="${request.files}">
 												<span>${statusHistoryFile.fileName}</span>
-												<a href="#" role="button">
+												<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
 													<i class="fas fa-cloud-download-alt"></i>
 												</a>
 											</c:forEach>
@@ -224,7 +224,7 @@
 													<div class="mt-2">
 														<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 															<span>${statusHistoryFile.fileName}</span>
-															<a href="#" role="button">
+															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
 																<i class="fas fa-cloud-download-alt"></i>
 															</a><br>
 														</c:forEach>
@@ -265,7 +265,7 @@
 													<div class="mt-2">
 														<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 															<span>${statusHistoryFile.fileName}</span>
-															<a href="#" role="button">
+															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
 																<i class="fas fa-cloud-download-alt"></i>
 															</a><br>
 														</c:forEach>

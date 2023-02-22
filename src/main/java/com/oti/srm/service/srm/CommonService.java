@@ -191,5 +191,10 @@ public class CommonService implements ICommonService {
 		
 		return map;
 	}
+
+	@Override
+	public StatusHistoryFile getFile(int fno) {
+		return commonDao.selectFile(fno);
+	}
 	
 }

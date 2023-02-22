@@ -379,6 +379,16 @@
 			</if>
 		</where>
 	</select>
-	
+	<select id="selectFile" parameterType="int" resultType="com.oti.srm.dto.StatusHistoryFile">
+		<![CDATA[
+			select fno,
+			file_name as "fileName",
+			file_data as "fileData", 
+			file_type as "fileType"
+			from STATUS_HISTORIES_FILES
+			where FNO = #{fno}
+		
+		]]>
+	</select>
 	
 </mapper>
