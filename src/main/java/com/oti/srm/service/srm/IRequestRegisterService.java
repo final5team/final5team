@@ -6,15 +6,16 @@ import com.oti.srm.dto.ListFilter;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.SelectPM;
+import com.oti.srm.dto.StatusHistoryFile;
 
 public interface IRequestRegisterService {
 	public enum RequestResult {
 		SUCCESS, FAIL;
 	}
-	public static final int REQUEST_SUCCESS = 0;
-	public static final int REQUEST_FAIL = 1;
+	public static final int REQUEST_SUCCESS = 1;
+	public static final int REQUEST_FAIL = 0;
 	
-	public int writeRequest(Request request);
+	public int writeRequest(Request request, List<StatusHistoryFile> fileList);
 
 	public List<Request> getRequestList(Request request, Pager pager);
 

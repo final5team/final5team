@@ -1,5 +1,6 @@
 package com.oti.srm.controller.srm;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.SelectPM;
+import com.oti.srm.dto.StatusHistoryFile;
 import com.oti.srm.service.member.IUserRegisterService;
 import com.oti.srm.service.srm.IRequestRegisterService;
 
@@ -44,6 +46,7 @@ public class RequestController {
 	 */
 	@GetMapping("/register")
 	public String register() {
+		
 		return "member/userregister";
 	}
 	
@@ -95,15 +98,18 @@ public class RequestController {
 	 *  요청 등록 폼 요청
 	 */
 	@GetMapping("/request")
-	public String customerRequest(Member member, Request request, Model model, RequestProcess requestProcess) {
+	public String customerRequest(Member member, Request request, Model model, RequestProcess requestProcess, HttpSession session) {
+		
+		//로그인 member 정보는 JSP에서 SessionScope 이용하여 표시
+		//요청 단계 (default 값으로 지정하여 전달)
 		request.setStatusName("접수중");
 		request.setStatusNo(1);
 		requestProcess.setReqType("정규");
 		
 		
-		
 		model.addAttribute("request", request);
 		model.addAttribute("requestProcess", requestProcess);
+		
 		
 		return "srm/request";
 	}
@@ -112,29 +118,45 @@ public class RequestController {
 	 *  요청 등록 폼 작성
 	 */
 	@PostMapping("/request")
-	public String customerRequest(Request request, Model model, HttpSession session) {
+	public String customerRequest(Request request, Model model, HttpSession session,@RequestParam("mfile[]") MultipartFile[] files) {
 		//요청 상태값은 1
 		request.setStatusNo(1);
 		request.setSno(1);
 		Member member = (Member) session.getAttribute("member");
 		request.setClient(member.getMname());
 		
-		int result = requestService.writeRequest(request);
-		if(result == IRequestRegisterService.REQUEST_SUCCESS) {
-			return "redirect:/login";
-		} else {
-			model.addAttribute("requestResult", "FAIL");
-			return "redirect:/customer/request";
-		}
+		log.info("파일 길이 : " + files.length);
 		
-
+		List<StatusHistoryFile> fileList = new ArrayList<>();
+		
+		
+		try {
+		if(files != null) {
+			for(MultipartFile file : files) {
+				if(!file.isEmpty()) {
+					StatusHistoryFile shf = new StatusHistoryFile();
+					shf.setFileData(file.getBytes());
+					shf.setFileName(file.getOriginalFilename());
+					shf.setFileType(file.getContentType());
+					fileList.add(shf);
+				}
+			}
+		}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+			int result = requestService.writeRequest(request, fileList);
+			if(result == IRequestRegisterService.REQUEST_SUCCESS) {
+				return "redirect:/customer/requestlist";
+			} else {
+				model.addAttribute("requestResult", "FAIL");
+				return "redirect:/customer/request";
+			}
 	}
 
 	/** Kang Ji Seong
 	 * 	member type별 요청 조회
 	 * 
-		
-		
 	 */
 	@GetMapping("/requestlist")
 	public String requestList(Request request, Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo,
@@ -167,9 +189,11 @@ public class RequestController {
 				log.info("1page 요청");
 				Pager pager = new Pager(5, 5,totalRows, pageNo);
 				List<SelectPM> requestList = requestService.getPmRequestList(request, listFilter, pager);
-				model.addAttribute("requestList", requestList);
 				
-				log.info(requestList.size());
+				//목록 리스트와 페이지 return
+				model.addAttribute("requestList", requestList);
+				model.addAttribute("pager", pager);
+				
 				return "srm/requestlist";
 				
 			} else {
@@ -181,16 +205,13 @@ public class RequestController {
 				requestService.getPmRequestList(request, listFilter, pager);
 				return "srm/requestlist";
 			}
-			
-			
-			
-			
 		//Not PM
 		} else {
-			log.info("PM 아닌경우");
-
+			log.info("not PM");
 		}
 
+		
+		
 		
 //		
 //		Pager pager = new Pager(5, 5, 10, pageNo);
