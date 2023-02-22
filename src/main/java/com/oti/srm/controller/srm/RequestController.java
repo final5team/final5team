@@ -232,9 +232,9 @@ public class RequestController {
 
 		// 필터에 출력할 시스템 리스트 조회
 		List<System> systemList = userRegisterService.getSystemList();
-
+		
 		log.info("요청 페이지 번호" + pageNo);
-
+		
 		// 전달받은 필터 값 저장
 		ListFilter listFilter = new ListFilter();
 		listFilter.setReqType(req_type);
@@ -246,10 +246,11 @@ public class RequestController {
 		Member member = (Member) session.getAttribute("member");
 		// 유저 id 저장
 		request.setMid(member.getMid());
-
+		
 		// PM case
-		if (member.getMtype().equals("pm") || member.getMtype().equals("user")) {
+		if (member.getMtype().equals("pm") ){
 			// PM은 전체 조회가 가능함.
+			
 			int totalRows = requestService.getPmTotalRows();
 
 			Pager pager = new Pager(7, 5, totalRows, pageNo);
