@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.SelectPM;
-import com.oti.srm.dto.StatusHistory;
 
 @Mapper
 public interface IRequestDao {
