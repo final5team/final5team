@@ -30,11 +30,16 @@ public interface ICommonService {
 	public void uploadFile(StatusHistoryFile statusHistoryFile);
 
 	public Date getReceiptDoneDate(int rno);
-
+	
+	//업무 현황 출력
 	public HashMap<String,Integer> getWorkingStatus(Member member);
-
+	
+	//D-7남은 요청 출력
 	public List<Request> getListOf7daysLeft(Member member);
 
+	//업무 진행율
 	public Map<String, Object> getWorkCompletionRate(Member member);
+	//파일 다운로드
+	public StatusHistoryFile getFile(int fno);
 
 }
