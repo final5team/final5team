@@ -68,30 +68,30 @@
 		            on r.RNO = rp.RNO
 		 ]]>
 		<where>
-			<if test="sno != 0">
+			<if test='sno != "0"'>
 				sno = #{sno}
 			</if>
-			<if test="reqType != '전체'">
+			<if test='!reqType.equals("전체")'>
 				REQ_TYPE = #{reqType}
 			</if>
-			<if test='dateValue== "zero"' >
+			<if test='dateValue.equals("zero")' >
 				<![CDATA[
-					REQ_DATE <= sysdate
+					and REQ_DATE <= sysdate
 				]]>
 			</if>
-			<if test='dateValue== "first"'>
+			<if test='dateValue.equals("first")'>
 				<![CDATA[
-					REQ_DATE <= to_date(#{dateLast}, 'YYYY-MM-DD')
+					and REQ_DATE <= to_date(#{dateLast}, 'YYYY-MM-DD')
 				]]>
 			</if>
-			<if test='dateValue== "last"'>
+			<if test='dateValue.equals("last")'>
 				<![CDATA[
-					to_date(#{dateFirst}, 'YYYY-MM-DD') <= REQ_DATE
+					and to_date(#{dateFirst}, 'YYYY-MM-DD') <= REQ_DATE
 				]]>
 			</if>
-			<if test='dateValue== "both"'>
+			<if test='dateValue.equals("both")'>
 				<![CDATA[
-					REQ_DATE between to_date(#{dateFirst}, 'YYYY-MM-DD') and to_date(#{dateLast}, 'YYYY-MM-DD')
+					and REQ_DATE between to_date(#{dateFirst}, 'YYYY-MM-DD') and to_date(#{dateLast}, 'YYYY-MM-DD')
 				]]>
 			</if>
 		</where>

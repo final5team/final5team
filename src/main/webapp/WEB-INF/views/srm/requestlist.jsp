@@ -381,7 +381,7 @@ main {
 								<c:if test="${sessionScope.member.mtype == 'pm'}">
 									<div class="input-group">
 										<select class="custom-select" id="sno" name="sno">
-											<option selected>시스템</option>
+											<option value="0" selected>시스템</option>
 											<c:forEach var="system" items="${systemList}">
 												<option value="${system.sno}">${system.systemName}</option>
 											</c:forEach>

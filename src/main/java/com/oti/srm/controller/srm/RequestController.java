@@ -247,8 +247,6 @@ public class RequestController {
 			// PM은 전체 조회가 가능함.
 			int totalRows = requestService.getPmTotalRows();
 
-			// pageNo 1인 경우
-			log.info("1page 요청");
 			Pager pager = new Pager(5, 5, totalRows, pageNo);
 			List<SelectPM> requestList = requestService.getPmRequestList(request, listFilter, pager);
 
