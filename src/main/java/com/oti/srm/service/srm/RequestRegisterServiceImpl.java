@@ -31,40 +31,40 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	@Transactional
 	public int writeRequest(Request request, List<StatusHistoryFile> fileList) {
 		log.info("작성 실행");
-		
+
 		try {
 			int rows = requestDao.insertRequest(request);
 
 			// 요청 성공후 결과값 가져오기
 			if (rows == 1) {
 				int requestRno = requestDao.selectRequest(request.getClient());
-				
+
 				// 상태 이력을 남기기 위한 DTO 생성
 				StatusHistory statusHistory = new StatusHistory();
-				
+
 				// DTO에 필요한 값 넣기
 				statusHistory.setRno(requestRno);
 				statusHistory.setNextStatus(2);
 				statusHistory.setReply("요청 작성 단계");
 				statusHistory.setWriter(request.getClient());
 				log.info(request.getClient());
-				
+
 				// 상태 변경 이력 작성하기
 				int historyResult = commonDao.insertStatusHistory(statusHistory);
-				if(historyResult == 1) {
+				if (historyResult == 1) {
 					// 작성한 상태 변경 이력 가져오기
 					List<StatusHistory> statusHistoryList = commonDao.selectRequestHistories(requestRno);
 					StatusHistory newstatusHistory = statusHistoryList.get(0);
-					
-					//파일 첨부하기
-					if(fileList != null) {
+
+					// 파일 첨부하기
+					if (fileList != null) {
 						for (StatusHistoryFile file : fileList) {
 							file.setHno(newstatusHistory.getHno());
 							commonDao.insertStatusHistoryFile(file);
 						}
 					}
 				}
-				//DB 입력 실패
+				// DB 입력 실패
 			} else {
 				return REQUEST_FAIL;
 			}
@@ -95,13 +95,37 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		return rows;
 	}
 
-	// PM 리스트 조회
+	// 리스트 조회
 	@Override
 	public List<SelectPM> getPmRequestList(Request request, ListFilter listFilter, Pager pager) {
 		request.setStartRowNo(pager.getStartRowNo());
 		request.setEndRowNo(pager.getEndRowNo());
+		
+		log.info("service page NO" +  "- start :" + pager.getStartRowNo() +  " end : " + pager.getEndRowNo());
+		log.info("start" + request.getStartRowNo() + "end" + request.getEndRowNo());
+		
 		request.setReqType(listFilter.getReqType());
+		
+		// 날짜 필터 메소드 사용해서 request 값 조정 후 조회
+		List<SelectPM> result = requestDao.selectAll(dateFilter(listFilter, request));
+		log.info(result.size());
+		
+		return result;
+	}
 
+	// 각 담당자 리스트 열 개수 조회
+	@Override
+	public int getWorkerRows(int workerSno) {
+		int rows = requestDao.countWorkerList(workerSno);
+		return rows;
+	}
+	
+	
+	
+	
+	
+	//날짜 필터링 메소드
+	public Request dateFilter(ListFilter listFilter, Request request) {
 		// 날짜 필터 조건 - 지정 안한 경우
 		if (listFilter.getDateFirst().isEmpty() && listFilter.getDateLast().isEmpty()) {
 			request.setDateValue("zero");
@@ -122,11 +146,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 			request.setDateFirst(listFilter.getDateFirst());
 			request.setDateLast(listFilter.getDateLast());
 		}
-
-		List<SelectPM> result = requestDao.selectAll(request);
-		log.info(result.size());
-
-		return result;
+		return request;
 	}
 
 }
