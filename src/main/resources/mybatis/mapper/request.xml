@@ -36,10 +36,12 @@
 		where rnum=1
 	</select>
 
-	<select id="selectRequest" parameterType="String" resultType="int">
+	<select id="selectRequest" parameterType="String"
+		resultType="int">
 		select max(rno) as "rno"
 		from requests
-		where client = #{client}
+		where client =
+		#{client}
 	</select>
 
 
@@ -54,27 +56,23 @@
 	</select>
 	<select id="selectAll" parameterType="com.oti.srm.dto.Request"
 		resultType="com.oti.srm.dto.SelectPM">
-		<![CDATA[
-		select rnum, jj.RNO, jj.REQ_DATE as "reqDate" , jj.REQ_TITLE as "reqTitle", jj.REQ_CONTENT as "reqContent", 
-                jj.CLIENT, jj.SNO, jj.REQ_EXPECT_DATE as "reqExpectDate", jj.STATUS_NO as "statusNo",
-                jj.REQ_TYPE as "reqType" , jj.DEVELOPER, jj.TESTER, jj.DISTRIBUTOR, jj.PM, jj.USER_TESTER
-		from(
-		        select rownum as rnum, j.RNO, j.REQ_DATE, j.REQ_TITLE, j.REQ_CONTENT, j.CLIENT, j.SNO, j.REQ_EXPECT_DATE, j.STATUS_NO,
-		                j.REQ_TYPE, j.DEVELOPER, j.TESTER, j.DISTRIBUTOR, j.PM, j.USER_TESTER
+		 select j.RNO, j.REQ_DATE as "reqDate" , j.REQ_TITLE as "reqTitle", j.REQ_CONTENT as "reqContent", 
+		 		j.CLIENT, j.SNO, j.REQ_EXPECT_DATE as "reqExpectDate", j.STATUS_NO as "statusNo",
+		                j.REQ_TYPE as "reqType", j.DEVELOPER, j.TESTER, j.DISTRIBUTOR, j.PM, j.USER_TESTER as "userTester"
 		            from (
-		            select rownum as rnum, r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT, r.CLIENT, r.SNO, r.REQ_EXPECT_DATE, r.STATUS_NO,
+		            select r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT, r.CLIENT, r.SNO, r.REQ_EXPECT_DATE, r.STATUS_NO,
 		                    rp.REQ_TYPE, rp.DEVELOPER, rp.TESTER, rp.DISTRIBUTOR, rp.PM, rp.USER_TESTER
 		            from requests r left join request_process rp
 		            on r.RNO = rp.RNO
-		 ]]>
+
 		<where>
 			<if test='sno != "0"'>
 				sno = #{sno}
-			</if>	
+			</if>
 			<if test='!reqType.equals("전체")'>
 				REQ_TYPE = #{reqType}
 			</if>
-			<if test='dateValue.equals("zero")' >
+			<if test='dateValue.equals("zero")'>
 				<![CDATA[
 					and REQ_DATE <= sysdate
 				]]>
@@ -94,27 +92,23 @@
 					and REQ_DATE between to_date(#{dateFirst}, 'YYYY-MM-DD') and to_date(#{dateLast}, 'YYYY-MM-DD')
 				]]>
 			</if>
-			
-			
-			
+
 		</where>
-		 <![CDATA[
-		            order by r.req_date desc
-		            ) j
-		        where rownum <= #{endRowNo}
-		    ) jj where rnum >=#{startRowNo}
-		]]>
+		         order by r.req_date desc
+			) j offset #{startRowNo} rows fetch next #{endRowNo} rows only
+
 	</select>
-	
-	
-	
-	<select id="countWorkerList" parameterType="int" resultType="int">
+
+
+
+	<select id="countWorkerList" parameterType="int"
+		resultType="int">
 		select
 		count(*)
 		from requests
 		where sno = #{sno}
 	</select>
-	
+
 
 
 
