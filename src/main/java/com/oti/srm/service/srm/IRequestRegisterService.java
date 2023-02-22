@@ -41,6 +41,10 @@ public interface IRequestRegisterService {
 	// PM 조회
 	public int getPmTotalRows();
 	public List<SelectPM> getPmRequestList(Request request, ListFilter listFilter, Pager pager);
+
+	//개발자 조회
+	public int getWorkerRows(int workerSno);
+	
 	
 
 
