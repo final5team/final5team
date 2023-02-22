@@ -250,6 +250,21 @@ form {
 			document.getElementById('preview').src = "";
 		}
 	}
+	
+	function changeUserType(){
+		var typeSelect = document.getElementById("mtype");
+		var selectValue = typeSelect.options[typeSelect.selectedIndex].value;
+		console.log(selectValue);
+		if(selectValue == 'pm'){
+			$("#sno").css("display", "none");
+			$("#sno_icon").css("display","none");
+		} else {
+			$("#sno").css("display", "");
+			$("#sno_icon").css("display","");
+		}
+	}
+	
+	
 </script>
 
 </head>
@@ -283,16 +298,12 @@ form {
 							<article class="photo">
 								<img id="preview" src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg" /> 
 								<input type="file" class="btn btn-sm btn-primary" id="mfile" name="mfile" onchange="readURL(this);">
-								<%-- 						<img  id="img_file" src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg">
-								<button type="button" name="img-add" class="btn-dark btn-sm" onclick="onclick=document.all.mfile.click()">이미지 등록</button>
-								<input type="file" id="mfile" name="mfile" style="display:none"  accept="image/*" />
- --%>
 							</article>
 
 							<article class="userData">
 								<div class="item">
 									<div class="input-group">
-										<select class="custom-select" id="mtype" name="mtype">
+										<select class="custom-select" id="mtype" name="mtype" onchange="changeUserType()">
 											<option selected>TYPE 선택</option>
 											<option value="user">user</option>
 											<option value="pm">pm</option>
@@ -328,12 +339,11 @@ form {
 									<div class="input-group">
 										<select class="custom-select" id="sno" name="sno">
 											<option selected>시스템 선택</option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
+											<c:forEach var="system" items="${systemList}">
+												<option value="${system.sno}">${system.systemName}</option>
+											</c:forEach>
 										</select>
-										<i class="fa fa-user"></i>
+										<i class="fa fa-user" id="sno_icon"></i>
 									</div>
 								</div>
 								<div class="item">

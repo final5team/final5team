@@ -45,8 +45,9 @@ public class RequestController {
 	 *  유저 등록 폼 요청 
 	 */
 	@GetMapping("/register")
-	public String register() {
-		
+	public String register(Model model) {
+		List<System> systemList = userRegisterService.getSystemList();
+		model.addAttribute("systemList", systemList);
 		return "member/userregister";
 	}
 	
@@ -106,10 +107,12 @@ public class RequestController {
 		request.setStatusNo(1);
 		requestProcess.setReqType("정규");
 		
+		//시스템 리스트 전달
+		List<System> systemList = userRegisterService.getSystemList();
 		
 		model.addAttribute("request", request);
 		model.addAttribute("requestProcess", requestProcess);
-		
+		model.addAttribute("systemList", systemList);
 		
 		return "srm/request";
 	}
@@ -162,12 +165,11 @@ public class RequestController {
 	public String requestList(Request request, Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo,
 			@RequestParam(defaultValue="")String date_first, @RequestParam(defaultValue="")String date_last,
 			@RequestParam(defaultValue="0")int sno, @RequestParam(defaultValue="전체")String req_type ) {
-
-		log.info(date_first);
-		log.info(date_last);
+		
+		//필터에 출력할 시스템 리스트 조회
+		List<System> systemList = userRegisterService.getSystemList();
 		
 		//전달받은 필터 값 저장
-		
 		ListFilter listFilter = new ListFilter();
 		listFilter.setReqType(req_type);
 		listFilter.setDateFirst(date_first);
@@ -176,7 +178,10 @@ public class RequestController {
 		
 		//유저 권한 확인
 		Member member = (Member) session.getAttribute("member");
+		//유저 id 저장
 		request.setMid(member.getMid());
+		
+		
 
 		
 		//PM case
@@ -190,6 +195,9 @@ public class RequestController {
 				Pager pager = new Pager(5, 5,totalRows, pageNo);
 				List<SelectPM> requestList = requestService.getPmRequestList(request, listFilter, pager);
 				
+				
+				//시스템 리스트 전달
+				model.addAttribute("systemList", systemList);
 				//목록 리스트와 페이지 return
 				model.addAttribute("requestList", requestList);
 				model.addAttribute("pager", pager);

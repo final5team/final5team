@@ -24,6 +24,12 @@
 	
 	</select>
 	
+	<select id="selectSystem" resultType="com.oti.srm.dto.System">
+		select SNO, SYSTEM_NAME as "systemName", CREATED_DATE as "creadtedDate"
+		from systems
+	</select>
+	
+	
 	
 
 </mapper>

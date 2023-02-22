@@ -346,7 +346,10 @@ main {
 
 							<article class="filter-name2">
 								<h6>단계 선택</h6>
-								<h6>시스템</h6>
+								
+								<c:if test="${sessionScope.member.mtype == 'pm'}">
+									<h6>시스템</h6>
+								</c:if>
 							</article>
 							<article class="search-button">
 								<button class="btn btn-primary btn-sm" type="submit">검색</button>
@@ -375,16 +378,16 @@ main {
 										<option value="5">5</option>
 									</select>
 								</div>
-								<div class="input-group">
-									<select class="custom-select" id="sno" name="sno">
-										<option value="0" selected>전체</option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-									</select>
-								</div>
+								<c:if test="${sessionScope.member.mtype == 'pm'}">
+									<div class="input-group">
+										<select class="custom-select" id="sno" name="sno">
+											<option selected>시스템 선택</option>
+											<c:forEach var="system" items="${systemList}">
+												<option value="${system.sno}">${system.systemName}</option>
+											</c:forEach>
+										</select>
+									</div>
+								</c:if>
 							</article>
 						</form>
 					</section>
@@ -406,7 +409,7 @@ main {
 								<c:forEach var="request" items="${requestList}">
 									<tr>
 										<td class="rno">${request.rno}</td>
-										<!-- 										나중에 시스템 이름으로 바꾸어 줘야 함. -->
+										<!-- 나중에 시스템 이름으로 바꾸어 줘야 함. -->
 										<td class="client">${request.sno}이름추가</td>
 										<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
 										<td class="sysType">N Q</td>
