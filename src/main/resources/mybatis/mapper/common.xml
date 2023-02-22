@@ -171,7 +171,7 @@
 			and test_expect_date is null
 			</if>
 			<if test="mtype == 'usertester'">
-				usertester = #{mid}
+				user_tester = #{mid}
 			and usertest_expect_date is null
 			</if>
 			<if test="mtype == 'distributor'">
@@ -200,7 +200,7 @@
 			</if>
 			<if test="mtype == 'usertester'">
 				and r.STATUS_NO = 8
-				and usertester = #{mid}
+				and user_tester = #{mid}
 			</if>
 			<if test="mtype == 'distributor'">
 				and r.STATUS_NO = 10
@@ -228,7 +228,7 @@
 			</if>
 			<if test="mtype == 'usertester'">
 				and r.STATUS_NO = 9
-				and usertester = #{mid}
+				and user_tester = #{mid}
 			</if>
 			<if test="mtype == 'distributor'">
 				and r.STATUS_NO = 11
@@ -286,7 +286,7 @@
 				and (USERTEST_EXPECT_DATE-sysdate) <![CDATA[<=]]>7
 				and USERTEST_EXPECT_DATE is not null
 		   		and USERTEST_COMP_DATE is null
-				and usertester = #{mid}
+				and user_tester = #{mid}
 			</if>
 			<if test="mtype == 'distributor'">
 				and (DIST_EXPECT_DATE-sysdate) <![CDATA[<=]]>7

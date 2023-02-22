@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.SelectPM;
-import com.oti.srm.dto.StatusHistory;
 
 @Mapper
 public interface IRequestDao {
@@ -21,9 +20,11 @@ public interface IRequestDao {
 	//PM 조회
 	public int countPm();
 	public List<SelectPM> selectAll(Request request);
+	//담당자 조회
+	public int countWorkerList(int workerSno);
 	
 	
-	
+
 	
 	
 }

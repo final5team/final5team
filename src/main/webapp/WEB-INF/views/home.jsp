@@ -40,7 +40,9 @@
                 	<!-- 상단 버튼 3 or 4  시작-->
                 	<div class="row mt-5">
                 		<!-- 최신 요청 start-->
-                		<div class="col-xl-3 stretch-card">
+                		<div 
+                			<c:if test="${member.mtype == 'pm' || member.mtype == 'developer'}">class="col-xl-3 stretch-card"</c:if>
+                			<c:if test="${member.mtype != 'pm' && member.mtype != 'developer'}">class="col-xl-4 stretch-card"</c:if>>
                 			<div class="card text-white btn-gradient-danger" style="padding: 2.5rem;">
                 				<div class="card-body">
 		           					<img style="position: absolute;top: 0; right: 0; height: 100%;" src="${pageContext.request.contextPath}/resources/img/circle.1541da91.svg">
@@ -81,7 +83,9 @@
                 		</c:if>
                 		
                 		<!-- 진행 요청 start-->
-                		<div class="col-xl-3 stretch-card">
+                		<div 
+                			<c:if test="${member.mtype == 'pm' || member.mtype == 'developer'}">class="col-xl-3 stretch-card"</c:if>
+                			<c:if test="${member.mtype != 'pm' && member.mtype != 'developer'}">class="col-xl-4 stretch-card"</c:if>>
                 			<div class="card text-white bg-gradient-primary" style="padding: 2.5rem;">
                 				<div class="card-body">
            							<img style="position: absolute;top: 0; right: 0; height: 100%;" src="${pageContext.request.contextPath}/resources/img/circle.1541da91.svg">
@@ -93,7 +97,9 @@
                 			</div>
                 		</div>
                 		<!-- 완료 요청 start-->
-                		<div class="col-xl-3 stretch-card">
+                		<div 
+                			<c:if test="${member.mtype == 'pm' || member.mtype == 'developer'}">class="col-xl-3 stretch-card"</c:if>
+                			<c:if test="${member.mtype != 'pm' && member.mtype != 'developer'}">class="col-xl-4 stretch-card"</c:if>>
                 			<div class="card text-white bg-gradient-secondary" style="padding: 2.5rem;">
                 				<div class="card-body">
 		           					<img style="position: absolute;top: 0; right: 0; height: 100%;" src="${pageContext.request.contextPath}/resources/img/circle.1541da91.svg">

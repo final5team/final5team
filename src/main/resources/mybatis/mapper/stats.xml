@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oti.srm.dao.srm.IStatsDao">
+	<select id="selectSRChange" parameterType="String" resultType="int">
+		select count(*) as cnt
+		from REQUESTS
+		where To_CHAR(REQ_DATE, 'YYYYMM') = #{month}
+	</select>
+	
+	<select id="selectSRComChange" parameterType="String" resultType="int">
+		select count(*) as cnt
+		from REQUEST_PROCESS
+		where To_CHAR(ALL_COMP_DATE, 'YYYYMM') = #{month}
+	</select>
+	
+	<select id="selectAllRate" resultType="int">
+		select count(*) as cnt
+		from REQUESTS
+	</select>
+	<select id="selectComRate" resultType="int">
+		select count(*) as cnt
+		from REQUESTS
+		where STATUS_NO >=12
+	</select>
+	
+</mapper>

@@ -200,7 +200,8 @@ public class RequestController {
 						fileList.add(shf);
 					}
 				}
-			}
+			} 
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -225,10 +226,12 @@ public class RequestController {
 	public String requestList(Request request, Model model, HttpSession session,
 			@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "") String date_first,
 			@RequestParam(defaultValue = "") String date_last, @RequestParam(defaultValue = "0") int sno,
-			@RequestParam(defaultValue = "전체") String req_type) {
+			@RequestParam(defaultValue = "전체") String req_type, @RequestParam(defaultValue = "0") int statusNo) {
 
 		// 필터에 출력할 시스템 리스트 조회
 		List<System> systemList = userRegisterService.getSystemList();
+
+		log.info("요청 페이지 번호" + pageNo);
 
 		// 전달받은 필터 값 저장
 		ListFilter listFilter = new ListFilter();
@@ -243,11 +246,11 @@ public class RequestController {
 		request.setMid(member.getMid());
 
 		// PM case
-		if (member.getMtype().equals("pm")) {
+		if (member.getMtype().equals("pm") || member.getMtype().equals("user")) {
 			// PM은 전체 조회가 가능함.
 			int totalRows = requestService.getPmTotalRows();
 
-			Pager pager = new Pager(5, 5, totalRows, pageNo);
+			Pager pager = new Pager(7, 5, totalRows, pageNo);
 			List<SelectPM> requestList = requestService.getPmRequestList(request, listFilter, pager);
 
 			// 시스템 리스트 전달
@@ -258,10 +261,25 @@ public class RequestController {
 
 			return "srm/requestlist";
 
-			
-			// Not PM
+			// 담당자 (sno만 구분해서 출력)
 		} else {
-			log.info("not PM");
+			log.info("담당자");
+			int workerSno = member.getSno();
+			// 담당자 소속 sno 넣어 줌
+			request.setSno(workerSno);
+			// 소속 sno의 행 개수만 가지고 옴
+			int workerRows = requestService.getWorkerRows(workerSno);
+			Pager pager = new Pager(7, 5, workerRows, pageNo);
+
+			List<SelectPM> requestList = requestService.getPmRequestList(request, listFilter, pager);
+
+			
+			// 시스템 리스트 전달
+			model.addAttribute("systemList", systemList);
+			// 목록 리스트와 페이지 return
+			model.addAttribute("requestList", requestList);
+			model.addAttribute("pager", pager);
+
 		}
 //		
 //		Pager pager = new Pager(5, 5, 10, pageNo);
