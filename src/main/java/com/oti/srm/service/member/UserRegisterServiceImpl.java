@@ -16,16 +16,21 @@ public class UserRegisterServiceImpl implements IUserRegisterService {
 
 	@Autowired
 	private IMemberDao memberDao;
-
+	// 유저 등록
 	@Override
 	public int register(Member member) {
 		int rows = memberDao.insertMember(member);
 		return rows;
 	}
-
+	// 시스템 리스트 조회
 	@Override
 	public List<System> getSystemList() {
 		return memberDao.selectSystem();
+	}
+	//유저 정보 조회
+	@Override
+	public Member getUserInfo(String mid) {
+		return memberDao.selectMemberInfo(mid);
 	}
 
 

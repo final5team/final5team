@@ -3,17 +3,30 @@
 <mapper namespace="com.oti.srm.dao.member.IMemberDao">
 	
 	<insert id="insertMember" parameterType="com.oti.srm.dto.Member">
-		<if test="fileName == null">
+		<if test='fileName == null'>
+			<if test='mtype.equals("pm")'>
+			insert into members (MID, MTYPE, MNAME, BIRTH, GENDER, ADDRESS, EMAIL, PASSWORD, ORGAN, PHONE, POSITION)
+			values (#{mid}, #{mtype}, #{mname}, sysdate, #{gender}, #{address}, #{email}, #{password}, #{organ}, #{phone}, #{position})
+			</if>
+			<if test='!mtype.equals("pm")'>
 			insert into members (MID, MTYPE, MNAME, BIRTH, GENDER, ADDRESS, SNO, EMAIL, PASSWORD, ORGAN, PHONE, POSITION)
 			values (#{mid}, #{mtype}, #{mname}, sysdate, #{gender}, #{address}, #{sno}, #{email}, #{password}, #{organ}, #{phone}, #{position})
+			</if>
 		</if>
-		<if test="fileName != null">
+		<if test='fileName != null'>
+			<if test='mtype.equals("pm")'>
+			insert into members (MID, MTYPE, MNAME, BIRTH, GENDER, ADDRESS, EMAIL, PASSWORD, ORGAN, PHONE, POSITION
+								,FILE_DATA ,FILE_TYPE, FILE_NAME, SAVED_DATE)
+			values (#{mid}, #{mtype}, #{mname}, sysdate, #{gender}, #{address}, #{email}, #{password}, #{organ}, #{phone}, #{position}, 
+					#{fileData}, #{fileType}, #{fileName}, #{savedDate} )
+			</if>
+			<if test='!mtype.equals("pm")'>
 			insert into members (MID, MTYPE, MNAME, BIRTH, GENDER, ADDRESS, SNO, EMAIL, PASSWORD, ORGAN, PHONE, POSITION
 								,FILE_DATA ,FILE_TYPE, FILE_NAME, SAVED_DATE)
 			values (#{mid}, #{mtype}, #{mname}, sysdate, #{gender}, #{address}, #{sno}, #{email}, #{password}, #{organ}, #{phone}, #{position}, 
 					#{fileData}, #{fileType}, #{fileName}, #{savedDate} )
+			</if>
 		</if>
-	
 	</insert>
 	
 	

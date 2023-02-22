@@ -256,12 +256,11 @@ form {
 		var selectValue = typeSelect.options[typeSelect.selectedIndex].value;
 		console.log(selectValue);
 		if(selectValue == 'pm'){
-			$("#sno").css("visibility", "hidden");
-			$("#sno_icon").css("visibility","hidden");
-
+			$("#sno").css("display", "none");
+			$("#sno_icon").css("display","none");
 		} else {
-			$("#sno").css("visibility", "visible");
-			$("#sno_icon").css("visibility","visible");
+			$("#sno").css("display", "");
+			$("#sno_icon").css("display","");
 		}
 	}
 	
@@ -292,7 +291,7 @@ form {
 				<div class="container-fluid">
 					<form method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data">
 						<section class="section1">
-							<h4>사용자 등록</h4>
+							<h4>My Page</h4>
 						</section>
 
 						<section class="section2">
@@ -305,7 +304,7 @@ form {
 								<div class="item">
 									<div class="input-group">
 										<select class="custom-select" id="mtype" name="mtype" onchange="changeUserType()">
-											<option selected>TYPE 선택</option>
+											<option value="${returnMember.mtype}">${returnMember.mtype}</option>
 											<option value="user">user</option>
 											<option value="pm">pm</option>
 											<option value="developer">developer</option>
@@ -318,20 +317,26 @@ form {
 								</div>
 								<div class="data">
 									<div class="item">
-										<input type="text" class="form-control form-control-user" id="mid" name="mid" placeholder="아이디"> <i class="fa fa-user"></i>
+										<input type="text" class="form-control form-control-user" id="mid" name="mid" value="${returnMember.mid}">
+											
+										<i class="fa fa-user"></i>
 									</div>
 									<div class="item">
-										<input type="password" class="form-control form-control-user" id="password" name="password" placeholder="비밀번호"> <i class="fa fa-envelope"></i>
+										<input type="password" class="form-control form-control-user" id="password" name="password" value="${returnMember.password}" > 
+										<i class="fa fa-envelope"></i>
 									</div>
 									<!-- 비밀번호 확인 -->
 									<div class="item">
-										<input type="password" class="form-control form-control-user" id="password_confirm" name="password_confirm" placeholder="비밀번호 확인"> <i class="fa fa-envelope"></i>
+										<input type="password" class="form-control form-control-user" id="password_confirm" name="password_confirm" value="${returnMember.password}"> 
+										<i class="fa fa-envelope"></i>
 									</div>
 									<div class="item">
-										<input type="text" class="form-control form-control-user" id="mname" name="mname" placeholder="이름"> <i class="fa fa-phone"></i>
+										<input type="text" class="form-control form-control-user" id="mname" name="mname" value="${returnMember.mname}"> 
+										<i class="fa fa-phone"></i>
 									</div>
 									<div class="item">
-										<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="이메일"> <i class="fa fa-phone"></i>
+										<input type="text" class="form-control form-control-user" id="email" name="email" value="${returnMember.email}"> 
+										<i class="fa fa-phone"></i>
 									</div>
 								</div>
 							</article>
@@ -339,10 +344,11 @@ form {
 								<div class="item">
 									<div class="input-group">
 										<select class="custom-select" id="sno" name="sno">
-											<option value = "0" selected>시스템 선택</option>
+											<option selected>${returnMember.sno}</option>
 											<c:forEach var="system" items="${systemList}">
 												<option value="${system.sno}">${system.systemName}</option>
 											</c:forEach>
+											
 											
 										</select>
 										<i class="fa fa-user" id="sno_icon"></i>
@@ -351,6 +357,7 @@ form {
 								<div class="item">
 									<div class="input-group">
 										<select class="custom-select" id="gender" name="gender">
+											<option selected>${returnMember.gender}</option>
 											<option value="1">남</option>
 											<option value="2">여</option>
 										</select>
@@ -360,7 +367,7 @@ form {
 								<div class="item">
 									<div class="input-group">
 										<select class="custom-select" id="position" name="position">
-											<option selected>직급 선택</option>
+											<option selected>${returnMember.position}</option>
 											<option value="사원">사원</option>
 											<option value="대리">대리</option>
 											<option value="과장">과장</option>
@@ -374,7 +381,7 @@ form {
 									<div class="input-group">
 										<i class="fa fa-user"></i>
 										<select class="custom-select" id="organ" name="organ">
-											<option selected>소속 기관 선택</option>
+											<option selected>${returnMember.organ}</option>
 											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
@@ -386,25 +393,25 @@ form {
 								<div class="item">
 									<div class="input-group">
 										<div class="date_form">
-											<input type="date" id="birth" name="birth"> <i class="fa fa-user"></i>
+											<input type="date" id="birth" name="birth" value="<fmt:formatDate value="${returnMember.birth}" pattern="yyyy-MM-dd" />"><i class="fa fa-user"></i>
 										</div>
 									</div>
 									<div class="input-group">
 										<div class="item" style="margin-top: 10px;">
-											<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="핸드폰"> <i class="fa fa-user"></i>
+											<input type="text" class="form-control form-control-user" id="phone" name="phone" value="${returnMember.phone}"> <i class="fa fa-user"></i>
 										</div>
 									</div>
 								</div>
 							</article>
 							<article class="address-input">
 								<div class="item address1">
-									<input type="text" class="form-control form-control-user" id="postcode" name="postcode" placeholder="우편번호" readonly> <i class="fa fa-user"></i>
+									<input type="text" class="form-control form-control-user" id="postcode" name="postcode" value="${returnMember.postcode}"> <i class="fa fa-user"></i>
 								</div>
 								<div class="item address2">
-									<input type="text" class="form-control form-control-user" id="addr1" name="addr1" placeholder="도로명 주소" readonly> <i class="fa fa-user"></i>
+									<input type="text" class="form-control form-control-user" id="addr1" name="addr1" value="${returnMember.addr1}"> <i class="fa fa-user"></i>
 								</div>
 								<div class="item address3">
-									<input type="text" id="addr2" name="addr2" placeholder="상세 주소"> <i class="fa fa-user"></i>
+									<input type="text" id="addr2" name="addr2" value="${returnMember.addr2}"> <i class="fa fa-user"></i>
 								</div>
 								<div class="item address-button">
 									<button type="button" class="btn btn-primary btn-sm" id="address" name="address" onclick="findAddress()">우편번호</button>

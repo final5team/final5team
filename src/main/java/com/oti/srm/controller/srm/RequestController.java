@@ -7,9 +7,11 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +30,18 @@ import com.oti.srm.service.srm.IRequestRegisterService;
 
 import lombok.extern.log4j.Log4j2;
 
+/**
+ * @author KOSA
+ *
+ */
+/**
+ * @author KOSA
+ *
+ */
+/**
+ * @author KOSA
+ *
+ */
 @Controller
 @Log4j2
 @RequestMapping("/customer")
@@ -42,7 +56,7 @@ public class RequestController {
 
 	
 	/** Kang Ji Seong
-	 *  유저 등록 폼 요청 
+	 *  유저 등록 페이지 조회
 	 */
 	@GetMapping("/register")
 	public String register(Model model) {
@@ -52,20 +66,18 @@ public class RequestController {
 	}
 	
 	/** Kang Ji Seong
-	 *  유저 등록 폼 요청 
+	 *  유저 등록
 	 */
 	@PostMapping("/register")
 	public String register(Member member, Model model) {
 		log.info("등록 실행");
-		String address = member.getPostcode() + member.getAddr1() + member.getAddr2();
+		log.info(member.toString());
+		String address = member.getPostcode() + "-" + member.getAddr1() + "-" +member.getAddr2();
 		member.setAddress(address);
-		
 		MultipartFile mfile = member.getMfile();
 		log.info(member.toString());
 		
 		try {
-
-			
 			if (mfile != null && !mfile.isEmpty()) {
 				log.info(mfile.toString());
 				member.setFileName(mfile.getOriginalFilename());
@@ -94,7 +106,42 @@ public class RequestController {
 			model.addAttribute("registerResult", "FAIL");
 			return "redirect:/customer/register";
 		}
+	
 	}
+	/** Kang Ji Seong
+	 *  내 정보 조회
+	 */
+	@GetMapping("/mypage")
+	public String myPage(HttpSession session, Model model) {
+		//내 정보 조회
+		Member Sessionmember = (Member)session.getAttribute("member");
+		Member returnMember = userRegisterService.getUserInfo(Sessionmember.getMid());
+		
+		//주소 변환
+		String[] address = returnMember.getAddress().split("-");
+		returnMember.setPostcode(Integer.parseInt(address[0]));
+		returnMember.setAddr1(address[1]);
+		returnMember.setAddr2(address[2]);
+		
+		
+		
+		
+		
+		
+		model.addAttribute("returnMember", returnMember);
+		
+		return "member/mypage";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/** Kang Ji Seong
 	 *  요청 등록 폼 요청
@@ -157,7 +204,17 @@ public class RequestController {
 				return "redirect:/customer/request";
 			}
 	}
-
+	/** 
+	 *  요청 등록 조회
+	 */
+	
+	
+	
+	
+	
+	
+	
+	
 	/** Kang Ji Seong
 	 * 	member type별 요청 조회
 	 * 
@@ -218,10 +275,6 @@ public class RequestController {
 		} else {
 			log.info("not PM");
 		}
-
-		
-		
-		
 //		
 //		Pager pager = new Pager(5, 5, 10, pageNo);
 //		List<Request> requestList = requestService.getRequestList(request, pager);
@@ -229,7 +282,6 @@ public class RequestController {
 		return "srm/requestlist";
 //		
 	}
-	
 	/** Kang Ji Seong
 	 * 	member type 단계 처리 가져오기
 	 */
@@ -239,10 +291,7 @@ public class RequestController {
 		log.info("viewStep");
 		log.info(request.getRno());
 		int result = requestService.getPresentStep(request.getRno());
-
 		log.info("리턴값" + result);
-
 		return result;
 	}
-
 }
