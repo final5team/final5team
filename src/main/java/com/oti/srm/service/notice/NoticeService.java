@@ -21,6 +21,7 @@ public class NoticeService implements INoticeService {
 
 	@Override
 	public List<Notice> getNoticeList(String searchType, String searchWord, String mtype, Pager pager, int sno) {
+		log.info(sno);
 		return noticeDao.selectNoticeList(searchType, searchWord, mtype, sno, pager);
 	}
 
@@ -69,7 +70,7 @@ public class NoticeService implements INoticeService {
 	@Transactional
 	public void noticeUpdate(Notice notice) {
 		noticeDao.updateNotice(notice);
-		log.info(notice.getFileList().size());
+		log.info(notice.getNno());
 		for(NoticeFile noticeFile : notice.getFileList()) {
 			noticeFile.setNno(notice.getNno());
 			noticeDao.insertNoticeFile(noticeFile);

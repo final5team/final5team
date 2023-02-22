@@ -1,7 +1,9 @@
 package com.oti.srm.controller.notice;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.oti.srm.dto.Member;
@@ -37,6 +40,8 @@ public class NoticeController {
 			@RequestParam(defaultValue = "") String searchWord, @RequestParam(defaultValue = "1") int pageNo,
 			Model model, HttpSession session) {
 		log.info("실행");
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchWord", searchWord);
 		Member member = (Member) session.getAttribute("member");
 		if (!searchWord.equals("")) {
 			searchWord = "%" + searchWord + "%";
@@ -45,8 +50,6 @@ public class NoticeController {
 		Pager pager = new Pager(5, 5, count, pageNo);
 		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), pager,
 				member.getSno());
-		model.addAttribute("searchType", searchType);
-		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("pager", pager);
 		return "notice/noticeList";
@@ -62,8 +65,12 @@ public class NoticeController {
 
 	// 공지사항 작성 폼
 	@GetMapping("/noticewriteform")
-	public String noticeWriteForm(Model model) {
+	public String noticeWriteForm(Model model, HttpSession session) {
 		// validation : 공지사항 작성은 pm만 가능하다
+		Member member = (Member) session.getAttribute("member");
+		if(!member.getMtype().equals("pm")) {
+			return "redirect:/noticelist";
+		}
 		model.addAttribute("systemList", noticeService.getSystemList());
 		return "notice/noticeWriteForm";
 	}
@@ -166,11 +173,13 @@ public class NoticeController {
 	}
 	
 	// 공지사항 단일 파일 삭제 
-	@GetMapping("/noticefiledelete")
-	public String noticeFileDelete(int fno, int nno, Model model) {
+	@PostMapping("/noticefiledelete")
+	@ResponseBody
+	public Map<String, String> noticeFileDelete(int fno, Model model) {
 		noticeService.deleteNoticeFile(fno);
-		model.addAttribute("noticeFileList", noticeService.getNoticeFileList(nno));
-		return "srm/noticeFileListFragment";
+		Map<String,String> map = new HashMap<>();
+		map.put("result", "파일 삭제 완료");
+		return map;
 	}
 	// 공지사항 다운로드
 	@GetMapping("/noticefiledownload")

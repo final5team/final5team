@@ -90,9 +90,11 @@
 				    </div>
 				  	<div class="row p-2">
 				  		<div class="col-2">첨부파일</div>
-				  		<div class="col-2">
+				  		<div class="col-10">
 				    		<c:forEach var="noticeFile" items="${notice.fileList}">
+				    			<div>
 					    			<a href="${pageContext.request.contextPath}/noticefiledownload?fno=${noticeFile.fno}">${noticeFile.fileName}</a>
+				    			</div>
 				    		</c:forEach>
 			    		</div>
 				  	</div>
