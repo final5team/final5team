@@ -15,5 +15,7 @@ public interface IStatsService {
 	// 서비스 요청 추이 값 구하기
 	public Map<String, Integer> getSRChange(int req);
 
+	public double getComRate();
+
 
 }
