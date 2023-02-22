@@ -65,6 +65,7 @@ public class RequestController {
 		
 		try {
 
+			
 			if (mfile != null && !mfile.isEmpty()) {
 				log.info(mfile.toString());
 				member.setFileName(mfile.getOriginalFilename());
