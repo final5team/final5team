@@ -47,14 +47,16 @@
                 <!-- 여기에 내용 담기 start -->
                 <div id="noticelist" class="container">
                 	<h1>공지사항 목록</h1>
-                	<a href="${pageContext.request.contextPath}/noticewriteform" class="btn btn-sm btn-primary">공지사항 작성</a>
+                	<c:if test="${member.mtype == 'pm'}">
+                		<a href="${pageContext.request.contextPath}/noticewriteform" class="btn btn-sm btn-primary">공지사항 작성</a>
+                	</c:if>
                 	<form class="form-group form-inline mt-2" action="${pageContext.request.contextPath}/noticelist" method="get">
 					    <label for="searchType"></label>
 					    <select class="form-control" id="searchType" name="searchType">
-					        <option value="제목">제목</option>
-					        <option value="작성자">작성자</option>
+					        <option value="제목" <c:if test="${searchType == '제목'}">selected</c:if>>제목</option>
+					        <option value="작성자" <c:if test="${searchType == '작성자'}">selected</c:if>>작성자</option>
 					    </select>
-					    <input type="text" class="form-control ml-2" name="searchWord" value="${selectWord}"/>
+					    <input type="text" class="form-control ml-2" name="searchWord" value="${searchWord}"/>
 					    <button type="submit" class="btn btn-sm btn-primary ml-2">검색</button>
 					</form>
                		<hr/>
