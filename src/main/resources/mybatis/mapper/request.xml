@@ -49,6 +49,7 @@
 
 
 
+
 	<select id="countPm" parameterType="int" resultType="int">
 		select
 		count(*)
