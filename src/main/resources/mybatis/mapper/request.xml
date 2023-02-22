@@ -86,7 +86,7 @@
 			</if>
 			<if test='dateValue== "last"'>
 				<![CDATA[
-					to_date(#{dateFirst}, 'YYYY-MM-DD') <= REQ_DATE 
+					to_date(#{dateFirst}, 'YYYY-MM-DD') <= REQ_DATE
 				]]>
 			</if>
 			<if test='dateValue== "both"'>

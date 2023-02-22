@@ -55,12 +55,9 @@ public class RequestController {
 	private IUserRegisterService userRegisterService;
 	@Autowired
 	private IRequestRegisterService requestService;
-	
 
-
-	
-	/** Kang Ji Seong
-	 *  유저 등록 페이지 조회
+	/**
+	 * Kang Ji Seong 유저 등록 페이지 조회
 	 */
 	@GetMapping("/register")
 	public String register(Model model) {
@@ -68,19 +65,19 @@ public class RequestController {
 		model.addAttribute("systemList", systemList);
 		return "member/userregister";
 	}
-	
-	/** Kang Ji Seong
-	 *  유저 등록
+
+	/**
+	 * Kang Ji Seong 유저 등록
 	 */
 	@PostMapping("/register")
 	public String register(Member member, Model model) {
 		log.info("등록 실행");
 		log.info(member.toString());
-		String address = member.getPostcode() + "-" + member.getAddr1() + "-" +member.getAddr2();
+		String address = member.getPostcode() + "-" + member.getAddr1() + "-" + member.getAddr2();
 		member.setAddress(address);
 		MultipartFile mfile = member.getMfile();
 		log.info(member.toString());
-		
+
 		try {
 			if (mfile != null && !mfile.isEmpty()) {
 				log.info(mfile.toString());
@@ -88,19 +85,19 @@ public class RequestController {
 				member.setSavedDate(new Date());
 				member.setFileType(mfile.getContentType());
 				member.setFileData(mfile.getBytes());
-				
-				int result  = userRegisterService.register(member);
-				if(result == IUserRegisterService.REGISTER_FAIL) {
+
+				int result = userRegisterService.register(member);
+				if (result == IUserRegisterService.REGISTER_FAIL) {
 					return "redirect:/customer/register";
 				} else {
 					return "redirect:/";
 				}
-				
+
 			} else {
 				int result = userRegisterService.register(member);
 				if (result == IUserRegisterService.REGISTER_FAIL) {
 					return "redirect:/customer/register";
-					//성공
+					// 성공
 				} else {
 					return "redirect:/";
 				}
@@ -110,187 +107,160 @@ public class RequestController {
 			model.addAttribute("registerResult", "FAIL");
 			return "redirect:/customer/register";
 		}
-	
+
 	}
-	/** Kang Ji Seong
-	 *  내 정보 조회
+
+	/**
+	 * Kang Ji Seong 내 정보 조회
 	 */
 	@GetMapping("/mypage")
 	public String myPage(HttpSession session, Model model) {
-		//내 정보 조회
-		Member Sessionmember = (Member)session.getAttribute("member");
+		// 내 정보 조회
+		Member Sessionmember = (Member) session.getAttribute("member");
 		Member returnMember = userRegisterService.getUserInfo(Sessionmember.getMid());
-		
-		//주소 변환
+
+		// 주소 변환
 		String[] address = returnMember.getAddress().split("-");
 		returnMember.setPostcode(Integer.parseInt(address[0]));
 		returnMember.setAddr1(address[1]);
 		returnMember.setAddr2(address[2]);
-		
-		if(returnMember.getFileData() == null) {
-			
+
+		if (returnMember.getFileData() == null) {
+
 		} else {
-		
+
 		}
-		
-		
-		
-		
+
 		model.addAttribute("returnMember", returnMember);
-		
+
 		return "member/mypage";
 	}
-	/** Kang Ji Seong
-	 *  img byte[] 변환 메소드
+
+	/**
+	 * Kang Ji Seong img byte[] 변환 메소드
 	 */
 	@GetMapping("/mypage/{mid}")
-	public ResponseEntity<byte[]> returnImg(@PathVariable String mid ){
+	public ResponseEntity<byte[]> returnImg(@PathVariable String mid) {
 		Member returnMember = userRegisterService.getUserInfo(mid);
 		HttpHeaders headers = new HttpHeaders();
 		String[] fileTypes = returnMember.getFileType().split("/");
 		headers.setContentType(new MediaType(fileTypes[0], fileTypes[1]));
 		headers.setContentDispositionFormData("attachment", returnMember.getFileName());
 		return new ResponseEntity<byte[]>(returnMember.getFileData(), headers, HttpStatus.OK);
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
 
-	/** Kang Ji Seong
-	 *  요청 등록 폼 요청
+	}
+
+	/**
+	 * Kang Ji Seong 요청 등록 폼 요청
 	 */
 	@GetMapping("/request")
-	public String customerRequest(Member member, Request request, Model model, RequestProcess requestProcess, HttpSession session) {
-		
-		//로그인 member 정보는 JSP에서 SessionScope 이용하여 표시
-		//요청 단계 (default 값으로 지정하여 전달)
+	public String customerRequest(Member member, Request request, Model model, RequestProcess requestProcess,
+			HttpSession session) {
+
+		// 로그인 member 정보는 JSP에서 SessionScope 이용하여 표시
+		// 요청 단계 (default 값으로 지정하여 전달)
 		request.setStatusName("접수중");
 		request.setStatusNo(1);
 		requestProcess.setReqType("정규");
-		
-		//시스템 리스트 전달
+
+		// 시스템 리스트 전달
 		List<System> systemList = userRegisterService.getSystemList();
-		
+
 		model.addAttribute("request", request);
 		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("systemList", systemList);
-		
+
 		return "srm/request";
 	}
-	
-	/** 
-	 *  요청 등록 폼 작성
+
+	/**
+	 * 요청 등록 폼 작성
 	 */
 	@PostMapping("/request")
-	public String customerRequest(Request request, Model model, HttpSession session,@RequestParam("mfile[]") MultipartFile[] files) {
-		//요청 상태값은 1
+	public String customerRequest(Request request, Model model, HttpSession session,
+			@RequestParam("mfile[]") MultipartFile[] files) {
+		// 요청 상태값은 1
 		request.setStatusNo(1);
 		request.setSno(1);
 		Member member = (Member) session.getAttribute("member");
 		request.setClient(member.getMname());
-		
+
 		log.info("파일 길이 : " + files.length);
-		
+
 		List<StatusHistoryFile> fileList = new ArrayList<>();
-		
-		
+
 		try {
-		if(files != null) {
-			for(MultipartFile file : files) {
-				if(!file.isEmpty()) {
-					StatusHistoryFile shf = new StatusHistoryFile();
-					shf.setFileData(file.getBytes());
-					shf.setFileName(file.getOriginalFilename());
-					shf.setFileType(file.getContentType());
-					fileList.add(shf);
+			if (files != null) {
+				for (MultipartFile file : files) {
+					if (!file.isEmpty()) {
+						StatusHistoryFile shf = new StatusHistoryFile();
+						shf.setFileData(file.getBytes());
+						shf.setFileName(file.getOriginalFilename());
+						shf.setFileType(file.getContentType());
+						fileList.add(shf);
+					}
 				}
 			}
-		}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-			int result = requestService.writeRequest(request, fileList);
-			if(result == IRequestRegisterService.REQUEST_SUCCESS) {
-				return "redirect:/customer/requestlist";
-			} else {
-				model.addAttribute("requestResult", "FAIL");
-				return "redirect:/customer/request";
-			}
+		int result = requestService.writeRequest(request, fileList);
+		if (result == IRequestRegisterService.REQUEST_SUCCESS) {
+			return "redirect:/customer/requestlist";
+		} else {
+			model.addAttribute("requestResult", "FAIL");
+			return "redirect:/customer/request";
+		}
 	}
-	/** 
-	 *  요청 등록 조회
+
+	/**
+	 * 요청 등록 조회
 	 */
-	
-	
-	
-	
-	
-	
-	
-	
-	/** Kang Ji Seong
-	 * 	member type별 요청 조회
+
+	/**
+	 * Kang Ji Seong member type별 요청 조회
 	 * 
 	 */
 	@GetMapping("/requestlist")
-	public String requestList(Request request, Model model, HttpSession session, @RequestParam(defaultValue="1") int pageNo,
-			@RequestParam(defaultValue="")String date_first, @RequestParam(defaultValue="")String date_last,
-			@RequestParam(defaultValue="0")int sno, @RequestParam(defaultValue="전체")String req_type ) {
-		
-		//필터에 출력할 시스템 리스트 조회
+	public String requestList(Request request, Model model, HttpSession session,
+			@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "") String date_first,
+			@RequestParam(defaultValue = "") String date_last, @RequestParam(defaultValue = "0") int sno,
+			@RequestParam(defaultValue = "전체") String req_type) {
+
+		// 필터에 출력할 시스템 리스트 조회
 		List<System> systemList = userRegisterService.getSystemList();
-		
-		//전달받은 필터 값 저장
+
+		// 전달받은 필터 값 저장
 		ListFilter listFilter = new ListFilter();
 		listFilter.setReqType(req_type);
 		listFilter.setDateFirst(date_first);
 		listFilter.setDateLast(date_last);
 		listFilter.setSno(sno);
-		
-		//유저 권한 확인
-		Member member = (Member) session.getAttribute("member");
-		//유저 id 저장
-		request.setMid(member.getMid());
-		
-		
 
-		
-		//PM case
-		if(member.getMtype().equals("pm")) {
-			//PM은 전체 조회가 가능함.
+		// 유저 권한 확인
+		Member member = (Member) session.getAttribute("member");
+		// 유저 id 저장
+		request.setMid(member.getMid());
+
+		// PM case
+		if (member.getMtype().equals("pm")) {
+			// PM은 전체 조회가 가능함.
 			int totalRows = requestService.getPmTotalRows();
-			
-			if(pageNo == 1) {
-				//pageNo 1인 경우
-				log.info("1page 요청");
-				Pager pager = new Pager(5, 5,totalRows, pageNo);
-				List<SelectPM> requestList = requestService.getPmRequestList(request, listFilter, pager);
-				
-				
-				//시스템 리스트 전달
-				model.addAttribute("systemList", systemList);
-				//목록 리스트와 페이지 return
-				model.addAttribute("requestList", requestList);
-				model.addAttribute("pager", pager);
-				
-				return "srm/requestlist";
-				
-			} else {
-				//요청한 페이지로 이동.
-				log.info(pageNo + "pageNo != 1");
-				Pager pager = new Pager(5, 5,totalRows, pageNo);
-				
-				
-				requestService.getPmRequestList(request, listFilter, pager);
-				return "srm/requestlist";
-			}
-		//Not PM
+
+			// pageNo 1인 경우
+			log.info("1page 요청");
+			Pager pager = new Pager(5, 5, totalRows, pageNo);
+			List<SelectPM> requestList = requestService.getPmRequestList(request, listFilter, pager);
+
+			// 시스템 리스트 전달
+			model.addAttribute("systemList", systemList);
+			// 목록 리스트와 페이지 return
+			model.addAttribute("requestList", requestList);
+			model.addAttribute("pager", pager);
+
+			return "srm/requestlist";
+
+			// Not PM
 		} else {
 			log.info("not PM");
 		}
@@ -301,8 +271,9 @@ public class RequestController {
 		return "srm/requestlist";
 //		
 	}
-	/** Kang Ji Seong
-	 * 	member type 단계 처리 가져오기
+
+	/**
+	 * Kang Ji Seong member type 단계 처리 가져오기
 	 */
 	@PostMapping("/viewstep")
 	@ResponseBody
