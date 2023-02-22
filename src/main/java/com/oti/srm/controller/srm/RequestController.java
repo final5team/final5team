@@ -1,5 +1,6 @@
 package com.oti.srm.controller.srm;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -7,6 +8,9 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -123,7 +127,11 @@ public class RequestController {
 		returnMember.setAddr1(address[1]);
 		returnMember.setAddr2(address[2]);
 		
+		if(returnMember.getFileData() == null) {
+			
+		} else {
 		
+		}
 		
 		
 		
@@ -132,8 +140,19 @@ public class RequestController {
 		
 		return "member/mypage";
 	}
-	
-	
+	/** Kang Ji Seong
+	 *  img byte[] 변환 메소드
+	 */
+	@GetMapping("/mypage/{mid}")
+	public ResponseEntity<byte[]> returnImg(@PathVariable String mid ){
+		Member returnMember = userRegisterService.getUserInfo(mid);
+		HttpHeaders headers = new HttpHeaders();
+		String[] fileTypes = returnMember.getFileType().split("/");
+		headers.setContentType(new MediaType(fileTypes[0], fileTypes[1]));
+		headers.setContentDispositionFormData("attachment", returnMember.getFileName());
+		return new ResponseEntity<byte[]>(returnMember.getFileData(), headers, HttpStatus.OK);
+		
+	}
 	
 	
 	
