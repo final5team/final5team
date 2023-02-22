@@ -1,5 +1,7 @@
 package com.oti.srm.service.member;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,12 @@ public class UserRegisterServiceImpl implements IUserRegisterService {
 	@Override
 	public int register(Member member) {
 		int rows = memberDao.insertMember(member);
-		return REGISTER_SUCCESS;
+		return rows;
+	}
+
+	@Override
+	public List<System> getSystemList() {
+		return memberDao.selectSystem();
 	}
 
 

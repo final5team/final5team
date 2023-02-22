@@ -425,10 +425,9 @@ article.include div {
 									<div class="select-group">
 										<select class="custom-select" id="sno" name="sno">
 											<option selected>시스템 선택</option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
+											<c:forEach var="system" items="${systemList}">
+												<option value="${system.sno}">${system.systemName}</option>
+											</c:forEach>
 										</select>
 										<i class="fa fa-user"></i>
 									</div>
