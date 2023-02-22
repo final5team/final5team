@@ -12,7 +12,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -112,6 +111,12 @@ public class TesterController {
 		return "redirect:/testerdetail?rno=" + statusHistory.getRno();
 		
 	}
+	/**
+	 * @author : 장현
+	 * @param rno StatusHistory 객체에 주입
+	 * @param session StatusHistory 객체의 writer, mtype 주입
+	 * @return testerdetail으로 리턴
+	 */
 	@GetMapping("/testdone")
 	public String switchTestDone(int rno, HttpSession session) {
 		
