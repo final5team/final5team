@@ -33,8 +33,10 @@ public class UserTestDistributeController {
 		model.addAttribute("request", commonService.getRequest(rno));
 		// 요청 처리정보
 		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
-		// 개발자 -> 테스터
+		// 개발 완료 내역(개발내용)
 		model.addAttribute("devToTesterHistories", commonService.getDevToTesterHistories(rno));
+		// 고객테스트 완료 내역
+		model.addAttribute("userTesterToDistributorHistories", commonService.getUserTesterToDistributorHistories(rno));
 		return "srm/userTester";
 	}
 
@@ -47,8 +49,10 @@ public class UserTestDistributeController {
 		model.addAttribute("request", commonService.getRequest(rno));
 		// 요청 처리정보
 		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
-		// 개발자 -> 테스터
+		// 개발 완료 내역(배포 소스)
 		model.addAttribute("devToTesterHistories", commonService.getDevToTesterHistories(rno));
+		// 배포 완료 내역
+		model.addAttribute("distributorToPmHistories", commonService.getDistributorToPmHistories(rno));
 		return "srm/distributor";
 	}
 	
