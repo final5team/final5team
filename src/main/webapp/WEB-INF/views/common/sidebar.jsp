@@ -74,37 +74,37 @@
 				<span>담당 요청 관리</span></a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/pm/receiptdetail?rno=81">
+			<a class="nav-link" href="${pageContext.request.contextPath}/pm/receiptdetail?rno=90">
 				<i class="fas fa-vial"></i>
 				<span>pm의 담당요청 상세보기(접수)</span></a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/pm/completedetail?rno=81">
+			<a class="nav-link" href="${pageContext.request.contextPath}/pm/completedetail?rno=90">
 				<i class="fas fa-vial"></i>
 				<span>pm의 담당요청 상세보기(완료전)</span></a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/pm/enddetail?rno=81">
+			<a class="nav-link" href="${pageContext.request.contextPath}/pm/enddetail?rno=90">
 				<i class="fas fa-vial"></i>
 				<span>pm의 담당요청 상세보기(완료후)</span></a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/developerdetail?rno=81">
+			<a class="nav-link" href="${pageContext.request.contextPath}/developerdetail?rno=90">
 				<i class="fas fa-file-code"></i>
 				<span>개발자의 담당요청 상세보기</span></a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/testerdetail?rno=81">
+			<a class="nav-link" href="${pageContext.request.contextPath}/testerdetail?rno=90">
 				<i class="fas fa-vial"></i>
 				<span>테스터의 담당요청 상세보기</span></a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/usertestdetail?rno=81">
+			<a class="nav-link" href="${pageContext.request.contextPath}/usertestdetail?rno=90">
 				<i class="fas fa-vial"></i>
 				<span>유저테스터의 담당요청 상세보기</span></a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/distributedetail?rno=81">
+			<a class="nav-link" href="${pageContext.request.contextPath}/distributedetail?rno=90">
 				<i class="fas fa-vial"></i>
 				<span>배포담당자의 담당요청 상세보기</span></a>
 		</li>
