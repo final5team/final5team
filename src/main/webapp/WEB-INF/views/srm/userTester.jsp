@@ -165,11 +165,11 @@
 									</div>
 									<div class="d-flex justify-content-end">
 										<!-- 유저테스트 요청 상태(7) -->
-										<c:if test="${request.statusNo == 7 && member.mtype == 'usertester'}">
+										<c:if test="${request.statusNo == 7 && member.mid == requestProcess.userTester}">
 										 	<button class="btn btn-primary btn-lg mt-3" onclick="getDatemodal()" type="button">유저테스트 시작</button>
 										</c:if>
 										<!-- 유저테스트 중 상태(8) -->
-										<c:if test="${request.statusNo == 8 && member.mtype == 'usertester'}">
+										<c:if test="${request.statusNo == 8 && member.mid == requestProcess.userTester}">
 											<form action="${pageContext.request.contextPath}/endwork" method="post" class="mt-3">
 												<input type="hidden" name="rno" value="${request.rno}"/>
 												<button class="btn btn-info btn-lg mt-3">유저테스트 완료</button>
