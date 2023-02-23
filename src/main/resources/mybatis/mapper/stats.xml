@@ -27,5 +27,17 @@
 		from REQUEST_PROCESS
 		where ALL_EXPECT_DATE <![CDATA[<]]> ALL_COMP_DATE
 	</select>
+	<select id="selectDelRateTask" parameterType="String" resultType="int">
+		select count(*) as cnt
+		from REQUEST_PROCESS
+		where 
+		<if test="mtype == 'developer'">
+		ALL_EXPECT_DATE <![CDATA[<]]> ALL_COMP_DATE
+		</if>
+		
+		DEV_EXPECT_DATE is not null
+			and DEV_COMP_DATE is not null
+			and DEV_EXPECT_DATE <![CDATA[<]]> DEV_COMP_DATE
+	</select>
 	
 </mapper>
