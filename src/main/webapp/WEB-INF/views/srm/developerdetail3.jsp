@@ -64,9 +64,6 @@
 	 
 	 }
 	 
-	 #main{
-	width: 1050px;
-	 }
 	 .table-menu{
 	    text-align: center;
 	    line-height: 20px;
@@ -113,7 +110,7 @@
 
                 <!-- 여기에 내용 담기 start -->
                 <div class="container-fluid">
-                	<div id="main">
+                	 <div id="main">
                 	
 						<div class="row">
 							<!-- 게시글 상세보기 start -->
@@ -280,7 +277,7 @@
 							</div>
 							<!-- 상태 단계 이력 end -->						
 						</div>
-					</div>
+					 </div>
                 </div>
                 <!-- 여기에 내용 담기 end -->
 
