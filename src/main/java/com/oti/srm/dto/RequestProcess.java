@@ -15,7 +15,7 @@ public class RequestProcess {
 	private Date testExpectDate;
 	private Date distExpectDate;
 	private Date userTestExpectDate;
-	@DateTimeFormat(pattern="yyyy-mm-dd")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date allExpectDate;
 	private String allExpectDateStr;
 	
@@ -23,7 +23,7 @@ public class RequestProcess {
 	private Date testCompDate;
 	private Date distCompDate;
 	private Date userTestCompDate;
-	@DateTimeFormat(pattern="yyyy-mm-dd")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date allCompDate;
 	
 	private String developer;

@@ -16,7 +16,7 @@ public class SelectPM {
 	private int rno;
 	private int sno;
 	private String systemName;
-	@DateTimeFormat(pattern="yyyy-mm-dd")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date reqDate;
 	private String reqTitle;
 	private String reqContent;
@@ -24,7 +24,7 @@ public class SelectPM {
 	private String statusName;
 	private String client;
 	private String clientName;
-	@DateTimeFormat(pattern="yyyy-mm-dd")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date reqExpectDate;
 	private String organ;
 	

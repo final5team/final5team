@@ -13,7 +13,7 @@ public class Member {
 	private String mid;    
 	private String mtype; 
 	private String mname; 
-	@DateTimeFormat(pattern="yyyy-mm-dd")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date birth; 
 	private String gender; 
 	private String address;
