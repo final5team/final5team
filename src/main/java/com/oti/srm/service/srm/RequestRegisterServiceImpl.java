@@ -36,7 +36,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		try {
 			log.info(request.getReqExpectDate());
 			int rows = requestDao.insertRequest(request);
-
+			
 			// 요청 성공후 결과값 가져오기
 			if (rows == 1) {
 				int requestRno = requestDao.selectRequest(request.getClient());
@@ -147,7 +147,8 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	@Override
 	public Request getRequestDetail(int rno) {
 		Request request = requestDao.selectRequestDetail(rno);
-		request.setFileList(requestDao.setRequestFiles(rno));
+		request.setFileList(requestDao.setRequestFiles(request.getHno()));
+		
 		return request;
 	}
 	
