@@ -122,7 +122,7 @@ public class CommonService implements ICommonService {
 	@Transactional
 	public void endWork(StatusHistory statusHistory, String mtype) {
 		commonDao.updateRequestStatus(statusHistory.getRno(), statusHistory.getNextStatus());
-		commonDao.updateCompDate(statusHistory.getRno(), mtype);
+		commonDao.updateResetDate(statusHistory.getRno());
 		commonDao.insertStatusHistory(statusHistory);
 		if(statusHistory.getFileList() != null && statusHistory.getFileList().size()>0) {
 			for(StatusHistoryFile file :statusHistory.getFileList()) {

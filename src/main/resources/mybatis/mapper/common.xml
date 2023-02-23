@@ -132,6 +132,14 @@
 		where rno = #{rno} 
 	</update>
 	
+	<update id="updateResetDate" parameterType="int">
+		update request_process 
+			set dev_comp date = null,
+				dev_expect_date = null,
+				test_expect_date = null
+		where rno = #{rno} 
+	</update>
+	
 	<insert id="insertStatusHistory" parameterType="com.oti.srm.dto.StatusHistory">
 		<selectKey keyProperty="hno" resultType="int" order="BEFORE">
           SELECT seq_status_histories.nextval FROM dual
