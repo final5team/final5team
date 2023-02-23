@@ -64,7 +64,7 @@
 				<span>나의 서비스 요청</span></a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/customer/requestlist">
+			<a class="nav-link" href="${pageContext.request.contextPath}/customer/myrequestlist">
 				<i class="fas fa-fw fa-chart-area"></i>
 				<span>내 요청 관리</span></a>
 		</li>

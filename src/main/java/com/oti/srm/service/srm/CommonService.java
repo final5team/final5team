@@ -47,6 +47,41 @@ public class CommonService implements ICommonService {
 
 		return devToTesterHistories;
 	}
+	
+	@Override
+	@Transactional
+	public List<StatusHistory> getUserTesterToDistributorHistories(int rno) {
+		List<StatusHistory> requestHistories = commonDao.selectRequestHistories(rno);
+
+		List<StatusHistory> UserTesterToDistributorHistories = new ArrayList<StatusHistory>();
+
+		for (StatusHistory sh : requestHistories) {
+			// 개발자 -> 테스터 단계 이력만 담기
+			if (sh.getNextStatus() == 9) {
+				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
+				UserTesterToDistributorHistories.add(sh);
+			}
+		}
+
+		return UserTesterToDistributorHistories;
+	}
+	
+	@Override
+	public List<StatusHistory> getDistributorToPmHistories(int rno) {
+		List<StatusHistory> requestHistories = commonDao.selectRequestHistories(rno);
+
+		List<StatusHistory> distributorToPmHistories = new ArrayList<StatusHistory>();
+
+		for (StatusHistory sh : requestHistories) {
+			// 개발자 -> 테스터 단계 이력만 담기
+			if (sh.getNextStatus() == 11) {
+				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
+				distributorToPmHistories.add(sh);
+			}
+		}
+
+		return distributorToPmHistories;
+	}
 
 	// 요청정보 조회(+해당 요청에 첨부된 파일들까지)
 	@Override
@@ -196,5 +231,7 @@ public class CommonService implements ICommonService {
 	public StatusHistoryFile getFile(int fno) {
 		return commonDao.selectFile(fno);
 	}
+
+	
 	
 }

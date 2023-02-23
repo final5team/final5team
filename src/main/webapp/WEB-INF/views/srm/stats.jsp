@@ -27,33 +27,33 @@
         var chart = new google.visualization.PieChart(document.getElementById('3dchart'));
         chart.draw(data, options);
       }
+      // 완료율 도넛 그래프 그리기
       google.charts.setOnLoadCallback(drawdonutChart);
       function drawdonutChart() {
+    	  // 완료율 그래프 값 설정
           var data = google.visualization.arrayToDataTable([
-            ['Task', 'Rate'],
-            ['완료',     11],
-            ['',    7]
+            ['Task', 	'Rate'],
+            ['완료',     ${comRate}],
+            ['',   		${100-comRate}]
           ]);
 
           var options = {
-            title: '전체 완료율',
-            pieHole: 0.4,
+            title: '전체 완료율',   // 그래프 제목
+            pieHole: 0.4,		// 그래프 중앙 빈 부분 크기 설정
 
-            tooltip: { trigger: 'none' },
-            pieSliceTextStyle: {
-                color: 'black',
-            },
-            legend: 'none',
+            tooltip: { trigger: 'none' },   //도움말 제거   
+            legend: 'none',					//범례 제거
             slices: {
-                0: { color: 'green', textStyle: {color: 'orange', fontSize: 14} },
-                1: { color: 'transparent' , textStyle: {color: 'transparent'}}
+                0: { color: 'green', textStyle: {color: 'orange', fontSize: 14} },  // 그래프 완료 부분 색 설정
+                1: { color: 'transparent' , textStyle: {color: 'transparent'}}		// 그래프 미완료 부분 색 설정
             }
           };
-
+		  
+          // 그래프 그리기
           var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
           chart.draw(data, options);
         }
-
+		  // 지연율 게이지 그래프 그리기
 	      google.charts.load('current', {'packages':['gauge']});
 	      google.charts.setOnLoadCallback(drawGageChart);
 	
@@ -61,22 +61,22 @@
 	
 	        var data = google.visualization.arrayToDataTable([
 	          ['Label', 'Value'],
-	          ['지연율', 78],
+	          ['지연율', ${delRate}],
 	        ]);
 	
 	        var options = {
-	          width: 500, height: 150,
-	          redFrom: 80, redTo: 100,
-	          yellowFrom: 55, yellowTo: 80,
-	          minorTicks: 5
+	          width: 500, height: 150,			// 그래프 크기 설정
+	          redFrom: 80, redTo: 100,			// 위험 (붉은 색으로 표시된 부분) 범위 설정
+	          yellowFrom: 55, yellowTo: 80,		// 주의 (노란 색으로 표시된 부분) 범위 설정
+	          minorTicks: 5						// 보조 눈금
 	        };
-	
-	        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
-	
+	        
+			//그래프 그리기
+	        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));	
 	        chart.draw(data, options);           
 	      }
       
-      
+      	  //
 	      google.charts.load('current', {'packages':['bar']});
 	      google.charts.setOnLoadCallback(drawBarChart);
 	
@@ -113,6 +113,7 @@
 	      google.charts.setOnLoadCallback(drawLineChart);
 
 	      function drawLineChart() {
+	    	  // 월별 값 설정
 	        var data = google.visualization.arrayToDataTable([
 	          ['월', '요청', '완료'],
 	          ['01월',  ${SRChange['1']},	${SRComChange['1']}],
@@ -130,13 +131,13 @@
 	        ]);
 
 	        var options = {
-	          title: '전체 서비스 요청 및 완료',
-	          curveType: 'function',
-	          legend: { position: 'bottom' }
+	          title: '전체 서비스 요청 및 완료',  		//그래프 제목
+	          curveType: 'function',  			//그래프 선 부드럽게 설정
+	          legend: { position: 'bottom' }    //범례 위치 하단
 	        };
-
+	        
+			// 그래프 그리기
 	        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
 	        chart.draw(data, options);
 	      }
     </script>
@@ -147,6 +148,14 @@
 	    border-width: 0 0 1px 0;
 	    border-color: #85CE36;
 	    padding: 10px 20px 0;
+	}
+	.center {
+	  position: absolute;
+	  top: 40%;
+	  width: 100%;
+	  text-align: center;
+	  font-size: 20px;
+	  color: orange;
 	}
     </style>
 
@@ -226,7 +235,10 @@
                                 <!-- Card Body -->
                                 <div class="card-body">
 	                                <div class="row">
-	                                	<div class="col-md-7"> <div id="donutchart"></div></div>
+	                                	<div class="col-md-7"> 
+	                                		<div id="donutchart"></div>
+	                                		<div class="center">${comRate}%</div>
+	                                	</div>
 	                                	<div class="col-md-5">
 	                                		<p style="color: green">Task</p>
 		                                	<p>개발: 65%</p>

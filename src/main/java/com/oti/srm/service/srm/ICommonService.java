@@ -26,6 +26,10 @@ public interface ICommonService {
 	public void endWork(StatusHistory statusHistory, String mtype);
 
 	public List<StatusHistory> getTesterToDevHistories(int rno);
+	
+	public List<StatusHistory> getUserTesterToDistributorHistories(int rno);
+	
+	public List<StatusHistory> getDistributorToPmHistories(int rno);
 
 	public void uploadFile(StatusHistoryFile statusHistoryFile);
 

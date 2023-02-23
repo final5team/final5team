@@ -36,72 +36,335 @@
 		where rnum=1
 	</select>
 
-	<select id="selectRequest" parameterType="String" resultType="int">
+	<select id="selectRequest" parameterType="String"
+		resultType="int">
 		select max(rno) as "rno"
 		from requests
-		where client = #{client}
+		where client =
+		#{client}
 	</select>
 
 
 
 
 
+	<select id="countRows" parameterType="hashmap" resultType="int">
+		select count(*)
+		from ( select rownum as rnum, r.RNO, r.REQ_DATE,
+		r.REQ_TITLE,
+		r.REQ_CONTENT, r.CLIENT, r.SNO, r.REQ_EXPECT_DATE,
+		r.STATUS_NO,
+		rp.REQ_TYPE, rp.DEVELOPER, rp.TESTER, rp.DISTRIBUTOR,
+		rp.PM,
+		rp.USER_TESTER
+		from requests r inner join request_process rp
+		on r.RNO = rp.RNO
+		order by
+		r.req_date desc
+		)
+		<where>
+			<if test='member.mtype.equals("pm")'>
+				and pm = #{member.mid}
+				<if test='listFilter.sno != 0'>
+					and sno = #{listFilter.sno}
+				</if>
+			</if>
+			<if test='member.mtype neq "pm"'>
+				and sno = #{member.sno}
+				
+				<if test='member.mtype eq "developer"'>
+					and developer = #{member.mid}
+				</if>
+				<if test='member.mtype eq "tester"'>
+					and tester = #{member.mid}
+				</if>
+				<if test='member.mtype eq "usertester"'>
+					and usertester = #{member.mid}
+				</if>
+				<if test='member.mtype eq "distributor"'>
+					and distributor = #{member.mid}
+				</if>
+			</if>
 
-	<select id="countPm" parameterType="int" resultType="int">
-		select
-		count(*)
-		from requests
+			<if test='listFilter.reqType neq "전체"'>
+				and REQ_TYPE = #{listFilter.reqType}
+			</if>
+			
+			<if test='listFilter.dateValue.equals("zero")'> 
+				<![CDATA[
+					
+				]]>
+			</if>
+			<if test='listFilter.dateValue.equals("first")'>
+				<![CDATA[
+					and REQ_DATE <= to_date(#{listFilter.dateLast}, 'YYYY-MM-DD')
+				]]>
+			</if>
+			<if test='listFilter.dateValue.equals("last")'>
+				<![CDATA[
+					and REQ_DATE >= to_date(#{listFilter.dateFirst}, 'YYYY-MM-DD')
+				]]>
+			</if>
+			<if test='listFilter.dateValue.equals("both")'>
+				<![CDATA[
+					and REQ_DATE between to_date(#{listFilter.dateFirst}, 'YYYY-MM-DD') and to_date(#{listFilter.dateLast}, 'YYYY-MM-DD')
+				]]>
+			</if>
+			<if test='listFilter.statusNo != 0 '>
+				<if test='listFilter.statusValue eq"접수"'>
+				<![CDATA[
+					and status_no in (1)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"개발"'>
+				<![CDATA[
+					and status_no in (2, 3, 4)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"테스트"'>
+				<![CDATA[
+					and status_no in (5, 6, 7)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"유저테스트"'>
+				<![CDATA[
+					and status_no in (8)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"배포"'>
+				<![CDATA[
+					and status_no in (10)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"완료"'>
+				<![CDATA[
+					and status_no in (11, 13)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"반려"'>
+				<![CDATA[
+					and status_no in (12)
+				]]>
+				</if>
+			</if>
+		</where>
 	</select>
-	<select id="selectAll" parameterType="com.oti.srm.dto.Request"
+
+	<select id="selectMyWorkList" parameterType="hashmap"
 		resultType="com.oti.srm.dto.SelectPM">
 		<![CDATA[
-		select rownum, jj.RNO, jj.REQ_DATE as "reqDate" , jj.REQ_TITLE as "reqTitle", jj.REQ_CONTENT as "reqContent", 
-                jj.CLIENT, jj.SNO, jj.REQ_EXPECT_DATE as "reqExpectDate", jj.STATUS_NO as "statusNo",
-                jj.REQ_TYPE as "reqType" , jj.DEVELOPER, jj.TESTER, jj.DISTRIBUTOR, jj.PM, jj.USER_TESTER
-		from(
-		        select j.RNO, j.REQ_DATE, j.REQ_TITLE, j.REQ_CONTENT, j.CLIENT, j.SNO, j.REQ_EXPECT_DATE, j.STATUS_NO,
-		                j.REQ_TYPE, j.DEVELOPER, j.TESTER, j.DISTRIBUTOR, j.PM, j.USER_TESTER
+		select j.RNO, j.REQ_DATE as "reqDate" , j.REQ_TITLE as "reqTitle", j.REQ_CONTENT as "reqContent", 
+		 		j.CLIENT, j.SNO, j.REQ_EXPECT_DATE as "reqExpectDate", j.STATUS_NO as "statusNo",
+		                j.REQ_TYPE as "reqType", j.DEVELOPER, j.TESTER, j.DISTRIBUTOR, j.PM, j.USER_TESTER as "userTester"
 		            from (
-		            select rownum as rnum, r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT, r.CLIENT, r.SNO, r.REQ_EXPECT_DATE, r.STATUS_NO,
+		            select r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT, r.CLIENT, r.SNO, r.REQ_EXPECT_DATE, r.STATUS_NO,
 		                    rp.REQ_TYPE, rp.DEVELOPER, rp.TESTER, rp.DISTRIBUTOR, rp.PM, rp.USER_TESTER
 		            from requests r inner join request_process rp
 		            on r.RNO = rp.RNO
-		 ]]>
+		            
+		    ]]>
 		<where>
-			<if test='sno != "0"'>
-				sno = #{sno}
+			<if test='member.mtype.equals("pm")'>
+				and pm = #{member.mid}
+				<if test='listFilter.sno != 0'>
+					and sno = #{listFilter.sno}
+				</if>
 			</if>
-			<if test='!reqType.equals("전체")'>
-				REQ_TYPE = #{reqType}
+			<if test='member.mtype neq "pm"'>
+				and sno = #{member.sno}
+				
+				<if test='member.mtype eq "developer"'>
+					and developer = #{member.mid}
+				</if>
+				<if test='member.mtype eq "tester"'>
+					and tester = #{member.mid}
+				</if>
+				<if test='member.mtype eq "usertester"'>
+					and usertester = #{member.mid}
+				</if>
+				<if test='member.mtype eq "distributor"'>
+					and distributor = #{member.mid}
+				</if>
 			</if>
-			<if test='dateValue.equals("zero")' >
+
+			<if test='listFilter.reqType neq "전체"'>
+				and REQ_TYPE = #{listFilter.reqType}
+			</if>
+			
+			<if test='listFilter.dateValue.equals("zero")'> 
+
+			</if>
+			<if test='listFilter.dateValue.equals("first")'>
 				<![CDATA[
-					and REQ_DATE <= sysdate
+					and REQ_DATE <= to_date(#{listFilter.dateLast}, 'YYYY-MM-DD')
 				]]>
 			</if>
-			<if test='dateValue.equals("first")'>
+			<if test='listFilter.dateValue.equals("last")'>
 				<![CDATA[
-					and REQ_DATE <= to_date(#{dateLast}, 'YYYY-MM-DD')
+					and REQ_DATE >= to_date(#{listFilter.dateFirst}, 'YYYY-MM-DD')
 				]]>
 			</if>
-			<if test='dateValue.equals("last")'>
+			<if test='listFilter.dateValue.equals("both")'>
 				<![CDATA[
-					and to_date(#{dateFirst}, 'YYYY-MM-DD') <= REQ_DATE
+					and REQ_DATE between to_date(#{listFilter.dateFirst}, 'YYYY-MM-DD') and to_date(#{listFilter.dateLast}, 'YYYY-MM-DD')
 				]]>
 			</if>
-			<if test='dateValue.equals("both")'>
+			<if test='listFilter.statusNo != 0'>
+				<if test='listFilter.statusValue eq"접수"'>
 				<![CDATA[
-					and REQ_DATE between to_date(#{dateFirst}, 'YYYY-MM-DD') and to_date(#{dateLast}, 'YYYY-MM-DD')
+					and status_no in (1)
 				]]>
+				</if>
+				<if test='listFilter.statusValue eq"개발"'>
+				<![CDATA[
+					and status_no in (2, 3, 4)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"테스트"'>
+				<![CDATA[
+					and status_no in (5, 6, 7)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"유저테스트"'>
+				<![CDATA[
+					and status_no in (8)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"배포"'>
+				<![CDATA[
+					and status_no in (10)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"완료"'>
+				<![CDATA[
+					and status_no in (11, 13)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"반려"'>
+				<![CDATA[
+					and status_no in (12)
+				]]>
+				</if>
 			</if>
 		</where>
-		 <![CDATA[
-		            order by r.req_date desc
-		            ) j
-		        where rnum <= #{endRowNo}
-		    ) jj where rownum >=#{startRowNo}
-		]]>
+		order by r.req_date desc
+		) j offset (#{pager.startRowNo}-1) rows fetch next #{pager.endRowNo} rows only
 	</select>
+
+	<select id="countRequestRows" parameterType="hashmap" resultType="int">
+		select count(*)
+		from ( select rownum as rnum, r.RNO, r.REQ_DATE,
+		r.REQ_TITLE,
+		r.REQ_CONTENT, r.CLIENT, r.SNO, r.REQ_EXPECT_DATE,
+		r.STATUS_NO,
+		rp.REQ_TYPE, rp.DEVELOPER, rp.TESTER, rp.DISTRIBUTOR,
+		rp.PM,
+		rp.USER_TESTER
+		from requests r inner join request_process rp
+		on r.RNO = rp.RNO
+		order by
+		r.req_date desc
+		)
+		<where>
+			<if test='member.mtype.equals("pm")'>
+				and pm = #{member.mid}
+				<if test='listFilter.sno != 0'>
+					and sno = #{listFilter.sno}
+				</if>
+			</if>
+			<if test='member.mtype neq "pm"'>
+				and sno = #{member.sno}
+				
+				<if test='member.mtype eq "developer"'>
+					and developer = #{member.mid}
+				</if>
+				<if test='member.mtype eq "tester"'>
+					and tester = #{member.mid}
+				</if>
+				<if test='member.mtype eq "usertester"'>
+					and usertester = #{member.mid}
+				</if>
+				<if test='member.mtype eq "distributor"'>
+					and distributor = #{member.mid}
+				</if>
+			</if>
+
+			<if test='listFilter.reqType neq "전체"'>
+				and REQ_TYPE = #{listFilter.reqType}
+			</if>
+			
+			<if test='listFilter.dateValue.equals("zero")'> 
+				<![CDATA[
+					
+				]]>
+			</if>
+			<if test='listFilter.dateValue.equals("first")'>
+				<![CDATA[
+					and REQ_DATE <= to_date(#{listFilter.dateLast}, 'YYYY-MM-DD')
+				]]>
+			</if>
+			<if test='listFilter.dateValue.equals("last")'>
+				<![CDATA[
+					and REQ_DATE >= to_date(#{listFilter.dateFirst}, 'YYYY-MM-DD')
+				]]>
+			</if>
+			<if test='listFilter.dateValue.equals("both")'>
+				<![CDATA[
+					and REQ_DATE between to_date(#{listFilter.dateFirst}, 'YYYY-MM-DD') and to_date(#{listFilter.dateLast}, 'YYYY-MM-DD')
+				]]>
+			</if>
+			<if test='listFilter.statusNo != 0 '>
+				<if test='listFilter.statusValue eq"접수"'>
+				<![CDATA[
+					and status_no in (1)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"개발"'>
+				<![CDATA[
+					and status_no in (2, 3, 4)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"테스트"'>
+				<![CDATA[
+					and status_no in (5, 6, 7)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"유저테스트"'>
+				<![CDATA[
+					and status_no in (8)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"배포"'>
+				<![CDATA[
+					and status_no in (10)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"완료"'>
+				<![CDATA[
+					and status_no in (11, 13)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"반려"'>
+				<![CDATA[
+					and status_no in (12)
+				]]>
+				</if>
+			</if>
+		</where>
+	</select>
+	
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

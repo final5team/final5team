@@ -31,15 +31,23 @@ public class StatsController {
 	// 통계 페이지
 	@RequestMapping("/statistics")
 	public String statistics(HttpSession session, Model model) {
-		// 
+		// 첫째 줄
+		
+		// 전체 완료율 구하기
+		model.addAttribute("comRate", statsService.getComRate());
+		// 태스크별 완료율 구하기
+		//model.addAttribute("taskComRate", statsService.getComRate(0));
+		
+		// 전체 지연율 구하기
+		model.addAttribute("delRate", statsService.getDelRate());
 		
 		// SR 처리 현황
 		// 전체 SR 처리 현황
 		//model.addAttribute("allState", statsService.getSRState("all"));
 		
-		// 전체 완료율 구하기
-		model.addAttribute("comRate", statsService.getComRate());
 		
+		// 셋째 줄
+		// 서비스 요청 추이
 		// 월별 서비스 요청 건수 구하기
 		model.addAttribute("SRChange", statsService.getSRChange(0));
 		// 월별 서비스  완료 건수 구하기

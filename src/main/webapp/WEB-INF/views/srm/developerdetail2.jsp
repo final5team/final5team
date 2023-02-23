@@ -3,7 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
-<html lang="ko">
 
 <head>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
@@ -192,65 +191,76 @@
 							</div>
 							</c:if>
 							<!-- 개발자의 개발 요청 글 작성 end-->
-							<!-- 실험하기 -->
-							<!-- 개발자테이블 -->
-							<table class="table">
-								<thead class="thead-dark">
-									<tr>
-										<th>작성자</th>
-										<th>완료일</th>
-										<th>개발내용</th>
-										<th>배포소스</th>
-										<th>첨부파일</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>
-											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="30%">
-											<div class="mt-3">박말자</div>
-										</td>
-										<td>2022-12-28</td>
-										<td>개발내용내용내용내용</td>
-										<td>배포소스asdf.java</td>
-										<td>asdfasdf.jpg</td>
-									</tr>
-								</tbody>
-							</table>
-							<!-- 개발자테이블 -->
 
-							<!-- 테스터테이블 -->
-							<table class="table">
-								<thead class="thead-light">
-									<tr>
-										<th>작성자</th>
-										<th>완료일</th>
-										<th>개발내용</th>
-										<th>배포소스</th>
-										<th>첨부파일</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>
-											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="22%">
-											<div class="mt-3">박말자</div>
-										</td>
-										<td>2022-12-28</td>
-										<td><div class="btn btn-sm btn-info devContentButton">개발내용확인</div></td>
-										<td><div class="btn btn-sm btn-warning distSourceButton">배포소스확인</div></td>
-										<td>첨부파일 확인</td>
-									</tr>
-									<tr class="devContent" style="display: none;">
-										<td>개발 내용내용내용내용</td>
-									</tr>
-									<tr class="distSource" style="display: none;">
-										<td>배포소스 내용</td>
-									</tr>
-								</tbody>
-							</table>
-							<!-- 테스터테이블 -->
-							<!-- 실험하기 -->
+							<div class="row mb-3">
+								<!-- 개발 단계 처리 내역 start -->
+									<h2>개발 완료 내역</h2>
+									<table class="table">
+										<thead class="thead-dark">
+										   <tr>
+										   	  <th scope="col">개발 차수</th>
+										      <th scope="col">개발 내용</th>
+										      <th scope="col">배포 소스</th>
+										      <th scope="col">작성일</th>
+										      <th scope="col">작성자</th>
+										      <th scope="col">첨부파일</th>
+										   </tr>
+										</thead>
+										<tbody>
+										    <c:forEach var="statusHistory" items="${devToTester}" varStatus="index">
+										    	<tr>
+										    		<td>${index.count}차</td>
+										    		<td style="word-break:break-all">${statusHistory.reply}</td>
+										    		<td style="word-break:break-all">${statusHistory.distSource}</td>
+										    		<td><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></td>
+										    		<td>${statusHistory.writer}</td>
+										    		<td> 
+										    			<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+															<span>${statusHistoryFile.fileName}</span>
+															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																<i class="fas fa-cloud-download-alt"></i>
+															</a><br>
+														</c:forEach>
+										    		</td>
+										    	</tr>
+										    </c:forEach>
+										</tbody>
+									</table>
+								<!-- 개발 단계 처리 내역 end -->	
+								<!-- 개발 단계 처리에 필요한 정보(테스터 재검토 내용) start -->
+									<h2>테스터 재검토 내역</h2>
+									<table class="table">
+										<thead class="thead-dark">
+										   <tr>
+										   	  <th scope="col">재검토 차수</th>
+										      <th scope="col">재검토 내용</th>
+										      <th scope="col">작성일</th>
+										      <th scope="col">작성자</th>
+										      <th scope="col">첨부파일</th>
+										   </tr>
+										</thead>
+										<tbody>
+										    <c:forEach var="statusHistory" items="${testerToDev}" varStatus="index">
+										    	<tr>
+										    		<td>${index.count}차</td>
+										    		<td style="word-break:break-all">${statusHistory.reply}</td>
+										    		<td><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></td>
+										    		<td>${statusHistory.writer}</td>
+										    		<td> 
+										    			<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+															<span>${statusHistoryFile.fileName}</span>
+															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																<i class="fas fa-cloud-download-alt"></i>
+															</a><br>
+														</c:forEach>
+										    		</td>
+										    	</tr>
+										    </c:forEach>
+										</tbody>
+									</table>
+								<!-- 개발 단계 처리에 필요한 정보(테스터 재검토 내용) -->
+							</div>
+
 						</div>
 						<!-- 게시글 상세보기 end -->
 						<!-- 상태 단계 이력 start -->						
@@ -406,13 +416,7 @@
 	function devEnd(){
 		$('#writeform').submit();
 	}
-	/* 버튼 클릭시 개발내용 토글 */
-	$('.devContentButton').click(function(){
-		$('.devContent').toggle();
-	});
-	$(".distSourceButton").click(function(){
-		$('.distSource').toggle();
-	});
+
 	</script>
 </body>
 
