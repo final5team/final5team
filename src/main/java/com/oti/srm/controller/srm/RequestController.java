@@ -305,13 +305,31 @@ public class RequestController {
 		List<System> systemList = userRegisterService.getSystemList();
 		
 		log.info(request.getReqTitle());
-		log.info(request.getReqContent());
+		
 		
 		
 		model.addAttribute("request", request);
 		model.addAttribute("systemList", systemList);
 		return "srm/requestdetail";
 	}
+	
+	/**
+	 * Kang Ji Seong 요청 글 파일 다운로드
+	 */
+	@RequestMapping("/requestdetail/filedownload")
+	public ResponseEntity<byte[]> filDownload(int fno) {
+		
+		StatusHistoryFile fileList = requestService.getMyRequestFile(fno);
+		final HttpHeaders headers = new HttpHeaders();
+		String [] mtypes = fileList.getFileType().split("/");
+		headers.setContentType(new MediaType(mtypes[0], mtypes[1]));
+		headers.setContentDispositionFormData("attachment", fileList.getFileName());
+		
+		return new ResponseEntity<byte[]>(fileList.getFileData(), HttpStatus.OK);
+	}
+	
+	
+	
 	
 
 }

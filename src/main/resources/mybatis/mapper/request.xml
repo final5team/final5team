@@ -417,6 +417,12 @@
 		where hno = #{hno}
 	</select>
 	
+	<select id="selectRequestFile" parameterType="int" resultType="com.oti.srm.dto.StatusHistoryFile">
+		select FNO, SAVED_DATE as "savedDate", FILE_NAME as "fileName", FILE_TYPE as "fileType", FILE_DATA as "fileData"
+			from STATUS_HISTORIES_FILES
+			where hno = #{hno}
+	</select>
+	
 
 
 
