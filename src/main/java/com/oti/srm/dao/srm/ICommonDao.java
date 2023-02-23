@@ -68,5 +68,7 @@ public interface ICommonDao {
 	public int selectDelayRequests(Member member);
 
 	public StatusHistoryFile selectFile(int fno);
+
+	public int selectRequestRecentPM(Member member);
 	
 }

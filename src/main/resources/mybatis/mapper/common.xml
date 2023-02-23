@@ -155,14 +155,16 @@
 		(seq_status_histories_files.nextval, sysdate, #{fileName}, #{fileType}, #{fileData}, #{hno})
 	</insert>
 	
+	<select id="selectRequestRecentPM" parameterType="com.oti.srm.dto.Member" resultType="int">
+		select count(*)
+		from requests
+		where status_no = 1
+	</select>
+	
 	<select id="selectRequestRecent" parameterType="com.oti.srm.dto.Member" resultType="int">
 		select count(*)
 		from request_process
 		<where>
-			<if test="mtype == 'pm'">
-				pm = #{mid}
-			and all_expect_date is null
-			</if>
 			<if test="mtype == 'developer'">
 				developer = #{mid}
 			and dev_expect_date is null
@@ -246,10 +248,9 @@
 	</select>
 	<select id="selectRequestReject" parameterType="com.oti.srm.dto.Member" resultType="int">
 		select count(*)
-		from request_process rp, requests r
-		where rp.rno = r.rno
-		and r.STATUS_NO = 12
-		and pm = #{mid}
+		from status_histories
+		where NEXT_STATUS = 12 
+		and WRITER =  #{mid}
 	</select>
 	
 	<select id="selectListOf7daysLeft" parameterType="com.oti.srm.dto.Member" resultType="com.oti.srm.dto.Request">
