@@ -424,7 +424,7 @@ article.include div {
 								<div class="item">
 									<div class="select-group">
 										<select class="custom-select" id="sno" name="sno">
-											<option selected>시스템 선택</option>
+											<option selected value="${request.systemName}"></option>
 											<c:forEach var="system" items="${systemList}">
 												<option value="${system.sno}">${system.systemName}</option>
 											</c:forEach>
@@ -446,7 +446,7 @@ article.include div {
 									<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="${sessionScope.member.email}" value="${sessionScope.member.email}" readonly> <i class="fa fa-phone"></i>
 								</div>
 								<div class="item">
-									<input type="date" class="form-control form-control-user" id="reqExpectDate" name="reqExpectDate"> <i class="fa fa-phone"></i>
+									<input type="date" class="form-control form-control-user" id="reqExpectDate" name="reqExpectDate" ><i class="fa fa-phone"></i>
 								</div>
 							</article>
 							<article class="titleLabel">

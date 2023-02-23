@@ -70,12 +70,10 @@ public class RequestController {
 	 */
 	@PostMapping("/register")
 	public String register(Member member, Model model) {
-		log.info("등록 실행");
 		log.info(member.toString());
 		String address = member.getPostcode() + "-" + member.getAddr1() + "-" + member.getAddr2();
 		member.setAddress(address);
 		MultipartFile mfile = member.getMfile();
-		log.info(member.toString());
 
 		try {
 			if (mfile != null && !mfile.isEmpty()) {
@@ -184,8 +182,6 @@ public class RequestController {
 		Member member = (Member) session.getAttribute("member");
 		request.setClient(member.getMid());
 
-		log.info("파일 길이 : " + files.length);
-		log.info(request.getReqExpectDate());
 
 		List<StatusHistoryFile> fileList = new ArrayList<>();
 
@@ -222,7 +218,6 @@ public class RequestController {
 			@RequestParam(defaultValue = "") String date_last, @RequestParam(defaultValue = "0") int sno,
 			@RequestParam(defaultValue = "전체") String req_type) {
 		
-		log.info("내 목록 조회");
 		// 요청 조회 필터
 		List<System> systemList = userRegisterService.getSystemList();
 		
@@ -240,7 +235,6 @@ public class RequestController {
 	
 		// 보여줄 행 수 조회
 		int totalRows = requestService.getRequestListRows(listFilter, member);
-		log.info(totalRows);
 		Pager pager = new Pager(7, 5, totalRows, pageNo);
 		List<SelectPM> requestList = requestService.getMyRequestList(request, listFilter, pager, member);
 		
@@ -267,8 +261,6 @@ public class RequestController {
 		// 필터에 출력할 시스템 리스트 조회
 		List<System> systemList = userRegisterService.getSystemList();
 
-		log.info("요청 페이지 번호" + pageNo);
-		
 		
 		// 전달받은 필터 값 저장
 		ListFilter listFilter = new ListFilter();
@@ -287,7 +279,6 @@ public class RequestController {
 		Pager pager = new Pager(7, 5, totalRows, pageNo);
 		List<SelectPM> requestList = requestService.getMyWorkList(request, listFilter, pager, member);
 		
-		log.info("받아온 reqType : " + requestList.toString());
 		// 시스템 리스트 전달
 		model.addAttribute("systemList", systemList);
 		// 목록 리스트와 페이지 return
@@ -304,10 +295,7 @@ public class RequestController {
 	@PostMapping("/viewstep")
 	@ResponseBody
 	public int viewStep(Model model, Request request) {
-		log.info("viewStep");
-		log.info(request.getRno());
 		int result = requestService.getPresentStep(request.getRno());
-		log.info("리턴값" + result);
 		return result;
 	}
 	
@@ -320,6 +308,11 @@ public class RequestController {
 		log.info("요청번호" + rno);
 		Request request = requestService.getRequestDetail(rno);
 		List<System> systemList = userRegisterService.getSystemList();
+		
+		log.info(request.getReqTitle());
+		log.info(request.getReqContent());
+		
+		
 		model.addAttribute("request", request);
 		model.addAttribute("systemList", systemList);
 		return "srm/requestdetail";

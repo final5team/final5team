@@ -4,7 +4,8 @@
 <c:if test="${request.statusNo != 12}">
 	<c:if test="${request.reqType == null || request.reqType == '정규'}">
 		<table class="inner_step">
-			<td class="circle done">요청완료</td>
+			<td class="circle done"><a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
+				요청완료</a></td>
 			<td class="bar active"></td>
 			<td class="circle 
            	 <c:if test="${request.statusNo >= 2}">done</c:if>

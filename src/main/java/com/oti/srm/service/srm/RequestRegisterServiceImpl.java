@@ -31,7 +31,6 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	@Override
 	@Transactional
 	public int writeRequest(Request request, List<StatusHistoryFile> fileList) {
-		log.info("작성 실행");
 
 		try {
 			log.info(request.getReqExpectDate());
@@ -97,7 +96,6 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		map.put("listFilter", statusFilterList(dateFilterList(listFilter)));
 		map.put("member", member);
 		int rows = requestDao.countRows(map);
-		log.info("검색 " + rows);
 		return rows;
 	}
 
@@ -114,8 +112,6 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		log.info(pager.toString());
 	
 		List<SelectPM> result = requestDao.selectMyWorkList(map);
-		
-		log.info("return 개수" + result.size());
 		
 		return result;
 
@@ -147,8 +143,9 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	@Override
 	public Request getRequestDetail(int rno) {
 		Request request = requestDao.selectRequestDetail(rno);
-		request.setFileList(requestDao.setRequestFiles(request.getHno()));
+		log.info(request.toString());
 		
+		request.setFileList(requestDao.setRequestFiles(request.getHno()));
 		return request;
 	}
 	
