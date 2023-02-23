@@ -21,10 +21,13 @@ public interface IStatsDao {
 	// 전체 완료율 구하기
 	int selectComRate();	
 	int selectAllRate();
+	// 전체 지연율 구하기
+	int selectDelRate();
 	
 	// 서비스 요청 추이 월별 요청 건수 구하기
 	int selectSRChange(String month);
 	// 서비스 요청 추이 월별 완료 건수 구하기
 	int selectSRComChange(String month);
+	
 
 }
