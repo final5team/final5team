@@ -184,8 +184,9 @@ public class RequestController {
 		request.setSno(1);
 		Member member = (Member) session.getAttribute("member");
 		request.setClient(member.getMid());
-
+		
 		log.info("파일 길이 : " + files.length);
+		log.info(request.getReqExpectDate());
 
 		List<StatusHistoryFile> fileList = new ArrayList<>();
 
@@ -201,8 +202,6 @@ public class RequestController {
 					}
 				}
 			}
-
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
