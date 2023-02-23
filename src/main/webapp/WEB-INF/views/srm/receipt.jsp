@@ -11,16 +11,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script>
 		$(document).ready(function(){
-			// 접수 토글 숨기기
+			// 접수 입력 항목 숨기기
 		  $("#receiptdiv").hide();
-			// 반려 토글 숨기기
+			// 반려 입력 항목 숨기기
 		  $("#rejectdiv").hide();
-			// 접수 토글 열고 반려 토글 숨기기
+			// 접수 입력 항목 열고 반려 입력 항목 숨기기
 		  $("#receiptbtn").click(function(){
 			  $("#rejectdiv").hide();
 		      $("#receiptdiv").toggle();
 		  });
-			// 반려 토글 열고 접수 토글 숨기기
+			// 반려 입력 항목 열고 접수 입력 항목 숨기기
 		  $("#rejectbtn").click(function(){
 			  $("#receiptdiv").hide();
 			  $("#rejectdiv").toggle();
@@ -43,15 +43,15 @@
 			$("input").val("");
 			$("textarea").val("");
 		}	
-	</script>
-	<script>
-	function urg(){
-		var urg = $("#reqType").val();
-		if(urg == '긴급'){
-			$("#utester").hide();
+		// 요청 유형이 긴급일 때 유저 테스터 선택하지 않기
+		function urg(){
+			var urg = $("#reqType").val();
+			if(urg == '긴급'){
+				$("#utester").hide();
+			}
+			// 유저 테스터 값 null
+			$("#userTester").val("");
 		}
-		
-	}
 	</script>
 </head>
 
@@ -184,7 +184,7 @@
 													</div>
 													<div class="col-sm-12 form-group row" id="utester">
 														<label class="control-label col-lg-6">유저테스트 담당자 선택</label>
-														<select class="dropdown-toggle col-lg-6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester">
+														<select class="dropdown-toggle col-lg-6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
 															<c:forEach var="staff" items="${uteStaffList}">
 																<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 															</c:forEach>
