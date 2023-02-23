@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.oti.srm.dao.srm.ICommonDao;
 import com.oti.srm.dao.srm.IRequestDao;
 import com.oti.srm.dto.ListFilter;
+import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.SelectPM;
@@ -90,19 +91,24 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 
 	// PM 리스트 전체 열 개수 조회
 	@Override
-	public int getPmTotalRows(ListFilter listFilter) {
-		int rows = requestDao.countPm(dateFilterList(listFilter));
-		log.info("검색 성공");
+	public int getPmTotalRows(ListFilter listFilter, Member member) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("listFilter", dateFilterList(listFilter));
+		map.put("member", member);
+		
+		int rows = requestDao.countRows(map);
+		log.info("검색 " + rows);
 		return rows;
 	}
 
 	// 리스트 조회
 	@Override
-	public List<SelectPM> getPmRequestList(Request request, ListFilter listFilter, Pager pager) {
+	public List<SelectPM> getPmRequestList(Request request, ListFilter listFilter, Pager pager, Member member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("request", request);
 		map.put("listFilter", statusFilterList(dateFilterList(listFilter)));
 		map.put("pager", pager);
+		map.put("member", member);
 		
 		log.info(listFilter.toString());
 		
@@ -113,12 +119,6 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 
 	}
 
-	// 각 담당자 리스트 열 개수 조회
-	@Override
-	public int getWorkerRows(int workerSno) {
-		int rows = requestDao.countWorkerList(workerSno);
-		return rows;
-	}
 
 
 	//날짜 필터링 메소드
