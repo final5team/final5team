@@ -19,15 +19,17 @@ public interface IRequestDao {
 	//작성한 요청글의 rno 조회
 	public int selectRequest(String client);
 	
-	//내 업무 조회
+	//내 업무 리스트 조회
 	public int countRows(HashMap<String, Object> map);
 	public List<SelectPM> selectMyWorkList(HashMap<String, Object> map);
 	
-	//내 요청 조회
+	//내 요청 리스트 조회
 	public int countRequestRows(HashMap<String, Object> map);
 	public List<SelectPM> selectMyRequest(HashMap<String, Object> map);
 	
-
+	//내 요청 상세보기
+	public Request selectRequestDetail(int rno);
+	
 	
 	
 }

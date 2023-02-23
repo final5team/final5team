@@ -144,8 +144,10 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		
 		return result;
 	}
-	
-
+	@Override
+	public Request getRequestDetail(int rno) {
+		return requestDao.selectRequestDetail(rno);
+	}
 	
 	
 	
@@ -194,6 +196,8 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		
 		return listFilter;
 	}
+
+	
 
 	
 	

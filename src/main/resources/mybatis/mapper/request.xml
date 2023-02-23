@@ -80,7 +80,7 @@
 					and tester = #{member.mid}
 				</if>
 				<if test='member.mtype eq "usertester"'>
-					and usertester = #{member.mid}
+					and user_tester = #{member.mid}
 				</if>
 				<if test='member.mtype eq "distributor"'>
 					and distributor = #{member.mid}
@@ -181,7 +181,7 @@
 					and tester = #{member.mid}
 				</if>
 				<if test='member.mtype eq "usertester"'>
-					and usertester = #{member.mid}
+					and user_tester = #{member.mid}
 				</if>
 				<if test='member.mtype eq "distributor"'>
 					and distributor = #{member.mid}
@@ -403,6 +403,11 @@
 	</select>
 
 
+	<select id="selectRequestDetail" parameterType="int" resultType="com.oti.srm.dto.Request">
+		
+	
+	
+	</select>
 
 
 

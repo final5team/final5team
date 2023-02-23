@@ -308,5 +308,23 @@ public class RequestController {
 		log.info("리턴값" + result);
 		return result;
 	}
+	
+	/**
+	 * Kang Ji Seong 요청 글 상세보기
+	 */
+	
+	@GetMapping("/requestdetail")
+	public String userRequestDetail(int rno, HttpSession session, Model model) {
+		log.info("요청번호" + rno);
+		
+		//내 요청 맞는지 확인
+		Request request = requestService.getRequestDetail(rno);
+		
+		
+		
+		
+		return "srm/requestdetail";
+	}
+	
 
 }
