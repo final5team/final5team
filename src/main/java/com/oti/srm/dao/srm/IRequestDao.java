@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.oti.srm.dto.ListFilter;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.SelectPM;
+import com.oti.srm.dto.StatusHistoryFile;
 
 @Mapper
 public interface IRequestDao {
@@ -29,6 +30,7 @@ public interface IRequestDao {
 	
 	//내 요청 상세보기
 	public Request selectRequestDetail(int rno);
+	public List<StatusHistoryFile> setRequestFiles(int rno);
 	
 	
 	

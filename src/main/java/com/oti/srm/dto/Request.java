@@ -38,8 +38,6 @@ public class Request {
 
 	// 리스트 날짜 상태 저장
 	private String dateValue;
-	// zero 둘 다 없음
-	// first 시작일 없음
-	// last 종료일 없음
-	// both 날짜 둘 다 있음
+	//파일 첨부
+	private List<StatusHistoryFile> fileList;
 }
