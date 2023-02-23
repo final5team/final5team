@@ -3,7 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
-<html lang="ko">
 
 <head>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
@@ -611,6 +610,16 @@
 							</div>
 							</c:if>
 							<!-- 개발자의 개발 요청 글 작성 end-->
+
+
+
+
+
+
+
+
+
+
 							<div class="row mb-3">
 								<!-- 개발 단계 처리 내역 start -->
 									<h2>개발 완료 내역</h2>
@@ -835,8 +844,7 @@
 	function devEnd(){
 		$('#writeform').submit();
 	}
-	
-	
+
 	</script>
 </body>
 
