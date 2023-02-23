@@ -123,11 +123,17 @@
 									</div>
 									<div class="mt-2 ml-5">${request.reqContent}</div>
 									<div class="mt-3 ml-5">
-										<span>첨부파일: <c:forEach var="file" items="${request.files}">${file.fileName}</c:forEach></span>
-										<a href="#" role="button">
-											<i class="fas fa-cloud-download-alt"></i>
-										</a>
-									</div>
+										<c:if test="${request.files != null}">
+											<c:forEach var="file" items="${request.files}">
+												<p>
+													<span>${file.fileName}</span>
+													<a href="#" role="button">
+														<i class="fas fa-cloud-download-alt"></i>
+													</a>
+												</p>
+											</c:forEach>
+										</c:if>
+									</div>									
 									<c:if test="${request.statusNo==1 && member.mtype =='pm'}">
 										<div class="d-flex justify-content-end">
 											<button class="btn btn-primary btn-lg mt-3 ml-3" type="button" id="receiptbtn">접수</button>
@@ -248,7 +254,7 @@
 													</div>
 												</div>
 												<div class="col-sm-9">	
-													<div class="col-sm-12 form-group">
+													<div class="form-group">
 														<label class="control-label">반려 사유</label>
 														<textarea rows="2" class="form-control boxed" name="reply" required></textarea>
 													</div>											
@@ -256,8 +262,7 @@
 														<label for="file">첨부파일</label>
 														<input type="file" id="files" name="files" multiple>
 														<input type="hidden" name="rno" value="${request.rno}">
-													</div>
-													
+													</div>													
 												</div>
 											</div>
 											<div class="d-flex justify-content-end">									
@@ -271,7 +276,7 @@
 							</div>
 							
 							<!-- 서비스 요청 접수 완료 후 start-->
-							<c:if test="${request.statusNo!=1 && member.mtype !='user'}">
+							<c:if test="${request.statusNo!=1 && member.mtype !='user' && request.statusNo!=12}">
 								<div class="card mt-4 mb-1">
 									<div class="card-header">서비스 요청 접수 완료</div>
 									<div class="card-body">									
@@ -320,8 +325,41 @@
 									</div>										
 								</div>
 							</c:if>
-							<!-- 서비스 요청 접수 완료 후 end-->
-
+							<!-- 서비스 요청 반려 완료 후 end-->
+							<c:if test="${request.statusNo==12}">
+								<div class="card mt-4 mb-1">
+									<div class="card-header">서비스 요청 반려</div>
+									<div class="card-body">									
+										<div class="row">
+											<div class="col-sm-3 d-flex align-items-center" style="text-align:center;">
+												<div>
+													<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
+													<div class="ml-3">[PM] ${staHistory.writer}</div>
+												</div>
+											</div>
+											<div class="col-sm-9">
+												<div class="form-group">
+													<label class="control-label">반려 사유</label>
+													<textarea rows="2" class="form-control boxed" name="reply" readonly>${staHistory.reply}</textarea>
+												</div>											
+												<div class="mt-3">
+													<c:if test="${request.files != null}">
+														<c:forEach var="file" items="${request.files}">
+															<p>
+																<span>${file.fileName}</span>
+																<a href="#" role="button">
+																	<i class="fas fa-cloud-download-alt"></i>
+																</a>
+															</p>
+														</c:forEach>
+													</c:if>
+												</div>
+											</div>											
+										</div>																					
+									</div>										
+								</div>
+							</c:if>
+							<!-- 서비스 요청 반려 완료 후 end-->
 						</div>
 						<!-- 게시글 상세보기 end -->
 						<!-- 상태 단계 이력 start -->						
