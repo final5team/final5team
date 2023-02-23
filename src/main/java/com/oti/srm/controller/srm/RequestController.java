@@ -316,12 +316,10 @@ public class RequestController {
 	@GetMapping("/requestdetail")
 	public String userRequestDetail(int rno, HttpSession session, Model model) {
 		log.info("요청번호" + rno);
-		
 		Request request = requestService.getRequestDetail(rno);
-		
-		
-		
-		
+		List<System> systemList = userRegisterService.getSystemList();
+		model.addAttribute("request", request);
+		model.addAttribute("systemList", systemList);
 		return "srm/requestdetail";
 	}
 	

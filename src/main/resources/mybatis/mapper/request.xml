@@ -404,14 +404,18 @@
 
 
 	<select id="selectRequestDetail" parameterType="int" resultType="com.oti.srm.dto.Request">
-		
-	
-	
+		select r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT, r.CLIENT, r.SNO, r.REQ_EXPECT_DATE, r.STATUS_NO, sh.hno
+        from status_histories sh left outer join requests r
+        on sh.rno = r.rno
+        where r.rno='#{rno} and next_status = 1
 	</select>
-
-
-
-
+	
+	<select id="setRequestFiles" parameterType="int" resultType="com.oti.srm.dto.StatusHistoryFile">
+		select FNO, SAVED_DATE as "savedDate", FILE_NAME as "fileName", FILE_TYPE as "fileType", FILE_DATA as "fileData", HNO
+		from STATUS_HISTORIES_FILES
+		where hno = #{hno}
+	</select>
+	
 
 
 
