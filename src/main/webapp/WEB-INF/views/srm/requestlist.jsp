@@ -413,9 +413,20 @@ main {
 										<td class="rno">${request.rno}</td>
 										<!-- 나중에 시스템 이름으로 바꾸어 줘야 함. -->
 										<td class="client">${request.sno}</td>
+										
 										<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
-										<td class="sysType">${request.reqType}</td>
-										<td class="reqTitle" style="max-width: 100px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
+										
+										<c:if test="${request.statusNo == 1}">
+											<td class="sysType">미정</td>
+										</c:if>
+										<c:if test="${request.statusNo == 12}">
+											<td class="sysType">반려</td>
+										</c:if>
+										<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
+											<td class="sysType">${request.reqType}</td>
+										</c:if>
+										
+										<td class="reqTitle" style="max-width: 100px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>	
 										<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" /></td>
 										
 										<td class="step_td">

@@ -36,7 +36,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		try {
 			log.info(request.getReqExpectDate());
 			int rows = requestDao.insertRequest(request);
-
+			
 			// 요청 성공후 결과값 가져오기
 			if (rows == 1) {
 				int requestRno = requestDao.selectRequest(request.getClient());
