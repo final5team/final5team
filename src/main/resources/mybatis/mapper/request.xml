@@ -58,7 +58,7 @@
 		rp.REQ_TYPE, rp.DEVELOPER, rp.TESTER, rp.DISTRIBUTOR,
 		rp.PM,
 		rp.USER_TESTER
-		from requests r inner join request_process rp
+		from requests r left outer join request_process rp
 		on
 		r.RNO = rp.RNO
 		order by
@@ -66,7 +66,6 @@
 		)
 		<where>
 			<if test='member.mtype.equals("pm")'>
-				and pm = #{member.mid}
 				<if test='listFilter.sno != 0'>
 					and sno = #{listFilter.sno}
 				</if>
@@ -161,13 +160,12 @@
 		            from (
 		            select r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT, r.CLIENT, r.SNO, r.REQ_EXPECT_DATE, r.STATUS_NO,
 		                    rp.REQ_TYPE, rp.DEVELOPER, rp.TESTER, rp.DISTRIBUTOR, rp.PM, rp.USER_TESTER
-		            from requests r inner join request_process rp
+		            from requests r left outer join request_process rp
 		            on r.RNO = rp.RNO
 		            
 		    ]]>
 		<where>
 			<if test='member.mtype.equals("pm")'>
-				and pm = #{member.mid}
 				<if test='listFilter.sno != 0'>
 					and sno = #{listFilter.sno}
 				</if>
@@ -336,6 +334,7 @@
 			    CLIENT, SNO, REQ_EXPECT_DATE  , STATUS_NO 
 			    from requests
 		]]>
+			
 			
 		<where>
 			client = #{member.mid}
