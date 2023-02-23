@@ -55,7 +55,14 @@
       .bar.active {
            border-color: var(--line-fill);
       }
-		
+	 .css-e23nfx{
+	    display: flex;
+	    width: 100%;
+	    padding: 20px 0px;
+	    border-bottom: 1px solid rgb(51, 51, 51);
+	    border-top: 2px solid rgb(51, 51, 51);
+	 
+	 }
     </style>
 </head>
 
@@ -193,88 +200,32 @@
 							<!-- 개발자의 개발 요청 글 작성 end-->
 
 							<div class="row mb-3">
-								<!-- 개발 단계 처리 내역 start -->
-									<h2>개발 완료 내역</h2>
-									<table class="table">
-										<thead class="thead-dark">
-										   <tr>
-										   	  <th scope="col">개발 차수</th>
-										      <th scope="col">작성자</th>
-										      <th scope="col">작성일</th>
-										      <th scope="col">개발 내용</th>
-										      <th scope="col">배포 소스</th>
-										      <th scope="col">첨부파일</th>
-										   </tr>
-										</thead>
-										<tbody>
-										    <c:forEach var="statusHistory" items="${devToTester}" varStatus="index">
-										    	<tr>
-										    		<td>${index.count}차</td>
-										    		<td>
-										    			<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="20%">
-										    			<div>${statusHistory.writer}</div>
-										    		</td>
-										    		<td><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></td>
-										    		<td style="word-break:break-all"><div class="btn btn-sm btn-primary" onclick="getDevContent('devContent${index.count}')">개발내용확인</div></td>
-										    		<td style="word-break:break-all"><div class="btn btn-sm btn-warning" onclick="getDistContent('distContent${index.count}')">배포소스확인</div></td>
-										    		<td> 
-										    			<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-															<span>${statusHistoryFile.fileName}</span>
-															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-																<i class="fas fa-cloud-download-alt"></i>
-															</a><br>
-														</c:forEach>
-										    		</td>
-										    	</tr>
-										    	<tr id="devContent${index.count}" style="display: none;">
-										    		<td>${statusHistory.reply}</td>
-										    	</tr>
-										    	<tr id="distContent${index.count}" style="display: none;">
-										    		<td>${statusHistory.distSource}</td>
-										    	</tr>
-										    	
-										    </c:forEach>
-										</tbody>
-									</table>
-								<!-- 개발 단계 처리 내역 end -->	
-								<!-- 개발 단계 처리에 필요한 정보(테스터 재검토 내용) start -->
-									<h2>테스터 재검토 내역</h2>
-									<table class="table">
-										<thead class="thead-dark">
-										   <tr>
-										   	  <th scope="col">재검토 차수</th>
-										      <th scope="col">작성자</th>
-										      <th scope="col">작성일</th>
-										      <th scope="col">재검토 내용</th>
-										      <th scope="col">첨부파일</th>
-										   </tr>
-										</thead>
-										<tbody>
-										    <c:forEach var="statusHistory" items="${testerToDev}" varStatus="i">
-										    	<tr>
-										    		<td>${index.count}차</td>
-										    		<td>
-										    			<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="20%">
-										    			<div>${statusHistory.writer}</div>
-										    		</td>
-										    		<td><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></td>
-										    		<td style="word-break:break-all"><div class="btn btn-sm btn-primary devContentButton">개발내용확인</div></td>
-										    		<td> 
-										    			<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-															<span>${statusHistoryFile.fileName}</span>
-															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-																<i class="fas fa-cloud-download-alt"></i>
-															</a><br>
-														</c:forEach>
-										    		</td>
-										    	</tr>
-										    	<tr style="display: none;">
-										    		<td class="devContent">${statusHistory.reply}</td>
-										    	</tr>
-										    </c:forEach>
-										</tbody>
-									</table>
-								<!-- 개발 단계 처리에 필요한 정보(테스터 재검토 내용) -->
+								
+								<!-- 개발***********************start -->
+								<div class="css-e23nfx mt-5">
+									<div>개발차수</div>
+									<div>작성인</div>
+									<div>개발일자</div>
+									<div>개발내용</div>
+								</div>
+								<ul>
+									<li>
+										<div>
+											<div>1차개발</div>
+											<div>김옥순</div>
+											<div>2023-12-28</div>
+											<div>개발내용확인하기</div>
+										</div>
+									</li>
+									<li style="display: none; opacity: 1; height: auto;">
+										<div>
+											<div>여기에 개발내용 있습니다.</div>
+										</div>
+									</li>
+								</ul>
+								<!-- 개발***********************end -->
+								<!-- *********테스트start******** -->
+								<!-- *********테스트end******** -->
 								
 							</div>
 
