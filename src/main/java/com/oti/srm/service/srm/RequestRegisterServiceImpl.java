@@ -93,9 +93,8 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	@Override
 	public int getPmTotalRows(ListFilter listFilter, Member member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("listFilter", dateFilterList(listFilter));
+		map.put("listFilter", statusFilterList(dateFilterList(listFilter)));
 		map.put("member", member);
-		
 		int rows = requestDao.countRows(map);
 		log.info("검색 " + rows);
 		return rows;
@@ -111,9 +110,11 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		map.put("member", member);
 		
 		log.info(listFilter.toString());
+		log.info(pager.toString());
 		
 		List<SelectPM> result = requestDao.selectPmRequestList(map);
 		
+		log.info("return 개수" + result.size());
 		
 		return result;
 
