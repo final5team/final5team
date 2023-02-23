@@ -128,7 +128,6 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		
 		int rows = requestDao.countRequestRows(map);
 		
-		
 		return rows;
 	}
 

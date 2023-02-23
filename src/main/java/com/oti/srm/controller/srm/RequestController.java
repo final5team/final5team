@@ -241,7 +241,7 @@ public class RequestController {
 		// 보여줄 행 수 조회
 		int totalRows = requestService.getRequestListRows(listFilter, member);
 		
-		
+		log.info(totalRows);
 		
 		return "srm/myrequestlist";
 	}
@@ -283,7 +283,7 @@ public class RequestController {
 		int totalRows = requestService.getPmTotalRows(listFilter, member);
 
 		Pager pager = new Pager(7, 5, totalRows, pageNo);
-		List<SelectPM> requestList = requestService.getPmRequestList(request, listFilter, pager, member);
+		List<SelectPM> requestList = requestService.getRequestList(request, listFilter, pager, member);
 
 		// 시스템 리스트 전달
 		model.addAttribute("systemList", systemList);

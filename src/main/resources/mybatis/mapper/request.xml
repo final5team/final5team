@@ -353,9 +353,25 @@
 		</where>
 	</select>
 	
+	
 
-
-
+	<select id="countRequestRows" parameterType="hashmap" resultType="int">
+		<![CDATA[
+			select count(*)
+			from ( select rownum as rnum, r.RNO, r.REQ_DATE,
+				r.REQ_TITLE,
+				r.REQ_CONTENT, r.CLIENT, r.SNO, r.REQ_EXPECT_DATE,
+				r.STATUS_NO,
+				rp.REQ_TYPE, rp.DEVELOPER, rp.TESTER, rp.DISTRIBUTOR,
+				rp.PM,
+				rp.USER_TESTER
+				from requests r inner join request_process rp
+				on r.RNO = rp.RNO
+				order by r.req_date desc
+				)
+	        where status_no <= 2
+		]]>
+	</select>
 
 
 
