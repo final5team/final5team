@@ -112,7 +112,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		
 		log.info(listFilter.toString());
 		log.info(pager.toString());
-		
+	
 		List<SelectPM> result = requestDao.selectMyWorkList(map);
 		
 		log.info("return 개수" + result.size());
@@ -144,8 +144,10 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		
 		return result;
 	}
-	
-
+	@Override
+	public Request getRequestDetail(int rno) {
+		return requestDao.selectRequestDetail(rno);
+	}
 	
 	
 	
@@ -194,6 +196,8 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		
 		return listFilter;
 	}
+
+	
 
 	
 	
