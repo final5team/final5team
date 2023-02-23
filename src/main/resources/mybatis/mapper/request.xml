@@ -395,6 +395,7 @@
 				]]>
 				</if>
 			</if>
+			
 		</where>
 		order by req_date desc
 		) offset (#{pager.startRowNo}-1) rows fetch
