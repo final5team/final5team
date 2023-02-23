@@ -48,51 +48,65 @@
 
 
 
-	<select id="countPm" parameterType="com.oti.srm.dto.ListFilter"
+	<select id="countRows" parameterType="hashmap"
 		resultType="int">
 		select count(*)
-		from ( select rownum as rnum, r.RNO, r.REQ_DATE,
-		r.REQ_TITLE,
-		r.REQ_CONTENT, r.CLIENT, r.SNO, r.REQ_EXPECT_DATE,
-		r.STATUS_NO,
-		rp.REQ_TYPE, rp.DEVELOPER, rp.TESTER, rp.DISTRIBUTOR,
-		rp.PM,
-		rp.USER_TESTER
-		from requests r left join request_process rp
-		on
-		r.RNO = rp.RNO
+			from ( select rownum as rnum, r.RNO, r.REQ_DATE,
+			r.REQ_TITLE,
+			r.REQ_CONTENT, r.CLIENT, r.SNO, r.REQ_EXPECT_DATE,
+			r.STATUS_NO,
+			rp.REQ_TYPE, rp.DEVELOPER, rp.TESTER, rp.DISTRIBUTOR,
+			rp.PM,
+			rp.USER_TESTER
+		from requests r inner join request_process rp
+		on r.RNO = rp.RNO
 		order by r.req_date desc
 		)
 		<where>
-			<if test='sno != "0"'>
-				sno = #{sno}
+			<if test='member.mtype.equals("pm")'>
+				<if test='listFilter.sno != 0'>
+					sno = #{listFilter.sno}
+				</if>
 			</if>
-			<if test='!reqType.equals("전체")'>
-				REQ_TYPE = #{reqType}
+			<if test='member.mtype neq "pm"'>
+					sno = #{member.sno}
+				<if test='member.mtype eq "developer"'>
+					developer = #{member.mtype}
+				</if>
+				<if test='member.mtype eq "tester"'>
+					tester = #{member.mtype}
+				</if>
+				<if test='member.mtype eq "usertester"'>
+					usertester = #{member.mtype}
+				</if>
+				<if test='member.mtype eq "distributor"'>
+					distributor = #{member.mtype}
+				</if>
 			</if>
-			<if test="statusNo neq 0">
-				<![CDATA[
-				 STATUS_NO = #{statusNo}
-				]]>
+			
+			
+			
+			<if test='listFilter.reqType neq"전체"'>
+				REQ_TYPE = #{listFilter.reqType}
 			</if>
-			<if test='dateValue.equals("zero")'>
+			<if test='listFilter.dateValue.equals("zero")'>
 				<![CDATA[
 					and REQ_DATE <= sysdate
 				]]>
 			</if>
-			<if test='dateValue.equals("first")'>
+			<if test='listFilter.dateValue.equals("first")'>
 				<![CDATA[
-					and REQ_DATE <= to_date(#{dateLast}, 'YYYY-MM-DD')
+					and REQ_DATE <= to_date(#{listFilter.dateLast}, 'YYYY-MM-DD')
 				]]>
 			</if>
-			<if test='dateValue.equals("last")'>
+			<if test='listFilter.dateValue.equals("last")'>
 				<![CDATA[
-					and to_date(#{dateFirst}, 'YYYY-MM-DD') <= REQ_DATE
+					and to_date(#{listFilter.dateFirst}, 'YYYY-MM-DD') <= REQ_DATE
 				]]>
 			</if>
-			<if test='dateValue.equals("both")'>
+			<if test='listFilter.dateValue.equals("both")'>
 				<![CDATA[
-					and REQ_DATE between to_date(#{dateFirst}, 'YYYY-MM-DD') and to_date(#{dateLast}, 'YYYY-MM-DD')
+					and REQ_DATE between to_date(#{listFilter.dateFirst}, 'YYYY-MM-DD') and to_date(#{listFilter.dateLast}, 'YYYY-MM-DD')
 				]]>
 			</if>
 		</where>
@@ -109,13 +123,30 @@
 		            from (
 		            select r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT, r.CLIENT, r.SNO, r.REQ_EXPECT_DATE, r.STATUS_NO,
 		                    rp.REQ_TYPE, rp.DEVELOPER, rp.TESTER, rp.DISTRIBUTOR, rp.PM, rp.USER_TESTER
-		            from requests r left join request_process rp
+		            from requests r inner join request_process rp
 		            on r.RNO = rp.RNO
 		            
 		    ]]>
 		<where>
-			<if test='listFilter.sno != 0'>
-				sno = #{listFilter.sno}
+			<if test='member.mtype eq "pm"'>
+				<if test='listFilter.sno != 0'>
+					sno = #{listFilter.sno}
+				</if>
+			</if>
+			<if test='member.mtype neq "pm"'>
+					sno = #{member.sno}
+				<if test='member.mtype eq "developer"'>
+					developer = #{member.mtype}
+				</if>
+				<if test='member.mtype eq "tester"'>
+					tester = #{member.mtype}
+				</if>
+				<if test='member.mtype eq "usertester"'>
+					usertester = #{member.mtype}
+				</if>
+				<if test='member.mtype eq "distributor"'>
+					distributor = #{member.mtype}
+				</if>
 			</if>
 			<if test='listFilter.reqType neq"전체"'>
 				REQ_TYPE = #{listFilter.reqType}

@@ -20,7 +20,7 @@ public interface IRequestDao {
 	public int selectRequest(String client);
 	
 	//PM 조회
-	public int countPm(ListFilter listFilter);
+	public int countRows(HashMap<String, Object> map);
 	/*public List<SelectPM> selectPmRequestList(@Param("request") Request request, @Param("listFilter")ListFilter listFilter, @Param("pager")Pager pager);*/
 	
 	public List<SelectPM> selectPmRequestList(HashMap<String, Object> map);
