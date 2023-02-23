@@ -106,7 +106,7 @@ public class TesterController {
 			e.printStackTrace();
 		}
 		statusHistory.setFileList(sFiles);
-		commonService.endWork(statusHistory, member.getMtype());
+		commonService.reWork(statusHistory, member.getMtype());
 		return "redirect:/testerdetail?rno=" + statusHistory.getRno();
 		
 	}
