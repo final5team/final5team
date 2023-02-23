@@ -227,7 +227,7 @@
 										    		</td>
 										    	</tr>
 										    	<tr id="devContent${index.count}" style="display: none;">
-										    		<td>${statusHistory.reply}</td>
+										    		<td style>${statusHistory.reply}</td>
 										    	</tr>
 										    	<tr id="distContent${index.count}" style="display: none;">
 										    		<td>${statusHistory.distSource}</td>
