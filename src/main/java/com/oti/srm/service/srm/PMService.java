@@ -75,7 +75,11 @@ public class PMService implements IPMService {
 		commonDao.selectRequestHistories(rno);
 		// 해당 태스크별 처리 내역		
 		
-		return null;
+		
+		// 일단 반려 해야되니까 임시로 하나만 빼봄
+		StatusHistory result = commonDao.selectRequestHistories(rno).get(0);
+		
+		return result;
 	}
 
 }

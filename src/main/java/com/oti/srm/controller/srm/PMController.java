@@ -60,7 +60,10 @@ public class PMController {
 			model.addAttribute("uteStaffList", pMService.getStaffBySno(request.getSno(), "usertester"));
 			// 배포자 정보
 			model.addAttribute("disStaffList", pMService.getStaffBySno(request.getSno(), "distributor"));
-		// 요청 상태가 접수 완료일 때 요청 처리 정보
+		// 요청 상태가 반려일 때 상태 변경 정보(반려 사유)
+		} else if(request.getStatusNo()==12) {
+			model.addAttribute("staHistory", pMService.getStatusHistory(rno, "reject"));
+		// 요청 상태가 접수 완료일 때 요청 처리 정보(담당자 선택 내역)
 		} else {
 			model.addAttribute("reqProcess", commonService.getRequestProcess(rno));
 		}				
