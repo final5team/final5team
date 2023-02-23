@@ -98,17 +98,17 @@
 			</if>
 			<if test='listFilter.dateValue.equals("first")'>
 				<![CDATA[
-					and REQ_DATE <= to_date(#{listFilter.dateLast}, 'YYYY-MM-DD')
+					and REQ_DATE <= to_date(#{listFilter.dateLast}, 'yyyy-MM-dd') + 1
 				]]>
 			</if>
 			<if test='listFilter.dateValue.equals("last")'>
 				<![CDATA[
-					and REQ_DATE >= to_date(#{listFilter.dateFirst}, 'YYYY-MM-DD')
+					and to_date(#{listFilter.dateFirst}, 'yyyy-MM-dd') <= REQ_DATE 
 				]]>
 			</if>
 			<if test='listFilter.dateValue.equals("both")'>
 				<![CDATA[
-					and REQ_DATE between to_date(#{listFilter.dateFirst}, 'YYYY-MM-DD') and to_date(#{listFilter.dateLast}, 'YYYY-MM-DD')
+					and REQ_DATE between to_date(#{listFilter.dateFirst}, 'yyyy-MM-dd') and to_date(#{listFilter.dateLast}, 'yyyy-MM-dd')+1
 				]]>
 			</if>
 			<if test='listFilter.statusNo != 0 '>
@@ -197,17 +197,17 @@
 			</if>
 			<if test='listFilter.dateValue.equals("first")'>
 				<![CDATA[
-					and REQ_DATE <= to_date(#{listFilter.dateLast}, 'YYYY-MM-DD')
+					and REQ_DATE <= to_date(#{listFilter.dateLast}, 'yyyy-MM-dd') +  1
 				]]>
 			</if>
 			<if test='listFilter.dateValue.equals("last")'>
 				<![CDATA[
-					and REQ_DATE >= to_date(#{listFilter.dateFirst}, 'YYYY-MM-DD')
+					and to_date(#{listFilter.dateFirst}, 'yyyy-MM-dd') <= REQ_DATE 
 				]]>
 			</if>
 			<if test='listFilter.dateValue.equals("both")'>
 				<![CDATA[
-					and REQ_DATE between to_date(#{listFilter.dateFirst}, 'YYYY-MM-DD') and to_date(#{listFilter.dateLast}, 'YYYY-MM-DD')
+					and REQ_DATE between to_date(#{listFilter.dateFirst}, 'yyyy-MM-dd') and to_date(#{listFilter.dateLast}, 'yyyy-MM-dd')
 				]]>
 			</if>
 			<if test='listFilter.statusNo != 0'>
@@ -271,17 +271,17 @@
 			</if>
 			<if test='listFilter.dateValue.equals("first")'>
 				<![CDATA[
-					and REQ_DATE <= to_date(#{listFilter.dateLast}, 'YYYY-MM-DD')
+					and REQ_DATE <= to_date(#{listFilter.dateLast}, 'yyyy-MM-dd') + 1
 				]]>
 			</if>
 			<if test='listFilter.dateValue.equals("last")'>
 				<![CDATA[
-					and REQ_DATE >= to_date(#{listFilter.dateFirst}, 'YYYY-MM-DD')
+					and to_date(#{listFilter.dateFirst}, 'yyyy-MM-dd') <= REQ_DATE 
 				]]>
 			</if>
 			<if test='listFilter.dateValue.equals("both")'>
 				<![CDATA[
-					and REQ_DATE between to_date(#{listFilter.dateFirst}, 'YYYY-MM-DD') and to_date(#{listFilter.dateLast}, 'YYYY-MM-DD')
+					and REQ_DATE between to_date(#{listFilter.dateFirst}, 'yyyy-MM-dd') and to_date(#{listFilter.dateLast}, 'yyyy-MM-dd')
 				]]>
 			</if>
 			<if test='listFilter.statusNo != 0 '>
@@ -345,17 +345,17 @@
 			</if>
 			<if test='listFilter.dateValue.equals("first")'>
 				<![CDATA[
-					and REQ_DATE <= to_date(#{listFilter.dateLast}, 'YYYY-MM-DD')
+					and REQ_DATE <= to_date(#{listFilter.dateLast}, 'yyyy-MM-dd') + 1
 				]]>
 			</if>
 			<if test='listFilter.dateValue.equals("last")'>
 				<![CDATA[
-					and REQ_DATE >= to_date(#{listFilter.dateFirst}, 'YYYY-MM-DD')
+					and to_date(#{listFilter.dateFirst}, 'yyyy-MM-dd') <= REQ_DATE 
 				]]>
 			</if>
 			<if test='listFilter.dateValue.equals("both")'>
 				<![CDATA[
-					and REQ_DATE between to_date(#{listFilter.dateFirst}, 'YYYY-MM-DD') and to_date(#{listFilter.dateLast}, 'YYYY-MM-DD')
+					and REQ_DATE between to_date(#{listFilter.dateFirst}, 'yyyy-MM-dd') and to_date(#{listFilter.dateLast}, 'yyyy-MM-dd')
 				]]>
 			</if>
 			<if test='listFilter.statusNo != 0'>

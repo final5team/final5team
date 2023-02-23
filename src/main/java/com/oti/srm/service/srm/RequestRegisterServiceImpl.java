@@ -112,7 +112,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		
 		log.info(listFilter.toString());
 		log.info(pager.toString());
-		
+	
 		List<SelectPM> result = requestDao.selectMyWorkList(map);
 		
 		log.info("return 개수" + result.size());
