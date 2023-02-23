@@ -67,7 +67,7 @@ public class HomeController {
 			model.addAttribute("workCompletionRate", workCompletionRate);
 			return "/home";
 		} else {
-	
+			
 			return "/userhome";
 		}
 	}
