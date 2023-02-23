@@ -21,6 +21,7 @@
 		"statusNo"
 		from requests
 	</select>
+	
 
 	<select id="getPresentStep" parameterType="int" resultType="int">
 		select NEXT_STATUS
