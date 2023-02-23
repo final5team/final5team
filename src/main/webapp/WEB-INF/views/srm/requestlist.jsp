@@ -371,11 +371,13 @@ main {
 								<div class="input-group">
 									<select class="custom-select" id="statusNo" name="statusNo">
 										<option value="0" selected>전체</option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
+										<option value="1">접수</option>
+										<option value="2">개발</option>
+										<option value="5">테스트</option>
+										<option value="8">유저테스트</option>
+										<option value="10">배포</option>
+										<option value="11">완료</option>
+										<option value="12">반려</option>
 									</select>
 								</div>
 								<c:if test="${sessionScope.member.mtype == 'pm'}">
