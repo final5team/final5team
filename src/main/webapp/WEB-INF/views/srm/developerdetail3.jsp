@@ -3,7 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
-<html lang="ko">
 
 <head>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
@@ -56,7 +55,14 @@
       .bar.active {
            border-color: var(--line-fill);
       }
-		
+	 .css-e23nfx{
+	    display: flex;
+	    width: 100%;
+	    padding: 20px 0px;
+	    border-bottom: 1px solid rgb(51, 51, 51);
+	    border-top: 2px solid rgb(51, 51, 51);
+	 
+	 }
     </style>
 </head>
 
@@ -91,7 +97,7 @@
 						<div class="col-xl-9 col-lg-8 col-md-8 col-sm-8">
 							<div class="card">
 								<div class="card-header d-flex  ">
-									<h6 class="mr-auto text-primary font-weight-bold">테스터상세보기 ></h6>
+									<h6 class="mr-auto text-primary font-weight-bold">개발상세보기 ></h6>
 									<c:if test="${requestProcess.reqType eq '정규'}">
 									<div class="ml-3">정규<i class="far fa-registered text-secondary"></i></div>
 									</c:if>
@@ -136,30 +142,30 @@
 										</div>
 									</div>
 									<div class="mt-2 ml-5">${request.reqContent}</div>	
-										<div class="mt-3 ml-5">
+									<div class="mt-3 ml-5">
 										<c:if test="${request.files != null}">
-										<c:forEach var="statusHistoryFile" items="${request.files}">
-											<span>${statusHistoryFile.fileName}</span>
-											<a href="#" role="button">
-												<i class="fas fa-cloud-download-alt"></i>
-											</a>
-										</c:forEach>
+											<c:forEach var="statusHistoryFile" items="${request.files}">
+												<span>${statusHistoryFile.fileName}</span>
+												<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+													<i class="fas fa-cloud-download-alt"></i>
+												</a>
+											</c:forEach>
 										</c:if>
-										</div>
+									</div>
 									<div class="d-flex justify-content-end">
-										<c:if test="${member.mid == requestProcess.tester && request.statusNo == 5}">
-										<button class="btn btn-primary btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">테스트시작</button>
+										<c:if test="${member.mtype =='developer' && (request.statusNo == 2 || request.statusNo == 3)}">
+										<button class="btn btn-primary btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">개발시작</button>
 										</c:if>
-										<c:if test="${member.mid == requestProcess.tester && request.statusNo == 6}">
-										<button class="btn btn-info btn-lg mt-3 ml-3" onclick="devEnd(${request.rno})">테스트완료</button>
+										<c:if test="${member.mtype =='developer' && request.statusNo == 4}">
+										<button class="btn btn-info btn-lg mt-3" onclick="devEnd()">개발 완료</button>
 										</c:if>
 									</div>
 								</div>
 							</div>
-							<!-- 테스터의 개발 요청 글 작성 start-->
-							<c:if test="${member.mtype =='tester' && request.statusNo == 6}">
+							<!-- 개발자의 개발 요청 글 작성 start-->
+							<c:if test="${member.mtype =='developer' && request.statusNo == 4}">
 							<div class="card mt-4 mb-5">
-								<div class="card-header">결함내용 작성하기</div>
+								<div class="card-header">작성하기</div>
 								<div class="card-body row">
 									<div class="col-sm-3 d-flex align-items-center" style="text-align:center;">
 										<div>
@@ -168,7 +174,7 @@
 										</div>
 									</div>
 									<div class="col-sm-9">
-										<form role="form" id="writeform" action="${pageContext.request.contextPath}/askreexam" method="POST" enctype="multipart/form-data">
+										<form role="form" id="writeform" action="${pageContext.request.contextPath}/devdone" method="POST" enctype="multipart/form-data">
 											<input type="hidden" name="rno" value="${request.rno}">
 											<div class="col-sm-12 form-group">
 												<label class="control-label" >완료예정일</label>
@@ -178,12 +184,13 @@
 												<label class="control-label">개발내용</label>
 												<textarea rows="2" class="form-control boxed" name="reply"></textarea>
 											</div>
-											<div class="filebox">
-												<label for="file">Choose a file</label>
-												<input type="file" id="file" name="files" multiple>
+											<div class="col-sm-12 form-group">
+												<label class="control-label">배포소스</label>
+												<input type="text" class="form-control boxed" name="distSource">
 											</div>
-											<div class="d-flex justify-content-end">
-												<button class="btn btn-warning btn-lg mt-3" type="submit">재검토요청</button>
+											<div class="filebox">
+												<label for="files">Choose a file</label>
+												<input type="file" id="files" name="files" multiple>
 											</div>
 										</form>
 									</div>
@@ -191,88 +198,35 @@
 							</div>
 							</c:if>
 							<!-- 개발자의 개발 요청 글 작성 end-->
+
 							<div class="row mb-3">
-								<!-- 개발자의 개발내용 start -->
-								<div class="col-md-6">
-								<c:forEach varStatus="i" var="statusHistory" items="${devToTester}">
-									<div class="card mt-3 cardscroller" style="height: 262px;">
-										<div class="card-header d-flex justify-content-end">
-											<div>${i.count}차 개발</div>
-											<div class="ml-auto ml-1">완료일: <fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
-										</div>
-										<div class="card-body p-1 cardscroller-block">
-											<div class="row mr-3">
-												<div class="col-sm-3 d-flex align-items-center" style="text-align: center;">
-													<div>
-														<img class="rounded-circle mt-1" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
-														<div class="ml-2">${requestProcess.developer}</div>
-													
-													</div>
-												</div>
-												<div class="col-sm-9">
-													<div class="d-flex justify-content-end">
-													</div>
-													<div>
-														<label class="control-label">개발내용</label>
-														<textarea class="form-control boxed " readonly style="background-color: transparent;" rows="2">${statusHistory.reply}</textarea>
-													</div>
-													<div class="mt-2">
-														<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-															<span>${statusHistoryFile.fileName}</span>
-															<a href="#" role="button">
-																<i class="fas fa-cloud-download-alt"></i>
-															</a><br>
-														</c:forEach>
-													</div>
-												</div>
-											</div>	
-
-										</div>
-									</div>
-								</c:forEach>
+								
+								<!-- 개발***********************start -->
+								<div class="css-e23nfx mt-5">
+									<div>개발차수</div>
+									<div>작성인</div>
+									<div>개발일자</div>
+									<div>개발내용</div>
 								</div>
-								<!-- 개발자의 개발내용 end -->
-								<!-- 테스터의 개발내용 start -->
-								<div class="col-md-6">
-								<c:forEach varStatus="i" var="statusHistory" items="${testerToDev}">							
-
-									<div class="card mt-3 cardscroller" style="height: 262px;">
-										<div class="card-header d-flex justify-content-end">
-											<div>${i.count}차 결함</div>
-											<div class="ml-auto ml-1">완료일: <fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
+								<ul>
+									<li>
+										<div>
+											<div>1차개발</div>
+											<div>김옥순</div>
+											<div>2023-12-28</div>
+											<div>개발내용확인하기</div>
 										</div>
-										<div class="card-body p-1 cardscroller-block">
-											<div class="row align-items-center">
-												<div class="col-sm-3 d-flex align-items-center" style="text-align: center;">
-													<div>
-														<img class="rounded-circle mt-1" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
-														<div class="ml-2">${requestProcess.tester}</div>
-													
-													</div>
-												</div>
-												<div class="col-sm-9">
-													<div class="d-flex justify-content-end">
-													</div>
-													<div>
-														<label class="control-label">결함내용</label>
-														<textarea class="form-control boxed " readonly style="background-color: transparent;" rows="3">${statusHistory.reply}</textarea>
-													</div>
-													<div class="mt-2">
-														<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-															<span>${statusHistoryFile.fileName}</span>
-															<a href="#" role="button">
-																<i class="fas fa-cloud-download-alt"></i>
-															</a><br>
-														</c:forEach>
-													</div>
-												</div>
-											</div>	
-
+									</li>
+									<li style="display: none; opacity: 1; height: auto;">
+										<div>
+											<div>여기에 개발내용 있습니다.</div>
 										</div>
-									</div>								
-								</c:forEach>
-								</div>
-								<!-- 테스터의 개발내용 end -->
+									</li>
+								</ul>
+								<!-- 개발***********************end -->
+								<!-- *********테스트start******** -->
+								<!-- *********테스트end******** -->
+								
 							</div>
 
 						</div>
@@ -323,12 +277,12 @@
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body d-flex justify-content-center">
-					<form id="formUpdateExpectDate" action="${pageContext.request.contextPath}/testinprogress" method="POST">
-						<label class="mt-1" style="color: #343a40;" for="testExpectDate">테스트 완료 예정일</label>
-						<input type="date" class="form-control ml-2" id="testExpectDate" name="testExpectDate" style="width: 200px; display: inline;">
+					<form id="formUpdateExpectDate" action="${pageContext.request.contextPath}/devinprogress" method="POST">
+						<label class="mt-1" style="color: #343a40;" for="developExpectDate">개발 완료 예정일</label>
+						<input type="date" class="form-control ml-2" id="developExpectDate" name="developExpectDate" style="width: 200px; display: inline;">
 						<input type="hidden" name="rno" value="${request.rno}">
+						<input type="hidden" name="receiptDoneDate" value="<fmt:formatDate value='${receiptDoneDate}' pattern='yyyy-MM-dd'/>">
 					</form>
-					<input type="hidden" name="receiptDoneDate" value="<fmt:formatDate value='${receiptDoneDate}' pattern='yyyy-MM-dd'/>">
 				</div>
 				<div class="modal-footer">
 					<small id="noInputDate" style="color : red;"></small>
@@ -380,7 +334,6 @@
 	</div>
 	<script>
 	<!-- 데이트 입력 확인 /-->
-	
 	function getDatemodal(){
 		$('#datemodal').modal('show');
 		
@@ -388,29 +341,31 @@
 	function checkDate(){
 		$('#noInputDate').text("");
 		
-		if($('#testExpectDate').val() == ""){
+		if($('#developExpectDate').val() == ""){
 			$('#noInputDate').text("날짜를 입력해주세요.");
 			return;
 		}
 		
+		
 		let today = new Date().getTime();   
-		var testExpectDate = new Date($('#testExpectDate').val()).getTime();
+		var developExpectDate = new Date($('#developExpectDate').val()).getTime();
 		var reqExpectDate = new Date($('#reqExpectDate').text()).getTime();
 		var receiptDoneDate = new Date($('input[name="receiptDoneDate"]').val()).getTime();
-
+		console.log(receiptDoneDate);
+		
 		//오늘보다 이전 날짜를 입력할 경우
-		if(today > testExpectDate){
+		if(today > developExpectDate){
 			$('#noInputDate').text("현재보다 앞선 날짜를 입력해주세요.");
 			return;
 		}
 		//총완료예정일보다 큰 일정을 입력할 경우
-		if(reqExpectDate <= testExpectDate){
+		if(reqExpectDate <= developExpectDate){
 			$('#noInputDate').text("완료예정일보다 과거여야 합니다.");
 			return;
 		}
-		if(((testExpectDate-receiptDoneDate)/(reqExpectDate-receiptDoneDate))>=0.2){
+		if(((developExpectDate-receiptDoneDate)/(reqExpectDate-receiptDoneDate))>=0.5){
 			$('#pContent').text('');
-			$('#pContent').text('입력 시간이 완료 예정일 대비 20% 이상 차지합니다. 확인을 누르시면 수정이 불가능합니다.');
+			$('#pContent').text('입력 시간이 완료 예정일 대비 50% 이상 차지합니다. 확인을 누르시면 수정이 불가능합니다.');
 			$('#alartDateTooMuch').modal('show');
 		} else{
 			$('#pContent').text('');
@@ -426,11 +381,14 @@
 		
 		$('#completeDueDate').modal('show');
 	}
-	function devEnd(rno){
-		let rnoNum = rno;
-		location.href='${pageContext.request.contextPath}/testdone?rno=' + rnoNum;
+	function devEnd(){
+		$('#writeform').submit();
 	}
 	
+	function getDevContent(index){
+		var content = "#" + index;
+		$(content).toggle();
+	}
 	
 	</script>
 </body>

@@ -199,10 +199,10 @@
 										<thead class="thead-dark">
 										   <tr>
 										   	  <th scope="col">개발 차수</th>
+										      <th scope="col">작성자</th>
+										      <th scope="col">작성일</th>
 										      <th scope="col">개발 내용</th>
 										      <th scope="col">배포 소스</th>
-										      <th scope="col">작성일</th>
-										      <th scope="col">작성자</th>
 										      <th scope="col">첨부파일</th>
 										   </tr>
 										</thead>
@@ -210,10 +210,13 @@
 										    <c:forEach var="statusHistory" items="${devToTester}" varStatus="index">
 										    	<tr>
 										    		<td>${index.count}차</td>
-										    		<td style="word-break:break-all">${statusHistory.reply}</td>
-										    		<td style="word-break:break-all">${statusHistory.distSource}</td>
+										    		<td>
+										    			<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="20%">
+										    			<div>${statusHistory.writer}</div>
+										    		</td>
 										    		<td><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></td>
-										    		<td>${statusHistory.writer}</td>
+										    		<td style="word-break:break-all"><div class="btn btn-sm btn-primary" onclick="getDevContent('devContent${index.count}')">개발내용확인</div></td>
+										    		<td style="word-break:break-all"><div class="btn btn-sm btn-warning" onclick="getDistContent('distContent${index.count}')">배포소스확인</div></td>
 										    		<td> 
 										    			<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 															<span>${statusHistoryFile.fileName}</span>
@@ -223,6 +226,13 @@
 														</c:forEach>
 										    		</td>
 										    	</tr>
+										    	<tr id="devContent${index.count}" style="display: none;">
+										    		<td>${statusHistory.reply}</td>
+										    	</tr>
+										    	<tr id="distContent${index.count}" style="display: none;">
+										    		<td>${statusHistory.distSource}</td>
+										    	</tr>
+										    	
 										    </c:forEach>
 										</tbody>
 									</table>
@@ -233,19 +243,22 @@
 										<thead class="thead-dark">
 										   <tr>
 										   	  <th scope="col">재검토 차수</th>
-										      <th scope="col">재검토 내용</th>
-										      <th scope="col">작성일</th>
 										      <th scope="col">작성자</th>
+										      <th scope="col">작성일</th>
+										      <th scope="col">재검토 내용</th>
 										      <th scope="col">첨부파일</th>
 										   </tr>
 										</thead>
 										<tbody>
-										    <c:forEach var="statusHistory" items="${testerToDev}" varStatus="index">
+										    <c:forEach var="statusHistory" items="${testerToDev}" varStatus="i">
 										    	<tr>
 										    		<td>${index.count}차</td>
-										    		<td style="word-break:break-all">${statusHistory.reply}</td>
+										    		<td>
+										    			<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="20%">
+										    			<div>${statusHistory.writer}</div>
+										    		</td>
 										    		<td><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></td>
-										    		<td>${statusHistory.writer}</td>
+										    		<td style="word-break:break-all"><div class="btn btn-sm btn-primary devContentButton">개발내용확인</div></td>
 										    		<td> 
 										    			<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 															<span>${statusHistoryFile.fileName}</span>
@@ -255,10 +268,14 @@
 														</c:forEach>
 										    		</td>
 										    	</tr>
+										    	<tr style="display: none;">
+										    		<td class="devContent">${statusHistory.reply}</td>
+										    	</tr>
 										    </c:forEach>
 										</tbody>
 									</table>
 								<!-- 개발 단계 처리에 필요한 정보(테스터 재검토 내용) -->
+								
 							</div>
 
 						</div>
@@ -416,6 +433,12 @@
 	function devEnd(){
 		$('#writeform').submit();
 	}
+	
+	function getDevContent(index){
+		var content = "#" + index;
+		$(content).toggle();
+	}
+	
 	</script>
 </body>
 

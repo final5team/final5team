@@ -147,10 +147,10 @@
 										</c:if>
 									</div>
 									<div class="d-flex justify-content-end">
-										<c:if test="${member.mtype =='developer' && (request.statusNo == 2 || request.statusNo == 3)}">
+										<c:if test="${member.mid == requestProcess.developer && (request.statusNo == 2 || request.statusNo == 3)}">
 										<button class="btn btn-primary btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">개발시작</button>
 										</c:if>
-										<c:if test="${member.mtype =='developer' && request.statusNo == 4}">
+										<c:if test="${member.mid == requestProcess.developer && request.statusNo == 4}">
 										<button class="btn btn-info btn-lg mt-3" onclick="devEnd()">개발 완료</button>
 										</c:if>
 									</div>

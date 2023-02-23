@@ -59,7 +59,7 @@ public class DeveloperController {
 		model.addAttribute("testerToDev", testerToDev);
 		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("receiptDoneDate", receiptDoneDate);
-		
+
 		return "srm/developerdetail";
 	}
 
