@@ -180,42 +180,70 @@
 								</div>
 							</div>
 
-							<c:forEach varStatus="i" var="statusHistory" items="${devToTesterHistories}">
-									<div class="card mt-3 cardscroller" style="height: 262px;">
-										<div class="card-header d-flex justify-content-end">
-											<div>${i.count}차 개발</div>
-											<div class="ml-auto ml-1"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
-										</div>
-										<div class="card-body p-1 cardscroller-block">
-											<div class="row mr-3">
-												<div class="col-sm-3 d-flex align-items-center" style="text-align: center;">
-													<div>
-														<img class="rounded-circle mt-1" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="60%">
-														<div class="ml-2">${statusHistory.writer}</div>
-													
-													</div>
-												</div>
-												<div class="col-sm-9">
-													<div class="d-flex justify-content-end">
-													</div>
-													<div>
-														<label class="control-label">배포소스</label>
-														<textarea class="form-control boxed " readonly style="background-color: transparent;" rows="5">${statusHistory.distSource}</textarea>
-													</div>
-													<div class="mt-2">
-														<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+							<div class="row mb-3">
+								<!-- 배포 단계 처리 내역 end -->
+									<h2>배포 완료 내역</h2>
+									<table class="table">
+										<thead class="thead-dark">
+										   <tr>
+										   	  <th scope="col">배포 완료 예정일</th>
+										      <th scope="col">배포 완료일</th>
+										      <th scope="col">담당자</th>
+										   </tr>
+										</thead>
+										<tbody>
+										    <c:forEach var="statusHistory" items="${distributorToPmHistories}" varStatus="index">
+										    	<tr>
+										    		<td><fmt:formatDate value="${requestProcess.distExpectDate}" pattern="yyyy-MM-dd"/></td>
+										    		<td><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></td>
+										    		<td>${statusHistory.writer}</td>
+										    		<td> 
+										    			<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 															<span>${statusHistoryFile.fileName}</span>
-															<a href="#" role="button">
+															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
 																<i class="fas fa-cloud-download-alt"></i>
 															</a><br>
 														</c:forEach>
-													</div>
-												</div>
-											</div>	
-
-										</div>
-									</div>
-								</c:forEach>
+										    		</td>
+										    	</tr>
+										    </c:forEach>
+										</tbody>
+									</table>
+								<!-- 배포 단계 처리 내역 end -->
+									
+								<!-- 배포 단계 처리에 필요한 정보(배포 소스) start -->
+									<h2>배포 소스 정보</h2>
+									<table class="table">
+										<thead class="thead-dark">
+										   <tr>
+										   	  <th scope="col">개발 차수</th>
+										      <th scope="col">배포 소스 정보</th>
+										      <th scope="col">작성일</th>
+										      <th scope="col">작성자</th>
+										      <th scope="col">첨부파일</th>
+										   </tr>
+										</thead>
+										<tbody>
+										    <c:forEach var="statusHistory" items="${devToTesterHistories}" varStatus="index">
+										    	<tr>
+										    		<td>${index.count}차</td>
+										    		<td style="word-break:break-all">${statusHistory.distSource}</td>
+										    		<td><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></td>
+										    		<td>${statusHistory.writer}</td>
+										    		<td> 
+										    			<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+															<span>${statusHistoryFile.fileName}</span>
+															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																<i class="fas fa-cloud-download-alt"></i>
+															</a><br>
+														</c:forEach>
+										    		</td>
+										    	</tr>
+										    </c:forEach>
+										</tbody>
+									</table>
+								<!-- 배포 단계 처리에 필요한 정보(배포 소스) end -->
+							</div>
 							
 						</div>
 						<!-- 게시글 상세보기 end -->
