@@ -404,22 +404,18 @@ main {
 									<th>요청 제목</th>
 									<th>요청 일자</th>
 									<th>단계</th>
-
 								</tr>
 								<c:forEach var="request" items="${requestList}">
 									<tr>
 										<td class="rno">${request.rno}</td>
-										<!-- 나중에 시스템 이름으로 바꾸어 줘야 함. -->
 										<td class="client">${request.sno}</td>
-										<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
 										<td class="sysType">${request.reqType}</td>
 										<td class="reqTitle" style="max-width: 100px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
-										<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" /></td>
-										
+										<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
+										<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" /></td>
 										<td class="step_td">
 											<%@ include file="/WEB-INF/views/srm/restatus/nowstatusvertical.jsp"%>
 										</td>
-
 									</tr>
 								</c:forEach>
 							</table>
