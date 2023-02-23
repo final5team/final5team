@@ -217,7 +217,40 @@ public class RequestController {
 	/**
 	 * 요청 등록 조회
 	 */
-
+	@GetMapping("/myrequestlist")
+	public String myrequestlist (Request request, Model model, HttpSession session,
+			@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "") String date_first,
+			@RequestParam(defaultValue = "") String date_last, @RequestParam(defaultValue = "0") int sno,
+			@RequestParam(defaultValue = "전체") String req_type) {
+		
+		// 요청 조회 필터
+		List<System> systemList = userRegisterService.getSystemList();
+		
+		// 전달받은 필터 값 저장 (단계 제외)
+		ListFilter listFilter = new ListFilter();
+		listFilter.setReqType(req_type);
+		listFilter.setDateFirst(date_first);
+		listFilter.setDateLast(date_last);
+		listFilter.setSno(sno);
+		
+		// 유저 권한 확인
+		Member member = (Member) session.getAttribute("member");
+		// 유저 id 저장
+		request.setMid(member.getMid());
+		
+		// 보여줄 행 수 조회
+		int totalRows = requestService.getRequestListRows(listFilter, member);
+		
+		
+		
+		return "srm/myrequestlist";
+	}
+	
+	
+	
+	
+	
+	
 	/**
 	 * Kang Ji Seong member type별 요청 조회
 	 * 
@@ -274,4 +307,10 @@ public class RequestController {
 		log.info("리턴값" + result);
 		return result;
 	}
+	
+	
+	
+	
+	
+	
 }

@@ -102,7 +102,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 
 	// 리스트 조회
 	@Override
-	public List<SelectPM> getPmRequestList(Request request, ListFilter listFilter, Pager pager, Member member) {
+	public List<SelectPM> getRequestList(Request request, ListFilter listFilter, Pager pager, Member member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("request", request);
 		map.put("listFilter", statusFilterList(dateFilterList(listFilter)));
@@ -112,15 +112,29 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		log.info(listFilter.toString());
 		log.info(pager.toString());
 		
-		List<SelectPM> result = requestDao.selectPmRequestList(map);
+		List<SelectPM> result = requestDao.selectMyWorkList(map);
 		
 		log.info("return 개수" + result.size());
 		
 		return result;
 
 	}
+	
+	@Override
+	public int getRequestListRows(ListFilter listFilter, Member member) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("listFilter", statusFilterList(dateFilterList(listFilter)));
+		map.put("member", member);
+		
+		int rows = requestDao.countRequestRows(map);
+		
+		
+		return rows;
+	}
 
-
+	
+	
+	
 
 	//날짜 필터링 메소드
 	public ListFilter dateFilterList(ListFilter listFilter) {
@@ -166,6 +180,8 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		
 		return listFilter;
 	}
+
+	
 	
 	
 }

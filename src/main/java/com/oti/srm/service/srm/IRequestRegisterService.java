@@ -23,11 +23,12 @@ public interface IRequestRegisterService {
 	public int getPresentStep(int rno);
 
 	
-	// PM 조회
+	// 내 업무 조회
 	public int getPmTotalRows(ListFilter listFilter, Member member);
-	public List<SelectPM> getPmRequestList(Request request, ListFilter listFilter, Pager pager, Member member);
+	public List<SelectPM> getRequestList(Request request, ListFilter listFilter, Pager pager, Member member);
 
-
+	// 내 요청 조회
+	public int getRequestListRows(ListFilter listFilter, Member member);
 	
 	
 	
