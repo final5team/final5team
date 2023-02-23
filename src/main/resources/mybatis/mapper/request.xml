@@ -62,6 +62,7 @@
 		on r.RNO = rp.RNO
 		order by r.req_date desc
 		)
+		
 		<where>
 			<if test='member.mtype.equals("pm")'>
 				<if test='listFilter.sno != 0'>
