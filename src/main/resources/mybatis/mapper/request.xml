@@ -256,19 +256,7 @@
 	<select id="countRequestRows" parameterType="hashmap"
 		resultType="int">
 		select count(*)
-		from ( select rownum as rnum, r.RNO, r.REQ_DATE,
-		r.REQ_TITLE,
-		r.REQ_CONTENT, r.CLIENT, r.SNO, r.REQ_EXPECT_DATE,
-		r.STATUS_NO,
-		rp.REQ_TYPE, rp.DEVELOPER, rp.TESTER, rp.DISTRIBUTOR,
-		rp.PM,
-		rp.USER_TESTER
-		from requests r inner join request_process rp
-		on
-		r.RNO = rp.RNO
-		order by
-		r.req_date desc
-		)
+		from requests
 		<where>
 			client = #{member.mid}
 
@@ -333,51 +321,27 @@
 				]]>
 				</if>
 			</if>
+			order by req_date desc
+			
 		</where>
 	</select>
 	<select id="selectMyRequest" parameterType="hashmap"
-		resultType="int">
+		resultType="com.oti.srm.dto.SelectPM">
 		<![CDATA[
-		select j.RNO, j.REQ_DATE as "reqDate" , j.REQ_TITLE as "reqTitle", j.REQ_CONTENT as "reqContent", 
-		 		j.CLIENT, j.SNO, j.REQ_EXPECT_DATE as "reqExpectDate", j.STATUS_NO as "statusNo",
-		                j.REQ_TYPE as "reqType", j.DEVELOPER, j.TESTER, j.DISTRIBUTOR, j.PM, j.USER_TESTER as "userTester"
-		            from (
-		            select r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT, r.CLIENT, r.SNO, r.REQ_EXPECT_DATE, r.STATUS_NO,
-		                    rp.REQ_TYPE, rp.DEVELOPER, rp.TESTER, rp.DISTRIBUTOR, rp.PM, rp.USER_TESTER
-		            from requests r inner join request_process rp
-		            on r.RNO = rp.RNO
-		            
-		    ]]>
+			select RNO, REQ_DATE as "reqDate", REQ_TITLE as "reqTitle", REQ_CONTENT as "reqContent"
+					, CLIENT, SNO, REQ_EXPECT_DATE as "reqExpectDate" , STATUS_NO as "statusNo"
+			from(
+			    select RNO, REQ_DATE, REQ_TITLE, REQ_CONTENT,
+			    CLIENT, SNO, REQ_EXPECT_DATE  , STATUS_NO 
+			    from requests
+		]]>
+			
 		<where>
-			<if test='member.mtype.equals("pm")'>
-				and pm = #{member.mid}
-				<if test='listFilter.sno != 0'>
-					and sno = #{listFilter.sno}
-				</if>
-			</if>
-			<if test='member.mtype neq "pm"'>
-				and sno = #{member.sno}
-
-				<if test='member.mtype eq "developer"'>
-					and developer = #{member.mid}
-				</if>
-				<if test='member.mtype eq "tester"'>
-					and tester = #{member.mid}
-				</if>
-				<if test='member.mtype eq "usertester"'>
-					and usertester = #{member.mid}
-				</if>
-				<if test='member.mtype eq "distributor"'>
-					and distributor = #{member.mid}
-				</if>
-			</if>
-
+			client = #{member.mid}
 			<if test='listFilter.reqType neq "전체"'>
 				and REQ_TYPE = #{listFilter.reqType}
 			</if>
-
 			<if test='listFilter.dateValue.equals("zero")'>
-
 			</if>
 			<if test='listFilter.dateValue.equals("first")'>
 				<![CDATA[
@@ -432,8 +396,8 @@
 				</if>
 			</if>
 		</where>
-		order by r.req_date desc
-		) j offset (#{pager.startRowNo}-1) rows fetch
+		order by req_date desc
+		) offset (#{pager.startRowNo}-1) rows fetch
 		next #{pager.endRowNo} rows only
 	</select>
 

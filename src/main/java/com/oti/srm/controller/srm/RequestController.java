@@ -222,6 +222,7 @@ public class RequestController {
 			@RequestParam(defaultValue = "") String date_last, @RequestParam(defaultValue = "0") int sno,
 			@RequestParam(defaultValue = "전체") String req_type) {
 		
+		log.info("내 목록 조회");
 		// 요청 조회 필터
 		List<System> systemList = userRegisterService.getSystemList();
 		
@@ -239,9 +240,11 @@ public class RequestController {
 	
 		// 보여줄 행 수 조회
 		int totalRows = requestService.getRequestListRows(listFilter, member);
+		log.info(totalRows);
 		Pager pager = new Pager(7, 5, totalRows, pageNo);
 		List<SelectPM> requestList = requestService.getMyRequestList(request, listFilter, pager, member);
-				
+		
+		log.info(requestList.size());
 		// 시스템 리스트 전달
 		model.addAttribute("systemList", systemList);
 		// 목록 리스트와 페이지 return
