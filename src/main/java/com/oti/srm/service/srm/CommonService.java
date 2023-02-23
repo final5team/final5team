@@ -179,8 +179,13 @@ public class CommonService implements ICommonService {
 	public HashMap<String,Integer> getWorkingStatus(Member member) {
 		
 		HashMap<String, Integer> map = new HashMap<>();
-		//최신 요청 개수 가져오기
-		int requestRecent = commonDao.selectRequestRecent(member);
+		//최신 요청 개수 가져오기 - pm 일 경우와 pm 이 아닐 경우 2가지로 나뉨
+		int requestRecent = 0;
+		if(member.getMtype().equals("pm")) {
+			requestRecent = commonDao.selectRequestRecentPM(member);
+		}else {
+			requestRecent = commonDao.selectRequestRecent(member);
+		}
 		//진행 중인 요청 개수 가져오기
 		int requestInProgress = commonDao.selectRequestInProgress(member);
 		//진행 완료인 요청 개수 가져오기
