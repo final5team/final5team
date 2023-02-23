@@ -251,8 +251,6 @@
 		</where>
 		order by r.req_date desc
 		) j offset (#{pager.startRowNo}-1) rows fetch next #{pager.endRowNo} rows only
-		
-		
 	</select>
 
 
