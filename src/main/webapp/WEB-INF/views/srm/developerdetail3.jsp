@@ -199,29 +199,28 @@
 							</c:if>
 							<!-- 개발자의 개발 요청 글 작성 end-->
 
-							<div class="row mb-3">
+							<div class="mb-3">
 								
 								<!-- 개발***********************start -->
-								<div class="css-e23nfx mt-5">
+								<div class="d-flex">
 									<div>개발차수</div>
 									<div>작성인</div>
 									<div>개발일자</div>
 									<div>개발내용</div>
 								</div>
 								<ul>
-									<li>
-										<div>
-											<div>1차개발</div>
-											<div>김옥순</div>
-											<div>2023-12-28</div>
-											<div>개발내용확인하기</div>
+									<li class="nav-item">
+										<div class="d-flex">
+												<div>1차개발</div>
+												<div>김옥순</div>
+												<div>2023-12-28</div>
+												<div href="#demo" class="btn btn-sm btn-info collapsed" data-toggle="collapse">개발내용확인하기</div>
 										</div>
-									</li>
-									<li style="display: none; opacity: 1; height: auto;">
-										<div>
+										<div id="demo" class="collapse" style="opacity: 1; height: auto;">
 											<div>여기에 개발내용 있습니다.</div>
 										</div>
 									</li>
+									
 								</ul>
 								<!-- 개발***********************end -->
 								<!-- *********테스트start******** -->
