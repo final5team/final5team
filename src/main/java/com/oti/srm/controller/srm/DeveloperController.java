@@ -60,7 +60,7 @@ public class DeveloperController {
 		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("receiptDoneDate", receiptDoneDate);
 		
-		return "srm/developerdetail2";
+		return "srm/developerdetail3";
 	}
 
 	/**
