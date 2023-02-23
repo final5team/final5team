@@ -7,6 +7,7 @@
 		<div class="container step">
            <div class="circle done">요청완료</div>
            <div class="bar active"></div>
+           <div class="bar active"></div>
            <div class="circle 
            	 <c:if test="${request.statusNo >= 2}">done</c:if>
            	 <c:if test="${request.statusNo == 1}">now</c:if>">

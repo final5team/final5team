@@ -27,18 +27,21 @@
            line-height : 40px;
            border: 3px solid var(--line-empty);
            transition: 0.4s ease;
+           border-radius: 10px;
       }
       .bar {
-           margin-left : 100px;
+           margin-left : 93px;
            padding : 0px;
+           margin: 2px 0
            background-color: #fff;
            color: #999;
-           height: 30px;
-           width: 1px;
+           height: 10px;
+           width: 10px;
            align-items: center;
            justify-content: center;
            border: 3px solid var(--line-empty);
            transition: 0.4s ease;
+           border-radius: 50%;
       }
       
       .circle.done {
@@ -49,7 +52,7 @@
       .circle.now {
          border-color : white;
          color : white;
-           background-color : var(--line-fill);
+         background-color : var(--line-fill);
       }
       
       .bar.active {
@@ -59,9 +62,17 @@
 	    display: flex;
 	    width: 100%;
 	    padding: 20px 0px;
-	    border-bottom: 1px solid rgb(51, 51, 51);
-	    border-top: 2px solid rgb(51, 51, 51);
+	    border-bottom: 1px solid #A7ABB0;
+	    border-top: 2px solid #A7ABB0;
 	 
+	 }
+	 .css-e23nfx-a{
+		display: flex;
+	    width: 100%;
+	    padding: 20px 0px;
+	    border-bottom: 1px solid RGB(79 117 35);
+	    border-top: 2px solid RGB(79 117 35);
+	 	
 	 }
 	 
 	 .table-menu{
@@ -70,7 +81,7 @@
 	    font-weight: 400;
 	    color: rgb(51, 51, 51);
 	    padding-left: 20px;
-	    color: #ffffff;
+	    font-weight: bold;
 	 }
 	 .table-row{
 	     display: flex;
@@ -81,7 +92,10 @@
         text-align: center;
     	color: rgb(76, 76, 76);
 	 }
-	 
+	 .table-vertical{
+	 	padding-bottom: 25px; 
+	 	padding-top: 25px;
+	 }
     </style>
 </head>
 
@@ -115,7 +129,7 @@
 						<div class="row">
 							<!-- 게시글 상세보기 start -->
 							<div class="col-9">
-								<div class="card">
+								<div class="card mb-5">
 									<div class="card-header d-flex  ">
 										<h6 class="mr-auto text-primary font-weight-bold">개발상세보기 ></h6>
 										<c:if test="${requestProcess.reqType eq '정규'}">
@@ -184,7 +198,7 @@
 								</div>
 								<!-- 개발자의 개발 요청 글 작성 start-->
 								<c:if test="${member.mtype =='developer' && request.statusNo == 4}">
-								<div class="card mt-4 mb-5">
+								<div class="card mb-5">
 									<div class="card-header">작성하기</div>
 									<div class="card-body row">
 										<div class="col-3 d-flex align-items-center" style="text-align:center;">
@@ -222,40 +236,86 @@
 								<div class="mb-3" >
 									
 									<!-- 개발***********************start -->
-									<div class="css-e23nfx mt-5" style="background-color: #3a4651; ">
-										<div class="table-menu" style="width: 100px;">개발차수</div>
+									<div style="background-color: #ffffff;" class="card mt-3">
+										<div class="css-e23nfx-a mt-3">
+											<div class="table-menu" style="width: 100px;">개발차수</div>
+											<div class="table-menu" style="width: 180px;">작성인</div>
+											<div class="table-menu" style="width: 130px;">개발일자</div>
+											<div class="table-menu" style="flex-grow:1">개발내용</div>
+										</div>
+										<ul  padding-left: 10px">
+											<li style="list-style: none;">
+												<div class="table-row">
+														<div class="table-content table-vertical" style="width: 100px;">1차</div>
+														<div class="table-content" style="width: 180px;">
+															<img class="rounded-circle" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="40%">
+															<div>김옥순</div>
+														</div>
+														<div class="table-content table-vertical" style="width: 130px;">2023-12-28</div>
+														<div href="#demo" class="table-vertical btn btn-sm" data-toggle="collapse" style="flex-grow:1">개발내용확인하기</div>
+												</div>
+												<div id="demo" class="collapse " style="opacity: 1; height: auto;">
+													<div class="d-flex justify-content-center">
+														<table class="table table-bordered" style="width: 800px; table-layout: fixed;">
+															<tbody >
+																<tr>
+																	<td style="text-align: right;" class="font-weight-bold">배포소스</td>
+																	<td>aaaaaaa.java</td>
+																</tr>
+																<tr>
+																	<td style="text-align: right;" class="font-weight-bold">첨부파일</td>
+																	<td>abbbbbbbbbb.jpg</td>
+																</tr>
+																<tr>
+																	<td style="text-align: right;" class="font-weight-bold">개발내용</td>
+																	<td style="word-wrap:break-word;">내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</li>
+											
+										</ul>
+									</div>
+									<!-- 개발***********************end -->
+									<!-- *********테스트start******** -->
+									<div class="css-e23nfx mt-5">
+										<div class="table-menu" style="width: 100px;">결함차수</div>
 										<div class="table-menu" style="width: 180px;">작성인</div>
-										<div class="table-menu" style="width: 130px;">개발일자</div>
-										<div class="table-menu" style="flex-grow:1">개발내용</div>
+										<div class="table-menu" style="width: 130px;">작성일자</div>
+										<div class="table-menu" style="flex-grow:1">결함내용</div>
 									</div>
 									<ul style="background-color: #ffffff; padding-left: 10px">
 										<li style="list-style: none;">
 											<div class="table-row">
-													<div class="table-content" style="width: 100px;">1차개발</div>
-													<div class="table-content" style="width: 180px;">김옥순</div>
-													<div class="table-content" style="width: 130px;">2023-12-28</div>
-													<div href="#demo" class="table-content-dev btn btn-sm" data-toggle="collapse" style="flex-grow:1">개발내용확인하기</div>
+													<div class="table-content table-vertical" style="width: 100px;">1차</div>
+													<div class="table-content" style="width: 180px;">
+														<img class="rounded-circle" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="40%">
+														<div>김옥순</div>
+													</div>
+													<div class="table-content table-vertical" style="width: 130px;">2023-12-28</div>
+													<div href="#demo" class="table-vertical btn btn-sm" data-toggle="collapse" style="flex-grow:1">내용확인하기</div>
 											</div>
 											<div id="demo" class="collapse " style="opacity: 1; height: auto;">
 												<div class="d-flex justify-content-center">
-													<div>
-														<div>여기에 개발내용 있습니다.</div>
-														<div>
-															<span>배포소스</span>
-															<span>abc.java</span>
-														</div>
-														<div>
-															<div>첨부파일</div>
-															<div>basdfasd.jpg</div>
-														</div>
-													</div>
+													<table class="table table-bordered" style="width: 800px; table-layout: fixed;">
+														<tbody >
+															<tr>
+																<td style="text-align: right;" class="font-weight-bold">첨부파일</td>
+																<td>abbbbbbbbbb.jpg</td>
+															</tr>
+															<tr>
+																<td style="text-align: right;" class="font-weight-bold">작성내용</td>
+																<td style="word-wrap:break-word;">내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용</td>
+															</tr>
+														</tbody>
+													</table>
 												</div>
 											</div>
 										</li>
 										
 									</ul>
-									<!-- 개발***********************end -->
-									<!-- *********테스트start******** -->
 									<!-- *********테스트end******** -->
 									
 								</div>
