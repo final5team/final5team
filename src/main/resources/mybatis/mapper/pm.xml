@@ -11,16 +11,16 @@
 		from REQUEST_PROCESS 
 		<where>
 		<if test="mtype == 'developer'">
-		DEV_COMP_DATE is null and DEVELOPER
+			DEV_COMP_DATE is null and DEVELOPER
 		</if>
 		<if test="mtype == 'tester'">
-		TEST_COMP_DATE is null and TESTER
+			TEST_COMP_DATE is null and TESTER
 		</if>
 		<if test="mtype == 'usertester'">
-		USERTEST_COMP_DATE is null and USER_TESTER
+			USERTEST_COMP_DATE is null and USER_TESTER
 		</if>
 		<if test="mtype == 'distributor'">
-		DIST_COMP_DATE is null and DISTRIBUTOR
+			DIST_COMP_DATE is null and DISTRIBUTOR
 		</if>
 		=#{mid}
 		</where> 
