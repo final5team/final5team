@@ -241,10 +241,10 @@
 	                                	</div>
 	                                	<div class="col-md-5">
 	                                		<p style="color: green">Task</p>
-		                                	<p>개발: 65%</p>
-		                                	<p>테스트: 63%</p>
-		                                	<p>고객테: 60%</p>
-		                                	<p>배포: 60%</p>
+		                                	<p>개발: ${comRateTask['developer']}%</p>
+		                                	<p>테스트: ${comRateTask['tester']}%</p>
+		                                	<p>고객테: ${comRateTask['usertester']}%</p>
+		                                	<p>배포: ${comRateTask['distributor']}%</p>
 	                                	</div>
 	                                </div>
                                 </div>
@@ -279,10 +279,10 @@
 	                                	</div>
 	                                	<div class="col-md-5">
 	                                		<p style="color: green">Task</p>
-		                                	<p>개발: 65%</p>
-		                                	<p>테스트: 63%</p>
-		                                	<p>고객테: 60%</p>
-		                                	<p>배포: 60%</p>
+		                                	<p>개발: ${delRateTask['developer']}%</p>
+		                                	<p>테스트: ${delRateTask['tester']}%</p>
+		                                	<p>고객테: ${delRateTask['usertester']}%</p>
+		                                	<p>배포: ${delRateTask['distributor']}%</p>
 	                                	</div>
 	                                </div>                                  
                                 </div>

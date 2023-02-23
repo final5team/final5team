@@ -13,31 +13,74 @@
 		where To_CHAR(ALL_COMP_DATE, 'YYYYMM') = #{month}
 	</select>
 	
-	<select id="selectAllRate" resultType="int">
+	<select id="selectAllReq" resultType="int">
 		select count(*) as cnt
 		from REQUESTS
 	</select>
-	<select id="selectComRate" resultType="int">
+	<select id="selectComReq" resultType="int">
 		select count(*) as cnt
 		from REQUESTS
 		where STATUS_NO >=12
 	</select>
-	<select id="selectDelRate" resultType="int">
+	<select id="selectComReqTask" parameterType="int" resultType="int">
+		select count(*) as cnt
+		from REQUEST_PROCESS
+		<where>
+			<if test="mtype == 1">
+				DEV_COMP_DATE is not null
+			</if>
+			<if test="mtype == 2">
+				TEST_COMP_DATE is not null
+			</if>
+			<if test="mtype == 3">
+				USERTEST_COMP_DATE is not null
+			</if>
+			<if test="mtype == 4">
+				DIST_COMP_DATE is not null
+			</if>
+		</where> 
+	</select>
+	<select id="selectDelReq" resultType="int">
 		select count(*) as cnt
 		from REQUEST_PROCESS
 		where ALL_EXPECT_DATE <![CDATA[<]]> ALL_COMP_DATE
 	</select>
-	<select id="selectDelRateTask" parameterType="String" resultType="int">
+	<select id="selectDelReqTask" parameterType="int" resultType="int">
 		select count(*) as cnt
 		from REQUEST_PROCESS
-		where 
-		<if test="mtype == 'developer'">
-		ALL_EXPECT_DATE <![CDATA[<]]> ALL_COMP_DATE
-		</if>
-		
-		DEV_EXPECT_DATE is not null
-			and DEV_COMP_DATE is not null
-			and DEV_EXPECT_DATE <![CDATA[<]]> DEV_COMP_DATE
+		<where>
+			<if test="mtype == 1">
+				DEV_EXPECT_DATE <![CDATA[<]]> DEV_COMP_DATE
+			</if>
+			<if test="mtype == 2">
+				TEST_EXPECT_DATE <![CDATA[<]]> TEST_COMP_DATE
+			</if>
+			<if test="mtype == 3">
+				USERTEST_EXPECT_DATE <![CDATA[<]]> USERTEST_COMP_DATE
+			</if>
+			<if test="mtype == 4">
+				DIST_EXPECT_DATE <![CDATA[<]]> DIST_COMP_DATE
+			</if>
+		</where> 
 	</select>
+	<select id="selectAllReqTask" parameterType="int" resultType="int">
+		select count(*) as cnt
+		from REQUEST_PROCESS
+		<where>			
+			<if test="mtype == 1">
+				DEVELOPER is not null
+			</if>
+			<if test="mtype == 2">
+				DEV_COMP_DATE is not null
+			</if>
+			<if test="mtype == 3">
+				USER_TESTER is not null and TEST_COMP_DATE is not null
+			</if>
+			<if test="mtype == 4">
+				USERTEST_COMP_DATE is not null
+			</if>
+		</where> 
+	</select>
+	
 	
 </mapper>
