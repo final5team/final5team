@@ -40,4 +40,7 @@ public class Request {
 	private String dateValue;
 	//파일 첨부
 	private List<StatusHistoryFile> fileList;
+	
+	//파일을 가져오기 위한 status_histories hno 값
+	private int hno;
 }

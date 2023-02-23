@@ -268,7 +268,8 @@ public class RequestController {
 		List<System> systemList = userRegisterService.getSystemList();
 
 		log.info("요청 페이지 번호" + pageNo);
-
+		
+		
 		// 전달받은 필터 값 저장
 		ListFilter listFilter = new ListFilter();
 		listFilter.setReqType(req_type);
@@ -285,7 +286,8 @@ public class RequestController {
 
 		Pager pager = new Pager(7, 5, totalRows, pageNo);
 		List<SelectPM> requestList = requestService.getMyWorkList(request, listFilter, pager, member);
-
+		
+		log.info("받아온 reqType : " + requestList.toString());
 		// 시스템 리스트 전달
 		model.addAttribute("systemList", systemList);
 		// 목록 리스트와 페이지 return
@@ -316,12 +318,10 @@ public class RequestController {
 	@GetMapping("/requestdetail")
 	public String userRequestDetail(int rno, HttpSession session, Model model) {
 		log.info("요청번호" + rno);
-		
 		Request request = requestService.getRequestDetail(rno);
-		
-		
-		
-		
+		List<System> systemList = userRegisterService.getSystemList();
+		model.addAttribute("request", request);
+		model.addAttribute("systemList", systemList);
 		return "srm/requestdetail";
 	}
 	
