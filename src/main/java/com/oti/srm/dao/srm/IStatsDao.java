@@ -23,11 +23,15 @@ public interface IStatsDao {
 	int selectAllRate();
 	// 전체 지연율 구하기
 	int selectDelRate();
+	// 태스트별 지연율 구하기
+	int selectDelRateTask(String mtype);
+	
 	
 	// 서비스 요청 추이 월별 요청 건수 구하기
 	int selectSRChange(String month);
 	// 서비스 요청 추이 월별 완료 건수 구하기
 	int selectSRComChange(String month);
+	
 	
 
 }

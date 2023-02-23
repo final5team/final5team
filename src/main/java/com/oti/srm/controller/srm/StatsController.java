@@ -36,10 +36,12 @@ public class StatsController {
 		// 전체 완료율 구하기
 		model.addAttribute("comRate", statsService.getComRate());
 		// 태스크별 완료율 구하기
-		//model.addAttribute("taskComRate", statsService.getComRate(0));
+		//model.addAttribute("comRateTask", statsService.getComRate(0));
 		
 		// 전체 지연율 구하기
 		model.addAttribute("delRate", statsService.getDelRate());
+		// 태스크별 지연율 구하기
+		model.addAttribute("delRateTask", statsService.getDelRateTask());
 		
 		// SR 처리 현황
 		// 전체 SR 처리 현황

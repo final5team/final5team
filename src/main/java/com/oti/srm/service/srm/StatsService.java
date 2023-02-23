@@ -58,10 +58,15 @@ public class StatsService implements IStatsService {
 	}
 	@Override
 	public int getDelRate() {
-		// 서비스 요청 지연율 구하기
+		// 전체 서비스 요청 지연율 구하기
 		return 100* statsDao.selectDelRate() / statsDao.selectComRate();
 	}
-
+	@Override
+	public Map<String, Integer> getDelRateTask() {
+		// 태스크별 서비스 요청 지연율 구하기
+		//statsDao.selectDelRateTask();
+		return null;
+	}
 
 
 }
