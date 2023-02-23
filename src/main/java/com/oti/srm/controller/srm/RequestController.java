@@ -317,7 +317,6 @@ public class RequestController {
 	public String userRequestDetail(int rno, HttpSession session, Model model) {
 		log.info("요청번호" + rno);
 		
-		//내 요청 맞는지 확인
 		Request request = requestService.getRequestDetail(rno);
 		
 		

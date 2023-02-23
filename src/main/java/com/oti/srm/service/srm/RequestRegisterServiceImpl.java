@@ -146,7 +146,9 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	}
 	@Override
 	public Request getRequestDetail(int rno) {
-		return requestDao.selectRequestDetail(rno);
+		Request request = requestDao.selectRequestDetail(rno);
+		request.setFileList(requestDao.setRequestFiles(rno));
+		return request;
 	}
 	
 	

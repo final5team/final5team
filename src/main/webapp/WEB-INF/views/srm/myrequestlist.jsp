@@ -334,7 +334,7 @@ main {
 				<div class="container-fluid">
 					<main class="all">
 					<section class="filter">
-						<form action="requestlist" method="get">
+						<form action="myrequestlist" method="get">
 							<article class="filter-head">
 								<h4>필터</h4>
 							</article>
