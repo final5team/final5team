@@ -34,6 +34,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		log.info("작성 실행");
 
 		try {
+			log.info(request.getReqExpectDate());
 			int rows = requestDao.insertRequest(request);
 
 			// 요청 성공후 결과값 가져오기
@@ -45,7 +46,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 
 				// DTO에 필요한 값 넣기
 				statusHistory.setRno(requestRno);
-				statusHistory.setNextStatus(2);
+				statusHistory.setNextStatus(1);
 				statusHistory.setReply("요청 작성 단계");
 				statusHistory.setWriter(request.getClient());
 				log.info(request.getClient());

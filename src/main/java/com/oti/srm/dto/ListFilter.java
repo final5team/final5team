@@ -14,4 +14,5 @@ public class ListFilter{
 	private String statusValue;
 	
 	
+	
 }
