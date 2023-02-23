@@ -37,6 +37,9 @@ public interface ICommonDao {
     // 완료일 기입
     public int updateCompDate(@Param("rno") int rno, @Param("mtype") String mtype);
     
+    // 개발 재검토 처리 시 개발완료일자 null로 변경
+    public int updateResetDate(int rno);
+    
 	// 단계 변경 이력 추가(status_histories 테이블)
 	public int insertStatusHistory(StatusHistory statusHistory);
 	

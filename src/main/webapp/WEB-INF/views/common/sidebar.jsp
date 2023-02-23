@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -61,58 +63,17 @@
 		<li class="nav-item">
 			<a class="nav-link" href="${pageContext.request.contextPath}/customer/request">
 				<i class="fas fa-fw fa-chart-area"></i>
-				<span>나의 서비스 요청</span></a>
+				<span>요청 작성</span></a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" href="${pageContext.request.contextPath}/customer/myrequestlist">
 				<i class="fas fa-fw fa-chart-area"></i>
-				<span>내 요청 관리</span></a>
+				<span>내 요청 목록</span></a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" href="${pageContext.request.contextPath}/customer/requestlist">
 				<i class="fas fa-fw fa-chart-area"></i>
-				<span>담당 요청 관리</span></a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/pm/receiptdetail?rno=90">
-				<i class="fas fa-vial"></i>
-				<span>pm의 담당요청 상세보기(접수)</span></a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/pm/completedetail?rno=90">
-				<i class="fas fa-vial"></i>
-				<span>pm의 담당요청 상세보기(완료전)</span></a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/pm/enddetail?rno=90">
-				<i class="fas fa-vial"></i>
-				<span>pm의 담당요청 상세보기(완료후)</span></a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/developerdetail?rno=90">
-				<i class="fas fa-file-code"></i>
-				<span>개발자의 담당요청 상세보기</span></a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/testerdetail?rno=90">
-				<i class="fas fa-vial"></i>
-				<span>테스터의 담당요청 상세보기</span></a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/usertestdetail?rno=90">
-				<i class="fas fa-vial"></i>
-				<span>유저테스터의 담당요청 상세보기</span></a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/distributedetail?rno=90">
-				<i class="fas fa-vial"></i>
-				<span>배포담당자의 담당요청 상세보기</span></a>
-		</li>
-		
-		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/main">
-				<i class="fas fa-vial"></i>
-				<span>현이 메인페이지</span></a>
+				<span>담당 요청 목록</span></a>
 		</li>
 
 		<li class="nav-item">
@@ -120,21 +81,25 @@
 				<i class="fas fa-fw fa-chart-area"></i>
 				<span>공지사항</span></a>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/stats/statistics">
-				<i class="fas fa-fw fa-chart-area"></i>
-				<span>현황통계</span></a>
-		</li>
+		<c:if test="${member.mtype == 'pm'}">
+			<li class="nav-item">
+				<a class="nav-link" href="${pageContext.request.contextPath}/stats/statistics">
+					<i class="fas fa-fw fa-chart-area"></i>
+					<span>현황통계</span></a>
+			</li>
+		</c:if>
 		<li class="nav-item">
 			<a class="nav-link" href="${pageContext.request.contextPath}/customer/mypage">
 				<i class="fas fa-fw fa-chart-area"></i>
 				<span>마이페이지</span></a>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/customer/register">
-				<i class="fas fa-fw fa-chart-area"></i>
-				<span>사용자 등록</span></a>
-		</li>
+		<c:if test="${member.mtype == 'pm'}">
+			<li class="nav-item">
+				<a class="nav-link" href="${pageContext.request.contextPath}/customer/register">
+					<i class="fas fa-fw fa-chart-area"></i>
+					<span>사용자 등록</span></a>
+			</li>
+		</c:if>
 		<!-- 사이드메뉴 end(사이드바 작업한다고 말해주세요) -->
 
 

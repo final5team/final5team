@@ -119,10 +119,24 @@ public class CommonService implements ICommonService {
 	 * status_histories 테이블 => 단계 변경 이력 추가
 	 */
 	@Override
-	@Transactional
+	@Transactional	
 	public void endWork(StatusHistory statusHistory, String mtype) {
 		commonDao.updateRequestStatus(statusHistory.getRno(), statusHistory.getNextStatus());
 		commonDao.updateCompDate(statusHistory.getRno(), mtype);
+		commonDao.insertStatusHistory(statusHistory);
+		if(statusHistory.getFileList() != null && statusHistory.getFileList().size()>0) {
+			for(StatusHistoryFile file :statusHistory.getFileList()) {
+				file.setHno(statusHistory.getHno());
+				commonDao.insertStatusHistoryFile(file);
+			}
+		}
+	}
+	
+	@Override
+	@Transactional
+	public void reWork(StatusHistory statusHistory, String mtype) {
+		commonDao.updateRequestStatus(statusHistory.getRno(), statusHistory.getNextStatus());
+		commonDao.updateResetDate(statusHistory.getRno());
 		commonDao.insertStatusHistory(statusHistory);
 		if(statusHistory.getFileList() != null && statusHistory.getFileList().size()>0) {
 			for(StatusHistoryFile file :statusHistory.getFileList()) {
