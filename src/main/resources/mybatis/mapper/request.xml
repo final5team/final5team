@@ -335,6 +335,7 @@
 			    from requests
 		]]>
 			
+			
 		<where>
 			client = #{member.mid}
 			<if test='listFilter.reqType neq "전체"'>
