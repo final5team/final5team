@@ -291,7 +291,7 @@ form {
 				<div class="container-fluid">
 					<form method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data">
 						<section class="section1">
-							<h4>My Page</h4>
+							<h4>요청 수정</h4>
 						</section>
 
 						<section class="section2">
