@@ -43,14 +43,19 @@
 			$("input").val("");
 			$("textarea").val("");
 		}	
-		// 요청 유형이 긴급일 때 유저 테스터 선택하지 않기
-		function urg(){
-			var urg = $("#reqType").val();
-			if(urg == '긴급'){
+		// 요청 유형에 따른 유저 테스터 선택 여부
+		function rtype(){
+			var reqType = $("#reqType").val();
+			// 요청 유형이 긴급일 때 유저 테스터 선택하지 않기
+			if(reqType == '긴급'){
 				$("#utester").hide();
+				// 유저 테스터 값 null
+				$("#userTester").val("");
 			}
-			// 유저 테스터 값 null
-			$("#userTester").val("");
+			// 요청 유형이 정규일 때 유저 테스터 선택하기
+			if(reqType == '정규'){
+				$("#utester").show();
+			}			
 		}
 	</script>
 </head>
@@ -82,7 +87,7 @@
 						<div class="col-xl-9 col-lg-8 col-md-8 col-sm-8 mb-4">
 							<div class="card">
 								<div class="card-header d-flex">
-									<div class="mr-auto">서비스 요청</div>	<button onclick="ut()">ddd</button>								
+									<div class="mr-auto">서비스 요청</div>					
 								</div>
 								<div class="card-body">
 									<div>접수 상세보기 ></div>
@@ -146,7 +151,7 @@
 													<div class="row col-sm-12 form-group">
 														<div class="col">
 															<label class="control-label">요청 유형</label>
-															<select class="dropdown-toggle ml-4" data-toggle="dropdown" name="reqType" id="reqType" style="width: 200px" onchange="urg()">															
+															<select class="dropdown-toggle ml-4" data-toggle="dropdown" name="reqType" id="reqType" style="width: 200px" onchange="rtype()">															
 																<option value="정규" class="text-center">정규</option>
 															    <option value="긴급" class="text-center">긴급</option>																																																						
 															</select>																								
