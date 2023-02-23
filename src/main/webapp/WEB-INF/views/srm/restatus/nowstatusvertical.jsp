@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:if test="${request.statusName != '반려'}">
+<c:if test="${request.statusNo != 12}">
 	<c:if test="${request.reqType == null || request.reqType == '정규'}">
 		<table class="inner_step">
 			<td class="circle done"><a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
@@ -135,7 +135,7 @@
 		</table>
 	</c:if>
 </c:if>
-<c:if test="${request.statusName == '반려'}">
+<c:if test="${request.statusNo == 12}">
 	<table class="inner_step">
 		<td class="circle done">요청완료</td>
 		<td class="bar active"></td>
