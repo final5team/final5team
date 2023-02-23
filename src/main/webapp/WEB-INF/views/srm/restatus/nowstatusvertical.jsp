@@ -137,12 +137,21 @@
 </c:if>
 <c:if test="${request.statusNo == 12}">
 	<table class="inner_step">
-		<td class="circle done">요청완료</td>
+		<td class="circle done"><a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">요청완료</a></td>
 		<td class="bar active"></td>
 		<td class="circle done">접수완료</td>
 		<td class="bar active"></td>
-		<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">
-			<td class="circle now">반려</td>
-		</a>
+		<td class="circle">개발단계</td>
+		<td class="bar "></td>
+		<td class="circle ">테스트단계</td>
+		<td class="bar "></td>
+		<td class="circle ">유저테스트단계</td>
+		<td class="bar "></td>
+		<td class="circle ">배포단계</td>
+		<td class="bar "></td>
+		<td class="circle now"><a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">반려</a></td>
+		
+		
+		
 	</table>
 </c:if>

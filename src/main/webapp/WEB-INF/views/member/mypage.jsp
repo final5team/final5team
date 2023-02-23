@@ -296,7 +296,8 @@ form {
 
 						<section class="section2">
 							<article class="photo">
-								<img id="preview" src="${pageContext.request.contextPath}/customer/mypage/${returnMember.mid}"/> 
+								<img id="preview" src="${pageContext.request.contextPath}/customer/mypage/${returnMember.mid}"
+									onerror="this.src='${pageContext.request.contextPath}/resources/img/undraw_profile.svg';"/> 
 								<input type="file" class="btn btn-sm btn-primary" id="mfile" name="mfile" onchange="readURL(this);">
 							</article>
 

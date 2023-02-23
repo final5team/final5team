@@ -122,11 +122,6 @@ public class RequestController {
 		returnMember.setAddr1(address[1]);
 		returnMember.setAddr2(address[2]);
 
-		if (returnMember.getFileData() == null) {
-
-		} else {
-
-		}
 
 		model.addAttribute("returnMember", returnMember);
 
