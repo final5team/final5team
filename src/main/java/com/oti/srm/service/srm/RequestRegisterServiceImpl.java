@@ -1,5 +1,6 @@
 package com.oti.srm.service.srm;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.oti.srm.dao.srm.ICommonDao;
 import com.oti.srm.dao.srm.IRequestDao;
 import com.oti.srm.dto.ListFilter;
+import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
-import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.SelectPM;
 import com.oti.srm.dto.StatusHistory;
 import com.oti.srm.dto.StatusHistoryFile;
@@ -90,63 +91,96 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 
 	// PM 리스트 전체 열 개수 조회
 	@Override
-	public int getPmTotalRows() {
-		int rows = requestDao.countPm();
+	public int getPmTotalRows(ListFilter listFilter, Member member) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("listFilter", statusFilterList(dateFilterList(listFilter)));
+		map.put("member", member);
+		int rows = requestDao.countRows(map);
+		log.info("검색 " + rows);
 		return rows;
 	}
 
 	// 리스트 조회
 	@Override
-	public List<SelectPM> getPmRequestList(Request request, ListFilter listFilter, Pager pager) {
-		request.setStartRowNo(pager.getStartRowNo());
-		request.setEndRowNo(pager.getEndRowNo());
+	public List<SelectPM> getRequestList(Request request, ListFilter listFilter, Pager pager, Member member) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("request", request);
+		map.put("listFilter", statusFilterList(dateFilterList(listFilter)));
+		map.put("pager", pager);
+		map.put("member", member);
 		
-		log.info("service page NO" +  "- start :" + pager.getStartRowNo() +  " end : " + pager.getEndRowNo());
-		log.info("start" + request.getStartRowNo() + "end" + request.getEndRowNo());
+		log.info(listFilter.toString());
+		log.info(pager.toString());
 		
-		request.setReqType(listFilter.getReqType());
+		List<SelectPM> result = requestDao.selectMyWorkList(map);
 		
-		// 날짜 필터 메소드 사용해서 request 값 조정 후 조회
-		List<SelectPM> result = requestDao.selectAll(dateFilter(listFilter, request));
-		log.info(result.size());
+		log.info("return 개수" + result.size());
 		
 		return result;
-	}
 
-	// 각 담당자 리스트 열 개수 조회
+	}
+	
 	@Override
-	public int getWorkerRows(int workerSno) {
-		int rows = requestDao.countWorkerList(workerSno);
+	public int getRequestListRows(ListFilter listFilter, Member member) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("listFilter", statusFilterList(dateFilterList(listFilter)));
+		map.put("member", member);
+		
+		int rows = requestDao.countRequestRows(map);
+		
 		return rows;
 	}
+
 	
 	
 	
-	
-	
+
 	//날짜 필터링 메소드
-	public Request dateFilter(ListFilter listFilter, Request request) {
+	public ListFilter dateFilterList(ListFilter listFilter) {
 		// 날짜 필터 조건 - 지정 안한 경우
 		if (listFilter.getDateFirst().isEmpty() && listFilter.getDateLast().isEmpty()) {
-			request.setDateValue("zero");
-
+			listFilter.setDateValue("zero");
 			// 날짜 필터 조건 - 시작 날짜만 지정한 경우
 		} else if (listFilter.getDateFirst().isEmpty()) {
-			request.setDateValue("first");
-			request.setDateLast(listFilter.getDateLast());
-
+			listFilter.setDateValue("first");
 			// 날짜 필터 조건 - 종료 날짜만 지정한 경우
 		} else if (listFilter.getDateLast().isEmpty()) {
-			request.setDateValue("last");
-			request.setDateFirst(listFilter.getDateFirst());
-
+			listFilter.setDateValue("last");
 			// 날짜 필터 조건 - 모두 지정한 경우
 		} else {
-			request.setDateValue("both");
-			request.setDateFirst(listFilter.getDateFirst());
-			request.setDateLast(listFilter.getDateLast());
+			listFilter.setDateValue("both");
 		}
-		return request;
+		return listFilter;
+	}
+	//단계 필터링 메소드
+	public ListFilter statusFilterList(ListFilter listFilter) {
+			//1 접수
+		if(listFilter.getStatusNo() == 1) {
+			listFilter.setStatusValue("접수");
+			//2, 3, 4 개발단계
+		} else if(listFilter.getStatusNo()  == 2 || listFilter.getStatusNo()  ==3 || listFilter.getStatusNo() == 4) {
+			listFilter.setStatusValue("개발");
+			//5, 6, 7 테스트 단계
+		} else if (listFilter.getStatusNo()  == 5 || listFilter.getStatusNo()  ==6 || listFilter.getStatusNo() == 7) {
+			listFilter.setStatusValue("테스트");
+			//8 유저 테스트 단계
+		} else if(listFilter.getStatusNo()  == 8) {
+			listFilter.setStatusValue("유저테스트");
+			//10 배포 단계
+		} else if(listFilter.getStatusNo()  == 10) {
+			listFilter.setStatusValue("배포");
+			//11, 13 완료단계
+		} else if(listFilter.getStatusNo()  == 11 || listFilter.getStatusNo()  == 13) {
+			listFilter.setStatusValue("완료");
+			//12 반려
+		} else if(listFilter.getStatusNo() == 12) {
+			listFilter.setStatusValue("반려");
+		}
+		
+		return listFilter;
 	}
 
+	
+	
+	
 }

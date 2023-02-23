@@ -1,9 +1,11 @@
 package com.oti.srm.dao.srm;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.oti.srm.dto.ListFilter;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.SelectPM;
 
@@ -17,12 +19,13 @@ public interface IRequestDao {
 	//작성한 요청글의 rno 조회
 	public int selectRequest(String client);
 	
-	//PM 조회
-	public int countPm();
-	public List<SelectPM> selectAll(Request request);
-	//담당자 조회
-	public int countWorkerList(int workerSno);
+	//내 업무 조회
+	public int countRows(HashMap<String, Object> map);
+	public List<SelectPM> selectMyWorkList(HashMap<String, Object> map);
 	
+	//내 요청 조회
+	
+	public int countRequestRows(HashMap<String, Object> map);
 	
 
 	

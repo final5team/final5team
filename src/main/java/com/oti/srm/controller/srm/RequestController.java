@@ -200,8 +200,8 @@ public class RequestController {
 						fileList.add(shf);
 					}
 				}
-			} 
-			
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -217,7 +217,40 @@ public class RequestController {
 	/**
 	 * 요청 등록 조회
 	 */
-
+	@GetMapping("/myrequestlist")
+	public String myrequestlist (Request request, Model model, HttpSession session,
+			@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "") String date_first,
+			@RequestParam(defaultValue = "") String date_last, @RequestParam(defaultValue = "0") int sno,
+			@RequestParam(defaultValue = "전체") String req_type) {
+		
+		// 요청 조회 필터
+		List<System> systemList = userRegisterService.getSystemList();
+		
+		// 전달받은 필터 값 저장 (단계 제외)
+		ListFilter listFilter = new ListFilter();
+		listFilter.setReqType(req_type);
+		listFilter.setDateFirst(date_first);
+		listFilter.setDateLast(date_last);
+		listFilter.setSno(sno);
+		
+		// 유저 권한 확인
+		Member member = (Member) session.getAttribute("member");
+		// 유저 id 저장
+		request.setMid(member.getMid());
+		
+		// 보여줄 행 수 조회
+		int totalRows = requestService.getRequestListRows(listFilter, member);
+		
+		log.info(totalRows);
+		
+		return "srm/myrequestlist";
+	}
+	
+	
+	
+	
+	
+	
 	/**
 	 * Kang Ji Seong member type별 요청 조회
 	 * 
@@ -239,54 +272,27 @@ public class RequestController {
 		listFilter.setDateFirst(date_first);
 		listFilter.setDateLast(date_last);
 		listFilter.setSno(sno);
+		listFilter.setStatusNo(statusNo);
 
 		// 유저 권한 확인
 		Member member = (Member) session.getAttribute("member");
 		// 유저 id 저장
 		request.setMid(member.getMid());
 
-		// PM case
-		if (member.getMtype().equals("pm") || member.getMtype().equals("user")) {
-			// PM은 전체 조회가 가능함.
-			int totalRows = requestService.getPmTotalRows();
+		// 보여줄 행 수 조회
+		int totalRows = requestService.getPmTotalRows(listFilter, member);
 
-			Pager pager = new Pager(7, 5, totalRows, pageNo);
-			List<SelectPM> requestList = requestService.getPmRequestList(request, listFilter, pager);
+		Pager pager = new Pager(7, 5, totalRows, pageNo);
+		List<SelectPM> requestList = requestService.getRequestList(request, listFilter, pager, member);
 
-			// 시스템 리스트 전달
-			model.addAttribute("systemList", systemList);
-			// 목록 리스트와 페이지 return
-			model.addAttribute("requestList", requestList);
-			model.addAttribute("pager", pager);
+		// 시스템 리스트 전달
+		model.addAttribute("systemList", systemList);
+		// 목록 리스트와 페이지 return
+		model.addAttribute("requestList", requestList);
+		model.addAttribute("pager", pager);
 
-			return "srm/requestlist";
-
-			// 담당자 (sno만 구분해서 출력)
-		} else {
-			log.info("담당자");
-			int workerSno = member.getSno();
-			// 담당자 소속 sno 넣어 줌
-			request.setSno(workerSno);
-			// 소속 sno의 행 개수만 가지고 옴
-			int workerRows = requestService.getWorkerRows(workerSno);
-			Pager pager = new Pager(7, 5, workerRows, pageNo);
-
-			List<SelectPM> requestList = requestService.getPmRequestList(request, listFilter, pager);
-
-			
-			// 시스템 리스트 전달
-			model.addAttribute("systemList", systemList);
-			// 목록 리스트와 페이지 return
-			model.addAttribute("requestList", requestList);
-			model.addAttribute("pager", pager);
-
-		}
-//		
-//		Pager pager = new Pager(5, 5, 10, pageNo);
-//		List<Request> requestList = requestService.getRequestList(request, pager);
-//		model.addAttribute("requestList", requestList);
 		return "srm/requestlist";
-//		
+
 	}
 
 	/**
@@ -301,4 +307,10 @@ public class RequestController {
 		log.info("리턴값" + result);
 		return result;
 	}
+	
+	
+	
+	
+	
+	
 }

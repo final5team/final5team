@@ -51,18 +51,15 @@ public class StatsService implements IStatsService {
 		return change;
 	}
 	@Override
-	public double getComRate() {
-		// 완료율 구하기
+	public int getComRate() {
+		// 서비스 요청 완료율 구하기
 		// 월별 필터 적용하면 selectSRChange 메소드 재활용해도 될 듯
-		double result = (double) statsDao.selectComRate() / statsDao.selectAllRate() *100;
-		log.info(result);
-		int comrate=statsDao.selectComRate();
-		log.info("comrate: "+comrate);
-		int allrate=statsDao.selectAllRate();
-		log.info("allrate: "+allrate);
-		result = (double) comrate/allrate*100;
-		log.info(result);
-		return 0;
+		return 100* statsDao.selectComRate() / statsDao.selectAllRate();
+	}
+	@Override
+	public int getDelRate() {
+		// 서비스 요청 지연율 구하기
+		return 100* statsDao.selectDelRate() / statsDao.selectComRate();
 	}
 
 

@@ -3,6 +3,7 @@ package com.oti.srm.service.srm;
 import java.util.List;
 
 import com.oti.srm.dto.ListFilter;
+import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.SelectPM;
@@ -22,32 +23,12 @@ public interface IRequestRegisterService {
 	public int getPresentStep(int rno);
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// PM 조회
-	public int getPmTotalRows();
-	public List<SelectPM> getPmRequestList(Request request, ListFilter listFilter, Pager pager);
+	// 내 업무 조회
+	public int getPmTotalRows(ListFilter listFilter, Member member);
+	public List<SelectPM> getRequestList(Request request, ListFilter listFilter, Pager pager, Member member);
 
-	//개발자 조회
-	public int getWorkerRows(int workerSno);
-	
-	
-
-
+	// 내 요청 조회
+	public int getRequestListRows(ListFilter listFilter, Member member);
 	
 	
 	
