@@ -183,7 +183,7 @@ public class RequestController {
 		request.setStatusNo(1);
 		request.setSno(1);
 		Member member = (Member) session.getAttribute("member");
-		request.setClient(member.getMname());
+		request.setClient(member.getMid());
 
 		log.info("파일 길이 : " + files.length);
 
@@ -202,6 +202,7 @@ public class RequestController {
 				}
 			}
 
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
