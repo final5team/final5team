@@ -12,16 +12,14 @@ public class Request {
 	private int rno;
 	private int sno;
 	private String systemName;
-	@DateTimeFormat(pattern = "yyyy-mm-dd")
-	private Date reqDate;
+	private @DateTimeFormat(pattern = "yyyy-MM-dd")Date reqDate;
 	private String reqTitle;
 	private String reqContent;
 	private int statusNo;
 	private String statusName;
 	private String client;
 	private String clientName;
-	@DateTimeFormat(pattern = "yyyy-mm-dd")
-	private Date reqExpectDate;
+	private @DateTimeFormat(pattern = "yyyy-MM-dd")Date reqExpectDate;
 	private List<StatusHistoryFile> files;
 	private String organ;
 
