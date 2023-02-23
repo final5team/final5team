@@ -80,7 +80,7 @@
 					and tester = #{member.mid}
 				</if>
 				<if test='member.mtype eq "usertester"'>
-					and usertester = #{member.mid}
+					and user_tester = #{member.mid}
 				</if>
 				<if test='member.mtype eq "distributor"'>
 					and distributor = #{member.mid}

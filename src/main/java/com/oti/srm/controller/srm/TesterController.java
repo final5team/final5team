@@ -47,7 +47,6 @@ public class TesterController {
 		List<StatusHistory> devToTester = commonService.getDevToTesterHistories(rno);
 		List<StatusHistory> testerToDev = commonService.getTesterToDevHistories(rno);
 		Date receiptDoneDate = commonService.getReceiptDoneDate(rno);
-		log.info("testerToDev" + testerToDev);
 		model.addAttribute("request", request);
 		model.addAttribute("devToTester", devToTester);
 		model.addAttribute("testerToDev", testerToDev);
