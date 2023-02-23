@@ -24,8 +24,8 @@ public interface IRequestDao {
 	public List<SelectPM> selectMyWorkList(HashMap<String, Object> map);
 	
 	//내 요청 조회
-	
 	public int countRequestRows(HashMap<String, Object> map);
+	public List<SelectPM> selectMyRequest(HashMap<String, Object> map);
 	
 
 	

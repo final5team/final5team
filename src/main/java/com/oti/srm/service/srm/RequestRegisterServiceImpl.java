@@ -90,9 +90,9 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		return result;
 	}
 
-	// PM 리스트 전체 열 개수 조회
+	// 담당 업무 열 개수 조회
 	@Override
-	public int getPmTotalRows(ListFilter listFilter, Member member) {
+	public int getMyWorkRows(ListFilter listFilter, Member member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("listFilter", statusFilterList(dateFilterList(listFilter)));
 		map.put("member", member);
@@ -101,9 +101,9 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		return rows;
 	}
 
-	// 리스트 조회
+	// 담당 업무 리스트 조회
 	@Override
-	public List<SelectPM> getRequestList(Request request, ListFilter listFilter, Pager pager, Member member) {
+	public List<SelectPM> getMyWorkList(Request request, ListFilter listFilter, Pager pager, Member member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("request", request);
 		map.put("listFilter", statusFilterList(dateFilterList(listFilter)));
@@ -120,7 +120,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		return result;
 
 	}
-	
+	// 작성한 요청의 개수 가져오기
 	@Override
 	public int getRequestListRows(ListFilter listFilter, Member member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -131,6 +131,20 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		
 		return rows;
 	}
+	//작성한 요청목록 가져오기 
+	@Override
+	public List<SelectPM> getMyRequestList(Request request, ListFilter listFilter, Pager pager, Member member){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("request", request);
+		map.put("listFilter", statusFilterList(dateFilterList(listFilter)));
+		map.put("pager", pager);
+		map.put("member", member);
+		
+		List<SelectPM> result = requestDao.selectMyRequest(map);
+		
+		return result;
+	}
+	
 
 	
 	

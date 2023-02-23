@@ -1,6 +1,5 @@
 package com.oti.srm.controller.srm;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -184,7 +183,7 @@ public class RequestController {
 		request.setSno(1);
 		Member member = (Member) session.getAttribute("member");
 		request.setClient(member.getMid());
-		
+
 		log.info("파일 길이 : " + files.length);
 		log.info(request.getReqExpectDate());
 
@@ -215,7 +214,7 @@ public class RequestController {
 	}
 
 	/**
-	 * 요청 등록 조회
+	 * 내 요청 조회
 	 */
 	@GetMapping("/myrequestlist")
 	public String myrequestlist (Request request, Model model, HttpSession session,
@@ -233,26 +232,27 @@ public class RequestController {
 		listFilter.setDateLast(date_last);
 		listFilter.setSno(sno);
 		
-		// 유저 권한 확인
+		// 유저 정보 전달
 		Member member = (Member) session.getAttribute("member");
 		// 유저 id 저장
 		request.setMid(member.getMid());
-		
+	
 		// 보여줄 행 수 조회
 		int totalRows = requestService.getRequestListRows(listFilter, member);
-		
-		log.info(totalRows);
+		Pager pager = new Pager(7, 5, totalRows, pageNo);
+		List<SelectPM> requestList = requestService.getMyRequestList(request, listFilter, pager, member);
+				
+		// 시스템 리스트 전달
+		model.addAttribute("systemList", systemList);
+		// 목록 리스트와 페이지 return
+		model.addAttribute("requestList", requestList);
+		model.addAttribute("pager", pager);
 		
 		return "srm/myrequestlist";
 	}
-	
-	
-	
-	
-	
-	
+
 	/**
-	 * Kang Ji Seong member type별 요청 조회
+	 * 내 업무 목록 조회
 	 * 
 	 */
 	@GetMapping("/requestlist")
@@ -273,17 +273,15 @@ public class RequestController {
 		listFilter.setDateLast(date_last);
 		listFilter.setSno(sno);
 		listFilter.setStatusNo(statusNo);
-
 		// 유저 권한 확인
 		Member member = (Member) session.getAttribute("member");
 		// 유저 id 저장
 		request.setMid(member.getMid());
-
 		// 보여줄 행 수 조회
-		int totalRows = requestService.getPmTotalRows(listFilter, member);
+		int totalRows = requestService.getMyWorkRows(listFilter, member);
 
 		Pager pager = new Pager(7, 5, totalRows, pageNo);
-		List<SelectPM> requestList = requestService.getRequestList(request, listFilter, pager, member);
+		List<SelectPM> requestList = requestService.getMyWorkList(request, listFilter, pager, member);
 
 		// 시스템 리스트 전달
 		model.addAttribute("systemList", systemList);
@@ -307,10 +305,5 @@ public class RequestController {
 		log.info("리턴값" + result);
 		return result;
 	}
-	
-	
-	
-	
-	
-	
+
 }
