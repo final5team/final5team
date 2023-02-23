@@ -48,13 +48,19 @@
 			var reqType = $("#reqType").val();
 			// 요청 유형이 긴급일 때 유저 테스터 선택하지 않기
 			if(reqType == '긴급'){
+				// 유저 테스터 선택 불가
 				$("#utester").hide();
 				// 유저 테스터 값 null
 				$("#userTester").val("");
+				// 유저 테스터 미입력 가능
+				$("#userTester").removeAttr("required");
 			}
 			// 요청 유형이 정규일 때 유저 테스터 선택하기
 			if(reqType == '정규'){
+				// 유저 테스터 선택 가능
 				$("#utester").show();
+				// 유저 테스터 필수 입력
+				$("#userTester").attr("required", "required")
 			}			
 		}
 	</script>
