@@ -416,7 +416,6 @@
 	function devEnd(){
 		$('#writeform').submit();
 	}
-
 	</script>
 </body>
 
