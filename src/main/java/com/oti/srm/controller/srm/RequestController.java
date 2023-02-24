@@ -273,6 +273,10 @@ public class RequestController {
 		listFilter.setDateLast(date_last);
 		listFilter.setSno(sno);
 		listFilter.setStatusNo(statusNo);
+		
+		ListFilter returnList = requestService.dateFilterList(listFilter);
+		log.info(returnList.toString());
+		
 		// 유저 권한 확인
 		Member member = (Member) session.getAttribute("member");
 		// 유저 id 저장
@@ -288,7 +292,9 @@ public class RequestController {
 		// 목록 리스트와 페이지 return
 		model.addAttribute("requestList", requestList);
 		model.addAttribute("pager", pager);
-
+		// filter 전달
+		model.addAttribute("listFilter", returnList);
+		
 		return "srm/requestlist";
 
 	}
