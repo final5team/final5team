@@ -1,5 +1,8 @@
 package com.oti.srm.controller.srm;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -204,12 +207,13 @@ public class RequestController {
 
 	/**
 	 * 내 요청 조회
+	 * @throws ParseException 
 	 */
 	@GetMapping("/myrequestlist")
 	public String myrequestlist (Request request, Model model, HttpSession session,
 			@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "") String date_first,
 			@RequestParam(defaultValue = "") String date_last, @RequestParam(defaultValue = "0") int sno,
-			@RequestParam(defaultValue = "전체") String req_type, @RequestParam(defaultValue = "0") int statusNo) {
+			@RequestParam(defaultValue = "전체") String req_type, @RequestParam(defaultValue = "0") int statusNo) throws ParseException {
 		
 		
 		// 요청 조회 필터
@@ -227,10 +231,11 @@ public class RequestController {
 		listFilter.setSno(sno);
 		listFilter.setStatusNo(statusNo);
 		
-		log.info(listFilter.toString());
 		
-
-	
+		
+		ListFilter returnList = requestService.dateFilterList(listFilter);
+		log.info(returnList.toString());
+		
 		// 보여줄 행 수 조회
 		int totalRows = requestService.getRequestListRows(listFilter, member);
 		Pager pager = new Pager(7, 5, totalRows, pageNo);
@@ -242,6 +247,8 @@ public class RequestController {
 		// 목록 리스트와 페이지 return
 		model.addAttribute("requestList", requestList);
 		model.addAttribute("pager", pager);
+		// filter 전달
+		model.addAttribute("listFilter", returnList);
 		
 		return "srm/myrequestlist";
 	}

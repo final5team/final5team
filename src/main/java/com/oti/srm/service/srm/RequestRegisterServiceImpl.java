@@ -1,5 +1,7 @@
 package com.oti.srm.service.srm;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -108,8 +110,6 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		map.put("pager", pager);
 		map.put("member", member);
 		
-		log.info(listFilter.toString());
-		log.info(pager.toString());
 	
 		List<SelectPM> result = requestDao.selectMyWorkList(map);
 		
@@ -160,18 +160,39 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 
 	//날짜 필터링 메소드
 	public ListFilter dateFilterList(ListFilter listFilter) {
+		
 		// 날짜 필터 조건 - 지정 안한 경우
 		if (listFilter.getDateFirst().isEmpty() && listFilter.getDateLast().isEmpty()) {
 			listFilter.setDateValue("zero");
 			// 날짜 필터 조건 - 시작 날짜만 지정한 경우
 		} else if (listFilter.getDateFirst().isEmpty()) {
 			listFilter.setDateValue("first");
+			try {
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+					Date date = format.parse(listFilter.getDateLast());
+					listFilter.setDate_last(date);
+				} catch (Exception e) {
+				}
 			// 날짜 필터 조건 - 종료 날짜만 지정한 경우
 		} else if (listFilter.getDateLast().isEmpty()) {
 			listFilter.setDateValue("last");
+			try {
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				Date date = format.parse(listFilter.getDateFirst());
+				listFilter.setDate_first(date);
+			} catch (Exception e) {
+			}
 			// 날짜 필터 조건 - 모두 지정한 경우
 		} else {
 			listFilter.setDateValue("both");
+			try {
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				Date date = format.parse(listFilter.getDateFirst());
+				Date date2 = format.parse(listFilter.getDateLast());
+				listFilter.setDate_first(date);
+				listFilter.setDate_last(date2);
+			} catch (Exception e) {
+			}
 		}
 		return listFilter;
 	}

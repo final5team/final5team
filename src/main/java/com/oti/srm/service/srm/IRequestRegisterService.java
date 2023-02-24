@@ -34,6 +34,8 @@ public interface IRequestRegisterService {
 	public Request getRequestDetail(int rno);
 
 	public StatusHistoryFile getMyRequestFile(int fno);
+
+	public ListFilter dateFilterList(ListFilter listFilter);
 	
 	
 }
