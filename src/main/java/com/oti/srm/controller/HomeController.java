@@ -72,11 +72,11 @@ public class HomeController {
 		}
 	}
 	
-	@GetMapping("/main")
+	@GetMapping("/home2")
 	public String developerDetail() {
 		log.info("실행");
 		
-		return "homemain/homemain";
+		return "/home2";
 	}
 	@GetMapping("/devmain")
 	public String developerMain() {
