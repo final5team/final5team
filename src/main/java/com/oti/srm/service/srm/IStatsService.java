@@ -10,7 +10,7 @@ import java.util.Map;
 // 통계 관련 서비스 메소드
 public interface IStatsService {
 	// SR 처리 현황 구하기
-	public void getSRState(String string);
+	public List<Integer> getSRState();
 	// 
 	
 		

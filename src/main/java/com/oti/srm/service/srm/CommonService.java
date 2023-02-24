@@ -214,7 +214,7 @@ public class CommonService implements ICommonService {
 		//최신 요청 개수 가져오기 - pm 일 경우와 pm 이 아닐 경우 2가지로 나뉨
 		int requestRecent = 0;
 		if(member.getMtype().equals("pm")) {
-			requestRecent = commonDao.selectRequestRecentPM(member);
+			requestRecent = commonDao.selectRequestRecentPM();
 		}else {
 			requestRecent = commonDao.selectRequestRecent(member);
 		}
