@@ -399,6 +399,7 @@ main {
 											<option value="12">반려</option>
 										</select>
 									</c:if>
+									
 									<c:if test="${listFilter.statusValue != null}">
 										<select class="custom-select" id="statusNo" name="statusNo">
 											<option value="${listFilter.statusNo}" selected>${listFilter.statusValue}</option>
