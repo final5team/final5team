@@ -199,7 +199,7 @@ main {
 }
 
 .member tr th {
-	background-color: #85ce36;
+	background-color: #5a5c69;
 	color: #fff;
 }
 
@@ -297,14 +297,14 @@ main {
 }
 
 .circle.done {
-	border-color: #87cd36;
+	border-color: #5a5c69;
 	color: #87cd36;
 }
 
 .circle.now {
-	border-color: #87cd36;
+	border-color: #5a5c69;
 	color: white;
-	background-color: #87cd36;
+	background-color: #5a5c69;
 }
 </style>
 
