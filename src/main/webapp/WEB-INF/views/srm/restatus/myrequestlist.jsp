@@ -10,7 +10,7 @@
 			<td class="circle 
            	 <c:if test="${request.statusNo >= 2}">done</c:if>
            	 <c:if test="${request.statusNo == 1}">now</c:if>">
-           	 	<a href="${pageContext.request.contextPath}/pm/receiptdetail?rno=${request.rno}">
+           	 	<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<c:if test="${request.statusNo == 1}">접수중</c:if>
 					<c:if test="${request.statusNo >= 2}">접수완료</c:if>
 				</a>
@@ -19,7 +19,7 @@
 			<td class="circle
            	 <c:if test="${request.statusNo >= 5}">done</c:if>
            	 <c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">now</c:if>">
-           	 	<a href="${pageContext.request.contextPath}/developerdetail?rno=${request.rno}">
+           	 	<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<c:if test="${request.statusNo < 2}">개발단계</c:if>
 					<c:if test="${request.statusNo == 2}">개발요청</c:if>
 					<c:if test="${request.statusNo == 4}">개발중</c:if>
@@ -31,7 +31,7 @@
 			<td class="circle
            	 <c:if test="${request.statusNo >= 7}">done</c:if>
            	 <c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">now</c:if>">
-           	 	<a href="${pageContext.request.contextPath}/testerdetail?rno=${request.rno}">
+           	 	<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<c:if test="${request.statusNo < 5}">테스트단계</c:if>
 					<c:if test="${request.statusNo == 5}">테스트요청</c:if>
 					<c:if test="${request.statusNo == 6}">테스트중</c:if>
@@ -42,7 +42,7 @@
 			<td class="circle
            	 <c:if test="${request.statusNo >= 9}">done</c:if>
            	 <c:if test="${request.statusNo >= 7 && request.statusNo <= 8}">now</c:if>">
-           	 	<a href="${pageContext.request.contextPath}/usertestdetail?rno=${request.rno}">
+           	 	<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<c:if test="${request.statusNo < 7}">유저테스트단계</c:if>
 					<c:if test="${request.statusNo == 7}">유저테스트요청</c:if>
 					<c:if test="${request.statusNo == 8}">유저테스트중</c:if>
@@ -53,7 +53,7 @@
 			<td class="circle
              <c:if test="${request.statusNo >= 11}">done</c:if>
            	 <c:if test="${request.statusNo >= 9 && request.statusNo <= 10}">now</c:if>">
-           		 <a href="${pageContext.request.contextPath}//distributedetail?rno=${request.rno}">
+           		 <a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<c:if test="${request.statusNo < 9}">배포단계</c:if>
 					<c:if test="${request.statusNo == 9}">배포요청</c:if>
 					<c:if test="${request.statusNo == 10}">배포중</c:if>
@@ -64,11 +64,11 @@
 			<td class="circle
            	 <c:if test="${request.statusNo >= 13}">done</c:if>
            	 <c:if test="${request.statusNo == 11}">now</c:if>">
-           	 	<a href="${pageContext.request.contextPath}/pm/completedetail?rno=${request.rno}">
+           	 	<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<c:if test="${request.statusNo < 11}">최종승인단계</c:if>
 					<c:if test="${request.statusNo == 11}">최종승인요청</c:if>
 				</a>
-				<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">
+				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<c:if test="${request.statusNo == 13}">완료</c:if>
 				</a>
 			</td>
@@ -81,7 +81,7 @@
 			<td class="circle 
            	 <c:if test="${request.statusNo >= 2}">done</c:if>
            	 <c:if test="${request.statusNo == 1}">now</c:if>">
-           	 	<a href="${pageContext.request.contextPath}/pm/receiptdetail?rno=${request.rno}">
+           	 	<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<c:if test="${request.statusNo == 1}">접수중</c:if>
 					<c:if test="${request.statusNo >= 2}">접수완료</c:if>
 				</a>
@@ -90,7 +90,7 @@
 			<td class="circle
              <c:if test="${request.statusNo >= 5}">done</c:if>
              <c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">now</c:if>">
-             	<a href="${pageContext.request.contextPath}/developerdetail?rno=${request.rno}">
+             	<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<c:if test="${request.statusNo < 2}">개발단계</c:if>
 					<c:if test="${request.statusNo == 2}">개발요청</c:if>
 					<c:if test="${request.statusNo == 4}">개발중</c:if>
@@ -102,7 +102,7 @@
 			<td class="circle
            	 <c:if test="${request.statusNo >= 7}">done</c:if>
            	 <c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">now</c:if>">
-           		 <a href="${pageContext.request.contextPath}/testerdetail?rno=${request.rno}">
+           		 <a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<c:if test="${request.statusNo < 5}">테스트단계</c:if>
 					<c:if test="${request.statusNo == 5}">테스트요청</c:if>
 					<c:if test="${request.statusNo == 6}">테스트중</c:if>
@@ -113,7 +113,7 @@
 			<td class="circle
            	 <c:if test="${request.statusNo >= 11}">done</c:if>
            	 <c:if test="${request.statusNo >= 7 && request.statusNo <= 10}">now</c:if>">
-           	 	<a href="${pageContext.request.contextPath}//distributedetail?rno=${request.rno}">
+           	 	<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<c:if test="${request.statusNo < 7}">배포단계</c:if>
 					<c:if test="${request.statusNo == 7}">배포요청</c:if>
 					<c:if test="${request.statusNo == 10}">배포중</c:if>
@@ -124,11 +124,11 @@
 			<td class="circle
            	 <c:if test="${request.statusNo >= 13}">done</c:if>
            	 <c:if test="${request.statusNo == 11}">now</c:if>">
-           	 	<a href="${pageContext.request.contextPath}/pm/completedetail?rno=${request.rno}">
+           	 	<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<c:if test="${request.statusNo < 11}">최종승인단계</c:if>
 					<c:if test="${request.statusNo == 11}">최종승인요청</c:if>
 				</a>
-				<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">
+				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<c:if test="${request.statusNo == 13}">완료</c:if>
 				</a>
 			</td>
@@ -149,7 +149,7 @@
 		<td class="bar "></td>
 		<td class="circle ">배포단계</td>
 		<td class="bar "></td>
-		<td class="circle now"><a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">반려</a></td>
+		<td class="circle now"><a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">반려</a></td>
 		
 		
 		

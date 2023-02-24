@@ -3,10 +3,8 @@ package com.oti.srm.dao.srm;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.oti.srm.dto.Member;
-import com.oti.srm.dto.RequestProcess;
 
 /**
  * @author KIM JI YOUNG
@@ -18,19 +16,29 @@ import com.oti.srm.dto.RequestProcess;
 public interface IStatsDao {
 	//
 	
-	// 전체 완료율 구하기
-	int selectComRate();	
-	int selectAllRate();
-	// 전체 지연율 구하기
-	int selectDelRate();
-	// 태스트별 지연율 구하기
-	int selectDelRateTask(String mtype);
+	// 시스템 별 서비스 요청 비중 구하기
+	public List<System> selectSystemSlice();
 	
+	// 전체 서비스 요청 건수 구하기
+	public int selectAllReq();
+	// 전체 완료 건수 구하기
+	public int selectComReq();	
+	// 전체 지연 건수 구하기
+	public int selectDelReq();
+	// 태스크별 지연 건수 구하기
+	public int selectDelReqTask(int mtype);
+	// 태스크 별 완료 건수 구하기
+	public int selectComReqTask(int mtype);
+	// 태스크 별 전체 담당 건수 구하기
+	public int selectAllReqTask(int mtype);
 	
 	// 서비스 요청 추이 월별 요청 건수 구하기
-	int selectSRChange(String month);
+	public int selectSRChange(String month);
 	// 서비스 요청 추이 월별 완료 건수 구하기
 	int selectSRComChange(String month);
+	
+	
+
 	
 	
 

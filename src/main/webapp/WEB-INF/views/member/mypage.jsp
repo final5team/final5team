@@ -291,12 +291,13 @@ form {
 				<div class="container-fluid">
 					<form method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data">
 						<section class="section1">
-							<h4>My Page</h4>
+							<h4>요청 수정</h4>
 						</section>
 
 						<section class="section2">
 							<article class="photo">
-								<img id="preview" src="${pageContext.request.contextPath}/customer/mypage/${returnMember.mid}"/> 
+								<img id="preview" src="${pageContext.request.contextPath}/customer/mypage/${returnMember.mid}"
+									onerror="this.src='${pageContext.request.contextPath}/resources/img/undraw_profile.svg';"/> 
 								<input type="file" class="btn btn-sm btn-primary" id="mfile" name="mfile" onchange="readURL(this);">
 							</article>
 

@@ -312,10 +312,12 @@
 													<label class="control-label col-lg-6">테스트 담당자 선택</label>
 													<input name="tester" value="${reqProcess.tester}" class="col-lg-6 text-center" readonly>
 												</div>
-												<div class="col-sm-12 form-group row">
-													<label class="control-label col-lg-6">유저테스트 담당자 선택</label>
-													<input name="userTester" value="${reqProcess.userTester}" class="col-lg-6 text-center" readonly>
-												</div>
+												<c:if test="${reqProcess.reqType eq '정규'}">
+													<div class="col-sm-12 form-group row">
+														<label class="control-label col-lg-6">유저테스트 담당자 선택</label>
+														<input name="userTester" value="${reqProcess.userTester}" class="col-lg-6 text-center" readonly>
+													</div>
+												</c:if>
 												<div class="col-sm-12 form-group row">
 													<label class="control-label col-lg-6">배포 담당자 선택</label>
 													<input name="distributor" value="${reqProcess.distributor}" class="col-lg-6 text-center" readonly>

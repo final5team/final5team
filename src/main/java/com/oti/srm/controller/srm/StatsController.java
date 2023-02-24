@@ -32,11 +32,13 @@ public class StatsController {
 	@RequestMapping("/statistics")
 	public String statistics(HttpSession session, Model model) {
 		// 첫째 줄
+		// 전체 서비스 요청 시스템 별 비중 구하기
+		model.addAttribute("systemSlice", statsService.getSystemSlice());
 		
 		// 전체 완료율 구하기
 		model.addAttribute("comRate", statsService.getComRate());
 		// 태스크별 완료율 구하기
-		//model.addAttribute("comRateTask", statsService.getComRate(0));
+		model.addAttribute("comRateTask", statsService.getComRateTask());
 		
 		// 전체 지연율 구하기
 		model.addAttribute("delRate", statsService.getDelRate());
