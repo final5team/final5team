@@ -50,7 +50,7 @@ public class StatsController {
 		// 전체 서비스 요청 처리 현황
 		model.addAttribute("allState", statsService.getSRState());
 		// 태스크별 서비스 요청 처리 현황
-		
+		model.addAttribute("stateTask", statsService.getSRStateTask());
 		
 		// 셋째 줄
 		// 서비스 요청 추이

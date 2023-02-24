@@ -116,6 +116,25 @@ public class StatsService implements IStatsService {
 		// 시스템별 요청 비중 구하기
 		return statsDao.selectSystemSlice();
 	}
+	// 태스크별 서비스 요청 처리 현황 구하기
+	@Override
+	public List<ArrayList<Integer>> getSRStateTask() {
+		// 전체 값 저장할 List 객체 생성
+		List<ArrayList<Integer>> list = new ArrayList<>();		
+		for(int j=1; j<5; j++) {
+			// 태스크 별 요청 값 저장할 ArrayList 객체 생성
+			ArrayList<Integer> arr = new ArrayList<>();
+			// 전체 서비스 요청 건수
+			arr.add(statsDao.selectAllReqTask(j));			
+			// 진행 중 서비스 요청 건수
+			arr.add(statsDao.selectOnReqTask(j));
+			// 완료 서비스 요청 건수
+			arr.add(statsDao.selectComReqTask(j));
+			
+			list.add(arr);
+		}		
+		return list;
+	}
 
 
 }
