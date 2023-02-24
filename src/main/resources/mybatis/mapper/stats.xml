@@ -20,7 +20,7 @@
 	<select id="selectComReq" resultType="int">
 		select count(*) as cnt
 		from REQUESTS
-		where STATUS_NO >=12
+		where STATUS_NO <![CDATA[>=]]>12
 	</select>
 	<select id="selectComReqTask" parameterType="int" resultType="int">
 		select count(*) as cnt
@@ -80,6 +80,16 @@
 				USERTEST_COMP_DATE is not null
 			</if>
 		</where> 
+	</select>
+	<select id="selectSystemSlice" resultType="com.oti.srm.dto.System">
+		<![CDATA[
+			select SYSTEM_NAME as systemName, nvl(cnt,0) as sno
+			from systems s, 
+			    (select sno, count(*) as cnt
+			    from requests
+			    group by sno) c 
+			where c.sno(+)=s.sno
+		]]>
 	</select>
 	
 	

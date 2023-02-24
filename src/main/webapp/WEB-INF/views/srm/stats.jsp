@@ -7,23 +7,25 @@
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
+      // 시스템별 서비스 요청 비중 구하기
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
+    	// 시스템별 서비스 요청 값 설정  
         var data = google.visualization.arrayToDataTable([
-          ['Task', 'Percent'],
-          ['SRM',     11],
-          ['LMS',      2],
-          ['SHOP',  2],
-          ['UIS', 2],
-          ['CMS',    7]
+          ['System', 'Number'],
+          ['${systemSlice[0].systemName}',     ${systemSlice[0].sno}],
+          ['${systemSlice[1].systemName}',     ${systemSlice[1].sno}],
+          ['${systemSlice[2].systemName}',     ${systemSlice[2].sno}],
+          ['${systemSlice[3].systemName}',     ${systemSlice[3].sno}]
         ]);
 
         var options = {
-          title: '전체 서비스 요청 중 시스템별 비중',
-          is3D: true,
+          title: '전체 서비스 요청 중 시스템별 비중',   // 그래프 제목
+          is3D: true						// 그래프 형식(3D 그래프)
         };
-
+        
+		//그래프 그리기
         var chart = new google.visualization.PieChart(document.getElementById('3dchart'));
         chart.draw(data, options);
       }
@@ -41,8 +43,8 @@
             title: '전체 완료율',   // 그래프 제목
             pieHole: 0.4,		// 그래프 중앙 빈 부분 크기 설정
 
-            tooltip: { trigger: 'none' },   //도움말 제거   
-            legend: 'none',					//범례 제거
+            tooltip: { trigger: 'none' },   // 도움말 제거   
+            legend: 'none',					// 범례 제거
             slices: {
                 0: { color: 'green', textStyle: {color: 'orange', fontSize: 14} },  // 그래프 완료 부분 색 설정
                 1: { color: 'transparent' , textStyle: {color: 'transparent'}}		// 그래프 미완료 부분 색 설정
