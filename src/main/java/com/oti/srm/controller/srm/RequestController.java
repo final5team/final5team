@@ -174,7 +174,7 @@ public class RequestController {
 		request.setStatusNo(1);
 		Member member = (Member) session.getAttribute("member");
 		request.setClient(member.getMid());
-
+		log.info(request.getSno());
 
 		List<StatusHistoryFile> fileList = new ArrayList<>();
 
@@ -209,8 +209,8 @@ public class RequestController {
 	public String myrequestlist (Request request, Model model, HttpSession session,
 			@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "") String date_first,
 			@RequestParam(defaultValue = "") String date_last, @RequestParam(defaultValue = "0") int sno,
-			@RequestParam(defaultValue = "전체") String req_type) {
-		log.info(req_type);
+			@RequestParam(defaultValue = "전체") String req_type, @RequestParam(defaultValue = "0") int statusNo) {
+		
 		
 		// 요청 조회 필터
 		List<System> systemList = userRegisterService.getSystemList();
@@ -225,6 +225,7 @@ public class RequestController {
 		listFilter.setDateFirst(date_first);
 		listFilter.setDateLast(date_last);
 		listFilter.setSno(sno);
+		listFilter.setStatusNo(statusNo);
 		
 		log.info(listFilter.toString());
 		
@@ -258,7 +259,6 @@ public class RequestController {
 		// 필터에 출력할 시스템 리스트 조회
 		List<System> systemList = userRegisterService.getSystemList();
 
-		
 		// 전달받은 필터 값 저장
 		ListFilter listFilter = new ListFilter();
 		listFilter.setReqType(req_type);
