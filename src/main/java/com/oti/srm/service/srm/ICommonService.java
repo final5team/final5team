@@ -32,6 +32,8 @@ public interface ICommonService {
 	public List<StatusHistory> getUserTesterToDistributorHistories(int rno);
 	
 	public List<StatusHistory> getDistributorToPmHistories(int rno);
+	
+	public List<StatusHistory> getPmToAllHistories(int rno);
 
 	public void uploadFile(StatusHistoryFile statusHistoryFile);
 
@@ -47,5 +49,6 @@ public interface ICommonService {
 	public Map<String, Object> getWorkCompletionRate(Member member);
 	//파일 다운로드
 	public StatusHistoryFile getFile(int fno);
+
 
 }

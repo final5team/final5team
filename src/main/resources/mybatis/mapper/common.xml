@@ -134,7 +134,7 @@
 	
 	<update id="updateResetDate" parameterType="int">
 		update request_process 
-			set dev_comp date = null,
+			set dev_comp_date = null,
 				dev_expect_date = null,
 				test_expect_date = null
 		where rno = #{rno} 
@@ -194,58 +194,52 @@
 	
 	<select id="selectRequestInProgress" parameterType="com.oti.srm.dto.Member" resultType="int">
 		select count(*)
-		from request_process rp, requests r
-		<where>rp.rno = r.rno
-		
+		from request_process 
+		<where>
 			<if test="mtype == 'pm'">
-				and r.STATUS_NO between  2 and 11
-				and pm = #{mid}
+				pm = #{mid}
+			and all_expect_date is not null and all_comp_date is null
 			</if>
 			<if test="mtype == 'developer'">
-				and r.STATUS_NO = 4
-				and developer = #{mid}
+				developer = #{mid}
+			and dev_expect_date is not null and dev_comp_date is null
 			</if>
 			<if test="mtype == 'tester'">
-				and r.STATUS_NO = 6
-				and tester = #{mid}
+				tester = #{mid}
+			and test_expect_date is not null and test_comp_date is null
 			</if>
 			<if test="mtype == 'usertester'">
-				and r.STATUS_NO = 8
-				and user_tester = #{mid}
+				user_tester = #{mid}
+			and usertest_expect_date is not null and usertest_comp_date is null
 			</if>
 			<if test="mtype == 'distributor'">
-				and r.STATUS_NO = 10
-				and distributor = #{mid}
+				distributor = #{mid}
+			and dist_expect_date is not null and dist_comp_date is null
 			</if>
-		</where> 
+		</where>
 	</select>
 	
 	<select id="selectRequestDone" parameterType="com.oti.srm.dto.Member" resultType="int">
 		select count(*)
-		from request_process rp, requests r
-		<where>rp.rno = r.rno
-		
-			<if test="mtype == 'pm'">
-				and r.STATUS_NO = 13 
-				and pm = #{mid}
-			</if>
+		from request_process
+		<where>
 			<if test="mtype == 'developer'">
-				and r.STATUS_NO = 5
-				and developer = #{mid}
+				developer = #{mid}
+			and dev_comp_date is not null
 			</if>
 			<if test="mtype == 'tester'">
-				and r.STATUS_NO = 7
-				and tester = #{mid}
+				tester = #{mid}
+			and test_comp_date is not null
 			</if>
 			<if test="mtype == 'usertester'">
-				and r.STATUS_NO = 9
-				and user_tester = #{mid}
+				user_tester = #{mid}
+			and usertest_comp_date is not null
 			</if>
 			<if test="mtype == 'distributor'">
-				and r.STATUS_NO = 11
-				and distributor = #{mid}
+				distributor = #{mid}
+			and dist_comp_date is not null
 			</if>
-		</where> 
+		</where>
 	</select>
 	<select id="selectRequestReexam" parameterType="com.oti.srm.dto.Member" resultType="int">
 		select count(*)
@@ -256,9 +250,8 @@
 	</select>
 	<select id="selectRequestReject" parameterType="com.oti.srm.dto.Member" resultType="int">
 		select count(*)
-		from status_histories
-		where NEXT_STATUS = 12 
-		and WRITER =  #{mid}
+		from requests
+		where status_no = 12 
 	</select>
 	
 	<select id="selectListOf7daysLeft" parameterType="com.oti.srm.dto.Member" resultType="com.oti.srm.dto.Request">

@@ -82,86 +82,79 @@
 
                 <!-- 여기에 내용 담기 start -->
                 <div class="container-fluid">
-				
-					<div class="row">
-						<!-- 게시글 상세보기 start -->
-						<div class="col-xl-9 col-lg-8 col-md-8 col-sm-8">
-							<div class="card">
-								<div class="card-header d-flex">						
-									<h6 class="mr-auto text-primary font-weight-bold">배포 상세보기 ></h6>
-									<c:if test="${requestProcess.reqType eq '정규'}">
-										<div class="ml-3">정규<i class="far fa-registered text-secondary"></i></div>
-									</c:if>
-									<c:if test="${requestProcess.reqType eq '긴급'}">
-										<div class="ml-3">긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
-									</c:if>
-									<div class="ml-5 mr-4">중요도:
-										<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
-											<span class="fa fa-star checked" style="color: orange;"></span>
-										</c:if>
-										<c:if test="${requestProcess.priority eq '중' || requestProcess.priority eq '상'}">
-											<span class="fa fa-star checked" style="color: orange;"></span>
-										</c:if>
-										<c:if test="${requestProcess.priority eq '상'}">
-											<span class="fa fa-star checked" style="color: orange;"></span>
-										</c:if>
-									</div>				
-								</div>
-								<div class="card-body">
-									<div>
-										<h3 class="mr-auto font-weight-bold">${request.reqTitle}</h3>
+					<div class="main">
+						<div class="row">
+							<!-- 게시글 상세보기 start -->
+							<div class="col-xl-9 col-lg-8 col-md-8 col-sm-8">
+								<div class="card card-block sameheight-item">
+									<h3 class="title-block font-weight-bold">						
+										 요청 정보
+									</h3>
+									<div class="row mt-3">
+										<div class="col-2 font-weight-bold">요청자 :</div>
+										<div class="col-4">${request.clientName}</div>
+										<div class="col-2 font-weight-bold">소속 기관 :</div>
+										<div class="col-4">${request.organ}</div>
 									</div>
+									<hr/>
 									<div class="row">
-										<div class="col-sm-6">
-											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="20%">
-											<span class="font-weight-bold ml-2">${request.clientName}</span>
-											<span class="ml-3">${request.organ}</span>
-										</div>
-										<div class="col-sm-6 ml-auto">
-											<div class="d-flex">
-												<div class="pl-5">시스템:</div>
-												<div class="pl-2 flex-grow-1">${request.systemName}</div>
-											</div>
-											<div class="d-flex">
-												<div class="pl-5">요청일:</div>
-												<div class="pl-2 flex-grow-1">
-													<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd"/>
-												</div>
-											</div>
-											<div class="d-flex">
-												<div class="pl-5">요청 완료 예정일:</div>
-												<div class="pl-2 flex-grow-1" id="allExpectDate">
-													<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>
-												</div>
-											</div>
-											<c:if test="${(request.statusNo == 8 || request.statusNo == 9) && (member.mtype == 'distributor')}">
-												<div class="d-flex">
-													<div class="pl-5">배포 완료 예정일 :</div>
-													<div class="pl-2 flex-grow-1">
-														<fmt:formatDate value="${requestProcess.distExpectDate}" pattern="yyyy-MM-dd"/>
-													</div>
-												</div>
+										<div class="col-2 font-weight-bold">요청일 :</div>
+										<div class="col-4"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd"/></div>
+										<div class="col-2 font-weight-bold">완료 희망일 :</div>
+										<div class="col-4"><fmt:formatDate value="${request.reqExpectDate}" pattern="yyyy-MM-dd"/></div>
+									</div>
+									<hr/>
+									<div class="row">
+										<div class="col-2 font-weight-bold">시스템 :</div>
+										<div class="col-10">${request.systemName}</div>
+									</div>
+									<hr/>
+									<div class="row">
+										<div class="col-2 font-weight-bold">요청 유형 :</div>
+										<div class="col-4">
+											<c:if test="${requestProcess.reqType eq '정규'}">
+												<div>정규<i class="far fa-registered text-secondary"></i></div>
 											</c:if>
-											<c:if test="${request.statusNo >= 9 && member.mtype == 'distributor'}">
-												<div class="d-flex">
-													<div class="pl-5">배포 완료일 :</div>
-													<div class="pl-2 flex-grow-1">
-														<fmt:formatDate value="${requestProcess.distCompDate}" pattern="yyyy-MM-dd"/>
-													</div>
-												</div>
+											<c:if test="${requestProcess.reqType eq '긴급'}">
+												<div>긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
+											</c:if>
+										</div>
+										<div class="col-2 font-weight-bold">중요도 :</div>
+										<div class="col-4">
+											<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
+												<span class="fa fa-star checked" style="color: orange;"></span>
+											</c:if>
+											<c:if test="${requestProcess.priority eq '중' || requestProcess.priority eq '상'}">
+												<span class="fa fa-star checked" style="color: orange;"></span>
+											</c:if>
+											<c:if test="${requestProcess.priority eq '상'}">
+												<span class="fa fa-star checked" style="color: orange;"></span>
 											</c:if>
 										</div>
 									</div>
-									<div class="mt-2 ml-5">${request.reqContent}</div>
-									<div class="mt-3 ml-5">
-										<c:if test="${request.files != null}">
+									<hr/>
+									<div class="row">
+										<div class="col-2 font-weight-bold">제목 :</div>
+										<div class="col-10">${request.reqTitle}</div>
+									</div>
+									<hr/>
+									<div class="row">
+										<div class="col-2 font-weight-bold">내용 :</div>
+										<div class="col-10 border" style="min-height:100px;">${request.reqContent}</div>
+									</div>
+									<hr/>
+									<div class="row">
+										<div class="col-2 font-weight-bold">요청 첨부파일 :</div>
+										<div class="col-10">
 											<c:forEach var="statusHistoryFile" items="${request.files}">
-												<span>${statusHistoryFile.fileName}</span>
-												<a href="#" role="button">
-													<i class="fas fa-cloud-download-alt"></i>
-												</a>
+												<div>
+													<span>${statusHistoryFile.fileName}</span>
+													<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+														<i class="fas fa-cloud-download-alt"></i>
+													</a>
+												</div>
 											</c:forEach>
-										</c:if>
+										</div>
 									</div>
 									<div class="d-flex justify-content-end">
 										<!-- 배포 요청 상태(7(긴급) or 9(정규)) -->
@@ -178,90 +171,120 @@
 										</c:if>
 									</div>
 								</div>
-							</div>
-
-							<div class="row mb-3">
+								<div class="card card-block sameheight-item mt-3">
+									<h3 class="title-block font-weight-bold">						
+										 PM 검토 정보
+									</h3>
+									<c:forEach var="statusHistory" items="${pmToAllHistories}">
+										<div class="row">
+											<div class="col-2 font-weight-bold">PM :</div>
+											<div class="col-4">${requestProcess.pm}</div>
+											<div class="col-2 font-weight-bold">접수 일자 :</div>
+											<div class="col-4"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
+										</div>
+										<hr/>
+										<div class="row">
+											<div class="col-2 font-weight-bold">검토 의견 :</div>
+											<div class="col-10 border" style="min-height:100px;">${statusHistory.reply}</div>
+										</div>
+										<hr/>
+										<div class="row">
+											<div class="col-2 font-weight-bold">검토 첨부파일 :</div>
+											<div class="col-10">
+												<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+													<div>
+														<span>${statusHistoryFile.fileName}</span>
+														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+															<i class="fas fa-cloud-download-alt"></i>
+														</a>
+													</div>
+												</c:forEach>
+											</div>
+										</div>
+									</c:forEach>
+								</div>
 								<!-- 배포 단계 처리 내역 end -->
-									<h2>배포 완료 내역</h2>
-									<table class="table">
-										<thead class="thead-dark">
-										   <tr>
-										   	  <th scope="col">배포 완료 예정일</th>
-										      <th scope="col">배포 완료일</th>
-										      <th scope="col">담당자</th>
-										   </tr>
-										</thead>
-										<tbody>
-										    <c:forEach var="statusHistory" items="${distributorToPmHistories}" varStatus="index">
-										    	<tr>
-										    		<td><fmt:formatDate value="${requestProcess.distExpectDate}" pattern="yyyy-MM-dd"/></td>
-										    		<td><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></td>
-										    		<td>${statusHistory.writer}</td>
-										    		<td> 
-										    			<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-															<span>${statusHistoryFile.fileName}</span>
-															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-																<i class="fas fa-cloud-download-alt"></i>
-															</a><br>
-														</c:forEach>
-										    		</td>
-										    	</tr>
-										    </c:forEach>
-										</tbody>
-									</table>
+								
 								<!-- 배포 단계 처리 내역 end -->
 									
-								<!-- 배포 단계 처리에 필요한 정보(배포 소스) start -->
-									<h2>배포 소스 정보</h2>
-									<table class="table">
-										<thead class="thead-dark">
-										   <tr>
-										   	  <th scope="col">개발 차수</th>
-										      <th scope="col">배포 소스 정보</th>
-										      <th scope="col">작성일</th>
-										      <th scope="col">작성자</th>
-										      <th scope="col">첨부파일</th>
-										   </tr>
-										</thead>
-										<tbody>
-										    <c:forEach var="statusHistory" items="${devToTesterHistories}" varStatus="index">
-										    	<tr>
-										    		<td>${index.count}차</td>
-										    		<td style="word-break:break-all">${statusHistory.distSource}</td>
-										    		<td><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></td>
-										    		<td>${statusHistory.writer}</td>
-										    		<td> 
-										    			<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-															<span>${statusHistoryFile.fileName}</span>
-															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-																<i class="fas fa-cloud-download-alt"></i>
-															</a><br>
-														</c:forEach>
-										    		</td>
-										    	</tr>
-										    </c:forEach>
-										</tbody>
-									</table>
-								<!-- 배포 단계 처리에 필요한 정보(배포 소스) end -->
+								<!-- 배포 단계 처리에 필요한 정보(개발 내용) start -->
+								<h2 class="p-3">배포작업 참고사항(개발자 배포소스 작성내역)</h2>
+								<table class="table">
+									<thead class="thead-dark">
+									   <tr>
+									   	  <th scope="col">개발 차수</th>
+									      <th scope="col">배포 소스</th>
+									      <th scope="col">작성일</th>
+									      <th scope="col">작성자</th>
+									      <th scope="col">첨부파일</th>
+									   </tr>
+									</thead>
+									<tbody>
+									    <c:forEach var="statusHistory" items="${devToTesterHistories}" varStatus="index">
+									    	<tr>
+									    		<td>${index.count}차</td>
+									    		<td style="word-break:break-all">${statusHistory.distSource}</td>
+									    		<td><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></td>
+									    		<td>${statusHistory.writer}</td>
+									    		<td> 
+									    			<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+														<span>${statusHistoryFile.fileName}</span>
+														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+															<i class="fas fa-cloud-download-alt"></i>
+														</a><br>
+													</c:forEach>
+									    		</td>
+									    	</tr>
+									    </c:forEach>
+									</tbody>
+								</table>
+								<!-- 배포 단계 처리에 필요한 정보(개발 내용) end -->
 							</div>
-							
-						</div>
-						<!-- 게시글 상세보기 end -->
-						<!-- 상태 단계 이력 start -->						
-						<div class="col-xl-3 col-lg-4 col-md-4 col-sm-4">
-							<div class="card">
-								<div class="card-header">
-									<h6 class="m-0 font-weight-bold text-primary">단계 상태</h6>
+							<!-- 게시글 상세보기 end -->
+							<!-- 상태 단계 이력 start -->						
+							<div class="col-xl-3 col-lg-4 col-md-4 col-sm-4">
+								<div class="card card-block">
+									<h3 class="title-block font-weight-bold">						
+										 진행 상태
+									</h3>
+									<div class="card-body">
+										<!-- request.statusName(현재 상태)에 따라 다른 단계 화면 표시-->
+										<%@ include file="/WEB-INF/views/srm/nowstatusvertical.jsp" %>
+									</div>
 								</div>
-								<div class="card-body">
-									<!-- request.statusName(현재 상태)에 따라 다른 단계 화면 표시-->
-									<%@ include file="/WEB-INF/views/srm/nowstatusvertical.jsp" %>
+								<c:if test="${requestProcess.distCompDate != null}">
+									<div class="card card-block mt-3">
+									<h3 class="title-block font-weight-bold">						
+										 배포 완료
+									</h3>
+									<div class="card-body">
+										<div class="row">
+											<div class="col-12 font-weight-bold">배포 담당자</div>
+										</div>
+										<div class="row mt-1">
+											<div class="col-10">${requestProcess.distributor}</div>
+										</div>
+										<hr/>
+										<div class="row">
+											<div class="col-12 font-weight-bold">배포 완료 예정일</div>
+										</div>
+										<div class="row mt-1">
+											<span style="margin-left:13px"><fmt:formatDate value="${requestProcess.distExpectDate}" pattern="yyyy-MM-dd"/></span>
+										</div>
+										<hr/>
+										<div class="row">
+											<div class="col-12 font-weight-bold">배포 완료일</div>
+										</div>
+										<div class="row mt-1">
+											<span style="margin-left:13px"><fmt:formatDate value="${requestProcess.distCompDate}" pattern="yyyy-MM-dd"/></span>
+										</div>
+									</div>
 								</div>
+								</c:if>
 							</div>
+							<!-- 상태 단계 이력 end -->						
 						</div>
-						<!-- 상태 단계 이력 end -->						
 					</div>
-					
                 </div>
                 <!-- 여기에 내용 담기 end -->
 
