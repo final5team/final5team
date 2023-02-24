@@ -291,7 +291,7 @@ form {
 				<div class="container-fluid">
 					<form method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data">
 						<section class="section1">
-							<h4>요청 수정</h4>
+							<h4>My page</h4>
 						</section>
 
 						<section class="section2">
@@ -304,14 +304,8 @@ form {
 							<article class="userData">
 								<div class="item">
 									<div class="input-group">
-										<select class="custom-select" id="mtype" name="mtype" onchange="changeUserType()">
+										<select class="custom-select" id="mtype" name="mtype">
 											<option value="${returnMember.mtype}">${returnMember.mtype}</option>
-											<option value="user">user</option>
-											<option value="pm">pm</option>
-											<option value="developer">developer</option>
-											<option value="distributer">distributer</option>
-											<option value="tester">tester</option>
-											<option value="user_tester">user_tester</option>
 										</select>
 										<i class="fa fa-user"></i>
 									</div>
@@ -345,7 +339,7 @@ form {
 								<div class="item">
 									<div class="input-group">
 										<select class="custom-select" id="sno" name="sno">
-											<option selected>${returnMember.sno}</option>
+											<option selected>소속 시스템 : ${returnMember.sno}</option>
 											<c:forEach var="system" items="${systemList}">
 												<option value="${system.sno}">${system.systemName}</option>
 											</c:forEach>

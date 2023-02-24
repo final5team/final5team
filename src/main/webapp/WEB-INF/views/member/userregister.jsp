@@ -336,16 +336,14 @@ form {
 								</div>
 							</article>
 							<article class="userData2">
-								<div class="item">
+								
+							<div class="item">
 									<div class="input-group">
-										<select class="custom-select" id="mtype" name="mtype" onchange="changeUserType()" required>
-											<option value="${returnMember.mtype}">${returnMember.mtype}</option>
-											<option value="user">user</option>
-											<option value="pm">pm</option>
-											<option value="developer">developer</option>
-											<option value="distributer">distributer</option>
-											<option value="tester">tester</option>
-											<option value="user_tester">user_tester</option>
+										<select class="custom-select" id="sno" name="sno">
+											<option selected>시스템 선택</option>
+											<c:forEach var="system" items="${systemList}">
+												<option value="${system.sno}">${system.systemName}</option>
+											</c:forEach>
 										</select>
 										<i class="fa fa-user" id="sno_icon"></i>
 									</div>
