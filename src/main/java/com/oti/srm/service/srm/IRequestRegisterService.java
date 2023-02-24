@@ -32,6 +32,8 @@ public interface IRequestRegisterService {
 	public List<SelectPM> getMyRequestList(Request request, ListFilter listFilter, Pager pager, Member member);
 
 	public Request getRequestDetail(int rno);
+
+	public StatusHistoryFile getMyRequestFile(int fno);
 	
 	
 }

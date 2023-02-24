@@ -318,27 +318,27 @@ form {
 								</div>
 								<div class="data">
 									<div class="item">
-										<input type="text" class="form-control form-control-user" id="mid" name="mid" placeholder="아이디"> <i class="fa fa-user"></i>
+										<input type="text" class="form-control form-control-user" id="mid" name="mid" placeholder="아이디" required> <i class="fa fa-user"></i>
 									</div>
 									<div class="item">
-										<input type="password" class="form-control form-control-user" id="password" name="password" placeholder="비밀번호"> <i class="fa fa-envelope"></i>
+										<input type="password" class="form-control form-control-user" id="password" name="password" placeholder="비밀번호" required> <i class="fa fa-envelope"></i>
 									</div>
 									<!-- 비밀번호 확인 -->
 									<div class="item">
-										<input type="password" class="form-control form-control-user" id="password_confirm" name="password_confirm" placeholder="비밀번호 확인"> <i class="fa fa-envelope"></i>
+										<input type="password" class="form-control form-control-user" id="password_confirm" name="password_confirm" placeholder="비밀번호 확인" required> <i class="fa fa-envelope"></i>
 									</div>
 									<div class="item">
-										<input type="text" class="form-control form-control-user" id="mname" name="mname" placeholder="이름"> <i class="fa fa-phone"></i>
+										<input type="text" class="form-control form-control-user" id="mname" name="mname" placeholder="이름" required> <i class="fa fa-phone"></i>
 									</div>
 									<div class="item">
-										<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="이메일"> <i class="fa fa-phone"></i>
+										<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="이메일" required> <i class="fa fa-phone"></i>
 									</div>
 								</div>
 							</article>
 							<article class="userData2">
 								<div class="item">
 									<div class="input-group">
-										<select class="custom-select" id="mtype" name="mtype" onchange="changeUserType()">
+										<select class="custom-select" id="mtype" name="mtype" onchange="changeUserType()" required>
 											<option value="${returnMember.mtype}">${returnMember.mtype}</option>
 											<option value="user">user</option>
 											<option value="pm">pm</option>
@@ -352,7 +352,7 @@ form {
 								</div>
 								<div class="item">
 									<div class="input-group">
-										<select class="custom-select" id="gender" name="gender">
+										<select class="custom-select" id="gender" name="gender" required>
 											<option value="1">남</option>
 											<option value="2">여</option>
 										</select>
@@ -361,7 +361,7 @@ form {
 								</div>
 								<div class="item">
 									<div class="input-group">
-										<select class="custom-select" id="position" name="position">
+										<select class="custom-select" id="position" name="position" required>
 											<option selected>직급 선택</option>
 											<option value="사원">사원</option>
 											<option value="대리">대리</option>
@@ -371,11 +371,12 @@ form {
 										<i class="fa fa-user"></i>
 									</div>
 
+
 								</div>
 								<div class="item">
 									<div class="input-group">
 										<i class="fa fa-user"></i>
-										<select class="custom-select" id="organ" name="organ">
+										<select class="custom-select" id="organ" name="organ" required>
 											<option selected>소속 기관 선택</option>
 											<option value="1">1</option>
 											<option value="2">2</option>
@@ -388,12 +389,12 @@ form {
 								<div class="item">
 									<div class="input-group">
 										<div class="date_form">
-											<input type="date" id="birth" name="birth"> <i class="fa fa-user"></i>
+											<input type="date" id="birth" name="birth" required> <i class="fa fa-user"></i>
 										</div>
 									</div>
 									<div class="input-group">
 										<div class="item" style="margin-top: 10px;">
-											<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="핸드폰"> <i class="fa fa-user"></i>
+											<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="핸드폰" required> <i class="fa fa-user"></i>
 										</div>
 									</div>
 								</div>
@@ -406,10 +407,10 @@ form {
 									<input type="text" class="form-control form-control-user" id="addr1" name="addr1" placeholder="도로명 주소" readonly> <i class="fa fa-user"></i>
 								</div>
 								<div class="item address3">
-									<input type="text" id="addr2" name="addr2" placeholder="상세 주소"> <i class="fa fa-user"></i>
+									<input type="text" id="addr2" name="addr2" placeholder="상세 주소" required> <i class="fa fa-user"></i>
 								</div>
 								<div class="item address-button">
-									<button type="button" class="btn btn-primary btn-sm" id="address" name="address" onclick="findAddress()">우편번호</button>
+									<button type="button" class="btn btn-primary btn-sm" id="address" name="address" onclick="findAddress()" >우편번호</button>
 								</div>
 							</article>
 

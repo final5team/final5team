@@ -414,7 +414,7 @@ main {
 										<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
 										<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" /></td>
 										<td class="step_td">
-											<%@ include file="/WEB-INF/views/srm/restatus/nowstatusvertical.jsp"%>
+											<%@ include file="/WEB-INF/views/srm/restatus/myrequestlist.jsp"%>
 										</td>
 									</tr>
 								</c:forEach>

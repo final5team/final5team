@@ -149,6 +149,12 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		return request;
 	}
 	
+	@Override
+	public StatusHistoryFile getMyRequestFile(int fno) {
+		return requestDao.selectRequestFile(fno);
+	}
+	
+	
 	
 	
 
@@ -196,6 +202,8 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		
 		return listFilter;
 	}
+
+	
 
 	
 

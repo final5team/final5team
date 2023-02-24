@@ -31,6 +31,7 @@ public interface IRequestDao {
 	//내 요청 상세보기
 	public Request selectRequestDetail(int rno);
 	public List<StatusHistoryFile> setRequestFiles(int rno);
+	public StatusHistoryFile selectRequestFile(int fno);
 	
 	
 	
