@@ -144,8 +144,6 @@ public class RequestController {
 			returnMember = userRegisterService.getUserInfo("가입Test");
 			
 		}
-		
-		
 		HttpHeaders headers = new HttpHeaders();
 		String[] fileTypes = returnMember.getFileType().split("/");
 		headers.setContentType(new MediaType(fileTypes[0], fileTypes[1]));
