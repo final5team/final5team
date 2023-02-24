@@ -158,7 +158,7 @@ main {
 
 .member {
 	margin: 5px 10px;
-	width: 1000px;
+	width: 1050px;
 	background-color: #fff;
 	border-collapse: collapse;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
@@ -185,10 +185,6 @@ main {
 	background-color: #eee;
 }
 
-.member tr:nth-child(odd) {
-	
-}
-
 .member th, .member td {
 	font-size: 12px;
 	width: 1050px;
@@ -199,27 +195,9 @@ main {
 }
 
 .member tr th {
-	background-color: #5a5c69;
+	background-color: #85ce36;
 	color: #fff;
 }
-
-.member tr td {
-	width: 1050px;
-	font-size: 12px;
-}
-
-.member tr th:first-child {
-	border-radius: 5px 0 0 0;
-}
-
-.member tr th:last-child {
-	border-radius: 0 5px 0 0;
-}
-
-.member tr td:last-child {
-	
-}
-
 .member tr:hover {
 	background-color: rgba(211, 211, 211, 0.438);
 }
@@ -231,80 +209,6 @@ main {
 	left: 61%;
 	top: 70%;
 	z-index: 5;
-}
-
-.step_tr {
-	border: none;
-}
-
-.inner_step {
-	border: none;
-}
-
-.step_tr {
-	align-items: center;
-	border: none;
-}
-
-.step_tr .step_td {
-	display: flex;
-	max-width: 550px;
-	width: 550px;
-	padding: 0;
-	border: none;
-	white-space: nowrap;
-	overflow: hidden;
-	white-space: nowrap;
-}
-
-.step_tr .step_td .inner_step {
-	background-color: none;
-	position: relative;
-}
-
-.step_tr .step_td .inner_step .circle {
-	width: 70px;
-	background-color: none;
-}
-
-.step_tr .step_td .inner_step .bar {
-	width: 5px;
-	height: 0px;
-	background-color: none;
-	position: absolute;
-}
-
-.pager {
-	
-}
-
-.circle {
-	background-color: #fff;
-	color: #999;
-	font-size: 10px;
-	text-align: center;
-	border: 3px solid #e0e0e0;
-	transition: 0.4s ease;
-}
-
-.bar {
-	padding: 0;
-	background-color: #fff;
-	color: #999;
-	width: 30px;
-	transition: 0.4s ease;
-	border: none;
-}
-
-.circle.done {
-	border-color: #5a5c69;
-	color: #87cd36;
-}
-
-.circle.now {
-	border-color: #5a5c69;
-	color: white;
-	background-color: #5a5c69;
 }
 </style>
 
@@ -346,7 +250,7 @@ main {
 
 							<article class="filter-name2">
 								<h6>단계 선택</h6>
-								
+
 								<c:if test="${sessionScope.member.mtype == 'pm'}">
 									<h6>시스템</h6>
 								</c:if>
@@ -377,12 +281,10 @@ main {
 											</c:if>
 										</select>
 									</c:if>
-									
+
 								</div>
 								<div class="date_form">
-									<input type="date" id="date_first" name="date_first" value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> 
-									<i class="fa fa-minus"></i> 
-									<input type="date" id="date_last" name="date_last" value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
+									<input type="date" id="date_first" name="date_first" value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> <i class="fa fa-minus"></i> <input type="date" id="date_last" name="date_last" value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
 								</div>
 							</article>
 							<article class="filter-body2">
@@ -399,7 +301,7 @@ main {
 											<option value="12">반려</option>
 										</select>
 									</c:if>
-									
+
 									<c:if test="${listFilter.statusValue != null}">
 										<select class="custom-select" id="statusNo" name="statusNo">
 											<option value="${listFilter.statusNo}" selected>${listFilter.statusValue}</option>
@@ -427,34 +329,34 @@ main {
 											</c:if>
 										</select>
 									</c:if>
-									
+
 								</div>
 								<c:if test="${sessionScope.member.mtype == 'pm'}">
 									<div class="input-group">
 										<select class="custom-select" id="sno" name="sno">
-										<c:if test="${listFilter.sno == 0}">
-											<option value="0" selected>시스템</option>
-											<c:forEach var="system" items="${systemList}">
-												<option value="${system.sno}">${system.systemName}</option>
-											</c:forEach>
-										</c:if>
-										
-										
-										<c:if test="${listFilter.sno != 0}">
-											<option value="${listFilter.sno}" selected>${listFilter.sno}</option>
-											<c:forEach var="system" items="${systemList}">
-											
-											
-												<c:if test="${system.sno != listFilter.sno}">
+											<c:if test="${listFilter.sno == 0}">
+												<option value="0" selected>시스템</option>
+												<c:forEach var="system" items="${systemList}">
 													<option value="${system.sno}">${system.systemName}</option>
-												</c:if>
-												
-											</c:forEach>
-											
-										</c:if>
-										
-										
-									</select>
+												</c:forEach>
+											</c:if>
+
+
+											<c:if test="${listFilter.sno != 0}">
+												<option value="${listFilter.sno}" selected>${listFilter.sno}</option>
+												<c:forEach var="system" items="${systemList}">
+
+
+													<c:if test="${system.sno != listFilter.sno}">
+														<option value="${system.sno}">${system.systemName}</option>
+													</c:if>
+
+												</c:forEach>
+
+											</c:if>
+
+
+										</select>
 									</div>
 								</c:if>
 							</article>
@@ -480,9 +382,9 @@ main {
 										<td class="rno">${request.rno}</td>
 										<!-- 나중에 시스템 이름으로 바꾸어 줘야 함. -->
 										<td class="client">${request.sno}</td>
-										
+
 										<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
-										
+
 										<c:if test="${request.statusNo == 1}">
 											<td class="sysType">미정</td>
 										</c:if>
@@ -492,12 +394,14 @@ main {
 										<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
 											<td class="sysType">${request.reqType}</td>
 										</c:if>
-										
-										<td class="reqTitle" style="max-width: 100px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>	
-										<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" /></td>
-										
+
+										<td class="reqTitle" style="max-width: 100px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
+										<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
+											<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
+										</td>
+
 										<td class="step_td">
-											<%@ include file="/WEB-INF/views/srm/restatus/nowstatusvertical.jsp"%>
+											<%@ include file="/WEB-INF/views/srm/restatus/stepintable.jsp"%>
 										</td>
 
 									</tr>
