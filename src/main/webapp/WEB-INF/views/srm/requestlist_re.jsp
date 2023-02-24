@@ -149,16 +149,12 @@ main {
 }
 
 .table .table-body {
-	position: absolute;
-	top: 10%;
-	left: 0%;
 	height: inherit;
-	width: 1050px;
 }
 
 .member {
 	margin: 5px 10px;
-	width: 1050px;
+	width: inherit;
 	background-color: #fff;
 	border-collapse: collapse;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
@@ -198,6 +194,13 @@ main {
 	background-color: #85ce36;
 	color: #fff;
 }
+
+.member .step_td {
+	border: 1px solid black;
+	display: inline-block;
+	width: 650px;
+}
+
 .member tr:hover {
 	background-color: rgba(211, 211, 211, 0.438);
 }
@@ -209,6 +212,30 @@ main {
 	left: 61%;
 	top: 70%;
 	z-index: 5;
+}
+
+.member .step_td .progress-bar.li {
+	float: left;
+	text-align: center;
+	box-sizing: border-box;
+	width: 650px;
+}
+
+.step_td {
+	table-layout: fixed;
+}
+
+.step_td ol {
+	padding: 0px 0px;
+	text-align: start;
+}
+
+.step_td ol li, span {
+	display: block;
+}
+
+.step_td ol li {
+	width: 50px;
 }
 </style>
 
@@ -366,48 +393,46 @@ main {
 						<article class="table-header">
 							<h4>리스트</h4>
 						</article>
-						<article class="member table-body">
-							<table class="member" id="table_content">
+						<table class="member" id="table_content">
+							<tr>
+								<th>No.</th>
+								<th>시스템</th>
+								<th>요청 유형</th>
+								<th>요청 제목</th>
+								<th>요청 일자</th>
+								<th>단계</th>
+
+							</tr>
+							<c:forEach var="request" items="${requestList}">
 								<tr>
-									<th>No.</th>
-									<th>시스템</th>
-									<th>요청 유형</th>
-									<th>요청 제목</th>
-									<th>요청 일자</th>
-									<th>단계</th>
+									<td class="rno">${request.rno}</td>
+									<!-- 나중에 시스템 이름으로 바꾸어 줘야 함. -->
+									<td class="client">${request.sno}</td>
+
+									<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
+
+									<c:if test="${request.statusNo == 1}">
+										<td class="sysType">미정</td>
+									</c:if>
+									<c:if test="${request.statusNo == 12}">
+										<td class="sysType">반려</td>
+									</c:if>
+									<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
+										<td class="sysType">${request.reqType}</td>
+									</c:if>
+
+									<td class="reqTitle" style="max-width: 100px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
+									<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
+										<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
+									</td>
+
+									<td class="step_td">
+										<%@ include file="/WEB-INF/views/srm/restatus/stepintable.jsp"%>
+									</td>
 
 								</tr>
-								<c:forEach var="request" items="${requestList}">
-									<tr>
-										<td class="rno">${request.rno}</td>
-										<!-- 나중에 시스템 이름으로 바꾸어 줘야 함. -->
-										<td class="client">${request.sno}</td>
-
-										<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
-
-										<c:if test="${request.statusNo == 1}">
-											<td class="sysType">미정</td>
-										</c:if>
-										<c:if test="${request.statusNo == 12}">
-											<td class="sysType">반려</td>
-										</c:if>
-										<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
-											<td class="sysType">${request.reqType}</td>
-										</c:if>
-
-										<td class="reqTitle" style="max-width: 100px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
-										<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
-											<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
-										</td>
-
-										<td class="step_td">
-											<%@ include file="/WEB-INF/views/srm/restatus/stepintable.jsp"%>
-										</td>
-
-									</tr>
-								</c:forEach>
-							</table>
-						</article>
+							</c:forEach>
+						</table>
 					</section>
 					</main>
 				</div>

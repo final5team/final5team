@@ -304,9 +304,9 @@ public class RequestController {
 		// filter 전달
 		model.addAttribute("listFilter", returnList);
 		
-//		return "srm/requestlist";
-		log.info("담당 업무 리스트 수정");
-		return "srm/requestlist_re";
+		return "srm/requestlist";
+//		log.info("담당 업무 리스트 수정");
+//		return "srm/requestlist_re";
 	}
 
 	/**
