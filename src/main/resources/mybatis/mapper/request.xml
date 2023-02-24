@@ -264,9 +264,11 @@
 			client = #{member.mid}
 
 			<if test='listFilter.reqType neq "전체"'>
-			and REQ_TYPE = #{listFilter.reqType}
+				and REQ_TYPE = #{listFilter.reqType}
 			</if>
-
+			<if test='listFilter.sno != 0'>
+					and sno = #{listFilter.sno}
+			</if>
 			<if test='listFilter.dateValue.equals("zero")'> 
 				<![CDATA[
 					
@@ -332,10 +334,10 @@
 		resultType="com.oti.srm.dto.SelectPM">
 		<![CDATA[
 			select RNO, REQ_DATE as "reqDate", REQ_TITLE as "reqTitle", REQ_CONTENT as "reqContent"
-					, CLIENT, SNO, REQ_EXPECT_DATE as "reqExpectDate" , STATUS_NO as "statusNo", t.req_type
+					, CLIENT, SNO, REQ_EXPECT_DATE as "reqExpectDate" , STATUS_NO as "statusNo", t.req_type as "reqType"
 			from(
 			    select r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT,
-                    r.CLIENT, r.SNO, r.REQ_EXPECT_DATE , r.STATUS_NO, rp.req_type
+                    r.CLIENT, r.SNO, r.REQ_EXPECT_DATE , r.STATUS_NO, rp.req_type 
 			    from requests r join request_process rp
                 on r.rno = rp.rno
 		]]>
@@ -345,6 +347,9 @@
 			client = #{member.mid}
 			<if test='listFilter.reqType neq "전체"'>
 				and REQ_TYPE = #{listFilter.reqType}
+			</if>
+			<if test='listFilter.sno != 0'>
+				and sno = #{listFilter.sno}
 			</if>
 			<if test='listFilter.dateValue.equals("zero")'>
 			</if>
@@ -428,6 +433,7 @@
 			where hno = #{hno}
 	</select>
 	
+
 
 
 
