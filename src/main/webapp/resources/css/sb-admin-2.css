@@ -60,7 +60,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: 'Open Sans', sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -10167,8 +10167,8 @@ a:focus {
 
 .sidebar .nav-item .nav-link .img-profile,
 .topbar .nav-item .nav-link .img-profile {
-  height: 2rem;
-  width: 2rem;
+  height: 3rem;
+  width: 3rem;
 }
 
 .topbar {
@@ -10199,8 +10199,8 @@ a:focus {
 
 .topbar .topbar-divider {
   width: 0;
-  border-right: 1px solid #e3e6f0;
-  height: calc(4.375rem - 2rem);
+  border-right: 1px solid #8b9cb1;
+  height: calc(3.975rem - 2rem);
   margin: auto 1rem;
 }
 
@@ -11485,31 +11485,32 @@ input[type="checkbox"]:checked + label:after {
 	font-family: 'Font Awesome 5 Free'; */
 	color: #85CE36;
 }      
-/*각 카드 스크롤 넣기*/
-/* Let's get this party started */
-.cardscroller .cardscroller-block{
-    overflow-y: scroll;
-    overflow-x: hidden;
-    margin: 0;
+
+ .title{
+     font-size: 1.45rem;
+    font-weight: 600;
+    margin-bottom: 0;
+ }
+ .title-description{
+     margin: 0;
+    font-size: 0.9rem;
+    font-weight: normal;
+    color: #7e8e9f;
+ }
+  .title-block::after{
+    display: block;
+    clear: both;
+    content: "";
+  }
+  
+  .title-block {
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #d7dde4;
 }
 
-.cardscroller-block::-webkit-scrollbar {
-  width: 7px;
-  height: 7px; }
-
-/* Track */
-.cardscroller-block::-webkit-scrollbar-track {
-  border-radius: 0; }
-
-/* Handle */
-.cardscroller-block::-webkit-scrollbar-thumb {
-  border-radius: 0;
-  background: #d7dde4; }
-
-.cardscroller-block::-webkit-scrollbar-thumb:window-inactive {
-  background: #3a4651; }
-  #main{
+#main{
 	width: 1420px;
-	padding: 0px
-	}
-  
+	padding:0px;
+	
+}

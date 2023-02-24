@@ -43,14 +43,16 @@
            transition: 0.4s ease;
            border-radius: 50%;
       }
-      
+      .bar:after{
+      	margin-bottom: 5px;
+      }
       .circle.done {
            border-color: var(--line-fill);
            color : var(--line-fill);
       }
       
       .circle.now {
-         border-color : white;
+         border-color : var(--line-fill);
          color : white;
          background-color : var(--line-fill);
       }
@@ -125,7 +127,10 @@
                 <!-- 여기에 내용 담기 start -->
                 <div class="container-fluid">
                 	 <div id="main">
-                	
+                		<div class="title-block mt-3">
+                			<h3 class="title ml-3">요청상세보기</h3>
+                			<p class="title-description ml-3">개발상세보기</p>
+                		</div>
 						<div class="row">
 							<!-- 게시글 상세보기 start -->
 							<div class="col-9">
@@ -238,14 +243,14 @@
 									<!-- 개발***********************start -->
 									<div style="background-color: #ffffff;" class="card mt-3">
 										
-										<h3 class="ml-3 mt-3">개발내용</h3>
+										<h4 class="ml-3 mt-3">개발내용</h4>
 										<div class="css-e23nfx-a mt-2">
 											<div class="table-menu" style="width: 100px;">개발차수</div>
 											<div class="table-menu" style="width: 180px;">작성인</div>
 											<div class="table-menu" style="width: 130px;">개발일자</div>
 											<div class="table-menu" style="flex-grow:1">개발내용</div>
 										</div>
-										<ul  padding-left: 10px">
+										<ul  style="padding-left: 5px;">
 											<c:forEach varStatus="i" var="statusHistory" items="${devToTester}">
 												<li style="list-style:none;">
 													<div class="table-row">
@@ -258,30 +263,19 @@
 															<div href="#dev${i.count}" class="table-vertical btn btn-sm" data-toggle="collapse" style="flex-grow:1">개발내용확인하기</div>
 													</div>
 													<div id="dev${i.count}" class="collapse " style="opacity: 1; height: auto;">
-														<div class="d-flex justify-content-center">
-															<table class="table table-bordered" style="width: 800px; table-layout: fixed;">
-																<tbody >
-																	<tr>
-																		<td style="text-align: right;" class="font-weight-bold">배포소스</td>
-																		<td>${statusHistory.distSource}</td>
-																	</tr>
-																	<tr>
-																		<td style="text-align: right;" class="font-weight-bold">첨부파일</td>
-																		<td>
-																			<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-																				<span>${statusHistoryFile.fileName}</span>
-																				<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-																					<i class="fas fa-cloud-download-alt"></i>
-																				</a><br>
-																			</c:forEach>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td style="text-align: right;" class="font-weight-bold">개발내용</td>
-																		<td style="word-wrap:break-word;">${statusHistory.reply}</td>
-																	</tr>
-																</tbody>
-															</table>
+														<div style="width: 900px; margin-left: 50px;" >
+															<div class="row">
+																<div class="col-3">배포소스</div>
+																<div class="col-9">asdf.java</div>
+															</div>
+															<div class="row">
+																<div class="col-3">첨부파일</div>
+																<div class="col-9">asdf.java</div>
+															</div>
+															<div class="row">
+																<div class="col-3">개발내용</div>
+																<div class="col-9">aㅁㄴㅇㄻㄴㅇㄻㄴㅇㄻㄴㅇㄹ</div>
+															</div>
 														</div>
 													</div>
 												</li>
@@ -293,7 +287,7 @@
 									<!-- *********테스트start******** -->
 									
 									<div style="background-color: #ffffff;" class="card mt-3">
-										<h3 class="ml-3 mt-3">테스트 결함 내용</h3>
+										<h4 class="ml-3 mt-3">테스트 결함 내용</h4>
 										<div class="css-e23nfx mt-2">
 											<div class="table-menu" style="width: 100px;">결함차수</div>
 											<div class="table-menu" style="width: 180px;">작성인</div>
