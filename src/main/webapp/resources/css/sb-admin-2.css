@@ -9596,11 +9596,11 @@ button.bg-dark:focus {
 }
 
 .text-primary {
-  color: #4f7523 !important;
+  color: #60adff !important;
 }
 
 a.text-primary:hover, a.text-primary:focus {
-  color: #224abe !important;
+  color: #60adff !important;
 }
 
 .text-secondary {
@@ -9612,7 +9612,7 @@ a.text-secondary:hover, a.text-secondary:focus {
 }
 
 .text-success {
-  color: #1cc88a !important;
+  color: #3fb059 !important;
 }
 
 a.text-success:hover, a.text-success:focus {
@@ -9620,15 +9620,15 @@ a.text-success:hover, a.text-success:focus {
 }
 
 .text-info {
-  color: #36b9cc !important;
+  color: #17a2b8 !important;
 }
 
 a.text-info:hover, a.text-info:focus {
-  color: #258391 !important;
+  color: #17a2b8 !important;
 }
 
 .text-warning {
-  color: #f6c23e !important;
+  color: #ffc722 !important;
 }
 
 a.text-warning:hover, a.text-warning:focus {
@@ -10045,11 +10045,11 @@ a:focus {
 }
 
 .border-left-primary {
-  border-left: 0.25rem solid #4e73df !important;
+  border-left: 0.25rem solid #85ce36 !important;
 }
 
 .border-bottom-primary {
-  border-bottom: 0.25rem solid #4e73df !important;
+  border-bottom: 0.25rem solid #85ce36 !important;
 }
 
 .border-left-secondary {
@@ -10061,7 +10061,7 @@ a:focus {
 }
 
 .border-left-success {
-  border-left: 0.25rem solid #1cc88a !important;
+  border-left: 0.25rem solid #4bcf99 !important;
 }
 
 .border-bottom-success {
@@ -10069,19 +10069,19 @@ a:focus {
 }
 
 .border-left-info {
-  border-left: 0.25rem solid #36b9cc !important;
+  border-left: 0.25rem solid #76d4f5 !important;
 }
 
 .border-bottom-info {
-  border-bottom: 0.25rem solid #36b9cc !important;
+  border-bottom: 0.25rem solid #76d4f5 !important;
 }
 
 .border-left-warning {
-  border-left: 0.25rem solid #f6c23e !important;
+  border-left: 0.25rem solid #fe974b !important;
 }
 
 .border-bottom-warning {
-  border-bottom: 0.25rem solid #f6c23e !important;
+  border-bottom: 0.25rem solid #fe974b !important;
 }
 
 .border-left-danger {
@@ -11510,7 +11510,7 @@ input[type="checkbox"]:checked + label:after {
 }
 
 #main{
-	width: 1420px;
+	width: 1050px;
 	padding:0px;
 	
 }
