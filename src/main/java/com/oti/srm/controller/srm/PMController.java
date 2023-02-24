@@ -66,6 +66,7 @@ public class PMController {
 		// 요청 상태가 접수 완료일 때 요청 처리 정보(담당자 선택 내역)
 		} else {
 			model.addAttribute("reqProcess", commonService.getRequestProcess(rno));
+			model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));
 		}				
 		return "srm/receipt";
 	}
