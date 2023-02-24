@@ -407,6 +407,7 @@ main {
 									<th>요청 일자</th>
 									<th>단계</th>
 								</tr>
+								
 								<c:forEach var="request" items="${requestList}">
 									<tr>
 										<td class="rno">${request.rno}</td>
