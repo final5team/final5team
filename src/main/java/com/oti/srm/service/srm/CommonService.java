@@ -82,6 +82,24 @@ public class CommonService implements ICommonService {
 
 		return distributorToPmHistories;
 	}
+	
+	@Override
+	public List<StatusHistory> getPmToAllHistories(int rno) {
+		List<StatusHistory> requestHistories = commonDao.selectRequestHistories(rno);
+
+		List<StatusHistory> pmToAllHistories = new ArrayList<StatusHistory>();
+
+		for (StatusHistory sh : requestHistories) {
+			// 개발자 -> 테스터 단계 이력만 담기
+			if (sh.getNextStatus() == 2) {
+				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
+				pmToAllHistories.add(sh);
+			}
+		}
+
+		return pmToAllHistories;
+	}
+
 
 	// 요청정보 조회(+해당 요청에 첨부된 파일들까지)
 	@Override
@@ -196,7 +214,7 @@ public class CommonService implements ICommonService {
 		//최신 요청 개수 가져오기 - pm 일 경우와 pm 이 아닐 경우 2가지로 나뉨
 		int requestRecent = 0;
 		if(member.getMtype().equals("pm")) {
-			requestRecent = commonDao.selectRequestRecentPM(member);
+			requestRecent = commonDao.selectRequestRecentPM();
 		}else {
 			requestRecent = commonDao.selectRequestRecent(member);
 		}

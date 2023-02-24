@@ -37,6 +37,7 @@ public class UserTestDistributeController {
 		model.addAttribute("devToTesterHistories", commonService.getDevToTesterHistories(rno));
 		// 고객테스트 완료 내역
 		model.addAttribute("userTesterToDistributorHistories", commonService.getUserTesterToDistributorHistories(rno));
+		model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));
 		return "srm/userTester";
 	}
 
@@ -53,6 +54,7 @@ public class UserTestDistributeController {
 		model.addAttribute("devToTesterHistories", commonService.getDevToTesterHistories(rno));
 		// 배포 완료 내역
 		model.addAttribute("distributorToPmHistories", commonService.getDistributorToPmHistories(rno));
+		model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));
 		return "srm/distributor";
 	}
 	

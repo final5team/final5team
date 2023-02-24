@@ -43,8 +43,8 @@
 				<!-- Nav Item - User Information -->
 				<li class="nav-item dropdown no-arrow">
 					<div class="nav-link dropdown-toggle" id="userDropdown">
-						<span class="mr-2 d-none d-lg-inline text-gray-600 small">${member.mid}</span>
-						<img class="img-profile rounded-circle" src="${pageContext.request.contextPath}/resources/img/hooni.png">
+						<img class="img-profile rounded-circle" src="${pageContext.request.contextPath}/customer/mypage/${member.mid}" >
+						<span class="ml-3 mr-3 d-lg-inline font-weight-bold " style="color: #5C6B7A;">${member.mname} 님</span>
 					</div>
 				</li>
 

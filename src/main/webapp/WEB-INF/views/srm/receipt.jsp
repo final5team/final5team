@@ -91,49 +91,53 @@
 					<div class="row">
 						<!-- 게시글 상세보기 start -->
 						<div class="col-xl-9 col-lg-8 col-md-8 col-sm-8 mb-4">
-							<div class="card">
-								<div class="card-header d-flex">
-									<div class="mr-auto">서비스 요청</div>					
+							<div class="card card-block sameheight-item">
+								<h3 class="title-block font-weight-bold">						
+									 요청 정보
+								</h3>
+								<div class="row mt-3">
+									<div class="col-2 font-weight-bold">요청자 :</div>
+									<div class="col-4">${request.clientName}</div>
+									<div class="col-2 font-weight-bold">소속 기관 :</div>
+									<div class="col-4">${request.organ}</div>
 								</div>
-								<div class="card-body">
-									<div>접수 상세보기 ></div>
-									<div>
-										<h3 class="mr-auto font-weight-bold">${request.reqTitle}</h3>
+								<hr/>
+								<div class="row">
+									<div class="col-2 font-weight-bold">요청일 :</div>
+									<div class="col-4"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd"/></div>
+									<div class="col-2 font-weight-bold">완료 희망일 :</div>
+									<div class="col-4"><fmt:formatDate value="${request.reqExpectDate}" pattern="yyyy-MM-dd"/></div>
+								</div>
+								<hr/>
+								<div class="row">
+									<div class="col-2 font-weight-bold">시스템 :</div>
+									<div class="col-10">${request.systemName}</div>
+								</div>
+								<hr/>
+								<div class="row">
+									<div class="col-2 font-weight-bold">제목 :</div>
+									<div class="col-10">${request.reqTitle}</div>
+								</div>
+								<hr/>
+								<div class="row">
+									<div class="col-2 font-weight-bold">내용 :</div>
+									<div class="col-10 border" style="min-height:100px;">${request.reqContent}</div>
+								</div>
+								<hr/>
+								<div class="row">
+									<div class="col-2 font-weight-bold">요청 첨부파일 :</div>
+									<div class="col-10">
+										<c:forEach var="statusHistoryFile" items="${request.files}">
+											<div>
+												<span>${statusHistoryFile.fileName}</span>
+												<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+													<i class="fas fa-cloud-download-alt"></i>
+												</a>
+											</div>
+										</c:forEach>
 									</div>
-									<div class="row">
-										<div class="col-sm-6">
-											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="20%">
-											<span class="font-weight-bold ml-2">${request.clientName}</span>
-											<span class="ml-3">${request.organ}</span>
-										</div>
-										<div class="col-sm-6 ml-auto">
-											<div class="d-flex">
-												<div class="pl-5">시스템:</div>
-												<div class="pl-2 flex-grow-1">${request.systemName}</div>
-											</div>
-											<div class="d-flex">
-												<div class="pl-5">요청일:</div>
-												<div class="pl-2 flex-grow-1"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd"/></div>												
-											</div>
-											<div class="d-flex">
-												<div class="pl-5">요청완료희망일:</div>
-												<div class="pl-2 flex-grow-1"><fmt:formatDate value="${request.reqExpectDate}" pattern="yyyy-MM-dd"/></div>
-											</div>
-										</div>
-									</div>
-									<div class="mt-2 ml-5">${request.reqContent}</div>
-									<div class="mt-3 ml-5">
-										<c:if test="${request.files != null}">
-											<c:forEach var="file" items="${request.files}">
-												<p>
-													<span>${file.fileName}</span>
-													<a href="#" role="button">
-														<i class="fas fa-cloud-download-alt"></i>
-													</a>
-												</p>
-											</c:forEach>
-										</c:if>
-									</div>									
+								</div>
+								<div class="d-flex justify-content-end">
 									<c:if test="${request.statusNo==1 && member.mtype =='pm'}">
 										<div class="d-flex justify-content-end">
 											<button class="btn btn-primary btn-lg mt-3 ml-3" type="button" id="receiptbtn">접수</button>
@@ -141,7 +145,7 @@
 										</div>
 									</c:if>
 								</div>
-							</div>							
+							</div>				
 
 							<!-- 접수 -->
 							<div id="receiptdiv"> 						            
@@ -277,54 +281,78 @@
 							
 							<!-- 서비스 요청 접수 완료 후 start-->
 							<c:if test="${request.statusNo!=1 && member.mtype !='user' && request.statusNo!=12}">
-								<div class="card mt-4 mb-1">
-									<div class="card-header">서비스 요청 접수 완료</div>
-									<div class="card-body">									
+								<div class="card card-block sameheight-item mt-3">
+									<h3 class="title-block font-weight-bold">						
+										 요청 처리 계획
+									</h3>
+									<div class="row mt-3">
+										<div class="col-2 font-weight-bold">요청 유형 :</div>
+										<div class="col-4">
+											<c:if test="${reqProcess.reqType eq '정규'}">
+												<div>정규<i class="far fa-registered text-secondary"></i></div>
+											</c:if>
+											<c:if test="${reqProcess.reqType eq '긴급'}">
+												<div>긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
+											</c:if>
+										</div>
+										<div class="col-2 font-weight-bold">중요도 :</div>
+										<div class="col-4">
+											<c:if test="${reqProcess.priority eq '하' || reqProcess.priority eq '중' ||reqProcess.priority eq '상'}">
+												<span class="fa fa-star checked" style="color: orange;"></span>
+											</c:if>
+											<c:if test="${reqProcess.priority eq '중' || reqProcess.priority eq '상'}">
+												<span class="fa fa-star checked" style="color: orange;"></span>
+											</c:if>
+											<c:if test="${reqProcess.priority eq '상'}">
+												<span class="fa fa-star checked" style="color: orange;"></span>
+											</c:if>
+										</div>
+									</div>
+									<hr/>
+
+									<div class="row">
+										<div class="col-2 font-weight-bold">요청 완료 예정일 :</div>
+										<div class="col-10">
+											<fmt:formatDate value="${reqProcess.allExpectDate}" pattern="yyyy-MM-dd"/>
+										</div>
+									</div>
+									<hr/>
+									<div class="row">
+										<div class="col-2 font-weight-bold">개발 담당자 :</div>
+										<div class="col-4">${reqProcess.developer}</div>
+										<div class="col-2 font-weight-bold">테스트 담당자 :</div>
+										<div class="col-4">${reqProcess.tester}</div>
+									</div>	
+									<hr/>
+									<div class="row">
+										<c:if test="${reqProcess.reqType eq '정규'}">
+											<div class="col-2 font-weight-bold">유저테스트 담당자 :</div>
+											<div class="col-4">${reqProcess.userTester}</div>
+										</c:if>
+										<div class="col-2 font-weight-bold">배포 담당자 :</div>
+										<div class="col-4">${reqProcess.distributor}</div>
+									</div>	
+									<hr/>
+									<c:forEach var="statusHistory" items="${pmToAllHistories}">
 										<div class="row">
-											<div class="col-sm-3 d-flex align-items-center" style="text-align:center;">
-												<div>
-													<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hooni.png" width="50%">
-													<div class="ml-3">[PM] ${reqProcess.pm}</div>
-												</div>
-											</div>
-											<div class="col-sm-9">
-												
-												<div class="row col-sm-12 form-group">
-													<div class="col">
-														<label class="control-label">요청 유형</label>
-														<input value="${reqProcess.reqType}" style="width: 200px" class="text-center ml-4" readonly>																																													
+											<div class="col-2 font-weight-bold">검토 의견 :</div>
+											<div class="col-10 border" style="min-height:100px;">${statusHistory.reply}</div>
+										</div>
+										<hr/>
+										<div class="row">
+											<div class="col-2 font-weight-bold">검토 첨부파일 :</div>
+											<div class="col-10">
+												<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+													<div>
+														<span>${statusHistoryFile.fileName}</span>
+														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+															<i class="fas fa-cloud-download-alt"></i>
+														</a>
 													</div>
-													<div class="col">
-														<label class="control-label">중요도</label>
-														<input value="${reqProcess.priority}" style="width: 200px" class="text-center ml-5" readonly>																																																														
-													</div>												
-												</div>
-												<div class="col-sm-12 form-group row">
-													<label class="control-label col-lg-6" >완료예정일</label>
-													<input name="allExpectDate" class="col-lg-6 text-center" value="<fmt:formatDate value="${reqProcess.allExpectDate}" pattern="yyyy-MM-dd"/>" readonly>
-												</div>
-												
-												<div class="col-sm-12 form-group row">
-													<label class="control-label col-lg-6">개발 담당자 선택</label>
-													<input name="developer" value="${reqProcess.developer}" class="col-lg-6 text-center" readonly>	
-												</div>
-												<div class="col-sm-12 form-group row">
-													<label class="control-label col-lg-6">테스트 담당자 선택</label>
-													<input name="tester" value="${reqProcess.tester}" class="col-lg-6 text-center" readonly>
-												</div>
-												<c:if test="${reqProcess.reqType eq '정규'}">
-													<div class="col-sm-12 form-group row">
-														<label class="control-label col-lg-6">유저테스트 담당자 선택</label>
-														<input name="userTester" value="${reqProcess.userTester}" class="col-lg-6 text-center" readonly>
-													</div>
-												</c:if>
-												<div class="col-sm-12 form-group row">
-													<label class="control-label col-lg-6">배포 담당자 선택</label>
-													<input name="distributor" value="${reqProcess.distributor}" class="col-lg-6 text-center" readonly>
-												</div>										
+												</c:forEach>
 											</div>
-										</div>																					
-									</div>										
+										</div>	
+									</c:forEach>						
 								</div>
 							</c:if>
 							<!-- 서비스 요청 반려 완료 후 end-->
@@ -366,13 +394,13 @@
 						<!-- 게시글 상세보기 end -->
 						<!-- 상태 단계 이력 start -->						
 						<div class="col-xl-3 col-lg-4 col-md-4 col-sm-4">
-							<div class="card">
-								<div class="card-header">
-									<h6 class="m-0 font-weight-bold text-primary">단계 상태</h6>
-								</div>
+							<div class="card card-block">
+								<h3 class="title-block font-weight-bold">						
+									 진행 상태
+								</h3>
 								<div class="card-body">
-									<div></div>
-									<div class="mt-4 text-center small"></div>
+									<!-- request.statusName(현재 상태)에 따라 다른 단계 화면 표시-->
+									<%@ include file="/WEB-INF/views/srm/nowstatusvertical.jsp" %>
 								</div>
 							</div>
 						</div>

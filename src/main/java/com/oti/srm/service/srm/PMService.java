@@ -28,6 +28,7 @@ public class PMService implements IPMService {
 	ICommonDao commonDao;
 	
 	@Override
+	@Transactional
 	public List<Member> getStaffBySno(int sno, String mtype) {
 		// 태스크별 목록 구하기
 		List<Member> staffList = pMDao.selectStaffBySno(sno, mtype);
@@ -70,6 +71,7 @@ public class PMService implements IPMService {
 	}
 
 	@Override
+	@Transactional
 	public StatusHistory getStatusHistory(int rno, String string) {
 		// 전체 요청 처리 내역
 		commonDao.selectRequestHistories(rno);

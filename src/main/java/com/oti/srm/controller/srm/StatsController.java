@@ -45,10 +45,12 @@ public class StatsController {
 		// 태스크별 지연율 구하기
 		model.addAttribute("delRateTask", statsService.getDelRateTask());
 		
+		// 둘째 줄
 		// SR 처리 현황
-		// 전체 SR 처리 현황
-		//model.addAttribute("allState", statsService.getSRState("all"));
-		
+		// 전체 서비스 요청 처리 현황
+		model.addAttribute("allState", statsService.getSRState());
+		// 태스크별 서비스 요청 처리 현황
+		model.addAttribute("stateTask", statsService.getSRStateTask());
 		
 		// 셋째 줄
 		// 서비스 요청 추이

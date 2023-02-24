@@ -1,5 +1,6 @@
 package com.oti.srm.service.srm;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,12 +9,7 @@ import java.util.Map;
  *
  */
 // 통계 관련 서비스 메소드
-public interface IStatsService {
-	// SR 처리 현황 구하기
-	public void getSRState(String string);
-	// 
-	
-		
+public interface IStatsService {	
 	// 시스템 비중 구하기
 	public List<System> getSystemSlice();
 	// 전체 서비스 요청 완료율 구하기
@@ -25,10 +21,16 @@ public interface IStatsService {
 	// 태스크 별 요청 지연율 구하기
 	public Map<String, Integer> getDelRateTask();
 	
-	
+	// 서비스 요청 처리 현황 구하기
+	public List<Integer> getSRState();
+	// 태스크별 서비스 요청 처리 현황 구하기
+	public List<ArrayList<Integer>> getSRStateTask();
 	
 	// 서비스 요청 추이 값 구하기
 	public Map<String, Integer> getSRChange(int req);
+
+
+	
 
 
 }
