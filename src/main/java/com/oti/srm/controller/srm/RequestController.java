@@ -135,7 +135,17 @@ public class RequestController {
 	 */
 	@GetMapping("/mypage/{mid}")
 	public ResponseEntity<byte[]> returnImg(@PathVariable String mid) {
+		
 		Member returnMember = userRegisterService.getUserInfo(mid);
+		log.info(returnMember.toString());
+		
+		if(returnMember.getMfile() == null) {
+			
+			returnMember = userRegisterService.getUserInfo("가입Test");
+			
+		}
+		
+		
 		HttpHeaders headers = new HttpHeaders();
 		String[] fileTypes = returnMember.getFileType().split("/");
 		headers.setContentType(new MediaType(fileTypes[0], fileTypes[1]));
@@ -295,8 +305,9 @@ public class RequestController {
 		// filter 전달
 		model.addAttribute("listFilter", returnList);
 		
-		return "srm/requestlist";
-
+//		return "srm/requestlist";
+		log.info("담당 업무 리스트 수정");
+		return "srm/requestlist_re";
 	}
 
 	/**
