@@ -402,6 +402,7 @@ main {
 								<tr>
 									<th>No.</th>
 									<th>시스템</th>
+									<th>요청 유형</th>
 									<th>요청 제목</th>
 									<th>요청 일자</th>
 									<th>단계</th>
@@ -410,6 +411,15 @@ main {
 									<tr>
 										<td class="rno">${request.rno}</td>
 										<td class="client">${request.sno}</td>
+										<c:if test="${request.statusNo == 1}">
+											<td class="sysType">미정</td>
+										</c:if>
+										<c:if test="${request.statusNo == 12}">
+											<td class="sysType">반려</td>
+										</c:if>
+										<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
+											<td class="sysType">${request.reqType}</td>
+										</c:if>
 										<td class="reqTitle" style="max-width: 100px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
 										<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
 										<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" /></td>

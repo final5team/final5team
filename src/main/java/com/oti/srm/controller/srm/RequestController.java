@@ -94,7 +94,6 @@ public class RequestController {
 				int result = userRegisterService.register(member);
 				if (result == IUserRegisterService.REGISTER_FAIL) {
 					return "redirect:/customer/register";
-					// 성공
 				} else {
 					return "redirect:/";
 				}
@@ -173,7 +172,6 @@ public class RequestController {
 			@RequestParam("mfile[]") MultipartFile[] files) {
 		// 요청 상태값은 1
 		request.setStatusNo(1);
-		request.setSno(1);
 		Member member = (Member) session.getAttribute("member");
 		request.setClient(member.getMid());
 
@@ -212,9 +210,14 @@ public class RequestController {
 			@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "") String date_first,
 			@RequestParam(defaultValue = "") String date_last, @RequestParam(defaultValue = "0") int sno,
 			@RequestParam(defaultValue = "전체") String req_type) {
+		log.info(req_type);
 		
 		// 요청 조회 필터
 		List<System> systemList = userRegisterService.getSystemList();
+		// 유저 정보 전달
+		Member member = (Member) session.getAttribute("member");
+		// 유저 id 저장
+		request.setMid(member.getMid());
 		
 		// 전달받은 필터 값 저장 (단계 제외)
 		ListFilter listFilter = new ListFilter();
@@ -223,17 +226,16 @@ public class RequestController {
 		listFilter.setDateLast(date_last);
 		listFilter.setSno(sno);
 		
-		// 유저 정보 전달
-		Member member = (Member) session.getAttribute("member");
-		// 유저 id 저장
-		request.setMid(member.getMid());
+		log.info(listFilter.toString());
+		
+
 	
 		// 보여줄 행 수 조회
 		int totalRows = requestService.getRequestListRows(listFilter, member);
 		Pager pager = new Pager(7, 5, totalRows, pageNo);
 		List<SelectPM> requestList = requestService.getMyRequestList(request, listFilter, pager, member);
 		
-		log.info(requestList.size());
+		
 		// 시스템 리스트 전달
 		model.addAttribute("systemList", systemList);
 		// 목록 리스트와 페이지 return
