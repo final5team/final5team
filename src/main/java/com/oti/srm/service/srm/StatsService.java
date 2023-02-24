@@ -3,6 +3,7 @@ package com.oti.srm.service.srm;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +82,10 @@ public class StatsService implements IStatsService {
 			com.put(mtype, 100*statsDao.selectComReqTask(i) / statsDao.selectAllReqTask(i));
 		}
 		return com;
+	}	
+	@Override
+	public List<System> getSystemSlice() {
+		return statsDao.selectSystemSlice();
 	}
 
 
