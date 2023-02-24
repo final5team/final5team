@@ -82,6 +82,24 @@
 			</if>
 		</where> 
 	</select>
+	<select id="selectOnReqTask" parameterType="int" resultType="int">
+		select count(*) as cnt
+		from REQUEST_PROCESS
+		<where>			
+			<if test="mtype == 1">
+				DEV_EXPECT_DATE is not null and DEV_COMP_DATE is null
+			</if>
+			<if test="mtype == 2">
+				TEST_EXPECT_DATE is not null and TEST_COMP_DATE is null
+			</if>
+			<if test="mtype == 3">
+				USERTEST_EXPECT_DATE is not null and USERTEST_COMP_DATE is null
+			</if>
+			<if test="mtype == 4">
+				DIST_EXPECT_DATE is not null and DIST_COMP_DATE is null
+			</if>
+		</where> 
+	</select>
 	<select id="selectSystemSlice" resultType="com.oti.srm.dto.System">
 		<![CDATA[
 			select SYSTEM_NAME as systemName, nvl(cnt,0) as sno

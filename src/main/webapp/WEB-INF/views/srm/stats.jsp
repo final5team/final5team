@@ -97,7 +97,7 @@
 
 	    	  // 그래프 옵션
 	    	  var options = {	    	   		
-	    	        height: 100,						// 그래프 높이
+	    	        height: 100,					// 그래프 높이
 	    	        hAxis: {	 					// 그래프 가로축  설정	        	  
 	    	        	  textStyle: {				// 그래프 글자 색
 		    	        	    color: 'white'
@@ -472,7 +472,7 @@
 										                          <div class="row no-gutters align-items-center">
 										                               <div class="col mr-2">
 										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">전체</div>
-										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">3 건</div>
+										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][0]} 건</div>
 										                               </div>
 										                               <div class="col-auto">
 										                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -488,7 +488,7 @@
 										                          <div class="row no-gutters align-items-center">
 										                              <div class="col mr-2">
 										                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">개발 대기</div>
-										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">5 건</div>
+										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][0]-stateTask[0][1]-stateTask[0][2]} 건 </div>
 										                              </div>
 										                          	  <div class="col-auto">
 										                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -504,7 +504,7 @@
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
 								                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">개발 중</div>
-								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][1]} 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
 								                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -520,7 +520,7 @@
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
 								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">개발 완료</div>
-								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][2]} 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
 								                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -548,7 +548,7 @@
 										                          <div class="row no-gutters align-items-center">
 										                               <div class="col mr-2">
 										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">전체</div>
-										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">3 건</div>
+										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][0]} 건</div>
 										                               </div>
 										                               <div class="col-auto">
 										                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -564,7 +564,7 @@
 										                          <div class="row no-gutters align-items-center">
 										                              <div class="col mr-2">
 										                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">테스트 대기</div>
-										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">5 건</div>
+										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][0]-stateTask[1][1]-stateTask[1][2]} 건</div>
 										                              </div>
 										                          	  <div class="col-auto">
 										                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -580,7 +580,7 @@
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
 								                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">테스트 중</div>
-								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][1]} 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
 								                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -596,7 +596,7 @@
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
 								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">테스트 완료</div>
-								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][2]} 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
 								                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -623,7 +623,7 @@
 										                          <div class="row no-gutters align-items-center">
 										                               <div class="col mr-2">
 										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">전체</div>
-										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">3 건</div>
+										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][0]} 건</div>
 										                               </div>
 										                               <div class="col-auto">
 										                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -639,7 +639,7 @@
 										                          <div class="row no-gutters align-items-center">
 										                              <div class="col mr-2">
 										                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">테스트 대기</div>
-										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">5 건</div>
+										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][0]-stateTask[2][1]-stateTask[2][2]} 건</div>
 										                              </div>
 										                          	  <div class="col-auto">
 										                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -655,7 +655,7 @@
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
 								                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">테스트 중</div>
-								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][1]} 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
 								                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -671,7 +671,7 @@
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
 								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">테스트 완료</div>
-								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][2]} 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
 								                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -698,7 +698,7 @@
 										                          <div class="row no-gutters align-items-center">
 										                               <div class="col mr-2">
 										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">전체</div>
-										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">3 건</div>
+										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][0]} 건</div>
 										                               </div>
 										                               <div class="col-auto">
 										                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -714,7 +714,7 @@
 										                          <div class="row no-gutters align-items-center">
 										                              <div class="col mr-2">
 										                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">배포 대기</div>
-										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">5 건</div>
+										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][0]-stateTask[3][1]-stateTask[3][2]} 건</div>
 										                              </div>
 										                          	  <div class="col-auto">
 										                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -730,7 +730,7 @@
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
 								                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">배포 중</div>
-								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][1]} 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
 								                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -746,7 +746,7 @@
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
 								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">배포 완료</div>
-								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][2]} 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
 								                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
