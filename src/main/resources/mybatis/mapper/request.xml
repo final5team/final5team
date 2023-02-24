@@ -405,7 +405,7 @@
 
 	<select id="selectRequestDetail" parameterType="int" resultType="com.oti.srm.dto.Request">
 		select r.RNO, r.REQ_DATE as "reqDate" , r.REQ_TITLE as "reqTitle" , r.REQ_CONTENT as "reqContent", 
-				r.CLIENT, r.SNO, r.REQ_EXPECT_DATE as "reqExpectDate", r.STATUS_NO, sh.hno
+				r.CLIENT, r.SNO, r.REQ_EXPECT_DATE as "reqExpectDate", r.STATUS_NO as "statusNo", sh.hno
         from status_histories sh left outer join requests r
         on sh.rno = r.rno
         where r.rno=#{rno} and next_status = 1

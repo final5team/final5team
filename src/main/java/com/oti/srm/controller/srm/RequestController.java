@@ -304,9 +304,7 @@ public class RequestController {
 		Request request = requestService.getRequestDetail(rno);
 		List<System> systemList = userRegisterService.getSystemList();
 		
-		log.info(request.getReqTitle());
-		
-		
+		log.info(request.getStatusNo());
 		
 		model.addAttribute("request", request);
 		model.addAttribute("systemList", systemList);
