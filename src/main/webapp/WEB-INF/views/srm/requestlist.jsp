@@ -356,38 +356,105 @@ main {
 							</article>
 							<article class="filter-body">
 								<div class="input-group">
-									<select class="custom-select" id="req_type" name="req_type">
-										<option value="전체" selected>전체</option>
-										<option value="정규">정규</option>
-										<option value="긴급">긴급</option>
-									</select>
+									<c:if test="${listFilter.reqType == null}">
+										<select class="custom-select" id="req_type" name="req_type">
+											<option value="전체" selected>전체</option>
+											<option value="정규">정규</option>
+											<option value="긴급">긴급</option>
+										</select>
+									</c:if>
+									<c:if test="${listFilter.reqType != null}">
+										<select class="custom-select" id="req_type" name="req_type">
+											<option value="${listFilter.reqType}" selected>${listFilter.reqType}</option>
+											<c:if test="${listFilter.reqType != '전체'}">
+												<option value="전체">전체</option>
+											</c:if>
+											<c:if test="${listFilter.reqType != '정규'}">
+												<option value="정규">정규</option>
+											</c:if>
+											<c:if test="${listFilter.reqType != '긴급'}">
+												<option value="긴급">긴급</option>
+											</c:if>
+										</select>
+									</c:if>
+									
 								</div>
 								<div class="date_form">
-									<input type="date" id="date_first" name="date_first"> <i class="fa fa-minus"></i> 
-									<input type="date" id="date_last" name="date_last">
+									<input type="date" id="date_first" name="date_first" value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> 
+									<i class="fa fa-minus"></i> 
+									<input type="date" id="date_last" name="date_last" value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
 								</div>
 							</article>
 							<article class="filter-body2">
 								<div class="input-group">
-									<select class="custom-select" id="statusNo" name="statusNo">
-										<option value="0" selected>전체</option>
-										<option value="1">접수</option>
-										<option value="2">개발</option>
-										<option value="5">테스트</option>
-										<option value="8">유저테스트</option>
-										<option value="10">배포</option>
-										<option value="11">완료</option>
-										<option value="12">반려</option>
-									</select>
+									<c:if test="${listFilter.statusValue == null}">
+										<select class="custom-select" id="statusNo" name="statusNo">
+											<option value="0" selected>전체</option>
+											<option value="1">접수</option>
+											<option value="2">개발</option>
+											<option value="5">테스트</option>
+											<option value="8">유저테스트</option>
+											<option value="10">배포</option>
+											<option value="11">완료</option>
+											<option value="12">반려</option>
+										</select>
+									</c:if>
+									
+									<c:if test="${listFilter.statusValue != null}">
+										<select class="custom-select" id="statusNo" name="statusNo">
+											<option value="${listFilter.statusNo}" selected>${listFilter.statusValue}</option>
+											<option value="0">전체</option>
+											<c:if test="${listFilter.statusNo != 1}">
+												<option value="1">접수</option>
+											</c:if>
+											<c:if test="${listFilter.statusNo != 2 && listFilter.statusNo != 3 && listFilter.statusNo != 4}">
+												<option value="2">개발</option>
+											</c:if>
+											<c:if test="${listFilter.statusNo != 5 && listFilter.statusNo != 6 && listFilter.statusNo != 7}">
+												<option value="5">테스트</option>
+											</c:if>
+											<c:if test="${listFilter.statusNo != 8}">
+												<option value="8">유저테스트</option>
+											</c:if>
+											<c:if test="${listFilter.statusNo != 10}">
+												<option value="10">배포</option>
+											</c:if>
+											<c:if test="${listFilter.statusNo != 11 && listFilter.statusNo != 13}">
+												<option value="11">완료</option>
+											</c:if>
+											<c:if test="${listFilter.statusNo != 12}">
+												<option value="12">반려</option>
+											</c:if>
+										</select>
+									</c:if>
+									
 								</div>
 								<c:if test="${sessionScope.member.mtype == 'pm'}">
 									<div class="input-group">
 										<select class="custom-select" id="sno" name="sno">
+										<c:if test="${listFilter.sno == 0}">
 											<option value="0" selected>시스템</option>
 											<c:forEach var="system" items="${systemList}">
 												<option value="${system.sno}">${system.systemName}</option>
 											</c:forEach>
-										</select>
+										</c:if>
+										
+										
+										<c:if test="${listFilter.sno != 0}">
+											<option value="${listFilter.sno}" selected>${listFilter.sno}</option>
+											<c:forEach var="system" items="${systemList}">
+											
+											
+												<c:if test="${system.sno != listFilter.sno}">
+													<option value="${system.sno}">${system.systemName}</option>
+												</c:if>
+												
+											</c:forEach>
+											
+										</c:if>
+										
+										
+									</select>
 									</div>
 								</c:if>
 							</article>
