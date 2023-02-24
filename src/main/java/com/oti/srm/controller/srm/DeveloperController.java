@@ -86,6 +86,12 @@ public class DeveloperController {
 		
 		return "srm/developerdetail2";
 	}
+	@GetMapping("/developerdetail3")
+	public String getDeveloperDetail3(Model model) {
+		log.info("실행");
+
+		return "srm/developerdetail3";
+	}
 
 
 	/**

@@ -140,7 +140,7 @@
 														</td>
 														<td class="tableContent pl-0 pb-0 mt-1">
 															<c:if test="${member.mtype eq 'pm'}">
-																<a href="${pageContext.request.contextPath}/completedetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
+																<a href="${pageContext.request.contextPath}/pm/completedetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
 															</c:if>	
 															<c:if test="${member.mtype eq 'developer'}">
 																<a href="${pageContext.request.contextPath}/developerdetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 

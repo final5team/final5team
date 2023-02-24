@@ -54,18 +54,33 @@ public class StatsService implements IStatsService {
 	public int getComRate() {
 		// 서비스 요청 완료율 구하기
 		// 월별 필터 적용하면 selectSRChange 메소드 재활용해도 될 듯
-		return 100* statsDao.selectComRate() / statsDao.selectAllRate();
+		return 100* statsDao.selectComReq() / statsDao.selectAllReq();
 	}
 	@Override
 	public int getDelRate() {
 		// 전체 서비스 요청 지연율 구하기
-		return 100* statsDao.selectDelRate() / statsDao.selectComRate();
+		return 100* statsDao.selectDelReq() / statsDao.selectComReq();
+	}
+	// 태스크별 서비스 요청 지연율 구하기
+	@Override
+	public Map<String, Integer> getDelRateTask() {		
+		// 값 저장할 Map 객체 생성
+		Map<String, Integer> del = new HashMap<>();
+		for(int i=1; i<5; i++) {
+			String mtype= (i==1)?"developer":(i==2)?"tester":(i==3)?"usertester":"distributor";
+			del.put(mtype, 100*statsDao.selectDelReqTask(i) / statsDao.selectComReqTask(i));
+		}
+		return del;
 	}
 	@Override
-	public Map<String, Integer> getDelRateTask() {
-		// 태스크별 서비스 요청 지연율 구하기
-		//statsDao.selectDelRateTask();
-		return null;
+	public Map<String, Integer> getComRateTask() {
+		// 값 저장할 Map 객체 생성
+		Map<String, Integer>com = new HashMap<>();
+		for(int i=1; i<5; i++) {
+			String mtype= (i==1)?"developer":(i==2)?"tester":(i==3)?"usertester":"distributor";
+			com.put(mtype, 100*statsDao.selectComReqTask(i) / statsDao.selectAllReqTask(i));
+		}
+		return com;
 	}
 
 

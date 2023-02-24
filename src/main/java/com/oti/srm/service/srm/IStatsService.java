@@ -14,12 +14,15 @@ public interface IStatsService {
 	
 	// 서비스 요청 추이 값 구하기
 	public Map<String, Integer> getSRChange(int req);
-	// 서비스 요청 완료율 구하기
+	
+	// 전체 서비스 요청 완료율 구하기
 	public int getComRate();
 	// 전체 서비스 요청 지연율 구하기
 	public int getDelRate();
 	// 태스크 별 요청 지연율 구하기
 	public Map<String, Integer> getDelRateTask();
+	// 태스크 별 요청 완료율 구하기
+	public Map<String, Integer> getComRateTask();
 
 
 }

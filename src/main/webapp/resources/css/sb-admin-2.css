@@ -2333,7 +2333,7 @@ textarea.form-control {
 }
 
 .btn:hover {
-  color: #ffffff;
+  color: #3A4651;
   text-decoration: none;
 }
 
@@ -11508,3 +11508,8 @@ input[type="checkbox"]:checked + label:after {
 
 .cardscroller-block::-webkit-scrollbar-thumb:window-inactive {
   background: #3a4651; }
+  #main{
+	width: 1420px;
+	padding: 0px
+	}
+  
