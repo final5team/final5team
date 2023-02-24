@@ -72,6 +72,6 @@ public interface ICommonDao {
 
 	public StatusHistoryFile selectFile(int fno);
 
-	public int selectRequestRecentPM(Member member);
+	public int selectRequestRecentPM();
 	
 }

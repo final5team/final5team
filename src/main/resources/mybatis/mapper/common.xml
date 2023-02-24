@@ -163,7 +163,7 @@
 		(seq_status_histories_files.nextval, sysdate, #{fileName}, #{fileType}, #{fileData}, #{hno})
 	</insert>
 	
-	<select id="selectRequestRecentPM" parameterType="com.oti.srm.dto.Member" resultType="int">
+	<select id="selectRequestRecentPM" resultType="int">
 		select count(*)
 		from requests
 		where status_no = 1

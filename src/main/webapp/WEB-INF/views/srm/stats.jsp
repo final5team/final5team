@@ -19,7 +19,8 @@
           ['${systemSlice[2].systemName}',     ${systemSlice[2].sno}],
           ['${systemSlice[3].systemName}',     ${systemSlice[3].sno}]
         ]);
-
+		
+    	// 그래프 옵션
         var options = {
           title: '전체 서비스 요청 중 시스템별 비중',   // 그래프 제목
           is3D: true						// 그래프 형식(3D 그래프)
@@ -29,6 +30,7 @@
         var chart = new google.visualization.PieChart(document.getElementById('3dchart'));
         chart.draw(data, options);
       }
+      
       // 완료율 도넛 그래프 그리기
       google.charts.setOnLoadCallback(drawdonutChart);
       function drawdonutChart() {
@@ -38,13 +40,14 @@
             ['완료',     ${comRate}],
             ['',   		${100-comRate}]
           ]);
-
+			
+    	  // 그래프 옵션
           var options = {
             title: '전체 완료율',   // 그래프 제목
             pieHole: 0.4,		// 그래프 중앙 빈 부분 크기 설정
 
             tooltip: { trigger: 'none' },   // 도움말 제거   
-            legend: 'none',					// 범례 제거
+            legend: 'none',					// 범례 여부(표시 안 함)
             slices: {
                 0: { color: 'green', textStyle: {color: 'orange', fontSize: 14} },  // 그래프 완료 부분 색 설정
                 1: { color: 'transparent' , textStyle: {color: 'transparent'}}		// 그래프 미완료 부분 색 설정
@@ -55,6 +58,7 @@
           var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
           chart.draw(data, options);
         }
+      
 		  // 지연율 게이지 그래프 그리기
 	      google.charts.load('current', {'packages':['gauge']});
 	      google.charts.setOnLoadCallback(drawGageChart);
@@ -65,7 +69,8 @@
 	          ['Label', 'Value'],
 	          ['지연율', ${delRate}],
 	        ]);
-	
+			
+	        // 그래프 옵션
 	        var options = {
 	          width: 500, height: 150,			// 그래프 크기 설정
 	          redFrom: 80, redTo: 100,			// 위험 (붉은 색으로 표시된 부분) 범위 설정
@@ -73,44 +78,48 @@
 	          minorTicks: 5						// 보조 눈금
 	        };
 	        
-			//그래프 그리기
+			// 그래프 그리기
 	        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));	
 	        chart.draw(data, options);           
 	      }
       
-      	  //
+      	  // 서비스 요청 처리 현황 비중 막대 그래프 그리기
 	      google.charts.load('current', {'packages':['bar']});
 	      google.charts.setOnLoadCallback(drawBarChart);
 	
 	      function drawBarChart() {
 	    	  var data = google.visualization.arrayToDataTable([
 	    	        ['', '접수중', '개발중', '테스트중', '유저테스트중',
-	    	         '배포중', '완료', { role: 'annotation' } ],
-	    	        ['요청', 0.2, 0.3, 0.1, 0.1, 0.1, 0.2, '']	    	      
+	    	         '배포중', '완료' ],
+	    	        ['요청', ${allState[0]}/${allState[6]}, ${allState[1]}/${allState[6]}, ${allState[2]}/${allState[6]}, 
+	    	        	${allState[3]}/${allState[6]}, ${allState[4]}/${allState[6]}, ${allState[5]}/${allState[6]}]	    	      
 	    	      ]);
 
+	    	  // 그래프 옵션
 	    	  var options = {	    	   		
-	    	        height: 100,
-	    	        hAxis: {	    	        	  
-	    	        	  textStyle: {
+	    	        height: 100,						// 그래프 높이
+	    	        hAxis: {	 					// 그래프 가로축  설정	        	  
+	    	        	  textStyle: {				// 그래프 글자 색
 		    	        	    color: 'white'
 		    	          },
-	    	        	  format: 'percent',
-	    	        	  baselineColor: 'white',
-	    	        	  gridlines: {
+	    	        	  format: 'percent',		// 그래프 비중 출력 형식(퍼센테이지)
+	    	        	  baselineColor: 'white',	// 그래프 기본 축 색
+	    	        	  gridlines: {				// 그래프 눈금 색
 		    	        	    color: 'white'
 	    	        	  }
 	    	        	},
-	    	        legend: {position: 'none' },
-	    	        bar: { groupWidth: '100%' },
-	    	        bars: 'horizontal',
-	    	        isStacked: true
+	    	        legend: {position: 'none' },	// 범례 여부(표시 안 함)
+	    	        bar: { groupWidth: '100%' },	// 막대 그룹 너비(그룹 사이에 공백 없음)
+	    	        bars: 'horizontal',				// 그래프 표시 형식(가로 막대)
+	    	        isStacked: true					// 그래프 표시 형식(누적 여부: 누적 표시)
 
 	    	      };
 	
+	    	// 그래프 그리기
 	        var chart = new google.charts.Bar(document.getElementById('barchart_material'));	
 	        chart.draw(data, google.charts.Bar.convertOptions(options));
 	      }
+	      
 	      // 서비스 요청 추이 꺾은 선 그래프 그리기
 	      google.charts.setOnLoadCallback(drawLineChart);
 
@@ -132,10 +141,11 @@
 	          ['12월',  ${SRChange['12']},	${SRComChange['12']}]
 	        ]);
 
+	    	// 그래프 옵션
 	        var options = {
 	          title: '전체 서비스 요청 및 완료',  		//그래프 제목
-	          curveType: 'function',  			//그래프 선 부드럽게 설정
-	          legend: { position: 'bottom' }    //범례 위치 하단
+	          curveType: 'function',  			//그래프 선 설정(부드러운 선)
+	          legend: { position: 'bottom' }    //범례 위치 (하단 위치)
 	        };
 	        
 			// 그래프 그리기
@@ -301,7 +311,7 @@
 						        <!-- Nav tabs -->
 						        <div class="card-title-block">
 									<h3 class="title ml-3 mt-3">
-										SR 처리 현황
+										서비스 요청 처리 현황
 									</h3>
 								</div>
 						        <ul class="nav nav-tabs nav-tabs-bordered">
@@ -326,7 +336,7 @@
 						        <div class="tab-content tabs-bordered">
 						        	<div>
 						        		<div class="m-3">
-						        			<h5>전체 SR 처리 현황</h5>
+						        			<h5>전체 서비스 요청 처리 현황</h5>
 						        			 <!-- 단계 카드들 -->
 											<div class="row">
 
@@ -336,7 +346,7 @@
 									                          <div class="row no-gutters align-items-center">
 									                               <div class="col mr-2">
 									                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">접수</div>
-									                                    <div class="h5 mb-0 font-weight-bold text-gray-800">3 건</div>
+									                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[0]} 건</div>
 									                               </div>
 									                               <div class="col-auto">
 									                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -352,7 +362,7 @@
 									                          <div class="row no-gutters align-items-center">
 									                              <div class="col mr-2">
 									                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">개발</div>
-									                                  <div class="h5 mb-0 font-weight-bold text-gray-800">5 건</div>
+									                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[1]} 건</div>
 									                              </div>
 									                          	  <div class="col-auto">
 									                                  <i class="fas fa-pen fa-2x text-gray-300"></i>
@@ -371,7 +381,7 @@
 									                                        </div>
 									                                   		<div class="row no-gutters align-items-center">
 									                                                <div class="col-auto">
-									                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">1 건</div>
+									                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${allState[2]} 건</div>
 									                                                </div>
 									                                                <div class="col">
 									                                                    <div class="progress progress-sm mr-2">
@@ -396,7 +406,7 @@
 							                                    <div class="row no-gutters align-items-center">
 							                                        <div class="col mr-2">
 							                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">유저테스트</div>
-							                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
+							                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[3]} 건</div>
 							                                        </div>
 							                                        <div class="col-auto">
 							                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -412,7 +422,7 @@
 							                                    <div class="row no-gutters align-items-center">
 							                                        <div class="col mr-2">
 							                                            <div class="text-sm font-weight-bold text-danger text-uppercase mb-1">배포</div>
-							                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
+							                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[4]} 건</div>
 							                                        </div>
 							                                        <div class="col-auto">
 							                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -428,7 +438,7 @@
 							                                    <div class="row no-gutters align-items-center">
 							                                        <div class="col mr-2">
 							                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">완료</div>
-							                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1 건</div>
+							                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[5]} 건</div>
 							                                        </div>
 							                                        <div class="col-auto">
 							                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
