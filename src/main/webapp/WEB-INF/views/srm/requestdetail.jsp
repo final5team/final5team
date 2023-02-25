@@ -471,10 +471,6 @@ article.include div {
 							</article>
 							<article class="fileBody">
 								<div class="item">
-									
-									
-									
-									
 									<input class="btn btn-dark btn-sm" multiple="multiple" type="file" id="mfile" name="mfile[]" /> 
 								</div>
 							</article>
