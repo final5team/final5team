@@ -483,7 +483,7 @@ article.include div {
 								<button class="btn btn-dark btn-sm" type="submit">수정</button>
 							</article>
 							<article class="return-button">
-								<button class="btn btn-dark btn-sm" onclick="javascript:history.go(-1)">취소</button>
+								<button class="btn btn-dark btn-sm" onclick="javascript:history.go(-1); return false;">취소</button>
 							</article>
 							<article class="include">
 								<%@ include file="/WEB-INF/views/srm/restatus/myrequestdetail.jsp"%>
