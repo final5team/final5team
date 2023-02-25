@@ -249,7 +249,7 @@
 		</where>
 		order by r.req_date desc
 		) j offset (#{pager.startRowNo}-1) rows fetch
-		next #{pager.endRowNo} rows only
+		next (#{pager.endRowNo}-1) rows only
 	</select>
 
 	<select id="countRequestRows" parameterType="hashmap"
@@ -379,7 +379,7 @@
 		</where>
 		order by req_date desc
 		) t offset (#{pager.startRowNo}-1) rows fetch
-		next #{pager.endRowNo} rows only
+		next (#{pager.endRowNo}-1) rows only
 	</select>
 
 

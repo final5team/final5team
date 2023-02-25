@@ -126,6 +126,9 @@ margin: 0 0 1rem 0;
 												.progress_bar .has-changes {
 													opacity: 1 !important;
 												}
+												.progress_bar a{
+													text-decoration: none;
+												}
 
 
 </style> 

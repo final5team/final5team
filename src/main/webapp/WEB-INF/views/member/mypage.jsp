@@ -202,7 +202,7 @@ form {
 }
 
 .section2 article.submit-button {
-	width: 120px;
+	width: 150px;
 	height: 150px;
 	left: 50%;
 	top: 50%;
@@ -387,7 +387,8 @@ form {
 								<div class="item">
 									<div class="input-group">
 										<div class="date_form">
-											<input type="date" id="birth" name="birth" value="<fmt:formatDate value="${returnMember.birth}" pattern="yyyy-MM-dd" />">
+											<input type="date" id="birth" name="birth" style="border: 1px solid #d1d3e2;"
+											value="<fmt:formatDate value="${returnMember.birth}" pattern="yyyy-MM-dd" />">
 											<i class="fa fa-calendar"></i>
 										</div>
 									</div>
@@ -409,7 +410,7 @@ form {
 									<i class="fa fa-map-marker"></i>
 								</div>
 								<div class="item address3">
-									<input type="text" id="addr2" name="addr2" value="${returnMember.addr2}"> 
+									<input type="text" id="addr2" name="addr2" style="border: 1px solid #d1d3e2;" value="${returnMember.addr2}"> 
 									<i class="fa fa-map-marker"></i>
 								</div>
 								<div class="item address-button">

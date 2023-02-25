@@ -162,13 +162,13 @@ sup {
 }
 
 a {
-  color: #4e73df;
+  color: var(--gray-dark);
   text-decoration: none;
   background-color: transparent;
 }
 
 a:hover {
-  color: #224abe;
+  color: var(--gray-dark);
   text-decoration: underline;
 }
 
@@ -3708,7 +3708,6 @@ input[type="button"].btn-block {
   width: 100%;
   height: calc(1.5em + 0.75rem + 2px);
   padding: 0.375rem 1.75rem 0.375rem 0.75rem;
-  font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   color: #6e707e;
