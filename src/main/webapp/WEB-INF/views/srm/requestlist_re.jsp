@@ -173,10 +173,6 @@ main {
 	transition: 0.3s;
 }
 
-.member tr:last-child {
-	border: none;
-}
-
 .member tr:hover {
 	background-color: #eee;
 }
@@ -196,7 +192,6 @@ main {
 }
 
 .member .step_td {
-	border: 1px solid black;
 	display: inline-block;
 	width: 650px;
 }
@@ -231,7 +226,7 @@ main {
 }
 
 .step_td ol li, span {
-	display: block;
+	
 }
 
 .step_td ol li {
