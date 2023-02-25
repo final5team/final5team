@@ -163,12 +163,14 @@
 		(seq_status_histories_files.nextval, sysdate, #{fileName}, #{fileType}, #{fileData}, #{hno})
 	</insert>
 	
+	<!-- PM의 최신 요청건 개수 알기  -->
 	<select id="selectRequestRecentPM" resultType="int">
 		select count(*)
 		from requests
 		where status_no = 1
 	</select>
 	
+	<!-- 실무자의 담당 신규 요청건 개수 출력  -->
 	<select id="selectRequestRecent" parameterType="com.oti.srm.dto.Member" resultType="int">
 		select count(*)
 		from request_process
@@ -194,8 +196,19 @@
 	
 	<select id="selectRequestInProgress" parameterType="com.oti.srm.dto.Member" resultType="int">
 		select count(*)
+		<if test="mtype != 'user'">
 		from request_process 
+		</if>
+		<if test="mtype == 'user'">
+		from request_process rp, requests r
+		</if>
 		<where>
+			<if test="mtype == 'user'">
+				r.client = #{mid}
+			and all_comp_date is null 
+			and all_expect_Date is not null
+			and rp.rno = r.rno
+			</if>
 			<if test="mtype == 'pm'">
 				pm = #{mid}
 			and all_expect_date is not null and all_comp_date is null
@@ -221,8 +234,18 @@
 	
 	<select id="selectRequestDone" parameterType="com.oti.srm.dto.Member" resultType="int">
 		select count(*)
-		from request_process
+		<if test="mtype != 'user'">
+		from request_process 
+		</if>
+		<if test="mtype == 'user'">
+		from request_process rp, requests r
+		</if>
 		<where>
+			<if test="mtype == 'user'">
+				r.rno = rp.rno
+			and (rp.all_comp_date is not null OR r.status_no=12)
+			and r.client = #{mid}
+			</if>
 			<if test="mtype == 'developer'">
 				developer = #{mid}
 			and dev_comp_date is not null

@@ -67,7 +67,9 @@ public class HomeController {
 			model.addAttribute("workCompletionRate", workCompletionRate);
 			return "/home";
 		} else {
+			HashMap<String, Integer> userRequestStatusCount = commonService.getUserRequestStatusCount(member);
 			
+			model.addAttribute("userRequestStatusCount" , userRequestStatusCount);
 			return "/userhome";
 		}
 	}
