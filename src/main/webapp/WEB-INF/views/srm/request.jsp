@@ -484,7 +484,7 @@ article.include div {
 								<button class="btn btn-dark btn-sm" type="submit">작성</button>
 							</article>
 							<article class="return-button">
-								<button class="btn btn-dark btn-sm" type="submit">취소</button>
+								<button class="btn btn-dark btn-sm" onclick="javascript:history.go(-1)">취소</button>
 							</article>
 							<article class="include">
 								<%@ include file="/WEB-INF/views/srm/restatus/nowstatushorizon.jsp"%>
