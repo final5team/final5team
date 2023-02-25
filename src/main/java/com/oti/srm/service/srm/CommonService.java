@@ -244,6 +244,7 @@ public class CommonService implements ICommonService {
 	}
 
 	@Override
+	@Transactional
 	public Map<String, Object> getWorkCompletionRate(Member member) {
 		Map<String, Object> map = new HashMap<>();
 		int allMyRequests = commonDao.selectAllMyRequests(member);
@@ -251,6 +252,7 @@ public class CommonService implements ICommonService {
 		//지연율 넣기
 		double delayRate = 0;
 		double normalRate = 100;
+		
 		if(allMyRequests != 0) {
 			delayRate = delayRequests/allMyRequests * 100;
 			normalRate = 100 - delayRate;
@@ -264,9 +266,27 @@ public class CommonService implements ICommonService {
 		return map;
 	}
 
+	/* 작성자: 장현
+	 * 파일 다운로드
+	 */
 	@Override
 	public StatusHistoryFile getFile(int fno) {
 		return commonDao.selectFile(fno);
+	}
+
+	/* 작성자: 장현
+	 * 진행중인 요청건, 완료된 요청건 개수 구하기
+	 */
+	@Override
+	public HashMap<String, Integer> getUserRequestStatusCount(Member member) {
+		HashMap<String, Integer> map = new HashMap<>();
+		//진행중인 요청건 구하기
+		int requestInProgress =commonDao.selectRequestInProgress(member);
+		//완료된 요청건 구하기
+		int requestDone = commonDao.selectRequestDone(member);
+		map.put("requestInProgress", requestInProgress);
+		map.put("requestDone", requestDone);
+		return map;
 	}
 
 	

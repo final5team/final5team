@@ -169,9 +169,7 @@
 						<!-- 지연율 start -->
 						<div class="col-xl-5">
 							<div class="card" style="height: 420.896px; align-items: center;">
-							<!-- 파이차트 시작 -->
-							<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-							<!-- 파이차트 끝 -->
+							
 							</div>
 						</div>
 						<!-- 지연율 end -->

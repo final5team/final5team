@@ -49,6 +49,9 @@ public interface ICommonService {
 	public Map<String, Object> getWorkCompletionRate(Member member);
 	//파일 다운로드
 	public StatusHistoryFile getFile(int fno);
+	
+	//일반 유저의 진행 요청건, 완료 요청건 개수 구하기
+	public HashMap<String, Integer> getUserRequestStatusCount(Member member);
 
 
 }

@@ -11434,7 +11434,7 @@ body::-webkit-scrollbar-thumb:window-inactive {
 
 
 .tableContent{
-width: 360px;
+width: 300px;
 overflow: hidden;
 text-overflow: ellipsis;
 display: inline-block;
@@ -11466,7 +11466,7 @@ white-space: nowrap;
 .tasks-block::-webkit-scrollbar-thumb:window-inactive {
   background: #85CE36; }
   
-  /* 체크박스 */
+  /************** 체크박스 *******************/
    input[type="checkbox"]{
    display: none;
   }  

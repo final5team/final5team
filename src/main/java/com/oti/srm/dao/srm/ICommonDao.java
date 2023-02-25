@@ -63,15 +63,20 @@ public interface ICommonDao {
 	
 	//pm일 경우 반려 요청 개수 출력
 	public int selectRequestReject(Member member);
+	
 	//7일 남은 리스트 출력
 	public ArrayList<Request> selectListOf7daysLeft(Member member);
-
+	
+	//내 담당 모든 요청 개수 구하기
 	public int selectAllMyRequests(Member member);
-
+	
+	//내 담당 요청건 중, 지연되었던 요청 개수 가져오기
 	public int selectDelayRequests(Member member);
-
+	
+	//파일 다운로드
 	public StatusHistoryFile selectFile(int fno);
-
+	
+	//PM의 최신 요청건 개수 알기
 	public int selectRequestRecentPM();
 	
 }
