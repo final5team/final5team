@@ -52,7 +52,7 @@ public class TesterController {
 		model.addAttribute("testerToDev", testerToDev);
 		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("receiptDoneDate", receiptDoneDate);
-		
+		model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));
 		return "srm/testerdetail";
 	}
 
