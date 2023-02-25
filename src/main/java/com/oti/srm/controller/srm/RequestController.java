@@ -1,8 +1,6 @@
 package com.oti.srm.controller.srm;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -73,14 +71,12 @@ public class RequestController {
 	 */
 	@PostMapping("/register")
 	public String register(Member member, Model model) {
-		log.info(member.toString());
 		String address = member.getPostcode() + "-" + member.getAddr1() + "-" + member.getAddr2();
 		member.setAddress(address);
 		MultipartFile mfile = member.getMfile();
 
 		try {
 			if (mfile != null && !mfile.isEmpty()) {
-				log.info(mfile.toString());
 				member.setFileName(mfile.getOriginalFilename());
 				member.setSavedDate(new Date());
 				member.setFileType(mfile.getContentType());
@@ -137,7 +133,6 @@ public class RequestController {
 	public ResponseEntity<byte[]> returnImg(@PathVariable String mid) {
 		
 		Member returnMember = userRegisterService.getUserInfo(mid);
-		log.info(returnMember.toString());
 		
 		if(returnMember.getMfile() == null) {
 			
@@ -186,7 +181,6 @@ public class RequestController {
 		request.setStatusNo(1);
 		Member member = (Member) session.getAttribute("member");
 		request.setClient(member.getMid());
-		log.info(request.getSno());
 
 		List<StatusHistoryFile> fileList = new ArrayList<>();
 
@@ -240,10 +234,7 @@ public class RequestController {
 		listFilter.setSno(sno);
 		listFilter.setStatusNo(statusNo);
 		
-		
-		
 		ListFilter returnList = requestService.dateFilterList(listFilter);
-		log.info(returnList.toString());
 		
 		// 보여줄 행 수 조회
 		int totalRows = requestService.getRequestListRows(listFilter, member);
@@ -284,7 +275,6 @@ public class RequestController {
 		listFilter.setStatusNo(statusNo);
 		
 		ListFilter returnList = requestService.dateFilterList(listFilter);
-		log.info(returnList.toString());
 		
 		// 유저 권한 확인
 		Member member = (Member) session.getAttribute("member");
@@ -294,6 +284,9 @@ public class RequestController {
 		int totalRows = requestService.getMyWorkRows(listFilter, member);
 
 		Pager pager = new Pager(7, 5, totalRows, pageNo);
+		log.info(pager.getStartRowNo());
+		log.info(pager.getEndRowNo());
+		
 		List<SelectPM> requestList = requestService.getMyWorkList(request, listFilter, pager, member);
 		
 		// 시스템 리스트 전달
@@ -303,9 +296,6 @@ public class RequestController {
 		model.addAttribute("pager", pager);
 		// filter 전달
 		model.addAttribute("listFilter", returnList);
-		
-//		return "srm/requestlist";
-		log.info("담당 업무 리스트 수정");
 		return "srm/requestlist_re";
 	}
 
@@ -325,11 +315,8 @@ public class RequestController {
 	
 	@GetMapping("/requestdetail")
 	public String userRequestDetail(int rno, HttpSession session, Model model) {
-		log.info("요청번호" + rno);
 		Request request = requestService.getRequestDetail(rno);
 		List<System> systemList = userRegisterService.getSystemList();
-		
-		log.info(request.getStatusNo());
 		
 		model.addAttribute("request", request);
 		model.addAttribute("systemList", systemList);

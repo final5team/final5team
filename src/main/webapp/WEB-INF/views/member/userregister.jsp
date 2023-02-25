@@ -202,7 +202,7 @@ form {
 }
 
 .section2 article.submit-button {
-	width: 120px;
+	width: 150px;
 	height: 150px;
 	left: 50%;
 	top: 50%;
@@ -387,7 +387,7 @@ form {
 								<div class="item">
 									<div class="input-group">
 										<div class="date_form">
-											<input type="date" id="birth" name="birth" required><i class="fa fa-calendar"></i>
+											<input type="date" id="birth" name="birth" style="border: 1px solid #d1d3e2;" required><i class="fa fa-calendar"></i>
 										</div>
 									</div>
 									<div class="input-group">
@@ -405,7 +405,7 @@ form {
 									<input type="text" class="form-control form-control-user" id="addr1" name="addr1" placeholder="도로명 주소" readonly> <i class="fa fa-map-marker"></i>
 								</div>
 								<div class="item address3">
-									<input type="text" id="addr2" name="addr2" placeholder="상세 주소" required> <i class="fa fa-map-marker"></i>
+									<input type="text" id="addr2" name="addr2" style="border: 1px solid #d1d3e2;" placeholder="상세 주소" required> <i class="fa fa-map-marker"></i>
 								</div>
 								<div class="item address-button">
 									<button type="button" class="btn btn-dark btn-sm" id="address" name="address" onclick="findAddress()" >우편번호</button>

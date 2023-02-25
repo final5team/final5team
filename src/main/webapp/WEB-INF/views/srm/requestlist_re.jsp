@@ -23,7 +23,7 @@ main {
 
 .filter {
 	width: 1050px;
-	height: 200px;
+	height: 120px;
 	overflow: hidden;
 	text-align: start;
 	align-items: center;
@@ -40,55 +40,57 @@ main {
 }
 
 .filter .filter-head {
-	background-color: #f8f9fc;
-	border-bottom: 1px solid #e3e6f0;
-}
-
-.filter .filter-head h4 {
-	color: #68a329;
-	font: bold;
-	padding-top: 10px;
-	padding-left: 15px;
-	font-size: 15px;
-}
+			background-color: #f8f9fc;
+			border-bottom: 1px solid #e3e6f0;
+			height: 30px;
+		}
+		
+		.filter .filter-head h4 {
+			color: #5a5c69;
+			font: bold;
+			padding-left: 15px;
+			padding-top : 5px;
+			font-size: 15px;
+			margin: 0px;
+			font-weight: 700;
+		}
 
 .filter .filter-name {
-	width: 100px;
-	height: 200px;
-	position: absolute;
-	margin: 0;
-	left: 2%;
-	top: 22%;
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			margin: 0;
+			left: 2%;
 }
 
 .filter .filter-name h6 {
-	font-size: 15px;
+	font-size: 14px;
 	margin: 20px 10px;
 }
 
 .filter .filter-name2 {
-	width: 100px;
-	height: 200px;
-	position: absolute;
-	margin: 0;
-	left: 42%;
-	top: 22%;
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			margin: 0;
+			left: 42%;
 }
 
 .filter .filter-name2 h6 {
 	font-size: 15px;
 	margin: 20px 10px;
-	font-size: 15px;
+	font-size: 14px;
 }
 
 .filter .filter-body {
 	width: 300px;
-	height: 200px;
+	height: 80px;
 	overflow: hidden;
 	position: absolute;
-	left: 13%;
-	top: 23%;
+	left: 10%;
+	top : 34%;
 	float: left;
+	font-size: 13px;
 }
 
 .filter .filter-body .input-group {
@@ -101,13 +103,14 @@ main {
 }
 
 .filter .filter-body2 {
-	width: 300px;
-	height: 200px;
+	width: 150px;
+	height: 80px;
 	overflow: hidden;
 	position: absolute;
 	left: 50%;
-	top: 23%;
+	top : 34%;
 	float: left;
+	font-size: 13px;
 }
 
 .filter .filter-body2 .input-group {
@@ -118,12 +121,12 @@ main {
 .table {
 	text-align: center;
 	width: inherit;
-	height: 500px;
+	height: 600px;
 	overflow: hidden;
 	text-align: start;
 	align-items: center;
 	position: absolute;
-	top: 28%;
+	top: 18%;
 	left: 0;
 	background-color: #fff;
 	border-bottom: 1px solid #e3e6f0;
@@ -136,16 +139,19 @@ main {
 
 .table .table-header {
 	background-color: #f8f9fc;
-	border-bottom: 1px solid #e3e6f0;
-	border-bottom: 1px solid #e3e6f0;
+			border-bottom: 1px solid #e3e6f0;
+			height: 30px;
 }
 
 .table .table-header h4 {
-	color: #68a329;
-	font: bold;
-	padding-top: 10px;
-	padding-left: 15px;
-	font-size: 15px;
+	color: #5a5c69;
+			font: bold;
+			padding-left: 15px;
+			padding-top : 5px;
+			font-size: 15px;
+			margin: 0px;
+			font : bold;
+			font-weight: 700;
 }
 
 .table .table-body {
@@ -154,7 +160,6 @@ main {
 
 .member {
 	margin: 5px 10px;
-	width: inherit;
 	background-color: #fff;
 	border-collapse: collapse;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
@@ -202,24 +207,30 @@ width: 500px;
 
 .filter .search-button {
 	position: absolute;
-	width: 80px;
+	width: 50px;
 	height: 50px;
-	left: 61%;
-	top: 70%;
+	left: 63%;
+	top: 60%;
 	z-index: 5;
 }
-.pager{
-position: absolute;
-left: 40%;
-top : 75%;
-width : inherit;
+	.pager{
+	position: absolute;
+	left: 30%;
+	top : 100%;
+	width : 350px;
+	}
+	.pager .write{
+	position: absolute;
+	left: 100%;
+	top : 0%;
+	width: 80px;
+	
+	}
+.custom-select{
+	height : 28px;
+	padding : 0px 5px;
 }
-.pager .write{
-position: absolute;
-left: 110%;
-top : 0%;
-width: 60px;
-}
+
 
 </style>
 
@@ -295,7 +306,10 @@ width: 60px;
 
 								</div>
 								<div class="date_form">
-									<input type="date" id="date_first" name="date_first" value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> <i class="fa fa-minus"></i> <input type="date" id="date_last" name="date_last" value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
+									<input type="date" id="date_first" name="date_first"  style="border: 1px solid #d1d3e2;"
+									value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> <i class="fa fa-minus"></i> 
+									<input type="date" id="date_last" name="date_last"  style="border: 1px solid #d1d3e2;"
+									value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
 								</div>
 							</article>
 							<article class="filter-body2">
@@ -375,7 +389,7 @@ width: 60px;
 					</section>
 					<section class="table">
 						<article class="table-header">
-							<h4>리스트</h4>
+							<h4>담당 업무 목록</h4>
 						</article>
 						<table class="member" id="table_content">
 							<tr>
@@ -390,11 +404,7 @@ width: 60px;
 							<c:forEach var="request" items="${requestList}">
 								<tr>
 									<td class="rno">${request.rno}</td>
-									<!-- 나중에 시스템 이름으로 바꾸어 줘야 함. -->
 									<td class="client">${request.sno}</td>
-
-									<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
-
 									<c:if test="${request.statusNo == 1}">
 										<td class="sysType">미정</td>
 									</c:if>
@@ -404,23 +414,18 @@ width: 60px;
 									<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
 										<td class="sysType">${request.reqType}</td>
 									</c:if>
-
 									<td class="reqTitle" style="max-width: 200px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
-									<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
+									<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;" >
 										<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
 									</td>
-
 									<td class="step_td">
 										<%@ include file="/WEB-INF/views/srm/restatus/stepintable.jsp"%>
 									</td>
-
 								</tr>
 							</c:forEach>
 						</table>
 					</section>
-					</main>
-				</div>
-				<div class="pager">
+					<div class="pager">
 					<div class="pagingButtonSet d-flex justify-content-center">
 						<a href="requestlist?pageNo=1" type="button" class="btn btn-muted shadow">◀◀</a>
 						<c:if test="${pager.groupNo > 1}">
@@ -444,7 +449,10 @@ width: 60px;
 					</div>
 					<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-muted shadow write">요청 작성</a>
 				</div>
-
+					
+					</main>
+				</div>
+				
 			</div>
 		</div>
 		<!-- 여기에 내용 담기 end -->
