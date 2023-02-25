@@ -187,13 +187,13 @@ main {
 }
 
 .member tr th {
-	background-color: #85ce36;
+	background-color: var(--gray-dark);
 	color: #fff;
 }
 
 .member .step_td {
-	display: inline-block;
-	width: 650px;
+display: inline-block;
+width: 500px;
 }
 
 .member tr:hover {
@@ -208,30 +208,19 @@ main {
 	top: 70%;
 	z-index: 5;
 }
-
-.member .step_td .progress-bar.li {
-	float: left;
-	text-align: center;
-	box-sizing: border-box;
-	width: 650px;
+.pager{
+position: absolute;
+left: 50%;
+top : 75%;
+width : inherit;
+}
+.pager .write{
+position: absolute;
+left: 110%;
+top : 0%;
+width: 60px;
 }
 
-.step_td {
-	table-layout: fixed;
-}
-
-.step_td ol {
-	padding: 0px 0px;
-	text-align: start;
-}
-
-.step_td ol li, span {
-	
-}
-
-.step_td ol li {
-	width: 50px;
-}
 </style>
 
 </head>
@@ -278,7 +267,7 @@ main {
 								</c:if>
 							</article>
 							<article class="search-button">
-								<button class="btn btn-primary btn-sm" type="submit">검색</button>
+								<button class="btn btn-dark btn-sm" type="submit">검색</button>
 							</article>
 							<article class="filter-body">
 								<div class="input-group">
@@ -431,8 +420,7 @@ main {
 					</section>
 					</main>
 				</div>
-				<div class="pager d-flex justify-content-center my-3">
-					<div class="flex-fulfill"></div>
+				<div class="pager">
 					<div class="pagingButtonSet d-flex justify-content-center">
 						<a href="requestlist?pageNo=1" type="button" class="btn btn-muted shadow">◀◀</a>
 						<c:if test="${pager.groupNo > 1}">
@@ -454,8 +442,7 @@ main {
 						</c:if>
 						<a href="requestlist?pageNo=${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
 					</div>
-					<div class="flex-fulfill"></div>
-					<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-muted shadow">글 작성</a>
+					<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-muted shadow write">글 작성</a>
 				</div>
 
 			</div>

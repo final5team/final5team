@@ -17,6 +17,7 @@
 			</td>
 			<td class="bar <c:if test="${request.statusNo >= 2}">active</c:if>"></td>
 			<td class="circle
+			
            	 <c:if test="${request.statusNo >= 5}">done</c:if>
            	 <c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">now</c:if>">
            	 	<a href="${pageContext.request.contextPath}/developerdetail?rno=${request.rno}">
@@ -135,6 +136,11 @@
 		</table>
 	</c:if>
 </c:if>
+
+
+
+
+
 <c:if test="${request.statusNo == 12}">
 	<table class="inner_step">
 		<td class="circle done"><a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">요청완료</a></td>
