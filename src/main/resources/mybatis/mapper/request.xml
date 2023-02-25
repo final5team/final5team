@@ -297,22 +297,7 @@
 				</if>
 				<if test='listFilter.statusValue eq"개발"'>
 				<![CDATA[
-					and status_no in (2, 3, 4)
-				]]>
-				</if>
-				<if test='listFilter.statusValue eq"테스트"'>
-				<![CDATA[
-					and status_no in (5, 6, 7)
-				]]>
-				</if>
-				<if test='listFilter.statusValue eq"유저테스트"'>
-				<![CDATA[
-					and status_no in (8)
-				]]>
-				</if>
-				<if test='listFilter.statusValue eq"배포"'>
-				<![CDATA[
-					and status_no in (10)
+					and status_no in (2, 3, 4, 5, 6, 7, 8, 10)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"완료"'>
@@ -376,22 +361,7 @@
 				</if>
 				<if test='listFilter.statusValue eq"개발"'>
 				<![CDATA[
-					and status_no in (2, 3, 4)
-				]]>
-				</if>
-				<if test='listFilter.statusValue eq"테스트"'>
-				<![CDATA[
-					and status_no in (5, 6, 7)
-				]]>
-				</if>
-				<if test='listFilter.statusValue eq"유저테스트"'>
-				<![CDATA[
-					and status_no in (8)
-				]]>
-				</if>
-				<if test='listFilter.statusValue eq"배포"'>
-				<![CDATA[
-					and status_no in (10)
+					and status_no in (2, 3, 4, 5, 6, 7, 8, 10)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"완료"'>
