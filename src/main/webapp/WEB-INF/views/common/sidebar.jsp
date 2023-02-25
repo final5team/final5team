@@ -61,11 +61,6 @@
 
 		<!-- 사이드메뉴 start -->
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/customer/request">
-				<i class="fas fa-fw fa-chart-area"></i>
-				<span>요청 작성</span></a>
-		</li>
-		<li class="nav-item">
 			<a class="nav-link" href="${pageContext.request.contextPath}/customer/myrequestlist">
 				<i class="fas fa-fw fa-chart-area"></i>
 				<span>내 요청 목록</span></a>
