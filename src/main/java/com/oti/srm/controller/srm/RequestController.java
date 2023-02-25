@@ -1,5 +1,8 @@
 package com.oti.srm.controller.srm;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -132,13 +135,22 @@ public class RequestController {
 	 */
 	@GetMapping("/mypage/{mid}")
 	public ResponseEntity<byte[]> returnImg(@PathVariable String mid) {
+		
 		Member returnMember = userRegisterService.getUserInfo(mid);
+		log.info(returnMember.toString());
+		
+		if(returnMember.getMfile() == null) {
+			
+			returnMember = userRegisterService.getUserInfo("가입Test");
+			
+		}
 		HttpHeaders headers = new HttpHeaders();
 		String[] fileTypes = returnMember.getFileType().split("/");
 		headers.setContentType(new MediaType(fileTypes[0], fileTypes[1]));
 		headers.setContentDispositionFormData("attachment", returnMember.getFileName());
 		return new ResponseEntity<byte[]>(returnMember.getFileData(), headers, HttpStatus.OK);
 
+		
 	}
 
 	/**
@@ -204,12 +216,13 @@ public class RequestController {
 
 	/**
 	 * 내 요청 조회
+	 * @throws ParseException 
 	 */
 	@GetMapping("/myrequestlist")
 	public String myrequestlist (Request request, Model model, HttpSession session,
 			@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "") String date_first,
 			@RequestParam(defaultValue = "") String date_last, @RequestParam(defaultValue = "0") int sno,
-			@RequestParam(defaultValue = "전체") String req_type, @RequestParam(defaultValue = "0") int statusNo) {
+			@RequestParam(defaultValue = "전체") String req_type, @RequestParam(defaultValue = "0") int statusNo) throws ParseException {
 		
 		
 		// 요청 조회 필터
@@ -227,10 +240,11 @@ public class RequestController {
 		listFilter.setSno(sno);
 		listFilter.setStatusNo(statusNo);
 		
-		log.info(listFilter.toString());
 		
-
-	
+		
+		ListFilter returnList = requestService.dateFilterList(listFilter);
+		log.info(returnList.toString());
+		
 		// 보여줄 행 수 조회
 		int totalRows = requestService.getRequestListRows(listFilter, member);
 		Pager pager = new Pager(7, 5, totalRows, pageNo);
@@ -242,6 +256,8 @@ public class RequestController {
 		// 목록 리스트와 페이지 return
 		model.addAttribute("requestList", requestList);
 		model.addAttribute("pager", pager);
+		// filter 전달
+		model.addAttribute("listFilter", returnList);
 		
 		return "srm/myrequestlist";
 	}
@@ -266,6 +282,10 @@ public class RequestController {
 		listFilter.setDateLast(date_last);
 		listFilter.setSno(sno);
 		listFilter.setStatusNo(statusNo);
+		
+		ListFilter returnList = requestService.dateFilterList(listFilter);
+		log.info(returnList.toString());
+		
 		// 유저 권한 확인
 		Member member = (Member) session.getAttribute("member");
 		// 유저 id 저장
@@ -281,9 +301,12 @@ public class RequestController {
 		// 목록 리스트와 페이지 return
 		model.addAttribute("requestList", requestList);
 		model.addAttribute("pager", pager);
-
+		// filter 전달
+		model.addAttribute("listFilter", returnList);
+		
 		return "srm/requestlist";
-
+//		log.info("담당 업무 리스트 수정");
+//		return "srm/requestlist_re";
 	}
 
 	/**

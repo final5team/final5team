@@ -59,8 +59,8 @@ public class DeveloperController {
 		model.addAttribute("testerToDev", testerToDev);
 		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("receiptDoneDate", receiptDoneDate);
-		
-		return "srm/developerdetail";
+		model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));
+		return "srm/developerdetail2";
 	}
 	@GetMapping("/developerdetail2")
 	public String getDeveloperDetail2(Model model, int rno) {

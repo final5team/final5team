@@ -92,13 +92,13 @@ public class HomeController {
 	}
 	
 	@RequestMapping("/filedouwnload/{fno}")
-	public ResponseEntity<byte[]> getFile(@PathVariable int fno){
+	public ResponseEntity<byte[]> getFile(@PathVariable int fno) throws Exception {
 		StatusHistoryFile file = commonService.getFile(fno);
 		
 		final HttpHeaders headers = new HttpHeaders();
 		String[] mtypes = file.getFileType().split("/");
 		headers.setContentType(new MediaType(mtypes[0], mtypes[1]));
-		headers.setContentDispositionFormData("attachment",file.getFileName());
+		headers.setContentDispositionFormData("attachment",new String(file.getFileName().getBytes("UTF-8"), "ISO-8859-1"));
 	
 		return new ResponseEntity<byte[]>(file.getFileData(), headers, HttpStatus.OK);
 	}

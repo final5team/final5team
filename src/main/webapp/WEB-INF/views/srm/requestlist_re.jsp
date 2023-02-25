@@ -149,16 +149,12 @@ main {
 }
 
 .table .table-body {
-	position: absolute;
-	top: 10%;
-	left: 0%;
 	height: inherit;
-	width: 1050px;
 }
 
 .member {
 	margin: 5px 10px;
-	width: 1000px;
+	width: inherit;
 	background-color: #fff;
 	border-collapse: collapse;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
@@ -185,10 +181,6 @@ main {
 	background-color: #eee;
 }
 
-.member tr:nth-child(odd) {
-	
-}
-
 .member th, .member td {
 	font-size: 12px;
 	width: 1050px;
@@ -199,25 +191,14 @@ main {
 }
 
 .member tr th {
-	background-color: #5a5c69;
+	background-color: #85ce36;
 	color: #fff;
 }
 
-.member tr td {
-	width: 1050px;
-	font-size: 12px;
-}
-
-.member tr th:first-child {
-	border-radius: 5px 0 0 0;
-}
-
-.member tr th:last-child {
-	border-radius: 0 5px 0 0;
-}
-
-.member tr td:last-child {
-	
+.member .step_td {
+	border: 1px solid black;
+	display: inline-block;
+	width: 650px;
 }
 
 .member tr:hover {
@@ -233,78 +214,28 @@ main {
 	z-index: 5;
 }
 
-.step_tr {
-	border: none;
-}
-
-.inner_step {
-	border: none;
-}
-
-.step_tr {
-	align-items: center;
-	border: none;
-}
-
-.step_tr .step_td {
-	display: flex;
-	max-width: 550px;
-	width: 550px;
-	padding: 0;
-	border: none;
-	white-space: nowrap;
-	overflow: hidden;
-	white-space: nowrap;
-}
-
-.step_tr .step_td .inner_step {
-	background-color: none;
-	position: relative;
-}
-
-.step_tr .step_td .inner_step .circle {
-	width: 70px;
-	background-color: none;
-}
-
-.step_tr .step_td .inner_step .bar {
-	width: 5px;
-	height: 0px;
-	background-color: none;
-	position: absolute;
-}
-
-.pager {
-	
-}
-
-.circle {
-	background-color: #fff;
-	color: #999;
-	font-size: 10px;
+.member .step_td .progress-bar.li {
+	float: left;
 	text-align: center;
-	border: 3px solid #e0e0e0;
-	transition: 0.4s ease;
+	box-sizing: border-box;
+	width: 650px;
 }
 
-.bar {
-	padding: 0;
-	background-color: #fff;
-	color: #999;
-	width: 30px;
-	transition: 0.4s ease;
-	border: none;
+.step_td {
+	table-layout: fixed;
 }
 
-.circle.done {
-	border-color: #5a5c69;
-	color: #87cd36;
+.step_td ol {
+	padding: 0px 0px;
+	text-align: start;
 }
 
-.circle.now {
-	border-color: #5a5c69;
-	color: white;
-	background-color: #5a5c69;
+.step_td ol li, span {
+	display: block;
+}
+
+.step_td ol li {
+	width: 50px;
 }
 </style>
 
@@ -346,7 +277,7 @@ main {
 
 							<article class="filter-name2">
 								<h6>단계 선택</h6>
-								
+
 								<c:if test="${sessionScope.member.mtype == 'pm'}">
 									<h6>시스템</h6>
 								</c:if>
@@ -377,12 +308,10 @@ main {
 											</c:if>
 										</select>
 									</c:if>
-									
+
 								</div>
 								<div class="date_form">
-									<input type="date" id="date_first" name="date_first" value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> 
-									<i class="fa fa-minus"></i> 
-									<input type="date" id="date_last" name="date_last" value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
+									<input type="date" id="date_first" name="date_first" value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> <i class="fa fa-minus"></i> <input type="date" id="date_last" name="date_last" value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
 								</div>
 							</article>
 							<article class="filter-body2">
@@ -399,7 +328,7 @@ main {
 											<option value="12">반려</option>
 										</select>
 									</c:if>
-									
+
 									<c:if test="${listFilter.statusValue != null}">
 										<select class="custom-select" id="statusNo" name="statusNo">
 											<option value="${listFilter.statusNo}" selected>${listFilter.statusValue}</option>
@@ -427,34 +356,34 @@ main {
 											</c:if>
 										</select>
 									</c:if>
-									
+
 								</div>
 								<c:if test="${sessionScope.member.mtype == 'pm'}">
 									<div class="input-group">
 										<select class="custom-select" id="sno" name="sno">
-										<c:if test="${listFilter.sno == 0}">
-											<option value="0" selected>시스템</option>
-											<c:forEach var="system" items="${systemList}">
-												<option value="${system.sno}">${system.systemName}</option>
-											</c:forEach>
-										</c:if>
-										
-										
-										<c:if test="${listFilter.sno != 0}">
-											<option value="${listFilter.sno}" selected>${listFilter.sno}</option>
-											<c:forEach var="system" items="${systemList}">
-											
-											
-												<c:if test="${system.sno != listFilter.sno}">
+											<c:if test="${listFilter.sno == 0}">
+												<option value="0" selected>시스템</option>
+												<c:forEach var="system" items="${systemList}">
 													<option value="${system.sno}">${system.systemName}</option>
-												</c:if>
-												
-											</c:forEach>
-											
-										</c:if>
-										
-										
-									</select>
+												</c:forEach>
+											</c:if>
+
+
+											<c:if test="${listFilter.sno != 0}">
+												<option value="${listFilter.sno}" selected>${listFilter.sno}</option>
+												<c:forEach var="system" items="${systemList}">
+
+
+													<c:if test="${system.sno != listFilter.sno}">
+														<option value="${system.sno}">${system.systemName}</option>
+													</c:if>
+
+												</c:forEach>
+
+											</c:if>
+
+
+										</select>
 									</div>
 								</c:if>
 							</article>
@@ -464,46 +393,46 @@ main {
 						<article class="table-header">
 							<h4>리스트</h4>
 						</article>
-						<article class="member table-body">
-							<table class="member" id="table_content">
+						<table class="member" id="table_content">
+							<tr>
+								<th>No.</th>
+								<th>시스템</th>
+								<th>요청 유형</th>
+								<th>요청 제목</th>
+								<th>요청 일자</th>
+								<th>단계</th>
+
+							</tr>
+							<c:forEach var="request" items="${requestList}">
 								<tr>
-									<th>No.</th>
-									<th>시스템</th>
-									<th>요청 유형</th>
-									<th>요청 제목</th>
-									<th>요청 일자</th>
-									<th>단계</th>
+									<td class="rno">${request.rno}</td>
+									<!-- 나중에 시스템 이름으로 바꾸어 줘야 함. -->
+									<td class="client">${request.sno}</td>
+
+									<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
+
+									<c:if test="${request.statusNo == 1}">
+										<td class="sysType">미정</td>
+									</c:if>
+									<c:if test="${request.statusNo == 12}">
+										<td class="sysType">반려</td>
+									</c:if>
+									<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
+										<td class="sysType">${request.reqType}</td>
+									</c:if>
+
+									<td class="reqTitle" style="max-width: 100px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
+									<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
+										<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
+									</td>
+
+									<td class="step_td">
+										<%@ include file="/WEB-INF/views/srm/restatus/stepintable.jsp"%>
+									</td>
 
 								</tr>
-								<c:forEach var="request" items="${requestList}">
-									<tr>
-										<td class="rno">${request.rno}</td>
-										<!-- 나중에 시스템 이름으로 바꾸어 줘야 함. -->
-										<td class="client">${request.sno}</td>
-										
-										<!-- 요청 유형 테이블에서 req type 가져와야 함. -->
-										
-										<c:if test="${request.statusNo == 1}">
-											<td class="sysType">미정</td>
-										</c:if>
-										<c:if test="${request.statusNo == 12}">
-											<td class="sysType">반려</td>
-										</c:if>
-										<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
-											<td class="sysType">${request.reqType}</td>
-										</c:if>
-										
-										<td class="reqTitle" style="max-width: 100px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>	
-										<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" /></td>
-										
-										<td class="step_td">
-											<%@ include file="/WEB-INF/views/srm/restatus/nowstatusvertical.jsp"%>
-										</td>
-
-									</tr>
-								</c:forEach>
-							</table>
-						</article>
+							</c:forEach>
+						</table>
 					</section>
 					</main>
 				</div>
