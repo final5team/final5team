@@ -11434,7 +11434,7 @@ body::-webkit-scrollbar-thumb:window-inactive {
 
 
 .tableContent{
-width: 250px;
+width: 300px;
 overflow: hidden;
 text-overflow: ellipsis;
 display: inline-block;
