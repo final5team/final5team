@@ -169,7 +169,7 @@ a {
 
 a:hover {
   color: var(--gray-dark);
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 a:not([href]):not([class]) {
