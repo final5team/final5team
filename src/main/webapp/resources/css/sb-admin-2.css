@@ -47,8 +47,10 @@
   box-sizing: border-box;
 }
  */
+ @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+ 
 html {
-  font-family: sans-serif;
+  font-family: 'Montserrat', sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -60,8 +62,8 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
   font-weight: 400;
   line-height: 1.5;
   color: #858796;

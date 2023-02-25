@@ -41,7 +41,7 @@ form {
 }
 
 .section1 h4 {
-	color: #68a329;
+	color: #5a5c69;
 	font: bold;
 	margin: 15px 15px;
 }
@@ -55,14 +55,14 @@ form {
 
 .section1 button {
 	margin: 0px 10px;
-	background-color: #85ce36;
+	background-color: #5a5c69;
 	color: white;
 	border: none;
 }
 
 .section1 .step span {
 	display: inline-block;
-	background-color: #85ce36;
+	background-color: #5a5c69;
 	width: 8px;
 	height: 6px;
 }
@@ -299,8 +299,8 @@ textarea:focus::placeholder {
 }
 
 .item input:focus {
-	border: 1px solid #85ce36;
-	box-shadow: 0 0 5px #85ce36;
+	border: 1px solid #5a5c69;
+	box-shadow: 0 0 5px #5a5c69;
 }
 
 .item input:focus::placeholder {
@@ -308,20 +308,20 @@ textarea:focus::placeholder {
 }
 
 .item textarea:focus {
-	border: 1px solid #85ce36;
-	box-shadow: 0 0 5px #85ce36;
+	border: 1px solid #5a5c69;
+	box-shadow: 0 0 5px #5a5c69;
 }
 
 .item input:focus {
-	box-shadow: 0 0 5px #85ce36;
+	box-shadow: 0 0 5px #5a5c69;
 }
 
 .item input:focus+.fa {
-	color: #85ce36;
+	color: #5a5c69;
 }
 
 .item select:focus {
-	box-shadow: 0 0 5px #85ce36;
+	box-shadow: 0 0 5px #5a5c69;
 }
 
 .include {
@@ -359,18 +359,18 @@ article.include div {
 }
 
 .include .circle.done {
-	border-color: #87cd36;
-	color: #87cd36;
+	border-color: #5a5c69;
+	color: #5a5c69;
 }
 
 .include .circle.now {
 	border-color: white;
 	color: white;
-	background-color: #87cd36;
+	background-color: #5a5c69;
 }
 
 .include .bar.active {
-	border-color: #87cd36;
+	border-color: #5a5c69;
 }
 
 
@@ -413,13 +413,16 @@ article.include div {
 							</article>
 							<article class="inputData">
 								<div class="item">
-									<input type="text" class="form-control form-control-user" id="clientName" name="clientName" placeholder="${sessionScope.member.mname}" value="${sessionScope.member.mname}" readonly> <i class="fa fa-phone"></i>
+									<input type="text" class="form-control form-control-user" id="clientName" name="clientName" placeholder="${sessionScope.member.mname}" value="${sessionScope.member.mname}" readonly> 
+									<i class="fa fa-user"></i>
 								</div>
 								<div class="item">
-									<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="${sessionScope.member.phone}" value="${sessionScope.member.phone}" readonly> <i class="fa fa-phone"></i>
+									<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="${sessionScope.member.phone}" value="${sessionScope.member.phone}" readonly> 
+									<i class="fa fa-phone"></i>
 								</div>
 								<div class="item">
-									<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="${sessionScope.member.position}" value="${sessionScope.member.position}" readonly> <i class="fa fa-phone"></i>
+									<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="${sessionScope.member.position}" value="${sessionScope.member.position}" readonly> 
+									<i class="fa fa-address-card"></i>
 								</div>
 								<div class="item">
 									<div class="select-group">
@@ -429,7 +432,7 @@ article.include div {
 												<option value="${system.sno}">${system.systemName}</option>
 											</c:forEach>
 										</select>
-										<i class="fa fa-user"></i>
+										<i class="fa fa-briefcase"></i>
 									</div>
 								</div>
 							</article>
@@ -440,13 +443,16 @@ article.include div {
 							</article>
 							<article class="inputData2">
 								<div class="item">
-									<input type="text" class="form-control form-control-user" id="organ" name="organ" placeholder="${sessionScope.member.organ}" value="${sessionScope.member.organ}" readonly> <i class="fa fa-phone"></i>
+									<input type="text" class="form-control form-control-user" id="organ" name="organ" placeholder="${sessionScope.member.organ}" value="${sessionScope.member.organ}" readonly> 
+									<i class="fa fa-building"></i>
 								</div>
 								<div class="item">
-									<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="${sessionScope.member.email}" value="${sessionScope.member.email}" readonly> <i class="fa fa-phone"></i>
+									<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="${sessionScope.member.email}" value="${sessionScope.member.email}" readonly> 
+									<i class="fa fa-envelope"></i>
 								</div>
 								<div class="item">
-									<input type="date" class="form-control form-control-user" id="reqExpectDate" name="reqExpectDate" required><i class="fa fa-phone"></i>
+									<input type="date" class="form-control form-control-user" id="reqExpectDate" name="reqExpectDate" required>
+									<i class="fa fa-calendar"></i>
 								</div>
 							</article>
 							<article class="titleLabel">
@@ -470,15 +476,15 @@ article.include div {
 							</article>
 							<article class="fileBody">
 								<div class="item">
-									<input class="btn btn-primary btn-sm" multiple="multiple" type="file" id="mfile" name="mfile[]" /> 
+									<input class="btn btn-dark btn-sm" multiple="multiple" type="file" id="mfile" name="mfile[]" /> 
 								</div>
 							</article>
 
 							<article class="submit-button">
-								<button class="btn btn-primary btn-sm" type="submit">작성</button>
+								<button class="btn btn-dark btn-sm" type="submit">작성</button>
 							</article>
 							<article class="return-button">
-								<button class="btn btn-primary btn-sm" type="submit">취소</button>
+								<button class="btn btn-dark btn-sm" type="submit">취소</button>
 							</article>
 							<article class="include">
 								<%@ include file="/WEB-INF/views/srm/restatus/nowstatushorizon.jsp"%>

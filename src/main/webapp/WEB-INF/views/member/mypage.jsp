@@ -40,7 +40,7 @@ form {
 }
 
 .section1 h4 {
-	color: #68a329;
+	color: #5a5c69;
 	font: bold;
 	margin: 15px 15px;
 }
@@ -131,11 +131,11 @@ form {
 }
 
 .item input:focus {
-	box-shadow: 0 0 5px #85ce36;
+	box-shadow: 0 0 5px #5a5c69;
 }
 
 .item input:focus+.fa {
-	color: #85ce36;
+	color: #5a5c69;
 }
 
 .item input:focus::placeholder {
@@ -143,15 +143,15 @@ form {
 }
 
 .item select:focus+.fa {
-	color: #85ce36;
+	color: #5a5c69;
 }
 
 .item select:focus+.fa {
-	color: #85ce36;
+	color: #5a5c69;
 }
 
 .item select:focus {
-	box-shadow: 0 0 5px #85ce36;
+	box-shadow: 0 0 5px #5a5c69;
 }
 
 .section2 .userData2 {
@@ -298,7 +298,7 @@ form {
 							<article class="photo">
 								<img id="preview" src="${pageContext.request.contextPath}/customer/mypage/${returnMember.mid}"
 									onerror="this.src='${pageContext.request.contextPath}/resources/img/undraw_profile.svg';"/> 
-								<input type="file" class="btn btn-sm btn-primary" id="mfile" name="mfile" onchange="readURL(this);">
+								<input type="file" class="btn btn-sm btn-dark" id="mfile" name="mfile" onchange="readURL(this);">
 							</article>
 
 							<article class="userData">
@@ -313,17 +313,16 @@ form {
 								<div class="data">
 									<div class="item">
 										<input type="text" class="form-control form-control-user" id="mid" name="mid" value="${returnMember.mid}">
-											
 										<i class="fa fa-user"></i>
 									</div>
 									<div class="item">
 										<input type="password" class="form-control form-control-user" id="password" name="password" value="${returnMember.password}" > 
-										<i class="fa fa-envelope"></i>
+										<i class="fa fa-unlock"></i>
 									</div>
 									<!-- 비밀번호 확인 -->
 									<div class="item">
 										<input type="password" class="form-control form-control-user" id="password_confirm" name="password_confirm" value="${returnMember.password}"> 
-										<i class="fa fa-envelope"></i>
+										<i class="fa fa-unlock-alt"></i>
 									</div>
 									<div class="item">
 										<input type="text" class="form-control form-control-user" id="mname" name="mname" value="${returnMember.mname}"> 
@@ -356,7 +355,7 @@ form {
 											<option value="1">남</option>
 											<option value="2">여</option>
 										</select>
-										<i class="fa fa-user"></i>
+										<i class="fa fa-venus-mars"></i>
 									</div>
 								</div>
 								<div class="item">
@@ -368,7 +367,7 @@ form {
 											<option value="과장">과장</option>
 											<option value="차장">차장</option>
 										</select>
-										<i class="fa fa-user"></i>
+										<i class="fa fa-address-card"></i>
 									</div>
 
 								</div>
@@ -381,43 +380,48 @@ form {
 											<option value="2">2</option>
 											<option value="3">3</option>
 										</select>
-										<i class="fa fa-user"></i>
+										<i class="fa fa-building"></i>
 									</div>
 
 								</div>
 								<div class="item">
 									<div class="input-group">
 										<div class="date_form">
-											<input type="date" id="birth" name="birth" value="<fmt:formatDate value="${returnMember.birth}" pattern="yyyy-MM-dd" />"><i class="fa fa-user"></i>
+											<input type="date" id="birth" name="birth" value="<fmt:formatDate value="${returnMember.birth}" pattern="yyyy-MM-dd" />">
+											<i class="fa fa-calendar"></i>
 										</div>
 									</div>
 									<div class="input-group">
 										<div class="item" style="margin-top: 10px;">
-											<input type="text" class="form-control form-control-user" id="phone" name="phone" value="${returnMember.phone}"> <i class="fa fa-user"></i>
+											<input type="text" class="form-control form-control-user" id="phone" name="phone" value="${returnMember.phone}"> 
+											<i class="fa fa-phone"></i>
 										</div>
 									</div>
 								</div>
 							</article>
 							<article class="address-input">
 								<div class="item address1">
-									<input type="text" class="form-control form-control-user" id="postcode" name="postcode" value="${returnMember.postcode}"> <i class="fa fa-user"></i>
+									<input type="text" class="form-control form-control-user" id="postcode" name="postcode" value="${returnMember.postcode}">
+									<i class="fa fa-map-marker"></i>
 								</div>
 								<div class="item address2">
-									<input type="text" class="form-control form-control-user" id="addr1" name="addr1" value="${returnMember.addr1}"> <i class="fa fa-user"></i>
+									<input type="text" class="form-control form-control-user" id="addr1" name="addr1" value="${returnMember.addr1}"> 
+									<i class="fa fa-map-marker"></i>
 								</div>
 								<div class="item address3">
-									<input type="text" id="addr2" name="addr2" value="${returnMember.addr2}"> <i class="fa fa-user"></i>
+									<input type="text" id="addr2" name="addr2" value="${returnMember.addr2}"> 
+									<i class="fa fa-map-marker"></i>
 								</div>
 								<div class="item address-button">
-									<button type="button" class="btn btn-primary btn-sm" id="address" name="address" onclick="findAddress()">우편번호</button>
+									<button type="button" class="btn btn-dark btn-sm" id="address" name="address" onclick="findAddress()">우편번호</button>
 								</div>
 							</article>
 
 							<article class="submit-button">
-								<button class="btn btn-primary btn-sm" type="submit">회원 등록</button>
+								<button class="btn btn-dark btn-sm" type="submit">회원 등록</button>
 							</article>
 							<article class="return-button">
-								<button class="btn btn-primary btn-sm" type="submit">취소</button>
+								<button class="btn btn-dark btn-sm" type="submit">취소</button>
 							</article>
 						</section>
 					</form>

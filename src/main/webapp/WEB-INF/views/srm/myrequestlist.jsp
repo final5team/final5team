@@ -149,16 +149,12 @@ main {
 }
 
 .table .table-body {
-	position: absolute;
-	top: 10%;
-	left: 0%;
 	height: inherit;
-	width: 1050px;
 }
 
 .member {
 	margin: 5px 10px;
-	width: 1000px;
+	width: inherit;
 	background-color: #fff;
 	border-collapse: collapse;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
@@ -177,16 +173,8 @@ main {
 	transition: 0.3s;
 }
 
-.member tr:last-child {
-	border: none;
-}
-
 .member tr:hover {
 	background-color: #eee;
-}
-
-.member tr:nth-child(odd) {
-	
 }
 
 .member th, .member td {
@@ -199,25 +187,13 @@ main {
 }
 
 .member tr th {
-	background-color: #85ce36;
+	background-color: var(--gray-dark);
 	color: #fff;
 }
 
-.member tr td {
-	width: 1050px;
-	font-size: 12px;
-}
-
-.member tr th:first-child {
-	border-radius: 5px 0 0 0;
-}
-
-.member tr th:last-child {
-	border-radius: 0 5px 0 0;
-}
-
-.member tr td:last-child {
-	
+.member .step_td {
+display: inline-block;
+width: 500px;
 }
 
 .member tr:hover {
@@ -232,79 +208,17 @@ main {
 	top: 70%;
 	z-index: 5;
 }
-
-.step_tr {
-	border: none;
+.pager{
+position: absolute;
+left: 50%;
+top : 75%;
+width : inherit;
 }
-
-.inner_step {
-	border: none;
-}
-
-.step_tr {
-	align-items: center;
-	border: none;
-}
-
-.step_tr .step_td {
-	display: flex;
-	max-width: 550px;
-	width: 550px;
-	padding: 0;
-	border: none;
-	white-space: nowrap;
-	overflow: hidden;
-	white-space: nowrap;
-}
-
-.step_tr .step_td .inner_step {
-	background-color: none;
-	position: relative;
-}
-
-.step_tr .step_td .inner_step .circle {
-	width: 70px;
-	background-color: none;
-}
-
-.step_tr .step_td .inner_step .bar {
-	width: 5px;
-	height: 0px;
-	background-color: none;
-	position: absolute;
-}
-
-.pager {
-	
-}
-
-.circle {
-	background-color: #fff;
-	color: #999;
-	font-size: 10px;
-	text-align: center;
-	border: 3px solid #e0e0e0;
-	transition: 0.4s ease;
-}
-
-.bar {
-	padding: 0;
-	background-color: #fff;
-	color: #999;
-	width: 30px;
-	transition: 0.4s ease;
-	border: none;
-}
-
-.circle.done {
-	border-color: #87cd36;
-	color: #87cd36;
-}
-
-.circle.now {
-	border-color: #87cd36;
-	color: white;
-	background-color: #87cd36;
+.pager .write{
+position: absolute;
+left: 110%;
+top : 0%;
+width: 60px;
 }
 </style>
 
@@ -352,7 +266,7 @@ main {
 								</c:if>
 							</article>
 							<article class="search-button">
-								<button class="btn btn-primary btn-sm" type="submit">검색</button>
+								<button class="btn btn-dark btn-sm" type="submit">검색</button>
 							</article>
 							<article class="filter-body">
 								<div class="input-group">
@@ -390,10 +304,8 @@ main {
 										<select class="custom-select" id="statusNo" name="statusNo">
 											<option value="0" selected>전체</option>
 											<option value="1">접수</option>
+											<!-- 개발 단계에 개발, 테슽, 배포 모두 포함 -->
 											<option value="2">개발</option>
-											<option value="5">테스트</option>
-											<option value="8">유저테스트</option>
-											<option value="10">배포</option>
 											<option value="11">완료</option>
 											<option value="12">반려</option>
 										</select>
@@ -405,17 +317,8 @@ main {
 											<c:if test="${listFilter.statusNo != 1}">
 												<option value="1">접수</option>
 											</c:if>
-											<c:if test="${listFilter.statusNo != 2 && listFilter.statusNo != 3 && listFilter.statusNo != 4}">
+											<c:if test="${listFilter.statusNo != 2}">
 												<option value="2">개발</option>
-											</c:if>
-											<c:if test="${listFilter.statusNo != 5 && listFilter.statusNo != 6 && listFilter.statusNo != 7}">
-												<option value="5">테스트</option>
-											</c:if>
-											<c:if test="${listFilter.statusNo != 8}">
-												<option value="8">유저테스트</option>
-											</c:if>
-											<c:if test="${listFilter.statusNo != 10}">
-												<option value="10">배포</option>
 											</c:if>
 											<c:if test="${listFilter.statusNo != 11 && listFilter.statusNo != 13}">
 												<option value="11">완료</option>
@@ -460,7 +363,6 @@ main {
 						<article class="table-header">
 							<h4>리스트</h4>
 						</article>
-						<article class="member table-body">
 							<table class="member" id="table_content">
 								<tr>
 									<th>No.</th>
@@ -484,17 +386,16 @@ main {
 										<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
 											<td class="sysType">${request.reqType}</td>
 										</c:if>
-										<td class="reqTitle" style="max-width: 100px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
+										<td class="reqTitle" style="max-width: 200px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
 										<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
 											<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
 										</td>
 										<td class="step_td">
-											<%@ include file="/WEB-INF/views/srm/restatus/myrequestlist.jsp"%>
+											<%@ include file="/WEB-INF/views/srm/restatus/stepintable_my.jsp"%>
 										</td>
 									</tr>
 								</c:forEach>
 							</table>
-						</article>
 					</section>
 					</main>
 				</div>
@@ -522,7 +423,7 @@ main {
 						<a href="requestlist?pageNo=${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
 					</div>
 					<div class="flex-fulfill"></div>
-					<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-muted shadow">글 작성</a>
+					<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-muted shadow">요청 작성</a>
 				</div>
 
 			</div>

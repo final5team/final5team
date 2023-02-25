@@ -210,7 +210,7 @@ width: 500px;
 }
 .pager{
 position: absolute;
-left: 50%;
+left: 40%;
 top : 75%;
 width : inherit;
 }
@@ -405,7 +405,7 @@ width: 60px;
 										<td class="sysType">${request.reqType}</td>
 									</c:if>
 
-									<td class="reqTitle" style="max-width: 100px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
+									<td class="reqTitle" style="max-width: 200px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
 									<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
 										<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
 									</td>
@@ -442,7 +442,7 @@ width: 60px;
 						</c:if>
 						<a href="requestlist?pageNo=${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
 					</div>
-					<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-muted shadow write">글 작성</a>
+					<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-muted shadow write">요청 작성</a>
 				</div>
 
 			</div>

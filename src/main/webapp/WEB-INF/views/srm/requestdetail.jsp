@@ -41,7 +41,7 @@ form {
 }
 
 .section1 h4 {
-	color: #68a329;
+	color: #5a5c69;
 	font: bold;
 	margin: 15px 15px;
 }
@@ -55,14 +55,15 @@ form {
 
 .section1 button {
 	margin: 0px 10px;
-	background-color: #85ce36;
+	background-color: var(--gray-dark);
 	color: white;
 	border: none;
 }
 
 .section1 .step span {
 	display: inline-block;
-	background-color: #85ce36;
+	background-color: #5a5c69;
+  border-color: #5a5c69;
 	width: 8px;
 	height: 6px;
 }
@@ -299,8 +300,8 @@ textarea:focus::placeholder {
 }
 
 .item input:focus {
-	border: 1px solid #85ce36;
-	box-shadow: 0 0 5px #85ce36;
+	border: 1px solid #5a5c69;
+	box-shadow: 0 0 5px #5a5c69;
 }
 
 .item input:focus::placeholder {
@@ -308,20 +309,20 @@ textarea:focus::placeholder {
 }
 
 .item textarea:focus {
-	border: 1px solid #85ce36;
-	box-shadow: 0 0 5px #85ce36;
+	border: 1px solid #5a5c69;
+	box-shadow: 0 0 5px #5a5c69;
 }
 
 .item input:focus {
-	box-shadow: 0 0 5px #85ce36;
+	box-shadow: 0 0 5px #5a5c69;
 }
 
 .item input:focus+.fa {
-	color: #85ce36;
+	color: #5a5c69;
 }
 
 .item select:focus {
-	box-shadow: 0 0 5px #85ce36;
+	box-shadow: 0 0 5px #5a5c69;
 }
 
 .include {
@@ -359,18 +360,18 @@ article.include div {
 }
 
 .include .circle.done {
-	border-color: #87cd36;
-	color: #87cd36;
+	border-color: #5a5c69;
+	color: #5a5c69;
 }
 
 .include .circle.now {
 	border-color: white;
 	color: white;
-	background-color: #87cd36;
+	background-color: #5a5c69;
 }
 
 .include .bar.active {
-	border-color: #87cd36;
+	border-color: #5a5c69;
 }
 
 
@@ -479,10 +480,10 @@ article.include div {
 							</article>
 
 							<article class="submit-button">
-								<button class="btn btn-primary btn-sm" type="submit">수정</button>
+								<button class="btn btn-dark btn-sm" type="submit">수정</button>
 							</article>
 							<article class="return-button">
-								<button class="btn btn-primary btn-sm" type="submit">취소</button>
+								<button class="btn btn-dark btn-sm" type="submit">취소</button>
 							</article>
 							<article class="include">
 								<%@ include file="/WEB-INF/views/srm/restatus/myrequestdetail.jsp"%>
