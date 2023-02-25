@@ -131,11 +131,11 @@ form {
 }
 
 .item input:focus {
-	box-shadow: 0 0 5px #85ce36;
+	box-shadow: 0 0 5px  #5a5c69;
 }
 
 .item input:focus+.fa {
-	color: #85ce36;
+	color:  #5a5c69;
 }
 
 .item input:focus::placeholder {
@@ -143,15 +143,15 @@ form {
 }
 
 .item select:focus+.fa {
-	color: #85ce36;
+	color:  #5a5c69;
 }
 
 .item select:focus+.fa {
-	color: #85ce36;
+	color:  #5a5c69;
 }
 
 .item select:focus {
-	box-shadow: 0 0 5px #85ce36;
+	box-shadow: 0 0 5px  #5a5c69;
 }
 
 .section2 .userData2 {
@@ -298,7 +298,7 @@ form {
 						<section class="section2">
 							<article class="photo">
 								<img id="preview" src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg" /> 
-								<input type="file" class="btn btn-sm btn-primary" id="mfile" name="mfile" onchange="readURL(this);">
+								<input type="file" class="btn btn-sm btn-dark" id="mfile" name="mfile" onchange="readURL(this);">
 							</article>
 
 							<article class="userData">
@@ -321,11 +321,11 @@ form {
 										<input type="text" class="form-control form-control-user" id="mid" name="mid" placeholder="아이디" required> <i class="fa fa-user"></i>
 									</div>
 									<div class="item">
-										<input type="password" class="form-control form-control-user" id="password" name="password" placeholder="비밀번호" required> <i class="fa fa-envelope"></i>
+										<input type="password" class="form-control form-control-user" id="password" name="password" placeholder="비밀번호" required> <i class="fa fa-unlock"></i>
 									</div>
 									<!-- 비밀번호 확인 -->
 									<div class="item">
-										<input type="password" class="form-control form-control-user" id="password_confirm" name="password_confirm" placeholder="비밀번호 확인" required> <i class="fa fa-envelope"></i>
+										<input type="password" class="form-control form-control-user" id="password_confirm" name="password_confirm" placeholder="비밀번호 확인" required> <i class="fa fa-unlock-alt"></i>
 									</div>
 									<div class="item">
 										<input type="text" class="form-control form-control-user" id="mname" name="mname" placeholder="이름" required> <i class="fa fa-phone"></i>
@@ -354,7 +354,7 @@ form {
 											<option value="1">남</option>
 											<option value="2">여</option>
 										</select>
-										<i class="fa fa-user"></i>
+										<i class="fa fa-venus-mars"></i>
 									</div>
 								</div>
 								<div class="item">
@@ -366,7 +366,7 @@ form {
 											<option value="과장">과장</option>
 											<option value="차장">차장</option>
 										</select>
-										<i class="fa fa-user"></i>
+										<i class="fa fa-address-card"></i>
 									</div>
 
 
@@ -380,43 +380,43 @@ form {
 											<option value="2">2</option>
 											<option value="3">3</option>
 										</select>
-										<i class="fa fa-user"></i>
+										<i class="fa fa-building"></i>
 									</div>
 
 								</div>
 								<div class="item">
 									<div class="input-group">
 										<div class="date_form">
-											<input type="date" id="birth" name="birth" required> <i class="fa fa-user"></i>
+											<input type="date" id="birth" name="birth" required><i class="fa fa-calendar"></i>
 										</div>
 									</div>
 									<div class="input-group">
 										<div class="item" style="margin-top: 10px;">
-											<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="핸드폰" required> <i class="fa fa-user"></i>
+											<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="핸드폰" required> <i class="fa fa-phone"></i>
 										</div>
 									</div>
 								</div>
 							</article>
 							<article class="address-input">
 								<div class="item address1">
-									<input type="text" class="form-control form-control-user" id="postcode" name="postcode" placeholder="우편번호" readonly> <i class="fa fa-user"></i>
+									<input type="text" class="form-control form-control-user" id="postcode" name="postcode" placeholder="우편번호" readonly> <i class="fa fa-map-marker"></i>
 								</div>
 								<div class="item address2">
-									<input type="text" class="form-control form-control-user" id="addr1" name="addr1" placeholder="도로명 주소" readonly> <i class="fa fa-user"></i>
+									<input type="text" class="form-control form-control-user" id="addr1" name="addr1" placeholder="도로명 주소" readonly> <i class="fa fa-map-marker"></i>
 								</div>
 								<div class="item address3">
-									<input type="text" id="addr2" name="addr2" placeholder="상세 주소" required> <i class="fa fa-user"></i>
+									<input type="text" id="addr2" name="addr2" placeholder="상세 주소" required> <i class="fa fa-map-marker"></i>
 								</div>
 								<div class="item address-button">
-									<button type="button" class="btn btn-primary btn-sm" id="address" name="address" onclick="findAddress()" >우편번호</button>
+									<button type="button" class="btn btn-dark btn-sm" id="address" name="address" onclick="findAddress()" >우편번호</button>
 								</div>
 							</article>
 
 							<article class="submit-button">
-								<button class="btn btn-primary btn-sm" type="submit">회원 등록</button>
+								<button class="btn btn-dark btn-sm" type="submit">회원 등록</button>
 							</article>
 							<article class="return-button">
-								<button class="btn btn-primary btn-sm" type="submit">취소</button>
+								<button class="btn btn-dark btn-sm" type="submit">취소</button>
 							</article>
 						</section>
 					</form>

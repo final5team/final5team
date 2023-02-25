@@ -386,7 +386,7 @@ width: 60px;
 										<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
 											<td class="sysType">${request.reqType}</td>
 										</c:if>
-										<td class="reqTitle" style="max-width: 100px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
+										<td class="reqTitle" style="max-width: 200px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
 										<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
 											<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
 										</td>
@@ -423,7 +423,7 @@ width: 60px;
 						<a href="requestlist?pageNo=${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
 					</div>
 					<div class="flex-fulfill"></div>
-					<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-muted shadow">글 작성</a>
+					<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-muted shadow">요청 작성</a>
 				</div>
 
 			</div>
