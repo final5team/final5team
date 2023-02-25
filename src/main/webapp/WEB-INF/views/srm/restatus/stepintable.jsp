@@ -77,8 +77,8 @@ margin: 0 0 1rem 0;
 													opacity: 0;
 												}
 												
-												.progress_bar .is_complete:not (:first-child):after, .progress_bar .is_active:not(:first-child):after {
-													
+												.progress_bar .is_complete:not(:first-child):after,
+												.progress_bar .is_active:not(:first-child):after {
 													content: "";
 													display: block;
 													width: 100%;
@@ -86,7 +86,7 @@ margin: 0 0 1rem 0;
 													bottom: -2px;
 													left: -50%;
 													z-index: 2;
-													border-bottom: 2px solid var(- -color-green);
+													border-bottom: 2px solid var(--color-green);
 												}
 												
 												.progress_bar li:last-child span {
@@ -96,8 +96,8 @@ margin: 0 0 1rem 0;
 													left: -100%;
 												}
 												
-												.progress_bar .is_complete:last-child:after, .progress_bar .is_active:last-child:after
-													{
+												.progress_bar .is_complete:last-child:after, 
+												.progress_bar .is_active:last-child:after{
 													width: 200%;
 													left: -100%;
 												}
