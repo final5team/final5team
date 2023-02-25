@@ -6,6 +6,17 @@
 
 <head>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
+    
+    <style type="text/css">
+     	#devList #myDevList{
+     		border-top: 1px solid RGB(214 217 220);
+     		margin-top: 10px;
+     		
+     	
+     	}
+     	
+    </style>
+    
 </head>
 
 <body id="page-top">
@@ -42,7 +53,7 @@
 	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1건</div>
 	                                        </div>
 	                                        <div class="col-auto">
-	                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+	                                           <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
 	                                        </div>
 	                                    </div>
 	                                </div>
@@ -59,7 +70,7 @@
 	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
 	                                        </div>
 	                                        <div class="col-auto">
-	                                            <i class="fas fa-spinner"></i>
+	                                            <i class="fas fa-spinner fa-2x text-gray-300"></i>
 	                                        </div>
 	                                    </div>
 	                                </div>
@@ -76,7 +87,7 @@
 	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
 	                                        </div>
 	                                        <div class="col-auto">
-	                                            <i class="fas fa-file-check"></i>
+	                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
 	                                        </div>
 	                                    </div>
 	                                </div>
@@ -93,7 +104,7 @@
 	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
 	                                        </div>
 	                                        <div class="col-auto">
-	                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+	                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
 	                                        </div>
 	                                    </div>
 	                                </div>
@@ -110,48 +121,53 @@
 								<div class="card tasks" style="height: 420.896px;">
 									<div class="card-block">
 										<div class="tasks-block" style="height: 350px;">
-											<div class=" card-title-blcok mb-4">
-												<h3 class="title">List to finish [D-7]</h3>
+											<div class="card-title-block mt-3 d-flex">
+					                			<h5 class="title ml-3" id="devTitle">개발리스트</h5>
+												<div class="topnav bt-3 ml-auto">
+												  <a class="btn btn-sm btn-primary active" href="#" id="devListButton">개발리스트</a>
+												  <a class="btn btn-sm btn-warning " href="#" id="myDevListButton">내 담당 리스트</a>
+												</div>
 											</div>
-											<table class="table tasks-block">
+											<!-- 개발리스트start -->
+											<table class="table tasks-block table-striped" id="devList" style="display: none;">
 												<thead>
 													<tr style="text-align: center;">
-														<th></th>
+														<th>번호</th>
 														<th>제목</th>
 														<th>요청일</th>
-														<th>최종예정일</th>
+														<th>담당자</th>
 													</tr>
 												</thead>
 												<tbody >
-													<c:forEach var="aDay" items="${listOf7daysLeft}">
-														<tr>
-															<td>
-																<input class="checkbox" id="customCheckbox" type="checkbox">
-																<label for="customCheckbox"></label>
-															</td>
-															<td class="tableContent pl-0 pb-0 mt-1">
-																<c:if test="${member.mtype eq 'pm'}">
-																	<a href="${pageContext.request.contextPath}/pm/completedetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
-																</c:if>	
-																<c:if test="${member.mtype eq 'developer'}">
-																	<a href="${pageContext.request.contextPath}/developerdetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
-																</c:if>	
-																<c:if test="${member.mtype eq 'tester'}">
-																	<a href="${pageContext.request.contextPath}/testerdetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
-																</c:if>	
-																<c:if test="${member.mtype eq 'usertester'}">
-																	<a href="${pageContext.request.contextPath}/usertestdetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
-																</c:if>	
-																<c:if test="${member.mtype eq 'distributor'}">
-																	<a href="${pageContext.request.contextPath}/distributedetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
-																</c:if>	
-															</td>
-															<td><fmt:formatDate value="${aDay.reqDate}" pattern="yyyy-MM-dd"/></td>
-															<td><fmt:formatDate value="${aDay.ddayExpectDate}" pattern="yyyy-MM-dd"/></td>
-														</tr>
-													</c:forEach>
+													<tr style="text-align: center;">
+														<td>1</td>
+														<td class="tableContent">제dddddddddddddddddddddddd목입니니다.</td>
+														<td>2023-02-09</td>
+														<td>송영훈</td>
+													</tr>
 												</tbody>
 											</table>
+											<!-- 개발리스트 end -->
+											<!-- 내 담당 리스트 start -->
+											<table class="table tasks-block table-striped" id="myDevList" >
+												<thead>
+													<tr style="text-align: center;">
+														<th>번호</th>
+														<th>제목</th>
+														<th>요청일</th>
+														<th>완료예정일</th>
+													</tr>
+												</thead>
+												<tbody >
+													<tr style="text-align: center;">
+														<td>1</td>
+														<td class="tableContent">제dddddddddddddddddddddddd목입니니다.</td>
+														<td>2023-02-09</td>
+														<td>2023-03-29</td>
+													</tr>
+												</tbody>
+											</table>
+											<!-- 내 담당 리스트 end -->
 										</div>
 									</div>
 								</div>
@@ -159,10 +175,45 @@
 							<!-- 오늘마감end -->
 							<!-- 지연율 start -->
 							<div class="col-xl-5">
-								<div class="card" style="height: 420.896px; align-items: center;">
-								<!-- 파이차트 시작 -->
-								<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-								<!-- 파이차트 끝 -->
+								<div class="card" style="height: 420.896px;" >
+									<div class="card-title-block mt-3">
+			                			<h5 class="title ml-3">공지사항</h5>
+			                		</div>
+			                		<div class="card-body">
+			                			<table class="table tasks-block table-striped">
+											<thead>
+												<tr>
+													<th>번호</th>
+													<th>제목</th>
+													<th>작성날짜</th>
+												</tr>
+											</thead>			                			
+			                				<tbody>
+			                					<tr>
+			                						<th>1</th>
+			                						<th>제목입니다.</th>
+			                						<th>2023-12-03</th>
+			                					</tr>
+			                				</tbody>
+			                			</table>
+			                			<ul class="pagination pagination-sm" style="padding: 0px 100px;">
+										    <li class="page-item">
+										    	<a class="page-link" href="#">
+										    		<i class="fas fa-caret-left"></i>
+										    	</a>
+										    </li>
+										    <li class="page-item"><a class="page-link" href="#">1</a></li>
+										    <li class="page-item"><a class="page-link" href="#">2</a></li>
+										    <li class="page-item"><a class="page-link" href="#">3</a></li>
+										    <li class="page-item"><a class="page-link" href="#">4</a></li>
+										    <li class="page-item"><a class="page-link" href="#">5</a></li>
+										    <li class="page-item">
+										    	<a class="page-link" href="#">
+										    		<i class="fas fa-caret-right"></i>
+										   	 	</a>
+										    </li>
+										</ul>
+			                		</div>
 								</div>
 							</div>
 							<!-- 지연율 end -->
