@@ -255,7 +255,7 @@
 	                                		<p style="color: green">Task</p>
 		                                	<p>개발: ${comRateTask['developer']}%</p>
 		                                	<p>테스트: ${comRateTask['tester']}%</p>
-		                                	<p>고객테: ${comRateTask['usertester']}%</p>
+		                                	<p>유저: ${comRateTask['usertester']}%</p>
 		                                	<p>배포: ${comRateTask['distributor']}%</p>
 	                                	</div>
 	                                </div>
@@ -293,7 +293,7 @@
 	                                		<p style="color: green">Task</p>
 		                                	<p>개발: ${delRateTask['developer']}%</p>
 		                                	<p>테스트: ${delRateTask['tester']}%</p>
-		                                	<p>고객테: ${delRateTask['usertester']}%</p>
+		                                	<p>유저: ${delRateTask['usertester']}%</p>
 		                                	<p>배포: ${delRateTask['distributor']}%</p>
 	                                	</div>
 	                                </div>                                  
@@ -314,6 +314,7 @@
 										서비스 요청 처리 현황
 									</h3>
 								</div>
+								<!-- 태스크 별 탭 -->
 						        <ul class="nav nav-tabs nav-tabs-bordered">
 						            <li class="nav-item">
 						            	<a href="#home" class="nav-link active" data-target="#home" data-toggle="tab" aria-controls="home" role="tab" >전체</a>
@@ -334,6 +335,7 @@
 						
 						        <!-- Tab panes -->
 						        <div class="tab-content tabs-bordered">
+						        	<!-- 전체 서비스 요청 처리 현황 -->
 						        	<div>
 						        		<div class="m-3">
 						        			<h5>전체 서비스 요청 처리 현황</h5>
@@ -442,8 +444,7 @@
 						        		<div>
 						        			<div id="barchart_material"></div>
 						        		</div>
-						        		
-						        	
+						        								        	
 						        	</div>
 						            <div class="tab-pane fade in active" id="home"> 
 						            </div>
@@ -459,7 +460,7 @@
 										                     <div class="card-body">
 										                          <div class="row no-gutters align-items-center">
 										                               <div class="col mr-2">
-										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">전체</div>
+										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">현재</div>
 										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][0]} 건</div>
 										                               </div>
 										                               <div class="col-auto">
@@ -476,7 +477,7 @@
 										                          <div class="row no-gutters align-items-center">
 										                              <div class="col mr-2">
 										                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">개발 대기</div>
-										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][0]-stateTask[0][1]-stateTask[0][2]} 건 </div>
+										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][0]-stateTask[0][1]} 건 </div>
 										                              </div>
 										                          	  <div class="col-auto">
 										                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -507,7 +508,7 @@
 								                                <div class="card-body">
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
-								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">개발 완료</div>
+								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">기처리</div>
 								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][2]} 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
@@ -535,7 +536,7 @@
 										                     <div class="card-body">
 										                          <div class="row no-gutters align-items-center">
 										                               <div class="col mr-2">
-										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">전체</div>
+										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">현재</div>
 										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][0]} 건</div>
 										                               </div>
 										                               <div class="col-auto">
@@ -552,7 +553,7 @@
 										                          <div class="row no-gutters align-items-center">
 										                              <div class="col mr-2">
 										                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">테스트 대기</div>
-										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][0]-stateTask[1][1]-stateTask[1][2]} 건</div>
+										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][0]-stateTask[1][1]} 건</div>
 										                              </div>
 										                          	  <div class="col-auto">
 										                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -583,7 +584,7 @@
 								                                <div class="card-body">
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
-								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">테스트 완료</div>
+								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">기처리</div>
 								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][2]} 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
@@ -610,7 +611,7 @@
 										                     <div class="card-body">
 										                          <div class="row no-gutters align-items-center">
 										                               <div class="col mr-2">
-										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">전체</div>
+										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">현재</div>
 										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][0]} 건</div>
 										                               </div>
 										                               <div class="col-auto">
@@ -627,7 +628,7 @@
 										                          <div class="row no-gutters align-items-center">
 										                              <div class="col mr-2">
 										                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">테스트 대기</div>
-										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][0]-stateTask[2][1]-stateTask[2][2]} 건</div>
+										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][0]-stateTask[2][1]} 건</div>
 										                              </div>
 										                          	  <div class="col-auto">
 										                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -658,7 +659,7 @@
 								                                <div class="card-body">
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
-								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">테스트 완료</div>
+								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">기처리</div>
 								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][2]} 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
@@ -685,7 +686,7 @@
 										                     <div class="card-body">
 										                          <div class="row no-gutters align-items-center">
 										                               <div class="col mr-2">
-										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">전체</div>
+										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">현재</div>
 										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][0]} 건</div>
 										                               </div>
 										                               <div class="col-auto">
@@ -702,7 +703,7 @@
 										                          <div class="row no-gutters align-items-center">
 										                              <div class="col mr-2">
 										                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">배포 대기</div>
-										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][0]-stateTask[3][1]-stateTask[3][2]} 건</div>
+										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][0]-stateTask[3][1]} 건</div>
 										                              </div>
 										                          	  <div class="col-auto">
 										                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -733,7 +734,7 @@
 								                                <div class="card-body">
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
-								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">배포 완료</div>
+								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">기처리</div>
 								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][2]} 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
@@ -753,12 +754,9 @@
 						    <!-- /.card-block -->
 						</div>
 						<!-- /.card -->
-						<!-- 예시 -->
-										
-					
-					
-					<!-- /.card-block -->
+						<!-- 예시 -->										
 					</div>
+					
 					<!-- 셋째 줄 -->
 					<div>
 
