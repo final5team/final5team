@@ -8,10 +8,6 @@
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
     
     <style type="text/css">
-     	#devList #myDevList{
-     		border-top: 1px solid RGB(214 217 220);
-     		margin-top: 10px;
-     	}
      	.border-top-dark {
 		  border-top: 0.25rem solid #3A4651 !important;
 		}
@@ -24,63 +20,6 @@
 	    margin: 0;
 	    margin-right: -5px;
 	 }
-	 /* 토글 온오프 start*/
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-  margin-bottom: 0px;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #72B22B;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}	 
-	 /* 토글 온오프 done*/
-	 
     </style>
     
 </head>
@@ -185,14 +124,7 @@ input:checked + .slider:before {
 							<div class="col-12 my-4">
 								<div class="card tasks border-top-dark shadow" style="height: 420.896px;">
 									<div class="card-title-block mt-3 d-flex">
-			                			<h5 class="title ml-3 mr-auto" id="devTitle">개발리스트</h5>
-				                		<div class="toggle-group d-flex align-items-center mr-4">
-				                			<h5 style="display: inline-block; margin-right: 10px;">나의 리스트</h5>
-				                			<label class="switch" >
-											  <input type="checkbox" id="toggleButton">
-											  <span class="slider round"></span>
-											</label>
-				                		</div>
+			                			<h5 class="title ml-3 mr-auto">D-7 요청리스트</h5>
 			                			
 									</div>
 									<div class="card-block py-0" style="height: 350px;">
@@ -201,55 +133,31 @@ input:checked + .slider:before {
 											<thead>
 												<tr style="text-align: center;">
 													<th>번호</th>
+													<th>시스템</th>
 													<th>요청유형</th>
 													<th>제목</th>
 													<th>우선순위</th>
-													<th>요청일</th>
 													<th>완료예정일</th>
 													<th>담당자</th>
+													<th>현재단계</th>
 												</tr>
 											</thead>
 											<tbody >
 												<tr style="text-align: center;">
 													<td>1</td>
+													<td>가족관계</td>
 													<td>정규</td>
 													<td class="tableContent">제dddddddddddddddddddddddd목입니니다.</td>
 													<td>
 														<span class="fa fa-star checked" style="color: orange;"></span>
 													</td>
 													<td>2023-02-09</td>
-													<td>2023-02-09</td>
 													<td>송영훈</td>
+													<td>개발중</td>
 												</tr>
 											</tbody>
 										</table>
 										<!-- 개발리스트 end -->
-										<!-- 내 담당 리스트 start -->
-										<table class="table tasks-block table-striped" id="myDevList" style="display: none;" >
-											<thead>
-												<tr style="text-align: center;">
-													<th>번호</th>
-													<th>요청유형</th>
-													<th>제목</th>
-													<th>우선순위</th>
-													<th>요청일</th>
-													<th>완료예정일</th>
-												</tr>
-											</thead>
-											<tbody >
-												<tr style="text-align: center;">
-													<td>1</td>
-													<td>정규</td>
-													<td class="tableContent">제dddddddddddddddddddddddd목입니니다.</td>
-													<td>
-														<span class="fa fa-star checked" style="color: orange;"></span>
-													</td>
-													<td>2023-02-09</td>
-													<td>2023-03-29</td>
-												</tr>
-											</tbody>
-										</table>
-										<!-- 내 담당 리스트 end -->
 									</div>
 								</div>
 							</div>
