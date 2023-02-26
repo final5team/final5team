@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.oti.srm.dto.Member;
+import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.StatusHistory;
@@ -16,6 +17,8 @@ import com.oti.srm.dto.StatusHistoryFile;
 @Mapper
 // 단계 상세 페이지 단계 처리 관련 dao 메소드 
 public interface ICommonDao {
+
+
 	// 요청의 단계 이력(status_histories 테이블) 모두 조회
 	public List<StatusHistory> selectRequestHistories(int rno);
 
@@ -78,5 +81,11 @@ public interface ICommonDao {
 	
 	//PM의 최신 요청건 개수 알기
 	public int selectRequestRecentPM();
+	
+	//직무별 요청리스트 출력
+	public List<RequestProcess> selectRequestProcessList(@Param("member")Member member,@Param("checkbox") String checkbox,@Param("pager") Pager pager);
+	
+	//직무별 요청리스트 행의 수 출력
+	public int selectRequestProcessRows(@Param("member")Member member,@Param("checkbox") String checkbox);
 	
 }

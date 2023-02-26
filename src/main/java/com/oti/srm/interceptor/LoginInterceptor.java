@@ -21,7 +21,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 			if( member == null || member.equals("") ) {
 				response.sendRedirect(request.getContextPath() + "/login");
 				return false;
-			}
+			} 
+				
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

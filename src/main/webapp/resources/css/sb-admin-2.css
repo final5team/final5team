@@ -11461,10 +11461,10 @@ white-space: nowrap;
 /* Handle */
 .tasks-block::-webkit-scrollbar-thumb {
   border-radius: 0;
-  background: #78bd2e; }
+  background: #3A4651; }
 
 .tasks-block::-webkit-scrollbar-thumb:window-inactive {
-  background: #85CE36; }
+  background: #3A4651; }
   
   /************** 체크박스 *******************/
    input[type="checkbox"]{
@@ -11513,4 +11513,12 @@ input[type="checkbox"]:checked + label:after {
 	width: 1050px;
 	padding:0px;
 	
+}
+
+
+.btn-sm, .btn-group-sm > .btn {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
 }
