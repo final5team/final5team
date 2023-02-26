@@ -78,7 +78,7 @@
 				USER_TESTER is not null and TEST_COMP_DATE is not null
 			</if>
 			<if test="mtype == 4">
-				USERTEST_COMP_DATE is not null
+				USERTEST_COMP_DATE is not null or (REQ_TYPE='긴급' and TEST_COMP_DATE is not null)
 			</if>
 		</where> 
 	</select>

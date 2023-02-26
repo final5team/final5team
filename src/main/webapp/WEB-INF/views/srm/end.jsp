@@ -137,12 +137,14 @@
 							        <td><fmt:formatDate value="${reqProcess.testExpectDate}" pattern="yyyy-MM-dd"/></td>
 							        <td><fmt:formatDate value="${reqProcess.testCompDate}" pattern="yyyy-MM-dd"/></td>
 							     </tr>
-							     <tr>
-							        <td>유저 테스트</td>
-							        <td>${reqProcess.userTester}</td>
-							        <td><fmt:formatDate value="${reqProcess.userTestExpectDate}" pattern="yyyy-MM-dd"/></td>
-							        <td><fmt:formatDate value="${reqProcess.userTestCompDate}" pattern="yyyy-MM-dd"/></td>
-							     </tr>
+							     <c:if test="${reqProcess.reqType eq '정규'}">
+								     <tr>
+								        <td>유저 테스트</td>
+								        <td>${reqProcess.userTester}</td>
+								        <td><fmt:formatDate value="${reqProcess.userTestExpectDate}" pattern="yyyy-MM-dd"/></td>
+								        <td><fmt:formatDate value="${reqProcess.userTestCompDate}" pattern="yyyy-MM-dd"/></td>
+								     </tr>
+							     </c:if>
 							     <tr>
 							        <td>배포</td>
 							        <td>${reqProcess.distributor}</td>
