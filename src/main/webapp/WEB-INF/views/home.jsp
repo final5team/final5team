@@ -37,145 +37,147 @@
 
                 <!-- 여기에 내용 담기 start -->
                 <div class="container-fluid dashboard-page">
-                	<!-- 상단 버튼 3 or 4  시작-->
-                	<div class="row mt-5">
-                		<!-- 최신 요청 start-->
-                		<div 
-                			<c:if test="${member.mtype == 'pm' || member.mtype == 'developer'}">class="col-xl-3 stretch-card"</c:if>
-                			<c:if test="${member.mtype != 'pm' && member.mtype != 'developer'}">class="col-xl-4 stretch-card"</c:if>>
-                			<div class="card text-white btn-gradient-danger" style="padding: 2.5rem;">
-                				<div class="card-body">
-		           					<img style="position: absolute;top: 0; right: 0; height: 100%;" src="${pageContext.request.contextPath}/resources/img/circle.1541da91.svg">
-                					<h4 class="font-weight-normal mb-3">최신 요청건
-                						<i class="fas fa-star-of-david float-right"></i>
-                					</h4>
-                					<h2 class="mb-5"><c:out value="${workingStatus.requestRecent}"/> 건</h2>
-                				</div>
-                			</div>
-                		</div>
-                		<c:if test="${member.mtype == 'developer'}">
-                		<!-- 재검토 요청 start-->
-                		<div class="col-xl-3 stretch-card">
-                			<div class="card text-white bg-gradient-warning" style="padding: 2.5rem;">
-                				<div class="card-body">
-		           					<img style="position: absolute;top: 0; right: 0; height: 100%;" src="${pageContext.request.contextPath}/resources/img/circle.1541da91.svg">
-                					<h4 class="font-weight-normal mb-3">재검토 요청
-                						<i class="fas fa-star-of-david float-right"></i>
-                					</h4>
-                					<h2 class="mb-5"><c:out value="${workingStatus.requestReexam}"/>건</h2>
-                				</div>
-                			</div>
-                		</div>
-                		</c:if>
-                		<c:if test="${member.mtype == 'pm'}">
-                		<!-- 반려건 start-->
-                		<div class="col-xl-3 stretch-card">
-                			<div class="card text-white bg-gradient-warning" style="padding: 2.5rem;">
-                				<div class="card-body">
-		           					<img style="position: absolute;top: 0; right: 0; height: 100%;" src="${pageContext.request.contextPath}/resources/img/circle.1541da91.svg">
-                					<h4 class="font-weight-normal mb-3">반려건
-                						<i class="fas fa-star-of-david float-right"></i>
-                					</h4>
-                					<h2 class="mb-5"><c:out value="${workingStatus.requestReject}"/>건</h2>
-                				</div>
-                			</div>
-                		</div>
-                		</c:if>
-                		
-                		<!-- 진행 요청 start-->
-                		<div 
-                			<c:if test="${member.mtype == 'pm' || member.mtype == 'developer'}">class="col-xl-3 stretch-card"</c:if>
-                			<c:if test="${member.mtype != 'pm' && member.mtype != 'developer'}">class="col-xl-4 stretch-card"</c:if>>
-                			<div class="card text-white bg-gradient-primary" style="padding: 2.5rem;">
-                				<div class="card-body">
-           							<img style="position: absolute;top: 0; right: 0; height: 100%;" src="${pageContext.request.contextPath}/resources/img/circle.1541da91.svg">
-                					<h4 class="font-weight-normal mb-3">진행 요청건
-                						<i class="fas fa-star-of-david float-right"></i>
-                					</h4>
-                					<h2 class="mb-5"><c:out value="${workingStatus.requestInProgress}"/> 건</h2>
-                				</div>
-                			</div>
-                		</div>
-                		<!-- 완료 요청 start-->
-                		<div 
-                			<c:if test="${member.mtype == 'pm' || member.mtype == 'developer'}">class="col-xl-3 stretch-card"</c:if>
-                			<c:if test="${member.mtype != 'pm' && member.mtype != 'developer'}">class="col-xl-4 stretch-card"</c:if>>
-                			<div class="card text-white bg-gradient-secondary" style="padding: 2.5rem;">
-                				<div class="card-body">
-		           					<img style="position: absolute;top: 0; right: 0; height: 100%;" src="${pageContext.request.contextPath}/resources/img/circle.1541da91.svg">
-                					<h4 class="font-weight-normal mb-3">완료 요청건
-                						<i class="fas fa-star-of-david float-right"></i>
-                					</h4>
-                					<h2 class="mb-5"><c:out value="${workingStatus.requestDone}"/> 건</h2>
-                				</div>
-                			</div>
-                		</div>
-                	</div>
-                	<!-- 상단 버튼 3 or 4  끝 -->
-                	<!-- 하단 오늘 마감 and 지연율 start-->
-					<div class="row mt-5">
-						<!-- 오늘마감start -->
-						<div class="col-xl-7">
-							<div class="card tasks" style="height: 420.896px;">
-								<div class="card-block">
-									<div class="tasks-block" style="height: 350px;">
-										<div class=" card-title-blcok mb-4">
-											<h3 class="title">List to finish [D-7]</h3>
-										</div>
-										<table class="table tasks-block">
-											<thead>
-												<tr style="text-align: center;">
-													<th></th>
-													<th>제목</th>
-													<th>요청일</th>
-													<th>최종예정일</th>
-												</tr>
-											</thead>
-											<tbody >
-												<c:forEach var="aDay" items="${listOf7daysLeft}">
-													<tr>
-														<td>
-															<input class="checkbox" id="customCheckbox" type="checkbox">
-															<label for="customCheckbox"></label>
-														</td>
-														<td class="tableContent pl-0 pb-0 mt-1">
-															<c:if test="${member.mtype eq 'pm'}">
-																<a href="${pageContext.request.contextPath}/pm/completedetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
-															</c:if>	
-															<c:if test="${member.mtype eq 'developer'}">
-																<a href="${pageContext.request.contextPath}/developerdetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
-															</c:if>	
-															<c:if test="${member.mtype eq 'tester'}">
-																<a href="${pageContext.request.contextPath}/testerdetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
-															</c:if>	
-															<c:if test="${member.mtype eq 'usertester'}">
-																<a href="${pageContext.request.contextPath}/usertestdetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
-															</c:if>	
-															<c:if test="${member.mtype eq 'distributor'}">
-																<a href="${pageContext.request.contextPath}/distributedetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
-															</c:if>	
-														</td>
-														<td><fmt:formatDate value="${aDay.reqDate}" pattern="yyyy-MM-dd"/></td>
-														<td><fmt:formatDate value="${aDay.ddayExpectDate}" pattern="yyyy-MM-dd"/></td>
+                	<div id="main">
+	                	<!-- 상단 버튼 3 or 4  시작-->
+	                	<div class="row mt-5" style="flex-wrap: nowrap;">
+	                		<!-- 최신 요청 start-->
+	                		<div 
+	                			<c:if test="${member.mtype == 'pm' || member.mtype == 'developer'}">class="col-xl-3 stretch-card"</c:if>
+	                			<c:if test="${member.mtype != 'pm' && member.mtype != 'developer'}">class="col-xl-4 stretch-card"</c:if>>
+	                			<div class="card text-white btn-gradient-danger" style="padding: 2.5rem;">
+	                				<div class="card-body">
+			           					<img style="position: absolute;top: 0; right: 0; height: 100%;" src="${pageContext.request.contextPath}/resources/img/circle.1541da91.svg">
+	                					<h4 class="font-weight-normal mb-3">최신 요청건
+	                						<i class="fas fa-star-of-david float-right"></i>
+	                					</h4>
+	                					<h2 class="mb-5"><c:out value="${workingStatus.requestRecent}"/> 건</h2>
+	                				</div>
+	                			</div>
+	                		</div>
+	                		<c:if test="${member.mtype == 'developer'}">
+	                		<!-- 재검토 요청 start-->
+	                		<div class="col-xl-3 stretch-card">
+	                			<div class="card text-white bg-gradient-warning" style="padding: 2.5rem;">
+	                				<div class="card-body">
+			           					<img style="position: absolute;top: 0; right: 0; height: 100%;" src="${pageContext.request.contextPath}/resources/img/circle.1541da91.svg">
+	                					<h4 class="font-weight-normal mb-3">재검토 요청
+	                						<i class="fas fa-star-of-david float-right"></i>
+	                					</h4>
+	                					<h2 class="mb-5"><c:out value="${workingStatus.requestReexam}"/>건</h2>
+	                				</div>
+	                			</div>
+	                		</div>
+	                		</c:if>
+	                		<c:if test="${member.mtype == 'pm'}">
+	                		<!-- 반려건 start-->
+	                		<div class="col-xl-3 stretch-card">
+	                			<div class="card text-white bg-gradient-warning" style="padding: 2.5rem;">
+	                				<div class="card-body">
+			           					<img style="position: absolute;top: 0; right: 0; height: 100%;" src="${pageContext.request.contextPath}/resources/img/circle.1541da91.svg">
+	                					<h4 class="font-weight-normal mb-3">반려건
+	                						<i class="fas fa-star-of-david float-right"></i>
+	                					</h4>
+	                					<h2 class="mb-5"><c:out value="${workingStatus.requestReject}"/>건</h2>
+	                				</div>
+	                			</div>
+	                		</div>
+	                		</c:if>
+	                		
+	                		<!-- 진행 요청 start-->
+	                		<div 
+	                			<c:if test="${member.mtype == 'pm' || member.mtype == 'developer'}">class="col-xl-3 stretch-card"</c:if>
+	                			<c:if test="${member.mtype != 'pm' && member.mtype != 'developer'}">class="col-xl-4 stretch-card"</c:if>>
+	                			<div class="card text-white bg-gradient-primary" style="padding: 2.5rem;">
+	                				<div class="card-body">
+	           							<img style="position: absolute;top: 0; right: 0; height: 100%;" src="${pageContext.request.contextPath}/resources/img/circle.1541da91.svg">
+	                					<h4 class="font-weight-normal mb-3">진행 요청건
+	                						<i class="fas fa-star-of-david float-right"></i>
+	                					</h4>
+	                					<h2 class="mb-5"><c:out value="${workingStatus.requestInProgress}"/> 건</h2>
+	                				</div>
+	                			</div>
+	                		</div>
+	                		<!-- 완료 요청 start-->
+	                		<div 
+	                			<c:if test="${member.mtype == 'pm' || member.mtype == 'developer'}">class="col-xl-3 stretch-card"</c:if>
+	                			<c:if test="${member.mtype != 'pm' && member.mtype != 'developer'}">class="col-xl-4 stretch-card"</c:if>>
+	                			<div class="card text-white bg-gradient-secondary" style="padding: 2.5rem;">
+	                				<div class="card-body">
+			           					<img style="position: absolute;top: 0; right: 0; height: 100%;" src="${pageContext.request.contextPath}/resources/img/circle.1541da91.svg">
+	                					<h4 class="font-weight-normal mb-3">완료 요청건
+	                						<i class="fas fa-star-of-david float-right"></i>
+	                					</h4>
+	                					<h2 class="mb-5"><c:out value="${workingStatus.requestDone}"/> 건</h2>
+	                				</div>
+	                			</div>
+	                		</div>
+	                	</div>
+	                	<!-- 상단 버튼 3 or 4  끝 -->
+	                	<!-- 하단 오늘 마감 and 지연율 start-->
+						<div class="row mt-5">
+							<!-- 오늘마감start -->
+							<div class="col-xl-7">
+								<div class="card tasks" style="height: 420.896px;">
+									<div class="card-block">
+										<div class="tasks-block" style="height: 350px;">
+											<div class=" card-title-blcok mb-4">
+												<h3 class="title">List to finish [D-7]</h3>
+											</div>
+											<table class="table tasks-block">
+												<thead>
+													<tr style="text-align: center;">
+														<th></th>
+														<th>제목</th>
+														<th>요청일</th>
+														<th>최종예정일</th>
 													</tr>
-												</c:forEach>
-											</tbody>
-										</table>
+												</thead>
+												<tbody >
+													<c:forEach var="aDay" items="${listOf7daysLeft}">
+														<tr>
+															<td>
+																<input class="checkbox" id="customCheckbox" type="checkbox">
+																<label for="customCheckbox"></label>
+															</td>
+															<td class="tableContent pl-0 pb-0 mt-1">
+																<c:if test="${member.mtype eq 'pm'}">
+																	<a href="${pageContext.request.contextPath}/pm/completedetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
+																</c:if>	
+																<c:if test="${member.mtype eq 'developer'}">
+																	<a href="${pageContext.request.contextPath}/developerdetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
+																</c:if>	
+																<c:if test="${member.mtype eq 'tester'}">
+																	<a href="${pageContext.request.contextPath}/testerdetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
+																</c:if>	
+																<c:if test="${member.mtype eq 'usertester'}">
+																	<a href="${pageContext.request.contextPath}/usertestdetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
+																</c:if>	
+																<c:if test="${member.mtype eq 'distributor'}">
+																	<a href="${pageContext.request.contextPath}/distributedetail?rno=${aDay.rno}">${aDay.reqTitle}</a> 
+																</c:if>	
+															</td>
+															<td><fmt:formatDate value="${aDay.reqDate}" pattern="yyyy-MM-dd"/></td>
+															<td><fmt:formatDate value="${aDay.ddayExpectDate}" pattern="yyyy-MM-dd"/></td>
+														</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<!-- 오늘마감end -->
-						<!-- 지연율 start -->
-						<div class="col-xl-5">
-							<div class="card" style="height: 420.896px; align-items: center;">
-							
+							<!-- 오늘마감end -->
+							<!-- 지연율 start -->
+							<div class="col-xl-5">
+								<div class="card" style="height: 420.896px; align-items: center;">
+								
+								</div>
 							</div>
-						</div>
-						<!-- 지연율 end -->
-					</div>  
-
-					<!-- 하단 오늘 마감 and 지연율 /-->
+							<!-- 지연율 end -->
+						</div>  
+	
+						<!-- 하단 오늘 마감 and 지연율 /-->
+                	</div>
                 </div>
                 <!-- 여기에 내용 담기 end -->
 

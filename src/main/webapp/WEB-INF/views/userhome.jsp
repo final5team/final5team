@@ -97,9 +97,9 @@
                 	<div id="main">
 	                	<!-- 상단부분start -->
 	                		<div class="row">
-	                			<div class="col-6">
+	                			<div class="col-5">
 	                				<div class="card card-success shadow pd-2" style="height:140px;">
-	                					<div class="card-header"></div>
+	                					<div class="card-header" ></div>
                 						<div class="d-flex justify-content-center">
                 							<img width="90" height="90" class="rounded-circle" src="${pageContext.request.contextPath}/customer/mypage/${member.mid}">
                 							<div class="mt-4">

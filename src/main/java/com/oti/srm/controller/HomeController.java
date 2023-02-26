@@ -80,6 +80,12 @@ public class HomeController {
 		
 		return "/home2";
 	}
+	@GetMapping("/home3")
+	public String pmhome() {
+		log.info("실행");
+		
+		return "/home3";
+	}
 	@GetMapping("/devmain")
 	public String developerMain() {
 		log.info("실행");
