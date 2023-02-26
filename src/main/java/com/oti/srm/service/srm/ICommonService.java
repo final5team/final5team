@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.oti.srm.dto.Member;
+import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.StatusHistory;
@@ -52,6 +53,10 @@ public interface ICommonService {
 	
 	//일반 유저의 진행 요청건, 완료 요청건 개수 구하기
 	public HashMap<String, Integer> getUserRequestStatusCount(Member member);
-
+	
+	//직무 리스트
+	public List<RequestProcess> getRequestProcessList(Member member, String checkbox, Pager pager);
+	//직무 리스트 행 수 가져오기
+	public int getRequestProcessRows(Member member, String checkbox); 
 
 }
