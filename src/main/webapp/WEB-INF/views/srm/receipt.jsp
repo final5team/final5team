@@ -173,13 +173,13 @@
 										</div>
 										<div class="col-sm-12 form-group row">
 											<label class="control-label col-lg-6" >완료예정일</label>
-											<input type="date" class="form-control col-lg-6" name="allExpectDate" id="allExpectDate" required pattern="\d{4}-\d{2}-\d{2}">
+											<input type="date" class="form-control col" name="allExpectDate" id="allExpectDate" required pattern="\d{4}-\d{2}-\d{2}">
 											<span class="validity"></span>
 										</div>
 										
 										<div class="col-sm-12 form-group row">
 											<label class="control-label col-lg-6">개발 담당자 선택</label>
-											<select class="dropdown-toggle col-lg-6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer">
+											<select class="dropdown-toggle col" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer">
 												<c:forEach var="staff" items="${devStaffList}">
 													<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 												</c:forEach>															
@@ -187,7 +187,7 @@
 										</div>
 										<div class="col-sm-12 form-group row">
 											<label class="control-label col-lg-6">테스트 담당자 선택</label>
-											<select class="dropdown-toggle col-lg-6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester">
+											<select class="dropdown-toggle col" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester">
 												<c:forEach var="staff" items="${tesStaffList}">
 													<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 												</c:forEach>
@@ -195,7 +195,7 @@
 										</div>
 										<div class="col-sm-12 form-group row" id="utester">
 											<label class="control-label col-lg-6">유저테스트 담당자 선택</label>
-											<select class="dropdown-toggle col-lg-6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
+											<select class="dropdown-toggle col" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
 												<c:forEach var="staff" items="${uteStaffList}">
 													<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 												</c:forEach>
@@ -203,7 +203,7 @@
 										</div>
 										<div class="col-sm-12 form-group row">
 											<label class="control-label col-lg-6">배포 담당자 선택</label>
-											<select class="dropdown-toggle col-lg-6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor">
+											<select class="dropdown-toggle col" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor">
 												<c:forEach var="staff" items="${disStaffList}">
 													<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 												</c:forEach>
@@ -212,7 +212,7 @@
 									
 										<div class="col-sm-12 form-group">
 											<label class="control-label">의견 내용</label>
-											<textarea rows="2" class="form-control boxed" name="reply" required></textarea>
+											<textarea rows="2" class="form-control boxed" name="reply" style="padding: 0px" required></textarea>
 										</div>											
 										<div class="col-sm-12 form-group filebox">
 											<label for="file">첨부파일</label>
@@ -242,7 +242,7 @@
 									<div class="card-body">
 										<div class="form-group">
 											<label class="control-label">반려 사유</label>
-											<textarea rows="2" class="form-control boxed" name="reply" required></textarea>
+											<textarea rows="2" class="form-control boxed" name="reply" style="padding: 0px" required></textarea>
 										</div>											
 										<div class="filebox">
 											<label for="file">첨부파일</label>
