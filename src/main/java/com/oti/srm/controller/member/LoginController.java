@@ -42,8 +42,18 @@ public class LoginController {
 				return "member/loginform";
 			}
 		}
+		
 		session.setAttribute("member", dbMember);
-		return "redirect:/";
+		String mtype = dbMember.getMtype();
+
+		if(mtype.equals("user")) {
+			return "redirect:" + "/userhome";
+		} else if(mtype.equals("pm")) {
+			return "redirect:" + "/pmhome";
+		} else {
+			return "redirect:" + "/";
+		}
+		
 	}
 
 	/* 로그아웃 */

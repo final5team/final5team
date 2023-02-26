@@ -1,9 +1,7 @@
 package com.oti.srm.controller;
 
-import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,10 +18,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.oti.srm.dto.Member;
+import com.oti.srm.dto.Notice;
+import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
+import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.StatusHistoryFile;
+import com.oti.srm.service.notice.INoticeService;
 import com.oti.srm.service.srm.ICommonService;
 
 import lombok.extern.log4j.Log4j2;
@@ -39,7 +42,8 @@ public class HomeController {
 	
 	@Autowired
 	ICommonService commonService;
-	
+	@Autowired
+	INoticeService noticeService;
 
 	/**
 	 * @author : 장현
@@ -48,56 +52,70 @@ public class HomeController {
 	 * @return home.jsp 로 리턴
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(HttpSession session, Model model) {
+	public String home(HttpSession session, Model model,@RequestParam(defaultValue = "n") String checkbox,
+			@RequestParam(defaultValue ="1") int workPageNo,@RequestParam(defaultValue ="1") int noticePageNo) {
 		logger.info("실행");
 		//세션에 담긴 member객체 받기
 		Member member = (Member) session.getAttribute("member");
 		
-		if(!member.getMtype().equals("user")) {
-			
-			//각 요청건 출력
-			HashMap<String,Integer> workingStatus = commonService.getWorkingStatus(member);
-			//D-7 리스트 출력
-			List<Request> listOf7daysLeft = commonService.getListOf7daysLeft(member);
-			//업무 처리율(지연율) 출력
-			Map<String, Object> workCompletionRate = commonService.getWorkCompletionRate(member);
-			//모달에 담기
-			model.addAttribute("workingStatus", workingStatus);
-			model.addAttribute("listOf7daysLeft", listOf7daysLeft);
-			model.addAttribute("workCompletionRate", workCompletionRate);
-			return "/home";
-		} else {
-			HashMap<String, Integer> userRequestStatusCount = commonService.getUserRequestStatusCount(member);
-			
-			model.addAttribute("userRequestStatusCount" , userRequestStatusCount);
-			return "/userhome";
-		}
+		//각 요청건 출력
+		HashMap<String,Integer> workingStatus = commonService.getWorkingStatus(member);
+		//직무 요청 리스트 출력 및 페이지 처리
+		int requestProcessTotalRows = commonService.getRequestProcessRows(member, checkbox);
+		Pager rpPager = new Pager(5,5,requestProcessTotalRows,workPageNo);
+		List<RequestProcess> requestProcessList = commonService.getRequestProcessList(member, checkbox, rpPager);
+		//공지사항
+		String searchWord = "";
+		String searchType = "";
+		int noticeTotalRows = noticeService.getNoticeListCount(searchType, searchWord, member.getMtype(), member.getSno());
+		Pager nPager = new Pager(5,5,noticeTotalRows,noticePageNo);
+		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), nPager, member.getSno());
+		
+		log.info("requestProcessTotalRows" + requestProcessTotalRows);
+		log.info(requestProcessList.size());
+		//모달에 담기
+		model.addAttribute("workingStatus", workingStatus);
+		model.addAttribute("requestProcessList", requestProcessList);
+		model.addAttribute("rpPager", rpPager);
+		
+		model.addAttribute("nPager", nPager);
+		model.addAttribute("noticeList", noticeList);
+		return "/home";
+		
 	}
 	
-	@GetMapping("/home2")
-	public String developerDetail() {
+	@GetMapping("/userhome")
+	public String developerDetail(HttpSession session, Model model,
+			@RequestParam(defaultValue ="1") int noticePageNo, @RequestParam(defaultValue = "1") int myReqestPageNo,
+			@RequestParam(defaultValue ="전체") String status) {
 		log.info("실행");
+		//세션에 담긴 member객체 받기
+		Member member = (Member) session.getAttribute("member");
+		//각 요청건 출력
+		HashMap<String, Integer> userRequestStatusCount = commonService.getUserRequestStatusCount(member);
 		
-		return "/home2";
+		//모달에 담기
+		model.addAttribute("userRequestStatusCount" , userRequestStatusCount);
+
+		return "/userhome";
 	}
-	@GetMapping("/home3")
-	public String pmhome() {
+	@GetMapping("/pmhome")
+	public String pmhome(HttpSession session, Model model,@RequestParam(defaultValue ="1") int noticePageNo, 
+			@RequestParam(defaultValue ="1") int dDay7PageNo ) {
 		log.info("실행");
+		//세션에 담긴 member객체 받기
+		Member member = (Member) session.getAttribute("member");
+		//각 요청건 출력
+		HashMap<String,Integer> workingStatus = commonService.getWorkingStatus(member);
+		//D-7 리스트 출력
+		List<Request> listOf7daysLeft = commonService.getListOf7daysLeft(member);
 		
-		return "/home3";
+		//모달에 담기
+		model.addAttribute("workingStatus", workingStatus);
+		model.addAttribute("listOf7daysLeft", listOf7daysLeft);
+		return "/pmhome";
 	}
-	@GetMapping("/devmain")
-	public String developerMain() {
-		log.info("실행");
-		
-		return "homemain/devmain";
-	}
-	@GetMapping("/pmmain")
-	public String pmMain() {
-		log.info("실행");
-		
-		return "homemain/pmmain";
-	}
+	
 	
 	@RequestMapping("/filedouwnload/{fno}")
 	public ResponseEntity<byte[]> getFile(@PathVariable int fno) throws Exception {

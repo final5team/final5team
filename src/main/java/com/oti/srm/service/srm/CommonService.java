@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.oti.srm.dao.srm.ICommonDao;
 import com.oti.srm.dto.Member;
+import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.StatusHistory;
@@ -287,6 +288,20 @@ public class CommonService implements ICommonService {
 		map.put("requestInProgress", requestInProgress);
 		map.put("requestDone", requestDone);
 		return map;
+	}
+
+	@Override
+	public List<RequestProcess> getRequestProcessList(Member member, String checkbox, Pager pager) {
+		
+		List<RequestProcess> list = commonDao.selectRequestProcessList(member, checkbox, pager);
+		
+		return list;
+	}
+
+	@Override
+	public int getRequestProcessRows(Member member, String checkbox) {
+		
+		return commonDao.selectRequestProcessRows(member,checkbox);
 	}
 
 	

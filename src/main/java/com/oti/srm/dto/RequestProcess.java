@@ -31,4 +31,9 @@ public class RequestProcess {
 	private String pm;
 	private String userTester;
 	private String distributor;
+	
+	private Date reqDate;
+	private String reqTitle;
+	private String mname;
+	private String statusName;
 }
