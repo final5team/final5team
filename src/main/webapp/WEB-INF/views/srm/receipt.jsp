@@ -89,8 +89,10 @@
                 <div class="container-fluid">
                 	<div id="main">
 					<!-- 게시글 상세보기 start -->
+						<img src="${pageContext.request.contextPath}/resources/img/finished.jpg"
+									style="width:200px; height:150px;"/>
 						<div class="card card-block sameheight-item">
-							<h3 class="title-block font-weight-bold">						
+							<h3 class="font-weight-bold">						
 								 요청 정보
 							</h3>
 							<div class="row mt-3">
@@ -149,7 +151,7 @@
 						<div id="receiptdiv"> 						            
 							<!-- 요청 접수 card start-->
 							<div class="card card-block mt-3 mb-1">
-								<h3 class="title-block font-weight-bold">						
+								<h3 class="font-weight-bold">						
 									요청 처리 계획 작성
 								</h3>
 								<div class="card-body">
@@ -236,7 +238,7 @@
 							<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data">
 								<!-- 요청 접수 card start-->
 								<div class="card card-block mt-3 mb-1">
-									<h3 class="title-block font-weight-bold">						
+									<h3 class="font-weight-bold">						
 										반려 사유 작성
 									</h3>
 									<div class="card-body">
@@ -264,7 +266,7 @@
 						<!-- 요청 처리 계획 start-->
 						<c:if test="${request.statusNo!=1 && member.mtype !='user' && request.statusNo!=12}">
 							<div class="card card-block sameheight-item mt-3">
-								<h3 class="title-block font-weight-bold">						
+								<h3 class="font-weight-bold">						
 									 요청 처리 계획
 								</h3>
 								<div class="row mt-3">
@@ -341,7 +343,7 @@
 						<!-- 반려 처리 정보 start -->
 						<c:if test="${request.statusNo==12}">
 							<div class="card mt-3 mb-1">
-								<h3 class="title-block font-weight-bold">						
+								<h3 class="font-weight-bold">						
 									반려 처리 내역
 								</h3>
 								<div class="card-body">									
