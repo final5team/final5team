@@ -16,7 +16,7 @@ form {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 600px;
+	height: 800px;
 	width: 1050px;
 	position: relative;
 	background-color: #fff;
@@ -55,7 +55,7 @@ form {
 
 .section1 button {
 	margin: 0px 10px;
-	background-color: var(--gray-dark);
+	background-color: var(- -gray-dark);
 	color: white;
 	border: none;
 }
@@ -63,7 +63,7 @@ form {
 .section1 .step span {
 	display: inline-block;
 	background-color: #5a5c69;
-  border-color: #5a5c69;
+	border-color: #5a5c69;
 	width: 8px;
 	height: 6px;
 }
@@ -130,7 +130,7 @@ form {
 	position: absolute;
 	width: 50px;
 	left: 8%;
-	top: 48%;
+	top: 38%;
 	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
@@ -144,7 +144,7 @@ form {
 	position: absolute;
 	width: 590px;
 	left: 18%;
-	top: 48%;
+	top: 38%;
 	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
@@ -158,9 +158,9 @@ form {
 
 .section2 .titleBody {
 	position: absolute;
-	width: 300px;
+	width: 80px;
 	left: 8%;
-	top: 55%;
+	top: 43%;
 	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
@@ -171,7 +171,7 @@ form {
 	position: absolute;
 	width: 590px;
 	left: 18%;
-	top: 55%;
+	top: 43%;
 	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
@@ -182,15 +182,15 @@ form {
 	width: 590px;
 	font-size: 15px;
 	font: bold;
-	height: 80px;
+	height: 150px;
 	resize: none;
 }
 
 .section2 .fileTitle {
 	position: absolute;
-	width: 700px;
+	width: 80px;
 	left: 8%;
-	top: 70%;
+	top: 63%;
 	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
@@ -199,29 +199,76 @@ form {
 
 .section2 .fileBody {
 	position: absolute;
-	width: 700px;
+	width: 590px;
 	left: 18%;
-	top: 70%;
+	height: 200px;
+	top: 63%;
 	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
 }
+    .upload_name{
+      position: absolute;
+      left: 15%;
+      z-index: 2;
+      display: inline-block;
+      height: 28px;
+      width: 495px;
+      vertical-align: middle;
+      border: 1px solid #d1d3e2;
+      border-radius: 5px;
+      color: #999999;
+    }
+  .filebox label {
+    position: absolute;
+    left : -1%;
+    display: inline-block;
+    padding: 5px 5px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #999999;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 20px;
+    margin-left: 10px;
+}
 
+   .filebox input[type="file"] {
+      position: absolute;
+      width: 0;
+      height: 0;
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+  }
+    .exist_file{
+    border: 1px solid #d1d3e2;
+    position: absolute;
+    top: 20%;
+    width: 588px;
+    height: 100px;
+    border: 1px solid #d1d3e2;
+    border-radius: 5px;
+
+  }
+  
+  
+  
 .section2 .submit-button {
 	position: absolute;
 	width: 80px;
 	height: 50px;
-	left: 50%;
-	top: 80%;
+	left: 40%;
+	top: 82%;
 }
 
 .section2 .return-button {
 	position: absolute;
 	width: 80px;
 	height: 50px;
-	left: 55%;
-	top: 80%;
+	left: 45%;
+	top: 82%;
 }
 
 .section2 .item .select-group select {
@@ -373,8 +420,6 @@ article.include div {
 .include .bar.active {
 	border-color: #5a5c69;
 }
-
-
 </style>
 </head>
 
@@ -403,7 +448,7 @@ article.include div {
 
 					<form method="post" action="${pageContext.request.contextPath}/customer/request" enctype="multipart/form-data">
 						<section class="section1">
-							<h4>요청 작성</h4>
+							<h4>요청 조회, 수정</h4>
 						</section>
 						<section class="section2">
 							<article class="label item">
@@ -463,18 +508,24 @@ article.include div {
 							</article>
 							<article class="bodyInput">
 								<div class="item">
-									<textarea id="reqContent" cols="30" name="reqContent" placeholder="내용" >${request.reqContent}</textarea>
+									<textarea id="reqContent" cols="30" name="reqContent" placeholder="내용">${request.reqContent}</textarea>
 								</div>
 							</article>
 							<article class="fileTitle">
 								<h6>파일첨부</h6>
 							</article>
 							<article class="fileBody">
-								<div class="item">
-									<input class="btn btn-dark btn-sm" multiple="multiple" type="file" id="mfile" name="mfile[]" /> 
+								<div class="file-item">
+									<input class="upload_name" value="첨부파일" placeholder="첨부파일">
+									<div class="filebox">
+										<label for="mfile">파일찾기</label> 
+										<input multiple="multiple" type="file" id="mfile" name="mfile[]" />
+									</div>
+									<div class="exist_file">
+
+                  					</div>
 								</div>
 							</article>
-
 							<article class="submit-button">
 								<button class="btn btn-dark btn-sm" type="submit">수정</button>
 							</article>
@@ -505,15 +556,13 @@ article.include div {
 	</a>
 
 	<script>
-		function onclickUpload() {
-			let fileUpload = document.getElementById('mfile');
-			fileUpload.click();
+		$("#mfile").on('change',function(){
 			
 			
-			
-		}
-		
-		
+		  var fileName = $("#mfile").val();
+		  $(".upload_name").val(fileName);
+		  
+		});
 		
 		
 	</script>
