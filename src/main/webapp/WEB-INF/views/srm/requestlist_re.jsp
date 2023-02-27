@@ -11,21 +11,26 @@
 a {
 	text-decoration: none;
 }
+	
+	.wrapper{
+		display : flex;
+		justify-content: center;
+		align-items: center;
+	}
 
 main {
 	display: flex;
-	height: 800px;
+	height: 1000px;
 	width: 1050px;
 	position: relative;
 	justify-content: center;
 	align-items: center;
 	font-size: 15px;
-	margin-left : 13%;
 }
 
 .filter {
 	width: 1050px;
-	height: 120px;
+	height: 200px;
 	overflow: hidden;
 	text-align: start;
 	align-items: center;
@@ -44,15 +49,14 @@ main {
 .filter .filter-head {
 	background-color: #f8f9fc;
 	border-bottom: 1px solid #e3e6f0;
-	height: 30px;
+	height : 54px;
 }
 
 .filter .filter-head h4 {
 	color: #5a5c69;
 	font: bold;
-	padding-left: 15px;
-	padding-top: 5px;
-	font-size: 15px;
+	padding: 0.75rem 1.25rem;
+	font-size: 1.45rem;
 	margin: 0px;
 	font-weight: 700;
 }
@@ -127,7 +131,7 @@ main {
 	text-align: start;
 	align-items: center;
 	position: absolute;
-	top: 18%;
+	top: 28%;
 	left: 0;
 	background-color: #fff;
 	border-bottom: 1px solid #e3e6f0;
@@ -141,17 +145,15 @@ main {
 .table .table-header {
 	background-color: #f8f9fc;
 	border-bottom: 1px solid #e3e6f0;
-	height: 30px;
+	height : 54px;
 }
 
 .table .table-header h4 {
 	color: #5a5c69;
 	font: bold;
-	padding-left: 15px;
-	padding-top: 5px;
-	font-size: 15px;
+	padding: 0.75rem 1.25rem;
+	font-size: 1.45rem;
 	margin: 0px;
-	font: bold;
 	font-weight: 700;
 }
 
@@ -225,8 +227,8 @@ main {
 
 .pager {
 	position: absolute;
-	left: 30%;
-	top: 85%;
+	left: 35%;
+	top: 83%;
 	width: 350px;
 }
 
@@ -265,9 +267,9 @@ main {
 				<!-- End of Topbar -->
 
 				<!-- 여기에 내용 담기 start -->
-
+				<div class="wrapper">
 					<main class="all">
-					<section class="filter">
+					<section class="filter border-left-dark">
 						<form action="requestlist" method="get">
 							<article class="filter-head">
 								<h4>필터</h4>
@@ -391,7 +393,7 @@ main {
 
 						</form>
 					</section>
-					<section class="table">
+					<section class="table border-left-dark">
 						<article class="table-header">
 							<h4>담당 업무 목록</h4>
 						</article>
@@ -459,9 +461,8 @@ main {
 							 		type="button" class="btn btn-muted shadow">▶▶</a>
 						</div>
 					</div>
-
 					</main>
-
+				</div>	
 			</div>
 		</div>
 		<!-- 여기에 내용 담기 end -->

@@ -10,6 +10,11 @@
 a {
 	text-decoration: none;
 }
+	.wrapper{
+		display : flex;
+		justify-content: center;
+		align-items: center;
+	}
 
 form {
 	display: flex;
@@ -25,10 +30,12 @@ form {
 	-webkit-box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
 	box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
 	margin-bottom: 50px;
-	margin-left : 13%
 }
 
 .section1 {
+	background-color: #f8f9fc;
+	border-bottom: 1px solid #e3e6f0;
+	height : 54px;
 	width: 1047px;
 	overflow: hidden;
 	text-align: start;
@@ -37,7 +44,6 @@ form {
 	top: 0;
 	left: 0;
 	background-color: #f8f9fc;
-	border-bottom: 1px solid #e3e6f0;
 }
 
 .section1 h4 {
@@ -289,7 +295,9 @@ form {
 				<!-- End of Topbar -->
 
 				<!-- 여기에 내용 담기 start -->
-					<form method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data">
+				<div id="content">
+					<div class="wrapper ">
+					<form class="border-left-dark" method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data">
 						<section class="section1">
 							<h4>My page</h4>
 						</section>
@@ -426,6 +434,8 @@ form {
 							</article>
 						</section>
 					</form>
+				</div>
+				</div>
 					<!-- 여기에 내용 담기 end -->
 				<!-- End of Main Content -->
 

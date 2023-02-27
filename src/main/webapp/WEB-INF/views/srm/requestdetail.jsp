@@ -11,6 +11,11 @@
 a {
 	text-decoration: none;
 }
+	.wrapper{
+		display : flex;
+		justify-content: center;
+		align-items: center;
+	}
 
 form {
 	display: flex;
@@ -26,7 +31,6 @@ form {
 	-webkit-box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
 	box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
 	margin-bottom: 50px;
-	margin-left : 13%;
 }
 
 .section1 {
@@ -444,6 +448,7 @@ article.include div {
 				<!-- End of Topbar -->
 
 				<!-- 여기에 내용 담기 start -->
+				<div class="wrapper">
 					<form method="post" action="${pageContext.request.contextPath}/customer/request" enctype="multipart/form-data">
 						<section class="section1">
 							<h4>요청 조회, 수정</h4>
@@ -535,6 +540,7 @@ article.include div {
 							</article>
 						</section>
 					</form>
+				</div>
 			</div>
 			<!-- End of Main Content -->
 

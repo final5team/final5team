@@ -10,7 +10,11 @@
 a {
 	text-decoration: none;
 }
-
+	.wrapper{
+		display : flex;
+		justify-content: center;
+		align-items: center;
+	}
 form {
 	display: flex;
 	justify-content: center;
@@ -25,10 +29,12 @@ form {
 	-webkit-box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
 	box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
 	margin-bottom: 50px;
-	margin-left : 13%
 }
 
 .section1 {
+	background-color: #f8f9fc;
+	border-bottom: 1px solid #e3e6f0;
+	height : 54px;
 	width: 1047px;
 	overflow: hidden;
 	text-align: start;
@@ -37,7 +43,6 @@ form {
 	top: 0;
 	left: 0;
 	background-color: #f8f9fc;
-	border-bottom: 1px solid #e3e6f0;
 }
 
 .section1 h4 {
@@ -273,6 +278,7 @@ form {
 
 <body id="page-top">
 
+
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
@@ -290,7 +296,8 @@ form {
 				<!-- End of Topbar -->
 
 				<!-- 여기에 내용 담기 start -->
-					<form method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data">
+				<div class="wrapper border-left-dark">
+					<form class="border-left-dark" method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data">
 						<section class="section1">
 							<h4>User Register</h4>
 						</section>
@@ -421,6 +428,7 @@ form {
 							</article>
 						</section>
 					</form>
+				</div>	
 					<!-- 여기에 내용 담기 end -->
 				<!-- End of Main Content -->
 
