@@ -38,28 +38,28 @@
 	</tbody>
 </table>
 <ul class="pagination pagination-sm d-flex justify-content-center mt-4">
-    <li class="page-item"><a class="page-link" onclick="7daysList(1)">처음</a></li>
+   <li class="page-item"><a class="page-link" onclick="sevenDaysList(1)">처음</a></li>
    <c:if test="${dPager.groupNo>1}">
     <li class="page-item">
-    	<a class="page-link" onclick="7daysList(${dPager.startPageNo-1})">
+    	<a class="page-link" onclick="sevenDaysList(${dPager.startPageNo-1})">
     		<i class="fas fa-caret-left"></i>
     	</a>
     </li>
    </c:if>
    <c:forEach var="i" begin="${dPager.startPageNo}" end="${dPager.endPageNo}">
    	<c:if test="${dPager.pageNo != i}">
-    	<li class="page-item"><a class="page-link" onclick="7daysList(${i})">${i}</a></li>
+    	<li class="page-item"><a class="page-link" onclick="sevenDaysList(${i})">${i}</a></li>
    	</c:if>
    	<c:if test="${dPager.pageNo == i}">
-    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" onclick="7daysList(${i})">${i}</a></li>
+    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" onclick="sevenDaysList(${i})">${i}</a></li>
    	</c:if>
    </c:forEach>
    <c:if test="${dPager.groupNo< dPager.totalGroupNo}">
     <li class="page-item">
-    	<a class="page-link" onclick="7daysList(${dPager.endPageNo + 1})">
+    	<a class="page-link" onclick="sevenDaysList(${dPager.endPageNo + 1})">
     		<i class="fas fa-caret-right"></i>
    	 	</a>
     </li>
    </c:if>
-   <li class="page-item"><a class="page-link" onclick="7daysList(${dPager.totalPageNo})">맨끝</a></li>
+   <li class="page-item"><a class="page-link" onclick="sevenDaysList(${dPager.totalPageNo})">맨끝</a></li>
 </ul>
