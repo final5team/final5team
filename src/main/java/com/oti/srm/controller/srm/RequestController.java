@@ -172,6 +172,7 @@ public class RequestController {
 		return "srm/request";
 	}
 
+	
 	/**
 	 * 요청 등록 폼 작성
 	 */
