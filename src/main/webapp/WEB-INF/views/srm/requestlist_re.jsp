@@ -6,6 +6,7 @@
 
 <head>
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
+
 <style>
 a {
 	text-decoration: none;
@@ -396,6 +397,10 @@ width: 500px;
 									</div>
 								</c:if>
 							</article>
+							
+							
+							
+							
 						</form>
 					</section>
 					<section class="table">
@@ -437,28 +442,28 @@ width: 500px;
 						</table>
 					</section>
 					<div class="pager">
-					<div class="pagingButtonSet d-flex justify-content-center">
-						<a href="requestlist?pageNo=1" type="button" class="btn btn-muted shadow">◀◀</a>
-						<c:if test="${pager.groupNo > 1}">
-							<a href="requestlist?pageNo=${pager.startPageNo-1}" type="button" class="btn btn-muted shadow">◀</a>
-						</c:if>
-
-						<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
-							<c:if test="${pager.pageNo != i}">
-								<a href="requestlist?pageNo=${i}" type="button" class="btn btn-white shadow">${i}</a>
+						<div class="pagingButtonSet d-flex justify-content-center">
+							<a href="requestlist?pageNo=1" type="button" class="btn btn-muted shadow">◀◀</a>
+							<c:if test="${pager.groupNo > 1}">
+								<a href="requestlist?pageNo=${pager.startPageNo-1}" type="button" class="btn btn-muted shadow">◀</a>
 							</c:if>
-							<c:if test="${pager.pageNo == i}">
-								<a href="requestlist?pageNo=${i}" type="button" class="btn btn-dark shadow">${i}</a>
+	
+							<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
+								<c:if test="${pager.pageNo != i}">
+									<a href="requestlist?pageNo=${i}" type="button" class="btn btn-white shadow">${i}</a>
+								</c:if>
+								<c:if test="${pager.pageNo == i}">
+									<a href="requestlist?pageNo=${i}" type="button" class="btn btn-dark shadow">${i}</a>
+								</c:if>
+							</c:forEach>
+	
+							<c:if test="${pager.groupNo < pager.totalGroupNo }">
+								<a href="requestlist?pageNo=${pager.endPageNo+1}" type="button" class="btn btn-muted shadow">▶</a>
+	
 							</c:if>
-						</c:forEach>
-
-						<c:if test="${pager.groupNo < pager.totalGroupNo }">
-							<a href="requestlist?pageNo=${pager.endPageNo+1}" type="button" class="btn btn-muted shadow">▶</a>
-
-						</c:if>
-						<a href="requestlist?pageNo=${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
+							<a href="requestlist?pageNo=${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
+						</div>
 					</div>
-				</div>
 					
 					</main>
 				</div>
