@@ -106,8 +106,6 @@
 						   </li>
 						</ul>
 						<!-- 네비게이션 start -->
-						<img src="${pageContext.request.contextPath}/resources/img/finished.jpg"
-									style="width:200px; height:150px;"/>
 						<!-- 요청정보 DIV START -->
 						<div class="card card-block sameheight-item mt-3" style="display:none;" id="requestInfo">
 							<h3 class="font-weight-bold">						
@@ -264,16 +262,16 @@
 									<li style="display:none;">
 									<hr/>
 										<div class="row">
-											<div class="col-4">개발 사항 :</div>
-											<div class="col-8 border" style="min-height:100px;">${statusHistory.reply}</div>
+											<div class="col-2">개발 사항 :</div>
+											<div class="col-10 border" style="min-height:100px;">${statusHistory.reply}</div>
 										</div>
 										<div class="row mt-3">
-											<div class="col-4">배포 소스 :</div>
-											<div class="col-8 border" style="min-height:100px;">${statusHistory.distSource}</div>
+											<div class="col-2">배포 소스 :</div>
+											<div class="col-10 border" style="min-height:100px;">${statusHistory.distSource}</div>
 										</div>
 										<div class="row mt-3">
-											<div class="col-4">첨부파일 : </div>
-											<div class="col-8">
+											<div class="col-2">첨부파일 : </div>
+											<div class="col-10">
 												<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 													<div>
 														<span>${statusHistoryFile.fileName}</span>
@@ -299,19 +297,20 @@
 									<form role="form" id="writeform" action="${pageContext.request.contextPath}/devdone" method="POST" enctype="multipart/form-data">
 										<input type="hidden" name="rno" value="${request.rno}">
 										<div class="form-group d-flex">
-											<div style="width:100px;">완료예정일 :</div>
-											<div><fmt:formatDate value="${requestProcess.devExpectDate}" pattern="yyyy-MM-dd"/></div>
+											<div style="width:195px;">완료예정일 :</div>
+											<div class="flex-grow-1"><fmt:formatDate value="${requestProcess.devExpectDate}" pattern="yyyy-MM-dd"/></div>
 										</div>
-										<div class="form-group">
-											<label class="control-label">개발 사항</label>
-											<textarea rows="3" class="form-control boxed" name="reply"></textarea>
+										<div class="form-group d-flex">
+											<label style="width:250px; class="control-label">개발 사항 :</label>
+											<textarea rows="3" class="form-control boxed flex-grow-1" name="reply"></textarea>
 										</div>
-										<div class="form-group">
-											<label class="control-label">배포소스</label>
-											<textarea rows="3" class="form-control boxed" name="distSource"></textarea>
+										<div class="form-group d-flex">
+											<label style="width:250px; class="control-label">배포소스 :</label>
+											<textarea rows="3" class="form-control boxed flex-grow-1" name="distSource"></textarea>
 										</div>
-										<div class="filebox">
-											<input type="file" id="files" name="files" multiple>
+										<div class="filebox d-flex">
+											<div style="width:250px;">첨부파일 등록 :</div>
+											<input type="file" id="files" class="flex-grow-1" name="files" multiple>
 										</div>
 									</form>
 									<button class="btn btn-info btn-lg mt-3" onclick="devEnd()">개발 완료</button>
@@ -353,12 +352,12 @@
 									<li style="display:none;">
 									<hr/>
 										<div class="row">
-											<div class="col-4">재검토 사유 및 요청사항 :</div>
-											<div class="col-8 border" style="min-height:100px;">${statusHistory.reply}</div>
+											<div class="col-2">재검토 사유 및 요청사항 :</div>
+											<div class="col-10 border" style="min-height:100px;">${statusHistory.reply}</div>
 										</div>
 										<div class="row mt-3">
-											<div class="col-4">첨부파일 : </div>
-											<div class="col-8">
+											<div class="col-2">첨부파일 : </div>
+											<div class="col-10">
 												<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 													<div>
 														<span>${statusHistoryFile.fileName}</span>

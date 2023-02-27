@@ -86,8 +86,6 @@
                 <!-- 여기에 내용 담기 start -->
                 <div class="container-fluid">
 					<div id="main">
-						<img src="${pageContext.request.contextPath}/resources/img/finished.jpg"
-									style="width:200px; height:150px;"/>
 						<!-- 네비게이션 start -->
 						<ul class="nav nav-tabs">
 						   <li class="nav-item">
@@ -262,12 +260,12 @@
 									<li style="display:none;">
 									<hr/>
 										<div class="row">
-											<div class="col-4">개발 사항 :</div>
-											<div class="col-8 border" style="min-height:100px;">${statusHistory.reply}</div>
+											<div class="col-2">개발 사항 :</div>
+											<div class="col-10 border" style="min-height:100px;">${statusHistory.reply}</div>
 										</div>
 										<div class="row mt-3">
-											<div class="col-4">첨부파일 : </div>
-											<div class="col-8">
+											<div class="col-2">첨부파일 : </div>
+											<div class="col-10">
 												<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 													<div>
 														<span>${statusHistoryFile.fileName}</span>

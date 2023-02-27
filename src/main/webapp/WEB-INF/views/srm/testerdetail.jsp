@@ -102,8 +102,6 @@
 						   </li>
 						</ul>
 						<!-- 네비게이션 start -->
-						<img src="${pageContext.request.contextPath}/resources/img/finished.jpg"
-									style="width:200px; height:150px;"/>
 						<!-- 요청정보 DIV START -->
 						<div class="card card-block sameheight-item mt-3" style="display:none;" id="requestInfo">
 							<h3 class="font-weight-bold">						
@@ -261,12 +259,12 @@
 									<li style="display:none;">
 									<hr/>
 										<div class="row">
-											<div class="col-4">개발사항 :</div>
-											<div class="col-8 border" style="min-height:100px;">${statusHistory.reply}</div>
+											<div class="col-2">개발사항 :</div>
+											<div class="col-10 border" style="min-height:100px;">${statusHistory.reply}</div>
 										</div>
 										<div class="row mt-3">
-											<div class="col-4">첨부파일 : </div>
-											<div class="col-8">
+											<div class="col-2">첨부파일 : </div>
+											<div class="col-10">
 												<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 													<div>
 														<span>${statusHistoryFile.fileName}</span>
@@ -317,12 +315,12 @@
 									<li style="display:none;">
 									<hr/>
 										<div class="row">
-											<div class="col-4">재검토 사유 및 요청사항 :</div>
-											<div class="col-8 border" style="min-height:100px;">${statusHistory.reply}</div>
+											<div class="col-2">재검토 사유 및 요청사항 :</div>
+											<div class="col-10 border" style="min-height:100px;">${statusHistory.reply}</div>
 										</div>
 										<div class="row mt-3">
-											<div class="col-4">첨부파일 : </div>
-											<div class="col-8">
+											<div class="col-2">첨부파일 : </div>
+											<div class="col-10">
 												<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 													<div>
 														<span>${statusHistoryFile.fileName}</span>
@@ -344,28 +342,21 @@
 						<!-- 테스터의 재검토 요청 글 작성 start-->
 						<c:if test="${member.mtype =='tester' && request.statusNo == 6}">
 						<div class="card card-block mt-3 mb-3" id="reDevelopRequestWrite">
-							<div class="card-body row">
-								<div class="col-sm-3 d-flex align-items-center" style="text-align:center;">
-									<div>
-										<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="70%">
-										<div class="mt-3">${member.mname}</div>
+							<div class="card-body">
+								<form role="form" id="writeform" action="${pageContext.request.contextPath}/askreexam" method="POST" enctype="multipart/form-data">
+									<input type="hidden" name="rno" value="${request.rno}">
+									<div class="form-group d-flex">
+										<div style="width:350px;">재검토 사유 및 요청사항</div>
+										<textarea rows="5" class="form-control boxed flex-grow-1" name="reply"></textarea>
 									</div>
-								</div>
-								<div class="col-sm-9">
-									<form role="form" id="writeform" action="${pageContext.request.contextPath}/askreexam" method="POST" enctype="multipart/form-data">
-										<input type="hidden" name="rno" value="${request.rno}">
-										<div class="col-sm-12 form-group">
-											<label class="control-label">재검토 사유 및 요청사항</label>
-											<textarea rows="4" class="form-control boxed" name="reply"></textarea>
-										</div>
-										<div class="filebox">
-											<input type="file" id="file" name="files" multiple>
-										</div>
-										<div class="d-flex justify-content-end">
-											<button class="btn btn-warning btn-lg mt-3" type="submit">재검토요청</button>
-										</div>
-									</form>
-								</div>
+									<div class="filebox d-flex">
+										<div style="width:250px;">첨부파일 등록</div>
+										<input type="file" id="file" class="flex-grow-1" name="files" multiple>
+									</div>
+									<div class="d-flex justify-content-end">
+										<button class="btn btn-warning btn-lg mt-3" type="submit">재검토요청</button>
+									</div>
+								</form>
 							</div>
 						</div>
 						</c:if>

@@ -163,14 +163,15 @@
 		(seq_status_histories_files.nextval, sysdate, #{fileName}, #{fileType}, #{fileData}, #{hno})
 	</insert>
 	
-	<!-- PM의 최신 요청건 개수 알기  -->
+	<!-- PM의 처리 대기건 -->
 	<select id="selectRequestRecentPM" resultType="int">
 		select count(*)
 		from requests
 		where status_no = 1
+		or status_no = 11
 	</select>
 	
-	<!-- 실무자의 담당 신규 요청건 개수 출력  -->
+	<!-- 실무자의 처리 대기건  -->
 	<select id="selectRequestRecent" parameterType="com.oti.srm.dto.Member" resultType="int">
 		select count(*)
 		from request_process
@@ -210,8 +211,7 @@
 			and rp.rno = r.rno
 			</if>
 			<if test="mtype == 'pm'">
-				pm = #{mid}
-			and all_expect_date is not null and all_comp_date is null
+				 all_expect_date is not null and all_comp_date is null
 			</if>
 			<if test="mtype == 'developer'">
 				developer = #{mid}
@@ -245,6 +245,9 @@
 				r.rno = rp.rno
 			and (rp.all_comp_date is not null OR r.status_no=12)
 			and r.client = #{mid}
+			</if>
+			<if test="mtype == 'pm'">
+				all_comp_date is not null
 			</if>
 			<if test="mtype == 'developer'">
 				developer = #{mid}
@@ -314,7 +317,6 @@
 		from request_process
 		<where>			
 			<if test="mtype == 'pm'">
-			 PM = #{mid}
 			 and ALL_EXPECT_DATE is not null
 			 and ALL_COMP_DATE is not null
 			</if>
@@ -345,7 +347,6 @@
 		from request_process
 		<where>			
 			<if test="mtype == 'pm'">
-			 PM = #{mid}
 			 and ALL_EXPECT_DATE is not null
 			 and ALL_COMP_DATE is not null
 			 and ALL_EXPECT_DATE <![CDATA[<]]> ALL_COMP_DATE
@@ -483,6 +484,5 @@
 		OFFSET (#{uPager.pageNo} - 1) * #{uPager.rowsPerPage} ROWS
 		FETCH NEXT #{uPager.rowsPerPage} ROWS ONLY
 	</select>
-	
 	
 </mapper>
