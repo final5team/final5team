@@ -217,7 +217,7 @@ input:checked + .slider:before {
 				                		<div class="toggle-group d-flex align-items-center mr-4">
 				                			<h5 style="display: inline-block; margin-right: 10px;">나의 리스트</h5>
 				                			<label class="switch" >
-											  <input type="checkbox" id="toggleButton">
+											  <input type="checkbox" id="toggleButton" onclick="requestProcessList(1)">
 											  <span class="slider round"></span>
 											</label>
 				                		</div>
@@ -299,52 +299,55 @@ input:checked + .slider:before {
 			                			<h5 class="title ml-3">공지사항</h5>
 			                		</div>
 			                		<div class="card-body">
-			                			<table class="table tasks-block table-striped">
+			                			<table class="table table-hover usertable table-striped">
 											<thead>
-												<tr style="text-align: center;">
+												<tr>
 													<th>번호</th>
 													<th>제목</th>
 													<th>작성자</th>
-													<th>작성날짜</th>
+													<th>작성일</th>
 												</tr>
-											</thead>			                			
-			                				<tbody>
-			                					<c:forEach var="notice" items="${noticeList}" varStatus="i">
-				                					<tr style="text-align: center;">
-				                						<th>${i.count}</th>
-				                						<th class="tableContent">${notice.noticeTitle}</th>
-				                						<th>${notice.mid}</th>
-				                						<th>${notice.noticeDate}</th>
-				                					</tr>
-			                					</c:forEach>
-			                					
-			                				</tbody>
-			                			</table>
-			                			<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
-										    <li class="page-item"><a class="page-link" href="list?pageNo=1">처음</a></li>
+											</thead>
+											<tbody>
+												<c:forEach var="notice" items="${noticeList}">
+													<tr>
+														<th>${notice.nno}</th>
+														<td class="tableContent">
+															<a href="${pageContext.request.contextPath}/noticedetail?nno=${notice.nno}">
+																${notice.noticeTitle}
+															</a>
+														</td>
+														<td>${notice.mid}</td>
+														<td><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd"/></td>
+													</tr>
+												</c:forEach>				
+											</tbody>
+										</table>
+										<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
+										    <li class="page-item"><a class="page-link" onclick="mainNoticeList(1)">처음</a></li>
 										    <c:if test="${nPager.groupNo>1}">
 											    <li class="page-item">
-											    	<a class="page-link" href="list?pageNo=${nPager.startPageNo-1}">
+											    	<a class="page-link" onclick="mainNoticeList(${nPager.startPageNo-1})">
 											    		<i class="fas fa-caret-left"></i>
 											    	</a>
 											    </li>
 										    </c:if>
 										    <c:forEach var="i" begin="${nPager.startPageNo}" end="${nPager.endPageNo}">
 										    	<c:if test="${nPager.pageNo != i}">
-											    	<li class="page-item"><a class="page-link" href="list?pageNo=${i}">${i}</a></li>
+											    	<li class="page-item"><a class="page-link" onclick="mainNoticeList(${i})">${i}</a></li>
 										    	</c:if>
-										    	<c:if test="${rpPager.pageNo == i}">
-											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" href="list?pageNo=${i}">${i}</a></li>
+										    	<c:if test="${nPager.pageNo == i}">
+											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" onclick="mainNoticeList(${i})">${i}</a></li>
 										    	</c:if>
 										    </c:forEach>
 										    <c:if test="${nPager.groupNo<pager.totalGroupNo}">
 											    <li class="page-item">
-											    	<a class="page-link" href="#">
+											    	<a class="page-link" onclick="mainNoticeList(${nPager.endPageNo + 1})">
 											    		<i class="fas fa-caret-right"></i>
 											   	 	</a>
 											    </li>
 										    </c:if>
-										    <li class="page-item"><a class="page-link" href="list?pageNo=${nPager.totalPageNo}">맨끝</a></li>
+										    <li class="page-item"><a class="page-link" onclick="mainNoticeList(${nPager.totalPageNo})">맨끝</a></li>
 										</ul>
 			                		</div>
 								</div>
@@ -392,7 +395,37 @@ input:checked + .slider:before {
             </div>
         </div>
     </div>
-
+    
+    <script>
+    	function requestProcessList(pageNo){
+    		var checkbox = '';
+    		if($('#toggleButton').checked){
+    			checkbox = 'n';
+    		}
+    		else{
+    			checkbox = 'y';
+    		}
+    		$.ajax({
+    			type: "GET", //요청 메소드 방식
+    			url:"${pageContext.request.contextPath}/userrequestlist?myRequestPageNo=" + pageNo + "&searchStatus=" + searchStatus,
+    			dataType:"html", 
+    			success : function(result){
+    				$('#userRequestListContainer').html(result);
+    			}
+    		})
+    	} 
+    	
+    	function mainNoticeList(pageNo){
+    		$.ajax({
+    			type: "GET", //요청 메소드 방식
+    			url:"${pageContext.request.contextPath}/mainnoticelist?noticePageNo=" + pageNo,
+    			dataType:"html", 
+    			success : function(result){
+    				$('#mainNoticeListContainer').html(result);
+    			}
+    		})
+    	} 
+    </script>
 
 </body>
 

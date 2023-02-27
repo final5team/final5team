@@ -73,6 +73,7 @@ public class HomeController {
 		
 		log.info("requestProcessTotalRows" + requestProcessTotalRows);
 		//모달에 담기
+		model.addAttribute("checkbox", checkbox);
 		model.addAttribute("workingStatus", workingStatus);
 		model.addAttribute("rpPager", rpPager);
 		model.addAttribute("requestProcessList", requestProcessList);
@@ -111,6 +112,7 @@ public class HomeController {
 		Pager nPager = new Pager(5,5,noticeTotalRows,noticePageNo);
 		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), nPager, member.getSno());
 		//모달에 담기
+		model.addAttribute("searchStatus", searchStatus);
 		model.addAttribute("userRequestStatusCount" , userRequestStatusCount);
 		model.addAttribute("uPager", uPager);
 		model.addAttribute("userRequestList", userRequestList);
@@ -145,6 +147,65 @@ public class HomeController {
 		model.addAttribute("noticeList", noticeList);
 		return "/pmhome";
 	}
+	@GetMapping("/userrequestlist")
+	public String getUserRequestList(HttpSession session, Model model, @RequestParam(defaultValue = "1") int myRequestPageNo,
+			@RequestParam(defaultValue ="전체") String searchStatus) {
+		log.info("실행");
+		//세션에 담긴 member객체 받기
+		Member member = (Member) session.getAttribute("member");
+		// 나의 요청 상황 리스트 
+		int requestListTotalRows = commonService.getUserRequestListCount(searchStatus, member);
+		Pager uPager = new Pager(5, 5, requestListTotalRows, myRequestPageNo);
+		List<Request> userRequestList = commonService.getUserRequestList(searchStatus, member, uPager);
+		model.addAttribute("searchStatus", searchStatus);
+		model.addAttribute("userRequestList",userRequestList);
+		return "srm/userRequestList";
+	}
+	
+	@GetMapping("/7dayslist")
+	public String get7DaysList(HttpSession session, Model model, @RequestParam(defaultValue ="1") int dDay7PageNo ) {
+		log.info("실행");
+		//세션에 담긴 member객체 받기
+		Member member = (Member) session.getAttribute("member");
+		//D-7 리스트 출력
+		int dDayTotalRows = commonService.getListOf7daysLeftCount(member);
+		Pager dPager = new Pager(5, 5, dDayTotalRows, dDay7PageNo);
+		List<Request> listOf7daysLeft = commonService.getListOf7daysLeft(member, dPager);
+		model.addAttribute("listOf7daysLeft",listOf7daysLeft);
+		return "srm/7DaysList";
+	}
+	
+	@GetMapping("/requestprocesslist")
+	public String getRequestProcessList(HttpSession session, Model model,@RequestParam(defaultValue = "n") String checkbox,
+			@RequestParam(defaultValue ="1") int workPageNo) {
+		log.info("실행");
+		//세션에 담긴 member객체 받기
+		Member member = (Member) session.getAttribute("member");
+		//직무 요청 리스트 출력 및 페이지 처리
+		int requestProcessTotalRows = commonService.getRequestProcessRows(member, checkbox);
+		Pager rpPager = new Pager(5,5,requestProcessTotalRows,workPageNo);
+		List<RequestProcess> requestProcessList = commonService.getRequestProcessList(member, checkbox, rpPager);
+		model.addAttribute("checkbox", checkbox);
+		model.addAttribute("requestProcessList",requestProcessList);
+		return "srm/requestProcessList";
+	}
+	
+	@GetMapping("/mainnoticelist")
+	public String getMainNoticeList(HttpSession session, Model model,@RequestParam(defaultValue ="1") int noticePageNo) {
+		log.info("실행");
+		//세션에 담긴 member객체 받기
+		Member member = (Member) session.getAttribute("member");
+		//공지사항
+		String searchWord = "";
+		String searchType = "";
+		int noticeTotalRows = noticeService.getNoticeListCount(searchType, searchWord, member.getMtype(), member.getSno());
+		Pager nPager = new Pager(5,5,noticeTotalRows,noticePageNo);
+		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), nPager, member.getSno());
+		model.addAttribute("noticeList",noticeList);
+		return "srm/mainNoticeList";
+	}
+	
+	
 	
 	
 	@RequestMapping("/filedouwnload/{fno}")

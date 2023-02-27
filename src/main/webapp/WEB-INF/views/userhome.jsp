@@ -153,12 +153,12 @@
 										<h3 class="title">나의 요청 상황</h3>
 									</div>
 									<div class="topnav">
-										  <a class="active" onclick="userRequestList('전체')">전체</a>
-										  <a onclick="userRequestList('진행중')">진행중</a>
-										  <a onclick="userRequestList('완료')">완료</a>
-										  <a onclick="userRequestList('반려')">반려</a>
+										  <a class="active" onclick="userRequestList('전체', 1)">전체</a>
+										  <a onclick="userRequestList('진행중', 1)">진행중</a>
+										  <a onclick="userRequestList('완료', 1)">완료</a>
+										  <a onclick="userRequestList('반려', 1)">반려</a>
 									</div>
-									<div class="card-body py-0 ">
+									<div class="card-body py-0 " id="userRequestListContainer">
 										<table class="table table-hover usertable table-striped">
 											<thead>
 												<tr>
@@ -196,30 +196,30 @@
 											</tbody>
 										</table>
 										<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
-										    <li class="page-item"><a class="page-link" href="list?pageNo=1">처음</a></li>
+										    <li class="page-item"><a class="page-link" onclick="userRequestList(${searchStatus}, 1)">처음</a></li>
 										    <c:if test="${uPager.groupNo>1}">
 											    <li class="page-item">
-											    	<a class="page-link" href="list?pageNo=${uPager.startPageNo-1}">
+											    	<a class="page-link" onclick="userRequestList(${searchStatus}, ${uPager.startPageNo-1})">
 											    		<i class="fas fa-caret-left"></i>
 											    	</a>
 											    </li>
 										    </c:if>
 										    <c:forEach var="i" begin="${uPager.startPageNo}" end="${uPager.endPageNo}">
 										    	<c:if test="${uPager.pageNo != i}">
-											    	<li class="page-item"><a class="page-link" href="list?pageNo=${i}">${i}</a></li>
+											    	<li class="page-item"><a class="page-link" onclick="userRequestList(${searchStatus}, ${i})">${i}</a></li>
 										    	</c:if>
 										    	<c:if test="${uPager.pageNo == i}">
-											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" href="list?pageNo=${i}">${i}</a></li>
+											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" onclick="userRequestList(${searchStatus}, ${i})">${i}</a></li>
 										    	</c:if>
 										    </c:forEach>
 										    <c:if test="${uPager.groupNo<pager.totalGroupNo}">
 											    <li class="page-item">
-											    	<a class="page-link" href="#">
+											    	<a class="page-link" onclick="userRequestList(${searchStatus}, ${uPager.endPageNo + 1})">
 											    		<i class="fas fa-caret-right"></i>
 											   	 	</a>
 											    </li>
 										    </c:if>
-										    <li class="page-item"><a class="page-link" href="list?pageNo=${uPager.totalPageNo}">맨끝</a></li>
+										    <li class="page-item"><a class="page-link"onclick="userRequestList(${searchStatus}, ${uPager.totalPageNo})">맨끝</a></li>
 										</ul>
 									</div>
 								</div>
@@ -229,7 +229,7 @@
 									<div class="card-header">
 										<h3 class="title">공지사항</h3>
 									</div>
-									<div class="card-body">
+									<div class="card-body" id="mainNoticeListContainer">
 										<table class="table table-hover usertable table-striped">
 											<thead>
 												<tr>
@@ -255,30 +255,30 @@
 											</tbody>
 										</table>
 										<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
-										    <li class="page-item"><a class="page-link" href="list?pageNo=1">처음</a></li>
+										    <li class="page-item"><a class="page-link" onclick="mainNoticeList(1)">처음</a></li>
 										    <c:if test="${nPager.groupNo>1}">
 											    <li class="page-item">
-											    	<a class="page-link" href="list?pageNo=${nPager.startPageNo-1}">
+											    	<a class="page-link" onclick="mainNoticeList(${nPager.startPageNo-1})">
 											    		<i class="fas fa-caret-left"></i>
 											    	</a>
 											    </li>
 										    </c:if>
 										    <c:forEach var="i" begin="${nPager.startPageNo}" end="${nPager.endPageNo}">
 										    	<c:if test="${nPager.pageNo != i}">
-											    	<li class="page-item"><a class="page-link" href="list?pageNo=${i}">${i}</a></li>
+											    	<li class="page-item"><a class="page-link" onclick="mainNoticeList(${i})">${i}</a></li>
 										    	</c:if>
 										    	<c:if test="${nPager.pageNo == i}">
-											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" href="list?pageNo=${i}">${i}</a></li>
+											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" onclick="mainNoticeList(${i})">${i}</a></li>
 										    	</c:if>
 										    </c:forEach>
 										    <c:if test="${nPager.groupNo<pager.totalGroupNo}">
 											    <li class="page-item">
-											    	<a class="page-link" href="#">
+											    	<a class="page-link" onclick="mainNoticeList(${nPager.endPageNo + 1})">
 											    		<i class="fas fa-caret-right"></i>
 											   	 	</a>
 											    </li>
 										    </c:if>
-										    <li class="page-item"><a class="page-link" href="list?pageNo=${nPager.totalPageNo}">맨끝</a></li>
+										    <li class="page-item"><a class="page-link" onclick="mainNoticeList(${nPager.totalPageNo})">맨끝</a></li>
 										</ul>
 									</div>
 								
@@ -305,7 +305,30 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
+    
+    <script>
+    	function userRequestList(searchStatus, pageNo){
+    		$.ajax({
+    			type: "GET", //요청 메소드 방식
+    			url:"${pageContext.request.contextPath}/userrequestlist?myRequestPageNo=" + pageNo + "&searchStatus=" + searchStatus,
+    			dataType:"html", 
+    			success : function(result){
+    				$('#userRequestListContainer').html(result);
+    			}
+    		})
+    	} 
+    	
+    	function mainNoticeList(pageNo){
+    		$.ajax({
+    			type: "GET", //요청 메소드 방식
+    			url:"${pageContext.request.contextPath}/mainnoticelist?noticePageNo=" + pageNo,
+    			dataType:"html", 
+    			success : function(result){
+    				$('#mainNoticeListContainer').html(result);
+    			}
+    		})
+    	} 
+    </script>
 
 
 </body>
