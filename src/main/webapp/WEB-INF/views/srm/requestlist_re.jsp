@@ -131,7 +131,7 @@ main {
 	text-align: start;
 	align-items: center;
 	position: absolute;
-	top: 28%;
+	top: 23%;
 	left: 0;
 	background-color: #fff;
 	border-bottom: 1px solid #e3e6f0;
@@ -228,7 +228,7 @@ main {
 .pager {
 	position: absolute;
 	left: 35%;
-	top: 83%;
+	top: 78%;
 	width: 350px;
 }
 
@@ -243,7 +243,10 @@ main {
 	height: 28px;
 	padding: 0px 5px;
 }
+
 </style>
+
+
 
 </head>
 
