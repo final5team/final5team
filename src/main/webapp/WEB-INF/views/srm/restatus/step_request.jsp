@@ -6,8 +6,8 @@
 <!-- request.statusName(현재 상태)에 따라 다른 단계 화면 표시-->
 <c:if test="${request.statusName != '반려'}">
 	<c:if test="${requestProcess.reqType == null || requestProcess.reqType == '정규'}">
-		<div class="circle<c:if test="${request.statusNo == 1}">now</c:if>
-						<c:if test="${request.statusNo > 1}">done</c:if>">
+		<div class="circle<c:if test="${request.statusNo == 1}"> now</c:if>
+						<c:if test="${request.statusNo > 1}"> done</c:if>">
 						<c:if test="${request.statusNo > 1}">요청완료</c:if>
 						<c:if test="${request.statusNo == 1}">요청중</c:if>
 					</div>
