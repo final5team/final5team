@@ -115,6 +115,7 @@
 				    			</c:forEach>
 					    	</div>
 					    </div>
+					    
 					  	<div class="form-group row p-2">
 					    	<label for="files" class="col-2">첨부파일 등록</label>
 					    	<input type="file" multiple class="form-control-file col-10" id="files" name="files">
