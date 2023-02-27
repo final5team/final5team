@@ -258,7 +258,7 @@
 		from(
 			   select r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT,
                 r.CLIENT, r.SNO, r.REQ_EXPECT_DATE , r.STATUS_NO, rp.req_type
-			    from requests r join request_process rp
+			    from requests r left join request_process rp
                 on r.rno = rp.rno
 		<where>
 			client = #{member.mid}
@@ -319,11 +319,9 @@
 			from(
 			    select r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT,
                     r.CLIENT, r.SNO, r.REQ_EXPECT_DATE , r.STATUS_NO, rp.req_type 
-			    from requests r join request_process rp
+			    from requests r left join request_process rp
                 on r.rno = rp.rno
 		]]>
-			
-			
 		<where>
 			client = #{member.mid}
 			<if test='listFilter.reqType neq "전체"'>

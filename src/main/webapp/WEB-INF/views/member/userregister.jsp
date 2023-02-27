@@ -25,6 +25,7 @@ form {
 	-webkit-box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
 	box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
 	margin-bottom: 50px;
+	margin-left : 13%
 }
 
 .section1 {
@@ -40,7 +41,7 @@ form {
 }
 
 .section1 h4 {
-	color: #68a329;
+	color: black;
 	font: bold;
 	margin: 15px 15px;
 }
@@ -289,15 +290,14 @@ form {
 				<!-- End of Topbar -->
 
 				<!-- 여기에 내용 담기 start -->
-				<div class="container-fluid">
 					<form method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data">
 						<section class="section1">
-							<h4>사용자 등록</h4>
+							<h4>User Register</h4>
 						</section>
 
 						<section class="section2">
 							<article class="photo">
-								<img id="preview" src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg" /> 
+								<img id="preview" src="${pageContext.request.contextPath}/resources/img/default-image.gif" /> 
 								<input type="file" class="btn btn-sm btn-dark" id="mfile" name="mfile" onchange="readURL(this);">
 							</article>
 
@@ -422,7 +422,6 @@ form {
 						</section>
 					</form>
 					<!-- 여기에 내용 담기 end -->
-				</div>
 				<!-- End of Main Content -->
 
 				<!-- Footer -->

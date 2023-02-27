@@ -124,7 +124,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		map.put("member", member);
 		
 		int rows = requestDao.countRequestRows(map);
-		
+		log.info(rows);
 		return rows;
 	}
 	//작성한 요청목록 가져오기 
@@ -135,9 +135,8 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		map.put("listFilter", myStatusFilterList(dateFilterList(sysName(listFilter))));
 		map.put("pager", pager);
 		map.put("member", member);
-		
 		List<SelectPM> result = requestDao.selectMyRequest(map);
-		
+		log.info(result.size());
 		return result;
 	}
 	@Override
