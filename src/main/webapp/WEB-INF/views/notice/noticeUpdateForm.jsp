@@ -120,8 +120,8 @@
 					    	<input type="file" multiple class="form-control-file col-10" id="files" name="files">
 					  	</div>
 					  	<div class="form-group row">
-					    	<a href="#" class="btn btn-danger" style="margin-left : 87%">취소</a>
-				    		<button type="submit" class="btn btn-primary ml-3">
+					    	<a href="#" class="btn btn-dark" style="margin-left : 87%">취소</a>
+				    		<button type="submit" class="btn btn-dark ml-3">
 				    			등록
 				    		</button>
 					  	</div>  	
