@@ -194,594 +194,594 @@
 
                 <!-- 여기에 내용 담기 start -->
                 <div class="container-fluid">
-                	<!-- 첫째 줄 -->
-					<div class="row">
-						<div  class="col-lg-4">
-							 <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">시스템별 요청 비중</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div id="3dchart"></div>
-                                </div>
-                            </div>
-						</div>
-						<div  class="col-lg-4">
-							 <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">완료율</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-	                                <div class="row">
-	                                	<div class="col-md-7"> 
-	                                		<div id="donutchart"></div>
-	                                		<div class="center">${comRate}%</div>
-	                                	</div>
-	                                	<div class="col-md-5">
-	                                		<p style="color: green">Task</p>
-		                                	<p>개발: ${comRateTask['developer']}%</p>
-		                                	<p>테스트: ${comRateTask['tester']}%</p>
-		                                	<p>유저: ${comRateTask['usertester']}%</p>
-		                                	<p>배포: ${comRateTask['distributor']}%</p>
-	                                	</div>
+                	<!-- Main(정적 페이지) -->
+                	<div id="main">
+	                	<!-- 첫째 줄 -->
+						<div class="row">
+							<div  class="col-lg-4">
+								 <div class="card shadow mb-4">
+	                                <!-- Card Header - Dropdown -->
+	                                <div
+	                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+	                                    <h6 class="m-0 font-weight-bold text-primary">시스템별 요청 비중</h6>
+	                                    <div class="dropdown no-arrow">
+	                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+	                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+	                                        </a>
+	                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+	                                            aria-labelledby="dropdownMenuLink">
+	                                            <div class="dropdown-header">Dropdown Header:</div>
+	                                            <a class="dropdown-item" href="#">Action</a>
+	                                            <a class="dropdown-item" href="#">Another action</a>
+	                                            <div class="dropdown-divider"></div>
+	                                            <a class="dropdown-item" href="#">Something else here</a>
+	                                        </div>
+	                                    </div>
 	                                </div>
-                                </div>
-                            </div>
-						</div>
-						<div  class="col-lg-4">
-							 <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">지연율</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body" style="height:240px">
-                                	<div class="row">
-	                                	<div class="col-md-7"> 
-	                                		<div id="chart_div" style="width: 400px; height: 120px;" class="ml-4 mt-3"></div> 
-	                                	</div>
-	                                	<div class="col-md-5">
-	                                		<p style="color: green">Task</p>
-		                                	<p>개발: ${delRateTask['developer']}%</p>
-		                                	<p>테스트: ${delRateTask['tester']}%</p>
-		                                	<p>유저: ${delRateTask['usertester']}%</p>
-		                                	<p>배포: ${delRateTask['distributor']}%</p>
-	                                	</div>
-	                                </div>                                  
-                                </div>
-                            </div>
-						</div>
-					
-					</div>
-					
-					<!-- 둘째줄 -->
-					<div>										
-						<!-- 예시 -->
-						<div class="card sameheight-item shadow mb-4">
-						    <div class="card-block">
-						        <!-- Nav tabs -->
-						        <div class="card-title-block">
-									<h3 class="title ml-3 mt-3">
-										서비스 요청 처리 현황
-									</h3>
-								</div>
-								<!-- 태스크 별 탭 -->
-						        <ul class="nav nav-tabs nav-tabs-bordered">
-						            <li class="nav-item">
-						            	<a href="#home" class="nav-link active" data-target="#home" data-toggle="tab" aria-controls="home" role="tab" >전체</a>
-						            </li>
-						            <li class="nav-item">
-						            	<a href="#profile" class="nav-link" data-target="#profile" aria-controls="profile" data-toggle="tab" role="tab" >개발</a>
-						            </li>
-						            <li class="nav-item">
-						            	<a href="" class="nav-link" data-target="#messages" aria-controls="messages" data-toggle="tab" role="tab" >테스트</a>
-						            </li>
-						            <li class="nav-item">
-						            	<a href="" class="nav-link" data-target="#usertest" aria-controls="usertest" data-toggle="tab" role="tab" >유저테스트</a>
-						            </li>
-						            <li class="nav-item">
-						            	<a href="" class="nav-link" data-target="#settings" aria-controls="settings" data-toggle="tab" role="tab" >배포</a>
-						            </li>
-						        </ul>
+	                                <!-- Card Body -->
+	                                <div class="card-body">
+	                                    <div id="3dchart"></div>
+	                                </div>
+	                            </div>
+							</div>
+							<div  class="col-lg-4">
+								 <div class="card shadow mb-4">
+	                                <!-- Card Header - Dropdown -->
+	                                <div
+	                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+	                                    <h6 class="m-0 font-weight-bold text-primary">완료율</h6>
+	                                    <div class="dropdown no-arrow">
+	                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+	                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+	                                        </a>
+	                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+	                                            aria-labelledby="dropdownMenuLink">
+	                                            <div class="dropdown-header">Dropdown Header:</div>
+	                                            <a class="dropdown-item" href="#">Action</a>
+	                                            <a class="dropdown-item" href="#">Another action</a>
+	                                            <div class="dropdown-divider"></div>
+	                                            <a class="dropdown-item" href="#">Something else here</a>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                <!-- Card Body -->
+	                                <div class="card-body">
+		                                <div class="row">
+		                                	<div class="col-md-7"> 
+		                                		<div id="donutchart"></div>
+		                                		<div class="center">${comRate}%</div>
+		                                	</div>
+		                                	<div class="col-md-5">
+		                                		<p style="color: green">Task</p>
+			                                	<p>개발: ${comRateTask['developer']}%</p>
+			                                	<p>테스트: ${comRateTask['tester']}%</p>
+			                                	<p>유저: ${comRateTask['usertester']}%</p>
+			                                	<p>배포: ${comRateTask['distributor']}%</p>
+		                                	</div>
+		                                </div>
+	                                </div>
+	                            </div>
+							</div>
+							<div  class="col-lg-4">
+								 <div class="card shadow mb-4">
+	                                <!-- Card Header - Dropdown -->
+	                                <div
+	                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+	                                    <h6 class="m-0 font-weight-bold text-primary">지연율</h6>
+	                                    <div class="dropdown no-arrow">
+	                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+	                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+	                                        </a>
+	                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+	                                            aria-labelledby="dropdownMenuLink">
+	                                            <div class="dropdown-header">Dropdown Header:</div>
+	                                            <a class="dropdown-item" href="#">Action</a>
+	                                            <a class="dropdown-item" href="#">Another action</a>
+	                                            <div class="dropdown-divider"></div>
+	                                            <a class="dropdown-item" href="#">Something else here</a>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                <!-- Card Body -->
+	                                <div class="card-body" style="height:240px">
+	                                	<div class="row">
+		                                	<div class="col-md-7"> 
+		                                		<div id="chart_div" style="width: 400px; height: 120px;" class="ml-4 mt-3"></div> 
+		                                	</div>
+		                                	<div class="col-md-5">
+		                                		<p style="color: green">Task</p>
+			                                	<p>개발: ${delRateTask['developer']}%</p>
+			                                	<p>테스트: ${delRateTask['tester']}%</p>
+			                                	<p>유저: ${delRateTask['usertester']}%</p>
+			                                	<p>배포: ${delRateTask['distributor']}%</p>
+		                                	</div>
+		                                </div>                                  
+	                                </div>
+	                            </div>
+							</div>
 						
-						        <!-- Tab panes -->
-						        <div class="tab-content tabs-bordered">
-						        	<!-- 전체 서비스 요청 처리 현황 -->
-						        	<div>
-						        		<div class="m-3">
-						        			<h5>전체 서비스 요청 처리 현황</h5>
-						        			 <!-- 단계 카드들 -->
-											<div class="row">
-
-											    <div class="col-xl-2 col-md-6 mb-4">
-									                <div class="card border-left-primary shadow h-100 py-2">
-									                     <div class="card-body">
-									                          <div class="row no-gutters align-items-center">
-									                               <div class="col mr-2">
-									                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">접수</div>
-									                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[0]} 건</div>
-									                               </div>
-									                               <div class="col-auto">
-									                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
-									                               </div>
-									                           </div>
-									                        </div>
-									                  </div>
-									             </div>
-									                        
-									             <div class="col-xl-2 col-md-6 mb-4">
-									                 <div class="card border-left-success shadow h-100 py-2">
-									                     <div class="card-body">
-									                          <div class="row no-gutters align-items-center">
-									                              <div class="col mr-2">
-									                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">개발</div>
-									                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[1]} 건</div>
-									                              </div>
-									                          	  <div class="col-auto">
-									                                  <i class="fas fa-pen fa-2x text-gray-300"></i>
-									                              </div>
-									                          </div>
-									                      </div>
-									                  </div>
-									              </div>
-									
-									              <div class="col-xl-2 col-md-6 mb-4">
-									                   <div class="card border-left-info shadow h-100 py-2">
-									                        <div class="card-body">
-									                             <div class="row no-gutters align-items-center">
-									                                  <div class="col mr-2">
-									                                      <div class="text-sm font-weight-bold text-info text-uppercase mb-1">테스트 </div>									                                   									                                                
-									                                      <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${allState[2]} 건</div>									                                                							                                                									                                          
-									                                  </div>
-									                                   <div class="col-auto">
-									                                       <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-									                                   </div>
+						</div>
+						
+						<!-- 둘째줄 -->
+						<div>										
+							<!-- 예시 -->
+							<div class="card sameheight-item shadow mb-4">
+							    <div class="card-block">
+							        <!-- Nav tabs -->
+							        <div class="card-title-block">
+										<h3 class="title ml-3 mt-3">
+											서비스 요청 처리 현황
+										</h3>
+									</div>
+									<!-- 태스크 별 탭 -->
+							        <ul class="nav nav-tabs nav-tabs-bordered">
+							            <li class="nav-item">
+							            	<a href="#home" class="nav-link active" data-target="#home" data-toggle="tab" aria-controls="home" role="tab" >전체</a>
+							            </li>
+							            <li class="nav-item">
+							            	<a href="#profile" class="nav-link" data-target="#profile" aria-controls="profile" data-toggle="tab" role="tab" >개발</a>
+							            </li>
+							            <li class="nav-item">
+							            	<a href="" class="nav-link" data-target="#messages" aria-controls="messages" data-toggle="tab" role="tab" >테스트</a>
+							            </li>
+							            <li class="nav-item">
+							            	<a href="" class="nav-link" data-target="#usertest" aria-controls="usertest" data-toggle="tab" role="tab" >유저테스트</a>
+							            </li>
+							            <li class="nav-item">
+							            	<a href="" class="nav-link" data-target="#settings" aria-controls="settings" data-toggle="tab" role="tab" >배포</a>
+							            </li>
+							        </ul>
+							
+							        <!-- Tab panes -->
+							        <div class="tab-content tabs-bordered">
+							        	<!-- 전체 서비스 요청 처리 현황 -->
+							        	<div>
+							        		<div class="m-3">
+							        			<h5>전체 서비스 요청 처리 현황</h5>
+							        			 <!-- 단계 카드들 -->
+												<div class="row">
+	
+												    <div class="col-xl-2 col-md-6 mb-4">
+										                <div class="card border-left-primary shadow h-100 py-2">
+										                     <div class="card-body">
+										                          <div class="row no-gutters align-items-center">
+										                               <div class="col mr-2">
+										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">접수</div>
+										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[0]} 건</div>
+										                               </div>
+										                               <div class="col-auto">
+										                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+										                               </div>
+										                           </div>
+										                        </div>
+										                  </div>
+										             </div>
+										                        
+										             <div class="col-xl-2 col-md-6 mb-4">
+										                 <div class="card border-left-success shadow h-100 py-2">
+										                     <div class="card-body">
+										                          <div class="row no-gutters align-items-center">
+										                              <div class="col mr-2">
+										                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">개발</div>
+										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[1]} 건</div>
+										                              </div>
+										                          	  <div class="col-auto">
+										                                  <i class="fas fa-pen fa-2x text-gray-300"></i>
+										                              </div>
+										                          </div>
+										                      </div>
+										                  </div>
+										              </div>
+										
+										              <div class="col-xl-2 col-md-6 mb-4">
+										                   <div class="card border-left-info shadow h-100 py-2">
+										                        <div class="card-body">
+										                             <div class="row no-gutters align-items-center">
+										                                  <div class="col mr-2">
+										                                      <div class="text-sm font-weight-bold text-info text-uppercase mb-1">테스트 </div>									                                   									                                                
+										                                      <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${allState[2]} 건</div>									                                                							                                                									                                          
+										                                  </div>
+										                                   <div class="col-auto">
+										                                       <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+										                                   </div>
+										                                </div>
+										                            </div>
+										                       </div>
+										                 </div>
+								
+								                        <div class="col-xl-2 col-md-6 mb-4">
+								                            <div class="card border-left-warning shadow h-100 py-2">
+								                                <div class="card-body">
+								                                    <div class="row no-gutters align-items-center">
+								                                        <div class="col mr-2">
+								                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">유저 테스트</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[3]} 건</div>
+								                                        </div>
+								                                        <div class="col-auto">
+								                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+								                                        </div>
+								                                    </div>
+								                                </div>
+								                            </div>
+								                        </div>
+										                        
+								                        <div class="col-xl-2 col-md-6 mb-4">
+								                            <div class="card border-left-danger shadow h-100 py-2">
+								                                <div class="card-body">
+								                                    <div class="row no-gutters align-items-center">
+								                                        <div class="col mr-2">
+								                                            <div class="text-sm font-weight-bold text-danger text-uppercase mb-1">배포</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[4]} 건</div>
+								                                        </div>
+								                                        <div class="col-auto">
+								                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+								                                        </div>
+								                                    </div>
+								                                </div>
+								                            </div>
+								                        </div>
+								                        
+								                        <div class="col-xl-2 col-md-6 mb-4">
+								                            <div class="card border-left-secondary shadow h-100 py-2">
+								                                <div class="card-body">
+								                                    <div class="row no-gutters align-items-center">
+								                                        <div class="col mr-2">
+								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">완료</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[5]} 건</div>
+								                                        </div>
+								                                        <div class="col-auto">
+								                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+								                                        </div>
+								                                    </div>
+								                                </div>
+								                            </div>
+								                        </div>
+	       
+												  </div>
+							        		
+							        		</div>
+							        		<div>
+							        			<div id="barchart_material"></div>
+							        		</div>
+							        								        	
+							        	</div>
+							            <div class="tab-pane fade in active" id="home"> 
+							            </div>
+							            <div class="tab-pane fade" id="profile">
+							            	<div class="m-3">
+							            		<h5>개발 현황</h5>
+							            		<div>
+								            		<!-- 단계 카드들 -->
+													<div class="row">
+		
+													    <div class="col-xl-3 col-md-6 mb-4">
+											                <div class="card border-bottom-primary shadow h-100 py-2">
+											                     <div class="card-body">
+											                          <div class="row no-gutters align-items-center">
+											                               <div class="col mr-2">
+											                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">현재</div>
+											                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][0]} 건</div>
+											                               </div>
+											                               <div class="col-auto">
+											                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+											                               </div>
+											                           </div>
+											                        </div>
+											                  </div>
+											             </div>
+											                        
+											             <div class="col-xl-3 col-md-6 mb-4">
+											                 <div class="card border-left-success shadow h-100 py-2">
+											                     <div class="card-body">
+											                          <div class="row no-gutters align-items-center">
+											                              <div class="col mr-2">
+											                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">개발 대기</div>
+											                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][0]-stateTask[0][1]} 건 </div>
+											                              </div>
+											                          	  <div class="col-auto">
+											                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+											                              </div>
+											                          </div>
+											                      </div>
+											                  </div>
+											              </div>
+	
+									                        <div class="col-xl-3 col-md-6 mb-4">
+									                            <div class="card border-left-warning shadow h-100 py-2">
+									                                <div class="card-body">
+									                                    <div class="row no-gutters align-items-center">
+									                                        <div class="col mr-2">
+									                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">개발 중</div>
+									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][1]} 건</div>
+									                                        </div>
+									                                        <div class="col-auto">
+									                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+									                                        </div>
+									                                    </div>
 									                                </div>
 									                            </div>
-									                       </div>
-									                 </div>
-							
-							                        <div class="col-xl-2 col-md-6 mb-4">
-							                            <div class="card border-left-warning shadow h-100 py-2">
-							                                <div class="card-body">
-							                                    <div class="row no-gutters align-items-center">
-							                                        <div class="col mr-2">
-							                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">유저 테스트</div>
-							                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[3]} 건</div>
-							                                        </div>
-							                                        <div class="col-auto">
-							                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-							                                        </div>
-							                                    </div>
-							                                </div>
-							                            </div>
-							                        </div>
+									                        </div>
 									                        
-							                        <div class="col-xl-2 col-md-6 mb-4">
-							                            <div class="card border-left-danger shadow h-100 py-2">
-							                                <div class="card-body">
-							                                    <div class="row no-gutters align-items-center">
-							                                        <div class="col mr-2">
-							                                            <div class="text-sm font-weight-bold text-danger text-uppercase mb-1">배포</div>
-							                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[4]} 건</div>
-							                                        </div>
-							                                        <div class="col-auto">
-							                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-							                                        </div>
-							                                    </div>
-							                                </div>
-							                            </div>
-							                        </div>
-							                        
-							                        <div class="col-xl-2 col-md-6 mb-4">
-							                            <div class="card border-left-secondary shadow h-100 py-2">
-							                                <div class="card-body">
-							                                    <div class="row no-gutters align-items-center">
-							                                        <div class="col mr-2">
-							                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">완료</div>
-							                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[5]} 건</div>
-							                                        </div>
-							                                        <div class="col-auto">
-							                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-							                                        </div>
-							                                    </div>
-							                                </div>
-							                            </div>
-							                        </div>
-       
-											  </div>
-						        		
-						        		</div>
-						        		<div>
-						        			<div id="barchart_material"></div>
-						        		</div>
-						        								        	
-						        	</div>
-						            <div class="tab-pane fade in active" id="home"> 
-						            </div>
-						            <div class="tab-pane fade" id="profile">
-						            	<div class="m-3">
-						            		<h5>개발 현황</h5>
-						            		<div>
-							            		<!-- 단계 카드들 -->
-												<div class="row">
+									                        <div class="col-xl-3 col-md-6 mb-4">
+									                            <div class="card border-left-secondary shadow h-100 py-2">
+									                                <div class="card-body">
+									                                    <div class="row no-gutters align-items-center">
+									                                        <div class="col mr-2">
+									                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">기처리</div>
+									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][2]} 건</div>
+									                                        </div>
+									                                        <div class="col-auto">
+									                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+									                                        </div>
+									                                    </div>
+									                                </div>
+									                            </div>
+									                        </div>
+		       
+													  </div>
+							            		</div>
+							            	</div>
+							             
+							            </div>
+							            <div class="tab-pane fade" id="messages">
+							                <div class="m-3">
+							            		<h5>테스트 현황</h5>
+							            		<div>
+								            		<!-- 단계 카드들 -->
+													<div class="row">
+		
+													    <div class="col-xl-3 col-md-6 mb-4">
+											                <div class="card border-bottom-primary shadow h-100 py-2">
+											                     <div class="card-body">
+											                          <div class="row no-gutters align-items-center">
+											                               <div class="col mr-2">
+											                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">현재</div>
+											                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][0]} 건</div>
+											                               </div>
+											                               <div class="col-auto">
+											                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+											                               </div>
+											                           </div>
+											                        </div>
+											                  </div>
+											             </div>
+											                        
+											             <div class="col-xl-3 col-md-6 mb-4">
+											                 <div class="card border-left-success shadow h-100 py-2">
+											                     <div class="card-body">
+											                          <div class="row no-gutters align-items-center">
+											                              <div class="col mr-2">
+											                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">테스트 대기</div>
+											                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][0]-stateTask[1][1]} 건</div>
+											                              </div>
+											                          	  <div class="col-auto">
+											                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+											                              </div>
+											                          </div>
+											                      </div>
+											                  </div>
+											              </div>
 	
-												    <div class="col-xl-3 col-md-6 mb-4">
-										                <div class="card border-bottom-primary shadow h-100 py-2">
-										                     <div class="card-body">
-										                          <div class="row no-gutters align-items-center">
-										                               <div class="col mr-2">
-										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">현재</div>
-										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][0]} 건</div>
-										                               </div>
-										                               <div class="col-auto">
-										                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
-										                               </div>
-										                           </div>
-										                        </div>
-										                  </div>
-										             </div>
-										                        
-										             <div class="col-xl-3 col-md-6 mb-4">
-										                 <div class="card border-left-success shadow h-100 py-2">
-										                     <div class="card-body">
-										                          <div class="row no-gutters align-items-center">
-										                              <div class="col mr-2">
-										                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">개발 대기</div>
-										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][0]-stateTask[0][1]} 건 </div>
-										                              </div>
-										                          	  <div class="col-auto">
-										                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-										                              </div>
-										                          </div>
-										                      </div>
-										                  </div>
-										              </div>
-
-								                        <div class="col-xl-3 col-md-6 mb-4">
-								                            <div class="card border-left-warning shadow h-100 py-2">
-								                                <div class="card-body">
-								                                    <div class="row no-gutters align-items-center">
-								                                        <div class="col mr-2">
-								                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">개발 중</div>
-								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][1]} 건</div>
-								                                        </div>
-								                                        <div class="col-auto">
-								                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-								                                        </div>
-								                                    </div>
-								                                </div>
-								                            </div>
-								                        </div>
-								                        
-								                        <div class="col-xl-3 col-md-6 mb-4">
-								                            <div class="card border-left-secondary shadow h-100 py-2">
-								                                <div class="card-body">
-								                                    <div class="row no-gutters align-items-center">
-								                                        <div class="col mr-2">
-								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">기처리</div>
-								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][2]} 건</div>
-								                                        </div>
-								                                        <div class="col-auto">
-								                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-								                                        </div>
-								                                    </div>
-								                                </div>
-								                            </div>
-								                        </div>
-	       
-												  </div>
-						            		</div>
-						            	</div>
-						             
-						            </div>
-						            <div class="tab-pane fade" id="messages">
-						                <div class="m-3">
-						            		<h5>테스트 현황</h5>
-						            		<div>
-							            		<!-- 단계 카드들 -->
-												<div class="row">
+									                        <div class="col-xl-3 col-md-6 mb-4">
+									                            <div class="card border-left-warning shadow h-100 py-2">
+									                                <div class="card-body">
+									                                    <div class="row no-gutters align-items-center">
+									                                        <div class="col mr-2">
+									                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">테스트 중</div>
+									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][1]} 건</div>
+									                                        </div>
+									                                        <div class="col-auto">
+									                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+									                                        </div>
+									                                    </div>
+									                                </div>
+									                            </div>
+									                        </div>
+									                        
+									                        <div class="col-xl-3 col-md-6 mb-4">
+									                            <div class="card border-left-secondary shadow h-100 py-2">
+									                                <div class="card-body">
+									                                    <div class="row no-gutters align-items-center">
+									                                        <div class="col mr-2">
+									                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">기처리</div>
+									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][2]} 건</div>
+									                                        </div>
+									                                        <div class="col-auto">
+									                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+									                                        </div>
+									                                    </div>
+									                                </div>
+									                            </div>
+									                        </div>
+		       
+													  </div>
+							            		</div>
+							            	</div>
+							            </div>
+							             <div class="tab-pane fade" id="usertest">
+							                <div class="m-3">
+							            		<h5>유저테스트 현황</h5>
+							            		<div>
+								            		<!-- 단계 카드들 -->
+													<div class="row">
+		
+													    <div class="col-xl-3 col-md-6 mb-4">
+											                <div class="card border-bottom-primary shadow h-100 py-2">
+											                     <div class="card-body">
+											                          <div class="row no-gutters align-items-center">
+											                               <div class="col mr-2">
+											                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">현재</div>
+											                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][0]} 건</div>
+											                               </div>
+											                               <div class="col-auto">
+											                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+											                               </div>
+											                           </div>
+											                        </div>
+											                  </div>
+											             </div>
+											                        
+											             <div class="col-xl-3 col-md-6 mb-4">
+											                 <div class="card border-left-success shadow h-100 py-2">
+											                     <div class="card-body">
+											                          <div class="row no-gutters align-items-center">
+											                              <div class="col mr-2">
+											                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">테스트 대기</div>
+											                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][0]-stateTask[2][1]} 건</div>
+											                              </div>
+											                          	  <div class="col-auto">
+											                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+											                              </div>
+											                          </div>
+											                      </div>
+											                  </div>
+											              </div>
 	
-												    <div class="col-xl-3 col-md-6 mb-4">
-										                <div class="card border-bottom-primary shadow h-100 py-2">
-										                     <div class="card-body">
-										                          <div class="row no-gutters align-items-center">
-										                               <div class="col mr-2">
-										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">현재</div>
-										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][0]} 건</div>
-										                               </div>
-										                               <div class="col-auto">
-										                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
-										                               </div>
-										                           </div>
-										                        </div>
-										                  </div>
-										             </div>
-										                        
-										             <div class="col-xl-3 col-md-6 mb-4">
-										                 <div class="card border-left-success shadow h-100 py-2">
-										                     <div class="card-body">
-										                          <div class="row no-gutters align-items-center">
-										                              <div class="col mr-2">
-										                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">테스트 대기</div>
-										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][0]-stateTask[1][1]} 건</div>
-										                              </div>
-										                          	  <div class="col-auto">
-										                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-										                              </div>
-										                          </div>
-										                      </div>
-										                  </div>
-										              </div>
-
-								                        <div class="col-xl-3 col-md-6 mb-4">
-								                            <div class="card border-left-warning shadow h-100 py-2">
-								                                <div class="card-body">
-								                                    <div class="row no-gutters align-items-center">
-								                                        <div class="col mr-2">
-								                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">테스트 중</div>
-								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][1]} 건</div>
-								                                        </div>
-								                                        <div class="col-auto">
-								                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-								                                        </div>
-								                                    </div>
-								                                </div>
-								                            </div>
-								                        </div>
-								                        
-								                        <div class="col-xl-3 col-md-6 mb-4">
-								                            <div class="card border-left-secondary shadow h-100 py-2">
-								                                <div class="card-body">
-								                                    <div class="row no-gutters align-items-center">
-								                                        <div class="col mr-2">
-								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">기처리</div>
-								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][2]} 건</div>
-								                                        </div>
-								                                        <div class="col-auto">
-								                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-								                                        </div>
-								                                    </div>
-								                                </div>
-								                            </div>
-								                        </div>
-	       
-												  </div>
-						            		</div>
-						            	</div>
-						            </div>
-						             <div class="tab-pane fade" id="usertest">
-						                <div class="m-3">
-						            		<h5>유저테스트 현황</h5>
-						            		<div>
-							            		<!-- 단계 카드들 -->
-												<div class="row">
+									                        <div class="col-xl-3 col-md-6 mb-4">
+									                            <div class="card border-left-warning shadow h-100 py-2">
+									                                <div class="card-body">
+									                                    <div class="row no-gutters align-items-center">
+									                                        <div class="col mr-2">
+									                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">테스트 중</div>
+									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][1]} 건</div>
+									                                        </div>
+									                                        <div class="col-auto">
+									                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+									                                        </div>
+									                                    </div>
+									                                </div>
+									                            </div>
+									                        </div>
+									                        
+									                        <div class="col-xl-3 col-md-6 mb-4">
+									                            <div class="card border-left-secondary shadow h-100 py-2">
+									                                <div class="card-body">
+									                                    <div class="row no-gutters align-items-center">
+									                                        <div class="col mr-2">
+									                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">기처리</div>
+									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][2]} 건</div>
+									                                        </div>
+									                                        <div class="col-auto">
+									                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+									                                        </div>
+									                                    </div>
+									                                </div>
+									                            </div>
+									                        </div>
+		       
+													  </div>
+							            		</div>
+							            	</div>
+							            </div>
+							            <div class="tab-pane fade" id="settings">
+							              <div class="m-3">
+							            		<h5>배포 현황</h5>
+							            		<div>
+								            		<!-- 단계 카드들 -->
+													<div class="row">
+		
+													    <div class="col-xl-3 col-md-6 mb-4">
+											                <div class="card border-bottom-primary shadow h-100 py-2">
+											                     <div class="card-body">
+											                          <div class="row no-gutters align-items-center">
+											                               <div class="col mr-2">
+											                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">현재</div>
+											                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][0]} 건</div>
+											                               </div>
+											                               <div class="col-auto">
+											                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+											                               </div>
+											                           </div>
+											                        </div>
+											                  </div>
+											             </div>
+											                        
+											             <div class="col-xl-3 col-md-6 mb-4">
+											                 <div class="card border-left-success shadow h-100 py-2">
+											                     <div class="card-body">
+											                          <div class="row no-gutters align-items-center">
+											                              <div class="col mr-2">
+											                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">배포 대기</div>
+											                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][0]-stateTask[3][1]} 건</div>
+											                              </div>
+											                          	  <div class="col-auto">
+											                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+											                              </div>
+											                          </div>
+											                      </div>
+											                  </div>
+											              </div>
 	
-												    <div class="col-xl-3 col-md-6 mb-4">
-										                <div class="card border-bottom-primary shadow h-100 py-2">
-										                     <div class="card-body">
-										                          <div class="row no-gutters align-items-center">
-										                               <div class="col mr-2">
-										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">현재</div>
-										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][0]} 건</div>
-										                               </div>
-										                               <div class="col-auto">
-										                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
-										                               </div>
-										                           </div>
-										                        </div>
-										                  </div>
-										             </div>
-										                        
-										             <div class="col-xl-3 col-md-6 mb-4">
-										                 <div class="card border-left-success shadow h-100 py-2">
-										                     <div class="card-body">
-										                          <div class="row no-gutters align-items-center">
-										                              <div class="col mr-2">
-										                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">테스트 대기</div>
-										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][0]-stateTask[2][1]} 건</div>
-										                              </div>
-										                          	  <div class="col-auto">
-										                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-										                              </div>
-										                          </div>
-										                      </div>
-										                  </div>
-										              </div>
-
-								                        <div class="col-xl-3 col-md-6 mb-4">
-								                            <div class="card border-left-warning shadow h-100 py-2">
-								                                <div class="card-body">
-								                                    <div class="row no-gutters align-items-center">
-								                                        <div class="col mr-2">
-								                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">테스트 중</div>
-								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][1]} 건</div>
-								                                        </div>
-								                                        <div class="col-auto">
-								                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-								                                        </div>
-								                                    </div>
-								                                </div>
-								                            </div>
-								                        </div>
-								                        
-								                        <div class="col-xl-3 col-md-6 mb-4">
-								                            <div class="card border-left-secondary shadow h-100 py-2">
-								                                <div class="card-body">
-								                                    <div class="row no-gutters align-items-center">
-								                                        <div class="col mr-2">
-								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">기처리</div>
-								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][2]} 건</div>
-								                                        </div>
-								                                        <div class="col-auto">
-								                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-								                                        </div>
-								                                    </div>
-								                                </div>
-								                            </div>
-								                        </div>
-	       
-												  </div>
-						            		</div>
-						            	</div>
-						            </div>
-						            <div class="tab-pane fade" id="settings">
-						              <div class="m-3">
-						            		<h5>배포 현황</h5>
-						            		<div>
-							            		<!-- 단계 카드들 -->
-												<div class="row">
-	
-												    <div class="col-xl-3 col-md-6 mb-4">
-										                <div class="card border-bottom-primary shadow h-100 py-2">
-										                     <div class="card-body">
-										                          <div class="row no-gutters align-items-center">
-										                               <div class="col mr-2">
-										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">현재</div>
-										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][0]} 건</div>
-										                               </div>
-										                               <div class="col-auto">
-										                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
-										                               </div>
-										                           </div>
-										                        </div>
-										                  </div>
-										             </div>
-										                        
-										             <div class="col-xl-3 col-md-6 mb-4">
-										                 <div class="card border-left-success shadow h-100 py-2">
-										                     <div class="card-body">
-										                          <div class="row no-gutters align-items-center">
-										                              <div class="col mr-2">
-										                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">배포 대기</div>
-										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][0]-stateTask[3][1]} 건</div>
-										                              </div>
-										                          	  <div class="col-auto">
-										                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-										                              </div>
-										                          </div>
-										                      </div>
-										                  </div>
-										              </div>
-
-								                        <div class="col-xl-3 col-md-6 mb-4">
-								                            <div class="card border-left-warning shadow h-100 py-2">
-								                                <div class="card-body">
-								                                    <div class="row no-gutters align-items-center">
-								                                        <div class="col mr-2">
-								                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">배포 중</div>
-								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][1]} 건</div>
-								                                        </div>
-								                                        <div class="col-auto">
-								                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-								                                        </div>
-								                                    </div>
-								                                </div>
-								                            </div>
-								                        </div>
-								                        
-								                        <div class="col-xl-3 col-md-6 mb-4">
-								                            <div class="card border-left-secondary shadow h-100 py-2">
-								                                <div class="card-body">
-								                                    <div class="row no-gutters align-items-center">
-								                                        <div class="col mr-2">
-								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">기처리</div>
-								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][2]} 건</div>
-								                                        </div>
-								                                        <div class="col-auto">
-								                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-								                                        </div>
-								                                    </div>
-								                                </div>
-								                            </div>
-								                        </div>
-	       
-												  </div>
-						            		</div>
-						            	</div>
-						            </div>
-						        </div>
-						    </div>
-						    <!-- /.card-block -->
-						</div>
-						<!-- /.card -->
-						<!-- 예시 -->										
-					</div>
-					
-					<!-- 셋째 줄 -->
-					<div>
-
-						<div class="card sameheight-item shadow mb-4">
-						    <div class="card-block">
-						        <!-- Nav tabs -->
-						        <div class="card-title-block">
-									<h3 class="title ml-3 mt-3">
-										서비스 요청 추이
-									</h3>
-								</div>
-						        <div class="tab-content tabs-bordered">
-						        	<div class="m-3">
-						        		<div id="curve_chart"></div>						        		
-						        	</div>
-						        </div>
+									                        <div class="col-xl-3 col-md-6 mb-4">
+									                            <div class="card border-left-warning shadow h-100 py-2">
+									                                <div class="card-body">
+									                                    <div class="row no-gutters align-items-center">
+									                                        <div class="col mr-2">
+									                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">배포 중</div>
+									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][1]} 건</div>
+									                                        </div>
+									                                        <div class="col-auto">
+									                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+									                                        </div>
+									                                    </div>
+									                                </div>
+									                            </div>
+									                        </div>
+									                        
+									                        <div class="col-xl-3 col-md-6 mb-4">
+									                            <div class="card border-left-secondary shadow h-100 py-2">
+									                                <div class="card-body">
+									                                    <div class="row no-gutters align-items-center">
+									                                        <div class="col mr-2">
+									                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">기처리</div>
+									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][2]} 건</div>
+									                                        </div>
+									                                        <div class="col-auto">
+									                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+									                                        </div>
+									                                    </div>
+									                                </div>
+									                            </div>
+									                        </div>
+		       
+													  </div>
+							            		</div>
+							            	</div>
+							            </div>
+							        </div>
+							    </div>
+							    <!-- /.card-block -->
 							</div>
+							<!-- /.card -->
+							<!-- 예시 -->										
 						</div>
-
-					</div>
-
-					
-
+						
+						<!-- 셋째 줄 -->
+						<div>
+	
+							<div class="card sameheight-item shadow mb-4">
+							    <div class="card-block">
+							        <!-- Nav tabs -->
+							        <div class="card-title-block">
+										<h3 class="title ml-3 mt-3">
+											서비스 요청 추이
+										</h3>
+									</div>
+							        <div class="tab-content tabs-bordered">
+							        	<div class="m-3">
+							        		<div id="curve_chart"></div>						        		
+							        	</div>
+							        </div>
+								</div>
+							</div>
+	
+						</div>
 				
-
+					</div>
+					<!-- Main(정적) end -->
                 </div>
                 <!-- 여기에 내용 담기 end -->
 
