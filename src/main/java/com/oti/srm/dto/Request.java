@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString(exclude= {"files","fileList"})
 public class Request {
 	private int rno;
 	private int sno;

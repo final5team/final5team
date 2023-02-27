@@ -163,7 +163,6 @@ main {
 	margin: 5px 10px;
 	background-color: #fff;
 	border-collapse: collapse;
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
 	border-radius: 5px;
 	overflow: hidden;
 }
@@ -193,8 +192,8 @@ main {
 }
 
 .member tr th {
-	background-color: white;
-	color: black;
+	background-color: #5a5c69;
+		color: white;
 }
 
 .member .step_td {

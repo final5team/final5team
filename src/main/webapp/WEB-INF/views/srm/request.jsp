@@ -485,7 +485,7 @@ article.include div {
 								<button class="btn btn-dark btn-sm" onclick="javascript:history.go(-1)">취소</button>
 							</article>
 							<article class="include">
-								<%@ include file="/WEB-INF/views/srm/restatus/nowstatushorizon.jsp"%>
+								<%@ include file="/WEB-INF/views/srm/restatus/step_request.jsp"%>
 							</article>
 						</section>
 					</form>

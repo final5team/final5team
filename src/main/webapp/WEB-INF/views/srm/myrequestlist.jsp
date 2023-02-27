@@ -163,7 +163,6 @@
 		margin: 5px 10px;
 		background-color: #fff;
 		border-collapse: collapse;
-		box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
 		border-radius: 5px;
 		overflow: hidden;
 	}
@@ -193,8 +192,8 @@
 	}
 	
 	.member tr th {
-		background-color: white;
-		color: black;
+		background-color: #5a5c69;
+		color: white;
 	}
 	
 	.member .step_td {
@@ -419,33 +418,34 @@
 								</c:forEach>
 							</table>
 					</section>
+					
 					<div class="pager">
 						<div class="pagingButtonSet d-flex justify-content-center">
-							<a href="requestlist?pageNo=1&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
+							<a href="myrequestlist?pageNo=1&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
 								type="button" class="btn btn-muted shadow">◀◀</a>
 							<c:if test="${pager.groupNo > 1}">
-								<a href="requestlist?pageNo=${pager.startPageNo-1}
+								<a href="myrequestlist?pageNo=${pager.startPageNo-1}
 								&req_type=${listFilter.reqType}&date_first=${listFilter.date_first}$date_last=${listFilter.date_last}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
 								 type="button" class="btn btn-muted shadow">◀</a>
 							</c:if>
 
 							<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
 								<c:if test="${pager.pageNo != i}">
-									<a href="requestlist?pageNo=${i}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
+									<a href="myrequestlist?pageNo=${i}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
 							 				type="button" class="btn btn-white shadow">${i}</a>
 								</c:if>
 								<c:if test="${pager.pageNo == i}">
-									<a href="requestlist?pageNo=${i}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
+									<a href="myrequestlist?pageNo=${i}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
 											type="button" class="btn btn-dark shadow">${i}</a>
 								</c:if>
 							</c:forEach>
 
 							<c:if test="${pager.groupNo < pager.totalGroupNo }">
-								<a href="requestlist?pageNo=${pager.endPageNo+1}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
+								<a href="myrequestlist?pageNo=${pager.endPageNo+1}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
 										type="button" class="btn btn-muted shadow">▶</a>
 
 							</c:if>
-							<a href="requestlist?pageNo=${pager.totalPageNo}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
+							<a href="myrequestlist?pageNo=${pager.totalPageNo}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
 							 		type="button" class="btn btn-muted shadow">▶▶</a>
 						</div>
 					</div>
