@@ -20,6 +20,7 @@ main {
 	justify-content: center;
 	align-items: center;
 	font-size: 15px;
+	margin-left : 13%;
 }
 
 .filter {
@@ -266,7 +267,6 @@ main {
 
 				<!-- 여기에 내용 담기 start -->
 
-				<div class="container-fluid">
 					<main class="all">
 					<section class="filter">
 						<form action="requestlist" method="get">
@@ -462,7 +462,6 @@ main {
 					</div>
 
 					</main>
-				</div>
 
 			</div>
 		</div>
