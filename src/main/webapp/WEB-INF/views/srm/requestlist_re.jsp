@@ -41,27 +41,27 @@ main {
 }
 
 .filter .filter-head {
-			background-color: #f8f9fc;
-			border-bottom: 1px solid #e3e6f0;
-			height: 30px;
-		}
-		
-		.filter .filter-head h4 {
-			color: #5a5c69;
-			font: bold;
-			padding-left: 15px;
-			padding-top : 5px;
-			font-size: 15px;
-			margin: 0px;
-			font-weight: 700;
-		}
+	background-color: #f8f9fc;
+	border-bottom: 1px solid #e3e6f0;
+	height: 30px;
+}
+
+.filter .filter-head h4 {
+	color: #5a5c69;
+	font: bold;
+	padding-left: 15px;
+	padding-top: 5px;
+	font-size: 15px;
+	margin: 0px;
+	font-weight: 700;
+}
 
 .filter .filter-name {
-			width: 100px;
-			height: 100px;
-			position: absolute;
-			margin: 0;
-			left: 2%;
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	margin: 0;
+	left: 2%;
 }
 
 .filter .filter-name h6 {
@@ -70,11 +70,11 @@ main {
 }
 
 .filter .filter-name2 {
-			width: 100px;
-			height: 100px;
-			position: absolute;
-			margin: 0;
-			left: 42%;
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	margin: 0;
+	left: 42%;
 }
 
 .filter .filter-name2 h6 {
@@ -89,7 +89,7 @@ main {
 	overflow: hidden;
 	position: absolute;
 	left: 10%;
-	top : 34%;
+	top: 34%;
 	float: left;
 	font-size: 13px;
 }
@@ -109,7 +109,7 @@ main {
 	overflow: hidden;
 	position: absolute;
 	left: 50%;
-	top : 34%;
+	top: 34%;
 	float: left;
 	font-size: 13px;
 }
@@ -140,19 +140,19 @@ main {
 
 .table .table-header {
 	background-color: #f8f9fc;
-			border-bottom: 1px solid #e3e6f0;
-			height: 30px;
+	border-bottom: 1px solid #e3e6f0;
+	height: 30px;
 }
 
 .table .table-header h4 {
 	color: #5a5c69;
-			font: bold;
-			padding-left: 15px;
-			padding-top : 5px;
-			font-size: 15px;
-			margin: 0px;
-			font : bold;
-			font-weight: 700;
+	font: bold;
+	padding-left: 15px;
+	padding-top: 5px;
+	font-size: 15px;
+	margin: 0px;
+	font: bold;
+	font-weight: 700;
 }
 
 .table .table-body {
@@ -198,8 +198,8 @@ main {
 }
 
 .member .step_td {
-display: inline-block;
-width: 500px;
+	display: inline-block;
+	width: 500px;
 }
 
 .member tr:hover {
@@ -214,7 +214,8 @@ width: 500px;
 	top: 60%;
 	z-index: 5;
 }
-.filter .write-button{
+
+.filter .write-button {
 	position: absolute;
 	width: 120px;
 	height: 50px;
@@ -222,25 +223,25 @@ width: 500px;
 	top: 60%;
 	z-index: 5;
 }
-	.pager{
+
+.pager {
 	position: absolute;
 	left: 30%;
-	top : 94%;
-	width : 350px;
-	}
-	.pager .write{
-	position: absolute;
-	left: 100%;
-	top : 0%;
-	width: 80px;
-	
-	}
-.custom-select{
-	height : 28px;
-	padding : 0px 5px;
+	top: 94%;
+	width: 350px;
 }
 
+.pager .write {
+	position: absolute;
+	left: 100%;
+	top: 0%;
+	width: 80px;
+}
 
+.custom-select {
+	height: 28px;
+	padding: 0px 5px;
+}
 </style>
 
 </head>
@@ -318,10 +319,7 @@ width: 500px;
 
 								</div>
 								<div class="date_form">
-									<input type="date" id="date_first" name="date_first"  style="border: 1px solid #d1d3e2;"
-									value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> <i class="fa fa-minus"></i> 
-									<input type="date" id="date_last" name="date_last"  style="border: 1px solid #d1d3e2;"
-									value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
+									<input type="date" id="date_first" name="date_first" style="border: 1px solid #d1d3e2;" value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> <i class="fa fa-minus"></i> <input type="date" id="date_last" name="date_last" style="border: 1px solid #d1d3e2;" value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
 								</div>
 							</article>
 							<article class="filter-body2">
@@ -397,10 +395,10 @@ width: 500px;
 									</div>
 								</c:if>
 							</article>
-							
-							
-							
-							
+
+
+
+
 						</form>
 					</section>
 					<section class="table">
@@ -431,7 +429,7 @@ width: 500px;
 										<td class="sysType">${request.reqType}</td>
 									</c:if>
 									<td class="reqTitle" style="max-width: 200px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
-									<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;" >
+									<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
 										<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
 									</td>
 									<td class="step_td">
@@ -443,31 +441,38 @@ width: 500px;
 					</section>
 					<div class="pager">
 						<div class="pagingButtonSet d-flex justify-content-center">
-							<a href="requestlist?pageNo=1" type="button" class="btn btn-muted shadow">◀◀</a>
+							<a href="requestlist?pageNo=1&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
+								type="button" class="btn btn-muted shadow">◀◀</a>
 							<c:if test="${pager.groupNo > 1}">
-								<a href="requestlist?pageNo=${pager.startPageNo-1}" type="button" class="btn btn-muted shadow">◀</a>
+								<a href="requestlist?pageNo=${pager.startPageNo-1}
+								&req_type=${listFilter.reqType}&date_first=${listFilter.date_first}$date_last=${listFilter.date_last}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
+								 type="button" class="btn btn-muted shadow">◀</a>
 							</c:if>
-	
+
 							<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
 								<c:if test="${pager.pageNo != i}">
-									<a href="requestlist?pageNo=${i}" type="button" class="btn btn-white shadow">${i}</a>
+									<a href="requestlist?pageNo=${i}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
+							 				type="button" class="btn btn-white shadow">${i}</a>
 								</c:if>
 								<c:if test="${pager.pageNo == i}">
-									<a href="requestlist?pageNo=${i}" type="button" class="btn btn-dark shadow">${i}</a>
+									<a href="requestlist?pageNo=${i}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
+											type="button" class="btn btn-dark shadow">${i}</a>
 								</c:if>
 							</c:forEach>
-	
+
 							<c:if test="${pager.groupNo < pager.totalGroupNo }">
-								<a href="requestlist?pageNo=${pager.endPageNo+1}" type="button" class="btn btn-muted shadow">▶</a>
-	
+								<a href="requestlist?pageNo=${pager.endPageNo+1}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
+										type="button" class="btn btn-muted shadow">▶</a>
+
 							</c:if>
-							<a href="requestlist?pageNo=${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
+							<a href="requestlist?pageNo=${pager.totalPageNo}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
+							 		type="button" class="btn btn-muted shadow">▶▶</a>
 						</div>
 					</div>
-					
+
 					</main>
 				</div>
-				
+
 			</div>
 		</div>
 		<!-- 여기에 내용 담기 end -->
