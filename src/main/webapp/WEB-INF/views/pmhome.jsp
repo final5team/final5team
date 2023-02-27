@@ -138,9 +138,8 @@
 								<div class="card tasks-block border-left-dark shadow" style="height: 420.896px;">
 									<div class="card-header">
 			                			<h5 class="title">D-7 요청리스트</h5>
-			                			
 									</div>
-									<div class="card-block" style="height: 350px;" id ="7daysListContainer">
+									<div class="card-block" style="height: 350px;" id ="sevenDaysListListContainer">
 										<!-- 개발리스트start -->
 										<table class="table  table-striped" id="devList" >
 											<thead>
@@ -179,30 +178,30 @@
 											</tbody>
 										</table>
 										<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
-										    <li class="page-item"><a class="page-link" onclick="7daysList(1)">처음</a></li>
+										    <li class="page-item"><a class="page-link" onclick="sevenDaysList(1)">처음</a></li>
 										    <c:if test="${dPager.groupNo>1}">
 											    <li class="page-item">
-											    	<a class="page-link" onclick="7daysList(${dPager.startPageNo-1})">
+											    	<a class="page-link" onclick="sevenDaysList(${dPager.startPageNo-1})">
 											    		<i class="fas fa-caret-left"></i>
 											    	</a>
 											    </li>
 										    </c:if>
 										    <c:forEach var="i" begin="${dPager.startPageNo}" end="${dPager.endPageNo}">
 										    	<c:if test="${dPager.pageNo != i}">
-											    	<li class="page-item"><a class="page-link" onclick="7daysList(${i})">${i}</a></li>
+											    	<li class="page-item"><a class="page-link" onclick="sevenDaysList(${i})">${i}</a></li>
 										    	</c:if>
 										    	<c:if test="${dPager.pageNo == i}">
-											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" onclick="7daysList(${i})">${i}</a></li>
+											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" onclick="sevenDaysList(${i})">${i}</a></li>
 										    	</c:if>
 										    </c:forEach>
 										    <c:if test="${dPager.groupNo< dPager.totalGroupNo}">
 											    <li class="page-item">
-											    	<a class="page-link" onclick="7daysList(${dPager.endPageNo + 1})">
+											    	<a class="page-link" onclick="sevenDaysList(${dPager.endPageNo + 1})">
 											    		<i class="fas fa-caret-right"></i>
 											   	 	</a>
 											    </li>
 										    </c:if>
-										    <li class="page-item"><a class="page-link" onclick="7daysList(${dPager.totalPageNo})">맨끝</a></li>
+										    <li class="page-item"><a class="page-link" onclick="sevenDaysList(${dPager.totalPageNo})">맨끝</a></li>
 										</ul>
 										<!-- 개발리스트 end -->
 									</div>
@@ -314,13 +313,15 @@
     </div>
 
 	<script>
-		function 7daysList(pageNo){
+		function sevenDaysList(pageNo){
+			console.log("실행");
 			$.ajax({
 				type: "GET", //요청 메소드 방식
 				url:"${pageContext.request.contextPath}/7dayslist?dDay7PageNo=" + pageNo,
 				dataType:"html", 
 				success : function(result){
-					$('#7daysListContainer').html(result);
+					$('#sevenDaysListListContainer').html(result);
+					console.log("success");
 				}
 			})
 		} 

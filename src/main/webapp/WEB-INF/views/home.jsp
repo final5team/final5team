@@ -223,7 +223,7 @@ input:checked + .slider:before {
 			                				<c:if test="${member.mtype == 'distributor'}">배포리스트</c:if>
 			                			</h5>
 				                		<div class="toggle-group d-flex align-items-center mr-4">
-				                			<h5 style="display: inline-block; margin-right: 10px;">나의 리스트</h5>
+				                			<h5 style="display: inline-block; margin-right: 10px;" id="">나의 리스트</h5>
 				                			<label class="switch" >
 											  <input type="checkbox" id="toggleButton" onclick="requestProcessList(1)">
 											  <span class="slider round"></span>
@@ -434,18 +434,20 @@ input:checked + .slider:before {
     <script>
     	function requestProcessList(pageNo){
     		var checkbox = '';
-    		if($('#toggleButton').checked){
-    			checkbox = 'n';
-    		}
-    		else{
+    		if($('#toggleButton').is(":checked")){
     			checkbox = 'y';
     		}
+    		else{
+    			checkbox = 'n';
+    		}
+    		console.log(checkbox);
     		$.ajax({
     			type: "GET", //요청 메소드 방식
-    			url:"${pageContext.request.contextPath}/requestprocesslist?workPageNo=" + pageNo + "& checkbox=" + checkbox,
+    			url:"${pageContext.request.contextPath}/requestprocesslist?workPageNo=" + pageNo + "&checkbox=" + checkbox,
     			dataType:"html", 
     			success : function(result){
     				$('#requestProcessListContainer').html(result);
+    				console.log("success");
     			}
     		})
     	} 
