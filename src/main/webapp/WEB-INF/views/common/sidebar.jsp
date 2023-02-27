@@ -74,8 +74,6 @@
 			MENU
 		</div>
 
-
-
 		<!-- 사이드메뉴 start -->
 		<li class="nav-item">
 			<a class="nav-link" href="${pageContext.request.contextPath}/customer/myrequestlist">
