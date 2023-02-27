@@ -192,8 +192,8 @@
 	}
 	
 	.member tr th {
-		background-color: var(--gray-dark);
-		color: #fff;
+		background-color: white;
+		color: black;
 	}
 	
 	.member .step_td {
