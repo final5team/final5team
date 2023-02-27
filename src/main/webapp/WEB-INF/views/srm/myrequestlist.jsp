@@ -224,7 +224,7 @@
 	.pager{
 	position: absolute;
 	left: 30%;
-	top : 94%;
+	top : 85%;
 	width : 350px;
 	}
 	.pager .write{
