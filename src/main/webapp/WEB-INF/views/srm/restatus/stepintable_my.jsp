@@ -217,6 +217,7 @@ margin: 0 0 1rem 0;
 						<c:if test="${request.statusNo >= 2}">접수완료</c:if>
 					</span>
 			</li>
+			
 			<li class="<c:if test="${request.statusNo >= 5}">is_complete</c:if><c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>">
 					<span>
 						<c:if test="${request.statusNo < 2}">개발단계</c:if>
