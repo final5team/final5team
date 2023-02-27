@@ -379,7 +379,7 @@ width: 500px;
 
 
 											<c:if test="${listFilter.sno != 0}">
-												<option value="${listFilter.sno}" selected>${listFilter.sno}</option>
+												<option value="${listFilter.sno}" selected>${listFilter.systemName}</option>
 												<c:forEach var="system" items="${systemList}">
 
 

@@ -361,9 +361,8 @@
 										
 										
 										<c:if test="${listFilter.sno != 0}">
-											<option value="${listFilter.sno}" selected>${listFilter.sno}</option>
+											<option value="${listFilter.sno}" selected>${listFilter.systemName}</option>
 											<c:forEach var="system" items="${systemList}">
-											
 											
 												<c:if test="${system.sno != listFilter.sno}">
 													<option value="${system.sno}">${system.systemName}</option>
