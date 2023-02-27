@@ -180,17 +180,17 @@
 														</td>
 														<td>${request.systemName}</td>
 														<td><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd"/></td>
-														<td><span class="btn btn-sm btn-primary">
+														<td>
 															<c:if test="${request.statusNo == 12}">
-																반려
+																<span class="badge badge-warning">반려</span>
 															</c:if>
 															<c:if test="${request.statusNo == 13}">
-																완료
+																<span class="badge badge-success">완료</span>
 															</c:if>
 															<c:if test="${request.statusNo != 12 && request.statusNo != 13}">
-																진행중
+																<span class="badge badge-primary">진행중</span>
 															</c:if>
-														</span></td>
+													    </td>
 													</tr>
 												</c:forEach>
 												</tbody>
