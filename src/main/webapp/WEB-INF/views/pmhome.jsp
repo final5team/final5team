@@ -19,6 +19,12 @@
 	    overflow-x: hidden;
 	    margin: 0;
 	 }
+	 
+	 .uppermain{
+	width: 250px;
+	}	 
+	 
+	 
     </style>
     
 </head>
@@ -43,11 +49,11 @@
                 <!-- End of Topbar -->
 
                 <!-- 여기에 내용 담기 start -->
-                <div class="container-fluid">
+                <div class="container">
                		<div id="main" >
                			<!-- 상단 업무 현황 바 start -->
-               			<div class="row" style="flex-wrap: nowrap;">
-               				<div class="col-3 mb-4">
+               			<div class="d-flex justify-content-between" style="flex-wrap: nowrap;">
+               				<div class="uppermain mb-4 ml-3">
 	                            <div class="card border-left-primary shadow h-100 py-2">
 	                                <div class="card-body">
 	                                    <div class="row no-gutters align-items-center">
@@ -66,7 +72,7 @@
 	                            </div>
 	                        </div>
                			
-	               			 <div class="col-3 mb-4">
+	               			 <div class="uppermain mb-4">
 	                            <div class="card border-left-success shadow h-100 py-2">
 	                                <div class="card-body">
 	                                    <div class="row no-gutters align-items-center">
@@ -85,7 +91,7 @@
 	                            </div>
 	                        </div>
 	               			
-	               			<div class="col-3 mb-4">
+	               			<div class="uppermain mb-4">
 	                            <div class="card border-left-info shadow h-100 py-2">
 	                                <div class="card-body">
 	                                    <div class="row no-gutters align-items-center">
@@ -104,7 +110,7 @@
 	                            </div>
 	                        </div>
 
-	               			<div class="col-3 mb-4">
+	               			<div class="uppermain mb-4">
 	                            <div class="card border-left-warning shadow h-100 py-2">
 	                                <div class="card-body">
 	                                    <div class="row no-gutters align-items-center">
@@ -130,11 +136,11 @@
 							<!-- 오늘마감start -->
 							<div class="col-12 my-4">
 								<div class="card tasks-block border-left-dark shadow" style="height: 420.896px;">
-									<div class="card-title-block mt-3 d-flex">
-			                			<h5 class="title ml-3 mr-auto mb-3">D-7 요청리스트</h5>
+									<div class="card-header">
+			                			<h5 class="title">D-7 요청리스트</h5>
 			                			
 									</div>
-									<div class="card-block py-0" style="height: 350px;" id ="7daysListContainer">
+									<div class="card-block" style="height: 350px;" id ="7daysListContainer">
 										<!-- 개발리스트start -->
 										<table class="table  table-striped" id="devList" >
 											<thead>
@@ -204,15 +210,15 @@
 							</div>
 							<!-- 오늘마감end -->
 							<!-- 공지사항 start -->
-							<div class="col-12">
-								<div class="card border-left-danger" style="height: 430.896px;">
+							<div class="col-12 mb-4">
+								<div class="card border-left-danger shadow" style="height: 430.896px;">
 									<div class="card-header">
 										<h3 class="title">공지사항</h3>
 									</div>
 									<div class="card-body" id="mainNoticeListContainer">
 										<table class="table table-hover usertable table-striped">
 											<thead>
-												<tr>
+												<tr style="text-align: center;">
 													<th>번호</th>
 													<th>제목</th>
 													<th>작성자</th>
@@ -221,7 +227,7 @@
 											</thead>
 											<tbody>
 												<c:forEach var="notice" items="${noticeList}">
-													<tr>
+													<tr style="text-align: center;">
 														<th>${notice.nno}</th>
 														<td class="tableContent">
 															<a href="${pageContext.request.contextPath}/noticedetail?nno=${notice.nno}">
@@ -248,7 +254,7 @@
 											    	<li class="page-item"><a class="page-link" onclick="mainNoticeList(${i})">${i}</a></li>
 										    	</c:if>
 										    	<c:if test="${nPager.pageNo == i}">
-											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" onclick="mainNoticeList(${i})">${i}</a></li>
+											    	<li class="page-item"><a class="page-link" style="background-color: #FF4444; color: white;"onclick="mainNoticeList(${i})">${i}</a></li>
 										    	</c:if>
 										    </c:forEach>
 										    <c:if test="${nPager.groupNo<nPager.totalGroupNo}">

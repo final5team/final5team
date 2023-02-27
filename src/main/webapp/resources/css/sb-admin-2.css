@@ -1485,7 +1485,7 @@ pre code {
 }
 .table th,
 .table td {
-  padding: 0.75rem;
+  padding: 0.50rem;
  /*  vertical-align: top; */
   /* border-top: 1px solid #e3e6f0; */
 }
@@ -4760,7 +4760,7 @@ input[type="button"].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #4e73df;
+  color: #3A4651;
   background-color: #fff;
   border: 1px solid #dddfeb;
 }
@@ -4877,7 +4877,7 @@ a.badge:hover, a.badge:focus {
 
 .badge-primary {
   color: #fff;
-  background-color: #4e73df;
+  background-color: #85ce36;
 }
 
 a.badge-primary:hover, a.badge-primary:focus {
@@ -4907,7 +4907,7 @@ a.badge-secondary:focus, a.badge-secondary.focus {
 
 .badge-success {
   color: #fff;
-  background-color: #1cc88a;
+  background-color: #4bcf99;
 }
 
 a.badge-success:hover, a.badge-success:focus {
@@ -4937,7 +4937,7 @@ a.badge-info:focus, a.badge-info.focus {
 
 .badge-warning {
   color: #fff;
-  background-color: #f6c23e;
+  background-color: #fe974b;
 }
 
 a.badge-warning:hover, a.badge-warning:focus {

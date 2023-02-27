@@ -80,9 +80,17 @@ input:checked + .slider:before {
   border-radius: 50%;
 }	 
 	 /* 토글 온오프 done*/
-	 
+.uppermain{
+	width: 250px;
+}	 
+
+.uppermain2{
+	width: 330px;
+}
+
     </style>
-    
+
+
 </head>
 
 <body id="page-top">
@@ -105,20 +113,20 @@ input:checked + .slider:before {
                 <!-- End of Topbar -->
 
                 <!-- 여기에 내용 담기 start -->
-                <div class="container-fluid">
-               		<div id="main" >
+                <div class="container">
+               		<div id="main">
                			<!-- 상단 업무 현황 바 start -->
-               			<div class="row" style="flex-wrap: nowrap;">
+               			<div class=" d-flex justify-content-between" style="flex-wrap: nowrap;">
 	               			<!-- 최신요청건 -->
                				<div 
-               					<c:if test="${member.mtype == 'developer'}">class="col-3 mb-4"</c:if>
-               					<c:if test="${member.mtype != 'developer'}">class="col-4 mb-4"</c:if>
+               					<c:if test="${member.mtype == 'developer'}">class="uppermain mb-4 ml-3"</c:if>
+               					<c:if test="${member.mtype != 'developer'}">class="uppermain2 mb-4 ml-3"</c:if>
                				 >
 	                            <div class="card border-left-primary shadow h-100 py-2">
 	                                <div class="card-body">
 	                                    <div class="row no-gutters align-items-center">
 	                                        <div class="col mr-2">
-	                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+	                                            <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">
 	                                             	 처리 대기건
                                              	</div>
 	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
@@ -135,14 +143,14 @@ input:checked + .slider:before {
                			
                				<!-- 진행요청건 -->
 	               			 <div 
-               					<c:if test="${member.mtype == 'developer'}">class="col-3 mb-4"</c:if>
-               					<c:if test="${member.mtype != 'developer'}">class="col-4 mb-4"</c:if>
+               					<c:if test="${member.mtype == 'developer'}">class="uppermain mb-4"</c:if>
+               					<c:if test="${member.mtype != 'developer'}">class="uppermain2 mb-4"</c:if>
                				 >
 	                            <div class="card border-left-success shadow h-100 py-2">
 	                                <div class="card-body">
 	                                    <div class="row no-gutters align-items-center">
 	                                        <div class="col mr-2">
-	                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+	                                            <div class="text-lg font-weight-bold text-success text-uppercase mb-1">
                                                	진행 요청건
                                                	</div>
 	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
@@ -159,14 +167,14 @@ input:checked + .slider:before {
 	               			
 	               			<!-- 완료요청건 -->
 	               			 <div 
-               					<c:if test="${member.mtype == 'developer'}">class="col-3 mb-4"</c:if>
-               					<c:if test="${member.mtype != 'developer'}">class="col-4 mb-4"</c:if>
+               					<c:if test="${member.mtype == 'developer'}">class="uppermain mb-4"</c:if>
+               					<c:if test="${member.mtype != 'developer'}">class="uppermain2 mb-4"</c:if>
                				 >
 	                            <div class="card border-left-info shadow h-100 py-2">
 	                                <div class="card-body">
 	                                    <div class="row no-gutters align-items-center">
 	                                        <div class="col mr-2">
-	                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+	                                            <div class="text-lg font-weight-bold text-info text-uppercase mb-1">
 	                                                	완료 요청건</div>
 	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
 	                                            	<c:out value="${workingStatus.requestDone}"/> 건
@@ -181,12 +189,12 @@ input:checked + .slider:before {
 	                        </div>
 							<!-- mtype이 developer라면 재검토요청건 존재 -->
 							<c:if test="${member.mtype == 'developer'}">
-	               			<div class="col-3 mb-4">
+	               			<div class="uppermain mb-4">
 	                            <div class="card border-left-warning shadow h-100 py-2">
 	                                <div class="card-body">
 	                                    <div class="row no-gutters align-items-center">
 	                                        <div class="col mr-2">
-	                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+	                                            <div class="text-lg font-weight-bold text-warning text-uppercase mb-1">
 	                                                	재검토 요청건</div>
 	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
 	                                            	<c:out value="${workingStatus.requestReexam}"/> 건
@@ -235,13 +243,16 @@ input:checked + .slider:before {
 													<th>요청일</th>
 													<th>완료예정일</th>
 													<th>담당자</th>
+													<th>진행상황</th>
 												</tr>
 											</thead>
 											<tbody >
 												<c:forEach var="requestProcess" items="${requestProcessList}" varStatus="i">
 												<tr style="text-align: center;">
 													<td>${i.count}</td>
-													<td>${requestProcess.reqType}</td>
+													<td <c:if test="${requestProcess.reqType == '긴급'}"> class="text-danger"</c:if>>
+													${requestProcess.reqType}
+													</td>
 													<td class="tableContent">${requestProcess.reqTitle}</td>
 													<td>
 														<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
@@ -257,6 +268,30 @@ input:checked + .slider:before {
 													<td><fmt:formatDate value="${requestProcess.reqDate}" pattern="yyyy-MM-dd"/></td>
 													<td><fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/></td>
 													<td>${requestProcess.mname}</td>
+													<td>
+														<c:if test="${requestProcess.statusName eq '접수중' || requestProcess.statusName eq '접수완료' }">
+															<span class="badge badge-warning">${requestProcess.statusName}</span>
+														</c:if>
+														<c:if test="${requestProcess.statusName eq '개발재검토' || requestProcess.statusName eq '반려' }">
+															<span class="badge badge-danger">${requestProcess.statusName}</span>
+														</c:if>
+														<c:if test="${requestProcess.statusName eq '개발중' || requestProcess.statusName eq '개발완료' }">
+															<span class="badge badge-primary">${requestProcess.statusName}</span>
+														</c:if>
+														<c:if test="${requestProcess.statusName eq '테스트중' || requestProcess.statusName eq '테스트완료' }">
+															<span class="badge badge-success">${requestProcess.statusName}</span>
+														</c:if>
+														<c:if test="${requestProcess.statusName eq '유저테스트중' || requestProcess.statusName eq '유저테스트완료' }">
+															<span class="badge badge-info">${requestProcess.statusName}</span>
+														</c:if>
+														<c:if test="${requestProcess.statusName eq '배포중' || requestProcess.statusName eq '배포완료' }">
+															<span class="badge badge-secondary">${requestProcess.statusName}</span>
+														</c:if>
+														<c:if test="${requestProcess.statusName eq '완료'}">
+															<span class="badge badge-dark">${requestProcess.statusName}</span>
+														</c:if>
+													
+													</td>
 												</tr>
 												</c:forEach>
 											</tbody>

@@ -19,6 +19,7 @@
 		justify-content: center;
 		align-items: center;
 		font-size: 15px;
+		margin-left : 13%;
 	}
 	
 	.filter {
@@ -63,8 +64,9 @@
 				left: 2%;
 	}
 	
+	
 	.filter .filter-name h6 {
-		font-size: 14px;
+		font-size: 15px;
 		margin: 20px 10px;
 	}
 	
@@ -79,7 +81,6 @@
 	.filter .filter-name2 h6 {
 		font-size: 15px;
 		margin: 20px 10px;
-		font-size: 14px;
 	}
 	
 	.filter .filter-body {
@@ -90,7 +91,7 @@
 		left: 10%;
 		top : 34%;
 		float: left;
-		font-size: 13px;
+		font-size: 15px;
 	}
 	
 	.filter .filter-body .input-group {
@@ -110,7 +111,7 @@
 		left: 50%;
 		top : 34%;
 		float: left;
-		font-size: 13px;
+		font-size: 15px;
 	}
 	
 	.filter .filter-body2 .input-group {
@@ -183,7 +184,7 @@
 	}
 	
 	.member th, .member td {
-		font-size: 12px;
+		font-size: 15px;
 		width: 1050px;
 		padding: 5px;
 		text-align: center;
@@ -192,8 +193,8 @@
 	}
 	
 	.member tr th {
-		background-color: var(--gray-dark);
-		color: #fff;
+		background-color: white;
+		color: black;
 	}
 	
 	.member .step_td {
@@ -267,7 +268,6 @@
 
 				<!-- 여기에 내용 담기 start -->
 
-				<div class="container-fluid">
 					<main class="all">
 					<section class="filter">
 						<form action="myrequestlist" method="get">
@@ -450,9 +450,6 @@
 						</div>
 					</div>
 					</main>
-				</div>
-				
-
 			</div>
 		</div>
 		<!-- 여기에 내용 담기 end -->

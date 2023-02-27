@@ -74,7 +74,8 @@ public class RequestController {
 		String address = member.getPostcode() + "-" + member.getAddr1() + "-" + member.getAddr2();
 		member.setAddress(address);
 		MultipartFile mfile = member.getMfile();
-
+		log.info("유저 등록");
+		
 		try {
 			if (mfile != null && !mfile.isEmpty()) {
 				member.setFileName(mfile.getOriginalFilename());
@@ -136,7 +137,7 @@ public class RequestController {
 		
 		if(returnMember.getMfile() == null) {
 			
-			returnMember = userRegisterService.getUserInfo("가입Test");
+			returnMember = userRegisterService.getUserInfo("img");
 			
 		}
 		HttpHeaders headers = new HttpHeaders();
@@ -171,6 +172,7 @@ public class RequestController {
 		return "srm/request";
 	}
 
+	
 	/**
 	 * 요청 등록 폼 작성
 	 */
@@ -285,16 +287,10 @@ public class RequestController {
 		// 보여줄 행 수 조회
 		int totalRows = requestService.getMyWorkRows(listFilter, member);
 		
-		log.info("검색 전체행수 : " + totalRows);
-		
-		
 		Pager pager = new Pager(7, 5, totalRows, pageNo);
-		log.info(pager.getStartRowNo());
-		log.info(pager.getEndRowNo());
 		
 		List<SelectPM> requestList = requestService.getMyWorkList(request, listFilter, pager, member);
 		
-		log.info("출력할 행 개수(사이즈)" +requestList.size());
 		// 시스템 리스트 전달
 		model.addAttribute("systemList", systemList);
 		// 목록 리스트와 페이지 return

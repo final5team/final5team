@@ -93,11 +93,11 @@
                 <!-- End of Topbar -->
 
                 <!-- 여기에 내용 담기 start -->
-                <div class="container-fluid">
+                <div class="container">
                 	<div id="main">
 	                	<!-- 상단부분start -->
 	                		<div class="row">
-	                			<div class="col-5">
+	                			<div class="col-5 ml-3">
 	                				<div class="card card-success shadow pd-2" style="height:140px;">
 	                					<div class="card-header" ></div>
                 						<div class="d-flex justify-content-center">
