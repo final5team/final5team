@@ -233,6 +233,7 @@
 	top : 0%;
 	width: 80px;
 	
+	
 	}
 	.custom-select{
 		height : 28px;
