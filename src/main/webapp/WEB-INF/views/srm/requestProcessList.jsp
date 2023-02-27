@@ -11,6 +11,7 @@
 		<th>요청일</th>
 		<th>완료예정일</th>
 		<th>담당자</th>
+		<th>진행상황</th>
 	</tr>
 </thead>
 <tbody >
@@ -33,6 +34,29 @@
 		<td><fmt:formatDate value="${requestProcess.reqDate}" pattern="yyyy-MM-dd"/></td>
 		<td><fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/></td>
 		<td>${requestProcess.mname}</td>
+		<td>
+			<c:if test="${requestProcess.statusName eq '접수중' || requestProcess.statusName eq '접수완료' }">
+				<span class="badge badge-warning">${requestProcess.statusName}</span>
+			</c:if>
+			<c:if test="${requestProcess.statusName eq '개발재검토' || requestProcess.statusName eq '반려' }">
+				<span class="badge badge-danger">${requestProcess.statusName}</span>
+			</c:if>
+			<c:if test="${requestProcess.statusName eq '개발중' || requestProcess.statusName eq '개발완료' }">
+				<span class="badge badge-primary">${requestProcess.statusName}</span>
+			</c:if>
+			<c:if test="${requestProcess.statusName eq '테스트중' || requestProcess.statusName eq '테스트완료' }">
+				<span class="badge badge-success">${requestProcess.statusName}</span>
+			</c:if>
+			<c:if test="${requestProcess.statusName eq '유저테스트중' || requestProcess.statusName eq '유저테스트완료' }">
+				<span class="badge badge-info">${requestProcess.statusName}</span>
+			</c:if>
+			<c:if test="${requestProcess.statusName eq '배포중' || requestProcess.statusName eq '배포완료' }">
+				<span class="badge badge-secondary">${requestProcess.statusName}</span>
+			</c:if>
+			<c:if test="${requestProcess.statusName eq '완료'}">
+				<span class="badge badge-dark">${requestProcess.statusName}</span>
+			</c:if>
+		</td>
 	</tr>
 	</c:forEach>
 	</tbody>
