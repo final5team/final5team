@@ -46,70 +46,76 @@
 
                 <!-- 여기에 내용 담기 start -->
                 <div id="noticelist" class="container">
-                	<h1>공지사항 목록</h1>
-                	<c:if test="${member.mtype == 'pm'}">
-                		<a href="${pageContext.request.contextPath}/noticewriteform" class="btn btn-sm btn-primary">공지사항 작성</a>
-                	</c:if>
-                	<form class="form-group form-inline mt-2" action="${pageContext.request.contextPath}/noticelist" method="get">
-					    <label for="searchType"></label>
-					    <select class="form-control" id="searchType" name="searchType">
-					        <option value="제목" <c:if test="${searchType == '제목'}">selected</c:if>>제목</option>
-					        <option value="작성자" <c:if test="${searchType == '작성자'}">selected</c:if>>작성자</option>
-					    </select>
-					    <input type="text" class="form-control ml-2" name="searchWord" value="${searchWord}"/>
-					    <button type="submit" class="btn btn-sm btn-primary ml-2">검색</button>
-					</form>
-               		<hr/>
-                	<table class="table">
-					  <thead class="thead" style="background-color:#85ce36; color:white">
-					    <tr>
-					      <th scope="col">글번호</th>
-					      <th scope="col">제목</th>
-					      <th scope="col">작성일</th>
-					      <th scope="col">작성자</th>
-					    </tr>
-					  </thead>
-					  <tbody>
-					  	<c:forEach var="notice" items="${noticeList}">
-						  	<tr class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail?nno=${notice.nno}"'>
-						       <th scope="row">${notice.nno}</th>
-						       <td>${notice.noticeTitle}</td>
-						       <td><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd"/></td>
-						       <td>${notice.mid}</td>
+               		 <div id="main">
+		                <div class="d-flex">
+		                	<h3 style="display: inline-block" >공지사항 목록</h3>
+		                	
+		                	<form class="form-group form-inline mt-2  ml-auto" action="${pageContext.request.contextPath}/noticelist" method="get">
+							    <label for="searchType"></label>
+							    <select class="form-control boxed p-0" id="searchType" name="searchType">
+							        <option value="제목" <c:if test="${searchType == '제목'}">selected</c:if>>제목</option>
+							        <option value="작성자" <c:if test="${searchType == '작성자'}">selected</c:if>>작성자</option>
+							    </select>
+							    <input type="text" class="form-control boxed ml-2 p-0" name="searchWord" value="${searchWord}"/>
+							    <button type="submit" class="btn btn-sm btn-primary ml-2">검색</button>
+							</form>
+						</div>
+						<div class="d-flex justify-content-end">
+						<c:if test="${member.mtype == 'pm'}">
+	                		<a href="${pageContext.request.contextPath}/noticewriteform" class="btn btn-sm btn-primary">공지사항 작성</a>
+	                	</c:if>
+						</div>
+	               		<hr/>
+	                	<table class="table">
+						  <thead class="thead" style="background-color:#3A4651; color:white">
+						    <tr style="text-align: center;">
+						      <th scope="col">글번호</th>
+						      <th scope="col">제목</th>
+						      <th scope="col">작성일</th>
+						      <th scope="col">작성자</th>
 						    </tr>
-					  	</c:forEach>
-					  </tbody>
-					</table>
-					<nav class="nav justify-content-center" aria-label="Page navigation example">
-					  <div class="pagination">
-					    <a class="btn btn-outline-primary btn-sm" 
-					    	href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=1">처음</a>
-						<c:if test="${pager.groupNo > 1}">
-							<a class="btn btn-outline-info btn-sm" 
-							href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${pager.startPageNo-1}">이전</a>
-						</c:if>
-						
-						<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
-							<c:if test="${pager.pageNo != i}">
-								<a class="btn btn-outline-success btn-sm" 
-								href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${i}">${i}</a>
+						  </thead>
+						  <tbody>
+						  	<c:forEach var="notice" items="${noticeList}">
+							  	<tr style="text-align: center;" class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail?nno=${notice.nno}"'>
+							       <th scope="row">${notice.nno}</th>
+							       <td>${notice.noticeTitle}</td>
+							       <td><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd"/></td>
+							       <td>${notice.mid}</td>
+							    </tr>
+						  	</c:forEach>
+						  </tbody>
+						</table>
+						<nav class="nav justify-content-center" aria-label="Page navigation example">
+						  <div class="pagination">
+						    <a class="btn btn-outline-dark btn-sm" 
+						    	href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=1">처음</a>
+							<c:if test="${pager.groupNo > 1}">
+								<a class="btn btn-outline-dark btn-sm" 
+								href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${pager.startPageNo-1}">이전</a>
 							</c:if>
-							<c:if test="${pager.pageNo == i}">
-								<a class="btn btn-danger btn-sm" 
-								href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${i}">${i}</a>
+							
+							<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
+								<c:if test="${pager.pageNo != i}">
+									<a class="btn btn-outline-dark btn-sm" 
+									href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${i}">${i}</a>
+								</c:if>
+								<c:if test="${pager.pageNo == i}">
+									<a class="btn btn-dark btn-sm" 
+									href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${i}">${i}</a>
+								</c:if>
+							</c:forEach>
+							
+							<c:if test="${pager.groupNo<pager.totalGroupNo}">
+								<a class="btn btn-outline-dark btn-sm" 
+								href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${pager.endPageNo+1}">다음</a>
 							</c:if>
-						</c:forEach>
-						
-						<c:if test="${pager.groupNo<pager.totalGroupNo}">
-							<a class="btn btn-outline-info btn-sm" 
-							href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${pager.endPageNo+1}">다음</a>
-						</c:if>
-						<a class="btn btn-outline-primary btn-sm" 
-						href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${pager.totalPageNo}">맨끝</a>
-					  </div>
-					</nav>
+							<a class="btn btn-outline-dark btn-sm" 
+							href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${pager.totalPageNo}">맨끝</a>
+						  </div>
+						</nav>
+	                </div>
                 </div>
-                
                 <!-- 여기에 내용 담기 end -->
 
             </div>
