@@ -193,35 +193,34 @@
 														</span></td>
 													</tr>
 												</c:forEach>
-											</tbody>
-										</table>
-
-										<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
-										    <li class="page-item"><a class="page-link" onclick="userRequestList(${searchStatus}, 1)">처음</a></li>
-										    <c:if test="${uPager.groupNo>1}">
+												</tbody>
+											</table>
+											<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
+											    <li class="page-item"><a class="page-link" onclick="userRequestList('${searchStatus}', 1)">처음</a></li>
+											   <c:if test="${uPager.groupNo>1}">
 											    <li class="page-item">
-											    	<a class="page-link" onclick="userRequestList(${searchStatus}, ${uPager.startPageNo-1})">
+											    	<a class="page-link" onclick="userRequestList('${searchStatus}', ${uPager.startPageNo-1})">
 											    		<i class="fas fa-caret-left"></i>
 											    	</a>
 											    </li>
-										    </c:if>
-										    <c:forEach var="i" begin="${uPager.startPageNo}" end="${uPager.endPageNo}">
-										    	<c:if test="${uPager.pageNo != i}">
-											    	<li class="page-item"><a class="page-link" onclick="userRequestList(${searchStatus}, ${i})">${i}</a></li>
-										    	</c:if>
-										    	<c:if test="${uPager.pageNo == i}">
-											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" onclick="userRequestList(${searchStatus}, ${i})">${i}</a></li>
-										    	</c:if>
-										    </c:forEach>
-										    <c:if test="${uPager.groupNo<pager.totalGroupNo}">
+											   </c:if>
+											   <c:forEach var="i" begin="${uPager.startPageNo}" end="${uPager.endPageNo}">
+											   	<c:if test="${uPager.pageNo != i}">
+											    	<li class="page-item"><a class="page-link" onclick="userRequestList('${searchStatus}', ${i})">${i}</a></li>
+											   	</c:if>
+											   	<c:if test="${uPager.pageNo == i}">
+											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" onclick="userRequestList('${searchStatus}', ${i})">${i}</a></li>
+											   	</c:if>
+											   </c:forEach>
+											   <c:if test="${uPager.groupNo<pager.totalGroupNo}">
 											    <li class="page-item">
-											    	<a class="page-link" onclick="userRequestList(${searchStatus}, ${uPager.endPageNo + 1})">
+											    	<a class="page-link" onclick="userRequestList('${searchStatus}', ${uPager.endPageNo + 1})">
 											    		<i class="fas fa-caret-right"></i>
 											   	 	</a>
 											    </li>
-										    </c:if>
-										    <li class="page-item"><a class="page-link"onclick="userRequestList(${searchStatus}, ${uPager.totalPageNo})">맨끝</a></li>
-										</ul>
+											   </c:if>
+											   <li class="page-item"><a class="page-link"onclick="userRequestList('${searchStatus}', ${uPager.totalPageNo})">맨끝</a></li>
+											</ul>
 									</div>
 								</div>
 							</div>	               			
@@ -269,10 +268,10 @@
 											    	<li class="page-item"><a class="page-link" onclick="mainNoticeList(${i})">${i}</a></li>
 										    	</c:if>
 										    	<c:if test="${nPager.pageNo == i}">
-											    	<li class="page-item"><a class="page-link" style="background-color: #FF4444; color: white;" onclick="mainNoticeList(${i})">${i}</a></li>
+											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" onclick="mainNoticeList(${i})">${i}</a></li>
 										    	</c:if>
 										    </c:forEach>
-										    <c:if test="${nPager.groupNo<pager.totalGroupNo}">
+										    <c:if test="${nPager.groupNo<nPager.totalGroupNo}">
 											    <li class="page-item">
 											    	<a class="page-link" onclick="mainNoticeList(${nPager.endPageNo + 1})">
 											    		<i class="fas fa-caret-right"></i>
@@ -315,6 +314,7 @@
     			dataType:"html", 
     			success : function(result){
     				$('#userRequestListContainer').html(result);
+    				console.log("success");
     			}
     		})
     	} 

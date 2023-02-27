@@ -231,7 +231,7 @@ input:checked + .slider:before {
 				                		</div>
 			                			
 									</div>
-									<div class="card-block py-0" style="height: 350px;">
+									<div class="card-block py-0" style="height: 350px;" id="requestProcessListContainer">
 										<!-- 리스트 start -->
 										<table class="table tasks-block table-striped" >
 											<thead>
@@ -297,30 +297,30 @@ input:checked + .slider:before {
 											</tbody>
 										</table>
 										<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
-										    <li class="page-item"><a class="page-link" href="list?pageNo=1">처음</a></li>
+										    <li class="page-item"><a class="page-link" onclick="requestProcessList(1)">처음</a></li>
 										    <c:if test="${rpPager.groupNo>1}">
 											    <li class="page-item">
-											    	<a class="page-link" href="list?pageNo=${rpPager.startPageNo-1}">
+											    	<a class="page-link" onclick="requestProcessList(${rpPager.startPageNo-1})">
 											    		<i class="fas fa-caret-left"></i>
 											    	</a>
 											    </li>
 										    </c:if>
 										    <c:forEach var="i" begin="${rpPager.startPageNo}" end="${rpPager.endPageNo}">
 										    	<c:if test="${rpPager.pageNo != i}">
-											    	<li class="page-item"><a class="page-link" href="list?pageNo=${i}">${i}</a></li>
+											    	<li class="page-item"><a class="page-link" onclick="requestProcessList(${i})">${i}</a></li>
 										    	</c:if>
 										    	<c:if test="${rpPager.pageNo == i}">
-											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" href="list?pageNo=${i}">${i}</a></li>
+											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" onclick="requestProcessList(${i})">${i}</a></li>
 										    	</c:if>
 										    </c:forEach>
-										    <c:if test="${rpPager.groupNo<pager.totalGroupNo}">
+										    <c:if test="${rpPager.groupNo<rpPager.totalGroupNo}">
 											    <li class="page-item">
-											    	<a class="page-link" href="#">
+											    	<a class="page-link" onclick="requestProcessList(${rpPager.endPageNo + 1})">
 											    		<i class="fas fa-caret-right"></i>
 											   	 	</a>
 											    </li>
 										    </c:if>
-										    <li class="page-item"><a class="page-link" href="list?pageNo=${pager.totalPageNo}">맨끝</a></li>
+										    <li class="page-item"><a class="page-link" onclick="requestProcessList(${rpPager.totalPageNo})">맨끝</a></li>
 										</ul>
 										<!--리스트 end -->
 									</div>
@@ -333,7 +333,7 @@ input:checked + .slider:before {
 									<div class="card-title-block mt-3">
 			                			<h5 class="title ml-3">공지사항</h5>
 			                		</div>
-			                		<div class="card-body">
+			                		<div class="card-body" id="mainNoticeListContainer">
 			                			<table class="table table-hover usertable table-striped">
 											<thead>
 												<tr>
@@ -375,7 +375,7 @@ input:checked + .slider:before {
 											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" onclick="mainNoticeList(${i})">${i}</a></li>
 										    	</c:if>
 										    </c:forEach>
-										    <c:if test="${nPager.groupNo<pager.totalGroupNo}">
+										    <c:if test="${nPager.groupNo<nPager.totalGroupNo}">
 											    <li class="page-item">
 											    	<a class="page-link" onclick="mainNoticeList(${nPager.endPageNo + 1})">
 											    		<i class="fas fa-caret-right"></i>
@@ -442,10 +442,10 @@ input:checked + .slider:before {
     		}
     		$.ajax({
     			type: "GET", //요청 메소드 방식
-    			url:"${pageContext.request.contextPath}/userrequestlist?myRequestPageNo=" + pageNo + "&searchStatus=" + searchStatus,
+    			url:"${pageContext.request.contextPath}/requestprocesslist?workPageNo=" + pageNo + "& checkbox=" + checkbox,
     			dataType:"html", 
     			success : function(result){
-    				$('#userRequestListContainer').html(result);
+    				$('#requestProcessListContainer').html(result);
     			}
     		})
     	} 

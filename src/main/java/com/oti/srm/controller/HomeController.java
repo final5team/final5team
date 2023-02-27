@@ -158,6 +158,7 @@ public class HomeController {
 		Pager uPager = new Pager(5, 5, requestListTotalRows, myRequestPageNo);
 		List<Request> userRequestList = commonService.getUserRequestList(searchStatus, member, uPager);
 		model.addAttribute("searchStatus", searchStatus);
+		model.addAttribute("uPager", uPager);
 		model.addAttribute("userRequestList",userRequestList);
 		return "srm/userRequestList";
 	}
@@ -171,6 +172,7 @@ public class HomeController {
 		int dDayTotalRows = commonService.getListOf7daysLeftCount(member);
 		Pager dPager = new Pager(5, 5, dDayTotalRows, dDay7PageNo);
 		List<Request> listOf7daysLeft = commonService.getListOf7daysLeft(member, dPager);
+		model.addAttribute("dPager",dPager);
 		model.addAttribute("listOf7daysLeft",listOf7daysLeft);
 		return "srm/7DaysList";
 	}
@@ -186,6 +188,7 @@ public class HomeController {
 		Pager rpPager = new Pager(5,5,requestProcessTotalRows,workPageNo);
 		List<RequestProcess> requestProcessList = commonService.getRequestProcessList(member, checkbox, rpPager);
 		model.addAttribute("checkbox", checkbox);
+		model.addAttribute("rpPager",rpPager);
 		model.addAttribute("requestProcessList",requestProcessList);
 		return "srm/requestProcessList";
 	}
@@ -201,6 +204,7 @@ public class HomeController {
 		int noticeTotalRows = noticeService.getNoticeListCount(searchType, searchWord, member.getMtype(), member.getSno());
 		Pager nPager = new Pager(5,5,noticeTotalRows,noticePageNo);
 		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), nPager, member.getSno());
+		model.addAttribute("nPager",nPager);
 		model.addAttribute("noticeList",noticeList);
 		return "srm/mainNoticeList";
 	}
