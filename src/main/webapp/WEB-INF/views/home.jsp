@@ -290,7 +290,6 @@ input:checked + .slider:before {
 														<c:if test="${requestProcess.statusName eq '완료'}">
 															<span class="badge badge-dark">${requestProcess.statusName}</span>
 														</c:if>
-													
 													</td>
 												</tr>
 												</c:forEach>

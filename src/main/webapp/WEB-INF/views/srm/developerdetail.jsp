@@ -292,41 +292,33 @@
 						<!-- 개발 내역 end -->
 						
 						
-						<!-- 개발자의 개발 요청 글 작성 start-->
+						<!-- 개발 완료 글 작성 start-->
 						<c:if test="${member.mtype =='developer' && request.statusNo == 4}">
-							<div class="card car-block mt-3 mb-3" id="developHistoryWrite">
-								<div class="card-body row">
-									<div class="col-3 d-flex align-items-center" style="text-align:center;">
-										<div>
-											<img class="rounded-circle ml-3" src="${pageContext.request.contextPath}/resources/img/hoon.png" width="70%">
-											<div class="mt-3">${member.mname}</div>
+							<div class="card card-block mt-3 mb-3" id="developHistoryWrite">
+								<div class="card-body">
+									<form role="form" id="writeform" action="${pageContext.request.contextPath}/devdone" method="POST" enctype="multipart/form-data">
+										<input type="hidden" name="rno" value="${request.rno}">
+										<div class="form-group d-flex">
+											<div style="width:100px;">완료예정일 :</div>
+											<div><fmt:formatDate value="${requestProcess.devExpectDate}" pattern="yyyy-MM-dd"/></div>
 										</div>
-									</div>
-									<div class="col-9">
-										<form role="form" id="writeform" action="${pageContext.request.contextPath}/devdone" method="POST" enctype="multipart/form-data">
-											<input type="hidden" name="rno" value="${request.rno}">
-											<div class="col-12 form-group">
-												<label class="control-label" >완료예정일</label>
-												<input type="text" class="form-control boxed" value="<fmt:formatDate value="${requestProcess.devExpectDate}" pattern="yyyy-MM-dd"/>" readonly>
-											</div>
-											<div class="col-12 form-group">
-												<label class="control-label">개발 사항</label>
-												<textarea rows="4" class="form-control boxed" name="reply"></textarea>
-											</div>
-											<div class="col-12 form-group">
-												<label class="control-label">배포소스</label>
-												<textarea rows="4" class="form-control boxed" name="distSource"></textarea>
-											</div>
-											<div class="filebox">
-												<input type="file" id="files" name="files" multiple>
-											</div>
-										</form>
-									</div>
+										<div class="form-group">
+											<label class="control-label">개발 사항</label>
+											<textarea rows="3" class="form-control boxed" name="reply"></textarea>
+										</div>
+										<div class="form-group">
+											<label class="control-label">배포소스</label>
+											<textarea rows="3" class="form-control boxed" name="distSource"></textarea>
+										</div>
+										<div class="filebox">
+											<input type="file" id="files" name="files" multiple>
+										</div>
+									</form>
+									<button class="btn btn-info btn-lg mt-3" onclick="devEnd()">개발 완료</button>
 								</div>
-								<button class="btn btn-info btn-lg mt-3" onclick="devEnd()">개발 완료</button>
 							</div>
 						</c:if>
-						<!-- 개발자의 개발 요청 글 작성 end-->
+						<!-- 개발 완료 글 작성 end-->
 						
 						
 						<!-- 재검토 내역 start -->
@@ -567,7 +559,6 @@
 	
 	
 	
-
 	
 	</script>
 </body>
