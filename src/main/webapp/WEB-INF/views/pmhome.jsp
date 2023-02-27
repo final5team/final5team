@@ -241,30 +241,30 @@
 											</tbody>
 										</table>
 										<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
-										    <li class="page-item"><a class="page-link" href="list?pageNo=1">처음</a></li>
+										    <li class="page-item"><a class="page-link" onclick="mainNoticeList(1)">처음</a></li>
 										    <c:if test="${nPager.groupNo>1}">
 											    <li class="page-item">
-											    	<a class="page-link" href="list?pageNo=${nPager.startPageNo-1}">
+											    	<a class="page-link" onclick="mainNoticeList(${nPager.startPageNo-1})">
 											    		<i class="fas fa-caret-left"></i>
 											    	</a>
 											    </li>
 										    </c:if>
 										    <c:forEach var="i" begin="${nPager.startPageNo}" end="${nPager.endPageNo}">
 										    	<c:if test="${nPager.pageNo != i}">
-											    	<li class="page-item"><a class="page-link" href="list?pageNo=${i}">${i}</a></li>
+											    	<li class="page-item"><a class="page-link" onclick="mainNoticeList(${i})">${i}</a></li>
 										    	</c:if>
 										    	<c:if test="${nPager.pageNo == i}">
-											    	<li class="page-item"><a class="page-link" style="background-color: #FF4444; color: white;" href="list?pageNo=${i}">${i}</a></li>
+											    	<li class="page-item"><a class="page-link" style="background-color: #FF4444; color: white;"onclick="mainNoticeList(${i})">${i}</a></li>
 										    	</c:if>
 										    </c:forEach>
 										    <c:if test="${nPager.groupNo<pager.totalGroupNo}">
 											    <li class="page-item">
-											    	<a class="page-link" href="#">
+											    	<a class="page-link" onclick="mainNoticeList(${nPager.endPageNo + 1})">
 											    		<i class="fas fa-caret-right"></i>
 											   	 	</a>
 											    </li>
 										    </c:if>
-										    <li class="page-item"><a class="page-link" href="list?pageNo=${nPager.totalPageNo}">맨끝</a></li>
+										    <li class="page-item"><a class="page-link" onclick="mainNoticeList(${nPager.totalPageNo})">맨끝</a></li>
 										</ul>
 									</div>
 								</div>
@@ -314,11 +314,33 @@
     </div>
 
 <script type="text/javascript">
-$('#toggleButton').click(function(){
-	$('#devList').toggle();
-	$('#myDevList').toggle();
+	$('#toggleButton').click(function(){
+		$('#devList').toggle();
+		$('#myDevList').toggle();
+		
+	});
 	
-});
+	function requestprocesslist(searchStatus, pageNo){
+		$.ajax({
+			type: "GET", //요청 메소드 방식
+			url:"${pageContext.request.contextPath}/userrequestlist?myRequestPageNo=" + pageNo + "&searchStatus=" + searchStatus,
+			dataType:"html", 
+			success : function(result){
+				$('#userRequestListContainer').html(result);
+			}
+		})
+	} 
+	
+	function mainNoticeList(pageNo){
+		$.ajax({
+			type: "GET", //요청 메소드 방식
+			url:"${pageContext.request.contextPath}/mainnoticelist?noticePageNo=" + pageNo,
+			dataType:"html", 
+			success : function(result){
+				$('#mainNoticeListContainer').html(result);
+			}
+		})
+	} 
 
 </script>
 
