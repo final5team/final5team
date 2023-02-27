@@ -68,7 +68,10 @@ public interface ICommonDao {
 	public int selectRequestReject(Member member);
 	
 	//7일 남은 리스트 출력
-	public ArrayList<Request> selectListOf7daysLeft(Member member);
+	public int selectListOf7daysLeftCount(Member member);
+	
+	//7일 남은 리스트 출력
+	public List<Request> selectListOf7daysLeft(@Param("member") Member member, @Param("dPager")Pager dPager);
 	
 	//내 담당 모든 요청 개수 구하기
 	public int selectAllMyRequests(Member member);
@@ -87,5 +90,10 @@ public interface ICommonDao {
 	
 	//직무별 요청리스트 행의 수 출력
 	public int selectRequestProcessRows(@Param("member")Member member,@Param("checkbox") String checkbox);
+
+	public int selectUserRequestListCount(@Param("searchStatus") String searchStatus,@Param("member")  Member member);
+
+	public List<Request> selectUserRequestList(@Param("searchStatus") String searchStatus, @Param("member") Member member, @Param("uPager") Pager uPager);
+
 	
 }

@@ -11,6 +11,7 @@ import lombok.Data;
 public class Request {
 	private int rno;
 	private int sno;
+	private String priority;
 	private String systemName;
 	private @DateTimeFormat(pattern = "yyyy-MM-dd")Date reqDate;
 	private String reqTitle;
@@ -24,7 +25,7 @@ public class Request {
 	private String organ;
 
 	// d-day 완료일
-	private Date ddayExpectDate;
+	private Date allExpectDate;
 	// 검색 필요 정보
 	private String mid;
 	private String mtype;

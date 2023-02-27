@@ -277,65 +277,36 @@
 		where status_no = 12 
 	</select>
 	
-	<select id="selectListOf7daysLeft" parameterType="com.oti.srm.dto.Member" resultType="com.oti.srm.dto.Request">
-		SELECT 
-			r.RNO as "rno",
-			REQ_TITLE as "reqTitle",
-			REQ_DATE as "reqDate", 
-		<if test="mtype == 'pm'">ALL_EXPECT_DATE as "ddayExpectDate"</if>
-		<if test="mtype == 'developer'"> DEV_EXPECT_DATE as "ddayExpectDate"</if>
-		<if test="mtype == 'tester'">TEST_EXPECT_DATE as "ddayExpectDate"</if>
-		<if test="mtype == 'usertester'">USERTEST_EXPECT_DATE as "ddayExpectDate"</if>
-		<if test="mtype == 'distributor'">DIST_EXPECT_DATE as "ddayExpectDate"</if>
-		FROM request_process rp, requests r
-		<where> rp.rno = r.rno
-		
-			<if test="mtype == 'pm'">
-				and (ALL_EXPECT_DATE-sysdate) <![CDATA[<=]]>7
-				and pm = #{mid}
-		    	and ALL_EXPECT_DATE is not null
-				and ALL_COMP_DATE is null
-			</if>
-			<if test="mtype == 'developer'">
-				and (DEV_EXPECT_DATE-sysdate)<![CDATA[<=]]> 7
-				and DEV_EXPECT_DATE is not null
-				and DEV_COMP_DATE is null
-				and developer = #{mid}
-			</if>
-			<if test="mtype == 'tester'">
-				and (TEST_EXPECT_DATE-sysdate) <![CDATA[<=]]>7
-				and TEST_EXPECT_DATE is not null
-				and TEST_COMP_DATE is null
-				and tester = #{mid}
-			</if>
-			<if test="mtype == 'usertester'">
-				and (USERTEST_EXPECT_DATE-sysdate) <![CDATA[<=]]>7
-				and USERTEST_EXPECT_DATE is not null
-		   		and USERTEST_COMP_DATE is null
-				and user_tester = #{mid}
-			</if>
-			<if test="mtype == 'distributor'">
-				and (DIST_EXPECT_DATE-sysdate) <![CDATA[<=]]>7
-				and DIST_EXPECT_DATE is not null
-				and DIST_COMP_DATE is null
-				and distributor = #{mid}
-			</if>
-		</where>
-			<if test="mtype == 'pm'">
-				order by (ALL_EXPECT_DATE-sysdate) asc
-			</if>
-			<if test="mtype == 'developer'">
-				order by (DEV_EXPECT_DATE-sysdate) asc
-			</if>
-			<if test="mtype == 'tester'">
-				order by (TEST_EXPECT_DATE-sysdate) asc
-			</if>
-			<if test="mtype == 'usertester'">
-				order by (USERTEST_EXPECT_DATE-sysdate) asc
-			</if>
-			<if test="mtype == 'distributor'">
-				order by (DIST_EXPECT_DATE-sysdate) asc
-			</if>
+	<select id="selectListOf7daysLeftCount" parameterType="com.oti.srm.dto.Member" resultType="int">
+		select count(*)
+		from requests r, request_process rp, status s, systems sy
+		where r.rno = rp.rno 
+		and r.status_no = s.status_no
+		and r.sno = sy.sno
+		and all_expect_date <![CDATA[<=]]> sysdate + 7
+		and all_comp_date is null
+	</select>
+	
+	<select id="selectListOf7daysLeft" parameterType="map" resultType="com.oti.srm.dto.Request">
+		select
+			r.rno as "rno",
+			r.sno as "sno",
+			system_name as "systemName",
+			req_type as "reqType",
+			priority as "priority",
+			req_date as "reqDate",
+			req_title as "reqTitle",
+			status_name as "statusName",
+			all_expect_date as "allExpectDate"			
+		from requests r, request_process rp, status s, systems sy
+		where r.rno = rp.rno 
+		and r.status_no = s.status_no
+		and r.sno = sy.sno
+		and all_expect_date <![CDATA[<=]]> sysdate + 7
+		and all_comp_date is null
+		order by all_expect_date
+		OFFSET (#{dPager.pageNo} - 1) * #{dPager.rowsPerPage} ROWS
+		FETCH NEXT #{dPager.rowsPerPage} ROWS ONLY	
 	</select>
 	
 	<select id="selectAllMyRequests" parameterType="com.oti.srm.dto.Member" resultType="int">
@@ -466,6 +437,51 @@
 			 <if test="member.mtype == 'distributor'">and rp.distributor  = #{member.mid}</if>
 		</if>
 	
+	</select>
+	
+	<select id="selectUserRequestListCount" parameterType="map" resultType="int">
+		select count(*)
+		from requests r, systems s
+		<where>
+			r.sno = s.sno
+			and r.client = #{member.mid}
+			<if test="searchStatus == '진행중'">
+				and status_no between 1 and 11
+			</if>
+			<if test="searchStatus == '완료'">
+				and status_no = 13
+			</if>
+			<if test="searchStatus == '반려'">
+				and status_no = 12
+			</if>
+		</where>
+		order by r.req_date desc
+	</select>
+	
+	<select id="selectUserRequestList" parameterType="map" resultType="com.oti.srm.dto.Request">
+		select 
+			r.rno as "rno",
+			req_title as "reqTitle",
+			system_name as "systemName",
+			req_date as "reqDate",
+			status_no as "statusNo"	
+		from requests r, systems s
+		<where>
+			r.sno = s.sno
+			and r.client = #{member.mid}
+			<if test="searchStatus == '진행중'">
+				and status_no between 1 and 11
+			</if>
+			<if test="searchStatus == '완료'">
+				and status_no = 13
+			</if>
+			<if test="searchStatus == '반려'">
+				and status_no = 12
+			</if>
+		</where>
+		order by r.req_date desc
+		OFFSET (#{uPager.pageNo} - 1) * #{uPager.rowsPerPage} ROWS
+		FETCH NEXT #{uPager.rowsPerPage} ROWS ONLY
 	</select>
 	
 	

@@ -53,8 +53,10 @@
 	                                    <div class="row no-gutters align-items-center">
 	                                        <div class="col mr-2">
 	                                            <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">
-	                                             	 최신요청건</div>
-	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">1건</div>
+	                                             	 처리 대기건</div>
+	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+	                                            	<c:out value="${workingStatus.requestRecent}"/> 건
+	                                            </div>
 	                                        </div>
 	                                        <div class="col-auto">
 	                                           <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -71,7 +73,9 @@
 	                                        <div class="col mr-2">
 	                                            <div class="text-lg font-weight-bold text-success text-uppercase mb-1">
 	                                                	진행 요청건</div>
-	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+	                                            	<c:out value="${workingStatus.requestInProgress}"/> 건
+	                                            </div>
 	                                        </div>
 	                                        <div class="col-auto">
 	                                            <i class="fas fa-spinner fa-2x text-gray-300"></i>
@@ -88,7 +92,9 @@
 	                                        <div class="col mr-2">
 	                                            <div class="text-lg font-weight-bold text-info text-uppercase mb-1">
 	                                                	완료 요청건</div>
-	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+	                                            	<c:out value="${workingStatus.requestDone}"/> 건
+	                                            </div>
 	                                        </div>
 	                                        <div class="col-auto">
 	                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -105,7 +111,9 @@
 	                                        <div class="col mr-2">
 	                                            <div class="text-lg font-weight-bold text-warning text-uppercase mb-1">
 	                                                	반려 요청건</div>
-	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+	                                            	<c:out value="${workingStatus.requestReject}"/> 건
+	                                            </div>
 	                                        </div>
 	                                        <div class="col-auto">
 	                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -136,40 +144,60 @@
 													<th>요청유형</th>
 													<th>제목</th>
 													<th>우선순위</th>
-													<th>담당자</th>
 													<th>현재단계</th>
 													<th>완료예정일</th>
 												</tr>
 											</thead>
 											<tbody >
-												<tr style="text-align: center;">
-													<td>1</td>
-													<td>가족관계</td>
-													<td>정규</td>
-													<td class="tableContent">제dddddddddddddddddddddddd목입니니다.</td>
-													<td>
-														<span class="fa fa-star checked" style="color: orange;"></span>
-													</td>
-													<td>송영훈</td>
-													<td>개발중</td>
-													<td>2023-02-09</td>
-												</tr>
-												<tr style="text-align: center;">
-													<td>1</td>
-													<td>가족관계</td>
-													<td class="text-danger">긴급</td>
-													<td class="tableContent">제dddddddddddddddddddddddd목입니니다.</td>
-													<td>
-														<span class="fa fa-star checked" style="color: orange;"></span>
-														<span class="fa fa-star checked" style="color: orange;"></span>
-														<span class="fa fa-star checked" style="color: orange;"></span>
-													</td>
-													<td>송영훈</td>
-													<td><span class="btn btn-primary">개발중</span></td>
-													<td>2023-02-09</td>
-												</tr>
+												<c:forEach var="dayRequest" items="${listOf7daysLeft}">
+													<tr style="text-align: center;">
+														<td>${dayRequest.rno}</td>
+														<td>${dayRequest.systemName}</td>
+														<td>${dayRequest.reqType}</td>
+														<td class="tableContent">${dayRequest.reqTitle}</td>
+														<td>
+															<c:if test="${dayRequest.priority eq '하' || dayRequest.priority eq '중' ||dayRequest.priority eq '상'}">
+																<span class="fa fa-star checked" style="color: orange;"></span>
+															</c:if>
+															<c:if test="${dayRequest.priority eq '중' || dayRequest.priority eq '상'}">
+																<span class="fa fa-star checked" style="color: orange;"></span>
+															</c:if>
+															<c:if test="${dayRequest.priority eq '상'}">
+																<span class="fa fa-star checked" style="color: orange;"></span>
+															</c:if>
+														</td>
+														<td>${dayRequest.statusName}</td>
+														<td><fmt:formatDate value="${dayRequest.allExpectDate}" pattern="yyyy-MM-dd"/></td>
+													</tr>
+												</c:forEach>		
 											</tbody>
 										</table>
+										<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
+										    <li class="page-item"><a class="page-link" href="list?pageNo=1">처음</a></li>
+										    <c:if test="${dPager.groupNo>1}">
+											    <li class="page-item">
+											    	<a class="page-link" href="list?pageNo=${dPager.startPageNo-1}">
+											    		<i class="fas fa-caret-left"></i>
+											    	</a>
+											    </li>
+										    </c:if>
+										    <c:forEach var="i" begin="${dPager.startPageNo}" end="${dPager.endPageNo}">
+										    	<c:if test="${dPager.pageNo != i}">
+											    	<li class="page-item"><a class="page-link" href="list?pageNo=${i}">${i}</a></li>
+										    	</c:if>
+										    	<c:if test="${dPager.pageNo == i}">
+											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" href="list?pageNo=${i}">${i}</a></li>
+										    	</c:if>
+										    </c:forEach>
+										    <c:if test="${dPager.groupNo<pager.totalGroupNo}">
+											    <li class="page-item">
+											    	<a class="page-link" href="#">
+											    		<i class="fas fa-caret-right"></i>
+											   	 	</a>
+											    </li>
+										    </c:if>
+										    <li class="page-item"><a class="page-link" href="list?pageNo=${dPager.totalPageNo}">맨끝</a></li>
+										</ul>
 										<!-- 개발리스트 end -->
 									</div>
 								</div>
@@ -177,71 +205,62 @@
 							<!-- 오늘마감end -->
 							<!-- 공지사항 start -->
 							<div class="col-12">
-								<div class="card border-left-danger shadow mb-4" style="height: 420.896px;" >
-									<div class="card-title-block mt-3">
-			                			<h5 class="title ml-3">공지사항</h5>
-			                		</div>
-			                		<div class="card-body">
-			                			<table class="table tasks-block table-striped">
+								<div class="card border-left-danger" style="height: 430.896px;">
+									<div class="card-header">
+										<h3 class="title">공지사항</h3>
+									</div>
+									<div class="card-body">
+										<table class="table table-hover usertable table-striped">
 											<thead>
-												<tr style="text-align: center;">
+												<tr>
 													<th>번호</th>
 													<th>제목</th>
 													<th>작성자</th>
-													<th>작성날짜</th>
+													<th>작성일</th>
 												</tr>
-											</thead>			                			
-			                				<tbody>
-			                					<tr style="text-align: center;">
-			                						<th>1</th>
-			                						<th class="tableContent">제목입니다.</th>
-			                						<th>슝영훈</th>
-			                						<th>2023-12-03</th>
-			                					</tr>
-			                					<tr style="text-align: center;">
-			                						<th>1</th>
-			                						<th class="tableContent">제목입니다.</th>
-			                						<th>슝영훈</th>
-			                						<th>2023-12-03</th>
-			                					</tr>
-			                					<tr style="text-align: center;">
-			                						<th>1</th>
-			                						<th class="tableContent">제목입니다.</th>
-			                						<th>슝영훈</th>
-			                						<th>2023-12-03</th>
-			                					</tr>
-			                					<tr style="text-align: center;">
-			                						<th>1</th>
-			                						<th class="tableContent">제목입니다.</th>
-			                						<th>슝영훈</th>
-			                						<th>2023-12-03</th>
-			                					</tr>
-			                					<tr style="text-align: center;">
-			                						<th>1</th>
-			                						<th class="tableContent">제목입니다.</th>
-			                						<th>슝영훈</th>
-			                						<th>2023-12-03</th>
-			                					</tr>
-			                				</tbody>
-			                			</table>
-			                			<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
-										    <li class="page-item">
-										    	<a class="page-link" href="#">
-										    		<i class="fas fa-caret-left"></i>
-										    	</a>
-										    </li>
-										    <li class="page-item"><a class="page-link" href="#">1</a></li>
-										    <li class="page-item"><a class="page-link" href="#">2</a></li>
-										    <li class="page-item"><a class="page-link" href="#">3</a></li>
-										    <li class="page-item"><a class="page-link" href="#">4</a></li>
-										    <li class="page-item"><a class="page-link" href="#">5</a></li>
-										    <li class="page-item">
-										    	<a class="page-link" href="#">
-										    		<i class="fas fa-caret-right"></i>
-										   	 	</a>
-										    </li>
+											</thead>
+											<tbody>
+												<c:forEach var="notice" items="${noticeList}">
+													<tr>
+														<th>${notice.nno}</th>
+														<td class="tableContent">
+															<a href="${pageContext.request.contextPath}/noticedetail?nno=${notice.nno}">
+																${notice.noticeTitle}
+															</a>
+														</td>
+														<td>${notice.mid}</td>
+														<td><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd"/></td>
+													</tr>
+												</c:forEach>				
+											</tbody>
+										</table>
+										<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
+										    <li class="page-item"><a class="page-link" href="list?pageNo=1">처음</a></li>
+										    <c:if test="${nPager.groupNo>1}">
+											    <li class="page-item">
+											    	<a class="page-link" href="list?pageNo=${nPager.startPageNo-1}">
+											    		<i class="fas fa-caret-left"></i>
+											    	</a>
+											    </li>
+										    </c:if>
+										    <c:forEach var="i" begin="${nPager.startPageNo}" end="${nPager.endPageNo}">
+										    	<c:if test="${nPager.pageNo != i}">
+											    	<li class="page-item"><a class="page-link" href="list?pageNo=${i}">${i}</a></li>
+										    	</c:if>
+										    	<c:if test="${nPager.pageNo == i}">
+											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" href="list?pageNo=${i}">${i}</a></li>
+										    	</c:if>
+										    </c:forEach>
+										    <c:if test="${nPager.groupNo<pager.totalGroupNo}">
+											    <li class="page-item">
+											    	<a class="page-link" href="#">
+											    		<i class="fas fa-caret-right"></i>
+											   	 	</a>
+											    </li>
+										    </c:if>
+										    <li class="page-item"><a class="page-link" href="list?pageNo=${nPager.totalPageNo}">맨끝</a></li>
 										</ul>
-			                		</div>
+									</div>
 								</div>
 							</div>
 							<!-- 지연율 end -->

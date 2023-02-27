@@ -236,12 +236,15 @@ public class CommonService implements ICommonService {
 		
 		return map;
 	}
-
+	
 	@Override
-	public List<Request> getListOf7daysLeft(Member member) {
-		ArrayList<Request> list = new ArrayList<>();
-		list = commonDao.selectListOf7daysLeft(member);
-		return list;
+	public int getListOf7daysLeftCount(Member member) {
+		return commonDao.selectListOf7daysLeftCount(member);
+	}
+	
+	@Override
+	public List<Request> getListOf7daysLeft(Member member, Pager dPager) {
+		return commonDao.selectListOf7daysLeft(member, dPager);
 	}
 
 	@Override
@@ -292,17 +295,26 @@ public class CommonService implements ICommonService {
 
 	@Override
 	public List<RequestProcess> getRequestProcessList(Member member, String checkbox, Pager pager) {
-		
 		List<RequestProcess> list = commonDao.selectRequestProcessList(member, checkbox, pager);
-		
 		return list;
 	}
 
 	@Override
 	public int getRequestProcessRows(Member member, String checkbox) {
-		
 		return commonDao.selectRequestProcessRows(member,checkbox);
 	}
+
+	@Override
+	public int getUserRequestListCount(String searchStatus, Member member) {
+		return commonDao.selectUserRequestListCount(searchStatus, member);
+	}
+
+	@Override
+	public List<Request> getUserRequestList(String searchStatus, Member member, Pager uPager) {
+		return commonDao.selectUserRequestList(searchStatus, member, uPager);
+	}
+
+	
 
 	
 	

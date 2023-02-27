@@ -44,9 +44,25 @@
 
 		<!-- Nav Item - Dashboard -->
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/">
-				<i class="fas fa-fw fa-tachometer-alt"></i>
-				<span>Dashboard</span></a>
+			<c:if test="${mtype eq 'user'}">
+				<a class="nav-link" href="${pageContext.request.contextPath}/userhome">
+					<i class="fas fa-fw fa-tachometer-alt"></i>
+					<span>Dashboard</span>
+				</a>
+			</c:if>
+			<c:if test="${mtype eq 'pm'}">
+				<a class="nav-link" href="${pageContext.request.contextPath}/pmhome">
+					<i class="fas fa-fw fa-tachometer-alt"></i>
+					<span>Dashboard</span>
+				</a>
+			</c:if>
+			<c:if test="${mtype != 'user' && mtype != 'pm'}">
+				<a class="nav-link" href="${pageContext.request.contextPath}/">
+					<i class="fas fa-fw fa-tachometer-alt"></i>
+					<span>Dashboard</span>
+				</a>
+			</c:if>
+			
 		</li>
 
 
