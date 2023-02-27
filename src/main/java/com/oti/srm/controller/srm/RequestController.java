@@ -56,6 +56,9 @@ public class RequestController {
 	@Autowired
 	private IRequestRegisterService requestService;
 
+	@Autowired
+	private PMController pmController;
+	
 	/**
 	 * Kang Ji Seong 유저 등록 페이지 조회
 	 */
@@ -318,12 +321,23 @@ public class RequestController {
 	@GetMapping("/requestdetail")
 	public String userRequestDetail(int rno, HttpSession session, Model model) {
 		Request request = requestService.getRequestDetail(rno);
+		
 		List<System> systemList = userRegisterService.getSystemList();
 		
-		log.info(request);
-		model.addAttribute("request", request);
-		model.addAttribute("systemList", systemList);
-		return "srm/requestdetail";
+		//반려 페이지
+		if(request.getStatusNo() == 12) {
+			
+			return "srm/requestrejectpage";
+		//완료 페이지
+		} else if (request.getStatusNo() == 13) {
+			
+			return "srm/requestendpage";
+		} else {
+			
+			model.addAttribute("request", request);
+			model.addAttribute("systemList", systemList);
+			return "srm/requestdetail";
+		}
 	}
 	
 	/**

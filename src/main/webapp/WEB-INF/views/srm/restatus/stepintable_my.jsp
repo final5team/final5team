@@ -157,54 +157,54 @@ margin: 0 0 1rem 0;
 <ol class="progress_bar">
 	<c:if test="${request.statusNo != 12}">
 		<c:if test="${request.reqType == null || request.reqType == '정규'}">
-			<li class="is_complete"><span>요청완료</span></li>
+			<li class="is_complete"><a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}"><span>요청완료</span></a></li>
 			<li class="<c:if test="${request.statusNo >= 2}">is_complete</c:if>
 						 <c:if test="${request.statusNo == 1}">is_active</c:if>">
-				<span>
-					<c:if test="${request.statusNo == 1}">접수중</c:if>
-					<c:if test="${request.statusNo >= 2}">접수완료</c:if>
-				</span>
-			</li>
+						<span>
+							<c:if test="${request.statusNo == 1}">접수중</c:if>
+							<c:if test="${request.statusNo >= 2}">접수완료</c:if>
+						</span>
+				</li>
 			<li class="<c:if test="${request.statusNo >= 5}">is_complete</c:if>
-						<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">now</c:if>">
-				<span>
-					<c:if test="${request.statusNo < 2}">개발단계</c:if>
-					<c:if test="${request.statusNo == 2}">개발요청</c:if>
-					<c:if test="${request.statusNo == 4}">개발중</c:if>
-					<c:if test="${request.statusNo == 3}">개발재검토</c:if>
-					<c:if test="${request.statusNo >= 5}">개발완료</c:if>
-				</span>
+							<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>">
+					<span>
+						<c:if test="${request.statusNo < 2}">개발단계</c:if>
+						<c:if test="${request.statusNo == 2}">개발요청</c:if>
+						<c:if test="${request.statusNo == 4}">개발중</c:if>
+						<c:if test="${request.statusNo == 3}">개발재검토</c:if>
+						<c:if test="${request.statusNo >= 5}">개발완료</c:if>
+					</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 7}">is_complete</c:if><c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>">
-				<span>
-					<c:if test="${request.statusNo < 5}">테스트단계</c:if>
-					<c:if test="${request.statusNo == 5}">테스트요청</c:if>
-					<c:if test="${request.statusNo == 6}">테스트중</c:if>
-					<c:if test="${request.statusNo >= 7}">테스트완료</c:if>
-				</span>
+					<span>
+						<c:if test="${request.statusNo < 5}">테스트단계</c:if>
+						<c:if test="${request.statusNo == 5}">테스트요청</c:if>
+						<c:if test="${request.statusNo == 6}">테스트중</c:if>
+						<c:if test="${request.statusNo >= 7}">테스트완료</c:if>
+					</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 9}">is_complete</c:if><c:if test="${request.statusNo >= 7 && request.statusNo <= 8}">is_active</c:if>">
-				<span>
-					<c:if test="${request.statusNo < 7}">유저테스트단계</c:if>
-					<c:if test="${request.statusNo == 7}">유저테스트요청</c:if>
-					<c:if test="${request.statusNo == 8}">유저테스트중</c:if>
-					<c:if test="${request.statusNo >= 9}">유저테스트완료</c:if>
-				</span>
+					<span>
+						<c:if test="${request.statusNo < 7}">유저테스트단계</c:if>
+						<c:if test="${request.statusNo == 7}">유저테스트요청</c:if>
+						<c:if test="${request.statusNo == 8}">유저테스트중</c:if>
+						<c:if test="${request.statusNo >= 9}">유저테스트완료</c:if>
+					</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 11}">is_complete</c:if><c:if test="${request.statusNo >= 9 && request.statusNo <= 10}">is_active</c:if>">
-				<span>
-					<c:if test="${request.statusNo < 9}">배포단계</c:if>
-					<c:if test="${request.statusNo == 9}">배포요청</c:if>
-					<c:if test="${request.statusNo == 10}">배포중</c:if>
-					<c:if test="${request.statusNo >= 11}">배포완료</c:if>
-				</span>
+					<span>
+						<c:if test="${request.statusNo < 9}">배포단계</c:if>
+						<c:if test="${request.statusNo == 9}">배포요청</c:if>
+						<c:if test="${request.statusNo == 10}">배포중</c:if>
+						<c:if test="${request.statusNo >= 11}">배포완료</c:if>
+					</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 13}">is_complete</c:if><c:if test="${request.statusNo == 11}">is_active</c:if>">
-				<span>
-					<c:if test="${request.statusNo < 11}">최종승인단계</c:if>
-					<c:if test="${request.statusNo == 11}">최종승인요청</c:if>
-				</span>
-				<c:if test="${request.statusNo == 13}">완료</c:if>
+					<span>
+						<c:if test="${request.statusNo < 11}">최종승인단계</c:if>
+						<c:if test="${request.statusNo == 11}">최종승인요청</c:if>
+						<c:if test="${request.statusNo == 13}">완료</c:if>
+					</span>
 			</li>
 		</c:if>
 		<c:if test="${request.reqType == '긴급'}">
@@ -212,50 +212,50 @@ margin: 0 0 1rem 0;
 				<span>요청완료</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 2}">is_complete</c:if><c:if test="${request.statusNo == 1}">is_active</c:if>">
-				<span>
-					<c:if test="${request.statusNo == 1}">접수중</c:if>
-					<c:if test="${request.statusNo >= 2}">접수완료</c:if>
-				</span>
+					<span>
+						<c:if test="${request.statusNo == 1}">접수중</c:if>
+						<c:if test="${request.statusNo >= 2}">접수완료</c:if>
+					</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 5}">is_complete</c:if><c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>">
-				<span>
-					<c:if test="${request.statusNo < 2}">개발단계</c:if>
-					<c:if test="${request.statusNo == 2}">개발요청</c:if>
-					<c:if test="${request.statusNo == 4}">개발중</c:if>
-					<c:if test="${request.statusNo == 3}">개발재검토</c:if>
-					<c:if test="${request.statusNo >= 5}">개발완료</c:if>
-				</span>
+					<span>
+						<c:if test="${request.statusNo < 2}">개발단계</c:if>
+						<c:if test="${request.statusNo == 2}">개발요청</c:if>
+						<c:if test="${request.statusNo == 4}">개발중</c:if>
+						<c:if test="${request.statusNo == 3}">개발재검토</c:if>
+						<c:if test="${request.statusNo >= 5}">개발완료</c:if>
+					</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 7}">is_complete</c:if><c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>">
-				<span>
-					<c:if test="${request.statusNo < 5}">테스트단계</c:if>
-					<c:if test="${request.statusNo == 5}">테스트요청</c:if>
-					<c:if test="${request.statusNo == 6}">테스트중</c:if>
-					<c:if test="${request.statusNo >= 7}">테스트완료</c:if>
-				</span>
+					<span>
+						<c:if test="${request.statusNo < 5}">테스트단계</c:if>
+						<c:if test="${request.statusNo == 5}">테스트요청</c:if>
+						<c:if test="${request.statusNo == 6}">테스트중</c:if>
+						<c:if test="${request.statusNo >= 7}">테스트완료</c:if>
+					</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 11}">is_complete</c:if><c:if test="${request.statusNo >= 7 && request.statusNo <= 10}">is_active</c:if>">
-				<span>
-					<c:if test="${request.statusNo < 7}">배포단계</c:if>
-					<c:if test="${request.statusNo == 7}">배포요청</c:if>
-					<c:if test="${request.statusNo == 10}">배포중</c:if>
-					<c:if test="${request.statusNo >= 11}">배포완료</c:if>
-				</span>
+					<span>
+						<c:if test="${request.statusNo < 7}">배포단계</c:if>
+						<c:if test="${request.statusNo == 7}">배포요청</c:if>
+						<c:if test="${request.statusNo == 10}">배포중</c:if>
+						<c:if test="${request.statusNo >= 11}">배포완료</c:if>
+					</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 13}">is_active</c:if><c:if test="${request.statusNo == 11}">is_active</c:if>">
-				<span>
-					<c:if test="${request.statusNo < 11}">최종승인단계</c:if>
-					<c:if test="${request.statusNo == 11}">최종승인요청</c:if>
-				</span>
-					<c:if test="${request.statusNo == 13}">완료</c:if>
+					<span>
+						<c:if test="${request.statusNo < 11}">최종승인단계</c:if>
+						<c:if test="${request.statusNo == 11}">최종승인요청</c:if>
+					</span>
+						<c:if test="${request.statusNo == 13}">완료</c:if>
 			</li>
 		</c:if>
 	</c:if>
 	<c:if test="${request.statusNo == 12}">
-		<li class="is_complete">
-			<span>
-				요청
-			</span>
+		<li class="is_reject">
+				<span>
+					요청
+				</span>
 		</li>
 		<li class="is_reject"><span>접수</span></li>
 		<li class="is_reject"><span>반려</span></li>
@@ -265,6 +265,7 @@ margin: 0 0 1rem 0;
 		<li class=""><span></span></li>
 	</c:if>
 </ol>
+
 
 
 
