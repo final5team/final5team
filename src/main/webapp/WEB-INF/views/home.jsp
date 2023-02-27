@@ -217,7 +217,7 @@ input:checked + .slider:before {
                			<!-- 하단 오늘 마감 and 공지사항 start-->
 							<!-- 오늘마감start -->
 							<div class="col-12 my-4">
-								<div class="card tasks border-top-dark shadow" style="height: 420.896px;">
+								<div class="card tasks border-left-dark shadow" style="height: 420.896px;">
 									<div class="card-title-block mt-3 d-flex">
 			                			<h5 class="title ml-3 mr-auto" id="devTitle">
 			                				<c:if test="${member.mtype == 'developer'}">개발리스트</c:if>
@@ -233,11 +233,11 @@ input:checked + .slider:before {
 				                		</div>
 			                			
 									</div>
-									<div class="card-block py-0" style="height: 350px;" id="requestProcessListContainer">
+									<div class="card-block pt-2" style="height: 350px;" id="requestProcessListContainer">
 										<!-- 리스트 start -->
 										<div style="height: 305px;">
 											<table class="table tasks-block table-striped table-hover"  >
-												<thead>
+												<thead style="background-color: #3A4651;" class="text-white">
 													<tr style="text-align: center;">
 														<th>번호</th>
 														<th>요청유형</th>
@@ -336,14 +336,14 @@ input:checked + .slider:before {
 							<!-- 오늘마감end -->
 							<!-- 공지사항 start -->
 							<div class="col-12">
-								<div class="card border-top-danger shadow mb-4" style="height: 420.896px;" >
+								<div class="card border-left-primary shadow mb-4" style="height: 420.896px;" >
 									<div class="card-title-block mt-3">
 			                			<h5 class="title ml-3">공지사항</h5>
 			                		</div>
 			                		<div class="card-body" id="mainNoticeListContainer">
 			                			<div style="height: 290px;">
 				                			<table class="table table-hover usertable table-striped">
-												<thead>
+												<thead style="background-color: #72B22B;" class="text-white">
 													<tr>
 														<th>번호</th>
 														<th>제목</th>
@@ -381,7 +381,7 @@ input:checked + .slider:before {
 											    	<li class="page-item"><a class="page-link" onclick="mainNoticeList(${i})">${i}</a></li>
 										    	</c:if>
 										    	<c:if test="${nPager.pageNo == i}">
-											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" onclick="mainNoticeList(${i})">${i}</a></li>
+											    	<li class="page-item"><a class="page-link" style="background-color: #72B22B; color: white;" onclick="mainNoticeList(${i})">${i}</a></li>
 										    	</c:if>
 										    </c:forEach>
 										    <c:if test="${nPager.groupNo<nPager.totalGroupNo}">

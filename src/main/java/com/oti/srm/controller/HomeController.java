@@ -62,13 +62,13 @@ public class HomeController {
 		HashMap<String,Integer> workingStatus = commonService.getWorkingStatus(member);
 		//직무 요청 리스트 출력 및 페이지 처리
 		int requestProcessTotalRows = commonService.getRequestProcessRows(member, checkbox);
-		Pager rpPager = new Pager(5,5,requestProcessTotalRows,workPageNo);
+		Pager rpPager = new Pager(7,5,requestProcessTotalRows,workPageNo);
 		List<RequestProcess> requestProcessList = commonService.getRequestProcessList(member, checkbox, rpPager);
 		//공지사항
 		String searchWord = "";
 		String searchType = "";
 		int noticeTotalRows = noticeService.getNoticeListCount(searchType, searchWord, member.getMtype(), member.getSno());
-		Pager nPager = new Pager(5,5,noticeTotalRows,noticePageNo);
+		Pager nPager = new Pager(7,5,noticeTotalRows,noticePageNo);
 		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), nPager, member.getSno());
 		
 		log.info("requestProcessTotalRows" + requestProcessTotalRows);
@@ -103,13 +103,13 @@ public class HomeController {
 		HashMap<String, Integer> userRequestStatusCount = commonService.getUserRequestStatusCount(member);
 		// 나의 요청 상황 리스트 
 		int requestListTotalRows = commonService.getUserRequestListCount(searchStatus, member);
-		Pager uPager = new Pager(5, 5, requestListTotalRows, myRequestPageNo);
+		Pager uPager = new Pager(6, 5, requestListTotalRows, myRequestPageNo);
 		List<Request> userRequestList = commonService.getUserRequestList(searchStatus, member, uPager);
 		//공지사항
 		String searchWord = "";
 		String searchType = "";
 		int noticeTotalRows = noticeService.getNoticeListCount(searchType, searchWord, member.getMtype(), member.getSno());
-		Pager nPager = new Pager(5,5,noticeTotalRows,noticePageNo);
+		Pager nPager = new Pager(7,5,noticeTotalRows,noticePageNo);
 		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), nPager, member.getSno());
 		//모달에 담기
 		model.addAttribute("searchStatus", searchStatus);
@@ -131,13 +131,13 @@ public class HomeController {
 		HashMap<String,Integer> workingStatus = commonService.getWorkingStatus(member);
 		//D-7 리스트 출력
 		int dDayTotalRows = commonService.getListOf7daysLeftCount(member);
-		Pager dPager = new Pager(5, 5, dDayTotalRows, dDay7PageNo);
+		Pager dPager = new Pager(7, 5, dDayTotalRows, dDay7PageNo);
 		List<Request> listOf7daysLeft = commonService.getListOf7daysLeft(member, dPager);
 		//공지사항
 		String searchWord = "";
 		String searchType = "";
 		int noticeTotalRows = noticeService.getNoticeListCount(searchType, searchWord, member.getMtype(), member.getSno());
-		Pager nPager = new Pager(5,5,noticeTotalRows,noticePageNo);
+		Pager nPager = new Pager(7,5,noticeTotalRows,noticePageNo);
 		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), nPager, member.getSno());
 		//모달에 담기
 		model.addAttribute("workingStatus", workingStatus);
@@ -155,7 +155,7 @@ public class HomeController {
 		Member member = (Member) session.getAttribute("member");
 		// 나의 요청 상황 리스트 
 		int requestListTotalRows = commonService.getUserRequestListCount(searchStatus, member);
-		Pager uPager = new Pager(5, 5, requestListTotalRows, myRequestPageNo);
+		Pager uPager = new Pager(6, 5, requestListTotalRows, myRequestPageNo);
 		List<Request> userRequestList = commonService.getUserRequestList(searchStatus, member, uPager);
 		model.addAttribute("searchStatus", searchStatus);
 		model.addAttribute("uPager", uPager);
@@ -170,7 +170,7 @@ public class HomeController {
 		Member member = (Member) session.getAttribute("member");
 		//D-7 리스트 출력
 		int dDayTotalRows = commonService.getListOf7daysLeftCount(member);
-		Pager dPager = new Pager(5, 5, dDayTotalRows, dDay7PageNo);
+		Pager dPager = new Pager(7, 5, dDayTotalRows, dDay7PageNo);
 		List<Request> listOf7daysLeft = commonService.getListOf7daysLeft(member, dPager);
 		model.addAttribute("dPager",dPager);
 		model.addAttribute("listOf7daysLeft",listOf7daysLeft);
@@ -185,7 +185,7 @@ public class HomeController {
 		Member member = (Member) session.getAttribute("member");
 		//직무 요청 리스트 출력 및 페이지 처리
 		int requestProcessTotalRows = commonService.getRequestProcessRows(member, checkbox);
-		Pager rpPager = new Pager(5,5,requestProcessTotalRows,workPageNo);
+		Pager rpPager = new Pager(7,5,requestProcessTotalRows,workPageNo);
 		List<RequestProcess> requestProcessList = commonService.getRequestProcessList(member, checkbox, rpPager);
 		log.info("checkbox" + checkbox + ", 갯수 : " + requestProcessTotalRows);
 		model.addAttribute("checkbox", checkbox);
@@ -203,7 +203,7 @@ public class HomeController {
 		String searchWord = "";
 		String searchType = "";
 		int noticeTotalRows = noticeService.getNoticeListCount(searchType, searchWord, member.getMtype(), member.getSno());
-		Pager nPager = new Pager(5,5,noticeTotalRows,noticePageNo);
+		Pager nPager = new Pager(7,5,noticeTotalRows,noticePageNo);
 		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), nPager, member.getSno());
 		model.addAttribute("nPager",nPager);
 		model.addAttribute("noticeList",noticeList);

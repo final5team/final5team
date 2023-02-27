@@ -22,9 +22,6 @@
      	width : 20px;
      	height : 20px;
      }
-     .card.card-dark > .card-header {
-    background-color: #3A4651;
-	}
     </style>
 </head>
 

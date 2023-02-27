@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<div style="height: 305px;">
 		<table class="table tasks-block table-striped table-hover"  >
-			<thead>
+			<thead style="background-color: #3A4651;" class="text-white">
 				<tr style="text-align: center;">
 					<th>번호</th>
 					<th>요청유형</th>
