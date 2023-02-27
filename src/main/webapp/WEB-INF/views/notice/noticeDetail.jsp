@@ -98,10 +98,10 @@
 				    		</c:forEach>
 			    		</div>
 				  	</div>
-				  	<a href="${pageContext.request.contextPath}/noticelist" class="btn btn-sm btn-primary">목록</a>
+				  	<a href="${pageContext.request.contextPath}/noticelist" class="btn btn-sm btn-dark">목록</a>
 				  	<c:if test="${member.mid == notice.mid}">
-				  		<a href="${pageContext.request.contextPath}/noticeupdateform?nno=${notice.nno}" class="btn btn-sm btn-primary">수정</a>
-				  		<a href="${pageContext.request.contextPath}/noticedelete?nno=${notice.nno}" class="btn btn-sm btn-primary">삭제</a>
+				  		<a href="${pageContext.request.contextPath}/noticeupdateform?nno=${notice.nno}" class="btn btn-sm btn-dark">수정</a>
+				  		<a href="${pageContext.request.contextPath}/noticedelete?nno=${notice.nno}" class="btn btn-sm btn-dark">삭제</a>
 				  	</c:if>
                 </div>
                 
