@@ -195,7 +195,7 @@
                 <!-- 여기에 내용 담기 start -->
                 <div class="container-fluid">
                 	<!-- Main(정적 페이지) -->
-                	<div>
+                	<div class="main">
 	                	<!-- 첫째 줄 -->
 						<div class="row">
 							<div  class="col-lg-4">

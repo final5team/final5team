@@ -147,7 +147,6 @@
                 <div class="container-fluid">
                 	<div id="main">
 					<!-- 게시글 상세보기 start -->
-						<%@ include file="/WEB-INF/views/srm/nowstatushorizon.jsp" %>
 						<div class="card card-block sameheight-item">
 							<h3 class="font-weight-bold">						
 								 요청 정보
