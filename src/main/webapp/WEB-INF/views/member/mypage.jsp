@@ -33,6 +33,9 @@ form {
 }
 
 .section1 {
+	background-color: #f8f9fc;
+	border-bottom: 1px solid #e3e6f0;
+	height : 54px;
 	width: 1047px;
 	overflow: hidden;
 	text-align: start;
@@ -41,7 +44,6 @@ form {
 	top: 0;
 	left: 0;
 	background-color: #f8f9fc;
-	border-bottom: 1px solid #e3e6f0;
 }
 
 .section1 h4 {
@@ -294,7 +296,8 @@ form {
 
 				<!-- 여기에 내용 담기 start -->
 				<div id="content">
-					<form method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data">
+					<div class="wrapper ">
+					<form class="border-left-dark" method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data">
 						<section class="section1">
 							<h4>My page</h4>
 						</section>
@@ -431,6 +434,7 @@ form {
 							</article>
 						</section>
 					</form>
+				</div>
 				</div>
 					<!-- 여기에 내용 담기 end -->
 				<!-- End of Main Content -->
