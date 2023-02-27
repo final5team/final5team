@@ -13,7 +13,7 @@
 --font-size-small: .75rem; 
 --font-size-default: .875rem;
 }
-												
+
 .progress_bar {
 display: flex;
 justify-content: space-between;
@@ -148,7 +148,6 @@ margin: 0 0 1rem 0;
 													text-decoration: none;
 												}
 
-
 </style> 
 
 <ol class="progress_bar">
@@ -165,7 +164,7 @@ margin: 0 0 1rem 0;
 					</a>
 				</li>
 			<li class="<c:if test="${request.statusNo >= 5}">is_complete</c:if>
-							<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">now</c:if>">
+							<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>">
 				<a href="${pageContext.request.contextPath}/developerdetail?rno=${request.rno}">
 					<span>
 						<c:if test="${request.statusNo < 2}">개발단계</c:if>
