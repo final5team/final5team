@@ -7,240 +7,240 @@
 <head>
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
 <style>
-a {
-	text-decoration: none;
-}
-
-main {
-	display: flex;
-	height: 800px;
-	width: 1050px;
-	position: relative;
-	justify-content: center;
-	align-items: center;
-	font-size: 15px;
-}
-
-.filter {
-	width: 1050px;
-	height: 120px;
-	overflow: hidden;
-	text-align: start;
-	align-items: center;
-	position: absolute;
-	top: 0;
-	left: 0;
-	background-color: #fff;
-	border-bottom: 1px solid #e3e6f0;
-	border-radius: 5px;
-	border: 1px solid rgba(0, 0, 0, 0.125);
-	border-radius: 0.25rem;
-	-webkit-box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
-	box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
-}
-
-.filter .filter-head {
-	background-color: #f8f9fc;
-	border-bottom: 1px solid #e3e6f0;
-	height: 30px;
-}
-
-.filter .filter-head h4 {
-	color: #5a5c69;
-	font: bold;
-	padding-left: 15px;
-	padding-top: 5px;
-	font-size: 15px;
-	margin: 0px;
-	font-weight: 700;
-}
-
-.filter .filter-name {
-	width: 100px;
-	height: 100px;
-	position: absolute;
-	margin: 0;
-	left: 2%;
-}
-
-.filter .filter-name h6 {
-	font-size: 14px;
-	margin: 20px 10px;
-}
-
-.filter .filter-name2 {
-	width: 100px;
-	height: 100px;
-	position: absolute;
-	margin: 0;
-	left: 42%;
-}
-
-.filter .filter-name2 h6 {
-	font-size: 15px;
-	margin: 20px 10px;
-	font-size: 14px;
-}
-
-.filter .filter-body {
-	width: 300px;
-	height: 80px;
-	overflow: hidden;
-	position: absolute;
-	left: 10%;
-	top: 34%;
-	float: left;
-	font-size: 13px;
-}
-
-.filter .filter-body .input-group {
-	width: 100px;
-	margin: 8px;
-}
-
-.filter .filter-body .date_form {
-	margin: 6px;
-}
-
-.filter .filter-body2 {
-	width: 150px;
-	height: 80px;
-	overflow: hidden;
-	position: absolute;
-	left: 50%;
-	top: 34%;
-	float: left;
-	font-size: 13px;
-}
-
-.filter .filter-body2 .input-group {
-	width: 100px;
-	margin: 5px;
-}
-
-.table {
-	text-align: center;
-	width: inherit;
-	height: 600px;
-	overflow: hidden;
-	text-align: start;
-	align-items: center;
-	position: absolute;
-	top: 18%;
-	left: 0;
-	background-color: #fff;
-	border-bottom: 1px solid #e3e6f0;
-	border-radius: 5px;
-	border: 1px solid rgba(0, 0, 0, 0.125);
-	border-radius: 0.25rem;
-	-webkit-box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
-	box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
-}
-
-.table .table-header {
-	background-color: #f8f9fc;
-	border-bottom: 1px solid #e3e6f0;
-	height: 30px;
-}
-
-.table .table-header h4 {
-	color: #5a5c69;
-	font: bold;
-	padding-left: 15px;
-	padding-top: 5px;
-	font-size: 15px;
-	margin: 0px;
-	font: bold;
-	font-weight: 700;
-}
-
-.table .table-body {
-	height: inherit;
-}
-
-.member {
-	margin: 5px 10px;
-	background-color: #fff;
-	border-collapse: collapse;
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
-	border-radius: 5px;
-	overflow: hidden;
-}
-
-.member caption {
-	font-size: 30px;
-	margin-bottom: 30px;
-}
-
-.member tr {
-	width: 1050px;
-	border-bottom: 1px solid #eee;
-	transition: 0.3s;
-}
-
-.member tr:hover {
-	background-color: #eee;
-}
-
-.member th, .member td {
-	font-size: 12px;
-	width: 1050px;
-	padding: 5px;
-	text-align: center;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
-.member tr th {
-	background-color: var(--gray-dark);
-	color: #fff;
-}
-
-.member .step_td {
+	a {
+		text-decoration: none;
+	}
+	
+	main {
+		display: flex;
+		height: 800px;
+		width: 1050px;
+		position: relative;
+		justify-content: center;
+		align-items: center;
+		font-size: 15px;
+	}
+	
+	.filter {
+		width: 1050px;
+		height: 120px;
+		overflow: hidden;
+		text-align: start;
+		align-items: center;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: #fff;
+		border-bottom: 1px solid #e3e6f0;
+		border-radius: 5px;
+		border: 1px solid rgba(0, 0, 0, 0.125);
+		border-radius: 0.25rem;
+		-webkit-box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
+		box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
+	}
+	
+	.filter .filter-head {
+				background-color: #f8f9fc;
+				border-bottom: 1px solid #e3e6f0;
+				height: 30px;
+			}
+			
+			.filter .filter-head h4 {
+				color: #5a5c69;
+				font: bold;
+				padding-left: 15px;
+				padding-top : 5px;
+				font-size: 15px;
+				margin: 0px;
+				font-weight: 700;
+			}
+	
+	.filter .filter-name {
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				margin: 0;
+				left: 2%;
+	}
+	
+	.filter .filter-name h6 {
+		font-size: 14px;
+		margin: 20px 10px;
+	}
+	
+	.filter .filter-name2 {
+				width: 100px;
+				height: 100px;
+				position: absolute;
+				margin: 0;
+				left: 42%;
+	}
+	
+	.filter .filter-name2 h6 {
+		font-size: 15px;
+		margin: 20px 10px;
+		font-size: 14px;
+	}
+	
+	.filter .filter-body {
+		width: 300px;
+		height: 80px;
+		overflow: hidden;
+		position: absolute;
+		left: 10%;
+		top : 34%;
+		float: left;
+		font-size: 13px;
+	}
+	
+	.filter .filter-body .input-group {
+		width: 100px;
+		margin: 8px;
+	}
+	
+	.filter .filter-body .date_form {
+		margin: 6px;
+	}
+	
+	.filter .filter-body2 {
+		width: 150px;
+		height: 80px;
+		overflow: hidden;
+		position: absolute;
+		left: 50%;
+		top : 34%;
+		float: left;
+		font-size: 13px;
+	}
+	
+	.filter .filter-body2 .input-group {
+		width: 100px;
+		margin: 5px;
+	}
+	
+	.table {
+		text-align: center;
+		width: inherit;
+		height: 600px;
+		overflow: hidden;
+		text-align: start;
+		align-items: center;
+		position: absolute;
+		top: 18%;
+		left: 0;
+		background-color: #fff;
+		border-bottom: 1px solid #e3e6f0;
+		border-radius: 5px;
+		border: 1px solid rgba(0, 0, 0, 0.125);
+		border-radius: 0.25rem;
+		-webkit-box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
+		box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
+	}
+	
+	.table .table-header {
+		background-color: #f8f9fc;
+				border-bottom: 1px solid #e3e6f0;
+				height: 30px;
+	}
+	
+	.table .table-header h4 {
+		color: #5a5c69;
+				font: bold;
+				padding-left: 15px;
+				padding-top : 5px;
+				font-size: 15px;
+				margin: 0px;
+				font : bold;
+				font-weight: 700;
+	}
+	
+	.table .table-body {
+		height: inherit;
+	}
+	
+	.member {
+		margin: 5px 10px;
+		background-color: #fff;
+		border-collapse: collapse;
+		box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+		border-radius: 5px;
+		overflow: hidden;
+	}
+	
+	.member caption {
+		font-size: 30px;
+		margin-bottom: 30px;
+	}
+	
+	.member tr {
+		width: 1050px;
+		border-bottom: 1px solid #eee;
+		transition: 0.3s;
+	}
+	
+	.member tr:hover {
+		background-color: #eee;
+	}
+	
+	.member th, .member td {
+		font-size: 12px;
+		width: 1050px;
+		padding: 5px;
+		text-align: center;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	
+	.member tr th {
+		background-color: var(--gray-dark);
+		color: #fff;
+	}
+	
+	.member .step_td {
 	display: inline-block;
 	width: 500px;
-}
-
-.member tr:hover {
-	background-color: rgba(211, 211, 211, 0.438);
-}
-
-.filter .search-button {
-	position: absolute;
-	width: 50px;
-	height: 50px;
-	left: 63%;
-	top: 60%;
-	z-index: 5;
-}
-
-.filter .write-button {
+	}
+	
+	.member tr:hover {
+		background-color: rgba(211, 211, 211, 0.438);
+	}
+	
+	.filter .search-button {
+		position: absolute;
+		width: 50px;
+		height: 50px;
+		left: 63%;
+		top: 60%;
+		z-index: 5;
+	}
+	.filter .write-button{
 	position: absolute;
 	width: 120px;
 	height: 50px;
 	left: 68%;
 	top: 60%;
 	z-index: 5;
-}
-
-.pager {
+	}
+	.pager{
 	position: absolute;
 	left: 30%;
-	top: 94%;
-	width: 350px;
-}
-
-.pager .write {
+	top : 94%;
+	width : 350px;
+	}
+	.pager .write{
 	position: absolute;
 	left: 100%;
-	top: 0%;
+	top : 0%;
 	width: 80px;
-}
+	
+	}
+	.custom-select{
+		height : 28px;
+		padding : 0px 5px;
+		
+	}
 
-.custom-select {
-	height: 28px;
-	padding: 0px 5px;
-}
+
 </style>
 
 </head>
@@ -317,7 +317,9 @@ main {
 									</c:if>
 								</div>
 								<div class="date_form">
-									<input type="date" id="date_first" name="date_first" value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> <i class="fa fa-minus"></i> <input type="date" id="date_last" name="date_last" value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
+									<input type="date" id="date_first" name="date_first" value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> 
+									<i class="fa fa-minus"></i> 
+									<input type="date" id="date_last" name="date_last" value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
 								</div>
 							</article>
 							<article class="filter-body2">
@@ -347,7 +349,7 @@ main {
 										</select>
 									</c:if>
 								</div>
-
+								
 								<div class="input-group">
 									<select class="custom-select" id="sno" name="sno">
 										<c:if test="${listFilter.sno == 0}">
@@ -356,88 +358,98 @@ main {
 												<option value="${system.sno}">${system.systemName}</option>
 											</c:forEach>
 										</c:if>
-
-
+										
+										
 										<c:if test="${listFilter.sno != 0}">
 											<option value="${listFilter.sno}" selected>${listFilter.systemName}</option>
 											<c:forEach var="system" items="${systemList}">
+											
 												<c:if test="${system.sno != listFilter.sno}">
 													<option value="${system.sno}">${system.systemName}</option>
 												</c:if>
+												
 											</c:forEach>
+											
 										</c:if>
+										
+										
 									</select>
 								</div>
 
 							</article>
-							<div class="pager">
-								<div class="pagingButtonSet d-flex justify-content-center">
-									<a href="requestlist?pageNo=1" type="button" class="btn btn-muted shadow">◀◀</a>
-									<c:if test="${pager.groupNo > 1}">
-										<a href="requestlist?pageNo=${pager.startPageNo-1}" type="button" class="btn btn-muted shadow">◀</a>
-									</c:if>
-
-									<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
-										<c:if test="${pager.pageNo != i}">
-											<a href="requestlist?pageNo=${i}" type="button" class="btn btn-white shadow">${i}</a>
-										</c:if>
-										<c:if test="${pager.pageNo == i}">
-											<a href="requestlist?pageNo=${i}" type="button" class="btn btn-dark shadow">${i}</a>
-										</c:if>
-									</c:forEach>
-
-									<c:if test="${pager.groupNo < pager.totalGroupNo }">
-										<a href="requestlist?pageNo=${pager.endPageNo+1}" type="button" class="btn btn-muted shadow">▶</a>
-
-									</c:if>
-									<a href="requestlist?pageNo=${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
-								</div>
-								<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-muted shadow write">요청 작성</a>
-							</div>
 						</form>
 					</section>
+					
 					<section class="table">
 						<article class="table-header">
 							<h4>내 요청 목록</h4>
 						</article>
-						<table class="member" id="table_content">
-							<tr>
-								<th>No.</th>
-								<th>시스템</th>
-								<th>요청 유형</th>
-								<th>요청 제목</th>
-								<th>요청 일자</th>
-								<th>단계</th>
-							</tr>
-							<c:forEach var="request" items="${requestList}">
+							<table class="member" id="table_content">
 								<tr>
-									<td class="rno">${request.rno}</td>
-									<td class="client">${request.sno}</td>
-									<c:if test="${request.statusNo == 1}">
-										<td class="sysType">미정</td>
-									</c:if>
-									<c:if test="${request.statusNo == 12}">
-										<td class="sysType">반려</td>
-									</c:if>
-									<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
-										<td class="sysType">${request.reqType}</td>
-									</c:if>
-									<td class="reqTitle" style="max-width: 200px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
-									<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
-										<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
-									</td>
-									<td class="step_td">
-										<%@ include file="/WEB-INF/views/srm/restatus/stepintable_my.jsp"%>
-									</td>
+									<th>No.</th>
+									<th>시스템</th>
+									<th>요청 유형</th>
+									<th>요청 제목</th>
+									<th>요청 일자</th>
+									<th>단계</th>
 								</tr>
-							</c:forEach>
-						</table>
+
+								<c:forEach var="request" items="${requestList}">
+									<tr>
+										<td class="rno">${request.rno}</td>
+										<td class="client">${request.sno}</td>
+										<c:if test="${request.statusNo == 1}">
+											<td class="sysType">미정</td>
+										</c:if>
+										<c:if test="${request.statusNo == 12}">
+											<td class="sysType">반려</td>
+										</c:if>
+										<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
+											<td class="sysType">${request.reqType}</td>
+										</c:if>
+										<td class="reqTitle" style="max-width: 200px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
+										<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
+											<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
+										</td>
+										<td class="step_td">
+											<%@ include file="/WEB-INF/views/srm/restatus/stepintable_my.jsp"%>
+										</td>
+									</tr>
+								</c:forEach>
+							</table>
 					</section>
+					<div class="pager">
+					<div class="pagingButtonSet d-flex justify-content-center">
+						<a href="requestlist?pageNo=1" type="button" class="btn btn-muted shadow">◀◀</a>
+						<c:if test="${pager.groupNo > 1}">
+							<a href="requestlist?pageNo=${pager.startPageNo-1}" type="button" class="btn btn-muted shadow">◀</a>
+						</c:if>
+
+						<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
+							<c:if test="${pager.pageNo != i}">
+								<a href="requestlist?pageNo=${i}" type="button" class="btn btn-white shadow">${i}</a>
+							</c:if>
+							<c:if test="${pager.pageNo == i}">
+								<a href="requestlist?pageNo=${i}" type="button" class="btn btn-dark shadow">${i}</a>
+							</c:if>
+						</c:forEach>
+
+						<c:if test="${pager.groupNo < pager.totalGroupNo }">
+							<a href="requestlist?pageNo=${pager.endPageNo+1}" type="button" class="btn btn-muted shadow">▶</a>
+
+						</c:if>
+						<a href="requestlist?pageNo=${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
+					</div>
+					<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-muted shadow write">요청 작성</a>
+				</div>
 					</main>
 				</div>
+				
+
 			</div>
 		</div>
 		<!-- 여기에 내용 담기 end -->
+
 	</div>
 	<!-- End of Main Content -->
 
