@@ -271,7 +271,7 @@
 		and r.STATUS_NO = 3
 		and developer = #{mid}
 	</select>
-	<select id="selectRequestReject" parameterType="com.oti.srm.dto.Member" resultType="int">
+	<select id="selectRequestReject" resultType="int">
 		select count(*)
 		from requests
 		where status_no = 12 
