@@ -84,6 +84,15 @@ public class HomeController {
 		
 	}
 	
+	/**
+	 * @author : 장현
+	 * @param session 세션에 저장된 member객체 추출
+	 * @param model view에 보내기위함
+	 * @param noticePageNo 메인페이지의 공지사항 pageNo 받기
+	 * @param myReqestPageNo 나의 요청리스트 페이지 번호 받기
+	 * @param status 완료/진행중/전체 상태에 따라 데이터 추출
+	 * @return
+	 */
 	@GetMapping("/userhome")
 	public String developerDetail(HttpSession session, Model model,
 			@RequestParam(defaultValue ="1") int noticePageNo, @RequestParam(defaultValue = "1") int myReqestPageNo,
