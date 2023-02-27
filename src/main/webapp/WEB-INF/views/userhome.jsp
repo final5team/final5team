@@ -153,9 +153,10 @@
 										<h3 class="title">나의 요청 상황</h3>
 									</div>
 									<div class="topnav">
-										  <a class="active" href="#">전체</a>
-										  <a href="#">진행중</a>
-										  <a href="#">완료</a>
+										  <a class="active" onclick="userRequestList('전체')">전체</a>
+										  <a onclick="userRequestList('진행중')">진행중</a>
+										  <a onclick="userRequestList('완료')">완료</a>
+										  <a onclick="userRequestList('반려')">반려</a>
 									</div>
 									<div class="card-body py-0 ">
 										<table class="table table-hover usertable table-striped">
@@ -169,42 +170,57 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>1</td>
-													<td class="tableContent"><a href="#">asdfasd내용내용fasdf</a></td>
-													<td>가족관계시스템</td>
-													<td>2023-09-09</td>
-													<td><span class="btn btn-sm btn-primary">진행중</span></td>
-												</tr>
-												<tr>
-													<td>2</td>
-													<td class="tableContent">asdfasd내용내용fasdf</td>
-													<td>주민등본시스템</td>
-													<td>2023-09-09</td>
-													<td><span class="btn btn-sm btn-danger">반려</span></td>
-												</tr>
-												<tr>
-													<td>3</td>
-													<td class="tableContent">asdasdfasdfasdddddddddddddddfasdffasd내용내용fasdf</td>
-													<td>주민등본시스템</td>
-													<td>2023-09-09</td>
-													<td><span class="btn btn-sm btn-info">완료</span></td>
-												</tr>
+												<c:forEach var="request" items="${userRequestList}">
+													<tr>
+														<td>${request.rno}</td>
+														<td class="tableContent">
+															<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
+																${request.reqTitle}
+															</a>
+														</td>
+														<td>${request.systemName}</td>
+														<td><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd"/></td>
+														<td><span class="btn btn-sm btn-primary">
+															<c:if test="${request.statusNo == 12}">
+																반려
+															</c:if>
+															<c:if test="${request.statusNo == 13}">
+																완료
+															</c:if>
+															<c:if test="${request.statusNo != 12 && request.statusNo != 13}">
+																진행중
+															</c:if>
+														</span></td>
+													</tr>
+												</c:forEach>
 											</tbody>
 										</table>
-										<nav aria-label="Page navigation">
-											  <ul class="pagination justify-content-center pagination-sm">
-											    <li class="page-item disabled">
-											      <a class="page-link">Previous</a>
-											    </li>
-											    <li class="page-item"><a class="page-link" href="#">1</a></li>
-											    <li class="page-item"><a class="page-link" href="#">2</a></li>
-											    <li class="page-item"><a class="page-link" href="#">3</a></li>
+										<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
+										    <li class="page-item"><a class="page-link" href="list?pageNo=1">처음</a></li>
+										    <c:if test="${uPager.groupNo>1}">
 											    <li class="page-item">
-											      <a class="page-link" href="#">Next</a>
+											    	<a class="page-link" href="list?pageNo=${uPager.startPageNo-1}">
+											    		<i class="fas fa-caret-left"></i>
+											    	</a>
 											    </li>
-											  </ul>
-											</nav>
+										    </c:if>
+										    <c:forEach var="i" begin="${uPager.startPageNo}" end="${uPager.endPageNo}">
+										    	<c:if test="${uPager.pageNo != i}">
+											    	<li class="page-item"><a class="page-link" href="list?pageNo=${i}">${i}</a></li>
+										    	</c:if>
+										    	<c:if test="${uPager.pageNo == i}">
+											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" href="list?pageNo=${i}">${i}</a></li>
+										    	</c:if>
+										    </c:forEach>
+										    <c:if test="${uPager.groupNo<pager.totalGroupNo}">
+											    <li class="page-item">
+											    	<a class="page-link" href="#">
+											    		<i class="fas fa-caret-right"></i>
+											   	 	</a>
+											    </li>
+										    </c:if>
+										    <li class="page-item"><a class="page-link" href="list?pageNo=${uPager.totalPageNo}">맨끝</a></li>
+										</ul>
 									</div>
 								</div>
 							</div>	               			
@@ -224,51 +240,46 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<th>1</th>
-													<td class="tableContent"><a href="#">asdfasd내용내용fasdf</a></td>
-													<td>송영훈</td>
-													<td>2023-09-09</td>
-												</tr>
-												<tr>
-													<th>2</th>
-													<td class="tableContent">asdfasd내용내용fasdf</td>
-													<td>강지성</td>
-													<td>2023-09-09</td>
-												</tr>
-												<tr>
-													<th>3</th>
-													<td class="tableContent">asdfasd내용내용fasdf</td>
-													<td>강지성</td>
-													<td>2023-09-09</td>
-												</tr>
-												<tr>
-													<th>4</th>
-													<td class="tableContent">asdfasd내용내용fasdf</td>
-													<td>강지성</td>
-													<td>2023-09-09</td>
-												</tr>
-												<tr>
-													<th>5</th>
-													<td class="tableContent">asdfasd내용내용fasdf</td>
-													<td>강지성</td>
-													<td>2023-09-09</td>
-												</tr>
+												<c:forEach var="notice" items="${noticeList}">
+													<tr>
+														<th>${notice.nno}</th>
+														<td class="tableContent">
+															<a href="${pageContext.request.contextPath}/noticedetail?nno=${notice.nno}">
+																${notice.noticeTitle}
+															</a>
+														</td>
+														<td>${notice.mid}</td>
+														<td><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd"/></td>
+													</tr>
+												</c:forEach>				
 											</tbody>
 										</table>
-											<nav aria-label="Page navigation">
-											  <ul class="pagination justify-content-center pagination-sm">
-											    <li class="page-item disabled">
-											      <a class="page-link">Previous</a>
-											    </li>
-											    <li class="page-item"><a class="page-link" href="#">1</a></li>
-											    <li class="page-item"><a class="page-link" href="#">2</a></li>
-											    <li class="page-item"><a class="page-link" href="#">3</a></li>
+										<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
+										    <li class="page-item"><a class="page-link" href="list?pageNo=1">처음</a></li>
+										    <c:if test="${nPager.groupNo>1}">
 											    <li class="page-item">
-											      <a class="page-link" href="#">Next</a>
+											    	<a class="page-link" href="list?pageNo=${nPager.startPageNo-1}">
+											    		<i class="fas fa-caret-left"></i>
+											    	</a>
 											    </li>
-											  </ul>
-											</nav>
+										    </c:if>
+										    <c:forEach var="i" begin="${nPager.startPageNo}" end="${nPager.endPageNo}">
+										    	<c:if test="${nPager.pageNo != i}">
+											    	<li class="page-item"><a class="page-link" href="list?pageNo=${i}">${i}</a></li>
+										    	</c:if>
+										    	<c:if test="${nPager.pageNo == i}">
+											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" href="list?pageNo=${i}">${i}</a></li>
+										    	</c:if>
+										    </c:forEach>
+										    <c:if test="${nPager.groupNo<pager.totalGroupNo}">
+											    <li class="page-item">
+											    	<a class="page-link" href="#">
+											    		<i class="fas fa-caret-right"></i>
+											   	 	</a>
+											    </li>
+										    </c:if>
+										    <li class="page-item"><a class="page-link" href="list?pageNo=${nPager.totalPageNo}">맨끝</a></li>
+										</ul>
 									</div>
 								
 								</div>
