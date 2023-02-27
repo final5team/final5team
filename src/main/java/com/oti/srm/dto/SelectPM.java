@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.ToString;
 
 @Data
-@ToString(exclude="files")
 public class SelectPM {
 //	member 항목
 	private String mtype; 

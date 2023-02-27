@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.ToString;
 
 @Data
-@ToString(exclude="files")
+@ToString(exclude= {"files","fileList"})
 public class Request {
 	private int rno;
 	private int sno;
