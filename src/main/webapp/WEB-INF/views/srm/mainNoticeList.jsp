@@ -42,7 +42,7 @@
     	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" onclick="mainNoticeList(${i})">${i}</a></li>
    	</c:if>
    </c:forEach>
-   <c:if test="${nPager.groupNo<pager.totalGroupNo}">
+   <c:if test="${nPager.groupNo<nPager.totalGroupNo}">
     <li class="page-item">
     	<a class="page-link" onclick="mainNoticeList(${nPager.endPageNo + 1})">
     		<i class="fas fa-caret-right"></i>
