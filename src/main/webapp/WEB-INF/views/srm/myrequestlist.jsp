@@ -395,7 +395,7 @@
 								</tr>
 
 								<c:forEach var="request" items="${requestList}">
-									<tr>
+									<tr onclick="location.href='${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}'" style="cursor:pointer;color:#blue;">
 										<td class="rno">${request.rno}</td>
 										<td class="client">${request.sno}</td>
 										<c:if test="${request.statusNo == 1}">
