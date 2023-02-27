@@ -327,7 +327,7 @@
 									<c:if test="${listFilter.statusValue == null}">
 										<select class="custom-select" id="statusNo" name="statusNo">
 											<option value="0" selected>전체</option>
-											<!-- 진행중 단계에 접수, 개발, 테슽, 배포 모두 포함 -->
+											<!-- 진행중 단계에 접수, 개발, 테스트, 배포 모두 포함 -->
 											<option value="2">진행중</option>
 											<option value="11">완료</option>
 											<option value="12">반려</option>

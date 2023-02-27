@@ -233,6 +233,7 @@ public class RequestController {
 		listFilter.setDateLast(date_last);
 		listFilter.setSno(sno);
 		listFilter.setStatusNo(statusNo);
+		listFilter.setPageNo(pageNo);
 		
 		ListFilter returnList = requestService.dateFilterList(listFilter);
 		
@@ -273,6 +274,7 @@ public class RequestController {
 		listFilter.setDateLast(date_last);
 		listFilter.setSno(sno);
 		listFilter.setStatusNo(statusNo);
+		listFilter.setPageNo(pageNo);
 		
 		ListFilter returnList = requestService.dateFilterList(listFilter);
 		

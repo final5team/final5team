@@ -22,4 +22,7 @@ public class ListFilter{
 	private Date date_first;
 	private Date date_last;
 	
+	//pageNo 저장
+	private int pageNo;
+	
 }
