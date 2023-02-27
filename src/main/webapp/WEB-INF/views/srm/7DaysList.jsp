@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<div style="height: 280px;">
+<div style="height: 288px;">
 	<table class="table  table-striped" id="devList" >
-		<thead>
+		<thead style="background-color: #3A4651;" class="text-white">
 			<tr style="text-align: center;">
 				<th>번호</th>
 				<th>시스템</th>

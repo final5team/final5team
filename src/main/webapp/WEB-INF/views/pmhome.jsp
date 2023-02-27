@@ -8,13 +8,6 @@
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
     
     <style type="text/css">
-     	.border-top-dark {
-		  border-top: 0.25rem solid #3A4651 !important;
-		}
-     	.border-top-danger {
-		  border-top: 0.25rem solid #ff4444 !important;
-		}
-	 
 	 .uppermain{
 	width: 250px;
 	}	 
@@ -136,9 +129,9 @@
 									</div>
 									<div class="card-block" style="height: 350px;" id ="sevenDaysListListContainer">
 										<!-- 개발리스트start -->
-										<div style="height: 280px;">
+										<div style="height: 288px;">
 											<table class="table  table-striped" id="devList" >
-												<thead>
+												<thead style="background-color: #3A4651;" class="text-white">
 													<tr style="text-align: center;">
 														<th>번호</th>
 														<th>시스템</th>
@@ -229,14 +222,14 @@
 							<!-- 오늘마감end -->
 							<!-- 공지사항 start -->
 							<div class="col-12 mb-4">
-								<div class="card border-left-danger shadow" style="height: 430.896px;">
+								<div class="card border-left-primary shadow" style="height: 430.896px;">
 									<div class="card-header">
 										<h3 class="title">공지사항</h3>
 									</div>
 									<div class="card-body" id="mainNoticeListContainer">
 										<div style="height: 290px;">
 											<table class="table table-hover usertable table-striped">
-												<thead>
+												<thead style="background-color: #72B22B;" class="text-white">
 													<tr style="text-align: center;">
 														<th>번호</th>
 														<th>제목</th>
@@ -274,7 +267,7 @@
 											    	<li class="page-item"><a class="page-link" onclick="mainNoticeList(${i})">${i}</a></li>
 										    	</c:if>
 										    	<c:if test="${nPager.pageNo == i}">
-											    	<li class="page-item"><a class="page-link" style="background-color: #FF4444; color: white;"onclick="mainNoticeList(${i})">${i}</a></li>
+											    	<li class="page-item"><a class="page-link" style="background-color: #72B22B; color: white;"onclick="mainNoticeList(${i})">${i}</a></li>
 										    	</c:if>
 										    </c:forEach>
 										    <c:if test="${nPager.groupNo<nPager.totalGroupNo}">

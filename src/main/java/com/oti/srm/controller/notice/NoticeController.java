@@ -47,7 +47,7 @@ public class NoticeController {
 			searchWord = "%" + searchWord + "%";
 		}
 		int count = noticeService.getNoticeListCount(searchType, searchWord, member.getMtype(), member.getSno());
-		Pager pager = new Pager(5, 5, count, pageNo);
+		Pager pager = new Pager(10, 5, count, pageNo);
 		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), pager,
 				member.getSno());
 		model.addAttribute("noticeList", noticeList);
