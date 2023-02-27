@@ -65,7 +65,7 @@ main {
 }
 
 .filter .filter-name h6 {
-	font-size: 14px;
+	font-size: 15px;
 	margin: 20px 10px;
 }
 
@@ -80,7 +80,6 @@ main {
 .filter .filter-name2 h6 {
 	font-size: 15px;
 	margin: 20px 10px;
-	font-size: 14px;
 }
 
 .filter .filter-body {
@@ -91,7 +90,7 @@ main {
 	left: 10%;
 	top: 34%;
 	float: left;
-	font-size: 13px;
+	font-size: 15px;
 }
 
 .filter .filter-body .input-group {
@@ -111,7 +110,7 @@ main {
 	left: 50%;
 	top: 34%;
 	float: left;
-	font-size: 13px;
+	font-size: 15px;
 }
 
 .filter .filter-body2 .input-group {
@@ -184,7 +183,7 @@ main {
 }
 
 .member th, .member td {
-	font-size: 12px;
+	font-size: 15px;
 	width: 1050px;
 	padding: 5px;
 	text-align: center;
@@ -193,8 +192,8 @@ main {
 }
 
 .member tr th {
-	background-color: var(--gray-dark);
-	color: #fff;
+	background-color: white;
+	color: black;
 }
 
 .member .step_td {

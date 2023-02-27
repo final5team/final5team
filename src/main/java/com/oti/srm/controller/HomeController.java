@@ -68,7 +68,7 @@ public class HomeController {
 		String searchWord = "";
 		String searchType = "";
 		int noticeTotalRows = noticeService.getNoticeListCount(searchType, searchWord, member.getMtype(), member.getSno());
-		Pager nPager = new Pager(5,5,noticeTotalRows,noticePageNo);
+		Pager nPager = new Pager(8,5,noticeTotalRows,noticePageNo);
 		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), nPager, member.getSno());
 		
 		log.info("requestProcessTotalRows" + requestProcessTotalRows);

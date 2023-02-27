@@ -48,7 +48,7 @@
                 <div id="noticelist" class="container">
                 	<h1>공지사항 목록</h1>
                 	<c:if test="${member.mtype == 'pm'}">
-                		<a href="${pageContext.request.contextPath}/noticewriteform" class="btn btn-sm btn-primary">공지사항 작성</a>
+                		<a href="${pageContext.request.contextPath}/noticewriteform" class="btn btn-sm btn-dark">공지사항 작성</a>
                 	</c:if>
                 	<form class="form-group form-inline mt-2" action="${pageContext.request.contextPath}/noticelist" method="get">
 					    <label for="searchType"></label>
@@ -57,11 +57,11 @@
 					        <option value="작성자" <c:if test="${searchType == '작성자'}">selected</c:if>>작성자</option>
 					    </select>
 					    <input type="text" class="form-control ml-2" name="searchWord" value="${searchWord}"/>
-					    <button type="submit" class="btn btn-sm btn-primary ml-2">검색</button>
+					    <button type="submit" class="btn btn-dark btn-sm ml-2">검색</button>
 					</form>
                		<hr/>
                 	<table class="table">
-					  <thead class="thead" style="background-color:#85ce36; color:white">
+					  <thead class="thead" style="background-color:white; color:black">
 					    <tr>
 					      <th scope="col">글번호</th>
 					      <th scope="col">제목</th>

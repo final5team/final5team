@@ -93,11 +93,11 @@
                 <!-- End of Topbar -->
 
                 <!-- 여기에 내용 담기 start -->
-                <div class="container-fluid">
+                <div class="container">
                 	<div id="main">
 	                	<!-- 상단부분start -->
 	                		<div class="row">
-	                			<div class="col-5">
+	                			<div class="col-5 ml-3">
 	                				<div class="card card-success shadow pd-2" style="height:140px;">
 	                					<div class="card-header" ></div>
                 						<div class="d-flex justify-content-center">
@@ -195,6 +195,7 @@
 												</c:forEach>
 											</tbody>
 										</table>
+
 										<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
 										    <li class="page-item"><a class="page-link" onclick="userRequestList(${searchStatus}, 1)">처음</a></li>
 										    <c:if test="${uPager.groupNo>1}">
@@ -268,7 +269,7 @@
 											    	<li class="page-item"><a class="page-link" onclick="mainNoticeList(${i})">${i}</a></li>
 										    	</c:if>
 										    	<c:if test="${nPager.pageNo == i}">
-											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" onclick="mainNoticeList(${i})">${i}</a></li>
+											    	<li class="page-item"><a class="page-link" style="background-color: #FF4444; color: white;" onclick="mainNoticeList(${i})">${i}</a></li>
 										    	</c:if>
 										    </c:forEach>
 										    <c:if test="${nPager.groupNo<pager.totalGroupNo}">
