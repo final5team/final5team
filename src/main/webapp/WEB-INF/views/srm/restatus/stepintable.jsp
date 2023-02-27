@@ -13,7 +13,6 @@
 --font-size-small: .75rem; 
 --font-size-default: .875rem;
 }
-												
 .progress_bar {
 display: flex;
 justify-content: space-between;
@@ -147,7 +146,6 @@ margin: 0 0 1rem 0;
 												.progress_bar a{
 													text-decoration: none;
 												}
-
 
 </style> 
 
