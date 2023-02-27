@@ -42,6 +42,7 @@
 		<!-- Divider -->
 		<hr class="sidebar-divider my-0">
 
+
 		<!-- Nav Item - Dashboard -->
 		<li class="nav-item">
 			<c:if test="${mtype eq 'user'}">
