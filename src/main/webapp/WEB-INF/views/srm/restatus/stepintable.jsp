@@ -280,11 +280,11 @@ margin: 0 0 1rem 0;
 			</a>
 		</li>
 		<li class="is_reject"><span>접수</span></li>
-		<li class="is_reject"><span>개발</span></li>
-		<li class="is_reject"><span>테스트</span></li>
-		<li class="is_reject"><span>유저테스트</span></li>
-		<li class="is_reject"><span>배포</span></li>
 		<li class="is_reject"><a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}"><span>반려</span></a></li>
+		<li class=""><span></span></li>
+		<li class=""><span></span></li>
+		<li class=""><span></span></li>
+		<li class=""><span></span></li>
 	</c:if>
 </ol>
 
