@@ -10,7 +10,7 @@
 		<th>제목</th>
 		<th>우선순위</th>
 		<th>현재단계</th>
-		<th>완료예정일</th>
+		<th>진행상황</th>
 	</tr>
 </thead>
 <tbody >
@@ -31,7 +31,29 @@
 					<span class="fa fa-star checked" style="color: orange;"></span>
 				</c:if>
 			</td>
-			<td>${dayRequest.statusName}</td>
+		    <td>
+				<c:if test="${dayRequest.statusName eq '접수중' || dayRequest.statusName eq '접수완료' }">
+					<span class="badge badge-warning">${dayRequest.statusName}</span>
+				</c:if>
+				<c:if test="${dayRequest.statusName eq '개발재검토' || dayRequest.statusName eq '반려' }">
+					<span class="badge badge-danger">${dayRequest.statusName}</span>
+				</c:if>
+				<c:if test="${dayRequest.statusName eq '개발중' || dayRequest.statusName eq '개발완료' }">
+					<span class="badge badge-primary">${dayRequest.statusName}</span>
+				</c:if>
+				<c:if test="${dayRequest.statusName eq '테스트중' || dayRequest.statusName eq '테스트완료' }">
+					<span class="badge badge-success">${dayRequest.statusName}</span>
+				</c:if>
+				<c:if test="${dayRequest.statusName eq '유저테스트중' || dayRequest.statusName eq '유저테스트완료' }">
+					<span class="badge badge-info">${dayRequest.statusName}</span>
+				</c:if>
+				<c:if test="${dayRequest.statusName eq '배포중' || dayRequest.statusName eq '배포완료' }">
+					<span class="badge badge-secondary">${dayRequest.statusName}</span>
+				</c:if>
+				<c:if test="${dayRequest.statusName eq '완료'}">
+					<span class="badge badge-dark">${dayRequest.statusName}</span>
+				</c:if>
+			</td>
 			<td><fmt:formatDate value="${dayRequest.allExpectDate}" pattern="yyyy-MM-dd"/></td>
 		</tr>
 	</c:forEach>		
