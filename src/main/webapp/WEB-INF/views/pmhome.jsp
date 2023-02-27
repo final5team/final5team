@@ -8,18 +8,6 @@
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
     
     <style type="text/css">
-     	.border-top-dark {
-		  border-top: 0.25rem solid #3A4651 !important;
-		}
-     	.border-top-danger {
-		  border-top: 0.25rem solid #ff4444 !important;
-		}
-		.tasks-block {
-	    overflow-y: scroll;
-	    overflow-x: hidden;
-	    margin: 0;
-	 }
-	 
 	 .uppermain{
 	width: 250px;
 		
@@ -136,70 +124,72 @@
                			<!-- 하단 오늘 마감 and 공지사항 start-->
 							<!-- 오늘마감start -->
 							<div class="col-12 my-4">
-								<div class="card tasks-block border-left-dark shadow" style="height: 420.896px;">
+								<div class="card border-left-dark shadow" style="height: 420.896px;">
 									<div class="card-header">
 			                			<h5 class="title">D-7 요청리스트</h5>
 									</div>
 									<div class="card-block" style="height: 350px;" id ="sevenDaysListListContainer">
 										<!-- 개발리스트start -->
-										<table class="table  table-striped" id="devList" >
-											<thead>
-												<tr style="text-align: center;">
-													<th>번호</th>
-													<th>시스템</th>
-													<th>요청유형</th>
-													<th>제목</th>
-													<th>우선순위</th>
-													<th>진행상황</th>
-													<th>완료예정일</th>
-												</tr>
-											</thead>
-											<tbody >
-												<c:forEach var="dayRequest" items="${listOf7daysLeft}">
+										<div style="height: 288px;">
+											<table class="table  table-striped" id="devList" >
+												<thead style="background-color: #3A4651;" class="text-white">
 													<tr style="text-align: center;">
-														<td>${dayRequest.rno}</td>
-														<td>${dayRequest.systemName}</td>
-														<td>${dayRequest.reqType}</td>
-														<td class="tableContent">${dayRequest.reqTitle}</td>
-														<td>
-															<c:if test="${dayRequest.priority eq '하' || dayRequest.priority eq '중' ||dayRequest.priority eq '상'}">
-																<span class="fa fa-star checked" style="color: orange;"></span>
-															</c:if>
-															<c:if test="${dayRequest.priority eq '중' || dayRequest.priority eq '상'}">
-																<span class="fa fa-star checked" style="color: orange;"></span>
-															</c:if>
-															<c:if test="${dayRequest.priority eq '상'}">
-																<span class="fa fa-star checked" style="color: orange;"></span>
-															</c:if>
-														</td>
-														<td>
-															<c:if test="${dayRequest.statusName eq '접수중' || dayRequest.statusName eq '접수완료' }">
-																<span class="badge badge-warning">${dayRequest.statusName}</span>
-															</c:if>
-															<c:if test="${dayRequest.statusName eq '개발재검토' || dayRequest.statusName eq '반려' }">
-																<span class="badge badge-danger">${dayRequest.statusName}</span>
-															</c:if>
-															<c:if test="${dayRequest.statusName eq '개발중' || dayRequest.statusName eq '개발완료' }">
-																<span class="badge badge-primary">${dayRequest.statusName}</span>
-															</c:if>
-															<c:if test="${dayRequest.statusName eq '테스트중' || dayRequest.statusName eq '테스트완료' }">
-																<span class="badge badge-success">${dayRequest.statusName}</span>
-															</c:if>
-															<c:if test="${dayRequest.statusName eq '유저테스트중' || dayRequest.statusName eq '유저테스트완료' }">
-																<span class="badge badge-info">${dayRequest.statusName}</span>
-															</c:if>
-															<c:if test="${dayRequest.statusName eq '배포중' || dayRequest.statusName eq '배포완료' }">
-																<span class="badge badge-secondary">${dayRequest.statusName}</span>
-															</c:if>
-															<c:if test="${dayRequest.statusName eq '완료'}">
-																<span class="badge badge-dark">${dayRequest.statusName}</span>
-															</c:if>
-														</td>
-														<td><fmt:formatDate value="${dayRequest.allExpectDate}" pattern="yyyy-MM-dd"/></td>
+														<th>번호</th>
+														<th>시스템</th>
+														<th>요청유형</th>
+														<th>제목</th>
+														<th>우선순위</th>
+														<th>진행상황</th>
+														<th>완료예정일</th>
 													</tr>
-												</c:forEach>		
-											</tbody>
-										</table>
+												</thead>
+												<tbody >
+													<c:forEach var="dayRequest" items="${listOf7daysLeft}">
+														<tr style="text-align: center;">
+															<td>${dayRequest.rno}</td>
+															<td>${dayRequest.systemName}</td>
+															<td>${dayRequest.reqType}</td>
+															<td class="tableContent">${dayRequest.reqTitle}</td>
+															<td>
+																<c:if test="${dayRequest.priority eq '하' || dayRequest.priority eq '중' ||dayRequest.priority eq '상'}">
+																	<span class="fa fa-star checked" style="color: orange;"></span>
+																</c:if>
+																<c:if test="${dayRequest.priority eq '중' || dayRequest.priority eq '상'}">
+																	<span class="fa fa-star checked" style="color: orange;"></span>
+																</c:if>
+																<c:if test="${dayRequest.priority eq '상'}">
+																	<span class="fa fa-star checked" style="color: orange;"></span>
+																</c:if>
+															</td>
+															<td>
+																<c:if test="${dayRequest.statusName eq '접수중' || dayRequest.statusName eq '접수완료' }">
+																	<span class="badge badge-warning">${dayRequest.statusName}</span>
+																</c:if>
+																<c:if test="${dayRequest.statusName eq '개발재검토' || dayRequest.statusName eq '반려' }">
+																	<span class="badge badge-danger">${dayRequest.statusName}</span>
+																</c:if>
+																<c:if test="${dayRequest.statusName eq '개발중' || dayRequest.statusName eq '개발완료' }">
+																	<span class="badge badge-primary">${dayRequest.statusName}</span>
+																</c:if>
+																<c:if test="${dayRequest.statusName eq '테스트중' || dayRequest.statusName eq '테스트완료' }">
+																	<span class="badge badge-success">${dayRequest.statusName}</span>
+																</c:if>
+																<c:if test="${dayRequest.statusName eq '유저테스트중' || dayRequest.statusName eq '유저테스트완료' }">
+																	<span class="badge badge-info">${dayRequest.statusName}</span>
+																</c:if>
+																<c:if test="${dayRequest.statusName eq '배포중' || dayRequest.statusName eq '배포완료' }">
+																	<span class="badge badge-secondary">${dayRequest.statusName}</span>
+																</c:if>
+																<c:if test="${dayRequest.statusName eq '완료'}">
+																	<span class="badge badge-dark">${dayRequest.statusName}</span>
+																</c:if>
+															</td>
+															<td><fmt:formatDate value="${dayRequest.allExpectDate}" pattern="yyyy-MM-dd"/></td>
+														</tr>
+													</c:forEach>		
+												</tbody>
+											</table>
+										</div>
 										<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
 										    <li class="page-item"><a class="page-link" onclick="sevenDaysList(1)">처음</a></li>
 										    <c:if test="${dPager.groupNo>1}">
@@ -233,35 +223,37 @@
 							<!-- 오늘마감end -->
 							<!-- 공지사항 start -->
 							<div class="col-12 mb-4">
-								<div class="card border-left-danger shadow" style="height: 430.896px;">
+								<div class="card border-left-primary shadow" style="height: 430.896px;">
 									<div class="card-header">
 										<h3 class="title">공지사항</h3>
 									</div>
 									<div class="card-body" id="mainNoticeListContainer">
-										<table class="table table-hover usertable table-striped">
-											<thead>
-												<tr style="text-align: center;">
-													<th>번호</th>
-													<th>제목</th>
-													<th>작성자</th>
-													<th>작성일</th>
-												</tr>
-											</thead>
-											<tbody>
-												<c:forEach var="notice" items="${noticeList}">
+										<div style="height: 290px;">
+											<table class="table table-hover usertable table-striped">
+												<thead style="background-color: #72B22B;" class="text-white">
 													<tr style="text-align: center;">
-														<th>${notice.nno}</th>
-														<td class="tableContent">
-															<a href="${pageContext.request.contextPath}/noticedetail?nno=${notice.nno}">
-																${notice.noticeTitle}
-															</a>
-														</td>
-														<td>${notice.mid}</td>
-														<td><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd"/></td>
+														<th>번호</th>
+														<th>제목</th>
+														<th>작성자</th>
+														<th>작성일</th>
 													</tr>
-												</c:forEach>				
-											</tbody>
-										</table>
+												</thead>
+												<tbody>
+													<c:forEach var="notice" items="${noticeList}">
+														<tr style="text-align: center;">
+															<th>${notice.nno}</th>
+															<td class="tableContent">
+																<a href="${pageContext.request.contextPath}/noticedetail?nno=${notice.nno}">
+																	${notice.noticeTitle}
+																</a>
+															</td>
+															<td>${notice.mid}</td>
+															<td><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd"/></td>
+														</tr>
+													</c:forEach>				
+												</tbody>
+											</table>
+										</div>
 										<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
 										    <li class="page-item"><a class="page-link" onclick="mainNoticeList(1)">처음</a></li>
 										    <c:if test="${nPager.groupNo>1}">
@@ -276,7 +268,7 @@
 											    	<li class="page-item"><a class="page-link" onclick="mainNoticeList(${i})">${i}</a></li>
 										    	</c:if>
 										    	<c:if test="${nPager.pageNo == i}">
-											    	<li class="page-item"><a class="page-link" style="background-color: #FF4444; color: white;"onclick="mainNoticeList(${i})">${i}</a></li>
+											    	<li class="page-item"><a class="page-link" style="background-color: #72B22B; color: white;"onclick="mainNoticeList(${i})">${i}</a></li>
 										    	</c:if>
 										    </c:forEach>
 										    <c:if test="${nPager.groupNo<nPager.totalGroupNo}">
