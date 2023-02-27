@@ -82,11 +82,16 @@
 				<i class="fas fa-fw fa-chart-area"></i>
 				<span>내 요청 목록</span></a>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/customer/requestlist">
-				<i class="fas fa-fw fa-chart-area"></i>
-				<span>담당 요청 목록</span></a>
-		</li>
+		
+		
+		<c:if test="${member.mtype != 'user'}">
+			<li class="nav-item">
+				<a class="nav-link" href="${pageContext.request.contextPath}/customer/requestlist">
+					<i class="fas fa-fw fa-chart-area"></i>
+					<span>담당 요청 목록</span></a>
+			</li>
+		</c:if>
+		
 
 		<li class="nav-item">
 			<a class="nav-link" href="${pageContext.request.contextPath}/noticelist">
