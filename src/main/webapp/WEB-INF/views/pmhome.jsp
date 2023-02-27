@@ -22,7 +22,8 @@
 	 
 	 .uppermain{
 	width: 250px;
-	}	 
+		
+}	 
 	 
 	 
     </style>

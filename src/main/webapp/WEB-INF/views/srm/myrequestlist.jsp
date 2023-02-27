@@ -317,9 +317,11 @@ main {
 										</c:if>
 									</div>
 									<div class="date_form">
-										<input type="date" id="date_first" name="date_first" style="border: 1px solid #d1d3e2;" value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> 
+										<input type="date" id="date_first" name="date_first" style="border: 1px solid #d1d3e2; border-radius: 5px;" 
+											value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> 
 										<i class="fa fa-minus"></i> 
-										<input type="date" id="date_last" name="date_last" style="border: 1px solid #d1d3e2;" value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
+										<input type="date" id="date_last" name="date_last" style="border: 1px solid #d1d3e2; border-radius: 5px;" 
+											value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
 									</div>
 								</article>
 								<article class="filter-body2">
