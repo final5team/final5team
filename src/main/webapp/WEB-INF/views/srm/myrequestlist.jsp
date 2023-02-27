@@ -418,6 +418,7 @@
 								</c:forEach>
 							</table>
 					</section>
+					
 					<div class="pager">
 						<div class="pagingButtonSet d-flex justify-content-center">
 							<a href="myrequestlist?pageNo=1&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
