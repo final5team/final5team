@@ -40,8 +40,6 @@
                 <div class="container-fluid">
                 	<div id="main">
 						<!-- 게시글 상세보기 start -->
-						<img src="${pageContext.request.contextPath}/resources/img/finished.jpg"
-									style="width:200px; height:150px;"/>
 						<!-- 요청정보 DIV START -->
 						<div class="card card-block sameheight-item mt-3" id= "<c:if test='${request.statusNo==13}'>requestInfo</c:if>" >
 							<h3 class="title-block font-weight-bold">						

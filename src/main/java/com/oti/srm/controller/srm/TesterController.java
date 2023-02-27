@@ -118,9 +118,9 @@ public class TesterController {
 	 */
 	@GetMapping("/testdone")
 	public String switchTestDone(int rno, HttpSession session) {
-		
 		Member member = (Member)session.getAttribute("member");
 		StatusHistory statusHistory = new StatusHistory();
+		statusHistory.setNextStatus(7);
 		statusHistory.setRno(rno);
 		statusHistory.setNextStatus(7);
 		statusHistory.setWriter(member.getMid());

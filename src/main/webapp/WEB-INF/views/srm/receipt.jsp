@@ -7,6 +7,62 @@
 <html lang="ko">
 
 <head>
+	<style>
+    	:root {
+          --line-fill: #87cd36;
+           --line-empty: #e0e0e0;
+           --now-fill: #F40730;
+      }
+       .container {
+           text-align: center;
+      }
+      
+       
+       .circle {
+           background-color: #fff;
+           color: #999;
+           height: 40px;
+           width: 150px;
+           font-size : 20px;
+           line-height : 40px;
+           border: 3px solid var(--line-empty);
+           transition: 0.4s ease;
+           border-radius: 10px;
+      }
+      .bar {
+           padding : 0px;
+           background-color: #fff;
+           color: #999;
+           height: 10px;
+           width: 10px;
+           align-items: center;
+           justify-content: center;
+           border: 3px solid var(--line-empty);
+           transition: 0.4s ease;
+           border-radius: 50%;
+      }
+      .bar:after{
+      	margin-bottom: 5px;
+      }
+      .circle.done {
+           border-color: var(--line-fill);
+           color : var(--line-fill);
+      }
+      
+      .circle.now {
+         border-color : var(--line-fill);
+         color : white;
+         background-color : var(--line-fill);
+      }
+      
+      .bar.active {
+           border-color: var(--line-fill);
+      }
+	 
+	 li {
+	 	list-style : none;
+	 }
+    </style>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script>
@@ -82,15 +138,16 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <%@ include file="/WEB-INF/views/common/topbar.jsp" %>
                 <!-- End of Topbar -->
 
                 <!-- 여기에 내용 담기 start -->
+                <div>
+
+                </div>
                 <div class="container-fluid">
                 	<div id="main">
 					<!-- 게시글 상세보기 start -->
-						<img src="${pageContext.request.contextPath}/resources/img/finished.jpg"
-									style="width:200px; height:150px;"/>
+						<%@ include file="/WEB-INF/views/srm/nowstatushorizon.jsp" %>
 						<div class="card card-block sameheight-item">
 							<h3 class="font-weight-bold">						
 								 요청 정보
