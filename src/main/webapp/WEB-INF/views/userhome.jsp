@@ -153,10 +153,10 @@
 										<h3 class="title">나의 요청 상황</h3>
 									</div>
 									<div class="topnav">
-										  <a class="active" onclick="userRequestList('전체', 1)">전체</a>
-										  <a onclick="userRequestList('진행중', 1)">진행중</a>
-										  <a onclick="userRequestList('완료', 1)">완료</a>
-										  <a onclick="userRequestList('반려', 1)">반려</a>
+										  <a id="one" class="active" onclick="userRequestList('전체', 1)">전체</a>
+										  <a id="two" onclick="userRequestList('진행중', 1)">진행중</a>
+										  <a id="three" onclick="userRequestList('완료', 1)">완료</a>
+										  <a id="four" onclick="userRequestList('반려', 1)">반려</a>
 									</div>
 									<div class="card-body py-0 " id="userRequestListContainer">
 										<table class="table table-hover usertable table-striped">
@@ -308,6 +308,31 @@
     
     <script>
     	function userRequestList(searchStatus, pageNo){
+    		if(searchStatus == '전체'){
+    			$('#one').css("background-color", "#98def7");
+    			$('#two').css("background-color", "white");
+    			$('#three').css("background-color", "white");
+    			$('#four').css("background-color", "white");
+	    	}
+    		else if(searchStatus == '진행중'){
+				$('#one').css("background-color", "white");
+    			$('#two').css("background-color", "#98def7");
+    			$('#three').css("background-color", "white");
+    			$('#four').css("background-color", "white");    			
+			}
+    		else if(searchStatus == '완료'){
+				$('#one').css("background-color", "white");
+    			$('#two').css("background-color", "white");
+    			$('#three').css("background-color", "#98def7");
+    			$('#four').css("background-color", "white");
+			}
+    		else if(searchStatus == '반려'){
+				$('#one').css("background-color", "white");
+    			$('#two').css("background-color", "white");
+    			$('#three').css("background-color", "white");
+    			$('#four').css("background-color", "#98def7");
+			}
+    		
     		$.ajax({
     			type: "GET", //요청 메소드 방식
     			url:"${pageContext.request.contextPath}/userrequestlist?myRequestPageNo=" + pageNo + "&searchStatus=" + searchStatus,
@@ -316,7 +341,7 @@
     				$('#userRequestListContainer').html(result);
     				console.log("success");
     			}
-    		})
+    		});
     	} 
     	
     	function mainNoticeList(pageNo){

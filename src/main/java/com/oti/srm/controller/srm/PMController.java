@@ -108,12 +108,12 @@ public class PMController {
 			// 접수 완료
 			int result=pMService.receipt(statusHistory, requestProcess);
 			if(result==1) {
-				return "srm/request"; ////////////목록 가든가 개발 상세 가든가
+				return "redirect:/customer/requestlist"; ////////////목록 가든가 개발 상세 가든가
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}		
-		return "redirect:/";
+		return "redirect:/customer/requestlist";
 	}
 	
 	/**
