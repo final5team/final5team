@@ -322,7 +322,10 @@ main {
 
 								</div>
 								<div class="date_form">
-									<input type="date" id="date_first" name="date_first" style="border: 1px solid #d1d3e2;" value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> <i class="fa fa-minus"></i> <input type="date" id="date_last" name="date_last" style="border: 1px solid #d1d3e2;" value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
+									<input type="date" id="date_first" name="date_first" style="border: 1px solid #d1d3e2; border-radius: 5px;" 
+									value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> <i class="fa fa-minus"></i> 
+									<input type="date" id="date_last" name="date_last" style="border: 1px solid #d1d3e2; border-radius: 5px;"  
+									value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
 								</div>
 							</article>
 							<article class="filter-body2">
@@ -415,13 +418,20 @@ main {
 									<td class="rno">${request.rno}</td>
 									<td class="client">${request.sno}</td>
 									<c:if test="${request.statusNo == 1}">
-										<td class="sysType">미정</td>
+										<td class="sysType"><span class="badge badge-warning">미정</span></td>
 									</c:if>
 									<c:if test="${request.statusNo == 12}">
-										<td class="sysType">반려</td>
+										<td class="sysType"><span class="badge badge-warning">반려</span></td>
 									</c:if>
 									<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
-										<td class="sysType">${request.reqType}</td>
+										<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
+											<c:if test="${request.reqType eq '정규'}">
+												<td class="sysType"><span class="badge badge-primary">${request.reqType}</span></td>
+											</c:if>
+											<c:if test="${request.reqType eq '긴급'}">
+												<td class="sysType"><span class="badge badge-danger">${request.reqType}</span></td>
+											</c:if>
+										</c:if>
 									</c:if>
 									<td class="reqTitle" style="max-width: 200px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
 									<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
