@@ -11,6 +11,12 @@
 a {
 	text-decoration: none;
 }
+	
+	.wrapper{
+		display : flex;
+		justify-content: center;
+		align-items: center;
+	}
 
 main {
 	display: flex;
@@ -20,7 +26,6 @@ main {
 	justify-content: center;
 	align-items: center;
 	font-size: 15px;
-	margin-left : 13%;
 }
 
 .filter {
@@ -265,7 +270,7 @@ main {
 				<!-- End of Topbar -->
 
 				<!-- 여기에 내용 담기 start -->
-
+				<div class="wrapper">
 					<main class="all">
 					<section class="filter">
 						<form action="requestlist" method="get">
@@ -459,9 +464,8 @@ main {
 							 		type="button" class="btn btn-muted shadow">▶▶</a>
 						</div>
 					</div>
-
 					</main>
-
+				</div>	
 			</div>
 		</div>
 		<!-- 여기에 내용 담기 end -->
