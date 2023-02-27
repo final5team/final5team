@@ -7,6 +7,14 @@
 <head>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <style>
+    #requestInfo {
+   		background-image: url('${pageContext.request.contextPath}/resources/img/finished.jpg');
+		background-repeat: no-repeat;
+		background-position: 100px 30px;
+		background-size: 200px;		
+    }
+    </style>
 </head>
 
 <body id="page-top">
@@ -113,7 +121,7 @@
 						</div>
 						<!-- 요청정보 DIV END -->
 						<!-- 단계별 처리 내역 start -->
-						<div class="card card-block sameheight-item mt-3 mb-3" id="requestInfo">
+						<div class="card card-block sameheight-item mt-3 mb-3" id="requestEndInfo">
 							<h3 class="title-block font-weight-bold">						
 								 단계별 처리 내역
 							</h3>
@@ -127,32 +135,34 @@
 							      </tr>
 							   </thead>
 							   <tbody>
-							      <tr>
-							        <td>개발</td>
-							        <td>${reqProcess.developer}</td>
-							        <td><fmt:formatDate value="${reqProcess.devExpectDate}" pattern="yyyy-MM-dd"/></td>
-							        <td><fmt:formatDate value="${reqProcess.devCompDate}" pattern="yyyy-MM-dd"/></td>
-							     </tr>
-							     <tr>
-							        <td>테스트</td>
-							        <td>${reqProcess.tester}</td>
-							        <td><fmt:formatDate value="${reqProcess.testExpectDate}" pattern="yyyy-MM-dd"/></td>
-							        <td><fmt:formatDate value="${reqProcess.testCompDate}" pattern="yyyy-MM-dd"/></td>
-							     </tr>
-							     <c:if test="${reqProcess.reqType eq '정규'}">
-								     <tr>
-								        <td>유저 테스트</td>
-								        <td>${reqProcess.userTester}</td>
-								        <td><fmt:formatDate value="${reqProcess.userTestExpectDate}" pattern="yyyy-MM-dd"/></td>
-								        <td><fmt:formatDate value="${reqProcess.userTestCompDate}" pattern="yyyy-MM-dd"/></td>
-								     </tr>
-							     </c:if>
-							     <tr>
-							        <td>배포</td>
-							        <td>${reqProcess.distributor}</td>
-							        <td><fmt:formatDate value="${reqProcess.distExpectDate}" pattern="yyyy-MM-dd"/></td>
-							        <td><fmt:formatDate value="${reqProcess.distCompDate}" pattern="yyyy-MM-dd"/></td>
-							     </tr>
+							   	 	<c:if test="${member.mtype !='user'}">
+									     <tr>
+									        <td>개발</td>
+									        <td>${reqProcess.developer}</td>
+									        <td><fmt:formatDate value="${reqProcess.devExpectDate}" pattern="yyyy-MM-dd"/></td>
+									        <td><fmt:formatDate value="${reqProcess.devCompDate}" pattern="yyyy-MM-dd"/></td>
+									     </tr>
+									     <tr>
+									        <td>테스트</td>
+									        <td>${reqProcess.tester}</td>
+									        <td><fmt:formatDate value="${reqProcess.testExpectDate}" pattern="yyyy-MM-dd"/></td>
+									        <td><fmt:formatDate value="${reqProcess.testCompDate}" pattern="yyyy-MM-dd"/></td>
+									     </tr>
+									     <c:if test="${reqProcess.reqType eq '정규'}">
+										     <tr>
+										        <td>유저 테스트</td>
+										        <td>${reqProcess.userTester}</td>
+										        <td><fmt:formatDate value="${reqProcess.userTestExpectDate}" pattern="yyyy-MM-dd"/></td>
+										        <td><fmt:formatDate value="${reqProcess.userTestCompDate}" pattern="yyyy-MM-dd"/></td>
+										     </tr>
+									     </c:if>
+									     <tr>
+									        <td>배포</td>
+									        <td>${reqProcess.distributor}</td>
+									        <td><fmt:formatDate value="${reqProcess.distExpectDate}" pattern="yyyy-MM-dd"/></td>
+									        <td><fmt:formatDate value="${reqProcess.distCompDate}" pattern="yyyy-MM-dd"/></td>
+									     </tr>
+							     	</c:if>
 							     <tr>
 							        <td>최종 승인</td>
 							        <td>${reqProcess.pm}</td>
