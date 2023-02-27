@@ -322,8 +322,6 @@
 			    from requests r left join request_process rp
                 on r.rno = rp.rno
 		]]>
-			
-			
 		<where>
 			client = #{member.mid}
 			<if test='listFilter.reqType neq "전체"'>
