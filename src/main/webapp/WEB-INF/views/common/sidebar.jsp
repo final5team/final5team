@@ -103,11 +103,6 @@
 					<span>현황통계</span></a>
 			</li>
 		</c:if>
-		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/customer/mypage">
-				<i class="fas fa-fw fa-chart-area"></i>
-				<span>마이페이지</span></a>
-		</li>
 		<c:if test="${member.mtype == 'pm'}">
 			<li class="nav-item">
 				<a class="nav-link" href="${pageContext.request.contextPath}/customer/register">
