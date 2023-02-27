@@ -10,6 +10,8 @@ public class ListFilter{
 	private String dateLast;
 	private int sno;
 	private int statusNo;
+	// 시스템 이름
+	private String systemName;
 	
 	
 	private String dateValue;

@@ -106,7 +106,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	public List<SelectPM> getMyWorkList(Request request, ListFilter listFilter, Pager pager, Member member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("request", request);
-		map.put("listFilter", statusFilterList(dateFilterList(listFilter)));
+		map.put("listFilter", statusFilterList(dateFilterList(sysName(listFilter))));
 		map.put("pager", pager);
 		map.put("member", member);
 		
@@ -132,7 +132,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	public List<SelectPM> getMyRequestList(Request request, ListFilter listFilter, Pager pager, Member member){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("request", request);
-		map.put("listFilter", statusFilterList(dateFilterList(listFilter)));
+		map.put("listFilter", statusFilterList(dateFilterList(sysName(listFilter))));
 		map.put("pager", pager);
 		map.put("member", member);
 		
@@ -156,7 +156,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	
 	
 	
-	
+//	DB에 없거나, mapper에서 편하게 사용하기 위해 정의 내려준 메소드
 
 	//날짜 필터링 메소드
 	public ListFilter dateFilterList(ListFilter listFilter) {
@@ -219,6 +219,21 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 			//12 반려
 		} else if(listFilter.getStatusNo() == 12) {
 			listFilter.setStatusValue("반려");
+		}
+		
+		return listFilter;
+	}
+	// 서비스 이름명 주입
+	public ListFilter sysName(ListFilter listFilter) {
+		
+		if(listFilter.getSno() == 1) {
+			listFilter.setSystemName("가족관계정보시스템");
+		} else if(listFilter.getSno() == 2) {
+			listFilter.setSystemName("등본관리");
+		} else if(listFilter.getSno() == 3) {
+			listFilter.setSystemName("3번시스템");
+		} else if(listFilter.getSno() == 4) {
+			listFilter.setSystemName("4번시스템");
 		}
 		
 		return listFilter;

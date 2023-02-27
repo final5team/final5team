@@ -361,9 +361,8 @@
 										
 										
 										<c:if test="${listFilter.sno != 0}">
-											<option value="${listFilter.sno}" selected>${listFilter.sno}</option>
+											<option value="${listFilter.sno}" selected>${listFilter.systemName}</option>
 											<c:forEach var="system" items="${systemList}">
-											
 											
 												<c:if test="${system.sno != listFilter.sno}">
 													<option value="${system.sno}">${system.systemName}</option>
@@ -380,6 +379,7 @@
 							</article>
 						</form>
 					</section>
+					
 					<section class="table">
 						<article class="table-header">
 							<h4>내 요청 목록</h4>
