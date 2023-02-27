@@ -4,7 +4,7 @@
 <div style="height: 290px;">
 	<table class="table table-hover usertable table-striped">
 		<thead>
-			<tr>
+			<tr style="text-align: center;">
 				<th>번호</th>
 				<th>제목</th>
 				<th>작성자</th>
@@ -13,7 +13,7 @@
 		</thead>
 		<tbody>
 			<c:forEach var="notice" items="${noticeList}">
-				<tr>
+				<tr style="text-align: center;">
 					<td>${notice.nno}</td>
 					<td class="tableContent">
 						<a href="${pageContext.request.contextPath}/noticedetail?nno=${notice.nno}">
@@ -41,7 +41,7 @@
 	    	<li class="page-item"><a class="page-link" onclick="mainNoticeList(${i})">${i}</a></li>
     	</c:if>
     	<c:if test="${nPager.pageNo == i}">
-	    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" onclick="mainNoticeList(${i})">${i}</a></li>
+	    	<li class="page-item"><a class="page-link" style="background-color: #FF4444; color: white;" onclick="mainNoticeList(${i})">${i}</a></li>
     	</c:if>
     </c:forEach>
     <c:if test="${nPager.groupNo<nPager.totalGroupNo}">
