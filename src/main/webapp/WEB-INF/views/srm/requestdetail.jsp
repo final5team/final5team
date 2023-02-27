@@ -43,8 +43,8 @@ form {
 	left: 0;
 	background-color: #f8f9fc;
 	border-bottom: 1px solid #e3e6f0;
+	height : 54px;
 }
-
 .section1 h4 {
 	color: #5a5c69;
 	font: bold;
@@ -449,7 +449,7 @@ article.include div {
 
 				<!-- 여기에 내용 담기 start -->
 				<div class="wrapper">
-					<form method="post" action="${pageContext.request.contextPath}/customer/request" enctype="multipart/form-data">
+					<form method="post" class="border-left-dark" action="${pageContext.request.contextPath}/customer/request" enctype="multipart/form-data">
 						<section class="section1">
 							<h4>요청 조회, 수정</h4>
 						</section>
