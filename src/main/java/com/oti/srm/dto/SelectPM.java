@@ -5,8 +5,10 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString(exclude="files")
 public class SelectPM {
 //	member 항목
 	private String mtype; 

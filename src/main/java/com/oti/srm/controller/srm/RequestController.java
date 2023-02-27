@@ -320,6 +320,7 @@ public class RequestController {
 		Request request = requestService.getRequestDetail(rno);
 		List<System> systemList = userRegisterService.getSystemList();
 		
+		log.info(request);
 		model.addAttribute("request", request);
 		model.addAttribute("systemList", systemList);
 		return "srm/requestdetail";
