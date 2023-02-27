@@ -65,7 +65,7 @@ public interface ICommonDao {
 	public int selectRequestReexam(Member member);
 	
 	//pm일 경우 반려 요청 개수 출력
-	public int selectRequestReject(Member member);
+	public int selectRequestReject();
 	
 	//7일 남은 리스트 출력
 	public int selectListOf7daysLeftCount(Member member);
