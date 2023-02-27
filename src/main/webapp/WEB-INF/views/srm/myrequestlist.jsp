@@ -213,10 +213,18 @@
 		top: 60%;
 		z-index: 5;
 	}
+	.filter .write-button{
+	position: absolute;
+	width: 120px;
+	height: 50px;
+	left: 68%;
+	top: 60%;
+	z-index: 5;
+	}
 	.pager{
 	position: absolute;
 	left: 30%;
-	top : 100%;
+	top : 94%;
 	width : 350px;
 	}
 	.pager .write{
@@ -281,6 +289,9 @@
 							<article class="search-button">
 								<button class="btn btn-dark btn-sm" type="submit">검색</button>
 							</article>
+							<article class="write-button">
+								<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-dark btn-sm write">요청 작성</a>
+							</article>
 							<article class="filter-body">
 								<div class="input-group">
 									<c:if test="${listFilter.reqType == null}">
@@ -316,9 +327,8 @@
 									<c:if test="${listFilter.statusValue == null}">
 										<select class="custom-select" id="statusNo" name="statusNo">
 											<option value="0" selected>전체</option>
-											<option value="1">접수</option>
-											<!-- 개발 단계에 개발, 테슽, 배포 모두 포함 -->
-											<option value="2">개발</option>
+											<!-- 진행중 단계에 접수, 개발, 테슽, 배포 모두 포함 -->
+											<option value="2">진행중</option>
 											<option value="11">완료</option>
 											<option value="12">반려</option>
 										</select>
@@ -327,11 +337,8 @@
 										<select class="custom-select" id="statusNo" name="statusNo">
 											<option value="${listFilter.statusNo}" selected>${listFilter.statusValue}</option>
 											<option value="0">전체</option>
-											<c:if test="${listFilter.statusNo != 1}">
-												<option value="1">접수</option>
-											</c:if>
 											<c:if test="${listFilter.statusNo != 2}">
-												<option value="2">개발</option>
+												<option value="2">진행중</option>
 											</c:if>
 											<c:if test="${listFilter.statusNo != 11 && listFilter.statusNo != 13}">
 												<option value="11">완료</option>

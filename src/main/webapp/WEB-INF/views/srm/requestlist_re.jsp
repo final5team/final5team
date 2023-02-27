@@ -213,10 +213,18 @@ width: 500px;
 	top: 60%;
 	z-index: 5;
 }
+.filter .write-button{
+	position: absolute;
+	width: 120px;
+	height: 50px;
+	left: 68%;
+	top: 60%;
+	z-index: 5;
+}
 	.pager{
 	position: absolute;
 	left: 30%;
-	top : 100%;
+	top : 94%;
 	width : 350px;
 	}
 	.pager .write{
@@ -279,6 +287,9 @@ width: 500px;
 							</article>
 							<article class="search-button">
 								<button class="btn btn-dark btn-sm" type="submit">검색</button>
+							</article>
+							<article class="write-button">
+								<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-dark btn-sm write">요청 작성</a>
 							</article>
 							<article class="filter-body">
 								<div class="input-group">
@@ -447,7 +458,6 @@ width: 500px;
 						</c:if>
 						<a href="requestlist?pageNo=${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
 					</div>
-					<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-muted shadow write">요청 작성</a>
 				</div>
 					
 					</main>
