@@ -245,7 +245,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	public ListFilter sysName(ListFilter listFilter) {
 		
 		if(listFilter.getSno() == 1) {
-			listFilter.setSystemName("가족관계정보시스템");
+			listFilter.setSystemName("가족관계정보");
 		} else if(listFilter.getSno() == 2) {
 			listFilter.setSystemName("등본관리");
 		} else if(listFilter.getSno() == 3) {

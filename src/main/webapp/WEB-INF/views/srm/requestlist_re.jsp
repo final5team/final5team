@@ -227,7 +227,7 @@ main {
 .pager {
 	position: absolute;
 	left: 30%;
-	top: 94%;
+	top: 85%;
 	width: 350px;
 }
 
@@ -375,22 +375,14 @@ main {
 													<option value="${system.sno}">${system.systemName}</option>
 												</c:forEach>
 											</c:if>
-
-
 											<c:if test="${listFilter.sno != 0}">
 												<option value="${listFilter.sno}" selected>${listFilter.systemName}</option>
 												<c:forEach var="system" items="${systemList}">
-
-
 													<c:if test="${system.sno != listFilter.sno}">
 														<option value="${system.sno}">${system.systemName}</option>
 													</c:if>
-
 												</c:forEach>
-
 											</c:if>
-
-
 										</select>
 									</div>
 								</c:if>

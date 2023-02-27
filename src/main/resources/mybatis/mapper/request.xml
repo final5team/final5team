@@ -248,8 +248,8 @@
 			</if>
 		</where>
 		order by r.req_date desc
-		) j offset (#{pager.startRowNo}-1) rows fetch
-		next (#{pager.endRowNo}-1) rows only
+		) j offset (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS 
+			fetch first (#{pager.rowsPerPage}) rows only
 	</select>
 
 	<select id="countRequestRows" parameterType="hashmap"
@@ -307,7 +307,7 @@
 				]]>
 				</if>
 			</if>
-			order by req_date desc )
+			order by req_date desc)
 			
 		</where>
 	</select>
@@ -369,8 +369,9 @@
 			
 		</where>
 		order by req_date desc
-		) t offset (#{pager.startRowNo}-1) rows fetch
-		next (#{pager.endRowNo}-1) rows only
+		) t offset (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS 
+			fetch first (#{pager.rowsPerPage}) rows only
+		
 	</select>
 
 

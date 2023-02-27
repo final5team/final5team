@@ -266,18 +266,6 @@ public class RequestController {
 
 		// 필터에 출력할 시스템 리스트 조회
 		List<System> systemList = userRegisterService.getSystemList();
-//		
-//		if(date_first.equals(0)) {
-//			date_first = "";
-//		} else if(date_last.equals(0)){
-//			date_last = "";
-//		} else if(date_first.equals(0) && date_last.equals(0)) {
-//			date_first = "";
-//			date_last = "";
-//		}
-		
-		log.info(date_first);
-		log.info(date_last);
 		
 		// 전달받은 필터 값 저장
 		ListFilter listFilter = new ListFilter();
@@ -296,13 +284,17 @@ public class RequestController {
 		request.setMid(member.getMid());
 		// 보여줄 행 수 조회
 		int totalRows = requestService.getMyWorkRows(listFilter, member);
-
+		
+		log.info("검색 전체행수 : " + totalRows);
+		
+		
 		Pager pager = new Pager(7, 5, totalRows, pageNo);
 		log.info(pager.getStartRowNo());
 		log.info(pager.getEndRowNo());
 		
 		List<SelectPM> requestList = requestService.getMyWorkList(request, listFilter, pager, member);
 		
+		log.info("출력할 행 개수(사이즈)" +requestList.size());
 		// 시스템 리스트 전달
 		model.addAttribute("systemList", systemList);
 		// 목록 리스트와 페이지 return
