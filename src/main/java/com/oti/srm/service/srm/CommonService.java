@@ -226,7 +226,7 @@ public class CommonService implements ICommonService {
 		//개발자 - 재검토 요청 개수 가져오기
 		int requestReexam = commonDao.selectRequestReexam(member);
 		//pm - 반려건 개수 가져오기
-		int requestReject = commonDao.selectRequestReject(member);
+		int requestReject = commonDao.selectRequestReject();
 		
 		map.put("requestRecent", requestRecent);
 		map.put("requestInProgress", requestInProgress);
