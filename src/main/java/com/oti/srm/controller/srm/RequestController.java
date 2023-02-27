@@ -74,7 +74,8 @@ public class RequestController {
 		String address = member.getPostcode() + "-" + member.getAddr1() + "-" + member.getAddr2();
 		member.setAddress(address);
 		MultipartFile mfile = member.getMfile();
-
+		log.info("유저 등록");
+		
 		try {
 			if (mfile != null && !mfile.isEmpty()) {
 				member.setFileName(mfile.getOriginalFilename());
@@ -136,7 +137,7 @@ public class RequestController {
 		
 		if(returnMember.getMfile() == null) {
 			
-			returnMember = userRegisterService.getUserInfo("가입Test");
+			returnMember = userRegisterService.getUserInfo("img");
 			
 		}
 		HttpHeaders headers = new HttpHeaders();
@@ -171,6 +172,7 @@ public class RequestController {
 		return "srm/request";
 	}
 
+	
 	/**
 	 * 요청 등록 폼 작성
 	 */
