@@ -327,7 +327,7 @@
 									<c:if test="${listFilter.statusValue == null}">
 										<select class="custom-select" id="statusNo" name="statusNo">
 											<option value="0" selected>전체</option>
-											<!-- 진행중 단계에 접수, 개발, 테슽, 배포 모두 포함 -->
+											<!-- 진행중 단계에 접수, 개발, 테스트, 배포 모두 포함 -->
 											<option value="2">진행중</option>
 											<option value="11">완료</option>
 											<option value="12">반려</option>
@@ -419,29 +419,35 @@
 							</table>
 					</section>
 					<div class="pager">
-					<div class="pagingButtonSet d-flex justify-content-center">
-						<a href="requestlist?pageNo=1" type="button" class="btn btn-muted shadow">◀◀</a>
-						<c:if test="${pager.groupNo > 1}">
-							<a href="requestlist?pageNo=${pager.startPageNo-1}" type="button" class="btn btn-muted shadow">◀</a>
-						</c:if>
-
-						<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
-							<c:if test="${pager.pageNo != i}">
-								<a href="requestlist?pageNo=${i}" type="button" class="btn btn-white shadow">${i}</a>
+						<div class="pagingButtonSet d-flex justify-content-center">
+							<a href="requestlist?pageNo=1&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
+								type="button" class="btn btn-muted shadow">◀◀</a>
+							<c:if test="${pager.groupNo > 1}">
+								<a href="requestlist?pageNo=${pager.startPageNo-1}
+								&req_type=${listFilter.reqType}&date_first=${listFilter.date_first}$date_last=${listFilter.date_last}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
+								 type="button" class="btn btn-muted shadow">◀</a>
 							</c:if>
-							<c:if test="${pager.pageNo == i}">
-								<a href="requestlist?pageNo=${i}" type="button" class="btn btn-dark shadow">${i}</a>
+
+							<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
+								<c:if test="${pager.pageNo != i}">
+									<a href="requestlist?pageNo=${i}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
+							 				type="button" class="btn btn-white shadow">${i}</a>
+								</c:if>
+								<c:if test="${pager.pageNo == i}">
+									<a href="requestlist?pageNo=${i}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
+											type="button" class="btn btn-dark shadow">${i}</a>
+								</c:if>
+							</c:forEach>
+
+							<c:if test="${pager.groupNo < pager.totalGroupNo }">
+								<a href="requestlist?pageNo=${pager.endPageNo+1}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
+										type="button" class="btn btn-muted shadow">▶</a>
+
 							</c:if>
-						</c:forEach>
-
-						<c:if test="${pager.groupNo < pager.totalGroupNo }">
-							<a href="requestlist?pageNo=${pager.endPageNo+1}" type="button" class="btn btn-muted shadow">▶</a>
-
-						</c:if>
-						<a href="requestlist?pageNo=${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
+							<a href="requestlist?pageNo=${pager.totalPageNo}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
+							 		type="button" class="btn btn-muted shadow">▶▶</a>
+						</div>
 					</div>
-					<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-muted shadow write">요청 작성</a>
-				</div>
 					</main>
 				</div>
 				

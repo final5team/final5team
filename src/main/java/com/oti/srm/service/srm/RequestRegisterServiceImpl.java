@@ -120,7 +120,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	@Override
 	public int getRequestListRows(ListFilter listFilter, Member member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("listFilter", statusFilterList(dateFilterList(listFilter)));
+		map.put("listFilter", myStatusFilterList(dateFilterList(listFilter)));
 		map.put("member", member);
 		
 		int rows = requestDao.countRequestRows(map);
@@ -132,7 +132,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	public List<SelectPM> getMyRequestList(Request request, ListFilter listFilter, Pager pager, Member member){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("request", request);
-		map.put("listFilter", statusFilterList(dateFilterList(sysName(listFilter))));
+		map.put("listFilter", myStatusFilterList(dateFilterList(sysName(listFilter))));
 		map.put("pager", pager);
 		map.put("member", member);
 		
@@ -196,7 +196,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		}
 		return listFilter;
 	}
-	//단계 필터링 메소드
+	//업무 처리 단계 필터링 메소드
 	public ListFilter statusFilterList(ListFilter listFilter) {
 			//1 접수
 		if(listFilter.getStatusNo() == 1) {
@@ -223,6 +223,24 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		
 		return listFilter;
 	}
+	
+	//내 요청 목록 단계 필터링 메소드
+		public ListFilter myStatusFilterList(ListFilter listFilter) {
+				//1 접수
+			if(listFilter.getStatusNo() == 2) {
+				listFilter.setStatusValue("진행중");
+				
+			} else if(listFilter.getStatusNo()  == 11 || listFilter.getStatusNo()  == 13) {
+				listFilter.setStatusValue("완료");
+				//12 반려
+			} else if(listFilter.getStatusNo() == 12) {
+				listFilter.setStatusValue("반려");
+			}
+			
+			return listFilter;
+		}
+	
+	
 	// 서비스 이름명 주입
 	public ListFilter sysName(ListFilter listFilter) {
 		
@@ -238,6 +256,8 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		
 		return listFilter;
 	}
+	
+	
 
 	
 
