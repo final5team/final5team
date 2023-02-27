@@ -156,6 +156,14 @@ public class PMController {
 		return "redirect:/pm/enddetail?rno=" + statusHistory.getRno();
 	}
 	
+	/**
+	 * 
+	 * @author: KIM JI YOUNG
+	 * @param rno
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	// 완료 후 상세보기
 	@RequestMapping("/enddetail")
 	public String endDetail(int rno, HttpSession session, Model model) {
