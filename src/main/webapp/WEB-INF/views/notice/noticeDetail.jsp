@@ -22,6 +22,9 @@
      	width : 20px;
      	height : 20px;
      }
+     .card.card-dark > .card-header {
+    background-color: #3A4651;
+	}
     </style>
 </head>
 
@@ -45,66 +48,92 @@
                 <!-- End of Topbar -->
 
                 <!-- 여기에 내용 담기 start -->
-                <div id="noticeDetail" class="container">
-                	<h1>공지사항 조회</h1>
-               		<h6>작성일 : <fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd"/></h6>
-                	<h6>작성자 : ${notice.mid}</h6>
-               		<hr/>
- 
-                	<div class="row p-2">
-				    	<div class="col-2">시스템</div>
-				    	<input type="text" class="form-control col-10" value="${notice.systemName}" readonly/>
+                <div class="container">
+                	<!-- main start -->
+                	<div id="main">
+                		<div class="card card-dark">
+                			<div class="card-header">
+                			</div>
+                			<div class="d-flex">
+	                			<h1 class="title ml-4 mt-3">공지사항 조회</h1>
+	                			<div class="ml-auto mr-4 mt-2">
+				               		<h6>작성일 : <fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd"/></h6>
+				                	<h6>작성자 : ${notice.mid}</h6>
+	                			</div>
+                			</div>
+                			<hr>
+                			<div class="card-body">
+                				<div class="row p-2">
+							    	<div class="col-2 d-flex justify-content-end">
+							    		<span style="font-size: 18px;">시스템</span>
+							    	</div>
+							    	<input type="text" class="form-control boxed col-9" value="${notice.systemName}" readonly/>
+							  	</div>
+							  	<div class="row p-2">
+							    	<div class="col-2 d-flex justify-content-end">
+							    		<span style="font-size: 18px;">공개 설정</span>
+							    	</div>
+							    	<div class="col-9">
+							    	<c:if test="${notice.userShow == 'Y'}">
+							    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
+								    	<span class="mr-1">고객</span>
+							    	</c:if>
+							    	<c:if test="${notice.devShow == 'Y'}">
+							    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
+								    	<span class="mr-1">개발자</span>
+							    	</c:if>
+							    	<c:if test="${notice.testerShow == 'Y'}">
+							    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
+								    	<span class="mr-1">테스터</span>
+							    	</c:if>
+							    	<c:if test="${notice.userTesterShow == 'Y'}">
+							    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
+								    	<span class="mr-1">고객테스터</span>
+							    	</c:if>
+							    	<c:if test="${notice.distributorShow == 'Y'}">
+							    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
+								    	<span class="mr-1">배포담당자</span>
+							    	</c:if>
+							    	</div>
+							  	</div>
+							  	<div class="row p-2">
+							    	<div class="col-2 d-flex justify-content-end">
+							    		<span style="font-size: 18px;">제목</span>
+							    	</div>
+							    	<input type="text" class="form-control boxed col-9" value="${notice.noticeTitle}" readonly/>
+							  	</div>
+							    <div class="row p-2">
+							    	<div class="col-2 d-flex justify-content-end">
+							    		<span style="font-size: 18px;">내용</span>
+							    	</div>
+							    	<textarea class="form-control boxed col-9" rows="10" readonly>${notice.noticeContent}</textarea>
+							    </div>
+							  	<div class="row p-2">
+							  		<div class="col-2 d-flex justify-content-end">
+							    		<span style="font-size: 18px;">첨부파일</span>
+							    	</div>
+							  		<div class="col-9">
+							    		<c:forEach var="noticeFile" items="${notice.fileList}">
+							    			<div>
+								    			<a href="${pageContext.request.contextPath}/noticefiledownload?fno=${noticeFile.fno}">${noticeFile.fileName}</a>
+							    			</div>
+							    		</c:forEach>
+						    		</div>
+							  	</div>
+							  	<div class="d-flex justify-content-end">
+								  	<a href="${pageContext.request.contextPath}/noticelist" class="btn btn-sm btn-primary">목록</a>
+								  	<c:if test="${member.mid == notice.mid}">
+								  		<a href="${pageContext.request.contextPath}/noticeupdateform?nno=${notice.nno}" class="btn btn-sm btn-info mx-2">수정</a>
+								  		<a href="${pageContext.request.contextPath}/noticedelete?nno=${notice.nno}" class="btn btn-sm btn-danger">삭제</a>
+								  	</c:if>
+							  	</div>
+                			
+                			</div> <!-- card-body end -->
+                		</div>
+	                	
 				  	</div>
-				  	<div class="row p-2">
-				    	<div class="col-2">공개 설정</div>
-				    	<div class="col-10">
-				    	<c:if test="${notice.userShow == 'Y'}">
-				    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
-					    	<span class="mr-1">고객</span>
-				    	</c:if>
-				    	<c:if test="${notice.devShow == 'Y'}">
-				    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
-					    	<span class="mr-1">개발자</span>
-				    	</c:if>
-				    	<c:if test="${notice.testerShow == 'Y'}">
-				    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
-					    	<span class="mr-1">테스터</span>
-				    	</c:if>
-				    	<c:if test="${notice.userTesterShow == 'Y'}">
-				    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
-					    	<span class="mr-1">고객테스터</span>
-				    	</c:if>
-				    	<c:if test="${notice.distributorShow == 'Y'}">
-				    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
-					    	<span class="mr-1">배포담당자</span>
-				    	</c:if>
-				    	</div>
-				  	</div>
-				  	<div class="row p-2">
-				    	<div class="col-2">제목</div>
-				    	<input type="text" class="form-control col-10" value="${notice.noticeTitle}" readonly/>
-				  	</div>
-				    <div class="row p-2">
-				    	<div class="col-2">내용</div>
-				    	<textarea class="form-control col-10" rows="10" readonly>${notice.noticeContent}</textarea>
-				    </div>
-				  	<div class="row p-2">
-				  		<div class="col-2">첨부파일</div>
-				  		<div class="col-10">
-				    		<c:forEach var="noticeFile" items="${notice.fileList}">
-				    			<div>
-					    			<a href="${pageContext.request.contextPath}/noticefiledownload?fno=${noticeFile.fno}">${noticeFile.fileName}</a>
-				    			</div>
-				    		</c:forEach>
-			    		</div>
-				  	</div>
-				  	<a href="${pageContext.request.contextPath}/noticelist" class="btn btn-sm btn-dark">목록</a>
-				  	<c:if test="${member.mid == notice.mid}">
-				  		<a href="${pageContext.request.contextPath}/noticeupdateform?nno=${notice.nno}" class="btn btn-sm btn-dark">수정</a>
-				  		<a href="${pageContext.request.contextPath}/noticedelete?nno=${notice.nno}" class="btn btn-sm btn-dark">삭제</a>
-				  	</c:if>
+                	<!-- main end -->
                 </div>
-                
                 <!-- 여기에 내용 담기 end -->
 
             </div>

@@ -31,7 +31,15 @@
 	<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #3A4651;">
 	
 		<!-- Sidebar - Brand -->
-		<a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/">
+		<c:if test="${member.mtype eq 'user'}">
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/userhome">
+		</c:if>
+		<c:if test="${member.mtype eq 'pm'}">
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/pmhome">
+		</c:if>
+		<c:if test="${member.mtype != 'user' && member.mtype != 'pm'}">
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/">
+		</c:if>
 			
 			<div class="sidebar-brand-icon">
 				<img id="mainlogo" src="${pageContext.request.contextPath}/resources/img/logo.png">
@@ -45,19 +53,19 @@
 
 		<!-- Nav Item - Dashboard -->
 		<li class="nav-item">
-			<c:if test="${mtype eq 'user'}">
+			<c:if test="${member.mtype eq 'user'}">
 				<a class="nav-link" href="${pageContext.request.contextPath}/userhome">
 					<i class="fas fa-fw fa-tachometer-alt"></i>
 					<span>Dashboard</span>
 				</a>
 			</c:if>
-			<c:if test="${mtype eq 'pm'}">
+			<c:if test="${member.mtype eq 'pm'}">
 				<a class="nav-link" href="${pageContext.request.contextPath}/pmhome">
 					<i class="fas fa-fw fa-tachometer-alt"></i>
 					<span>Dashboard</span>
 				</a>
 			</c:if>
-			<c:if test="${mtype != 'user' && mtype != 'pm'}">
+			<c:if test="${member.mtype != 'user' && member.mtype != 'pm'}">
 				<a class="nav-link" href="${pageContext.request.contextPath}/">
 					<i class="fas fa-fw fa-tachometer-alt"></i>
 					<span>Dashboard</span>
