@@ -8,11 +8,9 @@
 	<c:if test="${requestProcess.reqType == null || requestProcess.reqType == '정규'}">
 		<div class="circle<c:if test="${request.statusNo == 1}">now</c:if>
 						<c:if test="${request.statusNo > 1}">done</c:if>">
-						<c:if test="${request.statusNo == 1}">요청중</c:if>
 						<c:if test="${request.statusNo > 1}">요청완료</c:if>
+						<c:if test="${request.statusNo == 1}">요청중</c:if>
 					</div>
-							
-		
 		<div class="bar active"></div>
 			<div class="circle 
 	           	 <c:if test="${request.statusNo >= 2}">done</c:if>
