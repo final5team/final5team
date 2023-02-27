@@ -63,6 +63,7 @@
 				left: 2%;
 	}
 	
+	
 	.filter .filter-name h6 {
 		font-size: 15px;
 		margin: 20px 10px;
