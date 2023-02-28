@@ -242,7 +242,6 @@
 		});
 	});
 
-
 /* 내 요청 목록 ajax 호출 : switch */
 	function myRequestList(mtype){
 		let memberType = mtype;
