@@ -48,7 +48,7 @@
 	                                    <div class="row no-gutters align-items-center">
 	                                        <div class="col mr-2">
 	                                            <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">
-	                                             	 처리 대기건</div>
+	                                             	 접수 대기건</div>
 	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
 	                                            	<c:out value="${workingStatus.requestRecent}"/> 건
 	                                            </div>
@@ -67,7 +67,7 @@
 	                                    <div class="row no-gutters align-items-center">
 	                                        <div class="col mr-2">
 	                                            <div class="text-lg font-weight-bold text-success text-uppercase mb-1">
-	                                                	진행 요청건</div>
+	                                                	진행중</div>
 	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
 	                                            	<c:out value="${workingStatus.requestInProgress}"/> 건
 	                                            </div>
@@ -86,7 +86,7 @@
 	                                    <div class="row no-gutters align-items-center">
 	                                        <div class="col mr-2">
 	                                            <div class="text-lg font-weight-bold text-info text-uppercase mb-1">
-	                                                	완료 요청건</div>
+	                                                	완료 대기건</div>
 	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
 	                                            	<c:out value="${workingStatus.requestDone}"/> 건
 	                                            </div>
@@ -105,7 +105,7 @@
 	                                    <div class="row no-gutters align-items-center">
 	                                        <div class="col mr-2">
 	                                            <div class="text-lg font-weight-bold text-warning text-uppercase mb-1">
-	                                                	반려 요청건</div>
+	                                                	완료건</div>
 	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
 	                                            	<c:out value="${workingStatus.requestReject}"/> 건
 	                                            </div>

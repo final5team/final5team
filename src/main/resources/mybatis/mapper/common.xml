@@ -417,6 +417,7 @@
 		 	<if test="member.mtype == 'tester'">and rp.tester = #{member.mid}</if>
 		 	<if test="member.mtype == 'distributor'">and rp.distributor  = #{member.mid}</if>
 		</if>
+		order by r.req_date 
 		OFFSET (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS
 		FETCH NEXT #{pager.rowsPerPage} ROWS ONLY
 	</select>
