@@ -193,9 +193,8 @@
                 <!-- End of Topbar -->
 
                 <!-- 여기에 내용 담기 start -->
-                <div class="container-fluid">
-                	<!-- Main(정적 페이지) -->
-                	<div class="main">
+                <div class="container">               	
+                	<div id="main">
 	                	<!-- 첫째 줄 -->
 						<div class="row">
 							<div  class="col-lg-4">
@@ -779,8 +778,8 @@
 	
 						</div>
 				
+					
 					</div>
-					<!-- Main(정적) end -->
                 </div>
                 <!-- 여기에 내용 담기 end -->
 
