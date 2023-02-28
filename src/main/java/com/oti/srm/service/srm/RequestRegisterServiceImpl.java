@@ -103,9 +103,9 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 
 	// 담당 업무 리스트 조회
 	@Override
-	public List<SelectPM> getMyWorkList(Request request, ListFilter listFilter, Pager pager, Member member) {
+	public List<SelectPM> getMyWorkList(ListFilter listFilter, Pager pager, Member member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("request", request);
+		/*map.put("request", request);*/
 		map.put("listFilter", statusFilterList(dateFilterList(sysName(listFilter))));
 		map.put("pager", pager);
 		map.put("member", member);
@@ -129,9 +129,8 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	}
 	//작성한 요청목록 가져오기 
 	@Override
-	public List<SelectPM> getMyRequestList(Request request, ListFilter listFilter, Pager pager, Member member){
+	public List<SelectPM> getMyRequestList(ListFilter listFilter, Pager pager, Member member){
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("request", request);
 		map.put("listFilter", myStatusFilterList(dateFilterList(sysName(listFilter))));
 		map.put("pager", pager);
 		map.put("member", member);
