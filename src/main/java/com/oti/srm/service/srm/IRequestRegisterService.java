@@ -29,7 +29,7 @@ public interface IRequestRegisterService {
 
 	// 내 요청 조회
 	public int getRequestListRows(ListFilter listFilter, Member member);
-	public List<SelectPM> getMyRequestList(Request request, ListFilter listFilter, Pager pager, Member member);
+	public List<SelectPM> getMyRequestList(ListFilter listFilter, Pager pager, Member member);
 
 	public Request getRequestDetail(int rno);
 

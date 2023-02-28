@@ -227,50 +227,55 @@
 	</a>
 
 <script>
-function myRequestList(mtype){
-	let memberType = mtype;
-	/* mtype 전달 */
-	if($('#myRequest').is(":checked")){
-		console.log("담당 업무 목록");
-		/* 초기 상태이므로 List FIlter 값 넣어주기 */
-		let reqType = '전체';
-		let dateFirst = '';
-		let dateLast = '';
-		let sno = '0';
-		let statusNo = '0';
-		let pageNo = '1';
-		data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0', mtype : mtype, pageNo : 1 };		
-		console.log(data);
-	  	$.ajax({
+/* 내 담당 업무 목록 ajax 호출 : 페이지 로딩 */
+	$(document).ready(function () {
+		/* member의 type은 controller에서 넣어줌, 설정 필요 없음  */
+		console.log("바로 실행");
+		data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1 };	
+		$.ajax({
 	  		url : "myworklist",
 			method : "post",
 			data : JSON.stringify(data),
 			contentType: "application/json; charset=UTF-8"
 		}).done((data) => {
-			console.log(data);
+			$('#table_content').html(data);
 		});
-	}
-	/* else case : 내 요청 리스트 */
-	console.log(memberType);
-	
-	
-} 
-
-/* 실행시 바로 ajax 호출하기 */
-$(document).ready(function () {
-	/* member의 type은 controller에서 넣어줌, 설정 필요 없음  */
-	console.log("바로 실행");
-	data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1 };	
-	$.ajax({
-  		url : "myworklist",
-		method : "post",
-		data : JSON.stringify(data),
-		contentType: "application/json; charset=UTF-8"
-	}).done((data) => {
-		console.log(data);
-		$('#table_content').html(data);
 	});
-});
+
+
+/* 내 요청 목록 ajax 호출 : switch */
+	function myRequestList(mtype){
+		let memberType = mtype;
+		/* mtype 전달, 페이징 처리 */
+		if($('#myRequest').is(":checked")){
+			console.log("임시, switch 확인용");
+			data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1 };	
+			$.ajax({
+		  		url : "myworklist",
+				method : "post",
+				data : JSON.stringify(data),
+				contentType: "application/json; charset=UTF-8"
+			}).done((data) => {
+				$('#table_content').html(data);
+			});
+			
+			/* 내 요청 목록 호출 */
+		} else {
+			console.log("내 요청 목록 호출");
+			data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1}
+			$.ajax({
+		  		url : "myrequestlist",
+				method : "post",
+				data : JSON.stringify(data),
+				contentType: "application/json; charset=UTF-8"
+			}).done((data) => {
+				$('#table_content').html(data);
+			});
+		}
+		
+		
+	} 
+
 
 
 
