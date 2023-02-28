@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -292,7 +293,7 @@ public class RequestController {
 		
 		Pager pager = new Pager(7, 5, totalRows, pageNo);
 		
-		List<SelectPM> requestList = requestService.getMyWorkList(request, listFilter, pager, member);
+		List<SelectPM> requestList = requestService.getMyWorkList(listFilter, pager, member);
 		
 		// 시스템 리스트 전달
 		model.addAttribute("systemList", systemList);
@@ -353,6 +354,33 @@ public class RequestController {
 		headers.setContentDispositionFormData("attachment", fileList.getFileName());
 		
 		return new ResponseEntity<byte[]>(fileList.getFileData(), HttpStatus.OK);
+	}
+	
+	
+	
+	@PostMapping("/myworklist")
+	public String myWrokList(@RequestBody ListFilter listFilter, Model model, HttpSession session) {
+
+		log.info(listFilter.toString());
+		// 필터에 출력할 시스템 리스트 조회
+		List<System> systemList = userRegisterService.getSystemList();
+		ListFilter returnList = requestService.dateFilterList(listFilter);
+		
+		//세션에 저장된 멤버 객체 전달
+		Member member = (Member) session.getAttribute("member");
+		int totalRows = requestService.getMyWorkRows(listFilter, member);
+		//처음 요청이므로 (1로)
+		Pager pager = new Pager(7, 5, totalRows, listFilter.getPageNo());
+		List<SelectPM> requestList = requestService.getMyWorkList(listFilter, pager, member);
+		// 시스템 리스트 전달
+		model.addAttribute("systemList", systemList);
+		// 목록 리스트와 페이지 return
+		model.addAttribute("requestList", requestList);
+		model.addAttribute("pager", pager);
+		// filter 전달
+		model.addAttribute("listFilter", returnList);
+		
+		return "srm/list/ajaxrequest";
 	}
 	
 	

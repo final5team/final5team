@@ -10,6 +10,8 @@ public class ListFilter{
 	private String dateLast;
 	private int sno;
 	private int statusNo;
+	// 업무 목록 조회를 요청한 유저의 타입
+	private String mtype;
 	// 시스템 이름
 	private String systemName;
 	
