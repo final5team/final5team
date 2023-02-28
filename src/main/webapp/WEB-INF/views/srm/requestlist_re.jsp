@@ -161,7 +161,7 @@
 					</section>
 					<section class="table border-left-dark">
 						<article class="table-header">
-							<h4>담당 업무 목록</h4>
+							<h4 class="table-name">담당 업무 목록</h4>
 							<div class="switch_div">
 									<label class="switch">
 									  <input type="checkbox" checked onclick="myRequestList(`${sessionScope.member.mtype}`)" id ="myRequest" />
@@ -247,7 +247,12 @@
 		let memberType = mtype;
 		/* mtype 전달, 페이징 처리 */
 		if($('#myRequest').is(":checked")){
-			console.log("임시, switch 확인용");
+			
+			/* h4 태그 글자 바꾸기 */
+			let name = document.getElementsByClassName("table-name")[0];
+			name.innerText='담당 업무 목록';
+			/* console.log("임시, switch 확인용"); */
+			
 			data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1 };	
 			$.ajax({
 		  		url : "myworklist",
@@ -260,7 +265,12 @@
 			
 			/* 내 요청 목록 호출 */
 		} else {
-			console.log("내 요청 목록 호출");
+			/* h4 태그 글자 바꾸기 */
+			let name = document.getElementsByClassName("table-name")[0];
+			name.innerText='내 요청 목록';
+			
+			/* console.log("내 요청 목록 호출"); */
+			
 			data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1}
 			$.ajax({
 		  		url : "myrequestlist",
@@ -275,19 +285,13 @@
 		
 	} 
 
+  	//	검색 ajax 시 사용 예정
+	//	let reqType = document.getElementById(req_type);
+	//	let dateFirst = document.getElementById(date_first);
+	//	let dateLast = document.getElementById(date_last);
+	//	let sno = document.getElementById(sno);
+	//	let statusNo = document.getElementById(statusNo);  
 
-
-
-
-
-
-/*  검색 ajax 시 사용 예정
-let reqType = document.getElementById(req_type);
-		let dateFirst = document.getElementById(date_first);
-		let dateLast = document.getElementById(date_last);
-		let sno = document.getElementById(sno);
-		let statusNo = document.getElementById(statusNo);
-*/
 
 
 

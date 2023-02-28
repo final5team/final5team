@@ -219,45 +219,8 @@ public class RequestController {
 	 * @throws ParseException 
 	 */
 	@GetMapping("/myrequestlist")
-	public String myrequestlist (Request request, Model model, HttpSession session,
-			@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "") String date_first,
-			@RequestParam(defaultValue = "") String date_last, @RequestParam(defaultValue = "0") int sno,
-			@RequestParam(defaultValue = "전체") String req_type, @RequestParam(defaultValue = "0") int statusNo) throws ParseException {
-		
-		
-		// 요청 조회 필터
-		List<System> systemList = userRegisterService.getSystemList();
-		// 유저 정보 전달
-		Member member = (Member) session.getAttribute("member");
-		// 유저 id 저장
-		request.setMid(member.getMid());
-		
-		// 전달받은 필터 값 저장 (단계 제외)
-		ListFilter listFilter = new ListFilter();
-		listFilter.setReqType(req_type);
-		listFilter.setDateFirst(date_first);
-		listFilter.setDateLast(date_last);
-		listFilter.setSno(sno);
-		listFilter.setStatusNo(statusNo);
-		listFilter.setPageNo(pageNo);
-		
-		ListFilter returnList = requestService.dateFilterList(listFilter);
-		
-		// 보여줄 행 수 조회
-		int totalRows = requestService.getRequestListRows(listFilter, member);
-		Pager pager = new Pager(7, 5, totalRows, pageNo);
-		List<SelectPM> requestList = requestService.getMyRequestList(listFilter, pager, member);
-		
-		
-		// 시스템 리스트 전달
-		model.addAttribute("systemList", systemList);
-		// 목록 리스트와 페이지 return
-		model.addAttribute("requestList", requestList);
-		model.addAttribute("pager", pager);
-		// filter 전달
-		model.addAttribute("listFilter", returnList);
-		
-		return "srm/myrequestlist";
+	public String myrequestlist () {
+		return "srm/requestlist_re";
 	}
 	
 	
