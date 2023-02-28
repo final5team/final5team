@@ -116,7 +116,7 @@
 		                                    <div class="row no-gutters align-items-center">
 		                                        <div class="col mr-2">
 		                                            <div class="text-lg font-weight-bold text-success text-uppercase mb-1">
-		                                                	진행 요청건</div>
+		                                                	진행</div>
 		                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><c:out value="${userRequestStatusCount.requestInProgress}"></c:out> 건</div>
 		                                        </div>
 		                                        <div class="col-auto">
@@ -134,7 +134,7 @@
 		                                    <div class="row no-gutters align-items-center">
 		                                        <div class="col mr-2">
 		                                            <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">
-		                                             	 완료 요청건</div>
+		                                             	 완료</div>
 		                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><c:out value="${userRequestStatusCount.requestDone}"></c:out> 건</div>
 		                                        </div>
 		                                        <div class="col-auto">
