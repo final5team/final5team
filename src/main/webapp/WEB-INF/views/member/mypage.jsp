@@ -10,6 +10,11 @@
 a {
 	text-decoration: none;
 }
+	.wrapper{
+		display : flex;
+		justify-content: center;
+		align-items: center;
+	}
 
 form {
 	display: flex;
@@ -28,6 +33,9 @@ form {
 }
 
 .section1 {
+	background-color: #f8f9fc;
+	border-bottom: 1px solid #e3e6f0;
+	height : 54px;
 	width: 1047px;
 	overflow: hidden;
 	text-align: start;
@@ -36,7 +44,6 @@ form {
 	top: 0;
 	left: 0;
 	background-color: #f8f9fc;
-	border-bottom: 1px solid #e3e6f0;
 }
 
 .section1 h4 {
@@ -288,8 +295,9 @@ form {
 				<!-- End of Topbar -->
 
 				<!-- 여기에 내용 담기 start -->
-				<div class="container-fluid">
-					<form method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data">
+				<div id="content">
+					<div class="wrapper ">
+					<form class="border-left-dark" method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data">
 						<section class="section1">
 							<h4>My page</h4>
 						</section>
@@ -297,7 +305,7 @@ form {
 						<section class="section2">
 							<article class="photo">
 								<img id="preview" src="${pageContext.request.contextPath}/customer/mypage/${returnMember.mid}"
-									onerror="this.src='${pageContext.request.contextPath}/resources/img/undraw_profile.svg';"/> 
+									onerror="this.src='${pageContext.request.contextPath}/resources/img/default-image.gif';"/> 
 								<input type="file" class="btn btn-sm btn-dark" id="mfile" name="mfile" onchange="readURL(this);">
 							</article>
 
@@ -426,8 +434,9 @@ form {
 							</article>
 						</section>
 					</form>
-					<!-- 여기에 내용 담기 end -->
 				</div>
+				</div>
+					<!-- 여기에 내용 담기 end -->
 				<!-- End of Main Content -->
 
 				<!-- Footer -->

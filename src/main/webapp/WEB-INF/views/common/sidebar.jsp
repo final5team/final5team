@@ -31,7 +31,15 @@
 	<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #3A4651;">
 	
 		<!-- Sidebar - Brand -->
-		<a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/">
+		<c:if test="${member.mtype eq 'user'}">
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/userhome">
+		</c:if>
+		<c:if test="${member.mtype eq 'pm'}">
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/pmhome">
+		</c:if>
+		<c:if test="${member.mtype != 'user' && member.mtype != 'pm'}">
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/">
+		</c:if>
 			
 			<div class="sidebar-brand-icon">
 				<img id="mainlogo" src="${pageContext.request.contextPath}/resources/img/logo.png">
@@ -42,11 +50,28 @@
 		<!-- Divider -->
 		<hr class="sidebar-divider my-0">
 
+
 		<!-- Nav Item - Dashboard -->
 		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/">
-				<i class="fas fa-fw fa-tachometer-alt"></i>
-				<span>Dashboard</span></a>
+			<c:if test="${member.mtype eq 'user'}">
+				<a class="nav-link" href="${pageContext.request.contextPath}/userhome">
+					<i class="fas fa-fw fa-tachometer-alt"></i>
+					<span>Dashboard</span>
+				</a>
+			</c:if>
+			<c:if test="${member.mtype eq 'pm'}">
+				<a class="nav-link" href="${pageContext.request.contextPath}/pmhome">
+					<i class="fas fa-fw fa-tachometer-alt"></i>
+					<span>Dashboard</span>
+				</a>
+			</c:if>
+			<c:if test="${member.mtype != 'user' && member.mtype != 'pm'}">
+				<a class="nav-link" href="${pageContext.request.contextPath}/">
+					<i class="fas fa-fw fa-tachometer-alt"></i>
+					<span>Dashboard</span>
+				</a>
+			</c:if>
+			
 		</li>
 
 
@@ -58,19 +83,22 @@
 			MENU
 		</div>
 
-
-
 		<!-- 사이드메뉴 start -->
 		<li class="nav-item">
 			<a class="nav-link" href="${pageContext.request.contextPath}/customer/myrequestlist">
 				<i class="fas fa-fw fa-chart-area"></i>
 				<span>내 요청 목록</span></a>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/customer/requestlist">
-				<i class="fas fa-fw fa-chart-area"></i>
-				<span>담당 요청 목록</span></a>
-		</li>
+		
+		
+		<c:if test="${member.mtype != 'user'}">
+			<li class="nav-item">
+				<a class="nav-link" href="${pageContext.request.contextPath}/customer/requestlist">
+					<i class="fas fa-fw fa-chart-area"></i>
+					<span>담당 요청 목록</span></a>
+			</li>
+		</c:if>
+		
 
 		<li class="nav-item">
 			<a class="nav-link" href="${pageContext.request.contextPath}/noticelist">
@@ -84,11 +112,6 @@
 					<span>현황통계</span></a>
 			</li>
 		</c:if>
-		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/customer/mypage">
-				<i class="fas fa-fw fa-chart-area"></i>
-				<span>마이페이지</span></a>
-		</li>
 		<c:if test="${member.mtype == 'pm'}">
 			<li class="nav-item">
 				<a class="nav-link" href="${pageContext.request.contextPath}/customer/register">

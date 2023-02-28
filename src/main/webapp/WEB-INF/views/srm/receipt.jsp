@@ -7,6 +7,62 @@
 <html lang="ko">
 
 <head>
+	<style>
+    	:root {
+          --line-fill: #87cd36;
+           --line-empty: #e0e0e0;
+           --now-fill: #F40730;
+      }
+       .container {
+           text-align: center;
+      }
+      
+       
+       .circle {
+           background-color: #fff;
+           color: #999;
+           height: 40px;
+           width: 150px;
+           font-size : 20px;
+           line-height : 40px;
+           border: 3px solid var(--line-empty);
+           transition: 0.4s ease;
+           border-radius: 10px;
+      }
+      .bar {
+           padding : 0px;
+           background-color: #fff;
+           color: #999;
+           height: 10px;
+           width: 10px;
+           align-items: center;
+           justify-content: center;
+           border: 3px solid var(--line-empty);
+           transition: 0.4s ease;
+           border-radius: 50%;
+      }
+      .bar:after{
+      	margin-bottom: 5px;
+      }
+      .circle.done {
+           border-color: var(--line-fill);
+           color : var(--line-fill);
+      }
+      
+      .circle.now {
+         border-color : var(--line-fill);
+         color : white;
+         background-color : var(--line-fill);
+      }
+      
+      .bar.active {
+           border-color: var(--line-fill);
+      }
+	 
+	 li {
+	 	list-style : none;
+	 }
+    </style>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script>
@@ -82,15 +138,17 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <%@ include file="/WEB-INF/views/common/topbar.jsp" %>
                 <!-- End of Topbar -->
 
                 <!-- 여기에 내용 담기 start -->
+                <div>
+
+                </div>
                 <div class="container-fluid">
                 	<div id="main">
 					<!-- 게시글 상세보기 start -->
 						<div class="card card-block sameheight-item">
-							<h3 class="title-block font-weight-bold">						
+							<h3 class="font-weight-bold">						
 								 요청 정보
 							</h3>
 							<div class="row mt-3">
@@ -149,7 +207,7 @@
 						<div id="receiptdiv"> 						            
 							<!-- 요청 접수 card start-->
 							<div class="card card-block mt-3 mb-1">
-								<h3 class="title-block font-weight-bold">						
+								<h3 class="font-weight-bold">						
 									요청 처리 계획 작성
 								</h3>
 								<div class="card-body">
@@ -173,13 +231,13 @@
 										</div>
 										<div class="col-sm-12 form-group row">
 											<label class="control-label col-lg-6" >완료예정일</label>
-											<input type="date" class="form-control col-lg-6" name="allExpectDate" id="allExpectDate" required pattern="\d{4}-\d{2}-\d{2}">
+											<input type="date" class="form-control col" name="allExpectDate" id="allExpectDate" required pattern="\d{4}-\d{2}-\d{2}">
 											<span class="validity"></span>
 										</div>
 										
 										<div class="col-sm-12 form-group row">
 											<label class="control-label col-lg-6">개발 담당자 선택</label>
-											<select class="dropdown-toggle col-lg-6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer">
+											<select class="dropdown-toggle col" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer">
 												<c:forEach var="staff" items="${devStaffList}">
 													<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 												</c:forEach>															
@@ -187,7 +245,7 @@
 										</div>
 										<div class="col-sm-12 form-group row">
 											<label class="control-label col-lg-6">테스트 담당자 선택</label>
-											<select class="dropdown-toggle col-lg-6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester">
+											<select class="dropdown-toggle col" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester">
 												<c:forEach var="staff" items="${tesStaffList}">
 													<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 												</c:forEach>
@@ -195,7 +253,7 @@
 										</div>
 										<div class="col-sm-12 form-group row" id="utester">
 											<label class="control-label col-lg-6">유저테스트 담당자 선택</label>
-											<select class="dropdown-toggle col-lg-6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
+											<select class="dropdown-toggle col" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
 												<c:forEach var="staff" items="${uteStaffList}">
 													<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 												</c:forEach>
@@ -203,7 +261,7 @@
 										</div>
 										<div class="col-sm-12 form-group row">
 											<label class="control-label col-lg-6">배포 담당자 선택</label>
-											<select class="dropdown-toggle col-lg-6" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor">
+											<select class="dropdown-toggle col" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor">
 												<c:forEach var="staff" items="${disStaffList}">
 													<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 												</c:forEach>
@@ -212,7 +270,7 @@
 									
 										<div class="col-sm-12 form-group">
 											<label class="control-label">의견 내용</label>
-											<textarea rows="2" class="form-control boxed" name="reply" required></textarea>
+											<textarea rows="2" class="form-control boxed" name="reply" style="padding: 0px" required></textarea>
 										</div>											
 										<div class="col-sm-12 form-group filebox">
 											<label for="file">첨부파일</label>
@@ -236,13 +294,13 @@
 							<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data">
 								<!-- 요청 접수 card start-->
 								<div class="card card-block mt-3 mb-1">
-									<h3 class="title-block font-weight-bold">						
+									<h3 class="font-weight-bold">						
 										반려 사유 작성
 									</h3>
 									<div class="card-body">
 										<div class="form-group">
 											<label class="control-label">반려 사유</label>
-											<textarea rows="2" class="form-control boxed" name="reply" required></textarea>
+											<textarea rows="2" class="form-control boxed" name="reply" style="padding: 0px" required></textarea>
 										</div>											
 										<div class="filebox">
 											<label for="file">첨부파일</label>
@@ -264,7 +322,7 @@
 						<!-- 요청 처리 계획 start-->
 						<c:if test="${request.statusNo!=1 && member.mtype !='user' && request.statusNo!=12}">
 							<div class="card card-block sameheight-item mt-3">
-								<h3 class="title-block font-weight-bold">						
+								<h3 class="font-weight-bold">						
 									 요청 처리 계획
 								</h3>
 								<div class="row mt-3">
@@ -341,7 +399,7 @@
 						<!-- 반려 처리 정보 start -->
 						<c:if test="${request.statusNo==12}">
 							<div class="card mt-3 mb-1">
-								<h3 class="title-block font-weight-bold">						
+								<h3 class="font-weight-bold">						
 									반려 처리 내역
 								</h3>
 								<div class="card-body">									

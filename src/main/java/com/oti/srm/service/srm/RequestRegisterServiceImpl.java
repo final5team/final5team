@@ -106,7 +106,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	public List<SelectPM> getMyWorkList(Request request, ListFilter listFilter, Pager pager, Member member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("request", request);
-		map.put("listFilter", statusFilterList(dateFilterList(listFilter)));
+		map.put("listFilter", statusFilterList(dateFilterList(sysName(listFilter))));
 		map.put("pager", pager);
 		map.put("member", member);
 		
@@ -120,11 +120,11 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	@Override
 	public int getRequestListRows(ListFilter listFilter, Member member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("listFilter", statusFilterList(dateFilterList(listFilter)));
+		map.put("listFilter", myStatusFilterList(dateFilterList(listFilter)));
 		map.put("member", member);
 		
 		int rows = requestDao.countRequestRows(map);
-		
+		log.info(rows);
 		return rows;
 	}
 	//작성한 요청목록 가져오기 
@@ -132,12 +132,11 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	public List<SelectPM> getMyRequestList(Request request, ListFilter listFilter, Pager pager, Member member){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("request", request);
-		map.put("listFilter", statusFilterList(dateFilterList(listFilter)));
+		map.put("listFilter", myStatusFilterList(dateFilterList(sysName(listFilter))));
 		map.put("pager", pager);
 		map.put("member", member);
-		
 		List<SelectPM> result = requestDao.selectMyRequest(map);
-		
+		log.info(result.size());
 		return result;
 	}
 	@Override
@@ -156,7 +155,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	
 	
 	
-	
+//	DB에 없거나, mapper에서 편하게 사용하기 위해 정의 내려준 메소드
 
 	//날짜 필터링 메소드
 	public ListFilter dateFilterList(ListFilter listFilter) {
@@ -196,7 +195,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		}
 		return listFilter;
 	}
-	//단계 필터링 메소드
+	//업무 처리 단계 필터링 메소드
 	public ListFilter statusFilterList(ListFilter listFilter) {
 			//1 접수
 		if(listFilter.getStatusNo() == 1) {
@@ -223,6 +222,41 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		
 		return listFilter;
 	}
+	
+	//내 요청 목록 단계 필터링 메소드
+		public ListFilter myStatusFilterList(ListFilter listFilter) {
+				//1 접수
+			if(listFilter.getStatusNo() == 2) {
+				listFilter.setStatusValue("진행중");
+				
+			} else if(listFilter.getStatusNo()  == 11 || listFilter.getStatusNo()  == 13) {
+				listFilter.setStatusValue("완료");
+				//12 반려
+			} else if(listFilter.getStatusNo() == 12) {
+				listFilter.setStatusValue("반려");
+			}
+			
+			return listFilter;
+		}
+	
+	
+	// 서비스 이름명 주입
+	public ListFilter sysName(ListFilter listFilter) {
+		
+		if(listFilter.getSno() == 1) {
+			listFilter.setSystemName("가족관계정보");
+		} else if(listFilter.getSno() == 2) {
+			listFilter.setSystemName("등본관리");
+		} else if(listFilter.getSno() == 3) {
+			listFilter.setSystemName("3번시스템");
+		} else if(listFilter.getSno() == 4) {
+			listFilter.setSystemName("4번시스템");
+		}
+		
+		return listFilter;
+	}
+	
+	
 
 	
 

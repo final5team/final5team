@@ -108,12 +108,12 @@ public class PMController {
 			// 접수 완료
 			int result=pMService.receipt(statusHistory, requestProcess);
 			if(result==1) {
-				return "srm/request"; ////////////목록 가든가 개발 상세 가든가
+				return "redirect:/customer/requestlist"; ////////////목록 가든가 개발 상세 가든가
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}		
-		return "redirect:/";
+		return "redirect:/customer/requestlist";
 	}
 	
 	/**
@@ -156,6 +156,14 @@ public class PMController {
 		return "redirect:/pm/enddetail?rno=" + statusHistory.getRno();
 	}
 	
+	/**
+	 * 
+	 * @author: KIM JI YOUNG
+	 * @param rno
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	// 완료 후 상세보기
 	@RequestMapping("/enddetail")
 	public String endDetail(int rno, HttpSession session, Model model) {

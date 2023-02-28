@@ -11,6 +11,11 @@
 a {
 	text-decoration: none;
 }
+	.wrapper{
+		display : flex;
+		justify-content: center;
+		align-items: center;
+	}
 
 form {
 	display: flex;
@@ -38,6 +43,8 @@ form {
 	left: 0;
 	background-color: #f8f9fc;
 	border-bottom: 1px solid #e3e6f0;
+	height : 54px;
+	
 }
 
 .section1 h4 {
@@ -397,10 +404,8 @@ article.include div {
 				<!-- End of Topbar -->
 
 				<!-- 여기에 내용 담기 start -->
-				<div class="container-fluid">
-
-
-					<form method="post" action="${pageContext.request.contextPath}/customer/request" enctype="multipart/form-data">
+					<div class="wrapper ">
+					<form method="post" class="border-left-dark" action="${pageContext.request.contextPath}/customer/request" enctype="multipart/form-data">
 						<section class="section1">
 							<h4>요청 작성</h4>
 						</section>
@@ -487,7 +492,7 @@ article.include div {
 								<button class="btn btn-dark btn-sm" onclick="javascript:history.go(-1)">취소</button>
 							</article>
 							<article class="include">
-								<%@ include file="/WEB-INF/views/srm/restatus/nowstatushorizon.jsp"%>
+								<%@ include file="/WEB-INF/views/srm/restatus/step_request.jsp"%>
 							</article>
 						</section>
 					</form>

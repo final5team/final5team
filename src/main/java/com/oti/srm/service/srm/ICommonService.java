@@ -44,7 +44,10 @@ public interface ICommonService {
 	public HashMap<String,Integer> getWorkingStatus(Member member);
 	
 	//D-7남은 요청 출력
-	public List<Request> getListOf7daysLeft(Member member);
+	public int getListOf7daysLeftCount(Member member);
+	
+	//D-7남은 요청 출력
+	public List<Request> getListOf7daysLeft(Member member, Pager dPager);
 
 	//업무 진행율
 	public Map<String, Object> getWorkCompletionRate(Member member);
@@ -57,6 +60,10 @@ public interface ICommonService {
 	//직무 리스트
 	public List<RequestProcess> getRequestProcessList(Member member, String checkbox, Pager pager);
 	//직무 리스트 행 수 가져오기
-	public int getRequestProcessRows(Member member, String checkbox); 
+	public int getRequestProcessRows(Member member, String checkbox);
+
+	public int getUserRequestListCount(String searchStatus, Member member);
+
+	public List<Request> getUserRequestList(String searchStatus, Member member, Pager uPager); 
 
 }

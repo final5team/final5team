@@ -6,14 +6,21 @@
 
 <head>
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
+
 <style>
 a {
 	text-decoration: none;
 }
+	
+	.wrapper{
+		display : flex;
+		justify-content: center;
+		align-items: center;
+	}
 
 main {
 	display: flex;
-	height: 800px;
+	height: 1000px;
 	width: 1050px;
 	position: relative;
 	justify-content: center;
@@ -23,7 +30,7 @@ main {
 
 .filter {
 	width: 1050px;
-	height: 120px;
+	height: 200px;
 	overflow: hidden;
 	text-align: start;
 	align-items: center;
@@ -40,46 +47,44 @@ main {
 }
 
 .filter .filter-head {
-			background-color: #f8f9fc;
-			border-bottom: 1px solid #e3e6f0;
-			height: 30px;
-		}
-		
-		.filter .filter-head h4 {
-			color: #5a5c69;
-			font: bold;
-			padding-left: 15px;
-			padding-top : 5px;
-			font-size: 15px;
-			margin: 0px;
-			font-weight: 700;
-		}
+	background-color: #f8f9fc;
+	border-bottom: 1px solid #e3e6f0;
+	height : 54px;
+}
+
+.filter .filter-head h4 {
+	color: #5a5c69;
+	font: bold;
+	padding: 0.75rem 1.25rem;
+	font-size: 1.45rem;
+	margin: 0px;
+	font-weight: 700;
+}
 
 .filter .filter-name {
-			width: 100px;
-			height: 100px;
-			position: absolute;
-			margin: 0;
-			left: 2%;
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	margin: 0;
+	left: 2%;
 }
 
 .filter .filter-name h6 {
-	font-size: 14px;
+	font-size: 15px;
 	margin: 20px 10px;
 }
 
 .filter .filter-name2 {
-			width: 100px;
-			height: 100px;
-			position: absolute;
-			margin: 0;
-			left: 42%;
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	margin: 0;
+	left: 42%;
 }
 
 .filter .filter-name2 h6 {
 	font-size: 15px;
 	margin: 20px 10px;
-	font-size: 14px;
 }
 
 .filter .filter-body {
@@ -88,9 +93,9 @@ main {
 	overflow: hidden;
 	position: absolute;
 	left: 10%;
-	top : 34%;
+	top: 34%;
 	float: left;
-	font-size: 13px;
+	font-size: 15px;
 }
 
 .filter .filter-body .input-group {
@@ -108,9 +113,9 @@ main {
 	overflow: hidden;
 	position: absolute;
 	left: 50%;
-	top : 34%;
+	top: 34%;
 	float: left;
-	font-size: 13px;
+	font-size: 15px;
 }
 
 .filter .filter-body2 .input-group {
@@ -126,7 +131,7 @@ main {
 	text-align: start;
 	align-items: center;
 	position: absolute;
-	top: 18%;
+	top: 23%;
 	left: 0;
 	background-color: #fff;
 	border-bottom: 1px solid #e3e6f0;
@@ -139,19 +144,17 @@ main {
 
 .table .table-header {
 	background-color: #f8f9fc;
-			border-bottom: 1px solid #e3e6f0;
-			height: 30px;
+	border-bottom: 1px solid #e3e6f0;
+	height : 54px;
 }
 
 .table .table-header h4 {
 	color: #5a5c69;
-			font: bold;
-			padding-left: 15px;
-			padding-top : 5px;
-			font-size: 15px;
-			margin: 0px;
-			font : bold;
-			font-weight: 700;
+	font: bold;
+	padding: 0.75rem 1.25rem;
+	font-size: 1.45rem;
+	margin: 0px;
+	font-weight: 700;
 }
 
 .table .table-body {
@@ -162,7 +165,6 @@ main {
 	margin: 5px 10px;
 	background-color: #fff;
 	border-collapse: collapse;
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
 	border-radius: 5px;
 	overflow: hidden;
 }
@@ -183,7 +185,7 @@ main {
 }
 
 .member th, .member td {
-	font-size: 12px;
+	font-size: 15px;
 	width: 1050px;
 	padding: 5px;
 	text-align: center;
@@ -192,13 +194,13 @@ main {
 }
 
 .member tr th {
-	background-color: var(--gray-dark);
-	color: #fff;
+	background-color: #5a5c69;
+		color: white;
 }
 
 .member .step_td {
-display: inline-block;
-width: 500px;
+	display: inline-block;
+	width: 500px;
 }
 
 .member tr:hover {
@@ -213,26 +215,38 @@ width: 500px;
 	top: 60%;
 	z-index: 5;
 }
-	.pager{
+
+.filter .write-button {
 	position: absolute;
-	left: 30%;
-	top : 100%;
-	width : 350px;
-	}
-	.pager .write{
-	position: absolute;
-	left: 100%;
-	top : 0%;
-	width: 80px;
-	
-	}
-.custom-select{
-	height : 28px;
-	padding : 0px 5px;
+	width: 120px;
+	height: 50px;
+	left: 68%;
+	top: 60%;
+	z-index: 5;
 }
 
+.pager {
+	position: absolute;
+	left: 35%;
+	top: 78%;
+	width: 350px;
+}
+
+.pager .write {
+	position: absolute;
+	left: 100%;
+	top: 0%;
+	width: 80px;
+}
+
+.custom-select {
+	height: 28px;
+	padding: 0px 5px;
+}
 
 </style>
+
+
 
 </head>
 
@@ -256,10 +270,9 @@ width: 500px;
 				<!-- End of Topbar -->
 
 				<!-- 여기에 내용 담기 start -->
-
-				<div class="container-fluid">
+				<div class="wrapper">
 					<main class="all">
-					<section class="filter">
+					<section class="filter border-left-dark">
 						<form action="requestlist" method="get">
 							<article class="filter-head">
 								<h4>필터</h4>
@@ -279,6 +292,9 @@ width: 500px;
 							</article>
 							<article class="search-button">
 								<button class="btn btn-dark btn-sm" type="submit">검색</button>
+							</article>
+							<article class="write-button">
+								<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-dark btn-sm write">요청 작성</a>
 							</article>
 							<article class="filter-body">
 								<div class="input-group">
@@ -306,9 +322,9 @@ width: 500px;
 
 								</div>
 								<div class="date_form">
-									<input type="date" id="date_first" name="date_first"  style="border: 1px solid #d1d3e2;"
+									<input type="date" id="date_first" name="date_first" style="border: 1px solid #d1d3e2; border-radius: 5px;" 
 									value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> <i class="fa fa-minus"></i> 
-									<input type="date" id="date_last" name="date_last"  style="border: 1px solid #d1d3e2;"
+									<input type="date" id="date_last" name="date_last" style="border: 1px solid #d1d3e2; border-radius: 5px;"  
 									value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
 								</div>
 							</article>
@@ -365,29 +381,25 @@ width: 500px;
 													<option value="${system.sno}">${system.systemName}</option>
 												</c:forEach>
 											</c:if>
-
-
 											<c:if test="${listFilter.sno != 0}">
-												<option value="${listFilter.sno}" selected>${listFilter.sno}</option>
+												<option value="${listFilter.sno}" selected>${listFilter.systemName}</option>
 												<c:forEach var="system" items="${systemList}">
-
-
 													<c:if test="${system.sno != listFilter.sno}">
 														<option value="${system.sno}">${system.systemName}</option>
 													</c:if>
-
 												</c:forEach>
-
 											</c:if>
-
-
 										</select>
 									</div>
 								</c:if>
 							</article>
+
+
+
+
 						</form>
 					</section>
-					<section class="table">
+					<section class="table border-left-dark">
 						<article class="table-header">
 							<h4>담당 업무 목록</h4>
 						</article>
@@ -406,16 +418,23 @@ width: 500px;
 									<td class="rno">${request.rno}</td>
 									<td class="client">${request.sno}</td>
 									<c:if test="${request.statusNo == 1}">
-										<td class="sysType">미정</td>
+										<td class="sysType"><span class="badge badge-warning">미정</span></td>
 									</c:if>
 									<c:if test="${request.statusNo == 12}">
-										<td class="sysType">반려</td>
+										<td class="sysType"><span class="badge badge-warning">반려</span></td>
 									</c:if>
 									<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
-										<td class="sysType">${request.reqType}</td>
+										<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
+											<c:if test="${request.reqType eq '정규'}">
+												<td class="sysType"><span class="badge badge-primary">${request.reqType}</span></td>
+											</c:if>
+											<c:if test="${request.reqType eq '긴급'}">
+												<td class="sysType"><span class="badge badge-danger">${request.reqType}</span></td>
+											</c:if>
+										</c:if>
 									</c:if>
 									<td class="reqTitle" style="max-width: 200px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
-									<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;" >
+									<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
 										<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
 									</td>
 									<td class="step_td">
@@ -426,33 +445,37 @@ width: 500px;
 						</table>
 					</section>
 					<div class="pager">
-					<div class="pagingButtonSet d-flex justify-content-center">
-						<a href="requestlist?pageNo=1" type="button" class="btn btn-muted shadow">◀◀</a>
-						<c:if test="${pager.groupNo > 1}">
-							<a href="requestlist?pageNo=${pager.startPageNo-1}" type="button" class="btn btn-muted shadow">◀</a>
-						</c:if>
-
-						<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
-							<c:if test="${pager.pageNo != i}">
-								<a href="requestlist?pageNo=${i}" type="button" class="btn btn-white shadow">${i}</a>
+						<div class="pagingButtonSet d-flex justify-content-center">
+							<a href="requestlist?pageNo=1&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
+								type="button" class="btn btn-muted shadow">◀◀</a>
+							<c:if test="${pager.groupNo > 1}">
+								<a href="requestlist?pageNo=${pager.startPageNo-1}
+								&req_type=${listFilter.reqType}&date_first=${listFilter.date_first}$date_last=${listFilter.date_last}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
+								 type="button" class="btn btn-muted shadow">◀</a>
 							</c:if>
-							<c:if test="${pager.pageNo == i}">
-								<a href="requestlist?pageNo=${i}" type="button" class="btn btn-dark shadow">${i}</a>
+
+							<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
+								<c:if test="${pager.pageNo != i}">
+									<a href="requestlist?pageNo=${i}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
+							 				type="button" class="btn btn-white shadow">${i}</a>
+								</c:if>
+								<c:if test="${pager.pageNo == i}">
+									<a href="requestlist?pageNo=${i}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
+											type="button" class="btn btn-dark shadow">${i}</a>
+								</c:if>
+							</c:forEach>
+
+							<c:if test="${pager.groupNo < pager.totalGroupNo }">
+								<a href="requestlist?pageNo=${pager.endPageNo+1}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
+										type="button" class="btn btn-muted shadow">▶</a>
+
 							</c:if>
-						</c:forEach>
-
-						<c:if test="${pager.groupNo < pager.totalGroupNo }">
-							<a href="requestlist?pageNo=${pager.endPageNo+1}" type="button" class="btn btn-muted shadow">▶</a>
-
-						</c:if>
-						<a href="requestlist?pageNo=${pager.totalPageNo}" type="button" class="btn btn-muted shadow">▶▶</a>
+							<a href="requestlist?pageNo=${pager.totalPageNo}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
+							 		type="button" class="btn btn-muted shadow">▶▶</a>
+						</div>
 					</div>
-					<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-muted shadow write">요청 작성</a>
-				</div>
-					
 					</main>
-				</div>
-				
+				</div>	
 			</div>
 		</div>
 		<!-- 여기에 내용 담기 end -->

@@ -86,17 +86,19 @@
                 <!-- 여기에 내용 담기 start -->
                 <div class="container-fluid">
 					<div id="main">
+						<!-- 네비게이션 start -->
 						<ul class="nav nav-tabs">
 						   <li class="nav-item">
-						      <button class="btn btn-primary nav-link active" onclick="openRequestInfo()">요청 정보 및 PM검토 내용</button>
+						      <button id="requestInfoNav" class="btn nav-link" onclick="openRequestInfo()">요청 정보 및 PM검토 내용</button>
 						   </li>
 						   <li class="nav-item">
-						      <button class="btn btn-primary nav-link" onclick="openDevelopHistory()">개발 완료 내역</button>
+						      <button id="developHistoryNav" class="btn nav-link active" onclick="openDevelopHistory()">개발 완료 내역</button>
 						   </li>
 						</ul>
+						<!-- 네비게이션 start -->
 						<!-- 요청정보 DIV START -->
-						<div class="card card-block sameheight-item mt-3" style="display:none; width:750px" id="requestInfo">
-							<h3 class="title-block font-weight-bold">						
+						<div class="card card-block sameheight-item mt-3" style="display:none;" id="requestInfo">
+							<h3 class="font-weight-bold">						
 								 요청 정보
 							</h3>
 							<div class="row mt-3">
@@ -186,8 +188,8 @@
 						
 						
 						<!-- PM 검토 정보 start -->	
-						<div class="card card-block sameheight-item mt-3 mb-3" style="display:none; width:750px" id="pmConfirmInfo">
-							<h3 class="title-block font-weight-bold">						
+						<div class="card card-block sameheight-item mt-3 mb-3" style="display:none;" id="pmConfirmInfo">
+							<h3 class="font-weight-bold">						
 								 PM 검토 정보
 							</h3>
 							<c:forEach var="statusHistory" items="${pmToAllHistories}">
@@ -227,7 +229,7 @@
 						
 
 						<!-- 개발 내역 start -->
-						<div class="card card-block mt-3" id="developHistory" style="width:750px">
+						<div class="card card-block mt-3" id="developHistory">
 							<h3 class="font-weight-bold m-0">						
 								 개발 히스토리
 							</h3>
@@ -258,12 +260,12 @@
 									<li style="display:none;">
 									<hr/>
 										<div class="row">
-											<div class="col-4">개발 사항 :</div>
-											<div class="col-8 border" style="min-height:100px;">${statusHistory.reply}</div>
+											<div class="col-2">개발 사항 :</div>
+											<div class="col-10 border" style="min-height:100px;">${statusHistory.reply}</div>
 										</div>
 										<div class="row mt-3">
-											<div class="col-4">첨부파일 : </div>
-											<div class="col-8">
+											<div class="col-2">첨부파일 : </div>
+											<div class="col-10">
 												<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 													<div>
 														<span>${statusHistoryFile.fileName}</span>
@@ -412,16 +414,27 @@
 		}
 		
 		function openRequestInfo(){
+			$('#requestInfoNav').addClass("active");
+			$('#developHistoryNav').removeClass("active");
+			$('#RedevelopHistoryNav').removeClass("active");
 			$('#requestInfo').show();
 			$('#pmConfirmInfo').show();
+			$('#developHistoryWrite').hide();
 			$('#developHistory').hide();
+			$('#reDevelopRequestHistory').hide();
 		}
 		
 		function openDevelopHistory(){
+			$('#requestInfoNav').removeClass("active");
+			$('#developHistoryNav').addClass("active");
+			$('#RedevelopHistoryNav').removeClass("active");
 			$('#requestInfo').hide();
 			$('#pmConfirmInfo').hide();
-			$('#developHistory').show();	
+			$('#developHistoryWrite').show();
+			$('#developHistory').show();
+			$('#reDevelopRequestHistory').hide();		
 		}
+			
 
 	</script>
 </body>

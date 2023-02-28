@@ -60,37 +60,7 @@ public class DeveloperController {
 		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("receiptDoneDate", receiptDoneDate);
 		model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));
-		return "srm/developerdetail2";
-	}
-	@GetMapping("/developerdetail2")
-	public String getDeveloperDetail2(Model model, int rno) {
-		log.info("실행");
-
-		// 요청내용 출력 -장현
-		Request request = commonService.getRequest(rno);
-		// 요청 프로세스 출력 -장현
-		RequestProcess requestProcess = commonService.getRequestProcess(rno);
-		// 개발자가 테스터로 넘길시 작성했던 내용 출력 -장현
-		List<StatusHistory> devToTester = commonService.getDevToTesterHistories(rno);
-		// 테스터가 개발자에게 보내는 결함내용(재검토) -장현
-		List<StatusHistory> testerToDev = commonService.getTesterToDevHistories(rno);
-		// 접수완료일자 받기 (각 실무자의 할당시간 체크 용도)
-		Date receiptDoneDate = commonService.getReceiptDoneDate(rno);
-		
-		// 요청, 요청프로세스, 작성내용들 모달에 담기 -장현
-		model.addAttribute("request", request);
-		model.addAttribute("devToTester", devToTester);
-		model.addAttribute("testerToDev", testerToDev);
-		model.addAttribute("requestProcess", requestProcess);
-		model.addAttribute("receiptDoneDate", receiptDoneDate);
-		
-		return "srm/developerdetail2";
-	}
-	@GetMapping("/developerdetail3")
-	public String getDeveloperDetail3(Model model) {
-		log.info("실행");
-
-		return "srm/developerdetail3";
+		return "srm/developerdetail";
 	}
 
 

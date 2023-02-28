@@ -40,10 +40,10 @@ public class StatsService implements IStatsService {
 		list.add(commonDao.selectRequestRecentPM());
 		// 그외 담당자 태스크별 담당 요청 건수 구하기
 		for(int i=1; i<5; i++) {
-			list.add(statsDao.selectAllReqTask(i));
+			list.add(statsDao.selectAllReqTask(i)-statsDao.selectComReqTask(i));
 		}
-		// 전에 완료 요청 건수 구하기
-		list.add(statsDao.selectComReq());
+		// 완료 대기 + 완료 요청 건수 구하기
+		list.add(statsDao.selectComReqTask(4)+commonDao.selectRequestReject());              ////statsDao.selectComReq());
 		// 비율 계산을 위한 전체 분모값 구하기
 		list.add(list.stream().mapToInt(Integer::intValue).sum());
 		return list;		
@@ -125,7 +125,7 @@ public class StatsService implements IStatsService {
 			// 태스크 별 요청 값 저장할 ArrayList 객체 생성
 			ArrayList<Integer> arr = new ArrayList<>();
 			// 전체 서비스 요청 건수
-			arr.add(statsDao.selectAllReqTask(j));			
+			arr.add(statsDao.selectAllReqTask(j)-statsDao.selectComReqTask(j));			
 			// 진행 중 서비스 요청 건수
 			arr.add(statsDao.selectOnReqTask(j));
 			// 완료 서비스 요청 건수

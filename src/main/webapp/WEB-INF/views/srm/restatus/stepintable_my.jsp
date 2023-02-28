@@ -13,7 +13,7 @@
 --font-size-small: .75rem; 
 --font-size-default: .875rem;
 }
-												
+
 .progress_bar {
 display: flex;
 justify-content: space-between;
@@ -36,6 +36,9 @@ margin: 0 0 1rem 0;
 													text-align: center;
 													border-bottom: 2px solid var(--color-gray-disabled);
 												}
+												
+												
+												
 												
 												.progress_bar li:first-child, .progress_bar li:last-child {
 													flex: 1;
@@ -88,6 +91,17 @@ margin: 0 0 1rem 0;
 													z-index: 2;
 													border-bottom: 2px solid var(--gray-dark);
 												}
+												.progress_bar .is_reject:not(:first-child):after{
+													content: "";
+													display: block;
+													width: 100%;
+													position: absolute;
+													bottom: -2px;
+													left: -50%;
+													z-index: 2;
+													border-bottom: 2px solid var(--red);
+												}
+												
 												
 												.progress_bar li:last-child span {
 													width: 200%;
@@ -101,9 +115,16 @@ margin: 0 0 1rem 0;
 													width: 200%;
 													left: -100%;
 												}
+												.progress_bar .is_reject:last-child:after{
+													width : 200%;
+													left: -100%;
+												}
 												
 												.progress_bar .is_complete:before {
 													background-color: var(--gray-dark);
+												}
+												.progress_bar .is_reject:before{
+													background-color : var(--red);
 												}
 												
 												.progress_bar .is_active:before, .progress_bar li:hover:before,
@@ -126,6 +147,9 @@ margin: 0 0 1rem 0;
 												.progress_bar .has-changes {
 													opacity: 1 !important;
 												}
+												.progress_bar a{
+													text-decoration: none;
+												}
 
 
 </style> 
@@ -136,16 +160,13 @@ margin: 0 0 1rem 0;
 			<li class="is_complete"><a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}"><span>요청완료</span></a></li>
 			<li class="<c:if test="${request.statusNo >= 2}">is_complete</c:if>
 						 <c:if test="${request.statusNo == 1}">is_active</c:if>">
-					<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 						<span>
 							<c:if test="${request.statusNo == 1}">접수중</c:if>
 							<c:if test="${request.statusNo >= 2}">접수완료</c:if>
 						</span>
-					</a>
 				</li>
 			<li class="<c:if test="${request.statusNo >= 5}">is_complete</c:if>
-							<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">now</c:if>">
-				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
+							<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>">
 					<span>
 						<c:if test="${request.statusNo < 2}">개발단계</c:if>
 						<c:if test="${request.statusNo == 2}">개발요청</c:if>
@@ -153,48 +174,37 @@ margin: 0 0 1rem 0;
 						<c:if test="${request.statusNo == 3}">개발재검토</c:if>
 						<c:if test="${request.statusNo >= 5}">개발완료</c:if>
 					</span>
-				</a>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 7}">is_complete</c:if><c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>">
-				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<span>
 						<c:if test="${request.statusNo < 5}">테스트단계</c:if>
 						<c:if test="${request.statusNo == 5}">테스트요청</c:if>
 						<c:if test="${request.statusNo == 6}">테스트중</c:if>
 						<c:if test="${request.statusNo >= 7}">테스트완료</c:if>
 					</span>
-				</a>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 9}">is_complete</c:if><c:if test="${request.statusNo >= 7 && request.statusNo <= 8}">is_active</c:if>">
-				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<span>
 						<c:if test="${request.statusNo < 7}">유저테스트단계</c:if>
 						<c:if test="${request.statusNo == 7}">유저테스트요청</c:if>
 						<c:if test="${request.statusNo == 8}">유저테스트중</c:if>
 						<c:if test="${request.statusNo >= 9}">유저테스트완료</c:if>
 					</span>
-				</a>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 11}">is_complete</c:if><c:if test="${request.statusNo >= 9 && request.statusNo <= 10}">is_active</c:if>">
-				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<span>
 						<c:if test="${request.statusNo < 9}">배포단계</c:if>
 						<c:if test="${request.statusNo == 9}">배포요청</c:if>
 						<c:if test="${request.statusNo == 10}">배포중</c:if>
 						<c:if test="${request.statusNo >= 11}">배포완료</c:if>
 					</span>
-				</a>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 13}">is_complete</c:if><c:if test="${request.statusNo == 11}">is_active</c:if>">
-				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<span>
 						<c:if test="${request.statusNo < 11}">최종승인단계</c:if>
 						<c:if test="${request.statusNo == 11}">최종승인요청</c:if>
-					</span>
-				</a>
-				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 						<c:if test="${request.statusNo == 13}">완료</c:if>
-				</a>
+					</span>
 			</li>
 		</c:if>
 		<c:if test="${request.reqType == '긴급'}">
@@ -202,15 +212,13 @@ margin: 0 0 1rem 0;
 				<span>요청완료</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 2}">is_complete</c:if><c:if test="${request.statusNo == 1}">is_active</c:if>">
-				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<span>
 						<c:if test="${request.statusNo == 1}">접수중</c:if>
 						<c:if test="${request.statusNo >= 2}">접수완료</c:if>
 					</span>
-				</a>
 			</li>
+			
 			<li class="<c:if test="${request.statusNo >= 5}">is_complete</c:if><c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>">
-				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<span>
 						<c:if test="${request.statusNo < 2}">개발단계</c:if>
 						<c:if test="${request.statusNo == 2}">개발요청</c:if>
@@ -218,57 +226,47 @@ margin: 0 0 1rem 0;
 						<c:if test="${request.statusNo == 3}">개발재검토</c:if>
 						<c:if test="${request.statusNo >= 5}">개발완료</c:if>
 					</span>
-				</a>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 7}">is_complete</c:if><c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>">
-				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<span>
 						<c:if test="${request.statusNo < 5}">테스트단계</c:if>
 						<c:if test="${request.statusNo == 5}">테스트요청</c:if>
 						<c:if test="${request.statusNo == 6}">테스트중</c:if>
 						<c:if test="${request.statusNo >= 7}">테스트완료</c:if>
 					</span>
-				</a>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 11}">is_complete</c:if><c:if test="${request.statusNo >= 7 && request.statusNo <= 10}">is_active</c:if>">
-				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<span>
 						<c:if test="${request.statusNo < 7}">배포단계</c:if>
 						<c:if test="${request.statusNo == 7}">배포요청</c:if>
 						<c:if test="${request.statusNo == 10}">배포중</c:if>
 						<c:if test="${request.statusNo >= 11}">배포완료</c:if>
 					</span>
-				</a>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 13}">is_active</c:if><c:if test="${request.statusNo == 11}">is_active</c:if>">
-				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<span>
 						<c:if test="${request.statusNo < 11}">최종승인단계</c:if>
 						<c:if test="${request.statusNo == 11}">최종승인요청</c:if>
 					</span>
-				</a>
-				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 						<c:if test="${request.statusNo == 13}">완료</c:if>
-				</a>
 			</li>
 		</c:if>
 	</c:if>
 	<c:if test="${request.statusNo == 12}">
-		<li class="is_complete">
-			<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
+		<li class="is_reject">
 				<span>
 					요청
 				</span>
-			</a>
 		</li>
-		<li class=""><span>접수</span></li>
-		<li class=""><span>개발</span></li>
-		<li class=""><span>테스트</span></li>
-		<li class=""><span>유저테스트</span></li>
-		<li class=""><span>배포</span></li>
-		<li class="is_complete"><a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}"><span>반려</span></a></li>
+		<li class="is_reject"><span>접수</span></li>
+		<li class="is_reject"><span>반려</span></li>
+		<li class=""><span></span></li>
+		<li class=""><span></span></li>
+		<li class=""><span></span></li>
+		<li class=""><span></span></li>
 	</c:if>
 </ol>
+
 
 
 

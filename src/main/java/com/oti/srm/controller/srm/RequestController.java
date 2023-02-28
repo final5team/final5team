@@ -56,6 +56,9 @@ public class RequestController {
 	@Autowired
 	private IRequestRegisterService requestService;
 
+	@Autowired
+	private PMController pmController;
+	
 	/**
 	 * Kang Ji Seong 유저 등록 페이지 조회
 	 */
@@ -74,7 +77,8 @@ public class RequestController {
 		String address = member.getPostcode() + "-" + member.getAddr1() + "-" + member.getAddr2();
 		member.setAddress(address);
 		MultipartFile mfile = member.getMfile();
-
+		log.info("유저 등록");
+		
 		try {
 			if (mfile != null && !mfile.isEmpty()) {
 				member.setFileName(mfile.getOriginalFilename());
@@ -136,7 +140,7 @@ public class RequestController {
 		
 		if(returnMember.getMfile() == null) {
 			
-			returnMember = userRegisterService.getUserInfo("가입Test");
+			returnMember = userRegisterService.getUserInfo("img");
 			
 		}
 		HttpHeaders headers = new HttpHeaders();
@@ -171,6 +175,7 @@ public class RequestController {
 		return "srm/request";
 	}
 
+	
 	/**
 	 * 요청 등록 폼 작성
 	 */
@@ -233,6 +238,7 @@ public class RequestController {
 		listFilter.setDateLast(date_last);
 		listFilter.setSno(sno);
 		listFilter.setStatusNo(statusNo);
+		listFilter.setPageNo(pageNo);
 		
 		ListFilter returnList = requestService.dateFilterList(listFilter);
 		
@@ -265,7 +271,7 @@ public class RequestController {
 
 		// 필터에 출력할 시스템 리스트 조회
 		List<System> systemList = userRegisterService.getSystemList();
-
+		
 		// 전달받은 필터 값 저장
 		ListFilter listFilter = new ListFilter();
 		listFilter.setReqType(req_type);
@@ -273,6 +279,7 @@ public class RequestController {
 		listFilter.setDateLast(date_last);
 		listFilter.setSno(sno);
 		listFilter.setStatusNo(statusNo);
+		listFilter.setPageNo(pageNo);
 		
 		ListFilter returnList = requestService.dateFilterList(listFilter);
 		
@@ -282,10 +289,8 @@ public class RequestController {
 		request.setMid(member.getMid());
 		// 보여줄 행 수 조회
 		int totalRows = requestService.getMyWorkRows(listFilter, member);
-
+		
 		Pager pager = new Pager(7, 5, totalRows, pageNo);
-		log.info(pager.getStartRowNo());
-		log.info(pager.getEndRowNo());
 		
 		List<SelectPM> requestList = requestService.getMyWorkList(request, listFilter, pager, member);
 		
@@ -316,11 +321,23 @@ public class RequestController {
 	@GetMapping("/requestdetail")
 	public String userRequestDetail(int rno, HttpSession session, Model model) {
 		Request request = requestService.getRequestDetail(rno);
+		
 		List<System> systemList = userRegisterService.getSystemList();
 		
-		model.addAttribute("request", request);
-		model.addAttribute("systemList", systemList);
-		return "srm/requestdetail";
+		//반려 페이지
+		if(request.getStatusNo() == 12) {
+			
+			return "srm/requestrejectpage";
+		//완료 페이지
+		} else if (request.getStatusNo() == 13) {
+			
+			return "srm/requestendpage";
+		} else {
+			
+			model.addAttribute("request", request);
+			model.addAttribute("systemList", systemList);
+			return "srm/requestdetail";
+		}
 	}
 	
 	/**

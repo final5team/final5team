@@ -93,11 +93,11 @@
                 <!-- End of Topbar -->
 
                 <!-- 여기에 내용 담기 start -->
-                <div class="container-fluid">
+                <div class="container">
                 	<div id="main">
 	                	<!-- 상단부분start -->
 	                		<div class="row">
-	                			<div class="col-5">
+	                			<div class="col-5 ml-3">
 	                				<div class="card card-success shadow pd-2" style="height:140px;">
 	                					<div class="card-header" ></div>
                 						<div class="d-flex justify-content-center">
@@ -116,7 +116,7 @@
 		                                    <div class="row no-gutters align-items-center">
 		                                        <div class="col mr-2">
 		                                            <div class="text-lg font-weight-bold text-success text-uppercase mb-1">
-		                                                	진행 요청건</div>
+		                                                	진행</div>
 		                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><c:out value="${userRequestStatusCount.requestInProgress}"></c:out> 건</div>
 		                                        </div>
 		                                        <div class="col-auto">
@@ -134,7 +134,7 @@
 		                                    <div class="row no-gutters align-items-center">
 		                                        <div class="col mr-2">
 		                                            <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">
-		                                             	 완료 요청건</div>
+		                                             	 완료</div>
 		                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><c:out value="${userRequestStatusCount.requestDone}"></c:out> 건</div>
 		                                        </div>
 		                                        <div class="col-auto">
@@ -153,122 +153,137 @@
 										<h3 class="title">나의 요청 상황</h3>
 									</div>
 									<div class="topnav">
-										  <a class="active" href="#">전체</a>
-										  <a href="#">진행중</a>
-										  <a href="#">완료</a>
+										  <a id="one" class="active" onclick="userRequestList('전체', 1)">전체</a>
+										  <a id="two" onclick="userRequestList('진행중', 1)">진행중</a>
+										  <a id="three" onclick="userRequestList('완료', 1)">완료</a>
+										  <a id="four" onclick="userRequestList('반려', 1)">반려</a>
 									</div>
-									<div class="card-body py-0 ">
-										<table class="table table-hover usertable table-striped">
-											<thead>
-												<tr>
-													<th>번호</th>
-													<th>제목</th>
-													<th>시스템</th>
-													<th>요청일자</th>
-													<th>진행상황</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>1</td>
-													<td class="tableContent"><a href="#">asdfasd내용내용fasdf</a></td>
-													<td>가족관계시스템</td>
-													<td>2023-09-09</td>
-													<td><span class="btn btn-sm btn-primary">진행중</span></td>
-												</tr>
-												<tr>
-													<td>2</td>
-													<td class="tableContent">asdfasd내용내용fasdf</td>
-													<td>주민등본시스템</td>
-													<td>2023-09-09</td>
-													<td><span class="btn btn-sm btn-danger">반려</span></td>
-												</tr>
-												<tr>
-													<td>3</td>
-													<td class="tableContent">asdasdfasdfasdddddddddddddddfasdffasd내용내용fasdf</td>
-													<td>주민등본시스템</td>
-													<td>2023-09-09</td>
-													<td><span class="btn btn-sm btn-info">완료</span></td>
-												</tr>
-											</tbody>
-										</table>
-										<nav aria-label="Page navigation">
-											  <ul class="pagination justify-content-center pagination-sm">
-											    <li class="page-item disabled">
-											      <a class="page-link">Previous</a>
-											    </li>
-											    <li class="page-item"><a class="page-link" href="#">1</a></li>
-											    <li class="page-item"><a class="page-link" href="#">2</a></li>
-											    <li class="page-item"><a class="page-link" href="#">3</a></li>
+									<div class="card-body py-0 " id="userRequestListContainer">
+										<div style="height: 280px;">
+											<table class="table table-hover usertable table-striped">
+												<thead>
+													<tr>
+														<th>번호</th>
+														<th>제목</th>
+														<th>시스템</th>
+														<th>요청일자</th>
+														<th>진행상황</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach var="request" items="${userRequestList}">
+														<tr>
+															<td>${request.rno}</td>
+															<td class="tableContent">
+																<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
+																	${request.reqTitle}
+																</a>
+															</td>
+															<td>${request.systemName}</td>
+															<td><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd"/></td>
+															<td>
+																<c:if test="${request.statusNo == 12}">
+																	<span class="badge badge-warning">반려</span>
+																</c:if>
+																<c:if test="${request.statusNo == 13}">
+																	<span class="badge badge-success">완료</span>
+																</c:if>
+																<c:if test="${request.statusNo != 12 && request.statusNo != 13}">
+																	<span class="badge badge-primary">진행중</span>
+																</c:if>
+														    </td>
+														</tr>
+													</c:forEach>
+													</tbody>
+												</table>
+										</div>
+											<ul class="pagination pagination-sm d-flex justify-content-center">
+											    <li class="page-item"><a class="page-link" onclick="userRequestList('${searchStatus}', 1)">처음</a></li>
+											   <c:if test="${uPager.groupNo>1}">
 											    <li class="page-item">
-											      <a class="page-link" href="#">Next</a>
+											    	<a class="page-link" onclick="userRequestList('${searchStatus}', ${uPager.startPageNo-1})">
+											    		<i class="fas fa-caret-left"></i>
+											    	</a>
 											    </li>
-											  </ul>
-											</nav>
+											   </c:if>
+											   <c:forEach var="i" begin="${uPager.startPageNo}" end="${uPager.endPageNo}">
+											   	<c:if test="${uPager.pageNo != i}">
+											    	<li class="page-item"><a class="page-link" onclick="userRequestList('${searchStatus}', ${i})">${i}</a></li>
+											   	</c:if>
+											   	<c:if test="${uPager.pageNo == i}">
+											    	<li class="page-item"><a class="page-link" style="background-color: #76D4F5; color: white;" onclick="userRequestList('${searchStatus}', ${i})">${i}</a></li>
+											   	</c:if>
+											   </c:forEach>
+											   <c:if test="${uPager.groupNo<pager.totalGroupNo}">
+											    <li class="page-item">
+											    	<a class="page-link" onclick="userRequestList('${searchStatus}', ${uPager.endPageNo + 1})">
+											    		<i class="fas fa-caret-right"></i>
+											   	 	</a>
+											    </li>
+											   </c:if>
+											   <li class="page-item"><a class="page-link"onclick="userRequestList('${searchStatus}', ${uPager.totalPageNo})">맨끝</a></li>
+											</ul>
 									</div>
 								</div>
 							</div>	               			
 							<div class="col-12 my-4">
-								<div class="card border-left-danger" style="height: 430.896px;">
+								<div class="card border-left-primary" style="height: 430.896px;">
 									<div class="card-header">
 										<h3 class="title">공지사항</h3>
 									</div>
-									<div class="card-body">
-										<table class="table table-hover usertable table-striped">
-											<thead>
-												<tr>
-													<th>번호</th>
-													<th>제목</th>
-													<th>작성자</th>
-													<th>작성일</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<th>1</th>
-													<td class="tableContent"><a href="#">asdfasd내용내용fasdf</a></td>
-													<td>송영훈</td>
-													<td>2023-09-09</td>
-												</tr>
-												<tr>
-													<th>2</th>
-													<td class="tableContent">asdfasd내용내용fasdf</td>
-													<td>강지성</td>
-													<td>2023-09-09</td>
-												</tr>
-												<tr>
-													<th>3</th>
-													<td class="tableContent">asdfasd내용내용fasdf</td>
-													<td>강지성</td>
-													<td>2023-09-09</td>
-												</tr>
-												<tr>
-													<th>4</th>
-													<td class="tableContent">asdfasd내용내용fasdf</td>
-													<td>강지성</td>
-													<td>2023-09-09</td>
-												</tr>
-												<tr>
-													<th>5</th>
-													<td class="tableContent">asdfasd내용내용fasdf</td>
-													<td>강지성</td>
-													<td>2023-09-09</td>
-												</tr>
-											</tbody>
-										</table>
-											<nav aria-label="Page navigation">
-											  <ul class="pagination justify-content-center pagination-sm">
-											    <li class="page-item disabled">
-											      <a class="page-link">Previous</a>
-											    </li>
-											    <li class="page-item"><a class="page-link" href="#">1</a></li>
-											    <li class="page-item"><a class="page-link" href="#">2</a></li>
-											    <li class="page-item"><a class="page-link" href="#">3</a></li>
+									<div class="card-body" id="mainNoticeListContainer">
+										<div style="height: 290px;">
+											<table class="table table-hover usertable table-striped">
+												<thead style="background-color: #72B22B;" class="text-white">
+													<tr>
+														<th>번호</th>
+														<th>제목</th>
+														<th>작성자</th>
+														<th>작성일</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:forEach var="notice" items="${noticeList}">
+														<tr>
+															<th>${notice.nno}</th>
+															<td class="tableContent">
+																<a href="${pageContext.request.contextPath}/noticedetail?nno=${notice.nno}">
+																	${notice.noticeTitle}
+																</a>
+															</td>
+															<td>${notice.mid}</td>
+															<td><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd"/></td>
+														</tr>
+													</c:forEach>				
+												</tbody>
+											</table>
+										</div>
+										<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
+										    <li class="page-item"><a class="page-link" onclick="mainNoticeList(1)">처음</a></li>
+										    <c:if test="${nPager.groupNo>1}">
 											    <li class="page-item">
-											      <a class="page-link" href="#">Next</a>
+											    	<a class="page-link" onclick="mainNoticeList(${nPager.startPageNo-1})">
+											    		<i class="fas fa-caret-left"></i>
+											    	</a>
 											    </li>
-											  </ul>
-											</nav>
+										    </c:if>
+										    <c:forEach var="i" begin="${nPager.startPageNo}" end="${nPager.endPageNo}">
+										    	<c:if test="${nPager.pageNo != i}">
+											    	<li class="page-item"><a class="page-link" onclick="mainNoticeList(${i})">${i}</a></li>
+										    	</c:if>
+										    	<c:if test="${nPager.pageNo == i}">
+											    	<li class="page-item"><a class="page-link" style="background-color: #72B22B; color: white;" onclick="mainNoticeList(${i})">${i}</a></li>
+										    	</c:if>
+										    </c:forEach>
+										    <c:if test="${nPager.groupNo<nPager.totalGroupNo}">
+											    <li class="page-item">
+											    	<a class="page-link" onclick="mainNoticeList(${nPager.endPageNo + 1})">
+											    		<i class="fas fa-caret-right"></i>
+											   	 	</a>
+											    </li>
+										    </c:if>
+										    <li class="page-item"><a class="page-link" onclick="mainNoticeList(${nPager.totalPageNo})">맨끝</a></li>
+										</ul>
 									</div>
 								
 								</div>
@@ -294,7 +309,72 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
+    
+    <script>
+    	function userRequestList(searchStatus, pageNo){
+    		if(searchStatus == '전체'){
+    			$('#one').css("background-color", "#98def7");
+    			$('#one').css("color", "white");
+    			$('#two').css("background-color", "white");
+    			$('#two').css("color", "#858796");
+    			$('#three').css("background-color", "white");
+    			$('#three').css("color", "#858796");
+    			$('#four').css("background-color", "white");
+    			$('#four').css("color", "#858796");
+	    	}
+    		else if(searchStatus == '진행중'){
+				$('#one').css("background-color", "white");
+				$('#one').css("color", "#858796");
+    			$('#two').css("background-color", "#98def7");
+    			$('#two').css("color", "white");
+    			$('#three').css("background-color", "white");
+				$('#three').css("color", "#858796");
+    			$('#four').css("background-color", "white");    			
+				$('#four').css("color", "#858796");
+			}
+    		else if(searchStatus == '완료'){
+				$('#one').css("background-color", "white");
+				$('#one').css("color", "#858796");
+    			$('#two').css("background-color", "white");
+    			$('#two').css("color", "#858796");
+    			$('#three').css("background-color", "#98def7");
+    			$('#three').css("color", "white");
+    			$('#four').css("background-color", "white");
+    			$('#four').css("color", "#858796");
+			}
+    		else if(searchStatus == '반려'){
+				$('#one').css("background-color", "white");
+				$('#one').css("color", "#858796");
+    			$('#two').css("background-color", "white");
+    			$('#two').css("color", "#858796");
+    			$('#three').css("background-color", "white");
+    			$('#three').css("color", "#858796");
+    			$('#four').css("background-color", "#98def7");
+    			$('#four').css("color", "white");
+			}
+    		
+    		$.ajax({
+    			type: "GET", //요청 메소드 방식
+    			url:"${pageContext.request.contextPath}/userrequestlist?myRequestPageNo=" + pageNo + "&searchStatus=" + searchStatus,
+    			dataType:"html", 
+    			success : function(result){
+    				$('#userRequestListContainer').html(result);
+    				console.log("success");
+    			}
+    		});
+    	} 
+    	
+    	function mainNoticeList(pageNo){
+    		$.ajax({
+    			type: "GET", //요청 메소드 방식
+    			url:"${pageContext.request.contextPath}/mainnoticelist?noticePageNo=" + pageNo,
+    			dataType:"html", 
+    			success : function(result){
+    				$('#mainNoticeListContainer').html(result);
+    			}
+    		})
+    	} 
+    </script>
 
 
 </body>

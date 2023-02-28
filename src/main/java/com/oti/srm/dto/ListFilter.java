@@ -10,6 +10,8 @@ public class ListFilter{
 	private String dateLast;
 	private int sno;
 	private int statusNo;
+	// 시스템 이름
+	private String systemName;
 	
 	
 	private String dateValue;
@@ -19,5 +21,8 @@ public class ListFilter{
 	//날짜 변환
 	private Date date_first;
 	private Date date_last;
+	
+	//pageNo 저장
+	private int pageNo;
 	
 }

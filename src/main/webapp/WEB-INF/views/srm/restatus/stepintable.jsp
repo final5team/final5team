@@ -13,7 +13,7 @@
 --font-size-small: .75rem; 
 --font-size-default: .875rem;
 }
-												
+
 .progress_bar {
 display: flex;
 justify-content: space-between;
@@ -88,6 +88,17 @@ margin: 0 0 1rem 0;
 													z-index: 2;
 													border-bottom: 2px solid var(--gray-dark);
 												}
+												.progress_bar .is_reject:not(:first-child):after{
+													content: "";
+													display: block;
+													width: 100%;
+													position: absolute;
+													bottom: -2px;
+													left: -50%;
+													z-index: 2;
+													border-bottom: 2px solid var(--red);
+												}
+												
 												
 												.progress_bar li:last-child span {
 													width: 200%;
@@ -101,9 +112,16 @@ margin: 0 0 1rem 0;
 													width: 200%;
 													left: -100%;
 												}
+												.progress_bar .is_reject:last-child:after{
+													width : 200%;
+													left: -100%;
+												}
 												
 												.progress_bar .is_complete:before {
 													background-color: var(--gray-dark);
+												}
+												.progress_bar .is_reject:before{
+													background-color : var(--red);
 												}
 												
 												.progress_bar .is_active:before, .progress_bar li:hover:before,
@@ -130,7 +148,6 @@ margin: 0 0 1rem 0;
 													text-decoration: none;
 												}
 
-
 </style> 
 
 <ol class="progress_bar">
@@ -147,7 +164,7 @@ margin: 0 0 1rem 0;
 					</a>
 				</li>
 			<li class="<c:if test="${request.statusNo >= 5}">is_complete</c:if>
-							<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">now</c:if>">
+							<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>">
 				<a href="${pageContext.request.contextPath}/developerdetail?rno=${request.rno}">
 					<span>
 						<c:if test="${request.statusNo < 2}">개발단계</c:if>
@@ -255,19 +272,19 @@ margin: 0 0 1rem 0;
 		</c:if>
 	</c:if>
 	<c:if test="${request.statusNo == 12}">
-		<li class="is_complete">
+		<li class="is_reject">
 			<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 				<span>
 					요청
 				</span>
 			</a>
 		</li>
-		<li class=""><span>접수</span></li>
-		<li class=""><span>개발</span></li>
-		<li class=""><span>테스트</span></li>
-		<li class=""><span>유저테스트</span></li>
-		<li class=""><span>배포</span></li>
-		<li class="is_complete"><a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}"><span>반려</span></a></li>
+		<li class="is_reject"><span>접수</span></li>
+		<li class="is_reject"><a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}"><span>반려</span></a></li>
+		<li class=""><span></span></li>
+		<li class=""><span></span></li>
+		<li class=""><span></span></li>
+		<li class=""><span></span></li>
 	</c:if>
 </ol>
 
