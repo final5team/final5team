@@ -11500,6 +11500,8 @@ input[type="checkbox"]:checked + label:after {
   
   .title-block {
     padding: 20px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #d7dde4;
 }
 
 #main{
@@ -11523,3 +11525,8 @@ input[type="checkbox"]:checked + label:after {
   .card.card-dark > .card-header {
     background-color: #3A4651;
 	}
+	
+.border-left-right-primary {
+  border-right: 0.25rem solid #85ce36 !important;
+  border-left: 0.25rem solid #85ce36 !important;
+}

@@ -68,11 +68,7 @@
 </head>
 
 <body id="page-top">
-	<script>
-		function checkDateToDevelope(){
-			console.log('버튼 클릭');
-		}
-	</script>
+	
     <!-- Page Wrapper -->
     <div id="wrapper">
 		
