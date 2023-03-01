@@ -27,7 +27,9 @@ public interface IStatsService {
 	public List<ArrayList<Integer>> getSRStateTask();
 	
 	// 서비스 요청 추이 값 구하기
-	public Map<String, Integer> getSRChange(int req);
+	public List<ArrayList<Integer>> getSRChange();
+	// 시스템 이름 구하기
+	public List<String> getSystemName();
 
 
 	
