@@ -193,13 +193,13 @@
                 <!-- End of Topbar -->
 
                 <!-- 여기에 내용 담기 start -->
-                <div class="container-fluid">
-                	<!-- Main(정적 페이지) -->
-                	<div class="main">
+                <div class="container">  
+                	<!-- Main(정적 페이지) -->             	
+                	<div id="main">
 	                	<!-- 첫째 줄 -->
-						<div class="row">
-							<div  class="col-lg-4">
-								 <div class="card shadow mb-4">
+						<div class="row" style="background-color: ORANGE">
+							<div  class="col" style="width:500px; background-color: green">
+								 <div class="card shadow mb-4" style=" background-color: red">
 	                                <!-- Card Header - Dropdown -->
 	                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 	                                    <h6 class="m-0 font-weight-bold text-primary">시스템별 요청 비중</h6>
@@ -224,7 +224,7 @@
 	                                </div>
 	                            </div>
 							</div>
-							<div  class="col-lg-4">
+							<div  class="col">
 								 <div class="card shadow mb-4">
 	                                <!-- Card Header - Dropdown -->
 	                                <div
@@ -246,24 +246,15 @@
 	                                    </div>
 	                                </div>
 	                                <!-- Card Body -->
-	                                <div class="card-body">
-		                                <div class="row">
-		                                	<div class="col-md-7"> 
-		                                		<div id="donutchart"></div>
-		                                		<div class="center">${comRate}%</div>
-		                                	</div>
-		                                	<div class="col-md-5">
-		                                		<p style="color: green">Task</p>
-			                                	<p>개발: ${comRateTask['developer']}%</p>
-			                                	<p>테스트: ${comRateTask['tester']}%</p>
-			                                	<p>유저: ${comRateTask['usertester']}%</p>
-			                                	<p>배포: ${comRateTask['distributor']}%</p>
-		                                	</div>
-		                                </div>
+	                                <div class="card-body">		                               
+	                                	<div> 
+	                                		<div id="donutchart"></div>
+	                                		<div class="center">${comRate}%</div>
+	                                	</div>		                                		                               
 	                                </div>
 	                            </div>
 							</div>
-							<div  class="col-lg-4">
+							<div  class="col">
 								 <div class="card shadow mb-4">
 	                                <!-- Card Header - Dropdown -->
 	                                <div
@@ -285,18 +276,9 @@
 	                                    </div>
 	                                </div>
 	                                <!-- Card Body -->
-	                                <div class="card-body" style="height:240px">
-	                                	<div class="row">
-		                                	<div class="col-md-7"> 
-		                                		<div id="chart_div" style="width: 400px; height: 120px;" class="ml-4 mt-3"></div> 
-		                                	</div>
-		                                	<div class="col-md-5">
-		                                		<p style="color: green">Task</p>
-			                                	<p>개발: ${delRateTask['developer']}%</p>
-			                                	<p>테스트: ${delRateTask['tester']}%</p>
-			                                	<p>유저: ${delRateTask['usertester']}%</p>
-			                                	<p>배포: ${delRateTask['distributor']}%</p>
-		                                	</div>
+	                                <div class="card-body">
+	                                	<div class="row">		                                	
+		                                	<div id="chart_div" style="width: 400px; height: 120px;" class="ml-4 mt-3"></div> 
 		                                </div>                                  
 	                                </div>
 	                            </div>
@@ -778,9 +760,9 @@
 							</div>
 	
 						</div>
-				
+									
 					</div>
-					<!-- Main(정적) end -->
+					<!-- end of Main -->
                 </div>
                 <!-- 여기에 내용 담기 end -->
 
