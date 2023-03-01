@@ -160,53 +160,34 @@
 						</form>
 					</section>
 					<section class="table border-left-dark">
-						<article class="table-header">
-							<h4 class="table-name">담당 업무 목록</h4>
-							<div class="switch_div">
-									<label class="switch">
-									  <input type="checkbox" checked onclick="myRequestList(`${sessionScope.member.mtype}`)" id ="myRequest" />
-									  <span class="slider round"></span>
-									</label>
-								</div>
-						</article>
+						
+						<!-- 유저가 아닌 경우, 요청 목록과 업무 목록 스위치 -->
+						<c:if test="${sessionScope.member.mtype != 'user'}">
+							<article class="table-header">
+								<h4 class="table-name">담당 업무 목록</h4>
+								<div class="switch_div">
+										<label class="switch">
+										  <input type="checkbox" checked onclick="myRequestList(`${sessionScope.member.mtype}`)" id ="myRequest" />
+										  <span class="slider round"></span>
+										</label>
+									</div>
+							</article>
+						</c:if>
+						
+						<!-- 유저인 경우, 내 요청 목록만 출력 -->
+						<c:if test="${sessionScope.member.mtype == 'user'}">
+							<article class="table-header">
+								<h4 class="table-name">내 요청 목록</h4>
+							</article>
+						</c:if>
 						<!-- ajax 수정 목록 -->
 						<table class="member" id="table_content">
-						
+							
 						</table>
 						
 													
 						
 					</section>
-					<div class="pager">
-						<div class="pagingButtonSet d-flex justify-content-center">
-							<a href="requestlist?pageNo=1&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
-								type="button" class="btn btn-muted shadow">◀◀</a>
-							<c:if test="${pager.groupNo > 1}">
-								<a href="requestlist?pageNo=${pager.startPageNo-1}
-								&req_type=${listFilter.reqType}&date_first=${listFilter.date_first}$date_last=${listFilter.date_last}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
-								 type="button" class="btn btn-muted shadow">◀</a>
-							</c:if>
-
-							<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
-								<c:if test="${pager.pageNo != i}">
-									<a href="requestlist?pageNo=${i}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
-							 				type="button" class="btn btn-white shadow">${i}</a>
-								</c:if>
-								<c:if test="${pager.pageNo == i}">
-									<a href="requestlist?pageNo=${i}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
-											type="button" class="btn btn-dark shadow">${i}</a>
-								</c:if>
-							</c:forEach>
-
-							<c:if test="${pager.groupNo < pager.totalGroupNo }">
-								<a href="requestlist?pageNo=${pager.endPageNo+1}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
-										type="button" class="btn btn-muted shadow">▶</a>
-
-							</c:if>
-							<a href="requestlist?pageNo=${pager.totalPageNo}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
-							 		type="button" class="btn btn-muted shadow">▶▶</a>
-						</div>
-					</div>
 					</main>
 				</div>	
 			</div>
@@ -227,20 +208,28 @@
 	</a>
 
 <script>
+
+// 유저 제외 담당자들의 ajax 호출
+
+
 /* 내 담당 업무 목록 ajax 호출 : 페이지 로딩 */
-	$(document).ready(function () {
-		/* member의 type은 controller에서 넣어줌, 설정 필요 없음  */
-		console.log("바로 실행");
-		data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1 };	
-		$.ajax({
-	  		url : "myworklist",
-			method : "post",
-			data : JSON.stringify(data),
-			contentType: "application/json; charset=UTF-8"
-		}).done((data) => {
-			$('#table_content').html(data);
+	
+		$(document).ready(function () {
+			/* member의 type은 controller에서 넣어줌, 설정 필요 없음  */
+			console.log("바로 실행");
+			data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1 };	
+			$.ajax({
+		  		url : "myworklist",
+				method : "post",
+				data : JSON.stringify(data),
+				contentType: "application/json; charset=UTF-8"
+			}).done((data) => {
+				$('#table_content').html(data);
+			});
 		});
-	});
+	
+	
+	
 
 /* 내 요청 목록 ajax 호출 : switch */
 	function myRequestList(mtype){
@@ -285,13 +274,7 @@
 		
 	} 
 
-  	//	검색 ajax 시 사용 예정
-	//	let reqType = document.getElementById(req_type);
-	//	let dateFirst = document.getElementById(date_first);
-	//	let dateLast = document.getElementById(date_last);
-	//	let sno = document.getElementById(sno);
-	//	let statusNo = document.getElementById(statusNo);  
-
+  	
 
 
 

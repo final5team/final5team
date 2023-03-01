@@ -84,12 +84,13 @@
 		</div>
 
 		<!-- 사이드메뉴 start -->
-		<li class="nav-item">
-			<a class="nav-link" href="${pageContext.request.contextPath}/customer/myrequestlist">
-				<i class="fas fa-fw fa-chart-area"></i>
-				<span>내 요청 목록</span></a>
-		</li>
-		
+		<c:if test="${member.mtype == 'user'}">
+			<li class="nav-item">
+				<a class="nav-link" href="${pageContext.request.contextPath}/customer/userrequestlist">
+					<i class="fas fa-fw fa-chart-area"></i>
+					<span>내 요청 목록</span></a>
+			</li>
+		</c:if>
 		
 		<c:if test="${member.mtype != 'user'}">
 			<li class="nav-item">
