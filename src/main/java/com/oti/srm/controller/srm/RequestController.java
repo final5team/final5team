@@ -220,21 +220,6 @@ public class RequestController {
 		return "srm/uesrrequestlist";
 	}
 	
-	
-	//(유저) 페이지 이동 + filter 검색
-	@PostMapping(value= "/usersearch")
-	public String userSearchList(@RequestBody ListFilter listFilter, Model model, HttpSession session) {
-		log.info("검색 실행");
-		log.info(listFilter.toString());
-		
-		
-		
-		
-		return "";
-	}
-	
-	
-	
 	//(유저 제외) 요청 목록 조회 ajax
 	@PostMapping("/myrequestlist")
 	public String myRequestList(@RequestBody ListFilter listFilter, Model model, HttpSession session) {
