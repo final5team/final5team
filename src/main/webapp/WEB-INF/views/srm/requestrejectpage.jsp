@@ -651,6 +651,7 @@ article.include div {
 									</div>
 								</div>
 							</article>
+							
 							<article class="label2">
 								<h6>소속기관</h6>
 								<h6>이메일</h6>

@@ -6,247 +6,7 @@
 
 <head>
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
-
-<style>
-a {
-	text-decoration: none;
-}
-	
-	.wrapper{
-		display : flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-main {
-	display: flex;
-	height: 1000px;
-	width: 1050px;
-	position: relative;
-	justify-content: center;
-	align-items: center;
-	font-size: 15px;
-}
-
-.filter {
-	width: 1050px;
-	height: 200px;
-	overflow: hidden;
-	text-align: start;
-	align-items: center;
-	position: absolute;
-	top: 0;
-	left: 0;
-	background-color: #fff;
-	border-bottom: 1px solid #e3e6f0;
-	border-radius: 5px;
-	border: 1px solid rgba(0, 0, 0, 0.125);
-	border-radius: 0.25rem;
-	-webkit-box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
-	box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
-}
-
-.filter .filter-head {
-	background-color: #f8f9fc;
-	border-bottom: 1px solid #e3e6f0;
-	height : 54px;
-}
-
-.filter .filter-head h4 {
-	color: #5a5c69;
-	font: bold;
-	padding: 0.75rem 1.25rem;
-	font-size: 1.45rem;
-	margin: 0px;
-	font-weight: 700;
-}
-
-.filter .filter-name {
-	width: 100px;
-	height: 100px;
-	position: absolute;
-	margin: 0;
-	left: 2%;
-}
-
-.filter .filter-name h6 {
-	font-size: 15px;
-	margin: 20px 10px;
-}
-
-.filter .filter-name2 {
-	width: 100px;
-	height: 100px;
-	position: absolute;
-	margin: 0;
-	left: 42%;
-}
-
-.filter .filter-name2 h6 {
-	font-size: 15px;
-	margin: 20px 10px;
-}
-
-.filter .filter-body {
-	width: 300px;
-	height: 80px;
-	overflow: hidden;
-	position: absolute;
-	left: 10%;
-	top: 34%;
-	float: left;
-	font-size: 15px;
-}
-
-.filter .filter-body .input-group {
-	width: 100px;
-	margin: 8px;
-}
-
-.filter .filter-body .date_form {
-	margin: 6px;
-}
-
-.filter .filter-body2 {
-	width: 150px;
-	height: 80px;
-	overflow: hidden;
-	position: absolute;
-	left: 50%;
-	top: 34%;
-	float: left;
-	font-size: 15px;
-}
-
-.filter .filter-body2 .input-group {
-	width: 100px;
-	margin: 5px;
-}
-
-.table {
-	text-align: center;
-	width: inherit;
-	height: 600px;
-	overflow: hidden;
-	text-align: start;
-	align-items: center;
-	position: absolute;
-	top: 23%;
-	left: 0;
-	background-color: #fff;
-	border-bottom: 1px solid #e3e6f0;
-	border-radius: 5px;
-	border: 1px solid rgba(0, 0, 0, 0.125);
-	border-radius: 0.25rem;
-	-webkit-box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
-	box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
-}
-
-.table .table-header {
-	background-color: #f8f9fc;
-	border-bottom: 1px solid #e3e6f0;
-	height : 54px;
-}
-
-.table .table-header h4 {
-	color: #5a5c69;
-	font: bold;
-	padding: 0.75rem 1.25rem;
-	font-size: 1.45rem;
-	margin: 0px;
-	font-weight: 700;
-}
-
-.table .table-body {
-	height: inherit;
-}
-
-.member {
-	margin: 5px 10px;
-	background-color: #fff;
-	border-collapse: collapse;
-	border-radius: 5px;
-	overflow: hidden;
-}
-
-.member caption {
-	font-size: 30px;
-	margin-bottom: 30px;
-}
-
-.member tr {
-	width: 1050px;
-	border-bottom: 1px solid #eee;
-	transition: 0.3s;
-}
-
-.member tr:hover {
-	background-color: #eee;
-}
-
-.member th, .member td {
-	font-size: 15px;
-	width: 1050px;
-	padding: 5px;
-	text-align: center;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
-.member tr th {
-	background-color: #5a5c69;
-		color: white;
-}
-
-.member .step_td {
-	display: inline-block;
-	width: 500px;
-}
-
-.member tr:hover {
-	background-color: rgba(211, 211, 211, 0.438);
-}
-
-.filter .search-button {
-	position: absolute;
-	width: 50px;
-	height: 50px;
-	left: 63%;
-	top: 60%;
-	z-index: 5;
-}
-
-.filter .write-button {
-	position: absolute;
-	width: 120px;
-	height: 50px;
-	left: 68%;
-	top: 60%;
-	z-index: 5;
-}
-
-.pager {
-	position: absolute;
-	left: 35%;
-	top: 78%;
-	width: 350px;
-}
-
-.pager .write {
-	position: absolute;
-	left: 100%;
-	top: 0%;
-	width: 80px;
-}
-
-.custom-select {
-	height: 28px;
-	padding: 0px 5px;
-}
-
-</style>
-
-
+<link href="${pageContext.request.contextPath}/resources/css/listcss/requestlistcss.css" rel="stylesheet">
 
 </head>
 
@@ -401,48 +161,21 @@ main {
 					</section>
 					<section class="table border-left-dark">
 						<article class="table-header">
-							<h4>담당 업무 목록</h4>
+							<h4 class="table-name">담당 업무 목록</h4>
+							<div class="switch_div">
+									<label class="switch">
+									  <input type="checkbox" checked onclick="myRequestList(`${sessionScope.member.mtype}`)" id ="myRequest" />
+									  <span class="slider round"></span>
+									</label>
+								</div>
 						</article>
+						<!-- ajax 수정 목록 -->
 						<table class="member" id="table_content">
-							<tr>
-								<th>No.</th>
-								<th>시스템</th>
-								<th>요청 유형</th>
-								<th>요청 제목</th>
-								<th>요청 일자</th>
-								<th>단계</th>
-
-							</tr>
-							<c:forEach var="request" items="${requestList}">
-								<tr>
-									<td class="rno">${request.rno}</td>
-									<td class="client">${request.sno}</td>
-									<c:if test="${request.statusNo == 1}">
-										<td class="sysType"><span class="badge badge-warning">미정</span></td>
-									</c:if>
-									<c:if test="${request.statusNo == 12}">
-										<td class="sysType"><span class="badge badge-warning">반려</span></td>
-									</c:if>
-									<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
-										<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
-											<c:if test="${request.reqType eq '정규'}">
-												<td class="sysType"><span class="badge badge-primary">${request.reqType}</span></td>
-											</c:if>
-											<c:if test="${request.reqType eq '긴급'}">
-												<td class="sysType"><span class="badge badge-danger">${request.reqType}</span></td>
-											</c:if>
-										</c:if>
-									</c:if>
-									<td class="reqTitle" style="max-width: 200px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
-									<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
-										<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
-									</td>
-									<td class="step_td">
-										<%@ include file="/WEB-INF/views/srm/restatus/stepintable.jsp"%>
-									</td>
-								</tr>
-							</c:forEach>
+						
 						</table>
+						
+													
+						
 					</section>
 					<div class="pager">
 						<div class="pagingButtonSet d-flex justify-content-center">
@@ -492,6 +225,77 @@ main {
 	<!-- Scroll to Top Button-->
 	<a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
 	</a>
+
+<script>
+/* 내 담당 업무 목록 ajax 호출 : 페이지 로딩 */
+	$(document).ready(function () {
+		/* member의 type은 controller에서 넣어줌, 설정 필요 없음  */
+		console.log("바로 실행");
+		data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1 };	
+		$.ajax({
+	  		url : "myworklist",
+			method : "post",
+			data : JSON.stringify(data),
+			contentType: "application/json; charset=UTF-8"
+		}).done((data) => {
+			$('#table_content').html(data);
+		});
+	});
+
+/* 내 요청 목록 ajax 호출 : switch */
+	function myRequestList(mtype){
+		let memberType = mtype;
+		/* mtype 전달, 페이징 처리 */
+		if($('#myRequest').is(":checked")){
+			
+			/* h4 태그 글자 바꾸기 */
+			let name = document.getElementsByClassName("table-name")[0];
+			name.innerText='담당 업무 목록';
+			/* console.log("임시, switch 확인용"); */
+			
+			data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1 };	
+			$.ajax({
+		  		url : "myworklist",
+				method : "post",
+				data : JSON.stringify(data),
+				contentType: "application/json; charset=UTF-8"
+			}).done((data) => {
+				$('#table_content').html(data);
+			});
+			
+			/* 내 요청 목록 호출 */
+		} else {
+			/* h4 태그 글자 바꾸기 */
+			let name = document.getElementsByClassName("table-name")[0];
+			name.innerText='내 요청 목록';
+			
+			/* console.log("내 요청 목록 호출"); */
+			
+			data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1}
+			$.ajax({
+		  		url : "myrequestlist",
+				method : "post",
+				data : JSON.stringify(data),
+				contentType: "application/json; charset=UTF-8"
+			}).done((data) => {
+				$('#table_content').html(data);
+			});
+		}
+		
+		
+	} 
+
+  	//	검색 ajax 시 사용 예정
+	//	let reqType = document.getElementById(req_type);
+	//	let dateFirst = document.getElementById(date_first);
+	//	let dateLast = document.getElementById(date_last);
+	//	let sno = document.getElementById(sno);
+	//	let statusNo = document.getElementById(statusNo);  
+
+
+
+
+</script>
 
 
 </body>
