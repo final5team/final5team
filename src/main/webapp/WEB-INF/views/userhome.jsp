@@ -116,8 +116,23 @@
 		                                    <div class="row no-gutters align-items-center">
 		                                        <div class="col mr-2">
 		                                            <div class="text-lg font-weight-bold text-success text-uppercase mb-1">
-		                                                	진행</div>
-		                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><c:out value="${userRequestStatusCount.requestInProgress}"></c:out> 건</div>
+		                                                	진행 중
+		                                            </div>
+		                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+		                                            	<c:set var="operating" value=
+		                                            	"${userRequestStatusCount['1'] 
+		                                            	+ userRequestStatusCount['2'] 
+		                                            	+ userRequestStatusCount['3']
+		                                            	+ userRequestStatusCount['4'] 
+		                                            	+ userRequestStatusCount['5'] 
+		                                            	+ userRequestStatusCount['6'] 
+		                                            	+ userRequestStatusCount['7']
+		                                            	+ userRequestStatusCount['8'] 
+		                                            	+ userRequestStatusCount['9']
+		                                            	+ userRequestStatusCount['10'] 
+		                                            	+ userRequestStatusCount['11']}"></c:set>
+		                                            	<c:out value="${operating} 건"/>
+		                                            </div>
 		                                        </div>
 		                                        <div class="col-auto">
 		                                            <i class="fas fa-spinner fa-2x text-gray-300"></i>
@@ -135,7 +150,9 @@
 		                                        <div class="col mr-2">
 		                                            <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">
 		                                             	 완료</div>
-		                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><c:out value="${userRequestStatusCount.requestDone}"></c:out> 건</div>
+		                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+		                                            	<c:out value="${userRequestStatusCount['12'] + userRequestStatusCount['13']}"></c:out> 건
+		                                            </div>
 		                                        </div>
 		                                        <div class="col-auto">
 		                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -152,7 +169,7 @@
 									<div class="card-header mb-2">
 										<h3 class="title">나의 요청 상황</h3>
 									</div>
-									<div class="topnav">
+									<div class="topnav ml-4">
 										  <a id="one" class="active" onclick="userRequestList('전체', 1)">전체</a>
 										  <a id="two" onclick="userRequestList('진행중', 1)">진행중</a>
 										  <a id="three" onclick="userRequestList('완료', 1)">완료</a>

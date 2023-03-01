@@ -48,9 +48,10 @@
 	                                    <div class="row no-gutters align-items-center">
 	                                        <div class="col mr-2">
 	                                            <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">
-	                                             	 접수 대기건</div>
+	                                             	 접수 대기
+	                                            </div>
 	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-	                                            	<c:out value="${workingStatus.requestRecent}"/> 건
+	                                            	<c:out value="${workingStatus['1']}"/> 건
 	                                            </div>
 	                                        </div>
 	                                        <div class="col-auto">
@@ -60,6 +61,27 @@
 	                                </div>
 	                            </div>
 	                        </div>
+	                        
+	                        <div class="uppermain mb-4">
+	                            <div class="card border-left-primary shadow h-100 py-2">
+	                                <div class="card-body">
+	                                    <div class="row no-gutters align-items-center">
+	                                        <div class="col mr-2">
+	                                            <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">
+	                                             	 승인 대기
+	                                            </div>
+	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+	                                            	<c:out value="${workingStatus['11']}"/> 건
+	                                            </div>
+	                                        </div>
+	                                        <div class="col-auto">
+	                                           <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        
                			
 	               			 <div class="uppermain mb-4">
 	                            <div class="card border-left-success shadow h-100 py-2">
@@ -67,9 +89,19 @@
 	                                    <div class="row no-gutters align-items-center">
 	                                        <div class="col mr-2">
 	                                            <div class="text-lg font-weight-bold text-success text-uppercase mb-1">
-	                                                	진행중</div>
+	                                                	진행 중</div>
 	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-	                                            	<c:out value="${workingStatus.requestInProgress}"/> 건
+	                                            	<c:set var="operating" 
+	                                             	 value="${workingStatus['2'] 
+	                                             	 + workingStatus['3'] 
+	                                             	 + workingStatus['4'] 
+	                                             	 + workingStatus['5'] 
+	                                             	 + workingStatus['6'] 
+	                                             	 + workingStatus['7'] 
+	                                             	 + workingStatus['8'] 
+	                                             	 + workingStatus['9'] 
+	                                             	 + workingStatus['10']}"/>
+	                                            	<c:out value="${operating}"/> 건
 	                                            </div>
 	                                        </div>
 	                                        <div class="col-auto">
@@ -86,9 +118,11 @@
 	                                    <div class="row no-gutters align-items-center">
 	                                        <div class="col mr-2">
 	                                            <div class="text-lg font-weight-bold text-info text-uppercase mb-1">
-	                                                	완료 대기건</div>
+	                                                	완료 및 반려</div>
 	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-	                                            	<c:out value="${workingStatus.requestDone}"/> 건
+	                                            	<c:set var="done" 
+	                                             	 value="${workingStatus['12'] + workingStatus['13']}"/> 
+	                                            	<c:out value="${done}"/> 건
 	                                            </div>
 	                                        </div>
 	                                        <div class="col-auto">
@@ -97,27 +131,7 @@
 	                                    </div>
 	                                </div>
 	                            </div>
-	                        </div>
-
-	               			<div class="uppermain mb-4">
-	                            <div class="card border-left-warning shadow h-100 py-2">
-	                                <div class="card-body">
-	                                    <div class="row no-gutters align-items-center">
-	                                        <div class="col mr-2">
-	                                            <div class="text-lg font-weight-bold text-warning text-uppercase mb-1">
-	                                                	완료건</div>
-	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-	                                            	<c:out value="${workingStatus.requestReject}"/> 건
-	                                            </div>
-	                                        </div>
-	                                        <div class="col-auto">
-	                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-	                                        </div>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>
-	                        
+	                        </div>         
                			</div>
                			<!-- 상단 업무 현황 바 end -->
                			

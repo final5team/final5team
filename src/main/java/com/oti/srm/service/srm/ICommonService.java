@@ -41,7 +41,11 @@ public interface ICommonService {
 	public Date getReceiptDoneDate(int rno);
 	
 	//업무 현황 출력
-	public HashMap<String,Integer> getWorkingStatus(Member member);
+	public HashMap<String, Integer> getWorkingStatus(Member member);
+	
+	//일반 유저의 진행 요청건, 완료 요청건 개수 구하기
+	public HashMap<String, Integer> getUserRequestStatusCount(Member member);
+		
 	
 	//D-7남은 요청 출력
 	public int getListOf7daysLeftCount(Member member);
@@ -51,11 +55,9 @@ public interface ICommonService {
 
 	//업무 진행율
 	public Map<String, Object> getWorkCompletionRate(Member member);
+	
 	//파일 다운로드
 	public StatusHistoryFile getFile(int fno);
-	
-	//일반 유저의 진행 요청건, 완료 요청건 개수 구하기
-	public HashMap<String, Integer> getUserRequestStatusCount(Member member);
 	
 	//직무 리스트
 	public List<RequestProcess> getRequestProcessList(Member member, String checkbox, Pager pager);
