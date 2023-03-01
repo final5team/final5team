@@ -33,6 +33,8 @@ public interface IStatsDao {
 	public int selectAllReqTask(int mtype);
 	// 태스크별 진행 중 건수 구하기
 	public int selectOnReqTask(int mtype);
+	// 접수 건수 구하기
+	public int selectRequestRecentPM();
 	
 	// 서비스 요청 추이 월별 요청 건수 구하기
 	public int selectSRChange(String month);

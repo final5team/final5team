@@ -100,6 +100,11 @@
 			</if>
 		</where> 
 	</select>
+	<select id="selectRequestRecentPM" resultType="int">
+		select count(*)
+		from requests
+		where status_no = 1
+	</select>
 	<select id="selectSystemSlice" resultType="com.oti.srm.dto.System">
 		<![CDATA[
 			select SYSTEM_NAME as systemName, nvl(cnt,0) as sno

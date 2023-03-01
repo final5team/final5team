@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <table>
@@ -52,3 +52,30 @@
 		</tr>
 	</c:forEach>
 </table>
+
+
+<div class="pager">
+	<div class="pagingButtonSet d-flex justify-content-center">
+		<a onclick="pageChange(1)" type="button" class="btn btn-muted shadow">◀◀</a>
+		<c:if test="${pager.groupNo > 1}">
+			<a onclick="pageChange(${pager.startPageNo-1})" class="btn btn-muted shadow">◀</a>
+								 
+		</c:if>
+
+		<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
+			<c:if test="${pager.pageNo != i}">
+				<a onclick="pageChange(${i})" type="button" class="btn btn-white shadow">${i}</a>
+			</c:if>
+			<c:if test="${pager.pageNo == i}">
+				<a onclick="pageChange(${i})" type="button" class="btn btn-dark shadow">${i}</a>
+			</c:if>
+		</c:forEach>
+
+		<c:if test="${pager.groupNo < pager.totalGroupNo }">
+			<a onclick="pageChange(${pager.endPageNo+1})" type="button" class="btn btn-muted shadow">▶</a>
+
+		</c:if>
+		<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">▶▶</a>
+	</div>
+</div>
+
