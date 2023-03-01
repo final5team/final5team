@@ -163,121 +163,39 @@
 		(seq_status_histories_files.nextval, sysdate, #{fileName}, #{fileType}, #{fileData}, #{hno})
 	</insert>
 	
-	<!-- PM의 처리 대기건 -->
-	<select id="selectRequestRecentPM" resultType="int">
-		select count(*)
-		from requests
-		where status_no = 1
-		or status_no = 11
+	<select id="selectMyWorkStatus" parameterType="com.oti.srm.dto.Member" resultType="com.oti.srm.dto.Status">
+			SELECT 
+				r.status_no as "statusNo",
+			    count(*) as "count"
+			FROM request_process rp, requests r, status s  
+			<where> 
+				rp.rno(+) = r.rno
+				and r.status_no = s.status_no
+				<if test="mtype == 'developer'">
+					and developer=#{mid}
+				</if>
+				<if test="mtype == 'usertester'">
+					and user_tester=#{mid}
+				</if>
+				<if test="mtype == 'tester'">
+					and tester=#{mid}
+				</if>
+				<if test="mtype == 'distributor'">
+					and distributor=#{mid}
+				</if>
+			</where>
+			group by r.status_no
 	</select>
 	
-	<!-- 실무자의 처리 대기건  -->
-	<select id="selectRequestRecent" parameterType="com.oti.srm.dto.Member" resultType="int">
-		select count(*)
-		from request_process
-		<where>
-			<if test="mtype == 'developer'">
-				developer = #{mid}
-			and dev_expect_date is null
-			</if>
-			<if test="mtype == 'tester'">
-				tester = #{mid}
-			and test_expect_date is null
-			</if>
-			<if test="mtype == 'usertester'">
-				user_tester = #{mid}
-			and usertest_expect_date is null
-			</if>
-			<if test="mtype == 'distributor'">
-				distributor = #{mid}
-			and dist_expect_date is null
-			</if>
-		</where>
-	</select>	
-	
-	<select id="selectRequestInProgress" parameterType="com.oti.srm.dto.Member" resultType="int">
-		select count(*)
-		<if test="mtype != 'user'">
-		from request_process 
-		</if>
-		<if test="mtype == 'user'">
-		from request_process rp, requests r
-		</if>
-		<where>
-			<if test="mtype == 'user'">
-				r.client = #{mid}
-			and all_comp_date is null 
-			and all_expect_Date is not null
-			and rp.rno = r.rno
-			</if>
-			<if test="mtype == 'pm'">
-				 all_expect_date is not null and all_comp_date is null
-			</if>
-			<if test="mtype == 'developer'">
-				developer = #{mid}
-			and dev_expect_date is not null and dev_comp_date is null
-			</if>
-			<if test="mtype == 'tester'">
-				tester = #{mid}
-			and test_expect_date is not null and test_comp_date is null
-			</if>
-			<if test="mtype == 'usertester'">
-				user_tester = #{mid}
-			and usertest_expect_date is not null and usertest_comp_date is null
-			</if>
-			<if test="mtype == 'distributor'">
-				distributor = #{mid}
-			and dist_expect_date is not null and dist_comp_date is null
-			</if>
-		</where>
-	</select>
-	
-	<select id="selectRequestDone" parameterType="com.oti.srm.dto.Member" resultType="int">
-		select count(*)
-		<if test="mtype != 'user'">
-		from request_process 
-		</if>
-		<if test="mtype == 'user'">
-		from request_process rp, requests r
-		</if>
-		<where>
-			<if test="mtype == 'user'">
-				r.rno = rp.rno
-			and (rp.all_comp_date is not null OR r.status_no=12)
-			and r.client = #{mid}
-			</if>
-			<if test="mtype == 'pm'">
-				all_comp_date is not null
-			</if>
-			<if test="mtype == 'developer'">
-				developer = #{mid}
-			and dev_comp_date is not null
-			</if>
-			<if test="mtype == 'tester'">
-				tester = #{mid}
-			and test_comp_date is not null
-			</if>
-			<if test="mtype == 'usertester'">
-				user_tester = #{mid}
-			and usertest_comp_date is not null
-			</if>
-			<if test="mtype == 'distributor'">
-				distributor = #{mid}
-			and dist_comp_date is not null
-			</if>
-		</where>
-	</select>
-	<select id="selectRequestReexam" parameterType="com.oti.srm.dto.Member" resultType="int">
-		select count(*)
-		from request_process rp, requests r
-		where rp.rno = r.rno
-		and r.STATUS_NO = 3
-		and developer = #{mid}
-	</select>
-	<select id="selectRequestReject" resultType="int">
-		select count(*)
-		from requests
-		where status_no = 12 
+	<select id="selectMyRequestStatus" parameterType="com.oti.srm.dto.Member" resultType="com.oti.srm.dto.Status">
+			SELECT 
+				r.status_no as "statusNo",
+			    count(*) as "count"
+			FROM requests r, status s  
+			WHERE
+				r.status_no = s.status_no
+				and r.client = #{mid}
+			group by r.status_no
 	</select>
 	
 	<select id="selectListOf7daysLeftCount" parameterType="com.oti.srm.dto.Member" resultType="int">

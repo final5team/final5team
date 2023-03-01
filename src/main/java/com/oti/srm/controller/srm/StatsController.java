@@ -54,10 +54,12 @@ public class StatsController {
 		
 		// 셋째 줄
 		// 서비스 요청 추이
+		// 시스템 이름 구하기
+		model.addAttribute("systemName", statsService.getSystemName());
 		// 월별 서비스 요청 건수 구하기
-		model.addAttribute("SRChange", statsService.getSRChange(0));
+		model.addAttribute("SRChange", statsService.getSRChange());
 		// 월별 서비스  완료 건수 구하기
-		model.addAttribute("SRComChange", statsService.getSRChange(1));
+		//model.addAttribute("SRComChange", statsService.getSRChange(1));
 				
 		return "srm/stats";
 	}

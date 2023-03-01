@@ -7,61 +7,9 @@
 <html lang="ko">
 
 <head>
+    <link href="${pageContext.request.contextPath}/resources/css/stepperprogress.css" rel="stylesheet">
+
 	<style>
-    	:root {
-          --line-fill: #87cd36;
-           --line-empty: #e0e0e0;
-           --now-fill: #F40730;
-      }
-       .container {
-           text-align: center;
-      }
-      
-       
-       .circle {
-           background-color: #fff;
-           color: #999;
-           height: 40px;
-           width: 150px;
-           font-size : 20px;
-           line-height : 40px;
-           border: 3px solid var(--line-empty);
-           transition: 0.4s ease;
-           border-radius: 10px;
-      }
-      .bar {
-           padding : 0px;
-           background-color: #fff;
-           color: #999;
-           height: 10px;
-           width: 10px;
-           align-items: center;
-           justify-content: center;
-           border: 3px solid var(--line-empty);
-           transition: 0.4s ease;
-           border-radius: 50%;
-      }
-      .bar:after{
-      	margin-bottom: 5px;
-      }
-      .circle.done {
-           border-color: var(--line-fill);
-           color : var(--line-fill);
-      }
-      
-      .circle.now {
-         border-color : var(--line-fill);
-         color : white;
-         background-color : var(--line-fill);
-      }
-      
-      .bar.active {
-           border-color: var(--line-fill);
-      }
-	 
-	 li {
-	 	list-style : none;
-	 }
     </style>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -138,71 +86,82 @@
             <div id="content">
 
                 <!-- Topbar -->
+                 <%@ include file="/WEB-INF/views/common/topbar.jsp" %>
                 <!-- End of Topbar -->
 
                 <!-- 여기에 내용 담기 start -->
-                <div>
-
-                </div>
-                <div class="container-fluid">
+                <div class="container">
                 	<div id="main">
-					<!-- 게시글 상세보기 start -->
-						<div class="card card-block sameheight-item">
-							<h3 class="font-weight-bold">						
-								 요청 정보
-							</h3>
-							<div class="row mt-3">
-								<div class="col-2 font-weight-bold">요청자 :</div>
-								<div class="col-4">${request.clientName}</div>
-								<div class="col-2 font-weight-bold">소속 기관 :</div>
-								<div class="col-4">${request.organ}</div>
-							</div>
-							<hr/>
-							<div class="row">
-								<div class="col-2 font-weight-bold">요청일 :</div>
-								<div class="col-4"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd"/></div>
-								<div class="col-2 font-weight-bold">완료 희망일 :</div>
-								<div class="col-4"><fmt:formatDate value="${request.reqExpectDate}" pattern="yyyy-MM-dd"/></div>
-							</div>
-							<hr/>
-							<div class="row">
-								<div class="col-2 font-weight-bold">시스템 :</div>
-								<div class="col-10">${request.systemName}</div>
-							</div>
-							<hr/>
-							<div class="row">
-								<div class="col-2 font-weight-bold">제목 :</div>
-								<div class="col-10">${request.reqTitle}</div>
-							</div>
-							<hr/>
-							<div class="row">
-								<div class="col-2 font-weight-bold">내용 :</div>
-								<div class="col-10 border" style="min-height:100px;">${request.reqContent}</div>
-							</div>
-							<hr/>
-							<div class="row">
-								<div class="col-2 font-weight-bold">요청 첨부파일 :</div>
-								<div class="col-10">
-									<c:forEach var="statusHistoryFile" items="${request.files}">
-										<div>
-											<span>${statusHistoryFile.fileName}</span>
-											<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-												<i class="fas fa-cloud-download-alt"></i>
-											</a>
+                	 	<div class="title-block">
+                	 		<h3 class="title">요청 정보 조회</h3>
+                	 	</div>
+                	 	<div> <!-- 여기에 단계 상태 이력 넣기 -->
+                	 		<%@ include file="/WEB-INF/views/srm/restatus/stepperprogress.jsp" %>
+                	 	</div>	<!-- 여기에 단계 상태 이력 넣기 /-->
+                	 	
+                	 	<section><!-- 게시글 상세보기 start -->
+							<div class="card border-top-dark sameheight-item">
+								<div class="card-block"> <!-- card-block  -->
+									<div class="card-title-block">
+	                	 				<h3 class="title">
+		                	 				요청번호 No. ${request.rno}
+	                	 				</h3>
+	                	 			</div>
+	                	 			<div class="card-body">
+										<div class="row mt-3">
+											<div class="col-2 label">요청자</div>
+											<div class="col-4">${request.clientName}</div>
+											<div class="col-2 label">소속 기관</div>
+											<div class="col-4">${request.organ}</div>
 										</div>
-									</c:forEach>
-								</div>
-							</div>
-							<div class="d-flex justify-content-end">
-								<c:if test="${request.statusNo==1 && member.mtype =='pm'}">
-									<div class="d-flex justify-content-end">
-										<button class="btn btn-primary btn-lg mt-3 ml-3" type="button" id="receiptbtn">접수</button>
-										<button class="btn btn-danger btn-lg mt-3 ml-3" type="button" id="rejectbtn">반려</button>
-									</div>
-								</c:if>
-							</div>
-						</div>				
-
+										<hr/>
+										<div class="row">
+											<div class="col-2 label">요청일</div>
+											<div class="col-4"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd"/></div>
+											<div class="col-2 label">완료 희망일 </div>
+											<div class="col-4"><fmt:formatDate value="${request.reqExpectDate}" pattern="yyyy-MM-dd"/></div>
+										</div>
+										<hr/>
+										<div class="row">
+											<div class="col-2 label">시스템</div>
+											<div class="col-10">${request.systemName}</div>
+										</div>
+										<hr/>
+										<div class="row">
+											<div class="col-2 label">제목</div>
+											<div class="col-10">${request.reqTitle}</div>
+										</div>
+										<hr/>
+										<div class="row">
+											<div class="col-2 label">내용</div>
+											<textarea class="col-9 form-control boxed mr-5" rows="3" readonly>${request.reqContent}</textarea>
+										</div>
+										<hr/>
+										<div class="row">
+											<div class="col-2 label">요청 첨부파일</div>
+											<div class="col-10">
+												<c:forEach var="statusHistoryFile" items="${request.files}">
+													<div>
+														<span>${statusHistoryFile.fileName}</span>
+														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+															<i class="fas fa-cloud-download-alt"></i>
+														</a>
+													</div>
+												</c:forEach>
+											</div>
+										</div>
+										<div class="d-flex justify-content-end">
+											<c:if test="${request.statusNo==1 && member.mtype =='pm'}">
+												<div class="d-flex justify-content-end">
+													<button class="btn btn-primary btn-lg mt-3 ml-3" type="button" id="receiptbtn">접수</button>
+													<button class="btn btn-danger btn-lg mt-3 ml-3" type="button" id="rejectbtn">반려</button>
+												</div>
+											</c:if>
+										</div>
+	                	 			</div>
+								</div> <!-- card-block / -->
+							</div>				
+						</section><!-- 게시글 상세보기 end -->
 						<!-- 접수 -->
 						<div id="receiptdiv"> 						            
 							<!-- 요청 접수 card start-->

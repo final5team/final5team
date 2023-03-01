@@ -3,6 +3,7 @@ package com.oti.srm.dao.srm;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.oti.srm.dto.Member;
 
@@ -37,9 +38,11 @@ public interface IStatsDao {
 	public int selectRequestRecentPM();
 	
 	// 서비스 요청 추이 월별 요청 건수 구하기
-	public int selectSRChange(String month);
+	public int selectSRChange(@Param("month")String month, @Param("sno")int sno);
 	// 서비스 요청 추이 월별 완료 건수 구하기
-	int selectSRComChange(String month);
+	public int selectSRComChange(String month);
+	// 시스템 이름 구하기
+	public List<String> selectSystemName();
 
 	
 	

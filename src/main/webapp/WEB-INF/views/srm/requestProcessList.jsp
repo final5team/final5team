@@ -22,7 +22,28 @@
 					<td <c:if test="${requestProcess.reqType == '긴급'}"> class="text-danger"</c:if>>
 					${requestProcess.reqType}
 					</td>
-					<td class="tableContent">${requestProcess.reqTitle}</td>
+					<td class="tableContent">
+						<c:if test="${member.mtype == 'developer'}">
+							<a href="${pageContext.request.contextPath}/developerdetail?rno=${requestProcess.rno}">
+								${requestProcess.reqTitle}
+							</a>
+						</c:if>
+						<c:if test="${member.mtype == 'tester'}">
+							<a href="${pageContext.request.contextPath}/testerdetail?rno=${requestProcess.rno}">
+								${requestProcess.reqTitle}
+							</a>
+						</c:if>
+						<c:if test="${member.mtype == 'usertester'}">
+							<a href="${pageContext.request.contextPath}/usertestdetail?rno=${requestProcess.rno}">
+								${requestProcess.reqTitle}
+							</a>
+						</c:if>
+						<c:if test="${member.mtype == 'distributor'}">
+							<a href="${pageContext.request.contextPath}/distributedetail?rno=${requestProcess.rno}">
+								${requestProcess.reqTitle}
+							</a>
+						</c:if>
+					</td>
 					<td>
 						<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
 							<span class="fa fa-star checked" style="color: orange;"></span>
