@@ -33,7 +33,7 @@
 				<div class="wrapper">
 					<main class="all">
 					<section class="filter border-left-dark">
-						<form action="requestlist" method="get">
+						<form>
 							<article class="filter-head">
 								<h4>필터</h4>
 							</article>
@@ -51,7 +51,7 @@
 								</c:if>
 							</article>
 							<article class="search-button">
-								<button class="btn btn-dark btn-sm" type="submit">검색</button>
+								<button class="btn btn-dark btn-sm" type="button" onclick="search()">검색</button>
 							</article>
 							<article class="write-button">
 								<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-dark btn-sm write">요청 작성</a>
@@ -213,7 +213,6 @@
 
 
 /* 내 담당 업무 목록 ajax 호출 : 페이지 로딩 */
-	
 		$(document).ready(function () {
 			/* member의 type은 controller에서 넣어줌, 설정 필요 없음  */
 			console.log("바로 실행");
@@ -227,9 +226,6 @@
 				$('#table_content').html(data);
 			});
 		});
-	
-	
-	
 
 /* 내 요청 목록 ajax 호출 : switch */
 	function myRequestList(mtype){
@@ -270,9 +266,108 @@
 				$('#table_content').html(data);
 			});
 		}
-		
-		
 	} 
+	// 페이지 이동 ajax
+	function pageChange(i){
+		let pageNo = i;
+		
+		let filterReqType = document.getElementById('req_type');
+		let ReqType = filterReqType.options[filterReqType.selectedIndex].text;
+		
+		let filterDateFirst = document.getElementById('date_first');
+		let dateFirst = filterDateFirst.value
+		
+		let filterDateLast = document.getElementById('date_last');
+		let dateLast = filterDateLast.value
+		
+		let filterSno = document.getElementById('sno');
+		let sno = filterSno.options[filterSno.selectedIndex].value
+		
+		let filterStatusNo = document.getElementById('statusNo');  
+		let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
+		
+		data = {pageNo : i, reqType : ReqType, dateFirst : dateFirst, dateLast : dateLast, sno : parseInt(sno), statusNo : parseInt(statusNo)}
+		
+		// 담당 업무 목록으로 검색 
+		if($('#myRequest').is(":checked")){ 
+			console.log("담당 업무 목록 페이지 이동" + i);
+			
+			$.ajax({
+				url : "myworklist",
+				method : "post",
+				data : JSON.stringify(data),
+				contentType: "application/json; charset=UTF-8"
+				
+			}).done((data) => {
+				$('#table_content').html(data);
+			});
+		} else {
+			console.log("내 요청 목록 페이지 이동" + i);
+			$.ajax({
+				url : "myrequestlist",
+				method : "post",
+				data : JSON.stringify(data),
+				contentType: "application/json; charset=UTF-8"
+				
+			}).done((data) => {
+				$('#table_content').html(data);
+			});
+		}
+	}	
+	
+	// filter 검색 기능 ajax
+	function search(){
+//		검색 filter 값 가져오기
+		let filterReqType = document.getElementById('req_type');
+		let ReqType = filterReqType.options[filterReqType.selectedIndex].text;
+		
+		let filterDateFirst = document.getElementById('date_first');
+		let dateFirst = filterDateFirst.value
+		
+		let filterDateLast = document.getElementById('date_last');
+		let dateLast = filterDateLast.value
+		
+		let filterSno = document.getElementById('sno');
+		let sno = filterSno.options[filterSno.selectedIndex].value
+		
+		let filterStatusNo = document.getElementById('statusNo');  
+		let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
+		
+		data = {reqType : ReqType, dateFirst : dateFirst, dateLast : dateLast, sno : parseInt(sno), statusNo : parseInt(statusNo)}
+		
+		// 담당 업무 목록 검색 기능
+		if($('#myRequest').is(":checked")){ 
+			console.log("담당 업무 목록 검색")
+			
+			$.ajax({
+				url : "myworklist",
+				method : "post",
+				data : JSON.stringify(data),
+				contentType: "application/json; charset=UTF-8"
+				
+			}).done((data) => {
+				$('#table_content').html(data);
+				let button = document.getElementById("firstbutton");
+				console.log(button);
+				
+				
+			});
+		// 내 요청 목록 검색 기능
+		} else {
+			console.log("내 요청 목록 검색")
+			$.ajax({
+				url : "myrequestlist",
+				method : "post",
+				data : JSON.stringify(data),
+				contentType: "application/json; charset=UTF-8"
+			}).done((data) => {
+				$('#table_content').html(data);
+			});
+		}
+	}	
+	
+	
+	
 
   	
 

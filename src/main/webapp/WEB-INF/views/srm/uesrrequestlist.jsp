@@ -201,6 +201,8 @@
 			
 		}).done((data) => {
 			$('#table_content').html(data);
+			
+			
 		});
 	}
 	
