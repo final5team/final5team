@@ -126,10 +126,10 @@
 	      function drawLineChart() {
 	    	  // 월별 값 설정
 	        var data = google.visualization.arrayToDataTable([
-	          ['월', '요청'],
-	          ['01월',  ${SRChange['1']}],
-	          ['02월',  ${SRChange['2']}],
-	          ['03월',  ${SRChange['3']}]	         
+	          ['월', '${systemName[0]}', '${systemName[1]}', '${systemName[2]}', '${systemName[3]}'],
+	          ['01월',  ${SRChange[0][0]}, ${SRChange[1][0]},  ${SRChange[2][0]},  ${SRChange[3][0]}],
+	          ['02월',  ${SRChange[0][1]}, ${SRChange[1][1]},  ${SRChange[2][1]},  ${SRChange[3][1]}],
+	          ['03월',  ${SRChange[0][2]}, ${SRChange[1][2]},  ${SRChange[2][2]},  ${SRChange[3][2]}]	         
 	        ]);
 
 	    	// 그래프 옵션

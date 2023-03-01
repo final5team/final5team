@@ -33,7 +33,7 @@ public class StatsService implements IStatsService {
 	@Override
 	@Transactional
 	public List<Integer> getSRState() {
-		// 값 저장할 List 객체 생성
+		// 값 저장할 List 객체 생성하기
 		List<Integer> list = new ArrayList<>();		
 		// 태스크별 담당한 전체 요청 건수 저장하기
 		// pm 접수 단계 요청 건수 구하기
@@ -48,29 +48,7 @@ public class StatsService implements IStatsService {
 		list.add(list.stream().mapToInt(Integer::intValue).sum());
 		return list;		
 	}
-	//서비스 요청 추이 그래프 값 구하기
-	@Override
-	@Transactional
-	public Map<String, Integer> getSRChange(int req) {
-		// 값 저장할 Map 객체 생성
-		Map<String, Integer> change = new HashMap<>();
-		// 현재 연도 구하기
-		int year = Calendar.getInstance().get(Calendar.YEAR);
-		// 월별 서비스 요청 추이 값 저장하기
-		for(int i=1; i<13; i++) {
-			// 현재 연도와 월 구하기
-			DecimalFormat df= new DecimalFormat("00");
-			String result=year+df.format(i);
-			// 월별 서비스 요청 건수 구하기
-			if(req == 0) {
-				change.put(String.valueOf(i), statsDao.selectSRChange(result));
-			//월별 서비스 완료 건수 구하기
-			} else if(req == 1) {
-				change.put(String.valueOf(i), statsDao.selectSRComChange(result));
-			}		
-		}		
-		return change;
-	}
+	
 	// 서비스 요청 완료율 구하기
 	@Override
 	public int getComRate() {
@@ -88,7 +66,7 @@ public class StatsService implements IStatsService {
 	@Override
 	@Transactional
 	public Map<String, Integer> getDelRateTask() {		
-		// 값 저장할 Map 객체 생성
+		// 값 저장할 Map 객체 생성하기
 		Map<String, Integer> del = new HashMap<>();
 		// 태스크별 서비스 요청 지연율 저장하기
 		for(int i=1; i<5; i++) {
@@ -101,7 +79,7 @@ public class StatsService implements IStatsService {
 	@Override
 	@Transactional
 	public Map<String, Integer> getComRateTask() {
-		// 값 저장할 Map 객체 생성
+		// 값 저장할 Map 객체 생성하기
 		Map<String, Integer>com = new HashMap<>();
 		// 태스크별 서비스 요청 완료울 저장하기
 		for(int i=1; i<5; i++) {
@@ -119,10 +97,10 @@ public class StatsService implements IStatsService {
 	// 태스크별 서비스 요청 처리 현황 구하기
 	@Override
 	public List<ArrayList<Integer>> getSRStateTask() {
-		// 전체 값 저장할 List 객체 생성
+		// 전체 값 저장할 List 객체 생성하기
 		List<ArrayList<Integer>> list = new ArrayList<>();		
 		for(int j=1; j<5; j++) {
-			// 태스크 별 요청 값 저장할 ArrayList 객체 생성
+			// 태스크 별 요청 값 저장할 ArrayList 객체 생성하기
 			ArrayList<Integer> arr = new ArrayList<>();
 			// 전체 서비스 요청 건수
 			arr.add(statsDao.selectAllReqTask(j)-statsDao.selectComReqTask(j));			
@@ -134,6 +112,46 @@ public class StatsService implements IStatsService {
 			list.add(arr);
 		}		
 		return list;
+	}
+	// 시스템 이름 구하기
+	@Override
+	public List<String> getSystemName() {	
+		// 시스템 이름 리스트 반환하기
+		return statsDao.selectSystemName();
+	}
+	
+	//서비스 요청 추이 그래프 값 구하기
+	@Override
+	@Transactional
+	public List<ArrayList<Integer>> getSRChange() {
+		// 값 저장할 List 객체 생성하기
+		List<ArrayList<Integer>> change = new ArrayList<>();
+		// 현재 연도 구하기
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		// 시스템별 요청 추이 값 저장하기
+		for(int j=1; j<5; j++) {
+			// 값 저장할 ArrayList 객체 생성하기
+			ArrayList<Integer> list = new ArrayList<>();
+				
+			// 월별 서비스 요청 추이 값 저장하기
+			for(int i=1; i<13; i++) {
+				// 현재 연도와 월 구하기
+				DecimalFormat df= new DecimalFormat("00");
+				String result=year+df.format(i);
+				/*
+				// 월별 서비스 요청 건수 구하기
+				if(req == 0) {
+					change.put(String.valueOf(i), statsDao.selectSRChange(result));
+				//월별 서비스 완료 건수 구하기
+				} else if(req == 1) {
+					change.put(String.valueOf(i), statsDao.selectSRComChange(result));
+				}
+				*/	
+				list.add(statsDao.selectSRChange(result, j));
+			}
+			change.add(list);
+		}
+		return change;
 	}
 
 
