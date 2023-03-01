@@ -37,7 +37,7 @@ public class StatsService implements IStatsService {
 		List<Integer> list = new ArrayList<>();		
 		// 태스크별 담당한 전체 요청 건수 저장하기
 		// pm 접수 단계 요청 건수 구하기
-		list.add(commonDao.selectRequestRecentPM());
+		list.add(statsDao.selectRequestRecentPM());
 		// 그외 담당자 태스크별 담당 요청 건수 구하기
 		for(int i=1; i<5; i++) {
 			list.add(statsDao.selectAllReqTask(i)-statsDao.selectComReqTask(i));
