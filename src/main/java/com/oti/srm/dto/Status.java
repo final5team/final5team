@@ -6,4 +6,5 @@ import lombok.Data;
 public class Status {
 	private int statusNo;
 	private String statusName;
+	private int count;
 }

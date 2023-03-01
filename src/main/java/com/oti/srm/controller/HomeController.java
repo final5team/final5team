@@ -52,7 +52,7 @@ public class HomeController {
 	 * @return home.jsp 로 리턴
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(HttpSession session, Model model,@RequestParam(defaultValue = "n") String checkbox,
+	public String home(HttpSession session, Model model,@RequestParam(defaultValue = "y") String checkbox,
 			@RequestParam(defaultValue ="1") int workPageNo,@RequestParam(defaultValue ="1") int noticePageNo) {
 		logger.info("실행");
 		//세션에 담긴 member객체 받기
@@ -128,7 +128,7 @@ public class HomeController {
 		//세션에 담긴 member객체 받기
 		Member member = (Member) session.getAttribute("member");
 		//각 요청건 출력
-		HashMap<String,Integer> workingStatus = commonService.getWorkingStatus(member);
+		HashMap<String, Integer> workingStatus = commonService.getWorkingStatus(member);
 		//D-7 리스트 출력
 		int dDayTotalRows = commonService.getListOf7daysLeftCount(member);
 		Pager dPager = new Pager(7, 5, dDayTotalRows, dDay7PageNo);

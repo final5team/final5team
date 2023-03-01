@@ -15,6 +15,7 @@ import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.RequestProcess;
+import com.oti.srm.dto.Status;
 import com.oti.srm.dto.StatusHistory;
 import com.oti.srm.dto.StatusHistoryFile;
 
@@ -209,31 +210,33 @@ public class CommonService implements ICommonService {
 	 */
 	@Override
 	@Transactional
-	public HashMap<String,Integer> getWorkingStatus(Member member) {
-		
+	public HashMap<String, Integer> getWorkingStatus(Member member) {	
 		HashMap<String, Integer> map = new HashMap<>();
-		//최신 요청 개수 가져오기 - pm 일 경우와 pm 이 아닐 경우 2가지로 나뉨
-		int requestRecent = 0;
-		if(member.getMtype().equals("pm")) {
-			requestRecent = commonDao.selectRequestRecentPM();
-		}else {
-			requestRecent = commonDao.selectRequestRecent(member);
+		// 각 status별 초기값 세팅 
+		for(int i = 1; i <= 13; i++) {
+			map.put(i + "", 0);
 		}
-		//진행 중인 요청 개수 가져오기
-		int requestInProgress = commonDao.selectRequestInProgress(member);
-		//진행 완료인 요청 개수 가져오기
-		int requestDone = commonDao.selectRequestDone(member);
-		//개발자 - 재검토 요청 개수 가져오기
-		int requestReexam = commonDao.selectRequestReexam(member);
-		//pm - 반려건 개수 가져오기
-		int requestReject = commonDao.selectRequestReject();
-		
-		map.put("requestRecent", requestRecent);
-		map.put("requestInProgress", requestInProgress);
-		map.put("requestDone", requestDone);
-		map.put("requestReexam", requestReexam);
-		map.put("requestReject", requestReject);
-		
+		List<Status> statusList = commonDao.selectMyWorkStatus(member);
+		for(Status status : statusList) {
+			map.put(status.getStatusNo() + "", status.getCount());
+		}
+		return map;
+	}
+	
+	/* 작성자: 장현
+	 * 진행중인 요청건, 완료된 요청건 개수 구하기
+	 */
+	@Override
+	public HashMap<String, Integer> getUserRequestStatusCount(Member member) {
+		HashMap<String, Integer> map = new HashMap<>();
+		// 각 status별 초기값 세팅 
+		for(int i = 1; i <= 13; i++) {
+			map.put(i + "", 0);
+		}
+		List<Status> statusList = commonDao.selectMyRequestStatus(member);
+		for(Status status : statusList) {
+			map.put(status.getStatusNo() + "", status.getCount());
+		}
 		return map;
 	}
 	
@@ -278,20 +281,6 @@ public class CommonService implements ICommonService {
 		return commonDao.selectFile(fno);
 	}
 
-	/* 작성자: 장현
-	 * 진행중인 요청건, 완료된 요청건 개수 구하기
-	 */
-	@Override
-	public HashMap<String, Integer> getUserRequestStatusCount(Member member) {
-		HashMap<String, Integer> map = new HashMap<>();
-		//진행중인 요청건 구하기
-		int requestInProgress =commonDao.selectRequestInProgress(member);
-		//완료된 요청건 구하기
-		int requestDone = commonDao.selectRequestDone(member);
-		map.put("requestInProgress", requestInProgress);
-		map.put("requestDone", requestDone);
-		return map;
-	}
 
 	@Override
 	public List<RequestProcess> getRequestProcessList(Member member, String checkbox, Pager pager) {

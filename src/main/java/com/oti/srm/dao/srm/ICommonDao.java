@@ -11,6 +11,7 @@ import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.RequestProcess;
+import com.oti.srm.dto.Status;
 import com.oti.srm.dto.StatusHistory;
 import com.oti.srm.dto.StatusHistoryFile;
 
@@ -52,20 +53,11 @@ public interface ICommonDao {
 	// 단계 변경 이력에 파일 추가(status_histories_files 테이블)
 	public int insertStatusHistoryFile(StatusHistoryFile statusHistoryFile);
 	
-	//신규 요청건 개수 출력
-	public int selectRequestRecent(Member member);
+	// 담당 업무 진행상황별 갯수(pm,developer,tester,usertester,distributor)
+	public List<Status> selectMyWorkStatus(Member member);
 	
-	//진행중인 요청 개수 출력
-	public int selectRequestInProgress(Member member);
-	
-	//완료된 요청 개수 출력
-	public int selectRequestDone(Member member);
-	
-	//개발자일경우 재검토 요청 개수 출력
-	public int selectRequestReexam(Member member);
-	
-	//pm일 경우 반려 요청 개수 출력
-	public int selectRequestReject();
+	// 내 요청 진행상황별 갯수(user)
+	public List<Status> selectMyRequestStatus(Member member);
 	
 	//7일 남은 리스트 출력
 	public int selectListOf7daysLeftCount(Member member);
