@@ -33,7 +33,7 @@
 				<div class="wrapper">
 					<main class="all">
 					<section class="filter border-left-dark">
-						<form action="/usersearch" method="post">
+						<form>
 							<article class="filter-head">
 								<h4>필터</h4>
 							</article>
@@ -48,7 +48,7 @@
 								<h6>시스템</h6>
 							</article>
 							<article class="search-button">
-								<button class="btn btn-dark btn-sm" type="button">검색</button>
+								<button class="btn btn-dark btn-sm" type="button" onclick="search()">검색</button>
 							</article>
 							<article class="write-button">
 								<a type="button" href="<c:url value='/customer/request'/>" class="btn btn-dark btn-sm write">요청 작성</a>
@@ -131,50 +131,79 @@
 		});
 	});
 
-// 페이지 이동 + filter 데이터 저장
+// 페이지 이동 ajax
 	function pageChange(i){
-	let pageNo = i;
-	
-//	검색 filter 값 가져오기
-	let filterReqType = document.getElementById('req_type');
-	let ReqType = filterReqType.options[filterReqType.selectedIndex].text;
-	
-	let filterDateFirst = document.getElementById('date_first');
-	let dateFirst = filterDateFirst.value
-	
-	let filterDateLast = document.getElementById('date_last');
-	let dateLast = filterDateLast.value
-	
-	let filterSno = document.getElementById('sno');
-	let sno = filterSno.options[filterSno.selectedIndex].value
-	
-	let filterStatusNo = document.getElementById('statusNo');  
-	let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
-	
-	console.log("페이지 번호 : "+ pageNo);
-	console.log("유형 : " + ReqType);
-	console.log("날짜 : " + dateFirst);
-	console.log(typeof dateFirst)
-	console.log("날짜 : " + dateLast);
-	console.log("시스템 번호 : " + sno);
-	console.log(typeof sno);'
-	console.log("단계 : " + statusNo);
-	console.log(typeof statusNo);
-	
-// 	data = {pageNo : i, reqType : filterReqType, dateFirst : filterDateFirst, dateLast : filterDateLast, sno : filterSno, statusNo : statusNo}
-	
-	$.ajax({
-		url : "usersearch",
-		method : "post",
-		data : JSON.stringify(data),
-		contentType: "application/json; charset=UTF-8"
-	}).done((data) => {
-			
+		console.log("페이지 이동" + i);
+		let pageNo = i;
 		
-	});
+		let filterReqType = document.getElementById('req_type');
+		let ReqType = filterReqType.options[filterReqType.selectedIndex].text;
+		
+		let filterDateFirst = document.getElementById('date_first');
+		let dateFirst = filterDateFirst.value
+		
+		let filterDateLast = document.getElementById('date_last');
+		let dateLast = filterDateLast.value
+		
+		let filterSno = document.getElementById('sno');
+		let sno = filterSno.options[filterSno.selectedIndex].value
+		
+		let filterStatusNo = document.getElementById('statusNo');  
+		let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
+		
+		data = {pageNo : i, reqType : ReqType, dateFirst : dateFirst, dateLast : dateLast, sno : parseInt(sno), statusNo : parseInt(statusNo)}
+		$.ajax({
+			url : "myrequestlist",
+			method : "post",
+			data : JSON.stringify(data),
+			contentType: "application/json; charset=UTF-8"
+			
+		}).done((data) => {
+			$('#table_content').html(data);
+		});
+	}	
 	
+// filter 검색 기능 ajax
+	function search(){
+		console.log("검색 실행")
+//		검색 filter 값 가져오기
+		let filterReqType = document.getElementById('req_type');
+		let ReqType = filterReqType.options[filterReqType.selectedIndex].text;
+		
+		let filterDateFirst = document.getElementById('date_first');
+		let dateFirst = filterDateFirst.value
+		
+		let filterDateLast = document.getElementById('date_last');
+		let dateLast = filterDateLast.value
+		
+		let filterSno = document.getElementById('sno');
+		let sno = filterSno.options[filterSno.selectedIndex].value
+		
+		let filterStatusNo = document.getElementById('statusNo');  
+		let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
+		
+// 		console.log("페이지 번호 : "+ pageNo);
+// 		console.log("유형 : " + ReqType);
+// 		console.log("시작 날짜 : " + dateFirst);
+// 		console.log(typeof dateFirst)
+// 		console.log("종료 날짜 : " + dateLast);
+// 		console.log("시스템 번호 : " + parseInt(sno));
+// 		console.log(typeof parseInt(sno));
+// 		console.log("단계 : " + parseInt(statusNo));
+// 		console.log(typeof parseInt(statusNo));
+		
+		data = {reqType : ReqType, dateFirst : dateFirst, dateLast : dateLast, sno : parseInt(sno), statusNo : parseInt(statusNo)}
+		$.ajax({
+			url : "myrequestlist",
+			method : "post",
+			data : JSON.stringify(data),
+			contentType: "application/json; charset=UTF-8"
+			
+		}).done((data) => {
+			$('#table_content').html(data);
+		});
+	}
 	
-}	
 
 
 

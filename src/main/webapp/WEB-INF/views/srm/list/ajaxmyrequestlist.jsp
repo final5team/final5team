@@ -52,26 +52,26 @@
 </table>
 <div class="pager">
 	<div class="pagingButtonSet d-flex justify-content-center">
-		<div onclick="pageChange(1)" type="button" class="btn btn-muted shadow">◀◀</div>
+		<a onclick="pageChange(1)" type="button" class="btn btn-muted shadow">◀◀</a>
 		<c:if test="${pager.groupNo > 1}">
-			<div onclick="pageChange(${pager.startPageNo-1})" type="button" class="btn btn-muted shadow">◀</div>
+			<a onclick="pageChange(${pager.startPageNo-1})" class="btn btn-muted shadow">◀</a>
 								 
 		</c:if>
 
 		<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
 			<c:if test="${pager.pageNo != i}">
-				<div onclick="pageChange(${i})" type="button" class="btn btn-white shadow">${i}</div>
+				<a onclick="pageChange(${i})" type="button" class="btn btn-white shadow">${i}</a>
 			</c:if>
 			<c:if test="${pager.pageNo == i}">
-				<div onclick="pageChange(${i})" type="button" class="btn btn-dark shadow">${i}</div>
+				<a onclick="pageChange(${i})" type="button" class="btn btn-dark shadow">${i}</a>
 			</c:if>
 		</c:forEach>
 
 		<c:if test="${pager.groupNo < pager.totalGroupNo }">
-			<div onclick="pageChange(${pager.endPageNo+1})" type="button" class="btn btn-muted shadow">▶</div>
+			<a onclick="pageChange(${pager.endPageNo+1})" type="button" class="btn btn-muted shadow">▶</a>
 
 		</c:if>
-		<div onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">▶▶</div>
+		<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">▶▶</a>
 	</div>
 </div>
 
