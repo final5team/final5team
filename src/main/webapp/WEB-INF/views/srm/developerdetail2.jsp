@@ -6,156 +6,8 @@
 
 <head>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
+    <link href="${pageContext.request.contextPath}/resources/css/stepperprogress.css" rel="stylesheet">
     <style>
-    	:root {
-          --line-fill: #87cd36;
-           --line-empty: #e0e0e0;
-           --now-fill: #F40730;
-      }
-       
-       .circle {
-            margin-left : 25px;
-           background-color: #fff;
-           color: #999;
-           height: 40px;
-           width: 150px;
-           font-size : 20px;
-           line-height : 40px;
-           border: 3px solid var(--line-empty);
-           transition: 0.4s ease;
-           border-radius: 10px;
-      }
-      .bar {
-           margin-left : 93px;
-           padding : 0px;
-           margin: 2px 0
-           background-color: #fff;
-           color: #999;
-           height: 10px;
-           width: 10px;
-           align-items: center;
-           justify-content: center;
-           border: 3px solid var(--line-empty);
-           transition: 0.4s ease;
-           border-radius: 50%;
-      }
-      .bar:after{
-      	margin-bottom: 5px;
-      }
-      .circle.done {
-           border-color: var(--line-fill);
-           color : var(--line-fill);
-      }
-      
-      .circle.now {
-         border-color : var(--line-fill);
-         color : white;
-         background-color : var(--line-fill);
-      }
-      
-      .bar.active {
-           border-color: var(--line-fill);
-      }
-	 
-	 li {
-	 	list-style : none;
-	 }
-	 /* 스테퍼 임시 */
-.stepper-wrapper {
-  display: flex;
-  justify-content: space-between;
-  width: 90%;
-  margin: 20px auto;
-}
-.stepper-item {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-}
-
-.stepper-item::before {
-  position: absolute;
-  content: "";
-  border-bottom: 2px solid #ccc;
-  width: 100%;
-  top: 20px;
-  left: -50%;
-  z-index: 2;
-}
-
-.stepper-item::after {
-  position: absolute;
-  content: "";
-  border-bottom: 2px solid #ccc;
-  width: 100%;
-  top: 20px;
-  left: 50%;
-  z-index: 2;
-}
-
-.stepper-item .step-counter {
-  position: relative;
-  z-index: 5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background: #ccc;
-  margin-bottom: 6px;
-}
-
-.stepper-item.active .step-counter{
-  font-weight: bold;
-  background-color: #ff4444;
-  color: white;
-}
-
-.stepper-item.completed .step-counter {
-  background-color: #85ce36;
-  color: white;
-}
-
-.stepper-item.completed::after {
-  position: absolute;
-  content: "";
-  border-bottom: 2px solid #4bb543;
-  width: 100%;
-  top: 20px;
-  left: 50%;
-  z-index: 3;
-}
-
-.stepper-item:first-child::before {
-  content: none;
-}
-.stepper-item:last-child::after {
-  content: none;
-}
-.step-counter.btn{
-	padding:0px;
-}
-
-
-/* 상단 버튼 끝 */
-
-.card{
-	margin:auto;
-	width: 90%;
-}
-.label{
-text-align :center;
-padding: 0 20px;
-width: 180px;
-font-weight: 600;
-font-size: 1.0rem;
-}
-.form-control.boxed{
-	width: 0%;
-}
     </style>
 </head>
 
@@ -185,38 +37,9 @@ font-size: 1.0rem;
                 	 		<h3 class="title">개발 상세 보기</h3>
                 	 	</div>
                 	 	<div> <!-- 여기에 단계 상태 이력 넣기 -->
-                	 		<div class="stepper-wrapper">
-							  <div class="stepper-item completed">
-							    <div class="step-counter btn">1</div>
-							    <div class="step-name">등록</div>
-							  </div>
-							  <div class="stepper-item completed">
-							    <div class="step-counter btn">2</div>
-							    <div class="step-name">접수</div>
-							  </div>
-							  <div class="stepper-item active">
-							    <div class="step-counter btn">3</div>
-							    <div class="step-name">개발</div>
-							  </div>
-							  <div class="stepper-item">
-							    <div class="step-counter btn">4</div>
-							    <div class="step-name">테스트</div>
-							  </div>
-							  <div class="stepper-item">
-							    <div class="step-counter btn">5</div>
-							    <div class="step-name">품질테스트</div>
-							  </div>
-							  <div class="stepper-item">
-							    <div class="step-counter btn">6</div>
-							    <div class="step-name">배포</div>
-							  </div>
-							  <div class="stepper-item">
-							    <div class="step-counter btn">7</div>
-							    <div class="step-name">완료</div>
-							  </div>
-							</div>
+                	 		<%@ include file="/WEB-INF/views/srm/restatus/stepperprogress.jsp" %>
                 	 	</div>	<!-- 여기에 단계 상태 이력 넣기 /-->
-                	 	<section> <!-- 개발완료 입력폼 start -->
+                	 	<section> <!-- 개발내역 입력폼 start -->
                 	 		<div class="card border-top-dark">
                 	 			<div class="card-block">
 	                	 			<div class="card-title-block">
@@ -230,24 +53,35 @@ font-size: 1.0rem;
 											<div class="form-group d-flex">
 												<div class="label">완료예정일</div>
 												<div class="flex-grow-1">
-													<input type="date">
+													<input type="date" class="date-form control">
 													<div class="btn btn-sm btn-primary">개발 시작</div>
 												</div>
 											</div>
 											<div class="form-group d-flex">
 												<div class="label">개발 사항</div>
-												<textarea rows="3" class="form-control boxed flex-grow-1" name="reply"></textarea>
+												<div class="flex-grow-1">
+													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply"></textarea>
+													<div class="d-flex justify-content-end">
+														<small class=" mr-5" id="counter">(0 / 300)</small>
+													</div>
+												</div>
 											</div>
 											<div class="form-group d-flex">
-												<div class="label">배포소스</div>
-												<textarea rows="3" class="form-control boxed flex-grow-1" name="distSource"></textarea>
+												<div class="label">배포소스(url)</div>
+												<div class="flex-grow-1">
+													<input class="form-control boxed" name="distSource" id="distSource" style="height: 15px;">
+													<div class="d-flex justify-content-end">
+														<small class=" mr-5" id="counterSource">(0 / 100)</small>
+													</div>
+												</div>
 											</div>
+											
 											<div class="filebox d-flex">
 												<div class="label">첨부파일</div>
 												<div class="form-group" id="file-list">
 											        <a href="#this" onclick="addFile()">파일추가</a>
 											        <div class="file-group">
-											            <input type="file" name="files"><a href='#this' class='file-delete'><i class="fas fa-times"></i></a>
+											            <input type="file" name="files"><a href='#this' class='file-delete'>x</a>
 											        </div>
 			  									</div>	
 											</div>
@@ -258,8 +92,71 @@ font-size: 1.0rem;
 	                	 			</div>
                 	 			</div>
                 	 		</div>
-                	 	</section><!-- 입력폼 end --> 
-                	 	
+                	 	</section><!-- 개발내역 입력폼 end -->
+               	 		<div class="d-flex justify-content-center mt-4"> <!-- 히스토리 버튼 start -->
+               	 			<div class="btn btn-primary-outline history-button">
+               	 				개발 히스토리 보기  <i class="fas fa-history"></i>
+               	 			</div>
+               	 		</div> <!-- 히스토리 버튼 end -->
+                	 	<section > <!-- 개발히스토리 start-->
+                	 		<div class="title-block">
+	                	 		<h3 class="title">개발 히스토리</h3>
+	                	 	</div>
+                	 		<div class="card border-top-primary my-3"> <!-- foreach한다면 여기부터 start -->
+                	 			<div class="card-block">
+	                	 			<div class="card-block-title mb-0">
+	                	 				<h3 class="title">
+	                	 					 1차 내역  <i class="far fa-bookmark success"></i>
+	                	 				</h3>
+	                	 			</div>
+                	 				<div class="card-body">
+                	 					<div>
+                	 						<div class="row">
+                	 							<div class="col-5 p-2">
+		                	 						<span class="label">작성자</span>
+		                	 						<span class="p-2">송영훈</span>
+                	 							</div>
+                	 							<div class="col-5 p-2">
+		                	 						<span class="label">개발 완료일</span>
+		                	 						<span class="p-2">2023-02-02</span>
+	                	 						</div>
+                	 						</div>
+                	 						<div class="row">
+	                	 						<span class="label" style="text-align :left; width: 10%;">개발내용</span>
+	                	 						<textarea rows="2" class="form-control boxed mr-5" readonly>내용 여기</textarea>
+                	 						</div>
+                	 						<div class="row mt-3">
+	                	 						<span class="label" style="text-align :left; width: 10%;">배포소스(url)</span>
+	                	 						<input class="form-control boxed mr-5" style=" height: 15px;" readonly>
+                	 						</div>
+                	 						<div class="row mt-3">
+	                	 						<span class="label" style="text-align :left; width: 10%;">첨부파일</span>
+	                	 						<div>
+	                	 							<div><a href="#">첨부파일.jpg</a></div>
+	                	 							<div><a href="#">첨부파일.jpg</a></div>
+	                	 						</div>
+                	 						</div>
+                	 						
+                	 					</div>
+                	 				</div>
+                	 			</div>
+                	 		
+                	 		</div><!-- foreach한다면 여기부터 end -->
+                	 		
+                	 		<div class="card border-top-primary my-3"> <!-- status_history내역없을때 start -->
+                	 			<div class="card-block">
+	                	 			<div class="card-block-title mb-0 d-flex justify-content-center">
+	                	 				<h3 class="title">
+	                	 					내역이 없습니다. 
+	                	 				</h3>
+	                	 			</div>
+                	 			</div>
+                	 		
+                	 		</div><!-- status_history내역없을때 end -->
+                	 		
+                	 		
+                	 		
+                	 	</section> <!-- 개발히스토리end -->
                 	 	
 					 </div> <!-- id=main div / -->
                 </div>
@@ -347,8 +244,28 @@ font-size: 1.0rem;
 			</div>
 		</div>
 	</div>
-	<script>
 	<!-- 데이트 입력 확인 /-->
+	<!-- 글자수 입력 확인 -->
+	<div class="modal fade" id="countCheck" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>
+						주의 <i class="fas fa-exclamation-triangle"></i>
+					</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" style="display: flex; justify-content: center;">
+					<p id="countContent"></p>
+				</div>
+				<div class="modal-footer" style="justify-content: center;">
+                    <a class="btn btn-primary" data-dismiss="modal" type="button">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 글자수 입력 확인 /-->
+	<script>
 	function getDatemodal(){
 		$('#datemodal').modal('show');
 		
@@ -451,7 +368,7 @@ font-size: 1.0rem;
 	    });
 	})
 	 function addFile() {
-        var str = "<div class='file-group'><input type='file' name='files'><a href='#this' name='file-delete'><i class="fas fa-times"></i></a></div>";
+        var str = "<div class='file-group'><input type='file' name='files'><a href='#this' name='file-delete'>x</a></div>";
         $("#file-list").append(str);
         $("a[name='file-delete']").on("click", function(e) {
             e.preventDefault();
@@ -463,6 +380,32 @@ font-size: 1.0rem;
         obj.parent().remove();
     }
 	
+   	$('#reply').keyup(function (e){
+   		let content = $(this).val();
+   		$('#counter').html("("+content.length+" / 300)");
+ 		if(content.length > 300){
+ 			$('#countCheck').modal();
+ 			$('#countContent').html("최대 300자까지 입니다.");
+ 			$(this).val(content.substring(0,300));
+ 			$('#counter').html("(300 / 300)");
+ 		}
+   	});
+   	$('#distSource').keyup(function (e){
+   		let content = $(this).val();
+   		$('#counterSource').html("("+content.length+" / 100)");
+   		if(content.length > 100){
+   			$('#countCheck').modal();
+ 			$('#countContent').html("최대 100자까지 입니다.");
+ 			$(this).val(content.substring(0,150));
+ 			$('#counterSource').html("(100 / 100)");
+   		}
+   	});
+   	
+   	function openRegister(){
+   		
+   	}
+   	
+    
 	</script>
 </body>
 
