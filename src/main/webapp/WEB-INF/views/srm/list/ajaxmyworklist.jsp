@@ -53,6 +53,7 @@
 	</c:forEach>
 </table>
 
+
 <div class="pager">
 	<div class="pagingButtonSet d-flex justify-content-center">
 		<a onclick="pageChange(1)" type="button" class="btn btn-muted shadow">◀◀</a>
