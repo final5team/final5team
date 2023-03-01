@@ -150,7 +150,9 @@
 							<article class="table-header">
 								<h4>내 요청 목록</h4>
 							</article>
+							
 								<table class="member" id="table_content">
+								<%-- 
 									<tr>
 										<th>No.</th>
 										<th>시스템</th>
@@ -159,6 +161,7 @@
 										<th>요청 일자</th>
 										<th>단계</th>
 									</tr>
+									
 	
 									<c:forEach var="request" items="${requestList}">
 										<tr onclick="location.href='${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}'" style="cursor:pointer;color:#blue;">
@@ -188,6 +191,7 @@
 											</td>
 										</tr>
 									</c:forEach>
+									 --%>
 								</table>
 						</section>
 						
@@ -239,6 +243,31 @@
 	<!-- Scroll to Top Button-->
 	<a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
 	</a>
+	
+	
+	
+<script>
+// 유저 로그인 시, 내 요청 목록 불러오기
+$(document).ready(function () {
+			/* member의 type은 controller에서 넣어줌, 설정 필요 없음  */
+			console.log("바로 실행");
+			data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1 };	
+			$.ajax({
+		  		url : "myrequestlist",
+				method : "post",
+				data : JSON.stringify(data),
+				contentType: "application/json; charset=UTF-8"
+			}).done((data) => {
+				$('#table_content').html(data);
+			});
+		});
+
+
+
+
+</script>
+
+
 
 
 </body>

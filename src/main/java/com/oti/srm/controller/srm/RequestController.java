@@ -213,18 +213,23 @@ public class RequestController {
 			return "redirect:/customer/request";
 		}
 	}
-
-	/**
-	 * 내 요청 조회
-	 * @throws ParseException 
-	 */
-	@GetMapping("/myrequestlist")
+	
+	
+	
+	
+	
+	//(유저 제외) 실무자들의 요청 리스트
+	@GetMapping("/userrequestlist")
 	public String myrequestlist () {
-		return "srm/requestlist_re";
+		
+		
+		
+		
+		return "srm/uesrrequestlist";
 	}
 	
 	
-	//내 요청 목록 조회 ajax
+	//(유저 제외) 요청 목록 조회 ajax
 	@PostMapping("/myrequestlist")
 	public String myRequestList(@RequestBody ListFilter listFilter, Model model, HttpSession session) {
 		log.info(listFilter.toString());
