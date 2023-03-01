@@ -119,7 +119,7 @@ input:checked + .slider:before {
                		<div id="main">
                			<!-- 상단 업무 현황 바 start -->
                			<div class=" d-flex justify-content-between" style="flex-wrap: nowrap;">
-	               			<!-- 최신요청건 -->
+	               			<!-- 처리 대기 건 -->
                				<div 
                					<c:if test="${member.mtype == 'developer'}">class="uppermain mb-4 ml-3"</c:if>
                					<c:if test="${member.mtype != 'developer'}">class="uppermain2 mb-4 ml-3"</c:if>
@@ -129,10 +129,40 @@ input:checked + .slider:before {
 	                                    <div class="row no-gutters align-items-center">
 	                                        <div class="col mr-2">
 	                                            <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">
-	                                             	 처리 대기건
+	                                             	 <c:if test="${member.mtype == 'developer'}">
+	                                             	 	개발 대기
+	                                             	 </c:if>
+	                                             	 <c:if test="${member.mtype == 'tester'}">
+	                                             	 	테스트 대기
+	                                             	 </c:if>
+	                                             	 <c:if test="${member.mtype == 'usertester'}">
+	                                             	 	품질검토 대기
+	                                             	 </c:if>
+	                                             	 <c:if test="${member.mtype == 'distributor'}">
+	                                             	 	배포 대기
+	                                             	 </c:if>
                                              	</div>
 	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-	                                            	<c:out value="${workingStatus.requestRecent}"/> 건
+	                                            	<c:if test="${member.mtype == 'developer'}">
+	                                             	 	<c:set var="waiting" 
+	                                             	 	value="${workingStatus['1'] + workingStatus['2']}"/> 
+	                                             	 	<c:out value="${waiting} 건"></c:out>
+	                                             	 </c:if>
+	                                             	 <c:if test="${member.mtype == 'tester'}">
+	                                             	 	<c:set var="waiting" 
+	                                             	 	value="${workingStatus['1'] + workingStatus['2'] + workingStatus['3'] + workingStatus['4'] + workingStatus['5']}"/> 
+	                                             	 	<c:out value="${waiting} 건"></c:out>
+	                                             	 </c:if>
+	                                             	 <c:if test="${member.mtype == 'usertester'}">
+	                                             	 	<c:set var="waiting" 
+	                                             	 	value="${workingStatus['1'] + workingStatus['2'] + workingStatus['3'] + workingStatus['4'] + workingStatus['5'] + workingStatus['6'] + workingStatus['7']}"/> 
+	                                             	 	<c:out value="${waiting} 건"></c:out>
+	                                             	 </c:if>
+	                                             	 <c:if test="${member.mtype == 'distributor'}">
+	                                             	 	<c:set var="waiting" 
+	                                             	 	value="${workingStatus['1'] + workingStatus['2'] + workingStatus['3'] + workingStatus['4'] + workingStatus['5'] + workingStatus['6'] + workingStatus['7'] + workingStatus['8'] + workingStatus['9']}"/> 
+	                                             		<c:out value="${waiting} 건"></c:out>
+	                                             	 </c:if>                                            	
                                             	</div>
 	                                        </div>
 	                                        <div class="col-auto">
@@ -153,10 +183,32 @@ input:checked + .slider:before {
 	                                    <div class="row no-gutters align-items-center">
 	                                        <div class="col mr-2">
 	                                            <div class="text-lg font-weight-bold text-success text-uppercase mb-1">
-                                               	진행중
+                                               		<c:if test="${member.mtype == 'developer'}">
+	                                             	 	개발 중
+	                                             	 </c:if>
+	                                             	 <c:if test="${member.mtype == 'tester'}">
+	                                             	 	테스트 중
+	                                             	 </c:if>
+	                                             	 <c:if test="${member.mtype == 'usertester'}">
+	                                             	 	품질검토 중
+	                                             	 </c:if>
+	                                             	 <c:if test="${member.mtype == 'distributor'}">
+	                                             	 	배포 중
+	                                             	 </c:if>
                                                	</div>
 	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-	                                            	<c:out value="${workingStatus.requestInProgress}"/> 건
+	                                            	<c:if test="${member.mtype == 'developer'}">
+	                                             	 	<c:out value="${workingStatus['4']} 건"></c:out>
+	                                             	 </c:if>
+	                                             	 <c:if test="${member.mtype == 'tester'}">
+	                                             	 	<c:out value="${workingStatus['6']} 건"></c:out>
+	                                             	 </c:if>
+	                                             	 <c:if test="${member.mtype == 'usertester'}">
+	                                             	 	<c:out value="${workingStatus['8']} 건"></c:out>
+	                                             	 </c:if>
+	                                             	 <c:if test="${member.mtype == 'distributor'}">
+	                                             		<c:out value="${workingStatus['10']} 건"></c:out>
+	                                             	 </c:if>
 	                                            </div>
 	                                        </div>
 	                                        <div class="col-auto">
@@ -167,7 +219,7 @@ input:checked + .slider:before {
 	                            </div>
 	                        </div>
 	               			
-	               			<!-- 완료요청건 -->
+	               			<!-- 완료건 -->
 	               			 <div 
                					<c:if test="${member.mtype == 'developer'}">class="uppermain mb-4"</c:if>
                					<c:if test="${member.mtype != 'developer'}">class="uppermain2 mb-4"</c:if>
@@ -177,9 +229,40 @@ input:checked + .slider:before {
 	                                    <div class="row no-gutters align-items-center">
 	                                        <div class="col mr-2">
 	                                            <div class="text-lg font-weight-bold text-info text-uppercase mb-1">
-	                                                	완료건</div>
+                                                	 <c:if test="${member.mtype == 'developer'}">
+	                                             	 	개발 완료
+	                                             	 </c:if>
+	                                             	 <c:if test="${member.mtype == 'tester'}">
+	                                             	 	테스트 완료
+	                                             	 </c:if>
+	                                             	 <c:if test="${member.mtype == 'usertester'}">
+	                                             	 	품질검토 완료
+	                                             	 </c:if>
+	                                             	 <c:if test="${member.mtype == 'distributor'}">
+	                                             	 	배포 완료
+	                                             	 </c:if>
+	                                            </div>
 	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-	                                            	<c:out value="${workingStatus.requestDone}"/> 건
+	                                            	<c:if test="${member.mtype == 'developer'}">
+	                                             	 	<c:set var="done" 
+	                                             	 	value="${workingStatus['5'] + workingStatus['6'] + workingStatus['7'] + workingStatus['8'] + workingStatus['9'] + workingStatus['10'] + workingStatus['11'] + workingStatus['13']}"/> 
+	                                             	 	<c:out value="${done} 건"></c:out>
+	                                             	 </c:if>
+	                                             	 <c:if test="${member.mtype == 'tester'}">
+	                                             	 	<c:set var="done" 
+	                                             	 	value="${workingStatus['7'] + workingStatus['8'] + workingStatus['9'] + workingStatus['10'] + workingStatus['11'] + workingStatus['13']}"/> 
+	                                             	 	<c:out value="${done} 건"></c:out>
+	                                             	 </c:if>
+	                                             	 <c:if test="${member.mtype == 'usertester'}">
+	                                             	 	<c:set var="done" 
+	                                             	 	value="${workingStatus['9'] + workingStatus['10'] + workingStatus['11'] + workingStatus['13']}"/> 
+	                                             	 	<c:out value="${done} 건"></c:out>
+	                                             	 </c:if>
+	                                             	 <c:if test="${member.mtype == 'distributor'}">
+	                                             	 	<c:set var="done" 
+	                                             	 	value="${workingStatus['11'] + workingStatus['13']}"/> 
+	                                             		<c:out value="${done} 건"></c:out>
+	                                             	 </c:if>
 	                                            </div>
 	                                        </div>
 	                                        <div class="col-auto">
@@ -197,9 +280,9 @@ input:checked + .slider:before {
 	                                    <div class="row no-gutters align-items-center">
 	                                        <div class="col mr-2">
 	                                            <div class="text-lg font-weight-bold text-warning text-uppercase mb-1">
-	                                                	재검토 대기건</div>
+	                                                	개발 재검토</div>
 	                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-	                                            	<c:out value="${workingStatus.requestReexam}"/> 건
+	                                            	<c:out value="${workingStatus['3']}"/> 건
 	                                            </div>
 	                                        </div>
 	                                        <div class="col-auto">
@@ -220,14 +303,26 @@ input:checked + .slider:before {
 								<div class="card tasks border-left-dark shadow" style="height: 420.896px;">
 									<div class="card-title-block mt-3 d-flex">
 			                			<h5 class="title ml-3 mr-auto" id="devTitle">
-			                				<c:if test="${member.mtype == 'developer'}">개발리스트</c:if>
-			                				<c:if test="${member.mtype == 'tester' || member.mtype =='usertester'}">테스트리스트</c:if>
-			                				<c:if test="${member.mtype == 'distributor'}">배포리스트</c:if>
+			                				<c:if test="${member.mtype == 'developer'}">
+			                					<input type="hidden" value="developer" id="memberType"/>
+			                					<span id="title">나의 개발 리스트</span>
+			                				</c:if>
+			                				<c:if test="${member.mtype == 'tester'}">
+			                					<input type="hidden" value=tester id="memberType"/>
+			                					<span id="title">나의 테스트 리스트</span>
+			                				</c:if>
+			                				<c:if test="${member.mtype =='usertester'}">
+			                					<input type="hidden" value="usertester" id="memberType"/>
+			                					<span id="title">나의 품질검토 리스트</span>
+			                				</c:if>
+			                				<c:if test="${member.mtype == 'distributor'}">
+			                					<input type="hidden" value="distributor" id="memberType"/>
+			                					<span id="title">나의 배포 리스트</span>
+			                				</c:if>
 			                			</h5>
 				                		<div class="toggle-group d-flex align-items-center mr-4">
-				                			<h5 style="display: inline-block; margin-right: 10px;" id="">나의 리스트</h5>
 				                			<label class="switch" >
-											  <input type="checkbox" id="toggleButton" onclick="requestProcessList(1)">
+											  <input type="checkbox" id="toggleButton" onclick="requestProcessList(1)" checked>
 											  <span class="slider round"></span>
 											</label>
 				                		</div>
@@ -256,7 +351,28 @@ input:checked + .slider:before {
 														<td <c:if test="${requestProcess.reqType == '긴급'}"> class="text-danger"</c:if>>
 														${requestProcess.reqType}
 														</td>
-														<td class="tableContent">${requestProcess.reqTitle}</td>
+														<td class="tableContent">
+															<c:if test="${member.mtype == 'developer'}">
+																<a href="${pageContext.request.contextPath}/developerdetail?rno=${requestProcess.rno}">
+																	${requestProcess.reqTitle}
+																</a>
+															</c:if>
+															<c:if test="${member.mtype == 'tester'}">
+																<a href="${pageContext.request.contextPath}/testerdetail?rno=${requestProcess.rno}">
+																	${requestProcess.reqTitle}
+																</a>
+															</c:if>
+															<c:if test="${member.mtype == 'usertester'}">
+																<a href="${pageContext.request.contextPath}/usertestdetail?rno=${requestProcess.rno}">
+																	${requestProcess.reqTitle}
+																</a>
+															</c:if>
+															<c:if test="${member.mtype == 'distributor'}">
+																<a href="${pageContext.request.contextPath}/distributedetail?rno=${requestProcess.rno}">
+																	${requestProcess.reqTitle}
+																</a>
+															</c:if>
+														</td>
 														<td>
 															<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
 																<span class="fa fa-star checked" style="color: orange;"></span>
@@ -445,9 +561,33 @@ input:checked + .slider:before {
     		var checkbox = '';
     		if($('#toggleButton').is(":checked")){
     			checkbox = 'y';
+    			if($('#memberType').val() == 'developer'){
+    				$('#title').text("나의 개발 리스트");
+    			}
+    			else if($('#memberType').val() == 'tester'){
+    				$('#title').text("나의 테스트 리스트");
+				    			}
+    			else if($('#memberType').val() == 'usertester'){
+    				$('#title').text("나의 품질검토 리스트");
+				}
+    			else if($('#memberType').val() == 'distributor'){
+    				$('#title').text("나의 배포 리스트");
+				}
     		}
     		else{
     			checkbox = 'n';
+    			if($('#memberType').val() == 'developer'){
+    				$('#title').text("전체 개발 리스트");
+    			}
+    			else if($('#memberType').val() == 'tester'){
+    				$('#title').text("전체 테스트 리스트");
+				    			}
+    			else if($('#memberType').val() == 'usertester'){
+    				$('#title').text("전체 품질검토 리스트");
+				}
+    			else if($('#memberType').val() == 'distributor'){
+    				$('#title').text("전체 배포 리스트");
+				}
     		}
     		console.log(checkbox);
     		$.ajax({

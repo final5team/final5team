@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oti.srm.dao.srm.IStatsDao">
-	<select id="selectSRChange" parameterType="String" resultType="int">
+	<select id="selectSRChange" parameterType="map" resultType="int">
 		select count(*) as cnt
 		from REQUESTS
 		where To_CHAR(REQ_DATE, 'YYYYMM') = #{month}
+		and sno=#{sno}
 	</select>
 	
 	<select id="selectSRComChange" parameterType="String" resultType="int">
@@ -113,6 +114,13 @@
 			    from requests
 			    group by sno) c 
 			where c.sno(+)=s.sno
+		]]>
+	</select>
+	<select id="selectSystemName" resultType="String">
+		<![CDATA[
+			select SYSTEM_NAME as systemName
+			from systems s
+			order by sno
 		]]>
 	</select>
 	
