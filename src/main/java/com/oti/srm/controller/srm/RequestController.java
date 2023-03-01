@@ -216,7 +216,12 @@ public class RequestController {
 	
 	//(유저) 요청 리스트 ajax -> 처음에는 DB 값 넣어주고 변경시 ajax 처리해 됨 (변경)
 	@GetMapping("/userrequestlist")
-	public String myrequestlist () {
+	public String myrequestlist (Model model) {
+		//시스템
+		List<System> systemList = userRegisterService.getSystemList();
+		model.addAttribute("systemList", systemList);
+		
+		
 		return "srm/uesrrequestlist";
 	}
 	
@@ -243,19 +248,12 @@ public class RequestController {
 		return "srm/list/ajaxmyrequestlist";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	//담당 요청 목록 이동 페이지
 	@GetMapping("/requestlist")
-	public String requestList() {
+	public String requestList(Model model) {
+		List<System> systemList = userRegisterService.getSystemList();
+		
+		model.addAttribute("systemList", systemList);
 		return "srm/requestlist_re";
 	}
 	//담당 요청 목록 조회 ajax

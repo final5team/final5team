@@ -136,7 +136,7 @@
 									<div class="input-group">
 										<select class="custom-select" id="sno" name="sno">
 											<c:if test="${listFilter.sno == 0}">
-												<option value="0" selected>시스템</option>
+												<option value="0" selected>전체</option>
 												<c:forEach var="system" items="${systemList}">
 													<option value="${system.sno}">${system.systemName}</option>
 												</c:forEach>
