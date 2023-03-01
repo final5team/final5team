@@ -31,15 +31,15 @@
         chart.draw(data, options);
       }
       
-      // 완료율 도넛 그래프 그리기
+      // 도넛 그래프 그리기
       google.charts.setOnLoadCallback(drawdonutChart);
       function drawdonutChart() {
     	  // 완료율 그래프 값 설정
           var data = google.visualization.arrayToDataTable([
-            ['Task', 	'Rate'],
+            ['Label', 	'Rate'],
             ['완료',     ${comRate}],
             ['',   		${100-comRate}]
-          ]);
+          ]);    	          
 			
     	  // 그래프 옵션
           var options = {
@@ -54,34 +54,34 @@
             }
           };
 		  
-          // 그래프 그리기
+          // 완료율 그래프 그리기
           var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
           chart.draw(data, options);
-        }
-      
-		  // 지연율 게이지 그래프 그리기
-	      google.charts.load('current', {'packages':['gauge']});
-	      google.charts.setOnLoadCallback(drawGageChart);
-	
-	      function drawGageChart() {
-	
-	        var data = google.visualization.arrayToDataTable([
-	          ['Label', 'Value'],
-	          ['지연율', ${delRate}],
-	        ]);
-			
-	        // 그래프 옵션
-	        var options = {
-	          width: 500, height: 150,			// 그래프 크기 설정
-	          redFrom: 80, redTo: 100,			// 위험 (붉은 색으로 표시된 부분) 범위 설정
-	          yellowFrom: 55, yellowTo: 80,		// 주의 (노란 색으로 표시된 부분) 범위 설정
-	          minorTicks: 5						// 보조 눈금
-	        };
-	        
-			// 그래프 그리기
-	        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));	
-	        chart.draw(data, options);           
-	      }
+          
+          // 지연율 그래프 값 설정
+          var data2 = google.visualization.arrayToDataTable([
+            ['Label', 	'Rate'],
+            ['지연',     ${delRate}],
+            ['',   		${100-delRate}]
+          ]);
+          
+          // 그래프 옵션
+          var options2 = {
+            title: '전체 지연율',   // 그래프 제목
+            pieHole: 0.4,		// 그래프 중앙 빈 부분 크기 설정
+
+            tooltip: { trigger: 'none' },   // 도움말 제거   
+            legend: 'none',					// 범례 여부(표시 안 함)
+            slices: {
+                0: { color: 'red', textStyle: {color: 'transparent'} },  			// 그래프 완료 부분 색 설정(미표시)
+                1: { color: 'transparent' , textStyle: {color: 'transparent'}}		// 그래프 미완료 부분 색 설정(미표시)
+            }
+          };
+          
+          // 지연율 그래프 그리기
+          var chart2 = new google.visualization.PieChart(document.getElementById('chart_div'));	
+          chart2.draw(data2, options2);
+        }      		 
       
       	  // 서비스 요청 처리 현황 비중 막대 그래프 그리기
 	      google.charts.load('current', {'packages':['bar']});
@@ -126,24 +126,15 @@
 	      function drawLineChart() {
 	    	  // 월별 값 설정
 	        var data = google.visualization.arrayToDataTable([
-	          ['월', '요청', '완료'],
-	          ['01월',  ${SRChange['1']},	${SRComChange['1']}],
-	          ['02월',  ${SRChange['2']},	${SRComChange['2']}],
-	          ['03월',  ${SRChange['3']},	${SRComChange['3']}],
-	          ['04월',  ${SRChange['4']},	${SRComChange['4']}],
-	          ['05월',  ${SRChange['5']},	${SRComChange['5']}],
-	          ['06월',  ${SRChange['6']},	${SRComChange['6']}],
-	          ['07월',  ${SRChange['7']},	${SRComChange['7']}],
-	          ['08월',  ${SRChange['8']},	${SRComChange['8']}],
-	          ['09월',  ${SRChange['9']},	${SRComChange['9']}],
-	          ['10월',  ${SRChange['10']},	${SRComChange['10']}],
-	          ['11월',  ${SRChange['11']},	${SRComChange['11']}],
-	          ['12월',  ${SRChange['12']},	${SRComChange['12']}]
+	          ['월', '요청'],
+	          ['01월',  ${SRChange['1']}],
+	          ['02월',  ${SRChange['2']}],
+	          ['03월',  ${SRChange['3']}]	         
 	        ]);
 
 	    	// 그래프 옵션
 	        var options = {
-	          title: '전체 서비스 요청 및 완료',  		//그래프 제목
+	          title: '분기별 서비스 요청 및 완료',  		//그래프 제목
 	          curveType: 'function',  			//그래프 선 설정(부드러운 선)
 	          legend: { position: 'bottom' }    //범례 위치 (하단 위치)
 	        };
@@ -163,11 +154,13 @@
 	}
 	.center {
 	  position: absolute;
-	  top: 40%;
+	  top: 70%;
+	  right: 70px;
 	  width: 100%;
 	  text-align: center;
-	  font-size: 20px;
-	  color: orange;
+	  font-size: 50px;
+	  font-weight: bold;
+	  color: orange;	 
 	}
     </style>
 
@@ -197,9 +190,9 @@
                 	<!-- Main(정적 페이지) -->             	
                 	<div id="main">
 	                	<!-- 첫째 줄 -->
-						<div class="row" style="background-color: ORANGE">
-							<div  class="col" style="width:500px; background-color: green">
-								 <div class="card shadow mb-4" style=" background-color: red">
+						<div class="row">
+							<div  class="col">
+								 <div class="card shadow mb-4">
 	                                <!-- Card Header - Dropdown -->
 	                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 	                                    <h6 class="m-0 font-weight-bold text-primary">시스템별 요청 비중</h6>
@@ -219,8 +212,8 @@
 	                                    </div>
 	                                </div>
 	                                <!-- Card Body -->
-	                                <div class="card-body">
-	                                    <div id="3dchart"></div>
+	                                <div class="card-body" style="width:300px; overflow: hidden;">
+	                                    <div id="3dchart" style="width:400px; position: relative; left:-30px"></div>
 	                                </div>
 	                            </div>
 							</div>
@@ -247,8 +240,8 @@
 	                                </div>
 	                                <!-- Card Body -->
 	                                <div class="card-body">		                               
-	                                	<div> 
-	                                		<div id="donutchart"></div>
+	                                	<div style="width:290px; height: 200px; overflow: hidden;"> 
+	                                		<div id="donutchart" style="height: 250px; position: relative; top: -10px;"></div>
 	                                		<div class="center">${comRate}%</div>
 	                                	</div>		                                		                               
 	                                </div>
@@ -277,8 +270,9 @@
 	                                </div>
 	                                <!-- Card Body -->
 	                                <div class="card-body">
-	                                	<div class="row">		                                	
-		                                	<div id="chart_div" style="width: 400px; height: 120px;" class="ml-4 mt-3"></div> 
+	                                	<div style="width:290px; height: 200px; overflow: hidden;">		                                	
+		                                	<div id="chart_div" style="height: 250px; position: relative; top: -10px;"></div>
+		                                	<div class="center">${delRate}%</div> 
 		                                </div>                                  
 	                                </div>
 	                            </div>
@@ -309,7 +303,7 @@
 							            	<a href="" class="nav-link" data-target="#messages" aria-controls="messages" data-toggle="tab" role="tab" >테스트</a>
 							            </li>
 							            <li class="nav-item">
-							            	<a href="" class="nav-link" data-target="#usertest" aria-controls="usertest" data-toggle="tab" role="tab" >유저테스트</a>
+							            	<a href="" class="nav-link" data-target="#usertest" aria-controls="usertest" data-toggle="tab" role="tab" >품질  검토</a>
 							            </li>
 							            <li class="nav-item">
 							            	<a href="" class="nav-link" data-target="#settings" aria-controls="settings" data-toggle="tab" role="tab" >배포</a>
@@ -319,14 +313,17 @@
 							        <!-- Tab panes -->
 							        <div class="tab-content tabs-bordered">
 							        	<!-- 전체 서비스 요청 처리 현황 -->
-							        	<div>
+							        	
+							            <div class="tab-pane in active" id="home"> 
+							            
+							            <div>
 							        		<div class="m-3">
 							        			<h5>전체 서비스 요청 처리 현황</h5>
 							        			 <!-- 단계 카드들 -->
 												<div class="row">
 	
-												    <div class="col-xl-2 col-md-6 mb-4">
-										                <div class="card border-left-primary shadow h-100 py-2">
+												    <div class="mb-4 m-2">
+										                <div class="card border-left-primary shadow h-100 py-2" style="width:140px">
 										                     <div class="card-body">
 										                          <div class="row no-gutters align-items-center">
 										                               <div class="col mr-2">
@@ -341,8 +338,8 @@
 										                  </div>
 										             </div>
 										                        
-										             <div class="col-xl-2 col-md-6 mb-4">
-										                 <div class="card border-left-success shadow h-100 py-2">
+										             <div class="mb-4 m-2">
+										                 <div class="card border-left-success shadow h-100 py-2" style="width:140px">
 										                     <div class="card-body">
 										                          <div class="row no-gutters align-items-center">
 										                              <div class="col mr-2">
@@ -357,8 +354,8 @@
 										                  </div>
 										              </div>
 										
-										              <div class="col-xl-2 col-md-6 mb-4">
-										                   <div class="card border-left-info shadow h-100 py-2">
+										              <div class="mb-4 m-2">
+										                   <div class="card border-left-info shadow h-100 py-2" style="width:140px">
 										                        <div class="card-body">
 										                             <div class="row no-gutters align-items-center">
 										                                  <div class="col mr-2">
@@ -373,12 +370,12 @@
 										                       </div>
 										                 </div>
 								
-								                        <div class="col-xl-2 col-md-6 mb-4">
-								                            <div class="card border-left-warning shadow h-100 py-2">
+								                        <div class="mb-4 m-2">
+								                            <div class="card border-left-warning shadow h-100 py-2" style="width:150px">
 								                                <div class="card-body">
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
-								                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">유저 테스트</div>
+								                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">품질 검토</div>
 								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[3]} 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
@@ -389,8 +386,8 @@
 								                            </div>
 								                        </div>
 										                        
-								                        <div class="col-xl-2 col-md-6 mb-4">
-								                            <div class="card border-left-danger shadow h-100 py-2">
+								                        <div class="mb-4 m-2">
+								                            <div class="card border-left-danger shadow h-100 py-2" style="width:140px">
 								                                <div class="card-body">
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
@@ -405,8 +402,8 @@
 								                            </div>
 								                        </div>
 								                        
-								                        <div class="col-xl-2 col-md-6 mb-4">
-								                            <div class="card border-left-secondary shadow h-100 py-2">
+								                        <div class="mb-4 m-2">
+								                            <div class="card border-left-secondary shadow h-100 py-2" style="width:140px">
 								                                <div class="card-body">
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
@@ -429,32 +426,18 @@
 							        		</div>
 							        								        	
 							        	</div>
-							            <div class="tab-pane fade in active" id="home"> 
+							            
+							            
+							            
 							            </div>
 							            <div class="tab-pane fade" id="profile">
 							            	<div class="m-3">
 							            		<h5>개발 현황</h5>
 							            		<div>
 								            		<!-- 단계 카드들 -->
-													<div class="row">
-		
-													    <div class="col-xl-3 col-md-6 mb-4">
-											                <div class="card border-bottom-primary shadow h-100 py-2">
-											                     <div class="card-body">
-											                          <div class="row no-gutters align-items-center">
-											                               <div class="col mr-2">
-											                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">현재</div>
-											                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][0]} 건</div>
-											                               </div>
-											                               <div class="col-auto">
-											                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
-											                               </div>
-											                           </div>
-											                        </div>
-											                  </div>
-											             </div>
+													<div class="row">															   
 											                        
-											             <div class="col-xl-3 col-md-6 mb-4">
+											             <div class="col mb-4">
 											                 <div class="card border-left-success shadow h-100 py-2">
 											                     <div class="card-body">
 											                          <div class="row no-gutters align-items-center">
@@ -470,7 +453,7 @@
 											                  </div>
 											              </div>
 	
-									                        <div class="col-xl-3 col-md-6 mb-4">
+									                        <div class="col mb-4">
 									                            <div class="card border-left-warning shadow h-100 py-2">
 									                                <div class="card-body">
 									                                    <div class="row no-gutters align-items-center">
@@ -486,12 +469,12 @@
 									                            </div>
 									                        </div>
 									                        
-									                        <div class="col-xl-3 col-md-6 mb-4">
+									                        <div class="col mb-4">
 									                            <div class="card border-left-secondary shadow h-100 py-2">
 									                                <div class="card-body">
 									                                    <div class="row no-gutters align-items-center">
 									                                        <div class="col mr-2">
-									                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">기처리</div>
+									                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">개발 완료</div>
 									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][2]} 건</div>
 									                                        </div>
 									                                        <div class="col-auto">
@@ -512,25 +495,9 @@
 							            		<h5>테스트 현황</h5>
 							            		<div>
 								            		<!-- 단계 카드들 -->
-													<div class="row">
-		
-													    <div class="col-xl-3 col-md-6 mb-4">
-											                <div class="card border-bottom-primary shadow h-100 py-2">
-											                     <div class="card-body">
-											                          <div class="row no-gutters align-items-center">
-											                               <div class="col mr-2">
-											                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">현재</div>
-											                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][0]} 건</div>
-											                               </div>
-											                               <div class="col-auto">
-											                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
-											                               </div>
-											                           </div>
-											                        </div>
-											                  </div>
-											             </div>
+													<div class="row">														   
 											                        
-											             <div class="col-xl-3 col-md-6 mb-4">
+											             <div class="col mb-4">
 											                 <div class="card border-left-success shadow h-100 py-2">
 											                     <div class="card-body">
 											                          <div class="row no-gutters align-items-center">
@@ -546,7 +513,7 @@
 											                  </div>
 											              </div>
 	
-									                        <div class="col-xl-3 col-md-6 mb-4">
+									                        <div class="col mb-4">
 									                            <div class="card border-left-warning shadow h-100 py-2">
 									                                <div class="card-body">
 									                                    <div class="row no-gutters align-items-center">
@@ -562,12 +529,12 @@
 									                            </div>
 									                        </div>
 									                        
-									                        <div class="col-xl-3 col-md-6 mb-4">
+									                        <div class="col mb-4">
 									                            <div class="card border-left-secondary shadow h-100 py-2">
 									                                <div class="card-body">
 									                                    <div class="row no-gutters align-items-center">
 									                                        <div class="col mr-2">
-									                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">기처리</div>
+									                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">테스트 완료</div>
 									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][2]} 건</div>
 									                                        </div>
 									                                        <div class="col-auto">
@@ -584,33 +551,17 @@
 							            </div>
 							             <div class="tab-pane fade" id="usertest">
 							                <div class="m-3">
-							            		<h5>유저테스트 현황</h5>
+							            		<h5>품질 검토 현황</h5>
 							            		<div>
 								            		<!-- 단계 카드들 -->
-													<div class="row">
-		
-													    <div class="col-xl-3 col-md-6 mb-4">
-											                <div class="card border-bottom-primary shadow h-100 py-2">
-											                     <div class="card-body">
-											                          <div class="row no-gutters align-items-center">
-											                               <div class="col mr-2">
-											                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">현재</div>
-											                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][0]} 건</div>
-											                               </div>
-											                               <div class="col-auto">
-											                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
-											                               </div>
-											                           </div>
-											                        </div>
-											                  </div>
-											             </div>
-											                        
+													<div class="row">		
+													     
 											             <div class="col-xl-3 col-md-6 mb-4">
 											                 <div class="card border-left-success shadow h-100 py-2">
 											                     <div class="card-body">
 											                          <div class="row no-gutters align-items-center">
 											                              <div class="col mr-2">
-											                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">테스트 대기</div>
+											                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">검토 대기</div>
 											                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][0]-stateTask[2][1]} 건</div>
 											                              </div>
 											                          	  <div class="col-auto">
@@ -621,12 +572,12 @@
 											                  </div>
 											              </div>
 	
-									                        <div class="col-xl-3 col-md-6 mb-4">
+									                        <div class="col mb-4">
 									                            <div class="card border-left-warning shadow h-100 py-2">
 									                                <div class="card-body">
 									                                    <div class="row no-gutters align-items-center">
 									                                        <div class="col mr-2">
-									                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">테스트 중</div>
+									                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">검토 중</div>
 									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][1]} 건</div>
 									                                        </div>
 									                                        <div class="col-auto">
@@ -637,12 +588,12 @@
 									                            </div>
 									                        </div>
 									                        
-									                        <div class="col-xl-3 col-md-6 mb-4">
+									                        <div class="col mb-4">
 									                            <div class="card border-left-secondary shadow h-100 py-2">
 									                                <div class="card-body">
 									                                    <div class="row no-gutters align-items-center">
 									                                        <div class="col mr-2">
-									                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">기처리</div>
+									                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">검토 완료</div>
 									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][2]} 건</div>
 									                                        </div>
 									                                        <div class="col-auto">
@@ -662,24 +613,8 @@
 							            		<h5>배포 현황</h5>
 							            		<div>
 								            		<!-- 단계 카드들 -->
-													<div class="row">
-		
-													    <div class="col-xl-3 col-md-6 mb-4">
-											                <div class="card border-bottom-primary shadow h-100 py-2">
-											                     <div class="card-body">
-											                          <div class="row no-gutters align-items-center">
-											                               <div class="col mr-2">
-											                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">현재</div>
-											                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][0]} 건</div>
-											                               </div>
-											                               <div class="col-auto">
-											                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
-											                               </div>
-											                           </div>
-											                        </div>
-											                  </div>
-											             </div>
-											                        
+													<div class="row">		
+													      
 											             <div class="col-xl-3 col-md-6 mb-4">
 											                 <div class="card border-left-success shadow h-100 py-2">
 											                     <div class="card-body">
@@ -696,7 +631,7 @@
 											                  </div>
 											              </div>
 	
-									                        <div class="col-xl-3 col-md-6 mb-4">
+									                        <div class="col mb-4">
 									                            <div class="card border-left-warning shadow h-100 py-2">
 									                                <div class="card-body">
 									                                    <div class="row no-gutters align-items-center">
@@ -712,12 +647,12 @@
 									                            </div>
 									                        </div>
 									                        
-									                        <div class="col-xl-3 col-md-6 mb-4">
+									                        <div class="col mb-4">
 									                            <div class="card border-left-secondary shadow h-100 py-2">
 									                                <div class="card-body">
 									                                    <div class="row no-gutters align-items-center">
 									                                        <div class="col mr-2">
-									                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">기처리</div>
+									                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">배포 완료</div>
 									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][2]} 건</div>
 									                                        </div>
 									                                        <div class="col-auto">
