@@ -81,7 +81,11 @@ public class DeveloperController {
 
 		return "redirect:/developerdetail?rno=" + statusHistory.getRno();
 	}
-
+	@GetMapping("/developerdetail2")
+	public String getDeveloperDetail2(Model model) {
+		log.info("실행");
+		return "srm/developerdetail2";
+	}
 	/**
 	 * @author : 장현
 	 * @param statusHistory 상태 업데이트
