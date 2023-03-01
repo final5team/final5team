@@ -182,42 +182,12 @@
 						</c:if>
 						<!-- ajax 수정 목록 -->
 						<table class="member" id="table_content">
-						
+							
 						</table>
 						
 													
 						
 					</section>
-					<div class="pager">
-						<div class="pagingButtonSet d-flex justify-content-center">
-							<a href="requestlist?pageNo=1&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
-								type="button" class="btn btn-muted shadow">◀◀</a>
-							<c:if test="${pager.groupNo > 1}">
-								<a href="requestlist?pageNo=${pager.startPageNo-1}
-								&req_type=${listFilter.reqType}&date_first=${listFilter.date_first}$date_last=${listFilter.date_last}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
-								 type="button" class="btn btn-muted shadow">◀</a>
-							</c:if>
-
-							<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
-								<c:if test="${pager.pageNo != i}">
-									<a href="requestlist?pageNo=${i}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
-							 				type="button" class="btn btn-white shadow">${i}</a>
-								</c:if>
-								<c:if test="${pager.pageNo == i}">
-									<a href="requestlist?pageNo=${i}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
-											type="button" class="btn btn-dark shadow">${i}</a>
-								</c:if>
-							</c:forEach>
-
-							<c:if test="${pager.groupNo < pager.totalGroupNo }">
-								<a href="requestlist?pageNo=${pager.endPageNo+1}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}" 
-										type="button" class="btn btn-muted shadow">▶</a>
-
-							</c:if>
-							<a href="requestlist?pageNo=${pager.totalPageNo}&req_type=${listFilter.reqType}&date_first=${listFilter.dateFirst}&date_last=${listFilter.dateLast}&statisNo=${listFilter.statusNo}&sno=${listFilter.sno}"
-							 		type="button" class="btn btn-muted shadow">▶▶</a>
-						</div>
-					</div>
 					</main>
 				</div>	
 			</div>
@@ -238,8 +208,6 @@
 	</a>
 
 <script>
-
-
 
 // 유저 제외 담당자들의 ajax 호출
 
@@ -306,13 +274,7 @@
 		
 	} 
 
-  	//	검색 ajax 시 사용 예정
-	//	let reqType = document.getElementById(req_type);
-	//	let dateFirst = document.getElementById(date_first);
-	//	let dateLast = document.getElementById(date_last);
-	//	let sno = document.getElementById(sno);
-	//	let statusNo = document.getElementById(statusNo);  
-
+  	
 
 
 

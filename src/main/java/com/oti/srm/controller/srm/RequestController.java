@@ -214,25 +214,29 @@ public class RequestController {
 		}
 	}
 	
-	
-	
-	
-	
-	//(유저 제외) 실무자들의 요청 리스트
+	//(유저) 요청 리스트 ajax
 	@GetMapping("/userrequestlist")
 	public String myrequestlist () {
-		
-		
-		
-		
 		return "srm/uesrrequestlist";
 	}
+	
+	
+	//(유저) 페이지 이동 + filter 검색
+	@PostMapping("/usersearch" )
+	public String userSearchList(@RequestBody ListFilter listFilter, Model model, HttpSession session) {
+		log.info("검색 실행");
+		log.info(listFilter.toString());
+		
+		
+		
+		return "";
+	}
+	
 	
 	
 	//(유저 제외) 요청 목록 조회 ajax
 	@PostMapping("/myrequestlist")
 	public String myRequestList(@RequestBody ListFilter listFilter, Model model, HttpSession session) {
-		log.info(listFilter.toString());
 		// 요청 조회 필터
 		List<System> systemList = userRegisterService.getSystemList();
 		// 유저 정보 전달
@@ -242,7 +246,6 @@ public class RequestController {
 		int totalRows = requestService.getRequestListRows(listFilter, member);
 		Pager pager = new Pager(7, 5, totalRows, listFilter.getPageNo());
 		List<SelectPM> requestList = requestService.getMyRequestList(listFilter, pager, member);
-		log.info(totalRows);
 		
 		// 시스템 리스트 전달
 		model.addAttribute("systemList", systemList);
@@ -251,10 +254,15 @@ public class RequestController {
 		model.addAttribute("pager", pager);
 		// filter 전달
 		model.addAttribute("listFilter", returnList);
-		
-		
 		return "srm/list/ajaxmyrequestlist";
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -268,7 +276,6 @@ public class RequestController {
 	@PostMapping("/myworklist")
 	public String myWrokList(@RequestBody ListFilter listFilter, Model model, HttpSession session) {
 
-		log.info(listFilter.toString());
 		// 필터에 출력할 시스템 리스트 조회
 		List<System> systemList = userRegisterService.getSystemList();
 		ListFilter returnList = requestService.dateFilterList(listFilter);
@@ -289,6 +296,13 @@ public class RequestController {
 		
 		return "srm/list/ajaxmyworklist";
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
