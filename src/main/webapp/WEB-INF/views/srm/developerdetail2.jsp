@@ -61,41 +61,101 @@
 	 	list-style : none;
 	 }
 	 /* 스테퍼 임시 */
-	 .stepper-wrapper {
-	  margin-top: auto;
-	  display: flex;
-	  justify-content: space-between;
-	  margin-bottom: 20px;
-	}
-	.stepper-item {
-	  position: relative;
-	  display: flex;
-	  flex-direction: column;
-	  align-items: center;
-	  flex: 1;
-	
-	}
-	
-	.stepper-item::before {
-	  position: absolute;
-	  content: "";
-	  border-bottom: 2px solid #ccc;
-	  width: 100%;
-	  top: 20px;
-	  left: -50%;
-	  z-index: 2;
-	}
-	
-	.stepper-item::after {
-	  position: absolute;
-	  content: "";
-	  border-bottom: 2px solid #ccc;
-	  width: 100%;
-	  top: 20px;
-	  left: 50%;
-	  z-index: 2;
-	}
-	 
+.stepper-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: 20px auto;
+}
+.stepper-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.stepper-item::before {
+  position: absolute;
+  content: "";
+  border-bottom: 2px solid #ccc;
+  width: 100%;
+  top: 20px;
+  left: -50%;
+  z-index: 2;
+}
+
+.stepper-item::after {
+  position: absolute;
+  content: "";
+  border-bottom: 2px solid #ccc;
+  width: 100%;
+  top: 20px;
+  left: 50%;
+  z-index: 2;
+}
+
+.stepper-item .step-counter {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #ccc;
+  margin-bottom: 6px;
+}
+
+.stepper-item.active .step-counter{
+  font-weight: bold;
+  background-color: #ff4444;
+  color: white;
+}
+
+.stepper-item.completed .step-counter {
+  background-color: #85ce36;
+  color: white;
+}
+
+.stepper-item.completed::after {
+  position: absolute;
+  content: "";
+  border-bottom: 2px solid #4bb543;
+  width: 100%;
+  top: 20px;
+  left: 50%;
+  z-index: 3;
+}
+
+.stepper-item:first-child::before {
+  content: none;
+}
+.stepper-item:last-child::after {
+  content: none;
+}
+.step-counter.btn{
+	padding:0px;
+}
+
+
+/* 상단 버튼 끝 */
+
+.card{
+	margin:auto;
+	width: 90%;
+}
+.label{
+text-align :center;
+padding: 0 20px;
+width: 180px;
+font-weight: 600;
+font-size: 1.0rem;
+}
+.form-control.boxed{
+	width: 0%;
+}
     </style>
 </head>
 
@@ -126,36 +186,76 @@
                 	 	</div>
                 	 	<div> <!-- 여기에 단계 상태 이력 넣기 -->
                 	 		<div class="stepper-wrapper">
-	                	 		<div class="btn btn-md btn-primary stepper-item">1</div>
-	                	 		<div class="btn btn-md btn-primary stepper-item">2</div>
-	                	 		<div class="btn btn-md btn-primary stepper-item">3</div>
-	                	 		<div class="btn btn-md btn-primary stepper-item">4</div>
-	                	 		<div class="btn btn-md btn-primary stepper-item">5</div>
-	                	 		<div class="btn btn-md btn-primary stepper-item">6</div>
-	                	 		<div class="btn btn-md btn-primary stepper-item">7</div>
-	                	 	</div>
+							  <div class="stepper-item completed">
+							    <div class="step-counter btn">1</div>
+							    <div class="step-name">등록</div>
+							  </div>
+							  <div class="stepper-item completed">
+							    <div class="step-counter btn">2</div>
+							    <div class="step-name">접수</div>
+							  </div>
+							  <div class="stepper-item active">
+							    <div class="step-counter btn">3</div>
+							    <div class="step-name">개발</div>
+							  </div>
+							  <div class="stepper-item">
+							    <div class="step-counter btn">4</div>
+							    <div class="step-name">테스트</div>
+							  </div>
+							  <div class="stepper-item">
+							    <div class="step-counter btn">5</div>
+							    <div class="step-name">품질테스트</div>
+							  </div>
+							  <div class="stepper-item">
+							    <div class="step-counter btn">6</div>
+							    <div class="step-name">배포</div>
+							  </div>
+							  <div class="stepper-item">
+							    <div class="step-counter btn">7</div>
+							    <div class="step-name">완료</div>
+							  </div>
+							</div>
                 	 	</div>	<!-- 여기에 단계 상태 이력 넣기 /-->
-                	 	<section> <!-- 입력폼 start -->
-                	 		<div class="card border-left-dark">
-                	 			<div class="card-body">
-                	 				<form>
-                	 					<div class="form-grouop d-flex">
-                	 						<div>완료예정일</div>
-                	 						<div>2021-02-09</div>
-                	 					</div>
-                	 					<div class="form-grouop d-flex">
-                	 						<div>배포소스</div>
-                	 						<div>asdfasdfasdf.java</div>
-                	 					</div>
-                	 					<div class="form-grouop d-flex">
-                	 						<div>개발 내용</div>
-                	 						<div>여기보세요~~</div>
-                	 					</div>
-                	 					<div class="form-grouop">
-                	 						<div>첨부파일</div>
-                	 						<input type ="file">
-                	 					</div>
-                	 				</form>
+                	 	<section> <!-- 개발완료 입력폼 start -->
+                	 		<div class="card border-top-dark">
+                	 			<div class="card-block">
+	                	 			<div class="card-title-block">
+	                	 				<h3 class="title">
+		                	 				개발 내역 작성 <i class="fas fa-edit"></i>
+	                	 				</h3>
+	                	 			</div>
+	                	 			<div class="card-body">
+										<form role="form" id="writeform" action="${pageContext.request.contextPath}/devdone" method="POST" enctype="multipart/form-data">
+											<input type="hidden" name="rno" value="${request.rno}">
+											<div class="form-group d-flex">
+												<div class="label">완료예정일</div>
+												<div class="flex-grow-1">
+													<input type="date">
+													<div class="btn btn-sm btn-primary">개발 시작</div>
+												</div>
+											</div>
+											<div class="form-group d-flex">
+												<div class="label">개발 사항</div>
+												<textarea rows="3" class="form-control boxed flex-grow-1" name="reply"></textarea>
+											</div>
+											<div class="form-group d-flex">
+												<div class="label">배포소스</div>
+												<textarea rows="3" class="form-control boxed flex-grow-1" name="distSource"></textarea>
+											</div>
+											<div class="filebox d-flex">
+												<div class="label">첨부파일</div>
+												<div class="form-group" id="file-list">
+											        <a href="#this" onclick="addFile()">파일추가</a>
+											        <div class="file-group">
+											            <input type="file" name="files"><a href='#this' class='file-delete'><i class="fas fa-times"></i></a>
+											        </div>
+			  									</div>	
+											</div>
+										</form>
+										<div class="d-flex justify-content-end">
+										<button class="btn btn-info btn-lg mt-3" onclick="devEnd()">개발 완료</button>
+										</div>
+	                	 			</div>
                 	 			</div>
                 	 		</div>
                 	 	</section><!-- 입력폼 end --> 
@@ -343,8 +443,25 @@
 		$('#reDevelopRequestHistory').show();
 	}
 	
-	
-	
+	/* 파일 */
+	$(document).ready(function() {
+	    $(".file-delete").on("click", function(e) {
+	        e.preventDefault();
+	        deleteFile($(this));
+	    });
+	})
+	 function addFile() {
+        var str = "<div class='file-group'><input type='file' name='files'><a href='#this' name='file-delete'><i class="fas fa-times"></i></a></div>";
+        $("#file-list").append(str);
+        $("a[name='file-delete']").on("click", function(e) {
+            e.preventDefault();
+            deleteFile($(this));
+        });
+    }
+ 
+    function deleteFile(obj) {
+        obj.parent().remove();
+    }
 	
 	</script>
 </body>

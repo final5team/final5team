@@ -11426,7 +11426,15 @@ body::-webkit-scrollbar-thumb:window-inactive {
   @media (max-width: 767.98px) {
     .card-block {
       padding: 10px; } }
-
+.card .title-block, .card .card-title-block {
+    padding-bottom: 0;
+    margin-bottom: 20px;
+    border: none;
+}
+.card .title {
+    font-size: 1.2rem;
+    color: #4f5f6f;
+}
 
 .tableContent{
 width: 300px;
@@ -11529,4 +11537,8 @@ input[type="checkbox"]:checked + label:after {
 .border-left-right-primary {
   border-right: 0.25rem solid #85ce36 !important;
   border-left: 0.25rem solid #85ce36 !important;
+}
+
+.border-top-dark{
+	border-top:  0.75rem solid #3A4651 !important;
 }
