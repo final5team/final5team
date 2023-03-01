@@ -8,6 +8,11 @@
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
     <link href="${pageContext.request.contextPath}/resources/css/stepperprogress.css" rel="stylesheet">
     <style>
+    .progress-group{
+    padding: 0px 220px;
+    margin: 15px 0px;
+    
+    }
     </style>
 </head>
 
@@ -69,7 +74,7 @@
 											<div class="form-group d-flex">
 												<div class="label">배포소스(url)</div>
 												<div class="flex-grow-1">
-													<input class="form-control boxed" name="distSource" id="distSource" style="height: 15px;">
+													<input class="form-control boxed" name="distSource" id="distSource" style="height: 20px;">
 													<div class="d-flex justify-content-end">
 														<small class=" mr-5" id="counterSource">(0 / 100)</small>
 													</div>
@@ -85,9 +90,24 @@
 											        </div>
 			  									</div>	
 											</div>
+											<div class="d-flex">
+												<div class="label">진행률</div>
+												<div class="flex-grow-1 d-flex">
+													<input type="text" class="form-control boxed" style="width: 100px; height: 20px;">
+													<span>%</span>
+													<span class="btn btn-sm btn-primary ml-2">확인</span>
+												</div>
+											</div>
+											<div class="progress-group">
+												<div class="progress">
+													<div class="progress-bar bg-success" style="width:50%"></div>
+												</div>
+											</div>
 										</form>
 										<div class="d-flex justify-content-end">
-										<button class="btn btn-info btn-lg mt-3" onclick="devEnd()">개발 완료</button>
+										<button class="btn btn-dark btn-md " >목록</button>
+										<button class="btn btn-warning btn-md mx-3">임시 저장</button>
+										<button class="btn btn-primary btn-md " onclick="devEnd()">개발 완료</button>
 										</div>
 	                	 			</div>
                 	 			</div>
@@ -151,7 +171,6 @@
 	                	 				</h3>
 	                	 			</div>
                 	 			</div>
-                	 		
                 	 		</div><!-- status_history내역없을때 end -->
                 	 		
                 	 		

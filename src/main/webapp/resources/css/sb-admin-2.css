@@ -2501,34 +2501,34 @@ fieldset:disabled a.btn {
 
 .btn-warning {
   color: #fff;
-  background-color: #f6c23e;
-  border-color: #f6c23e;
+  background-color: #fe974b;
+  border-color: #fe974b;
 }
 
 .btn-warning:hover {
   color: #fff;
-  background-color: #f4b619;
-  border-color: #f4b30d;
+  background-color: #fe8125;
+  border-color: #fe8125;
 }
 
 .btn-warning:focus, .btn-warning.focus {
   color: #fff;
-  background-color: #f4b619;
-  border-color: #f4b30d;
-  box-shadow: 0 0 0 0.2rem rgba(247, 203, 91, 0.5);
+  background-color: #fe8125;
+  border-color: #fe8125;
+  box-shadow: 0 0 0 0.2rem rgba(221, 134, 70, 0.5);
 }
 
 .btn-warning.disabled, .btn-warning:disabled {
   color: #fff;
-  background-color: #f6c23e;
-  border-color: #f6c23e;
+  background-color: #fe8125;
+  border-color: #fe8125;
 }
 
 .btn-warning:not(:disabled):not(.disabled):active, .btn-warning:not(:disabled):not(.disabled).active,
 .show > .btn-warning.dropdown-toggle {
   color: #fff;
-  background-color: #f4b30d;
-  border-color: #e9aa0b;
+  background-color: #fe974b;
+  border-color: #fe8125;
 }
 
 .btn-warning:not(:disabled):not(.disabled):active:focus, .btn-warning:not(:disabled):not(.disabled).active:focus,
@@ -5176,7 +5176,7 @@ a.badge-dark:focus, a.badge-dark.focus {
 
 .progress {
   display: flex;
-  height: 1rem;
+  height: 1.5rem;
   overflow: hidden;
   line-height: 0;
   font-size: 0.75rem;
@@ -6538,7 +6538,7 @@ button.bg-dark:focus {
 }
 
 .border-primary {
-  border-color: #4e73df !important;
+  border-color: #85ce36 !important;
 }
 
 .border-secondary {
@@ -11470,10 +11470,10 @@ white-space: nowrap;
   background: #3A4651; }
   
   /************** 체크박스 *******************/
-   input[type="checkbox"]{
+   input[type="checkbox"], input[type="radio"]{
    display: none;
   }  
-input[type="checkbox"] + label:after{
+ input[type="checkbox"] + label:after{
 		content: "\f0c8";
         display: inline-block;
         position: relative;
@@ -11482,13 +11482,26 @@ input[type="checkbox"] + label:after{
 		color: #c8d0da;
 		font-size: 21px;
       }
+input[type="radio"] + label:after{
+		content: "\f111";
+        display: inline-block;
+        position: relative;
+		font-family: 'Font Awesome 5 Free';
+		font-weight: 800;
+		color: #c8d0da;
+		font-size: 21px;
+}
+      
 input[type="checkbox"]:checked + label:after {
 	content: "\f14a";
 	/* font-weight: 800;
 	font-family: 'Font Awesome 5 Free'; */
 	color: #85CE36;
 }      
-
+input[type="radio"]:checked + label:after {
+	content: "\f058";
+	color: #85CE36;
+}  
  .title{
      font-size: 1.45rem;
     font-weight: 600;
@@ -11545,6 +11558,12 @@ input[type="checkbox"]:checked + label:after {
 .border-top-primary{
 	border-top:  0.75rem solid #85CE36 !important;
 }
+.border-top-warning{
+	border-top:  0.75rem solid #fe974b !important;
+}
+.border-top-success{
+	border-top:  0.75rem solid #4bcf99 !important;
+}
 
 /* btn 아웃라인 버튼 */
 
@@ -11573,4 +11592,7 @@ input[type="checkbox"]:checked + label:after {
  .btn.btn-primary-outline:focus, .btn.btn-primary-outline.focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(133, 206, 54, 0.5);
           box-shadow: 0 0 0 0.2rem rgba(133, 206, 54, 0.5); 
- } 
+ }
+ .file-group .fileA{
+ 	color: red;
+ }
