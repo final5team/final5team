@@ -477,8 +477,6 @@
 				if(pageDefault != null){
 					pageDefault.remove();
 				}
-				
-				
 			});
 		// 내 요청 목록 검색 기능
 		} else {
