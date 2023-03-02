@@ -262,7 +262,7 @@ form {
 		var typeSelect = document.getElementById("mtype");
 		var selectValue = typeSelect.options[typeSelect.selectedIndex].value;
 		console.log(selectValue);
-		if(selectValue == 'pm'){
+		if(selectValue === 'pm' || selectValue === 'user'){
 			$("#sno").css("display", "none");
 			$("#sno_icon").css("display","none");
 		} else {
@@ -270,6 +270,8 @@ form {
 			$("#sno_icon").css("display","");
 		}
 	}
+	
+	
 	
 	
 </script>

@@ -14,6 +14,7 @@
 --font-size-default: .875rem;
 }
 
+
 .progress_bar {
 display: flex;
 justify-content: space-between;
@@ -88,6 +89,7 @@ margin: 0 0 1rem 0;
 	z-index: 2;
 	border-bottom: 2px solid var(--gray-dark);
 }
+
 .progress_bar .is_reject:not(:first-child):after{
 	content: "";
 	display: block;
@@ -159,14 +161,12 @@ margin: 0 0 1rem 0;
     left: 22px;
     bottom: -20px;
   }
-												
-
 </style> 
 
 <ol class="progress_bar">
 	<c:if test="${request.statusNo != 12}">
 		<c:if test="${request.reqType == null || request.reqType == '정규'}">
-			<li class="is_complete"><a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}"><span>요청완료</span></a></li>
+			<li class="is_complete"><a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}"><span>요청</span></a></li>
 			<li class="<c:if test="${request.statusNo >= 2}">is_complete</c:if>
 						 <c:if test="${request.statusNo == 1}">is_active</c:if>">
 					<a href="${pageContext.request.contextPath}/pm/receiptdetail?rno=${request.rno}">
