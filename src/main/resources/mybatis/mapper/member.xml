@@ -27,6 +27,7 @@
 	<select id="selectSystem" resultType="com.oti.srm.dto.System">
 		select SNO, SYSTEM_NAME as "systemName", CREATED_DATE as "creadtedDate"
 		from systems
+		order by SNO
 	</select>
 	
 	<select id="selectMemberInfo" parameterType="string" resultType="com.oti.srm.dto.Member">
@@ -55,5 +56,4 @@
 	
 	
 	
-
 </mapper>
