@@ -7,6 +7,7 @@
 
 <head>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
+    <link href="${pageContext.request.contextPath}/resources/css/stepperprogress.css" rel="stylesheet">
     <style>
 		li {
 	 		list-style : none;
@@ -36,7 +37,14 @@
                 <!-- 여기에 내용 담기 start -->
                 <div class="container">
 					<div id="main"><!-- main start -->
-						<section>
+						<div class="title-block">
+                	 		<h3 class="title">품질 테스트 상세 보기</h3>
+                	 	</div>
+						<div> <!-- 여기에 단계 상태 이력 넣기 -->
+                	 		<%@ include file="/WEB-INF/views/srm/restatus/stepperprogress.jsp" %>
+                	 	</div>	<!-- 여기에 단계 상태 이력 넣기 /-->
+						
+						<section> <!-- 품질테스트 글 작성 start-->
 							<div class="card border-top-dark my-3">
 								<div class="card-block">
 									<div class="card-title-block">
@@ -44,10 +52,44 @@
 		                	 				테스트 내역 작성 <i class="fas fa-edit"></i>
 	                	 				</h3>
 									</div>
-									<div class="card-body"></div>
+									<div class="card-body">
+									
+										<form role="form" id="writeform" action="${pageContext.request.contextPath}/testdone" method="POST" enctype="multipart/form-data">
+											<input type="hidden" name="rno" value="${request.rno}" id="rno">
+											<div class="form-group d-flex" id="expectDateForm"> 
+												<div class="label">완료예정일</div>
+												<div class="flex-grow-1">
+													<input type="date" class="date-form control" id="testExpectDate" >
+													<div class="btn btn-sm btn-primary"  onclick="checkDate()" id="testStartButton">테스트 시작</div>
+												</div>
+											</div>
+											<div class="form-group d-flex">
+												<div class="label" id="reply">내용 작성 </div>
+												<div class="flex-grow-1">
+													<textarea rows="3" class="form-control boxed " name="reply"></textarea>
+												</div>
+											</div>
+											<div class="filebox d-flex">
+												<div class="label" id="fileLabel">첨부파일</div>
+												<div class="form-group" id="file-list">
+											        <a href="#this" onclick="addFile()">파일추가</a>
+											        <div class="file-group">
+											            <input type="file" name="files"><a href='#this' class='file-delete'>x</a>
+											        </div>
+			  									</div>	
+											</div>
+											<div class="d-flex justify-content-end">
+												<c:if test="${member.mid == requestProcess.tester && request.statusNo == 6}">
+												<button class="btn btn-warning btn-md mx-3 " type="submit">임시저장</button>
+												<button class="btn btn-primary btn-md " type="submit" id="testButton">테스트 완료</button>
+												</c:if>
+											</div>
+										</form>
+									
+									</div>
 								</div>
 							</div>
-						</section>
+						</section><!-- 품질테스트 글 작성 end-->
 					 </div> <!-- main end -->
 	            </div>
                 <!-- 여기에 내용 담기 end -->
