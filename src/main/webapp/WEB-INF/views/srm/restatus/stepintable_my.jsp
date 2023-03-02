@@ -14,6 +14,7 @@
 --font-size-default: .875rem;
 }
 
+
 .progress_bar {
 display: flex;
 justify-content: space-between;
