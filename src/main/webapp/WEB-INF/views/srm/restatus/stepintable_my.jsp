@@ -89,6 +89,7 @@ margin: 0 0 1rem 0;
 	z-index: 2;
 	border-bottom: 2px solid var(--gray-dark);
 }
+
 .progress_bar .is_reject:not(:first-child):after{
 	content: "";
 	display: block;
@@ -160,8 +161,6 @@ margin: 0 0 1rem 0;
     left: 22px;
     bottom: -20px;
   }
-												
-
 </style> 
 
 <ol class="progress_bar">
