@@ -131,7 +131,7 @@
 								</div>
 								<c:if test="${sessionScope.member.mtype == 'pm'}">
 									<div class="input-group">
-										<select class="custom-select" id="sno" name="sno">
+										<select class="custom-select sno" id="sno" name="sno">
 											<c:if test="${listFilter.sno == 0}">
 												<option value="0" selected>전체</option>
 												<c:forEach var="system" items="${systemList}">
@@ -148,6 +148,9 @@
 											</c:if>
 										</select>
 									</div>
+								</c:if>
+								<c:if test="${sessionScope.member.mtype != 'pm'}">
+									<input type="hidden" class="sno" value="${sessionScope.member.sno}"> 
 								</c:if>
 							</article>
 
@@ -333,8 +336,14 @@
 				contentType: "application/json; charset=UTF-8"
 			}).done((data) => {
 				$('#table_content').html(data);
+				
+				//기존 페이지 태그 삭제하기
 				const pageDefault = document.querySelector('.default');
-				pageDefault.remove();
+				if(pageDefault != null){
+					pageDefault.remove();
+				}
+				
+				
 			});
 		}
 	} 
@@ -351,8 +360,17 @@
 		let filterDateLast = document.getElementById('date_last');
 		let dateLast = filterDateLast.value
 		
-		let filterSno = document.getElementById('sno');
-		let sno = filterSno.options[filterSno.selectedIndex].value
+		let sno = '0';
+		if(document.getElementById('sno') != null) {
+			console.log("pm인 경우");
+			let filterSno = document.getElementById('sno');
+			let sno = filterSno.options[filterSno.selectedIndex].value
+		} else {
+			console.log("pm이 아닌 경우");
+			sno = document.querySelector('.sno').value
+			console.log(sno);
+		}
+		
 		
 		let filterStatusNo = document.getElementById('statusNo');  
 		let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
@@ -371,8 +389,13 @@
 				
 			}).done((data) => {
 				$('#table_content').html(data);
+				
+				//기존 페이지 태그 삭제하기
 				const pageDefault = document.querySelector('.default');
-				pageDefault.remove();
+				if(pageDefault != null){
+					pageDefault.remove();
+				}
+				
 			});
 		} else {
 			console.log("내 요청 목록 페이지 이동" + i);
@@ -384,8 +407,13 @@
 				
 			}).done((data) => {
 				$('#table_content').html(data);
+				
+				//기존 페이지 태그 삭제하기
 				const pageDefault = document.querySelector('.default');
-				pageDefault.remove();
+				if(pageDefault != null){
+					pageDefault.remove();
+				}
+				
 			});
 		}
 	}	
@@ -402,8 +430,16 @@
 		let filterDateLast = document.getElementById('date_last');
 		let dateLast = filterDateLast.value
 		
-		let filterSno = document.getElementById('sno');
-		let sno = filterSno.options[filterSno.selectedIndex].value
+		let sno = '0';
+		if(document.getElementById('sno') != null) {
+			console.log("pm인 경우");
+			let filterSno = document.getElementById('sno');
+			let sno = filterSno.options[filterSno.selectedIndex].value
+		} else {
+			console.log("pm이 아닌 경우");
+			sno = document.querySelector('.sno').value
+			console.log(sno);
+		}
 		
 		let filterStatusNo = document.getElementById('statusNo');  
 		let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
