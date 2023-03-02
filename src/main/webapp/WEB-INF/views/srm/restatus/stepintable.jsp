@@ -90,9 +90,6 @@ margin: 0 0 1rem 0;
 	z-index: 2;
 	border-bottom: 2px solid var(--color-green);
 }
-
-
-
 .progress_bar li:last-child span {
 	width: 200%;
 	display: inline-block;
