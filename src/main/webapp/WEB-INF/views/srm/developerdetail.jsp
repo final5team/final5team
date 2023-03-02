@@ -6,64 +6,13 @@
 
 <head>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
+    <link href="${pageContext.request.contextPath}/resources/css/stepperprogress.css" rel="stylesheet">
     <style>
-    	:root {
-          --line-fill: #87cd36;
-           --line-empty: #e0e0e0;
-           --now-fill: #F40730;
-      }
-       .container {
-           text-align: center;
-      }
-      
-       
-       .circle {
-            margin-left : 25px;
-           background-color: #fff;
-           color: #999;
-           height: 40px;
-           width: 150px;
-           font-size : 20px;
-           line-height : 40px;
-           border: 3px solid var(--line-empty);
-           transition: 0.4s ease;
-           border-radius: 10px;
-      }
-      .bar {
-           margin-left : 93px;
-           padding : 0px;
-           margin: 2px 0
-           background-color: #fff;
-           color: #999;
-           height: 10px;
-           width: 10px;
-           align-items: center;
-           justify-content: center;
-           border: 3px solid var(--line-empty);
-           transition: 0.4s ease;
-           border-radius: 50%;
-      }
-      .bar:after{
-      	margin-bottom: 5px;
-      }
-      .circle.done {
-           border-color: var(--line-fill);
-           color : var(--line-fill);
-      }
-      
-      .circle.now {
-         border-color : var(--line-fill);
-         color : white;
-         background-color : var(--line-fill);
-      }
-      
-      .bar.active {
-           border-color: var(--line-fill);
-      }
-	 
-	 li {
-	 	list-style : none;
-	 }
+    .progress-group{
+    padding: 0px 220px;
+    margin: 15px 0px;
+    
+    }
     </style>
 </head>
 
@@ -87,290 +36,181 @@
                 <!-- End of Topbar -->
 
                 <!-- 여기에 내용 담기 start -->
-                <div class="container-fluid">
-                	 <div id="main">
-                	 	<!-- 네비게이션 start -->
-						<ul class="nav nav-tabs">
-						   <li class="nav-item">
-						      <button id="requestInfoNav" class="btn nav-link" onclick="openRequestInfo()">요청 정보 및 PM검토 내용</button>
-						   </li>
-						   <li class="nav-item">
-						      <button id="developHistoryNav" class="btn nav-link active" onclick="openDevelopHistory()">개발 완료 내역</button>
-						   </li>
-						   <li class="nav-item">
-						      <button id="RedevelopHistoryNav" class="btn nav-link" onclick="openReDevelopRequestHistory()">재검토 요청 내역</button>
-						   </li>
-						</ul>
-						<!-- 네비게이션 start -->
-						<!-- 요청정보 DIV START -->
-						<div class="card card-block sameheight-item mt-3" style="display:none;" id="requestInfo">
-							<h3 class="font-weight-bold">						
-								 요청 정보
-							</h3>
-							<div class="row mt-3">
-								<div class="col-3 font-weight-bold">요청자 :</div>
-								<div class="col-3">${request.clientName}</div>
-								<div class="col-3 font-weight-bold">소속 기관 :</div>
-								<div class="col-3">${request.organ}</div>
-							</div>
-							<hr/>
-							<div class="row">
-								<div class="col-3 font-weight-bold">요청일 :</div>
-								<div class="col-3"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd"/></div>
-								<div class="col-3 font-weight-bold">완료 희망일 :</div>
-								<div class="col-3"><fmt:formatDate value="${request.reqExpectDate}" pattern="yyyy-MM-dd"/></div>
-							</div>
-							<hr/>
-							<div class="row">
-								<div class="col-3 font-weight-bold">시스템 :</div>
-								<div class="col-9">${request.systemName}</div>
-							</div>
-							<hr/>
-							<div class="row">
-								<div class="col-3 font-weight-bold">요청 유형 :</div>
-								<div class="col-3">
-									<c:if test="${requestProcess.reqType eq '정규'}">
-										<div>정규<i class="far fa-registered text-secondary"></i></div>
-									</c:if>
-									<c:if test="${requestProcess.reqType eq '긴급'}">
-										<div>긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
-									</c:if>
-								</div>
-								<div class="col-3 font-weight-bold">중요도 :</div>
-								<div class="col-3">
-									<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
-										<span class="fa fa-star checked" style="color: orange;"></span>
-									</c:if>
-									<c:if test="${requestProcess.priority eq '중' || requestProcess.priority eq '상'}">
-										<span class="fa fa-star checked" style="color: orange;"></span>
-									</c:if>
-									<c:if test="${requestProcess.priority eq '상'}">
-										<span class="fa fa-star checked" style="color: orange;"></span>
-									</c:if>
-								</div>
-							</div>
-							<hr/>
-							<div class="row">
-								<div class="col-3 font-weight-bold">제목 :</div>
-								<div class="col-9">${request.reqTitle}</div>
-							</div>
-							<hr/>
-							<div class="row">
-								<div class="col-3 font-weight-bold">내용 :</div>
-								<div class="col-9 border" style="min-height:100px;">${request.reqContent}</div>
-							</div>
-							<hr/>
-							<div class="row">
-								<div class="col-3 font-weight-bold">첨부파일 :</div>
-								<div class="col-9">
-									<c:forEach var="statusHistoryFile" items="${request.files}">
-										<div>
-											<span>${statusHistoryFile.fileName}</span>
-											<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-												<i class="fas fa-cloud-download-alt"></i>
-											</a>
-										</div>
-									</c:forEach>
-								</div>
-							</div>
-							<!-- 단계 처리 버튼 start -->
-							<div class="d-flex justify-content-end">
-								<c:if test="${member.mtype =='developer' && (request.statusNo == 2 || request.statusNo == 3)}">
-								<button class="btn btn-primary btn-lg mt-3 ml-3" onclick="getDatemodal()" type="button">개발시작</button>
-								</c:if>
-							</div>
-							<!-- 단계 처리 버튼 end -->
-						</div>
-						<!-- 요청정보 DIV END -->
-						
-						
-						
-						<!-- PM 검토 정보 start -->	
-						<div class="card card-block sameheight-item mt-3 mb-3" style="display:none;" id="pmConfirmInfo">
-							<h3 class="font-weight-bold">						
-								 PM 검토 정보
-							</h3>
-							<c:forEach var="statusHistory" items="${pmToAllHistories}">
-								<div class="row">
-									<div class="col-3 font-weight-bold">PM :</div>
-									<div class="col-3">${requestProcess.pm}</div>
-									<div class="col-3 font-weight-bold">접수 일자 :</div>
-									<div class="col-3"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
-								</div>
-								<hr/>
-								<div class="row">
-									<div class="col-3 font-weight-bold">요청 완료 예정일 :</div>
-									<div class="col-9"><fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/></div>
-								</div>
-								<hr/>
-								<div class="row">
-									<div class="col-3 font-weight-bold">검토 의견 :</div>
-									<div class="col-9 border" style="min-height:100px;">${statusHistory.reply}</div>
-								</div>
-								<hr/>
-								<div class="row">
-									<div class="col-3 font-weight-bold">첨부파일 :</div>
-									<div class="col-9">
-										<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-											<div>
-												<span>${statusHistoryFile.fileName}</span>
-												<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-													<i class="fas fa-cloud-download-alt"></i>
-												</a>
-											</div>
-										</c:forEach>
-									</div>
-								</div>
-							</c:forEach>
-						</div>
-						<!-- PM 검토 정보 end -->	
-						
+                <div class="container">
+                	 <div id="main"> <!-- id=main div start -->
+                	 	<div class="title-block">
+                	 		<h3 class="title">개발 상세 보기</h3>
+                	 	</div>
+                	 	<div> <!-- 여기에 단계 상태 이력 넣기 -->
+                	 		<%@ include file="/WEB-INF/views/srm/restatus/stepperprogress.jsp" %>
+                	 	</div>	<!-- 여기에 단계 상태 이력 넣기 /-->
+                	 	<c:if test="${ member.mid eq requestProcess.developer &&(request.statusNo == 3 ||request.statusNo == 2||request.statusNo == 4)}">
+                	 	<section> <!-- 개발내역 입력폼 start -->
+                	 		<div class="card border-top-dark">
+                	 			<div class="card-block">
+	                	 			<div class="card-title-block">
+	                	 				<h3 class="title">
+		                	 				개발 내역 작성 <i class="fas fa-edit"></i>
+	                	 				</h3>
+	                	 			</div>
+	                	 			<div class="card-body">
+	                	 				<form id="dueDateForm" action="${pageContext.request.contextPath}/devinprogress" method="POST" >
+											<input type="hidden" name="rno" value="${request.rno}">
+											<div class="form-group d-flex">
+												<div class="label">완료예정일</div>
+												<div class="flex-grow-1">
+													
+													<c:if test="${request.statusNo ==2 || request.statusNo ==3}">
+													<input type="date" class="date-form control" name="devExpectDate" id="devExpectDate">
+													<div class="btn btn-sm btn-primary" onclick="checkDate()">개발 시작</div>
+													</c:if>
 
-						<!-- 개발 내역 start -->
-						<div class="card card-block mt-3" id="developHistory">
-							<h3 class="font-weight-bold m-0">						
-								 개발 히스토리
-							</h3>
-							<ul class="p-0">
-								<hr/>
-								<li>
-									<div class="row">
-										<div class="col-2 font-weight-bold" style="color:#333333">차수</div>
-									 	<div class="col-3 font-weight-bold" style="color:#333333">작성자</div>
-									 	<div class="col-3 font-weight-bold" style="color:#333333">작성일</div>
-									 	<div class="col-4 font-weight-bold" style="color:#333333">
-									 		내용
-									 	</div>
-									</div>
-								</li>
-								<hr/>
-								<c:forEach var="statusHistory" varStatus="index" items="${devToTester}">
-									<li>
-										<div class="row">
-											<div class="col-2">${index.count}차</div>
-										 	<div class="col-3">${statusHistory.writer}</div>
-										 	<div class="col-3"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
-										 	<div class="col-4">
-										 		<button class="showContentButton btn btn-sm btn-primary">보기</button>
-										 	</div>
+													<c:if test="${request.statusNo == 4}">
+													<input type="date" class="date-form control" name="devExpectDate" value="<fmt:formatDate value='${requestProcess.devExpectDate}' pattern='yyyy-MM-dd'/>" readonly>
+													</c:if>
+													<small id="noInputDate" style="color : red;"></small>
+													
+												</div>
+											</div>
+	                	 				</form>
+										<form role="form" id="writeform" action="${pageContext.request.contextPath}/devdone" method="POST" enctype="multipart/form-data">
+											<input type="hidden" name="rno" value="${request.rno}">
+											<div class="form-group d-flex">
+												<div class="label">개발 사항</div>
+												<div class="flex-grow-1">
+													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply"></textarea>
+													<div class="d-flex justify-content-end">
+														<small class=" mr-5" id="counter">(0 / 300)</small>
+													</div>
+												</div>
+											</div>
+											<div class="form-group d-flex">
+												<div class="label">배포소스(url)</div>
+												<div class="flex-grow-1">
+													<input class="form-control boxed" name="distSource" id="distSource" style="height: 20px;">
+													<div class="d-flex justify-content-end">
+														<small class=" mr-5" id="counterSource">(0 / 100)</small>
+													</div>
+												</div>
+											</div>
+											
+											<div class="filebox d-flex">
+												<div class="label" id="fileLable">첨부파일</div>
+												<div class="form-group" id="file-list">
+											        <a href="#this" onclick="addFile()">파일추가</a>
+											        <div class="file-group">
+											            <input type="file" name="files"><a href='#this' class='file-delete'>x</a>
+											        </div>
+			  									</div>	
+											</div>
+										</form>
+										<form id="progressForm">
+											<div class="d-flex">
+												<div class="label">진척률</div>
+												<div class="flex-grow-1 d-flex">
+													<input type="hidden" value="${request.rno}" name="rno">
+													<input type="text" class="form-control boxed" style="width: 100px; height: 20px;" value="${requestProcess.devProgress}" name="devProgress" id="devProgress">
+													<span>%</span>
+													<span class="btn btn-sm btn-primary ml-2" onclick="updateProgress()">확인</span>
+													
+												</div>
+											</div>
+											<div class="progress-group">
+												<div class="progress">
+													<div class="progress-bar bg-success" style="width:${requestProcess.devProgress}%"></div>
+												</div>
+											</div>
+										</form>
+										<c:if test="${request.statusNo == 4}">
+										<div class="d-flex justify-content-end">
+										<button class="btn btn-warning btn-md mx-3">임시 저장</button>
+										<button class="btn btn-primary btn-md " onclick="devEnd()">개발 완료</button>
 										</div>
-									</li>
-									<li style="display:none;">
-									<hr/>
-										<div class="row">
-											<div class="col-2">개발 사항 :</div>
-											<div class="col-10 border" style="min-height:100px;">${statusHistory.reply}</div>
-										</div>
-										<div class="row mt-3">
-											<div class="col-2">배포 소스 :</div>
-											<div class="col-10 border" style="min-height:100px;">${statusHistory.distSource}</div>
-										</div>
-										<div class="row mt-3">
-											<div class="col-2">첨부파일 : </div>
-											<div class="col-10">
-												<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+										</c:if>
+										
+	                	 			</div>
+                	 			</div>
+                	 		</div>
+                	 	</section><!-- 개발내역 입력폼 end -->
+                	 	</c:if>
+                	 	
+                	 	<c:if test="${devToTester != null}">
+               	 		<div class="d-flex justify-content-center mt-4"> <!-- 히스토리 버튼 start -->
+               	 			<div class="btn btn-primary-outline history-button" onclick="openHistories()">
+               	 				개발 히스토리 보기  <i class="fas fa-history"></i>
+               	 			</div>
+               	 		</div> <!-- 히스토리 버튼 end -->
+                	 	</c:if>
+               	 		
+               	 		
+                	 	<section id="histories" > <!-- 개발히스토리 start-->
+                	 		<div class="title-block">
+	                	 		<h3 class="title">개발 히스토리</h3>
+	                	 	</div>
+	                	 	<c:forEach var="statusHistory" varStatus="index" items="${devToTester}">
+                	 		<div class="card border-top-primary my-3"> <!-- foreach한다면 여기부터 start -->
+                	 			<div class="card-block">
+	                	 			<div class="card-block-title mb-0">
+	                	 				<h3 class="title">
+	                	 					 ${index.count}차 내역  <i class="far fa-bookmark success"></i>
+	                	 				</h3>
+	                	 			</div>
+                	 				<div class="card-body">
+                	 					<div>
+                	 						<div class="row">
+                	 							<div class="col-5 p-2">
+		                	 						<span class="label">작성자</span>
+		                	 						<span class="p-2">${statusHistory.writer}</span>
+                	 							</div>
+                	 							<div class="col-5 p-2">
+		                	 						<span class="label">개발 완료일</span>
+		                	 						<span class="p-2"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></span>
+	                	 						</div>
+                	 						</div>
+                	 						<div class="row">
+	                	 						<span class="label" style="text-align :left; width: 10%;">개발내용</span>
+	                	 						<textarea rows="2" class="form-control boxed mr-5" readonly>${statusHistory.reply}</textarea>
+                	 						</div>
+                	 						<div class="row mt-3">
+	                	 						<span class="label" style="text-align :left; width: 10%;">배포소스(url)</span>
+	                	 						<input class="form-control boxed mr-5" style=" height: 15px;" value="${statusHistory.distSource}" readonly>
+                	 						</div>
+                	 						<div class="row mt-3">
+	                	 						<span class="label" style="text-align :left; width: 10%;">첨부파일</span>
+	                	 						<div>
+                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 													<div>
 														<span>${statusHistoryFile.fileName}</span>
 														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-															<i class="fas fa-cloud-download-alt"></i>
+															<i class="fas fa-cloud-download-alt text-info"></i>
 														</a>
 													</div>
-												</c:forEach>
-											</div>
-										</div>
-									</li>
-									<hr/>
-								</c:forEach>
-							</ul>
-						</div>	
-						<!-- 개발 내역 end -->
-						
-						
-						<!-- 개발 완료 글 작성 start-->
-						<c:if test="${member.mtype =='developer' && request.statusNo == 4}">
-							<div class="card card-block mt-3 mb-3" id="developHistoryWrite">
-								<div class="card-body">
-									<form role="form" id="writeform" action="${pageContext.request.contextPath}/devdone" method="POST" enctype="multipart/form-data">
-										<input type="hidden" name="rno" value="${request.rno}">
-										<div class="form-group d-flex">
-											<div style="width:195px;">완료예정일 :</div>
-											<div class="flex-grow-1"><fmt:formatDate value="${requestProcess.devExpectDate}" pattern="yyyy-MM-dd"/></div>
-										</div>
-										<div class="form-group d-flex">
-											<label style="width:250px; class="control-label">개발 사항 :</label>
-											<textarea rows="3" class="form-control boxed flex-grow-1" name="reply"></textarea>
-										</div>
-										<div class="form-group d-flex">
-											<label style="width:250px; class="control-label">배포소스 :</label>
-											<textarea rows="3" class="form-control boxed flex-grow-1" name="distSource"></textarea>
-										</div>
-										<div class="filebox d-flex">
-											<div style="width:250px;">첨부파일 등록 :</div>
-											<input type="file" id="files" class="flex-grow-1" name="files" multiple>
-										</div>
-									</form>
-									<button class="btn btn-info btn-lg mt-3" onclick="devEnd()">개발 완료</button>
-								</div>
-							</div>
-						</c:if>
-						<!-- 개발 완료 글 작성 end-->
-						
-						
-						<!-- 재검토 내역 start -->
-						<div class="card card-block mt-3" style="display:none;" id="reDevelopRequestHistory">
-							<h3 class="font-weight-bold m-0">						
-								 재검토 요청 히스토리
-							</h3>
-							<ul class="p-0">
-								<hr/>
-								<li>
-									<div class="row">
-										<div class="col-2 font-weight-bold" style="color:#333333">차수</div>
-									 	<div class="col-3 font-weight-bold" style="color:#333333">작성자</div>
-									 	<div class="col-3 font-weight-bold" style="color:#333333">작성일</div>
-									 	<div class="col-4 font-weight-bold" style="color:#333333">
-									 		내용
-									 	</div>
-									</div>
-								</li>
-								<hr/>
-								<c:forEach var="statusHistory" varStatus="index" items="${testerToDev}">
-									<li>
-										<div class="row">
-											<div class="col-2">${index.count}차</div>
-										 	<div class="col-3">${statusHistory.writer}</div>
-										 	<div class="col-3"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
-										 	<div class="col-4">
-										 		<button class="showContentButton btn btn-sm btn-primary" >보기</button>
-										 	</div>
-										</div>
-									</li>
-									<li style="display:none;">
-									<hr/>
-										<div class="row">
-											<div class="col-2">재검토 사유 및 요청사항 :</div>
-											<div class="col-10 border" style="min-height:100px;">${statusHistory.reply}</div>
-										</div>
-										<div class="row mt-3">
-											<div class="col-2">첨부파일 : </div>
-											<div class="col-10">
-												<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-													<div>
-														<span>${statusHistoryFile.fileName}</span>
-														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-															<i class="fas fa-cloud-download-alt"></i>
-														</a>
-													</div>
-												</c:forEach>
-											</div>
-										</div>
-									</li>
-									<hr/>
-								</c:forEach>
-							</ul>
-						</div>
-						<!-- 재검토 내역 end -->	
-					 </div>
+													</c:forEach>
+	                	 						</div>
+                	 						</div>
+                	 						
+                	 					</div>
+                	 				</div>
+                	 			</div>
+                	 		
+                	 		</div><!-- foreach한다면 여기부터 end -->
+                	 		</c:forEach>
+                	 		
+                	 		<c:if test="${devToTester == null}">
+                	 		<div class="card border-top-primary my-3"> <!-- status_history내역없을때 start -->
+                	 			<div class="card-block">
+	                	 			<div class="card-block-title mb-0 d-flex justify-content-center">
+	                	 				<h3 class="title">
+	                	 					내역이 없습니다. 
+	                	 				</h3>
+	                	 			</div>
+                	 			</div>
+                	 		</div><!-- status_history내역없을때 end -->
+                	 		</c:if>
+                	 		
+                	 	</section> <!-- 개발히스토리end -->
+                	 	<button class="btn btn-dark btn-md ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
+					 </div> <!-- id=main div / -->
                 </div>
                 <!-- 여기에 내용 담기 end -->
 
@@ -392,32 +232,7 @@
         <i class="fas fa-angle-up"></i>
     </a>
     
-	<!-- date 입력받는 모달창 start -->
-	 <div class="modal fade" id="datemodal" role="dialog" aria-labelledby="developDueDate" aria-hidden="true" >
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="developDueDate">개발 완료 예정일 입력</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body d-flex justify-content-center">
-					<form id="formUpdateExpectDate" action="${pageContext.request.contextPath}/devinprogress" method="POST">
-						<label class="mt-1" style="color: #343a40;" for="developExpectDate">개발 완료 예정일</label>
-						<input type="date" class="form-control ml-2" id="developExpectDate" name="developExpectDate" style="width: 200px; display: inline;">
-						<input type="hidden" name="rno" value="${request.rno}">
-						<input type="hidden" name="receiptDoneDate" value="<fmt:formatDate value='${receiptDoneDate}' pattern='yyyy-MM-dd'/>">
-					</form>
-				</div>
-				<div class="modal-footer">
-					<small id="noInputDate" style="color : red;"></small>
-					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <a class="btn btn-primary" onclick="checkDate()">확인</a>
-				</div>
-			</div>
-		</div>
-	</div>
 	
-	<!-- date 입력받는 모달창 end -->
 		
 	<!-- 경고 모달창 (50% 이상일 경우)-->
 	<div class="modal fade" id="alartDateTooMuch" aria-hidden="true" aria-labelledby="alartOfTimeTooMuch">
@@ -440,7 +255,7 @@
 	</div>
 	<!-- 경고 모달창 (50% 이상일 경우) -->
 	<!-- 데이트 입력 확인 -->
-	<div class="modal fade" id="completeDueDate" aria-hidden="true" aria-labelledby="successOfDueDate">
+	<div class="modal fade" id="completeModal" aria-hidden="true" aria-labelledby="successOfDueDate">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -448,7 +263,7 @@
 					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body" style="display: flex; justify-content: center;">
-					<p>입력되었습니다.</p>
+					<p id="completeContent"></p>
 				</div>
 				<div class="modal-footer" style="justify-content: center;">
                     <a class="btn btn-primary" data-dismiss="modal" type="button">확인</a>
@@ -456,42 +271,49 @@
 			</div>
 		</div>
 	</div>
-	<script>
 	<!-- 데이트 입력 확인 /-->
-	function getDatemodal(){
-		$('#datemodal').modal('show');
-		
-	}
+	<!-- 글자수 입력 확인 -->
+	<div class="modal fade" id="countCheck" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>
+						주의 <i class="fas fa-exclamation-triangle"></i>
+					</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" style="display: flex; justify-content: center;">
+					<p id="countContent"></p>
+				</div>
+				<div class="modal-footer" style="justify-content: center;">
+                    <a class="btn btn-primary" data-dismiss="modal" type="button">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 글자수 입력 확인 /-->
+	<script>
+
 	function checkDate(){
 		$('#noInputDate').text("");
-		
-		if($('#developExpectDate').val() == ""){
+		console.log("startWork 실행");
+		if($('#devExpectDate').val() == ""){
 			$('#noInputDate').text("날짜를 입력해주세요.");
 			return;
 		}
 		
-		
 		let today = new Date().getTime();   
-		var developExpectDate = new Date($('#developExpectDate').val()).getTime();
+		var devExpectDate = new Date($('#devExpectDate').val()).getTime();
 		var reqExpectDate = new Date($('#reqExpectDate').text()).getTime();
 		var receiptDoneDate = new Date($('input[name="receiptDoneDate"]').val()).getTime();
 		console.log(receiptDoneDate);
 		
 		//오늘보다 이전 날짜를 입력할 경우
-		if(today > developExpectDate){
+		if(today > devExpectDate){
 			$('#noInputDate').text("현재보다 앞선 날짜를 입력해주세요.");
 			return;
 		}
-		//총완료예정일보다 큰 일정을 입력할 경우
-		if(reqExpectDate <= developExpectDate){
-			$('#noInputDate').text("완료예정일보다 과거여야 합니다.");
-			return;
-		}
-		if(((developExpectDate-receiptDoneDate)/(reqExpectDate-receiptDoneDate))>=0.5){
-			$('#pContent').text('');
-			$('#pContent').text('입력 시간이 완료 예정일 대비 50% 이상 차지합니다. 확인을 누르시면 수정이 불가능합니다.');
-			$('#alartDateTooMuch').modal('show');
-		} else{
+		 else{
 			$('#pContent').text('');
 			$('#pContent').text('입력하시겠습니까?. 확인을 누르시면 수정이 불가능합니다.');
 			$('#alartDateTooMuch').modal('show');
@@ -501,7 +323,7 @@
 	function getconfirm(){
 		$('#alartDateTooMuch').modal('hide');
 		//컨트롤러로 값 전달하기
-		$('#formUpdateExpectDate').submit();
+		$('#dueDateForm').submit();
 		
 		$('#completeDueDate').modal('show');
 	}
@@ -519,42 +341,86 @@
 		}
 	);
 	
-	function openRequestInfo(){
-		$('#requestInfoNav').addClass("active");
-		$('#developHistoryNav').removeClass("active");
-		$('#RedevelopHistoryNav').removeClass("active");
-		$('#requestInfo').show();
-		$('#pmConfirmInfo').show();
-		$('#developHistoryWrite').hide();
-		$('#developHistory').hide();
-		$('#reDevelopRequestHistory').hide();
-	}
-	
-	function openDevelopHistory(){
-		$('#requestInfoNav').removeClass("active");
-		$('#developHistoryNav').addClass("active");
-		$('#RedevelopHistoryNav').removeClass("active");
-		$('#requestInfo').hide();
-		$('#pmConfirmInfo').hide();
-		$('#developHistoryWrite').show();
-		$('#developHistory').show();
-		$('#reDevelopRequestHistory').hide();		
-	}
+	/* 테스트 내역 받기 */
+	function openHistories(){
+		$('#histories').toggle();
 		
-	function openReDevelopRequestHistory(){
-		$('#requestInfoNav').removeClass("active");
-		$('#developHistoryNav').removeClass("active");
-		$('#RedevelopHistoryNav').addClass("active");
-		$('#requestInfo').hide();
-		$('#pmConfirmInfo').hide();
-		$('#developHistoryWrite').hide();
-		$('#developHistory').hide();
-		$('#reDevelopRequestHistory').show();
 	}
 	
-	
-	
-	
+	/* 파일 */
+	$(document).ready(function() {
+	    $(".file-delete").on("click", function(e) {
+	        e.preventDefault();
+	        deleteFile($(this));
+	    });
+	})
+	 function addFile() {
+        var str = "<div class='file-group'><input type='file' name='files'><a href='#this' name='file-delete'>x</a></div>";
+        $("#file-list").append(str);
+        $("a[name='file-delete']").on("click", function(e) {
+            e.preventDefault();
+            deleteFile($(this));
+        });
+    }
+ 
+    function deleteFile(obj) {
+        obj.parent().remove();
+    }
+	/* 글자수 세기 */
+   	$('#reply').keyup(function (e){
+   		let content = $(this).val();
+   		$('#counter').html("("+content.length+" / 300)");
+ 		if(content.length > 300){
+ 			$('#countCheck').modal();
+ 			$('#countContent').html("최대 300자까지 입니다.");
+ 			$(this).val(content.substring(0,300));
+ 			$('#counter').html("(300 / 300)");
+ 		}
+   	});
+   	$('#distSource').keyup(function (e){
+   		let content = $(this).val();
+   		$('#counterSource').html("("+content.length+" / 100)");
+   		if(content.length > 100){
+   			$('#countCheck').modal();
+ 			$('#countContent').html("최대 100자까지 입니다.");
+ 			$(this).val(content.substring(0,150));
+ 			$('#counterSource').html("(100 / 100)");
+   		}
+   	});
+   	
+	/* devProgress업데이트 */
+ 	function updateProgress(){
+		
+		let devProgress = $('#devProgress').val();
+		
+		console.log(typeof(devProgress));
+		
+		let intDevProgress = parseInt(devProgress)
+		console.log(intDevProgress);
+		console.log(typeof(intDevProgress));
+		
+		/* 숫자인지 확인 */
+		if(){
+			
+			
+			
+			
+			/* $('#progressForm').submit(); */
+		
+		
+		
+		
+		
+		} else{
+			/* 숫자 입력하라는 모달 팝업 */
+			$('#completeContent').text('');
+			$('#completeContent').text('숫자만 입력 가능합니다.');
+			$('#completeModal').show();
+		}
+		
+	}
+   	
+    
 	</script>
 </body>
 

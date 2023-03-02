@@ -95,4 +95,6 @@ public interface ICommonDao {
 
 	public StatusHistory selectTempStatusHistory(@Param("member") Member member, @Param("searchStatus") StatusHistory statusHistory);
 
+	public void updateDevProgress(RequestProcess rp);
+
 }

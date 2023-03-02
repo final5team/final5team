@@ -73,11 +73,11 @@ public class DeveloperController {
 	 */
 	@PostMapping("/devinprogress")
 	public String switchDevInProgress(StatusHistory statusHistory,
-			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date developExpectDate, HttpSession session) {
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date devExpectDate, HttpSession session) {
 		Member member = (Member) session.getAttribute("member");
 		statusHistory.setWriter(member.getMid());
 		statusHistory.setNextStatus(4);
-		commonService.startWork(statusHistory, developExpectDate, member.getMtype());
+		commonService.startWork(statusHistory, devExpectDate, member.getMtype());
 
 		return "redirect:/developerdetail?rno=" + statusHistory.getRno();
 	}
@@ -86,6 +86,17 @@ public class DeveloperController {
 		log.info("실행");
 		return "srm/developerdetail2";
 	}
+	
+	@PostMapping("/updatedevprogress")
+	public String updateDevProgress(RequestProcess rp, HttpSession session) {
+		
+		commonService.updateDevProgress(rp);
+		
+		return "redirect:/developerdetail?rno=" + rp.getRno();
+	}
+	
+	
+	
 	/**
 	 * @author : 장현
 	 * @param statusHistory 상태 업데이트

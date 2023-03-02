@@ -72,6 +72,8 @@ public interface ICommonService {
 
 	public void writeStatusHistory(StatusHistory statusHistory);
 
-	public void updateStatusHistory(StatusHistory statusHistory); 
+	public void updateStatusHistory(StatusHistory statusHistory);
+
+	public void updateDevProgress(RequestProcess rp); 
 
 }

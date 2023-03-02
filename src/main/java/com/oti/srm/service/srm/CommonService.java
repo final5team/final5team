@@ -320,6 +320,12 @@ public class CommonService implements ICommonService {
 		
 	}
 
+	@Override
+	public void updateDevProgress(RequestProcess rp) {
+		commonDao.updateDevProgress(rp);
+		
+	}
+
 	
 
 	

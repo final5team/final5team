@@ -69,7 +69,8 @@
 	    	developer as "developer",
 	    	tester as "tester",
 	    	distributor as "distributor",
-	    	user_tester as "userTester"
+	    	user_tester as "userTester",
+	    	dev_progress as "devProgress"
 		from request_process
 		where rno = #{rno}
 	</select>
@@ -422,5 +423,13 @@
 		and next_status = #{nextStatus}
 		and writer = #{writer}
 	</update>
+	
+	<update id="updateDevProgress" parameterType="com.oti.srm.dto.RequestProcess">
+		update request_process
+		set
+			dev_progress = #{devProgress}
+		where rno = #{rno}	
+	</update>
+		
 	
 </mapper>
