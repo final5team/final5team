@@ -56,9 +56,9 @@
 
 <div class="pager">
 	<div class="pagingButtonSet d-flex justify-content-center">
-		<a onclick="pageChange(1)" type="button" class="btn btn-muted shadow">◀◀</a>
+		<a onclick="pageChange(1)" type="button" class="btn btn-muted shadow">처음</a>
 		<c:if test="${pager.groupNo > 1}">
-			<a onclick="pageChange(${pager.startPageNo-1})" class="btn btn-muted shadow">◀</a>
+			<a onclick="pageChange(${pager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
 								 
 		</c:if>
 
@@ -72,10 +72,10 @@
 		</c:forEach>
 
 		<c:if test="${pager.groupNo < pager.totalGroupNo }">
-			<a onclick="pageChange(${pager.endPageNo+1})" type="button" class="btn btn-muted shadow">▶</a>
+			<a onclick="pageChange(${pager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
 
 		</c:if>
-		<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">▶▶</a>
+		<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
 	</div>
 </div>
 
