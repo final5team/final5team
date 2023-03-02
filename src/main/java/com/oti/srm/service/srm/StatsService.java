@@ -43,7 +43,7 @@ public class StatsService implements IStatsService {
 			list.add(statsDao.selectAllReqTask(i)-statsDao.selectComReqTask(i));
 		}
 		// 완료 대기 + 완료 요청 건수 구하기
-		list.add(statsDao.selectComReq()+statsDao.selectComReqD());  
+		list.add(statsDao.selectComReq(0)+statsDao.selectComReqD());  
 		// 비율 계산을 위한 전체 분모값 구하기
 		list.add(list.stream().mapToInt(Integer::intValue).sum());
 		return list;		
@@ -51,16 +51,16 @@ public class StatsService implements IStatsService {
 	
 	// 서비스 요청 완료율 구하기
 	@Override
-	public int getComRate() {
+	public int getComRate(int sno) {
 		// 서비스 요청 완료율 구하기
 		// 월별 필터 적용하면 selectSRChange 메소드 재활용해도 될 듯
-		return 100* statsDao.selectComReq() / statsDao.selectAllReq();
+		return 100* statsDao.selectComReq(sno) / statsDao.selectAllReq(sno);
 	}
 	// 전체 서비스 요청 지연율 구하기
 	@Override
-	public int getDelRate() {
+	public int getDelRate(int sno) {
 		// 전체 서비스 요청 지연율 구하기
-		return 100* statsDao.selectDelReq() / statsDao.selectComReq();
+		return 100* statsDao.selectDelReq(sno) / statsDao.selectComReq(sno);
 	}
 	// 태스크별 서비스 요청 지연율 구하기
 	@Override
@@ -112,13 +112,7 @@ public class StatsService implements IStatsService {
 			list.add(arr);
 		}		
 		return list;
-	}
-	// 시스템 이름 구하기
-	@Override
-	public List<String> getSystemName() {	
-		// 시스템 이름 리스트 반환하기
-		return statsDao.selectSystemName();
-	}
+	}	
 	
 	//서비스 요청 추이 그래프 값 구하기
 	@Override

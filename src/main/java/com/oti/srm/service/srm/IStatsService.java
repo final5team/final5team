@@ -13,9 +13,9 @@ public interface IStatsService {
 	// 시스템 비중 구하기
 	public List<System> getSystemSlice();
 	// 전체 서비스 요청 완료율 구하기
-	public int getComRate();
+	public int getComRate(int sno);
 	// 전체 서비스 요청 지연율 구하기
-	public int getDelRate();
+	public int getDelRate(int sno);
 	// 태스크 별 요청 완료율 구하기
 	public Map<String, Integer> getComRateTask();
 	// 태스크 별 요청 지연율 구하기
@@ -28,8 +28,7 @@ public interface IStatsService {
 	
 	// 서비스 요청 추이 값 구하기
 	public List<ArrayList<Integer>> getSRChange();
-	// 시스템 이름 구하기
-	public List<String> getSystemName();
+
 
 
 	

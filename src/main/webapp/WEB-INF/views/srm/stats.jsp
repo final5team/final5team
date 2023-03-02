@@ -126,7 +126,7 @@
 	      function drawLineChart() {
 	    	  // 월별 값 설정
 	        var data = google.visualization.arrayToDataTable([
-	          ['월', '${systemName[0]}', '${systemName[1]}', '${systemName[2]}', '${systemName[3]}'],
+	          ['월', '${systemList[0].systemName}', '${systemList[1].systemName}', '${systemList[2].systemName}', '${systemList[3].systemName}'],
 	          ['01월',  ${SRChange[0][0]}, ${SRChange[1][0]},  ${SRChange[2][0]},  ${SRChange[3][0]}],
 	          ['02월',  ${SRChange[0][1]}, ${SRChange[1][1]},  ${SRChange[2][1]},  ${SRChange[3][1]}],
 	          ['03월',  ${SRChange[0][2]}, ${SRChange[1][2]},  ${SRChange[2][2]},  ${SRChange[3][2]}]	         
@@ -143,6 +143,31 @@
 	        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 	        chart.draw(data, options);
 	      }
+    </script>
+    <script>
+    // 시스템별 완료율 보여주기
+    function searchComSys(){
+    	$.ajax({
+			type: "GET", 							// 요청방식: GET
+			url:"${pageContext.request.contextPath}/stats/comrate/"+$("#searchSystem").val(),		//URL+선택한 시스템 번호
+			dataType:"html", 						// 데이터 타입: html
+			success : function(result){
+				$('#systemCom').html(result);		// 시스템별 완료율 그래프와 수치 	재출력	
+			}
+		});
+    }
+    
+    // 시스템별 지연율 보여주기
+    function searchDelSys(){
+    	$.ajax({
+			type: "GET", 							// 요청방식: GET
+			url:"${pageContext.request.contextPath}/stats/delrate/"+$("#searchSysDel").val(),		//URL+선택한 시스템 번호
+			dataType:"html", 						// 데이터 타입: html
+			success : function(result){
+				$('#systemDel').html(result);		// 시스템별 지연율 그래프와 수치 	재출력	
+			}
+		});
+    }
     </script>
     
     <style>
@@ -162,6 +187,7 @@
 	  font-weight: bold;
 	  color: orange;	 
 	}
+		
     </style>
 
 </head>
@@ -195,21 +221,7 @@
 								 <div class="card shadow mb-4">
 	                                <!-- Card Header - Dropdown -->
 	                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-	                                    <h6 class="m-0 font-weight-bold text-primary">시스템별 요청 비중</h6>
-	                                    <div class="dropdown no-arrow">
-	                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-	                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-	                                        </a>
-	                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-	                                            aria-labelledby="dropdownMenuLink">
-	                                            <div class="dropdown-header">Dropdown Header:</div>
-	                                            <a class="dropdown-item" href="#">Action</a>
-	                                            <a class="dropdown-item" href="#">Another action</a>
-	                                            <div class="dropdown-divider"></div>
-	                                            <a class="dropdown-item" href="#">Something else here</a>
-	                                        </div>
-	                                    </div>
+	                                    <h6 class="m-0 font-weight-bold text-primary">시스템별 요청 비중</h6>	                                    
 	                                </div>
 	                                <!-- Card Body -->
 	                                <div class="card-body" style="width:300px; overflow: hidden;">
@@ -223,25 +235,19 @@
 	                                <div
 	                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 	                                    <h6 class="m-0 font-weight-bold text-primary">완료율</h6>
-	                                    <div class="dropdown no-arrow">
-	                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-	                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-	                                        </a>
-	                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-	                                            aria-labelledby="dropdownMenuLink">
-	                                            <div class="dropdown-header">Dropdown Header:</div>
-	                                            <a class="dropdown-item" href="#">Action</a>
-	                                            <a class="dropdown-item" href="#">Another action</a>
-	                                            <div class="dropdown-divider"></div>
-	                                            <a class="dropdown-item" href="#">Something else here</a>
-	                                        </div>
+	                                    <div class="dropdown no-arrow">	                                    	
+											<select class="dropdown-toggle ml-4" data-toggle="dropdown" style="border-color: transparent; background-color: #F8F9FC; color: #60ADFF" name="searchSystem" id="searchSystem" onchange="searchComSys()">															
+												<option value="0" class="text-center">전체</option>												   												   
+												<c:forEach var="system" items="${systemList}">
+													<option value="${system.sno}" class="text-center">${system.systemName}</option>
+												</c:forEach>																																																			
+											</select>	                                       	                                       
 	                                    </div>
 	                                </div>
 	                                <!-- Card Body -->
 	                                <div class="card-body">		                               
-	                                	<div style="width:290px; height: 200px; overflow: hidden;"> 
-	                                		<div id="donutchart" style="height: 250px; position: relative; top: -10px;"></div>
+	                                	<div style="width:290px; height: 200px; overflow: hidden;" id="systemCom"> 	                                	
+	                                		<div id="donutchart" style="height: 250px; position: relative; top: -10px;"></div>	                                			                                			                                		   												
 	                                		<div class="center">${comRate}%</div>
 	                                	</div>		                                		                               
 	                                </div>
@@ -253,24 +259,18 @@
 	                                <div
 	                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 	                                    <h6 class="m-0 font-weight-bold text-primary">지연율</h6>
-	                                    <div class="dropdown no-arrow">
-	                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-	                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-	                                        </a>
-	                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-	                                            aria-labelledby="dropdownMenuLink">
-	                                            <div class="dropdown-header">Dropdown Header:</div>
-	                                            <a class="dropdown-item" href="#">Action</a>
-	                                            <a class="dropdown-item" href="#">Another action</a>
-	                                            <div class="dropdown-divider"></div>
-	                                            <a class="dropdown-item" href="#">Something else here</a>
-	                                        </div>
+	                                    <div class="dropdown no-arrow">	                                    	
+											<select class="dropdown-toggle ml-4" data-toggle="dropdown" style="border-color: transparent; background-color: #F8F9FC; color: #60ADFF" name="searchSysDel" id="searchSysDel" onchange="searchDelSys()">															
+												<option value="0" class="text-center">전체</option>												   												   
+												<c:forEach var="system" items="${systemList}">
+													<option value="${system.sno}" class="text-center">${system.systemName}</option>
+												</c:forEach>																																																			
+											</select>	                                       	                                       
 	                                    </div>
 	                                </div>
 	                                <!-- Card Body -->
 	                                <div class="card-body">
-	                                	<div style="width:290px; height: 200px; overflow: hidden;">		                                	
+	                                	<div style="width:290px; height: 200px; overflow: hidden;" id="systemDel">		                                	
 		                                	<div id="chart_div" style="height: 250px; position: relative; top: -10px;"></div>
 		                                	<div class="center">${delRate}%</div> 
 		                                </div>                                  
@@ -556,7 +556,7 @@
 								            		<!-- 단계 카드들 -->
 													<div class="row">		
 													     
-											             <div class="col-xl-3 col-md-6 mb-4">
+											             <div class="col mb-4">
 											                 <div class="card border-left-success shadow h-100 py-2">
 											                     <div class="card-body">
 											                          <div class="row no-gutters align-items-center">
@@ -615,7 +615,7 @@
 								            		<!-- 단계 카드들 -->
 													<div class="row">		
 													      
-											             <div class="col-xl-3 col-md-6 mb-4">
+											             <div class="col mb-4">
 											                 <div class="card border-left-success shadow h-100 py-2">
 											                     <div class="card-body">
 											                          <div class="row no-gutters align-items-center">
