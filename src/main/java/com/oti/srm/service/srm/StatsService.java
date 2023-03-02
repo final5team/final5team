@@ -43,7 +43,7 @@ public class StatsService implements IStatsService {
 			list.add(statsDao.selectAllReqTask(i)-statsDao.selectComReqTask(i));
 		}
 		// 완료 대기 + 완료 요청 건수 구하기
-		list.add(statsDao.selectComReqTask(4)+commonDao.selectRequestReject());              ////statsDao.selectComReq());
+		list.add(statsDao.selectComReq()+statsDao.selectComReqD());  
 		// 비율 계산을 위한 전체 분모값 구하기
 		list.add(list.stream().mapToInt(Integer::intValue).sum());
 		return list;		

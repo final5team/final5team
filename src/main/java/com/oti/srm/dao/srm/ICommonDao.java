@@ -77,6 +77,9 @@ public interface ICommonDao {
 	//PM의 최신 요청건 개수 알기
 	public int selectRequestRecentPM();
 	
+	// 반려건 수 
+	public int selectRequestReject();
+	
 	//직무별 요청리스트 출력
 	public List<RequestProcess> selectRequestProcessList(@Param("member")Member member,@Param("checkbox") String checkbox,@Param("pager") Pager pager);
 	
