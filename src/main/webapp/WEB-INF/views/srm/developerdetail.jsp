@@ -61,13 +61,14 @@
 												<div class="flex-grow-1">
 													
 													<c:if test="${request.statusNo ==2 || request.statusNo ==3}">
-													<input type="date" class="date-form control" name="devExpectDate">
-													<div class="btn btn-sm btn-primary" onclick="startWork()">개발 시작</div>
+													<input type="date" class="date-form control" name="devExpectDate" id="devExpectDate">
+													<div class="btn btn-sm btn-primary" onclick="checkDate()">개발 시작</div>
 													</c:if>
 
 													<c:if test="${request.statusNo == 4}">
 													<input type="date" class="date-form control" name="devExpectDate" value="<fmt:formatDate value='${requestProcess.devExpectDate}' pattern='yyyy-MM-dd'/>" readonly>
 													</c:if>
+													<small id="noInputDate" style="color : red;"></small>
 													
 												</div>
 											</div>
@@ -102,24 +103,31 @@
 											        </div>
 			  									</div>	
 											</div>
+										</form>
+										<form id="progressForm">
 											<div class="d-flex">
-												<div class="label">진행률</div>
+												<div class="label">진척률</div>
 												<div class="flex-grow-1 d-flex">
-													<input type="text" class="form-control boxed" style="width: 100px; height: 20px;">
+													<input type="hidden" value="${request.rno}" name="rno">
+													<input type="text" class="form-control boxed" style="width: 100px; height: 20px;" value="${requestProcess.devProgress}" name="devProgress" id="devProgress">
 													<span>%</span>
-													<span class="btn btn-sm btn-primary ml-2">확인</span>
+													<span class="btn btn-sm btn-primary ml-2" onclick="updateProgress()">확인</span>
+													
 												</div>
 											</div>
 											<div class="progress-group">
 												<div class="progress">
-													<div class="progress-bar bg-success" style="width:50%"></div>
+													<div class="progress-bar bg-success" style="width:${requestProcess.devProgress}%"></div>
 												</div>
 											</div>
 										</form>
+										<c:if test="${request.statusNo == 4}">
 										<div class="d-flex justify-content-end">
 										<button class="btn btn-warning btn-md mx-3">임시 저장</button>
 										<button class="btn btn-primary btn-md " onclick="devEnd()">개발 완료</button>
 										</div>
+										</c:if>
+										
 	                	 			</div>
                 	 			</div>
                 	 		</div>
@@ -224,32 +232,7 @@
         <i class="fas fa-angle-up"></i>
     </a>
     
-	<!-- date 입력받는 모달창 start -->
-	 <div class="modal fade" id="datemodal" role="dialog" aria-labelledby="developDueDate" aria-hidden="true" >
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="developDueDate">개발 완료 예정일 입력</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body d-flex justify-content-center">
-					<form id="formUpdateExpectDate" action="${pageContext.request.contextPath}/devinprogress" method="POST">
-						<label class="mt-1" style="color: #343a40;" for="developExpectDate">개발 완료 예정일</label>
-						<input type="date" class="form-control ml-2" id="developExpectDate" name="developExpectDate" style="width: 200px; display: inline;">
-						<input type="hidden" name="rno" value="${request.rno}">
-						<input type="hidden" name="receiptDoneDate" value="<fmt:formatDate value='${receiptDoneDate}' pattern='yyyy-MM-dd'/>">
-					</form>
-				</div>
-				<div class="modal-footer">
-					<small id="noInputDate" style="color : red;"></small>
-					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <a class="btn btn-primary" onclick="checkDate()">확인</a>
-				</div>
-			</div>
-		</div>
-	</div>
 	
-	<!-- date 입력받는 모달창 end -->
 		
 	<!-- 경고 모달창 (50% 이상일 경우)-->
 	<div class="modal fade" id="alartDateTooMuch" aria-hidden="true" aria-labelledby="alartOfTimeTooMuch">
@@ -272,7 +255,7 @@
 	</div>
 	<!-- 경고 모달창 (50% 이상일 경우) -->
 	<!-- 데이트 입력 확인 -->
-	<div class="modal fade" id="completeDueDate" aria-hidden="true" aria-labelledby="successOfDueDate">
+	<div class="modal fade" id="completeModal" aria-hidden="true" aria-labelledby="successOfDueDate">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -280,7 +263,7 @@
 					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body" style="display: flex; justify-content: center;">
-					<p>입력되었습니다.</p>
+					<p id="completeContent"></p>
 				</div>
 				<div class="modal-footer" style="justify-content: center;">
                     <a class="btn btn-primary" data-dismiss="modal" type="button">확인</a>
@@ -310,40 +293,27 @@
 	</div>
 	<!-- 글자수 입력 확인 /-->
 	<script>
-	function getDatemodal(){
-		$('#datemodal').modal('show');
-		
-	}
+
 	function checkDate(){
 		$('#noInputDate').text("");
-		
-		if($('#developExpectDate').val() == ""){
+		console.log("startWork 실행");
+		if($('#devExpectDate').val() == ""){
 			$('#noInputDate').text("날짜를 입력해주세요.");
 			return;
 		}
 		
-		
 		let today = new Date().getTime();   
-		var developExpectDate = new Date($('#developExpectDate').val()).getTime();
+		var devExpectDate = new Date($('#devExpectDate').val()).getTime();
 		var reqExpectDate = new Date($('#reqExpectDate').text()).getTime();
 		var receiptDoneDate = new Date($('input[name="receiptDoneDate"]').val()).getTime();
 		console.log(receiptDoneDate);
 		
 		//오늘보다 이전 날짜를 입력할 경우
-		if(today > developExpectDate){
+		if(today > devExpectDate){
 			$('#noInputDate').text("현재보다 앞선 날짜를 입력해주세요.");
 			return;
 		}
-		//총완료예정일보다 큰 일정을 입력할 경우
-		if(reqExpectDate <= developExpectDate){
-			$('#noInputDate').text("완료예정일보다 과거여야 합니다.");
-			return;
-		}
-		if(((developExpectDate-receiptDoneDate)/(reqExpectDate-receiptDoneDate))>=0.5){
-			$('#pContent').text('');
-			$('#pContent').text('입력 시간이 완료 예정일 대비 50% 이상 차지합니다. 확인을 누르시면 수정이 불가능합니다.');
-			$('#alartDateTooMuch').modal('show');
-		} else{
+		 else{
 			$('#pContent').text('');
 			$('#pContent').text('입력하시겠습니까?. 확인을 누르시면 수정이 불가능합니다.');
 			$('#alartDateTooMuch').modal('show');
@@ -353,7 +323,7 @@
 	function getconfirm(){
 		$('#alartDateTooMuch').modal('hide');
 		//컨트롤러로 값 전달하기
-		$('#formUpdateExpectDate').submit();
+		$('#dueDateForm').submit();
 		
 		$('#completeDueDate').modal('show');
 	}
@@ -418,10 +388,37 @@
    		}
    	});
    	
-   	function startWork(){
-   		$('#dueDateForm').submit();
-   		$('#completeDueDate').show();
-   	}
+	/* devProgress업데이트 */
+ 	function updateProgress(){
+		
+		let devProgress = $('#devProgress').val();
+		
+		console.log(typeof(devProgress));
+		
+		let intDevProgress = parseInt(devProgress)
+		console.log(intDevProgress);
+		console.log(typeof(intDevProgress));
+		
+		/* 숫자인지 확인 */
+		if(){
+			
+			
+			
+			
+			/* $('#progressForm').submit(); */
+		
+		
+		
+		
+		
+		} else{
+			/* 숫자 입력하라는 모달 팝업 */
+			$('#completeContent').text('');
+			$('#completeContent').text('숫자만 입력 가능합니다.');
+			$('#completeModal').show();
+		}
+		
+	}
    	
     
 	</script>
