@@ -24,6 +24,11 @@
 		from REQUESTS
 		where STATUS_NO <![CDATA[>=]]>12
 	</select>
+	<select id="selectComReqD" resultType="int">
+		select count(*) as cnt
+		from REQUESTS
+		where STATUS_NO <![CDATA[=]]>11
+	</select>
 	<select id="selectComReqTask" parameterType="int" resultType="int">
 		select count(*) as cnt
 		from REQUEST_PROCESS
@@ -116,12 +121,10 @@
 			where c.sno(+)=s.sno
 		]]>
 	</select>
-	<select id="selectSystemName" resultType="String">
-		<![CDATA[
-			select SYSTEM_NAME as systemName
-			from systems s
-			order by sno
-		]]>
+	<select id="selectSystemName" resultType="String">		
+		select SYSTEM_NAME as systemName
+		from systems s
+		order by sno		
 	</select>
 	
 	
