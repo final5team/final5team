@@ -8,7 +8,7 @@
 --color-gray: #75787b; 
 --color-gray-light: #bbb; 
 --color-gray-disabled: #e8e8e8; 
---color-green: #53a318; 
+--color-green: #72B22B;
 --color-green-dark: #383; 
 --font-size-small: .75rem; 
 --font-size-default: .875rem;
@@ -28,13 +28,14 @@ margin: 0 0 1rem 0;
 	padding: 0 0 14px 0;
 	font-size: var(--font-size-default);
 	line-height: 1.5;
-	color: var(--gray-dark);
+	color: var(--color-green);
 	font-weight: 600;
 	white-space: nowrap;
 	overflow: visible;
 	min-width: 0;
 	text-align: center;
 	border-bottom: 2px solid var(--color-gray-disabled);
+	cursor : pointer;
 }
 
 .progress_bar li:first-child, .progress_bar li:last-child {
@@ -73,6 +74,7 @@ margin: 0 0 1rem 0;
 	transition: opacity .3s ease-in-out;
 }
 
+
 .progress_bar li:not(.is_active) span {
 	opacity: 0;
 }
@@ -86,20 +88,8 @@ margin: 0 0 1rem 0;
 	bottom: -2px;
 	left: -50%;
 	z-index: 2;
-	border-bottom: 2px solid var(--gray-dark);
+	border-bottom: 2px solid var(--color-green);
 }
-.progress_bar .is_reject:not(:first-child):after{
-	content: "";
-	display: block;
-	width: 100%;
-	position: absolute;
-	bottom: -2px;
-	left: -50%;
-	z-index: 2;
-	border-bottom: 2px solid var(--red);
-}
-
-
 .progress_bar li:last-child span {
 	width: 200%;
 	display: inline-block;
@@ -112,22 +102,15 @@ margin: 0 0 1rem 0;
 	width: 200%;
 	left: -100%;
 }
-.progress_bar .is_reject:last-child:after{
-	width : 200%;
-	left: -100%;
-}
 
 .progress_bar .is_complete:before {
-	background-color: var(--gray-dark);
-}
-.progress_bar .is_reject:before{
-	background-color : var(--red);
+	background-color: var(--color-green);
 }
 
 .progress_bar .is_active:before, .pli:hover:before,
 	.progress_bar .is-hovered:before {
 	background-color: var(--color-white);
-	border-color: var(--gray-dark);
+	border-color: var(--color-green);
 }
 
 .progress_bar li:hover:before, .pris-hovered:before {
@@ -160,12 +143,26 @@ margin: 0 0 1rem 0;
     bottom: -20px;
 }
 
+
+
 </style> 
+<script>
+	/* 각각의 페이지 이동시, ajax 로 요청 */
+	function request(i){
+		let rno = i;
+		console.log(i);
+		location.href ="${pageContext.request.contextPath}/customer/requestdetail?rno="+rno;
+	}
+	
+</script>
+
 
 <ol class="progress_bar">
 	<c:if test="${request.statusNo != 12}">
 		<c:if test="${request.reqType == null || request.reqType == '정규'}">
-			<li class="is_complete"><a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}"><span>요청</span></a></li>
+			<li class="is_complete" onclick="request(${request.rno})">
+				<span>요청</span>
+			</li>
 			<li class="<c:if test="${request.statusNo >= 2}">is_complete</c:if>
 						 <c:if test="${request.statusNo == 1}">is_active</c:if>">
 					<a href="${pageContext.request.contextPath}/pm/receiptdetail?rno=${request.rno}">
@@ -187,7 +184,8 @@ margin: 0 0 1rem 0;
 					</span>
 				</a>
 			</li>
-			<li class="<c:if test="${request.statusNo >= 7}">is_complete</c:if><c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>">
+			<li class="<c:if test="${request.statusNo >= 7}">is_complete</c:if>
+						<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>">
 				<a href="${pageContext.request.contextPath}/testerdetail?rno=${request.rno}">
 					<span>
 						<c:if test="${request.statusNo < 5}">테스트</c:if>
@@ -296,7 +294,7 @@ margin: 0 0 1rem 0;
 		</c:if>
 	</c:if>
 	<c:if test="${request.statusNo == 12}">
-		<li class="is_reject">
+		<li class="is_reject_first is_reject">
 			<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 				<span>
 					등록
@@ -310,6 +308,46 @@ margin: 0 0 1rem 0;
 	</c:if>
 </ol>
 
+<style>
+/* 첫번째 요소는 원, not:first-child는 선*/
+/* before 뒤에는 원 스타일 */
+/* after 뒤에는 선 스타일 */
+.progress_bar .is_reject_first span {
+      width: 100%;
+      display: inline-block;
+      position: absolute;
+      left: -30%;
+    }
+.progress_bar .is_reject:not(:first-child):after {
+      content: "";
+      display: block;
+      width: 100%;
+      position: absolute;
+      bottom: -2px;
+      left: -50%;
+      z-index: 3;
+      border-bottom: 2px solid red;
+    }
+.progress_bar .is_reject::before {
+      content: "";
+      display: block;
+      width: 5px;
+      height: 5px;
+      background-color: red;
+      border-radius: 50%;
+      border: 2px solid red;
+      position: absolute;
+      left: calc(50% - 6px);
+      bottom: -5px;
+      z-index: 3;
+      transition: all .2s ease-in-out;
+    }    
+    .progress_bar .is_reject:last-child:after {
+      width: 200%;
+      left: -100%;
+    }
+    
+</style>
 
 
 
