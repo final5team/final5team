@@ -43,6 +43,13 @@ public class CommonService implements ICommonService {
 			// 개발자 -> 테스터 단계 이력만 담기
 			if (sh.getNextStatus() == 5) {
 				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
+				if(sh.getReply()== null) {
+					sh.setReply("내용이 없습니다.");
+				}
+				if(sh.getDistSource()== null) {
+					sh.setDistSource("내용이 없습니다.");
+				}
+					
 				devToTesterHistories.add(sh);
 			}
 		}

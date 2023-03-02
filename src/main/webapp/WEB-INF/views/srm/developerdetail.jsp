@@ -104,7 +104,9 @@
 			  									</div>	
 											</div>
 										</form>
-										<form id="progressForm">
+										
+										<c:if test="${request.statusNo == 4}">
+										<form id="progressForm" action="${pageContext.request.contextPath}/updatedevprogress" method="POST">
 											<div class="d-flex">
 												<div class="label">진척률</div>
 												<div class="flex-grow-1 d-flex">
@@ -121,10 +123,15 @@
 												</div>
 											</div>
 										</form>
+										</c:if>
+										
 										<c:if test="${request.statusNo == 4}">
 										<div class="d-flex justify-content-end">
 										<button class="btn btn-warning btn-md mx-3">임시 저장</button>
+										<c:if test="${requestProcess.devProgress == 100}">
 										<button class="btn btn-primary btn-md " onclick="devEnd()">개발 완료</button>
+										</c:if>
+
 										</div>
 										</c:if>
 										
@@ -393,30 +400,31 @@
 		
 		let devProgress = $('#devProgress').val();
 		
-		console.log(typeof(devProgress));
-		
-		let intDevProgress = parseInt(devProgress)
-		console.log(intDevProgress);
-		console.log(typeof(intDevProgress));
-		
-		/* 숫자인지 확인 */
-		if(){
-			
-			
-			
-			
-			/* $('#progressForm').submit(); */
-		
-		
-		
-		
-		
-		} else{
-			/* 숫자 입력하라는 모달 팝업 */
+		let check = /^[0-9]+$/; 
+		/* 숫자만 입력했는지 확인하는 유효성 체크 */
+		if (!check.test(devProgress)){
 			$('#completeContent').text('');
 			$('#completeContent').text('숫자만 입력 가능합니다.');
-			$('#completeModal').show();
+			$('#completeModal').modal();
+			$('#devProgress').val("");
+			
+		} else{
+			/* String 타입에서 int타입으로 변환 */
+			let intDevProgress = parseInt(devProgress);
+			
+			if (intDevProgress >=0 && intDevProgress <= 100){
+				$('#progressForm').submit();
+				return;
+				
+			} else{
+				$('#completeContent').text('');
+				$('#completeContent').text('0~100사이의 숫자만 입력 가능합니다.');
+				$('#completeModal').modal();
+			}
+			
 		}
+		
+		
 		
 	}
    	

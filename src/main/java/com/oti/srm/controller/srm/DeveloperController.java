@@ -87,6 +87,12 @@ public class DeveloperController {
 		return "srm/developerdetail2";
 	}
 	
+	/**
+	 * @author : 장현
+	 * @param rp rno 와 devProgress를 담은 객체
+	 * @param session
+	 * @return developerdetail로 리턴
+	 */
 	@PostMapping("/updatedevprogress")
 	public String updateDevProgress(RequestProcess rp, HttpSession session) {
 		
