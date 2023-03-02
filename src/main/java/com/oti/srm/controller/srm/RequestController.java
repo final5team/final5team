@@ -214,13 +214,30 @@ public class RequestController {
 		}
 	}
 	
-	//(유저) 요청 리스트 ajax -> 처음에는 DB 값 넣어주고 변경시 ajax 처리해 됨 (변경)
+	//(유저) 요청 리스트 초기 조회
+
 	@GetMapping("/userrequestlist")
-	public String myrequestlist (Model model) {
+	public String myrequestlist (Model model, HttpSession session, ListFilter listFilter) {
 		//시스템
 		List<System> systemList = userRegisterService.getSystemList();
 		model.addAttribute("systemList", systemList);
 		
+		// 유저 정보 전달
+		Member member = (Member) session.getAttribute("member");
+		
+		ListFilter returnList = requestService.dateFilterList(listFilter);
+		// 보여줄 행 수 조회
+		
+		int totalRows = requestService.getRequestListRows(listFilter, member);
+		Pager pager = new Pager(7, 5, totalRows, listFilter.getPageNo());
+		List<SelectPM> requestList = requestService.getMyRequestList(listFilter, pager, member);
+		
+		// 시스템 리스트 전달
+		// 목록 리스트와 페이지 return
+		model.addAttribute("requestList", requestList);
+		model.addAttribute("pager", pager);
+		// filter 전달
+		model.addAttribute("listFilter", returnList);
 		
 		return "srm/uesrrequestlist";
 	}
@@ -252,6 +269,7 @@ public class RequestController {
 	@GetMapping("/requestlist")
 	public String requestList(Model model) {
 		List<System> systemList = userRegisterService.getSystemList();
+		
 		
 		model.addAttribute("systemList", systemList);
 		return "srm/requestlist_re";
