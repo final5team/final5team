@@ -8,7 +8,7 @@
 
 <div class="stepper-wrapper">
 	<div class="stepper-item completed">
-	  <div class="step-counter btn" onclick="openRegister()">
+	  <div class="step-counter btn">
 	  	<i class="fas fa-file-word"></i>
 	  </div>
 	  <div class="step-name">등록</div>

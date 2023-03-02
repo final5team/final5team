@@ -472,8 +472,11 @@
 				
 			}).done((data) => {
 				$('#table_content').html(data);
-				let button = document.getElementById("firstbutton");
-				console.log(button);
+				//기존 페이지 태그 삭제하기
+				const pageDefault = document.querySelector('.default');
+				if(pageDefault != null){
+					pageDefault.remove();
+				}
 				
 				
 			});
@@ -487,6 +490,11 @@
 				contentType: "application/json; charset=UTF-8"
 			}).done((data) => {
 				$('#table_content').html(data);
+				//기존 페이지 태그 삭제하기
+				const pageDefault = document.querySelector('.default');
+				if(pageDefault != null){
+					pageDefault.remove();
+				}
 			});
 		}
 	}	
