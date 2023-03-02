@@ -21,132 +21,145 @@ list-style: none;
 padding: 0;
 margin: 0 0 1rem 0;
 }
+
+.progress_bar li {
+	flex: 2;
+	position: relative;
+	padding: 0 0 14px 0;
+	font-size: var(--font-size-default);
+	line-height: 1.5;
+	color: var(--gray-dark);
+	font-weight: 600;
+	white-space: nowrap;
+	overflow: visible;
+	min-width: 0;
+	text-align: center;
+	border-bottom: 2px solid var(--color-gray-disabled);
+}
+
+.progress_bar li:first-child, .progress_bar li:last-child {
+	flex: 1;
+}
+
+.progress_bar li:last-child {
+	text-align: right;
+}
+
+.progress_bar li:before {
+	content: "";
+	display: block;
+	width: 8px;
+	height: 8px;
+	background-color: var(--color-gray-disabled);
+	border-radius: 50%;
+	border: 2px solid var(--color-white);
+	position: absolute;
+	left: calc(50% - 6px);
+	bottom: -7px;
+	z-index: 3;
+	transition: all .2s ease-in-out;
+}
+
+.progress_bar li:first-child:before {
+	left: 0;
+}
+
+.progress_bar li:last-child:before {
+	right: 0;
+	left: auto;
+}
+
+.progress_bar span {
+	transition: opacity .3s ease-in-out;
+}
+
+.progress_bar li:not(.is_active) span {
+	opacity: 0;
+}
+
+.progress_bar .is_complete:not(:first-child):after,
+.progress_bar .is_active:not(:first-child):after {
+	content: "";
+	display: block;
+	width: 100%;
+	position: absolute;
+	bottom: -2px;
+	left: -50%;
+	z-index: 2;
+	border-bottom: 2px solid var(--gray-dark);
+}
+.progress_bar .is_reject:not(:first-child):after{
+	content: "";
+	display: block;
+	width: 100%;
+	position: absolute;
+	bottom: -2px;
+	left: -50%;
+	z-index: 2;
+	border-bottom: 2px solid var(--red);
+}
+
+
+.progress_bar li:last-child span {
+	width: 200%;
+	display: inline-block;
+	position: absolute;
+	left: -100%;
+}
+
+.progress_bar .is_complete:last-child:after, 
+.progress_bar .is_active:last-child:after{
+	width: 200%;
+	left: -100%;
+}
+.progress_bar .is_reject:last-child:after{
+	width : 200%;
+	left: -100%;
+}
+
+.progress_bar .is_complete:before {
+	background-color: var(--gray-dark);
+}
+.progress_bar .is_reject:before{
+	background-color : var(--red);
+}
+
+.progress_bar .is_active:before, .pli:hover:before,
+	.progress_bar .is-hovered:before {
+	background-color: var(--color-white);
+	border-color: var(--gray-dark);
+}
+
+.progress_bar li:hover:before, .pris-hovered:before {
+	transform: scale(1.33);
+}
+
+.progress_bar li:hover span, .progress_bar lispan {
+	opacity: 1;
+}
+
+.progress_bar:hover li:not(:hover) span {
+	opacity: 0;
+}
+.progress_bar .has-changes {
+	opacity: 1 !important;
+}
+.progress_bar a{
+	text-decoration: none;
+}
+.progress-bar .has-changes {
+    opacity: 1 !important;
+  }
+  .progress-bar .has-changes:before {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    left: 22px;
+    bottom: -20px;
+  }
 												
-												.progress_bar li {
-													flex: 2;
-													position: relative;
-													padding: 0 0 14px 0;
-													font-size: var(--font-size-default);
-													line-height: 1.5;
-													color: var(--gray-dark);
-													font-weight: 600;
-													white-space: nowrap;
-													overflow: visible;
-													min-width: 0;
-													text-align: center;
-													border-bottom: 2px solid var(--color-gray-disabled);
-												}
-												
-												.progress_bar li:first-child, .progress_bar li:last-child {
-													flex: 1;
-												}
-												
-												.progress_bar li:last-child {
-													text-align: right;
-												}
-												
-												.progress_bar li:before {
-													content: "";
-													display: block;
-													width: 8px;
-													height: 8px;
-													background-color: var(--color-gray-disabled);
-													border-radius: 50%;
-													border: 2px solid var(--color-white);
-													position: absolute;
-													left: calc(50% - 6px);
-													bottom: -7px;
-													z-index: 3;
-													transition: all .2s ease-in-out;
-												}
-												
-												.progress_bar li:first-child:before {
-													left: 0;
-												}
-												
-												.progress_bar li:last-child:before {
-													right: 0;
-													left: auto;
-												}
-												
-												.progress_bar span {
-													transition: opacity .3s ease-in-out;
-												}
-												
-												.progress_bar li:not(.is_active) span {
-													opacity: 0;
-												}
-												
-												.progress_bar .is_complete:not(:first-child):after,
-												.progress_bar .is_active:not(:first-child):after {
-													content: "";
-													display: block;
-													width: 100%;
-													position: absolute;
-													bottom: -2px;
-													left: -50%;
-													z-index: 2;
-													border-bottom: 2px solid var(--gray-dark);
-												}
-												.progress_bar .is_reject:not(:first-child):after{
-													content: "";
-													display: block;
-													width: 100%;
-													position: absolute;
-													bottom: -2px;
-													left: -50%;
-													z-index: 2;
-													border-bottom: 2px solid var(--red);
-												}
-												
-												
-												.progress_bar li:last-child span {
-													width: 200%;
-													display: inline-block;
-													position: absolute;
-													left: -100%;
-												}
-												
-												.progress_bar .is_complete:last-child:after, 
-												.progress_bar .is_active:last-child:after{
-													width: 200%;
-													left: -100%;
-												}
-												.progress_bar .is_reject:last-child:after{
-													width : 200%;
-													left: -100%;
-												}
-												
-												.progress_bar .is_complete:before {
-													background-color: var(--gray-dark);
-												}
-												.progress_bar .is_reject:before{
-													background-color : var(--red);
-												}
-												
-												.progress_bar .is_active:before, .progress_bar li:hover:before,
-													.progress_bar .is-hovered:before {
-													background-color: var(--color-white);
-													border-color: var(--gray-dark);
-												}
-												
-												.progress_bar li:hover:before, .progress_bar .is-hovered:before {
-													transform: scale(1.33);
-												}
-												
-												.progress_bar li:hover span, .progress_bar li.is-hovered span {
-													opacity: 1;
-												}
-												
-												.progress_bar:hover li:not (:hover) span {
-													opacity: 0;
-												}
-												.progress_bar .has-changes {
-													opacity: 1 !important;
-												}
-												.progress_bar a{
-													text-decoration: none;
-												}
 
 </style> 
 
@@ -207,11 +220,21 @@ margin: 0 0 1rem 0;
 			</li>
 			<li class="<c:if test="${request.statusNo >= 13}">is_complete</c:if><c:if test="${request.statusNo == 11}">is_active</c:if>">
 				<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">
-					<span>
-						<c:if test="${request.statusNo < 11}">최종승인</c:if>
-						<c:if test="${request.statusNo == 11}">승인대기</c:if>
-						<c:if test="${request.statusNo == 13}">최종승인</c:if>
-					</span>
+					<c:if test="${request.statusNo < 11}">
+						<span>
+							최종승인
+						</span>
+					</c:if>
+					<c:if test="${request.statusNo == 11}">
+						<span>
+							승인대기
+						</span>
+					</c:if>
+					<c:if test="${request.statusNo == 13}">
+						<span class="has-changes">
+							완료
+						</span>
+					</c:if>
 				</a>
 			</li>
 		</c:if>
@@ -266,7 +289,9 @@ margin: 0 0 1rem 0;
 					</span>
 				</a>
 				<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">
+					<span class="has-changes">
 						<c:if test="${request.statusNo == 13}">완료</c:if>
+					</span>
 				</a>
 			</li>
 		</c:if>
@@ -280,7 +305,9 @@ margin: 0 0 1rem 0;
 			</a>
 		</li>
 		<li class="is_reject"><span>접수</span></li>
-		<li class="is_reject"><a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}"><span>반려</span></a></li>
+		<li class="is_reject"><a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
+			<span class="has-changes">반려</span></a>
+		</li>
 	</c:if>
 </ol>
 

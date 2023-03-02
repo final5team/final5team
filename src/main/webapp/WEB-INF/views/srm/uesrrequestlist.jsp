@@ -11,13 +11,7 @@
 
 
 </head>
-<style>
-	.custom-select{
-		flex: none;
 
-	}
-
-</style>
 
 <body id="page-top">
 
