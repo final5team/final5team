@@ -111,7 +111,7 @@ a {
 	position: absolute;
 	width: 300px;
 	left: 8%;
-	top: 55%;
+	top: 57%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -121,7 +121,7 @@ a {
 	position: absolute;
 	width: 800px;
 	left: 18%;
-	top: 55%;
+	top: 57%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -131,7 +131,7 @@ a {
 	width: 710px;
 	font-size: 15px;
 	font: bold;
-	height: 80px;
+	height: 100px;
 	resize: none;
 }
 
@@ -139,7 +139,7 @@ a {
 	position: absolute;
 	width: 110px;
 	left: 4%;
-	top: 70%;
+	top: 75%;
 	overflow: hidden;
 	text-align: center;
 	font-size: 15px;
@@ -150,7 +150,7 @@ a {
 	position: absolute;
 	width: 700px;
 	left: 18%;
-	top: 70%;
+	top: 75%;
 	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
@@ -202,8 +202,16 @@ a {
 textarea:focus::placeholder {
 	visibility: hidden;
 }
-
-
+.titleConfirm{
+	width : 100px;
+	position : absolute;
+	left : 83%;
+}
+.textConfirm{
+	width : 100px;
+	position : absolute;
+	left : 83%;
+}
 
 
 </style>
@@ -297,6 +305,9 @@ textarea:focus::placeholder {
 											<article class="titleInput">
 												<div class="item">
 													<input type="text" id="reqTitle" name="reqTitle" placeholder="제목" required>
+													<div class="titleConfirm">
+														<small class=" mr-5" id="counterTitle">(0 / 30)</small>
+													</div>
 												</div>
 											</article>
 											<article class="titleBody">
@@ -305,6 +316,9 @@ textarea:focus::placeholder {
 											<article class="bodyInput">
 												<div class="item">
 													<textarea id="reqContent" cols="30" name="reqContent" placeholder="내용" required></textarea>
+													<div class="textConfirm">
+														<small class=" mr-5" id="counterContent">(0 / 300)</small>
+													</div>
 												</div>
 											</article>
 											<article class="fileTitle">
@@ -377,37 +391,27 @@ textarea:focus::placeholder {
 				deleteFile($(this));
 			});
 		})
-		function addFile() {
-			var str = "<div class='file-group'><input type='file' name='files'><a href='#this' name='file-delete'>x</a></div>";
-			$("#file-list").append(str);
-			$("a[name='file-delete']").on("click", function(e) {
-				e.preventDefault();
-				deleteFile($(this));
-			});
-		}
 
-		function deleteFile(obj) {
-			obj.parent().remove();
-		}
-
-		$('#reply').keyup(function(e) {
+		$('#reqContent').keyup(function(e) {
 			let content = $(this).val();
-			$('#counter').html("(" + content.length + " / 300)");
-			if (content.length > 300) {
+			$('#counterContent').html("(" + content.length + " / 300)");
+			if (content.length > 100) {
 				$('#countCheck').modal();
-				$('#countContent').html("최대 300자까지 입니다.");
+				$('#counterContent').html("최대 300자까지 입니다.");
 				$(this).val(content.substring(0, 300));
 				$('#counter').html("(300 / 300)");
 			}
 		});
-		$('#distSource').keyup(function(e) {
+		$('#reqTitle').keyup(function(e) {
 			let content = $(this).val();
-			$('#counterSource').html("(" + content.length + " / 100)");
-			if (content.length > 100) {
+			$('#counterTitle').html("(" + content.length + " / 30)");
+			console.log(content.length);
+			
+			if (content.length > 30) {
 				$('#countCheck').modal();
-				$('#countContent').html("최대 100자까지 입니다.");
-				$(this).val(content.substring(0, 150));
-				$('#counterSource').html("(100 / 100)");
+				$('#countContent').html("최대 30자까지 입니다.");
+				$(this).val(content.substring(0, 30));
+				$('#counterTitle').html("(30 / 30)");
 			}
 		});
 

@@ -103,7 +103,6 @@ public class RequestController {
 			model.addAttribute("registerResult", "FAIL");
 			return "redirect:/customer/register";
 		}
-
 	}
 
 	/**
@@ -149,9 +148,7 @@ public class RequestController {
 		
 	}
 
-	/**
-	 * Kang Ji Seong 요청 등록 폼 요청
-	 */
+	// 요청 작성 페이지
 	@GetMapping("/request")
 	public String customerRequest(Member member, Request request, Model model, RequestProcess requestProcess,
 			HttpSession session) {
@@ -168,8 +165,6 @@ public class RequestController {
 		
 		return "srm/request/request";
 	}
-	
-
 	
 	/**
 	 * 요청 등록 폼 작성
