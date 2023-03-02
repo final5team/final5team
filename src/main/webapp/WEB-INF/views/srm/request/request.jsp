@@ -47,7 +47,7 @@ a {
 .card-body .label2 {
 	position: absolute;
 	width: 110px;
-	left: 60%;
+	left: 57%;
 	top: 15%;
 	overflow: hidden;
 	text-align: center;
@@ -57,23 +57,25 @@ a {
 .card-body .inputData2 {
 	position: absolute;
 	width: 250px;
-	height: 130px;
-	left: 68%;
+	height: 200px;
+	left: 70%;
 	top: 15%;
 	overflow: hidden;
 	text-align: start;
 }
 
 .card-body .inputData2 input {
-	height: 30px;
+	height: 20px;
 	width: 200px;
 	font-size: 13px;
+	margin-bottom : 10px;
 }
 
 .card-body .inputData input {
-	height: 30px;
+	height: 20px;
 	width: 200px;
 	font-size: 13px;
+	margin-bottom : 10px;
 }
 
 .card-body .titleLabel {
@@ -92,17 +94,16 @@ a {
 
 .card-body .titleInput {
 	position: absolute;
-	width: 590px;
+	width: 800px;
 	left: 18%;
 	top: 48%;
-	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
 }
 
 .card-body .titleInput input {
-	width: 590px;
+	width: 710px;
 	height: 25px;
 }
 
@@ -111,7 +112,6 @@ a {
 	width: 300px;
 	left: 8%;
 	top: 55%;
-	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -119,17 +119,16 @@ a {
 
 .card-body .bodyInput {
 	position: absolute;
-	width: 590px;
+	width: 800px;
 	left: 18%;
 	top: 55%;
-	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
 }
 
 .card-body .bodyInput textarea {
-	width: 590px;
+	width: 710px;
 	font-size: 15px;
 	font: bold;
 	height: 80px;
@@ -138,11 +137,11 @@ a {
 
 .card-body .fileTitle {
 	position: absolute;
-	width: 700px;
-	left: 8%;
+	width: 110px;
+	left: 4%;
 	top: 70%;
 	overflow: hidden;
-	text-align: start;
+	text-align: center;
 	font-size: 15px;
 	font: bold;
 }
@@ -204,54 +203,9 @@ textarea:focus::placeholder {
 	visibility: hidden;
 }
 
-.include {
-	margin: 0;
-	font-size: 15px;
-	padding: 10px;
-}
 
-article.include div {
-	margin: 0px 50px;
-	box-sizing: border-box;
-}
 
-.include .circle {
-	background-color: #fff;
-	text-align: center;
-	color: #999;
-	height: 28px;
-	width: 120px;
-	font-size: 15px;
-	border: 3px solid #e0e0e0;
-	transition: 0.4s ease;
-}
 
-.include .bar {
-	margin: 0px 110px;
-	background-color: #fff;
-	color: #999;
-	height: 30px;
-	width: 1px;
-	align-items: center;
-	justify-content: center;
-	border: 3px solid #e0e0e0;
-	transition: 0.4s ease;
-}
-
-.include .circle.done {
-	border-color: #5a5c69;
-	color: #5a5c69;
-}
-
-.include .circle.now {
-	border-color: white;
-	color: white;
-	background-color: #5a5c69;
-}
-
-.include .bar.active {
-	border-color: #5a5c69;
-}
 </style>
 <body id="page-top">
 	<!-- Page Wrapper -->

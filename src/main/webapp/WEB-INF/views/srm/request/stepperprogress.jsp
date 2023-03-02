@@ -4,8 +4,6 @@
 
 
 
-
-
 <div class="stepper-wrapper">
 	<div class="stepper-item completed">
 	  <div class="step-counter btn">

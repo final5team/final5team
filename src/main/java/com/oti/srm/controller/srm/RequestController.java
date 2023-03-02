@@ -155,26 +155,16 @@ public class RequestController {
 	@GetMapping("/request")
 	public String customerRequest(Member member, Request request, Model model, RequestProcess requestProcess,
 			HttpSession session) {
-
 		// 로그인 member 정보는 JSP에서 SessionScope 이용하여 표시
 		// 요청 단계 (default 값으로 지정하여 전달)
 		request.setStatusName("접수중");
 		request.setStatusNo(1);
 		requestProcess.setReqType("정규");
-
 		// 시스템 리스트 전달
 		List<System> systemList = userRegisterService.getSystemList();
-
 		model.addAttribute("request", request);
 		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("systemList", systemList);
-
-		return "srm/request";
-	}
-	
-	@GetMapping("/request2")
-	public String customerRequest2() {
-		
 		
 		return "srm/request/request";
 	}
