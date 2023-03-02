@@ -35,16 +35,16 @@
 					<section class="filter border-left-dark">
 						<form>
 							<article class="filter-head">
-								<h4>필터</h4>
+								<h4>요청 검색</h4>
 							</article>
 
 							<article class="filter-name">
-								<h6>유형 선택</h6>
-								<h6>작성 날짜</h6>
+								<h6>요청 유형</h6>
+								<h6>요청 일자</h6>
 							</article>
 
 							<article class="filter-name2">
-								<h6>단계 선택</h6>
+								<h6>단계</h6>
 								<h6>시스템</h6>
 							</article>
 							<article class="search-button">
@@ -79,9 +79,20 @@
 								</div>
 								<div class="input-group">
 									<select class="custom-select" id="sno" name="sno">
-										<option value="0" selected>시스템</option>
-										<option value="1">가족관계</option>
-										
+										<c:if test="${listFilter.sno == 0}">
+												<option value="0" selected>전체</option>
+												<c:forEach var="system" items="${systemList}">
+													<option value="${system.sno}">${system.systemName}</option>
+												</c:forEach>
+											</c:if>
+											<c:if test="${listFilter.sno != 0}">
+												<option value="${listFilter.sno}" selected>${listFilter.systemName}</option>
+												<c:forEach var="system" items="${systemList}">
+													<c:if test="${system.sno != listFilter.sno}">
+														<option value="${system.sno}">${system.systemName}</option>
+													</c:if>
+												</c:forEach>
+											</c:if>
 									</select>
 								</div>
 							</article>
