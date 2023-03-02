@@ -177,7 +177,6 @@ a {
 	width: 200px;
 	height: 35px;
 	font-size: 13px;
-	padding-left: 37px;
 	padding-top: 0;
 	padding-bottom: 0;
 }
@@ -242,7 +241,7 @@ textarea:focus::placeholder {
 						</div>
 						<div>
 							<!-- 여기에 단계 상태 이력 넣기 -->
-							<%@ include file="/WEB-INF/views/srm/restatus/stepperprogress.jsp"%>
+							<%@ include file="/WEB-INF/views/srm/request/stepperprogress.jsp"%>
 						</div>
 						<!-- 여기에 단계 상태 이력 넣기 /-->
 						<section>
@@ -255,7 +254,7 @@ textarea:focus::placeholder {
 										</h3>
 									</div>
 									<div class="card-body">
-										<form>
+										<form method="post" action="${pageContext.request.contextPath}/customer/request" enctype="multipart/form-data">
 											<article class="label item">
 												<h6>작성자</h6>
 												<h6>전화번호</h6>
@@ -275,7 +274,7 @@ textarea:focus::placeholder {
 												<div class="item">
 													<div class="select-group">
 														<select class="custom-select" id="sno" name="sno" required>
-															<option selected value="${request.systemName}"></option>
+															<option selected value="0">전체</option>
 															<c:forEach var="system" items="${systemList}">
 																<option value="${system.sno}">${system.systemName}</option>
 															</c:forEach>
