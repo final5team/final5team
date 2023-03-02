@@ -28,9 +28,6 @@
 			<if test="mtype == 'user'">
 				and user_show = 'Y'
 			</if>
-			<if test="sno != 0">
-				and sno = #{sno}
-			</if>
 		</where>
 		order by notice_date desc
 		OFFSET (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS
@@ -60,9 +57,6 @@
 			<if test="mtype == 'user'">
 				and user_show = 'Y'
 			</if>
-			<if test="sno != 0">
-				and sno = #{sno}
-			</if>
 		</where>
 	</select>
 	
@@ -77,12 +71,9 @@
 			dev_show as "devShow",
 			tester_show as "testerShow",
 			distributor_show as "distributorShow",
-			user_tester_show as "userTesterShow",
-			n.sno as "sno",
-			system_name as "systemName"
-		from notices n, systems s
-		where n.sno = s.sno 
-		and nno = #{nno}
+			user_tester_show as "userTesterShow"
+		from notices n
+		where nno = #{nno}
 	</select>
 	
 	<insert id="insertNotice" parameterType="com.oti.srm.dto.Notice">
@@ -92,7 +83,7 @@
 		insert into notices 
 		values
 		(#{nno}, #{noticeTitle}, #{noticeContent}, sysdate, 
-		#{mid}, #{userShow}, #{devShow}, #{testerShow}, #{sno}, #{distributorShow}, #{userTesterShow})
+		#{mid}, #{userShow}, #{devShow}, #{testerShow}, #{distributorShow}, #{userTesterShow})
 	</insert>
 	
 	<update id="updateNotice" parameterType="com.oti.srm.dto.Notice">
@@ -105,8 +96,7 @@
 			dev_show = #{devShow},
 			tester_show = #{testerShow},
 			distributor_show = #{distributorShow},
-			user_tester_show = #{userTesterShow},
-			sno = #{sno}
+			user_tester_show = #{userTesterShow}
 		where nno = #{nno}
 	</update>
 	

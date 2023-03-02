@@ -20,14 +20,13 @@ public class NoticeService implements INoticeService {
 	INoticeDao noticeDao;
 
 	@Override
-	public List<Notice> getNoticeList(String searchType, String searchWord, String mtype, Pager pager, int sno) {
-		log.info(sno);
-		return noticeDao.selectNoticeList(searchType, searchWord, mtype, sno, pager);
+	public List<Notice> getNoticeList(String searchType, String searchWord, String mtype, Pager pager) {
+		return noticeDao.selectNoticeList(searchType, searchWord, mtype, pager);
 	}
 
 	@Override
-	public int getNoticeListCount(String searchType, String searchWord, String mtype, int sno) {
-		return noticeDao.selectNoticeListCount(searchType, searchWord, mtype, sno);
+	public int getNoticeListCount(String searchType, String searchWord, String mtype) {
+		return noticeDao.selectNoticeListCount(searchType, searchWord, mtype);
 	}
 
 	@Override

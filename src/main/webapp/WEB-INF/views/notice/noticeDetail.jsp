@@ -60,12 +60,6 @@
                 			</div>
                 			<hr>
                 			<div class="card-body">
-                				<div class="row p-2">
-							    	<div class="col-2 d-flex justify-content-end">
-							    		<span style="font-size: 18px;">시스템</span>
-							    	</div>
-							    	<input type="text" class="form-control boxed col-9" value="${notice.systemName}" readonly/>
-							  	</div>
 							  	<div class="row p-2">
 							    	<div class="col-2 d-flex justify-content-end">
 							    		<span style="font-size: 18px;">공개 설정</span>

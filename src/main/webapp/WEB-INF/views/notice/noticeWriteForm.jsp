@@ -41,14 +41,6 @@
                 	<h1 class="">공지사항 작성</h1>
                		<hr/>
 	                <form action="${pageContext.request.contextPath}/noticewrite" method="post" enctype="multipart/form-data">
-	                	<div class="form-group row">
-					    	<label for="systems" class="col-2">시스템</label>
-					    	<select class="form-control col-10" id="sno" name="sno">
-					    		<c:forEach var="system" items="${systemList}">
-					    			<option value="${system.sno}">${system.systemName}</option>
-					    		</c:forEach>
-					    	</select>
-					  	</div>
 					  	<div class="form-group row">
 					    	<div class="col-2">공개 설정</div>
 					    	<div class="form-group col-10">
