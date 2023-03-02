@@ -276,11 +276,29 @@ public class RequestController {
 	
 	//담당 요청 목록 이동 페이지
 	@GetMapping("/requestlist")
-	public String requestList(Model model) {
+	public String requestList(Model model, HttpSession session) {
 		List<System> systemList = userRegisterService.getSystemList();
-		
-		
+		// 유저 정보 전달
+		Member member = (Member) session.getAttribute("member");
+		//초기값
+		ListFilter listFilter = new ListFilter();
+		listFilter.setReqType("전체");
+		listFilter.setDateFirst("");
+		listFilter.setDateLast("");
+		listFilter.setSno(0);
+		listFilter.setStatusNo(0);
+		listFilter.setPageNo(1);
+		ListFilter returnList = requestService.dateFilterList(listFilter);
+		int totalRows = requestService.getMyWorkRows(listFilter, member);
+		Pager pager = new Pager(7, 5, totalRows, listFilter.getPageNo());
+		List<SelectPM> requestList = requestService.getMyWorkList(listFilter, pager, member);
+		// 시스템 리스트 전달
 		model.addAttribute("systemList", systemList);
+		// 목록 리스트와 페이지 return
+		model.addAttribute("requestList", requestList);
+		model.addAttribute("pager", pager);
+		// filter 전달
+		model.addAttribute("listFilter", returnList);
 		return "srm/requestlist_re";
 	}
 	//담당 요청 목록 조회 ajax
@@ -294,7 +312,6 @@ public class RequestController {
 		//세션에 저장된 멤버 객체 전달
 		Member member = (Member) session.getAttribute("member");
 		int totalRows = requestService.getMyWorkRows(listFilter, member);
-		//처음 요청이므로 (1로)
 		Pager pager = new Pager(7, 5, totalRows, listFilter.getPageNo());
 		List<SelectPM> requestList = requestService.getMyWorkList(listFilter, pager, member);
 		// 시스템 리스트 전달
@@ -307,21 +324,6 @@ public class RequestController {
 		
 		return "srm/list/ajaxmyworklist";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * Kang Ji Seong member type 단계 처리 가져오기
 	 */

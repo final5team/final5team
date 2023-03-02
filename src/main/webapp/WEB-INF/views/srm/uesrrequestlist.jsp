@@ -62,9 +62,7 @@
 									</select>
 								</div>
 								<div class="date_form">
-									<input type="date" id="date_first" name="date_first" style="border: 1px solid #d1d3e2; border-radius: 5px;"> 
-									<i class="fa fa-minus"></i> 
-									<input type="date" id="date_last" name="date_last" style="border: 1px solid #d1d3e2; border-radius: 5px;">
+									<input type="date" id="date_first" name="date_first" style="border: 1px solid #d1d3e2; border-radius: 5px;"> <i class="fa fa-minus"></i> <input type="date" id="date_last" name="date_last" style="border: 1px solid #d1d3e2; border-radius: 5px;">
 								</div>
 							</article>
 							<article class="filter-body2">
@@ -80,19 +78,19 @@
 								<div class="input-group">
 									<select class="custom-select" id="sno" name="sno">
 										<c:if test="${listFilter.sno == 0}">
-												<option value="0" selected>전체</option>
-												<c:forEach var="system" items="${systemList}">
+											<option value="0" selected>전체</option>
+											<c:forEach var="system" items="${systemList}">
+												<option value="${system.sno}">${system.systemName}</option>
+											</c:forEach>
+										</c:if>
+										<c:if test="${listFilter.sno != 0}">
+											<option value="${listFilter.sno}" selected>${listFilter.systemName}</option>
+											<c:forEach var="system" items="${systemList}">
+												<c:if test="${system.sno != listFilter.sno}">
 													<option value="${system.sno}">${system.systemName}</option>
-												</c:forEach>
-											</c:if>
-											<c:if test="${listFilter.sno != 0}">
-												<option value="${listFilter.sno}" selected>${listFilter.systemName}</option>
-												<c:forEach var="system" items="${systemList}">
-													<c:if test="${system.sno != listFilter.sno}">
-														<option value="${system.sno}">${system.systemName}</option>
-													</c:if>
-												</c:forEach>
-											</c:if>
+												</c:if>
+											</c:forEach>
+										</c:if>
 									</select>
 								</div>
 							</article>
@@ -103,7 +101,77 @@
 							<h4>내 요청 목록</h4>
 						</article>
 						<table class="member" id="table_content">
+							<tr>
+								<th>No.</th>
+								<th>시스템</th>
+								<th>요청 유형</th>
+								<th>요청 제목</th>
+								<th>요청 일자</th>
+								<th>단계</th>
+							</tr>
+
+							<c:forEach var="request" items="${requestList}">
+								<tr onclick="location.href='${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}'" style="cursor: pointer; color: #blue;">
+									<td class="rno">${request.rno}</td>
+									<td class="client">${request.sno}</td>
+									<c:if test="${request.statusNo == 1}">
+										<td class="sysType">
+											<span class="badge badge-warning">미정</span>
+										</td>
+									</c:if>
+									<c:if test="${request.statusNo == 12}">
+										<td class="sysType">
+											<span class="badge badge-warning">반려</span>
+										</td>
+									</c:if>
+									<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
+										<c:if test="${request.reqType eq '정규'}">
+											<td class="sysType">
+												<span class="badge badge-primary">${request.reqType}</span>
+											</td>
+										</c:if>
+										<c:if test="${request.reqType eq '긴급'}">
+											<td class="sysType">
+												<span class="badge badge-danger">${request.reqType}</span>
+											</td>
+										</c:if>
+
+									</c:if>
+									<td class="reqTitle" style="max-width: 200px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
+									<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
+										<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
+									</td>
+									<td class="step_td">
+										<%@ include file="/WEB-INF/views/srm/restatus/stepintable_my.jsp"%>
+									</td>
+								</tr>
+							</c:forEach>
 						</table>
+						<div class="pager default">
+							<div class="pagingButtonSet d-flex justify-content-center">
+								<a onclick="pageChange(1)" type="button" class="btn btn-muted shadow">◀◀</a>
+								<c:if test="${pager.groupNo > 1}">
+									<a onclick="pageChange(${pager.startPageNo-1})" class="btn btn-muted shadow">◀</a>
+
+								</c:if>
+
+								<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
+									<c:if test="${pager.pageNo != i}">
+										<a onclick="pageChange(${i})" type="button" class="btn btn-white shadow">${i}</a>
+									</c:if>
+									<c:if test="${pager.pageNo == i}">
+										<a onclick="pageChange(${i})" type="button" class="btn btn-dark shadow">${i}</a>
+									</c:if>
+								</c:forEach>
+
+								<c:if test="${pager.groupNo < pager.totalGroupNo }">
+									<a onclick="pageChange(${pager.endPageNo+1})" type="button" class="btn btn-muted shadow">▶</a>
+
+								</c:if>
+								<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">▶▶</a>
+							</div>
+						</div>
+
 					</section>
 					</main>
 				</div>
@@ -128,8 +196,9 @@
 
 	<script>
 // 유저 로그인 시, 내 요청 목록 불러오기
+/* 
 	$(document).ready(function () {
-		/* member의 type은 controller에서 넣어줌, 설정 필요 없음  */
+		// member의 type은 controller에서 넣어줌, 설정 필요 없음
 		console.log("유저의 목록 요청 실행");
 		data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1 };	
 		$.ajax({
@@ -141,6 +210,7 @@
 			$('#table_content').html(data);
 		});
 	});
+*/
 
 // 페이지 이동 ajax
 	function pageChange(i){
@@ -171,6 +241,8 @@
 			
 		}).done((data) => {
 			$('#table_content').html(data);
+			const pageDefault = document.querySelector('.default');
+			pageDefault.remove();
 		});
 	}	
 	
@@ -212,7 +284,8 @@
 			
 		}).done((data) => {
 			$('#table_content').html(data);
-			
+			const pageDefault = document.querySelector('.default');
+			pageDefault.remove();
 			
 		});
 	}
