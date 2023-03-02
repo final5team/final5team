@@ -8,7 +8,7 @@
 --color-gray: #75787b; 
 --color-gray-light: #bbb; 
 --color-gray-disabled: #e8e8e8; 
---color-green: #53a318; 
+--color-green: #72B22B;
 --color-green-dark: #383; 
 --font-size-small: .75rem; 
 --font-size-default: .875rem;
@@ -28,13 +28,14 @@ margin: 0 0 1rem 0;
 	padding: 0 0 14px 0;
 	font-size: var(--font-size-default);
 	line-height: 1.5;
-	color: var(--gray-dark);
+	color: var(--color-green);
 	font-weight: 600;
 	white-space: nowrap;
 	overflow: visible;
 	min-width: 0;
 	text-align: center;
 	border-bottom: 2px solid var(--color-gray-disabled);
+	cursor : pointer;
 }
 
 .progress_bar li:first-child, .progress_bar li:last-child {
@@ -87,7 +88,7 @@ margin: 0 0 1rem 0;
 	bottom: -2px;
 	left: -50%;
 	z-index: 2;
-	border-bottom: 2px solid var(--gray-dark);
+	border-bottom: 2px solid var(--color-green);
 }
 
 
@@ -106,13 +107,13 @@ margin: 0 0 1rem 0;
 }
 
 .progress_bar .is_complete:before {
-	background-color: var(--gray-dark);
+	background-color: var(--color-green);
 }
 
 .progress_bar .is_active:before, .pli:hover:before,
 	.progress_bar .is-hovered:before {
 	background-color: var(--color-white);
-	border-color: var(--gray-dark);
+	border-color: var(--color-green);
 }
 
 .progress_bar li:hover:before, .pris-hovered:before {
@@ -148,11 +149,23 @@ margin: 0 0 1rem 0;
 
 
 </style> 
+<script>
+	/* 각각의 페이지 이동시, ajax 로 요청 */
+	function request(i){
+		let rno = i;
+		console.log(i);
+		location.href ="${pageContext.request.contextPath}/customer/requestdetail?rno="+rno;
+	}
+	
+</script>
+
 
 <ol class="progress_bar">
 	<c:if test="${request.statusNo != 12}">
 		<c:if test="${request.reqType == null || request.reqType == '정규'}">
-			<li class="is_complete"><a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}"><span>요청</span></a></li>
+			<li class="is_complete" onclick="request(${request.rno})">
+				<span>요청</span>
+			</li>
 			<li class="<c:if test="${request.statusNo >= 2}">is_complete</c:if>
 						 <c:if test="${request.statusNo == 1}">is_active</c:if>">
 					<a href="${pageContext.request.contextPath}/pm/receiptdetail?rno=${request.rno}">
@@ -174,7 +187,8 @@ margin: 0 0 1rem 0;
 					</span>
 				</a>
 			</li>
-			<li class="<c:if test="${request.statusNo >= 7}">is_complete</c:if><c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>">
+			<li class="<c:if test="${request.statusNo >= 7}">is_complete</c:if>
+						<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>">
 				<a href="${pageContext.request.contextPath}/testerdetail?rno=${request.rno}">
 					<span>
 						<c:if test="${request.statusNo < 5}">테스트</c:if>
