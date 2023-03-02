@@ -118,7 +118,7 @@
 							<c:forEach var="request" items="${requestList}">
 								<tr onclick="location.href='${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}'" style="cursor: pointer; color: #blue;">
 									<td class="rno">${request.rno}</td>
-									<td class="client">${request.sno}</td>
+									<td class="client">${request.systemName}</td>
 									<c:if test="${request.statusNo == 1}">
 										<td class="sysType">
 											<span class="badge badge-warning">미정</span>

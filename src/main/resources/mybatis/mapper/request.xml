@@ -61,6 +61,8 @@
 		from requests r left outer join request_process rp
 		on
 		r.RNO = rp.RNO
+		inner join systems s
+        on r.sno = s.sno
 		order by
 		r.req_date desc
 		)
@@ -156,12 +158,15 @@
 		<![CDATA[
 		select j.RNO, j.REQ_DATE as "reqDate" , j.REQ_TITLE as "reqTitle", j.REQ_CONTENT as "reqContent", 
 		 		j.CLIENT, j.SNO, j.REQ_EXPECT_DATE as "reqExpectDate", j.STATUS_NO as "statusNo",
-		                j.REQ_TYPE as "reqType", j.DEVELOPER, j.TESTER, j.DISTRIBUTOR, j.PM, j.USER_TESTER as "userTester"
+		                j.REQ_TYPE as "reqType", j.DEVELOPER, j.TESTER, j.DISTRIBUTOR, j.PM, j.USER_TESTER as "userTester",
+		                 j.SYSTEM_NAME as "systemName"
 		            from (
 		            select r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT, r.CLIENT, r.SNO, r.REQ_EXPECT_DATE, r.STATUS_NO,
-		                    rp.REQ_TYPE, rp.DEVELOPER, rp.TESTER, rp.DISTRIBUTOR, rp.PM, rp.USER_TESTER
+		                    rp.REQ_TYPE, rp.DEVELOPER, rp.TESTER, rp.DISTRIBUTOR, rp.PM, rp.USER_TESTER, s.SYSTEM_NAME
 		            from requests r left outer join request_process rp
 		            on r.RNO = rp.RNO
+		            inner join systems s
+                    on r.sno = s.sno
 		            
 		    ]]>
 		<where>
@@ -260,6 +265,8 @@
                 r.CLIENT, r.SNO, r.REQ_EXPECT_DATE , r.STATUS_NO, rp.req_type
 			    from requests r left join request_process rp
                 on r.rno = rp.rno
+                inner join systems s
+                on r.sno = s.sno
 		<where>
 			client = #{member.mid}
 
@@ -315,12 +322,15 @@
 		resultType="com.oti.srm.dto.SelectPM">
 		<![CDATA[
 			select RNO, REQ_DATE as "reqDate", REQ_TITLE as "reqTitle", REQ_CONTENT as "reqContent"
-					, CLIENT, SNO, REQ_EXPECT_DATE as "reqExpectDate" , STATUS_NO as "statusNo", t.req_type as "reqType"
+					, CLIENT, SNO, REQ_EXPECT_DATE as "reqExpectDate" , STATUS_NO as "statusNo", t.req_type as "reqType",
+					t.SYSTEM_NAME as "systemName"
 			from(
 			    select r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT,
-                    r.CLIENT, r.SNO, r.REQ_EXPECT_DATE , r.STATUS_NO, rp.req_type 
+                    r.CLIENT, r.SNO, r.REQ_EXPECT_DATE , r.STATUS_NO, rp.req_type ,  s.SYSTEM_NAME
 			    from requests r left join request_process rp
                 on r.rno = rp.rno
+                inner join systems s
+                on r.sno = s.sno
 		]]>
 		<where>
 			client = #{member.mid}

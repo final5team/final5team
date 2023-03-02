@@ -243,6 +243,7 @@ textarea:focus::placeholder {
 							<!-- 여기에 단계 상태 이력 넣기 -->
 							<%@ include file="/WEB-INF/views/srm/request/stepperprogress.jsp"%>
 						</div>
+						
 						<!-- 여기에 단계 상태 이력 넣기 /-->
 						<section>
 							<!-- 개발내역 입력폼 start -->
