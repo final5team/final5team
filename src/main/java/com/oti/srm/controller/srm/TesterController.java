@@ -67,7 +67,6 @@ public class TesterController {
 	 * @param session        HttpSession을 통해 StatusHistory 필드의 writer에 주입
 	 * @return rno에 맞는 view 리턴
 	 */
-	@ResponseBody
 	@PostMapping("/testinprogress")
 	public String switchTestInProgress(StatusHistory statusHistory,
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date testExpectDate, HttpSession session, HttpServletResponse response) {
@@ -81,7 +80,7 @@ public class TesterController {
 		statusHistory.setNextStatus(6);
 		commonService.startWork(statusHistory, testExpectDate, member.getMtype());
 		
-		return "success";
+		return "redirect:/testerdetail?rno=" + statusHistory.getRno();
 		
 	}
 	
