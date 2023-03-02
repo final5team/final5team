@@ -1,6 +1,5 @@
 package com.oti.srm.controller.srm;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,9 +56,6 @@ public class RequestController {
 	@Autowired
 	private IRequestRegisterService requestService;
 
-	@Autowired
-	private PMController pmController;
-	
 	/**
 	 * Kang Ji Seong 유저 등록 페이지 조회
 	 */
@@ -175,6 +171,14 @@ public class RequestController {
 
 		return "srm/request";
 	}
+	
+	@GetMapping("/request2")
+	public String customerRequest2() {
+		
+		
+		return "srm/request/request";
+	}
+	
 
 	
 	/**

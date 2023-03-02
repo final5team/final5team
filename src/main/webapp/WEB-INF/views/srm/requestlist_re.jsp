@@ -35,16 +35,16 @@
 					<section class="filter border-left-dark">
 						<form>
 							<article class="filter-head">
-								<h4>필터</h4>
+								<h4 class="filtering-name">업무 검색</h4>
 							</article>
 
 							<article class="filter-name">
-								<h6>유형 선택</h6>
-								<h6>작성 날짜</h6>
+								<h6>요청 유형</h6>
+								<h6>요청 일자</h6>
 							</article>
 
 							<article class="filter-name2">
-								<h6>단계 선택</h6>
+								<h6>단계</h6>
 
 								<c:if test="${sessionScope.member.mtype == 'pm'}">
 									<h6>시스템</h6>
@@ -59,14 +59,14 @@
 							<article class="filter-body">
 								<div class="input-group">
 									<c:if test="${listFilter.reqType == null}">
-										<select class="custom-select" id="req_type" name="req_type">
+										<select class="custom-select_re" id="req_type" name="req_type">
 											<option value="전체" selected>전체</option>
 											<option value="정규">정규</option>
 											<option value="긴급">긴급</option>
 										</select>
 									</c:if>
 									<c:if test="${listFilter.reqType != null}">
-										<select class="custom-select" id="req_type" name="req_type">
+										<select class="custom-select_re" id="req_type" name="req_type">
 											<option value="${listFilter.reqType}" selected>${listFilter.reqType}</option>
 											<c:if test="${listFilter.reqType != '전체'}">
 												<option value="전체">전체</option>
@@ -82,13 +82,15 @@
 
 								</div>
 								<div class="date_form">
-									<input type="date" id="date_first" name="date_first" style="border: 1px solid #d1d3e2; border-radius: 5px;" value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> <i class="fa fa-minus"></i> <input type="date" id="date_last" name="date_last" style="border: 1px solid #d1d3e2; border-radius: 5px;" value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
+									<input type="date" id="date_first" name="date_first" style="border: 1px solid #d1d3e2; border-radius: 5px;" value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> 
+									<i class="fa fa-minus date_icon"></i> 
+									<input type="date" id="date_last" name="date_last" style="border: 1px solid #d1d3e2; border-radius: 5px;" value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
 								</div>
 							</article>
 							<article class="filter-body2">
 								<div class="input-group">
 									<c:if test="${listFilter.statusValue == null}">
-										<select class="custom-select" id="statusNo" name="statusNo">
+										<select class="custom-select_re" id="statusNo" name="statusNo">
 											<option value="0" selected>전체</option>
 											<option value="1">접수</option>
 											<option value="2">개발</option>
@@ -101,7 +103,7 @@
 									</c:if>
 
 									<c:if test="${listFilter.statusValue != null}">
-										<select class="custom-select" id="statusNo" name="statusNo">
+										<select class="custom-select_re" id="statusNo" name="statusNo">
 											<option value="${listFilter.statusNo}" selected>${listFilter.statusValue}</option>
 											<option value="0">전체</option>
 											<c:if test="${listFilter.statusNo != 1}">
@@ -131,7 +133,7 @@
 								</div>
 								<c:if test="${sessionScope.member.mtype == 'pm'}">
 									<div class="input-group">
-										<select class="custom-select sno" id="sno" name="sno">
+										<select class="custom-select_re sno" id="sno" name="sno">
 											<c:if test="${listFilter.sno == 0}">
 												<option value="0" selected>전체</option>
 												<c:forEach var="system" items="${systemList}">
@@ -230,9 +232,9 @@
 						</table>
 						<div class="pager default">
 							<div class="pagingButtonSet d-flex justify-content-center">
-								<a onclick="pageChange(1)" type="button" class="btn btn-muted shadow">◀◀</a>
+								<a onclick="pageChange(1)" type="button" class="btn btn-muted shadow">처음</a>
 								<c:if test="${pager.groupNo > 1}">
-									<a onclick="pageChange(${pager.startPageNo-1})" class="btn btn-muted shadow">◀</a>
+									<a onclick="pageChange(${pager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
 
 								</c:if>
 
@@ -246,10 +248,10 @@
 								</c:forEach>
 
 								<c:if test="${pager.groupNo < pager.totalGroupNo }">
-									<a onclick="pageChange(${pager.endPageNo+1})" type="button" class="btn btn-muted shadow">▶</a>
+									<a onclick="pageChange(${pager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
 
 								</c:if>
-								<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">▶▶</a>
+								<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
 							</div>
 						</div>
 
@@ -280,7 +282,7 @@
 
 
 
-/* 내 담당 업무 목록 ajax 호출 : 페이지 로딩 */
+// 내 담당 업무 목록 ajax 호출 : 페이지 로딩
 /* 		
 		$(document).ready(function () {
 			//member의 type은 controller에서 넣어줌, 설정 필요 없음
@@ -297,16 +299,19 @@
 		});
  */
  
-/* 내 요청 목록 ajax 호출 : switch */
+// 내 요청 목록 ajax 호출 : switch 
 	function myRequestList(mtype){
 		let memberType = mtype;
-		/* mtype 전달, 페이징 처리 */
+		// mtype 전달, 페이징 처리 
 		if($('#myRequest').is(":checked")){
 			
-			/* h4 태그 글자 바꾸기 */
+			// 테이블 h4 태그 글자 바꾸기 
 			let name = document.getElementsByClassName("table-name")[0];
 			name.innerText='담당 업무 목록';
-			/* console.log("임시, switch 확인용"); */
+			
+			// 검색 h4 태그 글자 바꾸기
+			let filterName = document.getElementsByClassName("filtering-name")[0];
+			filterName.innerText='업무 검색';
 			
 			data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1 };	
 			$.ajax({
@@ -316,15 +321,24 @@
 				contentType: "application/json; charset=UTF-8"
 			}).done((data) => {
 				$('#table_content').html(data);
+				
+				//기존 페이지 태그 삭제하기
 				const pageDefault = document.querySelector('.default');
-				pageDefault.remove();
+				if(pageDefault != null){
+					pageDefault.remove();
+				}
+				
 			});
 			
-			/* 내 요청 목록 호출 */
+			// 내 요청 목록 호출 
 		} else {
-			/* h4 태그 글자 바꾸기 */
+			// h4 태그 글자 바꾸기 
 			let name = document.getElementsByClassName("table-name")[0];
 			name.innerText='내 요청 목록';
+			
+			// 검색 h4 태그 글자 바꾸기
+			let filterName = document.getElementsByClassName("filtering-name")[0];
+			filterName.innerText='요청 검색';
 			
 			/* console.log("내 요청 목록 호출"); */
 			
@@ -458,10 +472,11 @@
 				
 			}).done((data) => {
 				$('#table_content').html(data);
-				let button = document.getElementById("firstbutton");
-				console.log(button);
-				
-				
+				//기존 페이지 태그 삭제하기
+				const pageDefault = document.querySelector('.default');
+				if(pageDefault != null){
+					pageDefault.remove();
+				}
 			});
 		// 내 요청 목록 검색 기능
 		} else {
@@ -473,6 +488,11 @@
 				contentType: "application/json; charset=UTF-8"
 			}).done((data) => {
 				$('#table_content').html(data);
+				//기존 페이지 태그 삭제하기
+				const pageDefault = document.querySelector('.default');
+				if(pageDefault != null){
+					pageDefault.remove();
+				}
 			});
 		}
 	}	
