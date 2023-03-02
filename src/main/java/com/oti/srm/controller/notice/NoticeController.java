@@ -182,12 +182,12 @@ public class NoticeController {
 	}
 	// 공지사항 다운로드
 	@GetMapping("/noticefiledownload")
-	public  ResponseEntity<byte[]> noticeFileDownload(int fno) {
+	public  ResponseEntity<byte[]> noticeFileDownload(int fno) throws Exception{
 		NoticeFile noticeFile = noticeService.downloadNoticeFile(fno);
 		final HttpHeaders headers = new HttpHeaders();
 		String[] mtypes = noticeFile.getFileType().split("/");
 		headers.setContentType(new MediaType(mtypes[0], mtypes[1]));
-		headers.setContentDispositionFormData("attachment", noticeFile.getFileName());
+		headers.setContentDispositionFormData("attachment",new String(noticeFile.getFileName().getBytes("UTF-8"), "ISO-8859-1"));
 		return new ResponseEntity<byte[]>(noticeFile.getFileData(), headers, HttpStatus.OK);
 	}
 	
