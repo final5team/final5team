@@ -80,13 +80,13 @@
 		                	 			</ul>
 									</div>
 									<div class="card-body ">
-										<form role="form" id="writeform" action="${pageContext.request.contextPath}/askreexam" method="POST" enctype="multipart/form-data">
+										<form id="dueDateForm" action="${pageContext.request.contextPath}/testinprogress"  method="POST">
 											<input type="hidden" name="rno" value="${request.rno}" id="rno">
 											<div class="form-group d-flex" id="expectDateForm"> 
 												<div class="label">완료예정일</div>
 												<div class="flex-grow-1">
 													<c:if test="${request.statusNo == 5}">
-													<input type="date" class="date-form control" id="testExpectDate" >
+													<input type="date" class="date-form control" id="testExpectDate" name="testExpectDate" >
 													<div class="btn btn-sm btn-primary"  onclick="checkDate()" id="testStartButton">테스트 시작</div>
 													</c:if>
 													<c:if test="${request.statusNo == 6}">
@@ -95,10 +95,20 @@
 													<small id="noInputDate" style="color : red;"></small>
 												</div>
 											</div>
+										</form>												
+										<form role="form" id="writeform" action="${pageContext.request.contextPath}/testdone" method="POST" enctype="multipart/form-data">
+											<input type="hidden" name="rno" value="${request.rno}" id="rno">
 											<div class="form-group d-flex">
 												<div class="label" id="reply">내용 작성 </div>
-												<textarea rows="3" class="form-control boxed flex-grow-1" name="reply"></textarea>
+												<!-- <textarea rows="3" class="form-control boxed flex-grow-1" name="reply"></textarea> -->
+												<div class="flex-grow-1">
+													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply"></textarea>
+													<div class="d-flex justify-content-end">
+														<small class=" mr-5" id="counter">(0 / 300)</small>
+													</div>
+												</div>
 											</div>
+											
 											<div class="filebox d-flex">
 												<div class="label" id="fileLabel">첨부파일</div>
 												<div class="form-group" id="file-list">
@@ -302,26 +312,8 @@
 		var rno = $('#rno').val();
 		let expectDate = $('#testExpectDate').val();
 		console.log("rno: " + rno);
-		
-		$.ajax({
-			type: "POST",
-			url:"${pageContext.request.contextPath}/testinprogress",
-			data : {
-				testExpectDate : expectDate,
-				rno: rno
-			},
-			error : function(){
-				alart('통신실패');
-			},
-			success : function(result){
-				console.log(result);
-				$('#testStartButton').remove();
-				$('#testExpectDate').prop('readonly', true);
-				$('#completeDueDate').modal('show');
-			}
-			
-		})
-		
+		$("#dueDateForm").submit();
+		$('#completeDueDate').modal('show');
 		
 	}
 	function devEnd(rno){
