@@ -404,10 +404,23 @@
 		FETCH NEXT #{uPager.rowsPerPage} ROWS ONLY
 	</select>
 	
-	<select id="selectRequestReject" resultType="int">
-		select count(*)
-		from requests
-		where status_no = 12
+	<select id="selectTempStatusHistory" parameterType="map" resultType="com.oti.srm.dto.StatusHistory">
+		select 
+		from status_histories
+		where rno = #{statusHistory.rno}
+		and next_status = #{statusHistory.nextStatus}
+		and writer = #{member.mid}
 	</select>
+	
+	<update id="updateStatusHistory" parameterType="com.oti.srm.dto.StatusHistory">
+		update status_histories 
+		set 
+			reply = #{reply},
+			dist_source = #{distSource},
+			change_date = #{changeDate}
+		where rno = #{rno}
+		and next_status = #{nextStatus}
+		and writer = #{writer}
+	</update>
 	
 </mapper>

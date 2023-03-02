@@ -66,6 +66,12 @@ public interface ICommonService {
 
 	public int getUserRequestListCount(String searchStatus, Member member);
 
-	public List<Request> getUserRequestList(String searchStatus, Member member, Pager uPager); 
+	public List<Request> getUserRequestList(String searchStatus, Member member, Pager uPager);
+
+	public StatusHistory getTempStatusHistory(Member member, StatusHistory statusHistory);
+
+	public void writeStatusHistory(StatusHistory statusHistory);
+
+	public void updateStatusHistory(StatusHistory statusHistory); 
 
 }
