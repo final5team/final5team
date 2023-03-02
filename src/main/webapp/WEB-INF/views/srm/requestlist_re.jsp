@@ -35,7 +35,7 @@
 					<section class="filter border-left-dark">
 						<form>
 							<article class="filter-head">
-								<h4>필터</h4>
+								<h4 class="filtering-name">업무 검색</h4>
 							</article>
 
 							<article class="filter-name">
@@ -280,7 +280,7 @@
 
 
 
-/* 내 담당 업무 목록 ajax 호출 : 페이지 로딩 */
+// 내 담당 업무 목록 ajax 호출 : 페이지 로딩
 /* 		
 		$(document).ready(function () {
 			//member의 type은 controller에서 넣어줌, 설정 필요 없음
@@ -297,16 +297,19 @@
 		});
  */
  
-/* 내 요청 목록 ajax 호출 : switch */
+// 내 요청 목록 ajax 호출 : switch 
 	function myRequestList(mtype){
 		let memberType = mtype;
-		/* mtype 전달, 페이징 처리 */
+		// mtype 전달, 페이징 처리 
 		if($('#myRequest').is(":checked")){
 			
-			/* h4 태그 글자 바꾸기 */
+			// 테이블 h4 태그 글자 바꾸기 
 			let name = document.getElementsByClassName("table-name")[0];
 			name.innerText='담당 업무 목록';
-			/* console.log("임시, switch 확인용"); */
+			
+			// 검색 h4 태그 글자 바꾸기
+			let filterName = document.getElementsByClassName("filtering-name")[0];
+			filterName.innerText='업무 검색';
 			
 			data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1 };	
 			$.ajax({
@@ -316,15 +319,24 @@
 				contentType: "application/json; charset=UTF-8"
 			}).done((data) => {
 				$('#table_content').html(data);
+				
+				//기존 페이지 태그 삭제하기
 				const pageDefault = document.querySelector('.default');
-				pageDefault.remove();
+				if(pageDefault != null){
+					pageDefault.remove();
+				}
+				
 			});
 			
-			/* 내 요청 목록 호출 */
+			// 내 요청 목록 호출 
 		} else {
-			/* h4 태그 글자 바꾸기 */
+			// h4 태그 글자 바꾸기 
 			let name = document.getElementsByClassName("table-name")[0];
 			name.innerText='내 요청 목록';
+			
+			// 검색 h4 태그 글자 바꾸기
+			let filterName = document.getElementsByClassName("filtering-name")[0];
+			filterName.innerText='요청 검색';
 			
 			/* console.log("내 요청 목록 호출"); */
 			
