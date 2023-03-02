@@ -82,7 +82,7 @@
 											</div>
 											
 											<div class="filebox d-flex">
-												<div class="label">첨부파일</div>
+												<div class="label" id="fileLable">첨부파일</div>
 												<div class="form-group" id="file-list">
 											        <a href="#this" onclick="addFile()">파일추가</a>
 											        <div class="file-group">
@@ -398,7 +398,7 @@
     function deleteFile(obj) {
         obj.parent().remove();
     }
-	
+	/* 글자수 세기 */
    	$('#reply').keyup(function (e){
    		let content = $(this).val();
    		$('#counter').html("("+content.length+" / 300)");
