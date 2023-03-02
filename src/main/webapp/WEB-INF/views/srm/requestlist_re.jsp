@@ -213,6 +213,7 @@
 // 유저 제외 담당자들의 ajax 호출
 
 
+
 /* 내 담당 업무 목록 ajax 호출 : 페이지 로딩 */
 		$(document).ready(function () {
 			//member의 type은 controller에서 넣어줌, 설정 필요 없음
