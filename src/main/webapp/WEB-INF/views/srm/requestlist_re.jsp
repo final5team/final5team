@@ -183,6 +183,7 @@
 						<!-- ajax 수정 목록 -->
 						<table class="member" id="table_content">
 							
+							
 						</table>
 						
 													
@@ -214,7 +215,7 @@
 
 /* 내 담당 업무 목록 ajax 호출 : 페이지 로딩 */
 		$(document).ready(function () {
-			/* member의 type은 controller에서 넣어줌, 설정 필요 없음  */
+			//member의 type은 controller에서 넣어줌, 설정 필요 없음
 			console.log("바로 실행");
 			data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1 };	
 			$.ajax({

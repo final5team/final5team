@@ -217,13 +217,22 @@ public class RequestController {
 	//(유저) 요청 리스트 초기 조회
 
 	@GetMapping("/userrequestlist")
-	public String myrequestlist (Model model, HttpSession session, ListFilter listFilter) {
+	public String myrequestlist (Model model, HttpSession session) {
 		//시스템
 		List<System> systemList = userRegisterService.getSystemList();
 		model.addAttribute("systemList", systemList);
 		
 		// 유저 정보 전달
 		Member member = (Member) session.getAttribute("member");
+		
+		//초기값
+		ListFilter listFilter = new ListFilter();
+		listFilter.setReqType("전체");
+		listFilter.setDateFirst("");
+		listFilter.setDateLast("");
+		listFilter.setSno(0);
+		listFilter.setStatusNo(0);
+		listFilter.setPageNo(1);
 		
 		ListFilter returnList = requestService.dateFilterList(listFilter);
 		// 보여줄 행 수 조회
