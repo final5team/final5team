@@ -122,5 +122,21 @@ public class DeveloperController {
 		return "redirect:/developerdetail?rno=" + statusHistory.getRno();
 	}
 	
+	@PostMapping("/tempstore")
+	public String tempStore(StatusHistory statusHistory, HttpSession session, Model model) {
+		log.info("실행");
+		Member member = (Member) session.getAttribute("member");
+		statusHistory.setWriter(member.getMid());
+		// 기존 임시 저장글이 있는지 확인
+		StatusHistory tempStatusHistory = commonService.getTempStatusHistory(member, statusHistory);
+		if(tempStatusHistory == null) {
+			// insert
+			commonService.writeStatusHistory(statusHistory);
+		}else {
+			// update
+			commonService.updateStatusHistory(statusHistory);
+		}
+		return "srm/developerdetail2";
+	}
 	
 }

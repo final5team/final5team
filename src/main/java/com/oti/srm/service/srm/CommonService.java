@@ -173,7 +173,7 @@ public class CommonService implements ICommonService {
 		List<StatusHistory> allHistories = commonDao.selectRequestHistories(rno);
 		List<StatusHistory> testerToDevHistories = new ArrayList<>();
 		for (StatusHistory tester : allHistories) {
-			if (tester.getNextStatus() == 3) {
+			if (tester.getNextStatus() == 3 || tester.getNextStatus() == 7) {
 				tester.setFileList(commonDao.selectStatusHistoryFiles(tester.getHno()));
 				testerToDevHistories.add(tester);
 			}
@@ -301,6 +301,23 @@ public class CommonService implements ICommonService {
 	@Override
 	public List<Request> getUserRequestList(String searchStatus, Member member, Pager uPager) {
 		return commonDao.selectUserRequestList(searchStatus, member, uPager);
+	}
+
+	@Override
+	public StatusHistory getTempStatusHistory(Member member, StatusHistory statusHistory) {
+		return commonDao.selectTempStatusHistory(member, statusHistory);
+	}
+
+	@Override
+	public void writeStatusHistory(StatusHistory statusHistory) {
+		commonDao.insertStatusHistory(statusHistory);
+		
+	}
+
+	@Override
+	public void updateStatusHistory(StatusHistory statusHistory) {
+		commonDao.updateStatusHistory(statusHistory);
+		
 	}
 
 	
