@@ -73,6 +73,7 @@ margin: 0 0 1rem 0;
 	transition: opacity .3s ease-in-out;
 }
 
+
 .progress_bar li:not(.is_active) span {
 	opacity: 0;
 }
@@ -88,16 +89,7 @@ margin: 0 0 1rem 0;
 	z-index: 2;
 	border-bottom: 2px solid var(--gray-dark);
 }
-.progress_bar .is_reject:not(:first-child):after{
-	content: "";
-	display: block;
-	width: 100%;
-	position: absolute;
-	bottom: -2px;
-	left: -50%;
-	z-index: 2;
-	border-bottom: 2px solid var(--red);
-}
+
 
 
 .progress_bar li:last-child span {
@@ -112,16 +104,9 @@ margin: 0 0 1rem 0;
 	width: 200%;
 	left: -100%;
 }
-.progress_bar .is_reject:last-child:after{
-	width : 200%;
-	left: -100%;
-}
 
 .progress_bar .is_complete:before {
 	background-color: var(--gray-dark);
-}
-.progress_bar .is_reject:before{
-	background-color : var(--red);
 }
 
 .progress_bar .is_active:before, .pli:hover:before,
@@ -159,6 +144,8 @@ margin: 0 0 1rem 0;
     left: 22px;
     bottom: -20px;
 }
+
+
 
 </style> 
 
@@ -296,7 +283,7 @@ margin: 0 0 1rem 0;
 		</c:if>
 	</c:if>
 	<c:if test="${request.statusNo == 12}">
-		<li class="is_reject">
+		<li class="is_reject_first is_reject">
 			<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 				<span>
 					등록
@@ -310,6 +297,46 @@ margin: 0 0 1rem 0;
 	</c:if>
 </ol>
 
+<style>
+/* 첫번째 요소는 원, not:first-child는 선*/
+/* before 뒤에는 원 스타일 */
+/* after 뒤에는 선 스타일 */
+.progress_bar .is_reject_first span {
+      width: 100%;
+      display: inline-block;
+      position: absolute;
+      left: -30%;
+    }
+.progress_bar .is_reject:not(:first-child):after {
+      content: "";
+      display: block;
+      width: 100%;
+      position: absolute;
+      bottom: -2px;
+      left: -50%;
+      z-index: 3;
+      border-bottom: 2px solid red;
+    }
+.progress_bar .is_reject::before {
+      content: "";
+      display: block;
+      width: 5px;
+      height: 5px;
+      background-color: red;
+      border-radius: 50%;
+      border: 2px solid red;
+      position: absolute;
+      left: calc(50% - 6px);
+      bottom: -5px;
+      z-index: 3;
+      transition: all .2s ease-in-out;
+    }    
+    .progress_bar .is_reject:last-child:after {
+      width: 200%;
+      left: -100%;
+    }
+    
+</style>
 
 
 
