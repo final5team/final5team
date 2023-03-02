@@ -303,6 +303,23 @@ public class CommonService implements ICommonService {
 		return commonDao.selectUserRequestList(searchStatus, member, uPager);
 	}
 
+	@Override
+	public StatusHistory getTempStatusHistory(Member member, StatusHistory statusHistory) {
+		return commonDao.selectTempStatusHistory(member, statusHistory);
+	}
+
+	@Override
+	public void writeStatusHistory(StatusHistory statusHistory) {
+		commonDao.insertStatusHistory(statusHistory);
+		
+	}
+
+	@Override
+	public void updateStatusHistory(StatusHistory statusHistory) {
+		commonDao.updateStatusHistory(statusHistory);
+		
+	}
+
 	
 
 	

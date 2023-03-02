@@ -47,6 +47,9 @@ public interface ICommonDao {
 	// 단계 변경 이력 추가(status_histories 테이블)
 	public int insertStatusHistory(StatusHistory statusHistory);
 	
+	// 단계 변경 이력 수정(status_histories 테이블)
+	public int updateStatusHistory(StatusHistory statusHistory);
+		
 	// 요청의 현재 단계 최신화
 	public void updateRequestStatus(@Param("rno") int rno, @Param("statusNo") int statusNo);
 	
@@ -89,5 +92,7 @@ public interface ICommonDao {
 	public int selectUserRequestListCount(@Param("searchStatus") String searchStatus,@Param("member")  Member member);
 
 	public List<Request> selectUserRequestList(@Param("searchStatus") String searchStatus, @Param("member") Member member, @Param("uPager") Pager uPager);
+
+	public StatusHistory selectTempStatusHistory(@Param("member") Member member, @Param("searchStatus") StatusHistory statusHistory);
 
 }
