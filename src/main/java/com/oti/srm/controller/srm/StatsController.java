@@ -1,12 +1,24 @@
 package com.oti.srm.controller.srm;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.oti.srm.dto.Member;
+import com.oti.srm.dto.Notice;
+import com.oti.srm.dto.Pager;
+import com.oti.srm.service.member.IUserRegisterService;
+import com.oti.srm.service.srm.IRequestRegisterService;
 import com.oti.srm.service.srm.IStatsService;
 
 import lombok.extern.log4j.Log4j2;
@@ -21,6 +33,8 @@ import lombok.extern.log4j.Log4j2;
 public class StatsController {
 	@Autowired
 	IStatsService statsService;
+	@Autowired
+	IUserRegisterService userRegisterService;
 	/**
 	 * 
 	 * @author: KIM JI YOUNG
@@ -29,6 +43,7 @@ public class StatsController {
 	 * @return
 	 */
 	// 통계 페이지
+	@Transactional
 	@RequestMapping("/statistics")
 	public String statistics(HttpSession session, Model model) {
 		// 첫째 줄
@@ -36,12 +51,12 @@ public class StatsController {
 		model.addAttribute("systemSlice", statsService.getSystemSlice());
 		
 		// 전체 완료율 구하기
-		model.addAttribute("comRate", statsService.getComRate());
+		model.addAttribute("comRate", statsService.getComRate(0));
 		// 태스크별 완료율 구하기
 		model.addAttribute("comRateTask", statsService.getComRateTask());
 		
 		// 전체 지연율 구하기
-		model.addAttribute("delRate", statsService.getDelRate());
+		model.addAttribute("delRate", statsService.getDelRate(0));
 		// 태스크별 지연율 구하기
 		model.addAttribute("delRateTask", statsService.getDelRateTask());
 		
@@ -54,8 +69,8 @@ public class StatsController {
 		
 		// 셋째 줄
 		// 서비스 요청 추이
-		// 시스템 이름 구하기
-		model.addAttribute("systemName", statsService.getSystemName());
+		// 시스템 정보 구하기
+		model.addAttribute("systemList", userRegisterService.getSystemList());
 		// 월별 서비스 요청 건수 구하기
 		model.addAttribute("SRChange", statsService.getSRChange());
 		// 월별 서비스  완료 건수 구하기
@@ -63,4 +78,17 @@ public class StatsController {
 				
 		return "srm/stats";
 	}
+	
+	@RequestMapping(value="/comrate/{sno}", method = RequestMethod.GET)
+	public String getComRateSystem(HttpSession session, Model model, @PathVariable int sno) {
+		model.addAttribute("comRate", statsService.getComRate(sno));		
+		return "srm/comrate";
+	}
+	
+	@RequestMapping(value="/delrate/{sno}", method = RequestMethod.GET)
+	public String getDelRateSystem(HttpSession session, Model model, @PathVariable int sno) {
+		model.addAttribute("comRate", statsService.getDelRate(sno));		
+		return "srm/delrate";
+	}
+	
 }
