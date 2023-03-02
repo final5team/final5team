@@ -312,7 +312,7 @@ form {
 								<div class="item">
 									<div class="input-group">
 										<select class="custom-select" id="mtype" name="mtype" onchange="changeUserType()">
-											<option selected>TYPE 선택</option>
+											<option selected>사용자 구분</option>
 											<option value="user">user</option>
 											<option value="pm">pm</option>
 											<option value="developer">developer</option>

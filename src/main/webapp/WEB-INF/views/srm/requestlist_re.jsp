@@ -189,7 +189,6 @@
 								<th>요청 제목</th>
 								<th>요청 일자</th>
 								<th>단계</th>
-
 							</tr>
 
 							<c:forEach var="request" items="${requestList}">
@@ -198,7 +197,7 @@
 									<td class="client">${request.systemName}</td>
 									<c:if test="${request.statusNo == 1}">
 										<td class="sysType">
-											<span class="badge badge-warning">미정</span>
+											<span class="badge badge-warning">대기</span>
 										</td>
 									</c:if>
 									<c:if test="${request.statusNo == 12}">

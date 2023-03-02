@@ -196,10 +196,18 @@ public class RequestController {
 		}
 		int result = requestService.writeRequest(request, fileList);
 		if (result == IRequestRegisterService.REQUEST_SUCCESS) {
-			return "redirect:/customer/requestlist";
+			if(member.getMtype().equals("user")) {
+				return "redirect:/customer/userrequestlist";
+			} else {
+				return "redirect:/customer/requestlist";
+			}
 		} else {
 			model.addAttribute("requestResult", "FAIL");
-			return "redirect:/customer/request";
+			if(member.getMtype().equals("user")) {
+				return "redirect:/customer/userrequestlist";
+			} else {
+				return "redirect:/customer/requestlist";
+			}
 		}
 	}
 	
