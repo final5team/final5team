@@ -38,6 +38,18 @@ main {
 	box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
 }
 
+.custom-select_re {
+	height: 28px;
+	padding: 0px 5px;
+	border: 1px solid #d1d3e2;
+    border-radius: 0.35rem;
+    font-weight: 400;
+    vertical-align: middle;
+    line-height: 1.5;
+    color: #6e707e;
+}	
+
+
 .filter .filter-head {
 	background-color: #f8f9fc;
 	border-bottom: 1px solid #e3e6f0;
@@ -67,52 +79,92 @@ main {
 }
 
 .filter .filter-name2 {
-	width: 100px;
+	width: 600px;
 	height: 100px;
 	position: absolute;
 	margin: 0;
-	left: 42%;
+	left: 23%;
 }
 
 .filter .filter-name2 h6 {
 	font-size: 15px;
+	width : 170px;
 	margin: 20px 10px;
+	display : inline-block;
 }
 
 .filter .filter-body {
-	width: 300px;
-	height: 80px;
+	width: 400px;
+	height: 100px;
 	overflow: hidden;
 	position: absolute;
 	left: 10%;
-	top: 34%;
+	top: 31%;
 	float: left;
 	font-size: 15px;
 }
+.filter .filter-body #req_type{
+	width: 130px;
+	margin: 8px;
+	
+}
 
-.filter .filter-body .input-group {
+
+.filter .filter-body #date_first{
+	width: 100px;
+	margin: 8px;
+}
+.filter .filter-body #date_last{
 	width: 100px;
 	margin: 8px;
 }
 
 .filter .filter-body .date_form {
-	margin: 6px;
+	position: absolute;
+	top : 39%;
+	
+}
+.filter .filter-body #date_first{
+	width : 130px;
+	height : 30px;
+}
+.filter .filter-body #date_last{
+	width : 130px;
+	height : 30px;
+	position : absolute;
+	left : 120%;
+}
+.filter .filter-body .date_icon{
+	position : absolute;
+	left : 105%;
+	top : 38%;
 }
 
+
 .filter .filter-body2 {
-	width: 150px;
+	display : inline-block;
+	width: 400px;
 	height: 80px;
 	overflow: hidden;
 	position: absolute;
-	left: 50%;
-	top: 34%;
+	left: 27%;
+	top: 31%;
 	float: left;
 	font-size: 15px;
 }
-
-.filter .filter-body2 .input-group {
-	width: 100px;
-	margin: 5px;
+.filter .filter-body2 #statusNo {
+	width: 130px;
+	margin: 8px;
+	position : absolute;
+	top : 0%;
+	left : 0%;
+}
+.filter .filter-body2 #sno {
+	width: 130px;
+	margin: 8px;
+	position : absolute;
+	top : 20%;
+	left : 50%;
 }
 
 .table {
@@ -203,8 +255,8 @@ main {
 	position: absolute;
 	width: 50px;
 	height: 50px;
-	left: 63%;
-	top: 60%;
+	left: 87%;
+	top: 80%;
 	z-index: 5;
 }
 
@@ -212,8 +264,8 @@ main {
 	position: absolute;
 	width: 120px;
 	height: 50px;
-	left: 68%;
-	top: 60%;
+	left: 92%;
+	top: 80%;
 	z-index: 5;
 }
 
@@ -231,10 +283,7 @@ main {
 	width: 80px;
 }
 
-.custom-select {
-	height: 28px;
-	padding: 0px 5px;
-}
+
 
 /* switch */
 .switch_div{

@@ -39,12 +39,12 @@
 							</article>
 
 							<article class="filter-name">
-								<h6>유형 선택</h6>
-								<h6>작성 날짜</h6>
+								<h6>요청 유형</h6>
+								<h6>요청 일자</h6>
 							</article>
 
 							<article class="filter-name2">
-								<h6>단계 선택</h6>
+								<h6>단계</h6>
 
 								<c:if test="${sessionScope.member.mtype == 'pm'}">
 									<h6>시스템</h6>
@@ -59,14 +59,14 @@
 							<article class="filter-body">
 								<div class="input-group">
 									<c:if test="${listFilter.reqType == null}">
-										<select class="custom-select" id="req_type" name="req_type">
+										<select class="custom-select_re" id="req_type" name="req_type">
 											<option value="전체" selected>전체</option>
 											<option value="정규">정규</option>
 											<option value="긴급">긴급</option>
 										</select>
 									</c:if>
 									<c:if test="${listFilter.reqType != null}">
-										<select class="custom-select" id="req_type" name="req_type">
+										<select class="custom-select_re" id="req_type" name="req_type">
 											<option value="${listFilter.reqType}" selected>${listFilter.reqType}</option>
 											<c:if test="${listFilter.reqType != '전체'}">
 												<option value="전체">전체</option>
@@ -82,13 +82,15 @@
 
 								</div>
 								<div class="date_form">
-									<input type="date" id="date_first" name="date_first" style="border: 1px solid #d1d3e2; border-radius: 5px;" value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> <i class="fa fa-minus"></i> <input type="date" id="date_last" name="date_last" style="border: 1px solid #d1d3e2; border-radius: 5px;" value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
+									<input type="date" id="date_first" name="date_first" style="border: 1px solid #d1d3e2; border-radius: 5px;" value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> 
+									<i class="fa fa-minus date_icon"></i> 
+									<input type="date" id="date_last" name="date_last" style="border: 1px solid #d1d3e2; border-radius: 5px;" value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
 								</div>
 							</article>
 							<article class="filter-body2">
 								<div class="input-group">
 									<c:if test="${listFilter.statusValue == null}">
-										<select class="custom-select" id="statusNo" name="statusNo">
+										<select class="custom-select_re" id="statusNo" name="statusNo">
 											<option value="0" selected>전체</option>
 											<option value="1">접수</option>
 											<option value="2">개발</option>
@@ -101,7 +103,7 @@
 									</c:if>
 
 									<c:if test="${listFilter.statusValue != null}">
-										<select class="custom-select" id="statusNo" name="statusNo">
+										<select class="custom-select_re" id="statusNo" name="statusNo">
 											<option value="${listFilter.statusNo}" selected>${listFilter.statusValue}</option>
 											<option value="0">전체</option>
 											<c:if test="${listFilter.statusNo != 1}">
@@ -131,7 +133,7 @@
 								</div>
 								<c:if test="${sessionScope.member.mtype == 'pm'}">
 									<div class="input-group">
-										<select class="custom-select sno" id="sno" name="sno">
+										<select class="custom-select_re sno" id="sno" name="sno">
 											<c:if test="${listFilter.sno == 0}">
 												<option value="0" selected>전체</option>
 												<c:forEach var="system" items="${systemList}">
@@ -230,9 +232,9 @@
 						</table>
 						<div class="pager default">
 							<div class="pagingButtonSet d-flex justify-content-center">
-								<a onclick="pageChange(1)" type="button" class="btn btn-muted shadow">◀◀</a>
+								<a onclick="pageChange(1)" type="button" class="btn btn-muted shadow">처음</a>
 								<c:if test="${pager.groupNo > 1}">
-									<a onclick="pageChange(${pager.startPageNo-1})" class="btn btn-muted shadow">◀</a>
+									<a onclick="pageChange(${pager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
 
 								</c:if>
 
@@ -246,10 +248,10 @@
 								</c:forEach>
 
 								<c:if test="${pager.groupNo < pager.totalGroupNo }">
-									<a onclick="pageChange(${pager.endPageNo+1})" type="button" class="btn btn-muted shadow">▶</a>
+									<a onclick="pageChange(${pager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
 
 								</c:if>
-								<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">▶▶</a>
+								<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
 							</div>
 						</div>
 

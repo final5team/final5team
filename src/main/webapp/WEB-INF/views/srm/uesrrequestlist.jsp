@@ -8,7 +8,16 @@
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
 <link href="${pageContext.request.contextPath}/resources/css/listcss/myrequestlistcss.css" rel="stylesheet">
 
+
+
 </head>
+<style>
+	.custom-select{
+		flex: none;
+
+	}
+
+</style>
 
 <body id="page-top">
 
@@ -55,19 +64,21 @@
 							</article>
 							<article class="filter-body">
 								<div class="input-group">
-									<select class="custom-select" id="req_type" name="req_type">
+									<select class="custom-select_re" id="req_type" name="req_type">
 										<option value="전체" selected>전체</option>
 										<option value="정규">정규</option>
 										<option value="긴급">긴급</option>
 									</select>
 								</div>
 								<div class="date_form">
-									<input type="date" id="date_first" name="date_first" style="border: 1px solid #d1d3e2; border-radius: 5px;"> <i class="fa fa-minus"></i> <input type="date" id="date_last" name="date_last" style="border: 1px solid #d1d3e2; border-radius: 5px;">
+									<input type="date" id="date_first" name="date_first" style="border: 1px solid #d1d3e2; border-radius: 5px;"> 
+									<i class="fa fa-minus date_icon"></i> 
+									<input type="date" id="date_last" name="date_last" style="border: 1px solid #d1d3e2; border-radius: 5px;">
 								</div>
 							</article>
 							<article class="filter-body2">
 								<div class="input-group">
-									<select class="custom-select" id="statusNo" name="statusNo">
+									<select class="custom-select_re" id="statusNo" name="statusNo">
 										<option value="0" selected>전체</option>
 										<!-- 진행중 단계에 접수, 개발, 테스트, 배포 모두 포함 -->
 										<option value="2">진행중</option>
@@ -76,7 +87,7 @@
 									</select>
 								</div>
 								<div class="input-group">
-									<select class="custom-select" id="sno" name="sno">
+									<select class="custom-select_re" id="sno" name="sno">
 										<c:if test="${listFilter.sno == 0}">
 											<option value="0" selected>전체</option>
 											<c:forEach var="system" items="${systemList}">
@@ -149,9 +160,9 @@
 						</table>
 						<div class="pager default">
 							<div class="pagingButtonSet d-flex justify-content-center">
-								<a onclick="pageChange(1)" type="button" class="btn btn-muted shadow">◀◀</a>
+								<a onclick="pageChange(1)" type="button" class="btn btn-muted shadow">처음</a>
 								<c:if test="${pager.groupNo > 1}">
-									<a onclick="pageChange(${pager.startPageNo-1})" class="btn btn-muted shadow">◀</a>
+									<a onclick="pageChange(${pager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
 
 								</c:if>
 
@@ -165,10 +176,10 @@
 								</c:forEach>
 
 								<c:if test="${pager.groupNo < pager.totalGroupNo }">
-									<a onclick="pageChange(${pager.endPageNo+1})" type="button" class="btn btn-muted shadow">▶</a>
+									<a onclick="pageChange(${pager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
 
 								</c:if>
-								<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">▶▶</a>
+								<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
 							</div>
 						</div>
 
