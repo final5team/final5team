@@ -173,7 +173,7 @@ public class CommonService implements ICommonService {
 		List<StatusHistory> allHistories = commonDao.selectRequestHistories(rno);
 		List<StatusHistory> testerToDevHistories = new ArrayList<>();
 		for (StatusHistory tester : allHistories) {
-			if (tester.getNextStatus() == 3) {
+			if (tester.getNextStatus() == 3 || tester.getNextStatus() == 7) {
 				tester.setFileList(commonDao.selectStatusHistoryFiles(tester.getHno()));
 				testerToDevHistories.add(tester);
 			}
