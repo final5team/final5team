@@ -13,21 +13,35 @@
 		from STATUS_HISTORIES
 		where To_CHAR(CHANGE_DATE, 'YYYYMM') = #{month}
 		and NEXT_STATUS <![CDATA[>=]]>12
+		and NEXT_STATUS <![CDATA[<=]]>13
 	</select>
 	
-	<select id="selectAllReq" resultType="int">
+	<select id="selectAllReq" parameterType="int" resultType="int">
 		select count(*) as cnt
 		from REQUESTS
+		<where>
+			<if test="sno == 0"></if>
+			<if test="sno != 0">
+				sno=#{sno}
+			</if>		
+		</where>
 	</select>
-	<select id="selectComReq" resultType="int">
+	<select id="selectComReq" parameterType="int" resultType="int">
 		select count(*) as cnt
 		from REQUESTS
-		where STATUS_NO <![CDATA[>=]]>12
+		<where>
+			(STATUS_NO =12 
+			or STATUS_NO =13) 
+			<if test="sno == 0"></if>
+			<if test="sno != 0">
+				and sno=#{sno}
+			</if>		
+		</where>
 	</select>
 	<select id="selectComReqD" resultType="int">
 		select count(*) as cnt
 		from REQUESTS
-		where STATUS_NO <![CDATA[=]]>11
+		where STATUS_NO = 11
 	</select>
 	<select id="selectComReqTask" parameterType="int" resultType="int">
 		select count(*) as cnt
@@ -47,10 +61,16 @@
 			</if>
 		</where> 
 	</select>
-	<select id="selectDelReq" resultType="int">
+	<select id="selectDelReq" parameterType="int" resultType="int">
 		select count(*) as cnt
-		from REQUEST_PROCESS
-		where ALL_EXPECT_DATE <![CDATA[<]]> ALL_COMP_DATE
+		from REQUEST_PROCESS		
+		<where>
+			ALL_EXPECT_DATE <![CDATA[<]]> ALL_COMP_DATE
+			<if test="sno == 0"></if>
+			<if test="sno != 0">
+				and sno=#{sno}
+			</if>		
+		</where>
 	</select>
 	<select id="selectDelReqTask" parameterType="int" resultType="int">
 		select count(*) as cnt
@@ -121,11 +141,5 @@
 			where c.sno(+)=s.sno
 		]]>
 	</select>
-	<select id="selectSystemName" resultType="String">		
-		select SYSTEM_NAME as systemName
-		from systems s
-		order by sno		
-	</select>
-	
 	
 </mapper>

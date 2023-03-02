@@ -21,11 +21,11 @@ public interface IStatsDao {
 	public List<System> selectSystemSlice();
 	
 	// 전체 서비스 요청 건수 구하기
-	public int selectAllReq();
+	public int selectAllReq(int sno);
 	// 전체 완료 건수 구하기
-	public int selectComReq();	
+	public int selectComReq(int sno);	
 	// 전체 지연 건수 구하기
-	public int selectDelReq();
+	public int selectDelReq(int sno);
 	// 태스크별 지연 건수 구하기
 	public int selectDelReqTask(int mtype);
 	// 태스크 별 완료 건수 구하기
@@ -43,8 +43,7 @@ public interface IStatsDao {
 	public int selectSRChange(@Param("month")String month, @Param("sno")int sno);
 	// 서비스 요청 추이 월별 완료 건수 구하기
 	public int selectSRComChange(String month);
-	// 시스템 이름 구하기
-	public List<String> selectSystemName();
+
 	
 
 	
