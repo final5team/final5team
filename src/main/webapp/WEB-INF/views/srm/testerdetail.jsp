@@ -65,7 +65,7 @@
                 	 	</div>	<!-- 여기에 단계 상태 이력 넣기 /-->
 						
 						<section>	<!-- 테스터의 재검토 요청 글 작성 start-->
-							<c:if test="${member.mtype =='tester' && (request.statusNo == 6 || request.statusNo == 5)}">
+							<c:if test="${member.mid == requestProcess.tester && (request.statusNo == 6 || request.statusNo == 5)}">
 							<div class="card border-top-dark my-3" id="reDevelopRequestWrite">
 								<div class="card-block">
 									<div class="d-flex">
@@ -131,10 +131,10 @@
 							</c:if>
 						</section>   <!-- 테스터의 재검토 요청 글 작성  end-->
 						
-						<c:if test="${testerToDev != null && request.statusNo == 6}">
+						<c:if test="${testerToDev != null}">
 						<div class="d-flex justify-content-center mt-4"> <!-- 히스토리 버튼 start -->
                	 			<div class="btn btn-primary-outline history-button" onclick="openHistories()">
-               	 				테스트 히스토리 보기  <i class="fas fa-history"></i>
+               	 				테스트 히스토리 보기  <i class="fas fa-history text-info"></i>
                	 			</div>
                	 		</div> <!-- 히스토리 버튼 end -->
 						</c:if>
