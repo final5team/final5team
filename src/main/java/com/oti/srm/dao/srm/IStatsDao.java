@@ -36,6 +36,8 @@ public interface IStatsDao {
 	public int selectOnReqTask(int mtype);
 	// 접수 건수 구하기
 	public int selectRequestRecentPM();
+	// 완료 승인 대기 건수 구하기
+	public int selectComReqD();
 	
 	// 서비스 요청 추이 월별 요청 건수 구하기
 	public int selectSRChange(@Param("month")String month, @Param("sno")int sno);
@@ -43,6 +45,7 @@ public interface IStatsDao {
 	public int selectSRComChange(String month);
 	// 시스템 이름 구하기
 	public List<String> selectSystemName();
+	
 
 	
 	
