@@ -10,6 +10,17 @@
     <link href="${pageContext.request.contextPath}/resources/css/stepperprogress.css" rel="stylesheet">
 
 	<style>
+	span::after {
+	  padding-left: 5px;
+	}
+	
+	input:invalid + span::after {
+	  content: "✖";
+	}
+	
+	input:valid + span::after {
+	  content: "✓";
+	}
     </style>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -173,15 +184,17 @@
 									<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data">
 										<div class="row col-sm-12 form-group">
 											<div class="col">
-												<label class="control-label">요청 유형</label>
-												<select class="dropdown-toggle ml-4" data-toggle="dropdown" name="reqType" id="reqType" style="width: 200px" onchange="rtype()">															
+												<label class="control-label">*요청 유형</label>
+												<select class="dropdown-toggle ml-4" data-toggle="dropdown" name="reqType" id="reqType" style="width: 200px" onchange="rtype()" required>															
+													<option value="" class="text-center">요청 유형</option>
 													<option value="정규" class="text-center">정규</option>
 												    <option value="긴급" class="text-center">긴급</option>																																																						
 												</select>																								
 											</div>
 											<div class="col">
-												<label class="control-label">중요도</label>
-												<select class="dropdown-toggle ml-5" data-toggle="dropdown" name="priority" style="width: 200px">															
+												<label class="control-label">*중요도</label>
+												<select class="dropdown-toggle ml-5" data-toggle="dropdown" name="priority" style="width: 200px" required>															
+													<option value="" class="text-center">중요도</option>
 													<option value="상" class="text-center">상 (★★★)</option>
 													<option value="중" class="text-center">중 (★★)</option>
 													<option value="하" class="text-center">하 (★)</option>															    																																																						
@@ -189,38 +202,42 @@
 											</div>												
 										</div>
 										<div class="col-sm-12 form-group row">
-											<label class="control-label col-lg-6" >완료예정일</label>
-											<input type="date" class="form-control col" name="allExpectDate" id="allExpectDate" required pattern="\d{4}-\d{2}-\d{2}">
-											<span class="validity"></span>
+											<label class="control-label col-lg-4" >*완료예정일 </label>
+											<input type="date" class="form-control col-lg-6" name="allExpectDate" id="allExpectDate" required pattern="\d{4}-\d{2}-\d{2}">
+											<span class="validity m-2"></span>
 										</div>
 										
 										<div class="col-sm-12 form-group row">
-											<label class="control-label col-lg-6">개발 담당자 선택</label>
-											<select class="dropdown-toggle col" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer">
+											<label class="control-label col-lg-4">*개발 담당자 선택</label>
+											<select class="dropdown-toggle col-lg-7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer" required>
+												<option value="">개발 담당자 선택 | 현재담당건수 </option>		
 												<c:forEach var="staff" items="${devStaffList}">
 													<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 												</c:forEach>															
 											</select>
 										</div>
 										<div class="col-sm-12 form-group row">
-											<label class="control-label col-lg-6">테스트 담당자 선택</label>
-											<select class="dropdown-toggle col" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester">
+											<label class="control-label col-lg-4">*테스트 담당자 선택</label>
+											<select class="dropdown-toggle col-lg-7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester" requried>
+												<option value="">테스트 담당자 선택 | 현재담당건수 </option>	
 												<c:forEach var="staff" items="${tesStaffList}">
 													<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 												</c:forEach>
 											</select>
 										</div>
 										<div class="col-sm-12 form-group row" id="utester">
-											<label class="control-label col-lg-6">유저테스트 담당자 선택</label>
-											<select class="dropdown-toggle col" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
+											<label class="control-label col-lg-4">*품질 검토 담당자 선택</label>
+											<select class="dropdown-toggle col-lg-7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
+												<option value="">품질 검토 담당자 선택 | 현재담당건수 </option>	
 												<c:forEach var="staff" items="${uteStaffList}">
 													<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 												</c:forEach>
 											</select>
 										</div>
 										<div class="col-sm-12 form-group row">
-											<label class="control-label col-lg-6">배포 담당자 선택</label>
-											<select class="dropdown-toggle col" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor">
+											<label class="control-label col-lg-4">*배포 담당자 선택</label>
+											<select class="dropdown-toggle col-lg-7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor" required>
+												<option value="">배포 담당자 선택 | 현재담당건수 </option>	
 												<c:forEach var="staff" items="${disStaffList}">
 													<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 												</c:forEach>
@@ -228,7 +245,7 @@
 										</div>
 									
 										<div class="col-sm-12 form-group">
-											<label class="control-label">의견 내용</label>
+											<label class="control-label">*의견 내용</label>
 											<textarea rows="2" class="form-control boxed" name="reply" style="padding: 0px" required></textarea>
 										</div>											
 										<div class="col-sm-12 form-group filebox">
