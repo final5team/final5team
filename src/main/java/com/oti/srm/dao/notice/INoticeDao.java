@@ -13,9 +13,9 @@ import com.oti.srm.dto.System;
 @Mapper
 // 공지사항 관련 dao 메소드
 public interface INoticeDao {
-	public List<Notice> selectNoticeList(@Param("searchType") String searchType, @Param("searchWord") String searchWord, @Param("mtype") String mtype, @Param("sno") int sno, @Param("pager") Pager pager);
+	public List<Notice> selectNoticeList(@Param("searchType") String searchType, @Param("searchWord") String searchWord, @Param("mtype") String mtype, @Param("pager") Pager pager);
 	
-	public int selectNoticeListCount(@Param("searchType") String searchType, @Param("searchWord") String searchWord, @Param("mtype") String mtype, @Param("sno") int sno);
+	public int selectNoticeListCount(@Param("searchType") String searchType, @Param("searchWord") String searchWord, @Param("mtype") String mtype);
 	
 	public Notice selectNotice(int nno);
 	

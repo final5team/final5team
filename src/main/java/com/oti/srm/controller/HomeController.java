@@ -67,9 +67,9 @@ public class HomeController {
 		//공지사항
 		String searchWord = "";
 		String searchType = "";
-		int noticeTotalRows = noticeService.getNoticeListCount(searchType, searchWord, member.getMtype(), member.getSno());
+		int noticeTotalRows = noticeService.getNoticeListCount(searchType, searchWord, member.getMtype());
 		Pager nPager = new Pager(7,5,noticeTotalRows,noticePageNo);
-		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), nPager, member.getSno());
+		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), nPager);
 		
 		log.info("requestProcessTotalRows" + requestProcessTotalRows);
 		//모달에 담기
@@ -108,9 +108,9 @@ public class HomeController {
 		//공지사항
 		String searchWord = "";
 		String searchType = "";
-		int noticeTotalRows = noticeService.getNoticeListCount(searchType, searchWord, member.getMtype(), member.getSno());
+		int noticeTotalRows = noticeService.getNoticeListCount(searchType, searchWord, member.getMtype());
 		Pager nPager = new Pager(7,5,noticeTotalRows,noticePageNo);
-		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), nPager, member.getSno());
+		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), nPager);
 		//모달에 담기
 		model.addAttribute("searchStatus", searchStatus);
 		model.addAttribute("userRequestStatusCount" , userRequestStatusCount);
@@ -136,9 +136,9 @@ public class HomeController {
 		//공지사항
 		String searchWord = "";
 		String searchType = "";
-		int noticeTotalRows = noticeService.getNoticeListCount(searchType, searchWord, member.getMtype(), member.getSno());
+		int noticeTotalRows = noticeService.getNoticeListCount(searchType, searchWord, member.getMtype());
 		Pager nPager = new Pager(7,5,noticeTotalRows,noticePageNo);
-		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), nPager, member.getSno());
+		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), nPager);
 		//모달에 담기
 		model.addAttribute("workingStatus", workingStatus);
 		model.addAttribute("dPager", dPager);
@@ -202,26 +202,21 @@ public class HomeController {
 		//공지사항
 		String searchWord = "";
 		String searchType = "";
-		int noticeTotalRows = noticeService.getNoticeListCount(searchType, searchWord, member.getMtype(), member.getSno());
+		int noticeTotalRows = noticeService.getNoticeListCount(searchType, searchWord, member.getMtype());
 		Pager nPager = new Pager(7,5,noticeTotalRows,noticePageNo);
-		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), nPager, member.getSno());
+		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), nPager);
 		model.addAttribute("nPager",nPager);
 		model.addAttribute("noticeList",noticeList);
 		return "srm/mainNoticeList";
 	}
 	
-	
-	
-	
 	@RequestMapping("/filedouwnload/{fno}")
 	public ResponseEntity<byte[]> getFile(@PathVariable int fno) throws Exception {
 		StatusHistoryFile file = commonService.getFile(fno);
-		
 		final HttpHeaders headers = new HttpHeaders();
 		String[] mtypes = file.getFileType().split("/");
 		headers.setContentType(new MediaType(mtypes[0], mtypes[1]));
 		headers.setContentDispositionFormData("attachment",new String(file.getFileName().getBytes("UTF-8"), "ISO-8859-1"));
-	
 		return new ResponseEntity<byte[]>(file.getFileData(), headers, HttpStatus.OK);
 	}
 }
