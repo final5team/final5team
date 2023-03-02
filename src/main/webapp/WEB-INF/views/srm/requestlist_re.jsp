@@ -136,7 +136,7 @@
 									<div class="input-group">
 										<select class="custom-select" id="sno" name="sno">
 											<c:if test="${listFilter.sno == 0}">
-												<option value="0" selected>시스템</option>
+												<option value="0" selected>전체</option>
 												<c:forEach var="system" items="${systemList}">
 													<option value="${system.sno}">${system.systemName}</option>
 												</c:forEach>
@@ -183,6 +183,7 @@
 						<!-- ajax 수정 목록 -->
 						<table class="member" id="table_content">
 							
+							
 						</table>
 						
 													
@@ -212,9 +213,10 @@
 // 유저 제외 담당자들의 ajax 호출
 
 
+
 /* 내 담당 업무 목록 ajax 호출 : 페이지 로딩 */
 		$(document).ready(function () {
-			/* member의 type은 controller에서 넣어줌, 설정 필요 없음  */
+			//member의 type은 controller에서 넣어줌, 설정 필요 없음
 			console.log("바로 실행");
 			data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1 };	
 			$.ajax({
