@@ -17,13 +17,21 @@ a {
 .card-block {
 	height : 600px;
 }
-
+.card-body .label {
+	position: absolute;
+	width: 110px;
+	left: 2%;
+	top: 15%;
+	overflow: hidden;
+	text-align: center;
+	margin-bottom: 24px;
+}
 
 .card-body h6 {
 	margin-top: 3px;
 	margin-bottom: 24px;
-	font-size: 15px;
-	font: bold;
+	font-weight: 600;
+    font-size: 1.0rem;
 }
 
 .card-body .inputData {
@@ -39,10 +47,10 @@ a {
 .card-body .label2 {
 	position: absolute;
 	width: 110px;
-	left: 45%;
+	left: 60%;
 	top: 15%;
 	overflow: hidden;
-	text-align: start;
+	text-align: center;
 	margin-bottom: 24px;
 }
 
@@ -50,7 +58,7 @@ a {
 	position: absolute;
 	width: 250px;
 	height: 130px;
-	left: 55%;
+	left: 68%;
 	top: 15%;
 	overflow: hidden;
 	text-align: start;
