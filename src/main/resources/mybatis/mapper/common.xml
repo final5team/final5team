@@ -404,4 +404,10 @@
 		FETCH NEXT #{uPager.rowsPerPage} ROWS ONLY
 	</select>
 	
+	<select id="selectRequestReject" resultType="int">
+		select count(*)
+		from requests
+		where status_no = 12
+	</select>
+	
 </mapper>
