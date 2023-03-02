@@ -1,12 +1,15 @@
 package com.oti.srm.controller.srm;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.oti.srm.dto.Member;
@@ -63,16 +67,22 @@ public class TesterController {
 	 * @param session        HttpSession을 통해 StatusHistory 필드의 writer에 주입
 	 * @return rno에 맞는 view 리턴
 	 */
+	@ResponseBody
 	@PostMapping("/testinprogress")
 	public String switchTestInProgress(StatusHistory statusHistory,
-			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date testExpectDate, HttpSession session) {
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date testExpectDate, HttpSession session, HttpServletResponse response) {
+		
 		log.info(testExpectDate);
+		//세션에 저장된 멤버 객체 갖고오기
 		Member member = (Member) session.getAttribute("member");
+		
+		//StatusHistory 객체에 member에 대한 정보 담기, nextStatus 상태 전환
 		statusHistory.setWriter(member.getMid());
 		statusHistory.setNextStatus(6);
 		commonService.startWork(statusHistory, testExpectDate, member.getMtype());
-
-		return "redirect:/testerdetail?rno=" + statusHistory.getRno();
+		
+		return "success";
+		
 	}
 	
 	
@@ -85,6 +95,7 @@ public class TesterController {
 	 */
 	@PostMapping("/askreexam")
 	public String switchReexam(StatusHistory statusHistory, MultipartFile[] files, HttpSession session) {
+		log.info("실행");
 		Member member = (Member) session.getAttribute("member");
 		statusHistory.setWriter(member.getMid());
 		statusHistory.setNextStatus(3);
@@ -116,17 +127,34 @@ public class TesterController {
 	 * @param session StatusHistory 객체의 writer, mtype 주입
 	 * @return testerdetail으로 리턴
 	 */
-	@GetMapping("/testdone")
-	public String switchTestDone(int rno, HttpSession session) {
+	@PostMapping("/testdone")
+	public String switchTestDone(StatusHistory statusHistory, MultipartFile[] files, HttpSession session) {
+		log.info("실행");
 		Member member = (Member)session.getAttribute("member");
-		StatusHistory statusHistory = new StatusHistory();
-		statusHistory.setNextStatus(7);
-		statusHistory.setRno(rno);
-		statusHistory.setNextStatus(7);
-		statusHistory.setWriter(member.getMid());
-		commonService.endWork(statusHistory, member.getMtype());
 		
+		statusHistory.setWriter(member.getMid());
+		statusHistory.setNextStatus(7);
+		List<StatusHistoryFile> sFiles = new ArrayList<StatusHistoryFile>();
+
+		try {
+			if (files != null) {
+				for (MultipartFile file : files) {
+					if (!file.isEmpty()) {
+						StatusHistoryFile shf = new StatusHistoryFile();
+						shf.setFileData(file.getBytes());
+						shf.setFileName(file.getOriginalFilename());
+						shf.setFileType(file.getContentType());
+						sFiles.add(shf);
+					}
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		statusHistory.setFileList(sFiles);
+		commonService.endWork(statusHistory, member.getMtype());
 		return "redirect:/testerdetail?rno=" + statusHistory.getRno();
+		
 	}
 
 }
