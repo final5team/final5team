@@ -11,8 +11,6 @@ public class Notice {
 	private String noticeContent;
 	private Date noticeDate;
 	private String mid;
-	private int sno;
-	private String systemName;
 	private String userShow;
 	private String devShow;
 	private String testerShow;
