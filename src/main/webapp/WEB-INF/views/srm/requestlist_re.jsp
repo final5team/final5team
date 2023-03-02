@@ -82,10 +82,7 @@
 
 								</div>
 								<div class="date_form">
-									<input type="date" id="date_first" name="date_first" style="border: 1px solid #d1d3e2; border-radius: 5px;" 
-									value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> <i class="fa fa-minus"></i> 
-									<input type="date" id="date_last" name="date_last" style="border: 1px solid #d1d3e2; border-radius: 5px;"  
-									value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
+									<input type="date" id="date_first" name="date_first" style="border: 1px solid #d1d3e2; border-radius: 5px;" value="<fmt:formatDate value="${listFilter.date_first}" pattern="yyyy-MM-dd" />"> <i class="fa fa-minus"></i> <input type="date" id="date_last" name="date_last" style="border: 1px solid #d1d3e2; border-radius: 5px;" value="<fmt:formatDate value="${listFilter.date_last}" pattern="yyyy-MM-dd" />">
 								</div>
 							</article>
 							<article class="filter-body2">
@@ -134,7 +131,7 @@
 								</div>
 								<c:if test="${sessionScope.member.mtype == 'pm'}">
 									<div class="input-group">
-										<select class="custom-select" id="sno" name="sno">
+										<select class="custom-select sno" id="sno" name="sno">
 											<c:if test="${listFilter.sno == 0}">
 												<option value="0" selected>전체</option>
 												<c:forEach var="system" items="${systemList}">
@@ -152,6 +149,9 @@
 										</select>
 									</div>
 								</c:if>
+								<c:if test="${sessionScope.member.mtype != 'pm'}">
+									<input type="hidden" class="sno" value="${sessionScope.member.sno}"> 
+								</c:if>
 							</article>
 
 
@@ -160,20 +160,18 @@
 						</form>
 					</section>
 					<section class="table border-left-dark">
-						
+
 						<!-- 유저가 아닌 경우, 요청 목록과 업무 목록 스위치 -->
 						<c:if test="${sessionScope.member.mtype != 'user'}">
 							<article class="table-header">
 								<h4 class="table-name">담당 업무 목록</h4>
 								<div class="switch_div">
-										<label class="switch">
-										  <input type="checkbox" checked onclick="myRequestList(`${sessionScope.member.mtype}`)" id ="myRequest" />
-										  <span class="slider round"></span>
-										</label>
-									</div>
+									<label class="switch"> <input type="checkbox" checked onclick="myRequestList(`${sessionScope.member.mtype}`)" id="myRequest" /> <span class="slider round"></span>
+									</label>
+								</div>
 							</article>
 						</c:if>
-						
+
 						<!-- 유저인 경우, 내 요청 목록만 출력 -->
 						<c:if test="${sessionScope.member.mtype == 'user'}">
 							<article class="table-header">
@@ -182,15 +180,83 @@
 						</c:if>
 						<!-- ajax 수정 목록 -->
 						<table class="member" id="table_content">
-							
-							
+							<tr>
+								<th>No.</th>
+								<th>시스템</th>
+								<th>요청 유형</th>
+								<th>요청 제목</th>
+								<th>요청 일자</th>
+								<th>단계</th>
+
+							</tr>
+
+							<c:forEach var="request" items="${requestList}">
+								<tr>
+									<td class="rno">${request.rno}</td>
+									<td class="client">${request.sno}</td>
+									<c:if test="${request.statusNo == 1}">
+										<td class="sysType">
+											<span class="badge badge-warning">미정</span>
+										</td>
+									</c:if>
+									<c:if test="${request.statusNo == 12}">
+										<td class="sysType">
+											<span class="badge badge-warning">반려</span>
+										</td>
+									</c:if>
+									<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
+										<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
+											<c:if test="${request.reqType eq '정규'}">
+												<td class="sysType">
+													<span class="badge badge-primary">${request.reqType}</span>
+												</td>
+											</c:if>
+											<c:if test="${request.reqType eq '긴급'}">
+												<td class="sysType">
+													<span class="badge badge-danger">${request.reqType}</span>
+												</td>
+											</c:if>
+										</c:if>
+									</c:if>
+									<td class="reqTitle" style="max-width: 200px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
+									<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
+										<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
+									</td>
+									<td class="step_td">
+										<%@ include file="/WEB-INF/views/srm/restatus/stepintable.jsp"%>
+									</td>
+								</tr>
+							</c:forEach>
 						</table>
-						
-													
-						
+						<div class="pager default">
+							<div class="pagingButtonSet d-flex justify-content-center">
+								<a onclick="pageChange(1)" type="button" class="btn btn-muted shadow">◀◀</a>
+								<c:if test="${pager.groupNo > 1}">
+									<a onclick="pageChange(${pager.startPageNo-1})" class="btn btn-muted shadow">◀</a>
+
+								</c:if>
+
+								<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
+									<c:if test="${pager.pageNo != i}">
+										<a onclick="pageChange(${i})" type="button" class="btn btn-white shadow">${i}</a>
+									</c:if>
+									<c:if test="${pager.pageNo == i}">
+										<a onclick="pageChange(${i})" type="button" class="btn btn-dark shadow">${i}</a>
+									</c:if>
+								</c:forEach>
+
+								<c:if test="${pager.groupNo < pager.totalGroupNo }">
+									<a onclick="pageChange(${pager.endPageNo+1})" type="button" class="btn btn-muted shadow">▶</a>
+
+								</c:if>
+								<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">▶▶</a>
+							</div>
+						</div>
+
+
 					</section>
 					</main>
-				</div>	
+				</div>
 			</div>
 		</div>
 		<!-- 여기에 내용 담기 end -->
@@ -208,13 +274,14 @@
 	<a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
 	</a>
 
-<script>
+	<script>
 
 // 유저 제외 담당자들의 ajax 호출
 
 
 
 /* 내 담당 업무 목록 ajax 호출 : 페이지 로딩 */
+/* 		
 		$(document).ready(function () {
 			//member의 type은 controller에서 넣어줌, 설정 필요 없음
 			console.log("바로 실행");
@@ -228,7 +295,8 @@
 				$('#table_content').html(data);
 			});
 		});
-
+ */
+ 
 /* 내 요청 목록 ajax 호출 : switch */
 	function myRequestList(mtype){
 		let memberType = mtype;
@@ -248,6 +316,8 @@
 				contentType: "application/json; charset=UTF-8"
 			}).done((data) => {
 				$('#table_content').html(data);
+				const pageDefault = document.querySelector('.default');
+				pageDefault.remove();
 			});
 			
 			/* 내 요청 목록 호출 */
@@ -266,6 +336,14 @@
 				contentType: "application/json; charset=UTF-8"
 			}).done((data) => {
 				$('#table_content').html(data);
+				
+				//기존 페이지 태그 삭제하기
+				const pageDefault = document.querySelector('.default');
+				if(pageDefault != null){
+					pageDefault.remove();
+				}
+				
+				
 			});
 		}
 	} 
@@ -282,8 +360,17 @@
 		let filterDateLast = document.getElementById('date_last');
 		let dateLast = filterDateLast.value
 		
-		let filterSno = document.getElementById('sno');
-		let sno = filterSno.options[filterSno.selectedIndex].value
+		let sno = '0';
+		if(document.getElementById('sno') != null) {
+			console.log("pm인 경우");
+			let filterSno = document.getElementById('sno');
+			let sno = filterSno.options[filterSno.selectedIndex].value
+		} else {
+			console.log("pm이 아닌 경우");
+			sno = document.querySelector('.sno').value
+			console.log(sno);
+		}
+		
 		
 		let filterStatusNo = document.getElementById('statusNo');  
 		let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
@@ -302,6 +389,13 @@
 				
 			}).done((data) => {
 				$('#table_content').html(data);
+				
+				//기존 페이지 태그 삭제하기
+				const pageDefault = document.querySelector('.default');
+				if(pageDefault != null){
+					pageDefault.remove();
+				}
+				
 			});
 		} else {
 			console.log("내 요청 목록 페이지 이동" + i);
@@ -313,6 +407,13 @@
 				
 			}).done((data) => {
 				$('#table_content').html(data);
+				
+				//기존 페이지 태그 삭제하기
+				const pageDefault = document.querySelector('.default');
+				if(pageDefault != null){
+					pageDefault.remove();
+				}
+				
 			});
 		}
 	}	
@@ -329,8 +430,16 @@
 		let filterDateLast = document.getElementById('date_last');
 		let dateLast = filterDateLast.value
 		
-		let filterSno = document.getElementById('sno');
-		let sno = filterSno.options[filterSno.selectedIndex].value
+		let sno = '0';
+		if(document.getElementById('sno') != null) {
+			console.log("pm인 경우");
+			let filterSno = document.getElementById('sno');
+			let sno = filterSno.options[filterSno.selectedIndex].value
+		} else {
+			console.log("pm이 아닌 경우");
+			sno = document.querySelector('.sno').value
+			console.log(sno);
+		}
 		
 		let filterStatusNo = document.getElementById('statusNo');  
 		let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
@@ -369,10 +478,6 @@
 	}	
 	
 	
-	
-
-  	
-
 
 
 </script>
