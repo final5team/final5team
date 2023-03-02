@@ -47,7 +47,7 @@ a {
 .card-body .label2 {
 	position: absolute;
 	width: 110px;
-	left: 60%;
+	left: 57%;
 	top: 15%;
 	overflow: hidden;
 	text-align: center;
@@ -57,23 +57,25 @@ a {
 .card-body .inputData2 {
 	position: absolute;
 	width: 250px;
-	height: 130px;
-	left: 68%;
+	height: 200px;
+	left: 70%;
 	top: 15%;
 	overflow: hidden;
 	text-align: start;
 }
 
 .card-body .inputData2 input {
-	height: 30px;
+	height: 20px;
 	width: 200px;
 	font-size: 13px;
+	margin-bottom : 10px;
 }
 
 .card-body .inputData input {
-	height: 30px;
+	height: 20px;
 	width: 200px;
 	font-size: 13px;
+	margin-bottom : 10px;
 }
 
 .card-body .titleLabel {
@@ -92,17 +94,16 @@ a {
 
 .card-body .titleInput {
 	position: absolute;
-	width: 590px;
+	width: 800px;
 	left: 18%;
 	top: 48%;
-	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
 }
 
 .card-body .titleInput input {
-	width: 590px;
+	width: 710px;
 	height: 25px;
 }
 
@@ -110,8 +111,7 @@ a {
 	position: absolute;
 	width: 300px;
 	left: 8%;
-	top: 55%;
-	overflow: hidden;
+	top: 57%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -119,30 +119,29 @@ a {
 
 .card-body .bodyInput {
 	position: absolute;
-	width: 590px;
+	width: 800px;
 	left: 18%;
-	top: 55%;
-	overflow: hidden;
+	top: 57%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
 }
 
 .card-body .bodyInput textarea {
-	width: 590px;
+	width: 710px;
 	font-size: 15px;
 	font: bold;
-	height: 80px;
+	height: 100px;
 	resize: none;
 }
 
 .card-body .fileTitle {
 	position: absolute;
-	width: 700px;
-	left: 8%;
-	top: 70%;
+	width: 110px;
+	left: 4%;
+	top: 75%;
 	overflow: hidden;
-	text-align: start;
+	text-align: center;
 	font-size: 15px;
 	font: bold;
 }
@@ -151,7 +150,7 @@ a {
 	position: absolute;
 	width: 700px;
 	left: 18%;
-	top: 70%;
+	top: 75%;
 	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
@@ -178,7 +177,6 @@ a {
 	width: 200px;
 	height: 35px;
 	font-size: 13px;
-	padding-left: 37px;
 	padding-top: 0;
 	padding-bottom: 0;
 }
@@ -203,55 +201,18 @@ a {
 textarea:focus::placeholder {
 	visibility: hidden;
 }
-
-.include {
-	margin: 0;
-	font-size: 15px;
-	padding: 10px;
+.titleConfirm{
+	width : 100px;
+	position : absolute;
+	left : 83%;
+}
+.textConfirm{
+	width : 100px;
+	position : absolute;
+	left : 83%;
 }
 
-article.include div {
-	margin: 0px 50px;
-	box-sizing: border-box;
-}
 
-.include .circle {
-	background-color: #fff;
-	text-align: center;
-	color: #999;
-	height: 28px;
-	width: 120px;
-	font-size: 15px;
-	border: 3px solid #e0e0e0;
-	transition: 0.4s ease;
-}
-
-.include .bar {
-	margin: 0px 110px;
-	background-color: #fff;
-	color: #999;
-	height: 30px;
-	width: 1px;
-	align-items: center;
-	justify-content: center;
-	border: 3px solid #e0e0e0;
-	transition: 0.4s ease;
-}
-
-.include .circle.done {
-	border-color: #5a5c69;
-	color: #5a5c69;
-}
-
-.include .circle.now {
-	border-color: white;
-	color: white;
-	background-color: #5a5c69;
-}
-
-.include .bar.active {
-	border-color: #5a5c69;
-}
 </style>
 <body id="page-top">
 	<!-- Page Wrapper -->
@@ -280,8 +241,9 @@ article.include div {
 						</div>
 						<div>
 							<!-- 여기에 단계 상태 이력 넣기 -->
-							<%@ include file="/WEB-INF/views/srm/restatus/stepperprogress.jsp"%>
+							<%@ include file="/WEB-INF/views/srm/request/stepperprogress.jsp"%>
 						</div>
+						
 						<!-- 여기에 단계 상태 이력 넣기 /-->
 						<section>
 							<!-- 개발내역 입력폼 start -->
@@ -293,7 +255,7 @@ article.include div {
 										</h3>
 									</div>
 									<div class="card-body">
-										<form>
+										<form method="post" action="${pageContext.request.contextPath}/customer/request" enctype="multipart/form-data">
 											<article class="label item">
 												<h6>작성자</h6>
 												<h6>전화번호</h6>
@@ -313,7 +275,7 @@ article.include div {
 												<div class="item">
 													<div class="select-group">
 														<select class="custom-select" id="sno" name="sno" required>
-															<option selected value="${request.systemName}"></option>
+															<option selected value="0">전체</option>
 															<c:forEach var="system" items="${systemList}">
 																<option value="${system.sno}">${system.systemName}</option>
 															</c:forEach>
@@ -343,6 +305,9 @@ article.include div {
 											<article class="titleInput">
 												<div class="item">
 													<input type="text" id="reqTitle" name="reqTitle" placeholder="제목" required>
+													<div class="titleConfirm">
+														<small class=" mr-5" id="counterTitle">(0 / 30)</small>
+													</div>
 												</div>
 											</article>
 											<article class="titleBody">
@@ -351,6 +316,9 @@ article.include div {
 											<article class="bodyInput">
 												<div class="item">
 													<textarea id="reqContent" cols="30" name="reqContent" placeholder="내용" required></textarea>
+													<div class="textConfirm">
+														<small class=" mr-5" id="counterContent">(0 / 300)</small>
+													</div>
 												</div>
 											</article>
 											<article class="fileTitle">
@@ -423,37 +391,27 @@ article.include div {
 				deleteFile($(this));
 			});
 		})
-		function addFile() {
-			var str = "<div class='file-group'><input type='file' name='files'><a href='#this' name='file-delete'>x</a></div>";
-			$("#file-list").append(str);
-			$("a[name='file-delete']").on("click", function(e) {
-				e.preventDefault();
-				deleteFile($(this));
-			});
-		}
 
-		function deleteFile(obj) {
-			obj.parent().remove();
-		}
-
-		$('#reply').keyup(function(e) {
+		$('#reqContent').keyup(function(e) {
 			let content = $(this).val();
-			$('#counter').html("(" + content.length + " / 300)");
-			if (content.length > 300) {
+			$('#counterContent').html("(" + content.length + " / 300)");
+			if (content.length > 100) {
 				$('#countCheck').modal();
-				$('#countContent').html("최대 300자까지 입니다.");
+				$('#counterContent').html("최대 300자까지 입니다.");
 				$(this).val(content.substring(0, 300));
 				$('#counter').html("(300 / 300)");
 			}
 		});
-		$('#distSource').keyup(function(e) {
+		$('#reqTitle').keyup(function(e) {
 			let content = $(this).val();
-			$('#counterSource').html("(" + content.length + " / 100)");
-			if (content.length > 100) {
+			$('#counterTitle').html("(" + content.length + " / 30)");
+			console.log(content.length);
+			
+			if (content.length > 30) {
 				$('#countCheck').modal();
-				$('#countContent').html("최대 100자까지 입니다.");
-				$(this).val(content.substring(0, 150));
-				$('#counterSource').html("(100 / 100)");
+				$('#countContent').html("최대 30자까지 입니다.");
+				$(this).val(content.substring(0, 30));
+				$('#counterTitle').html("(30 / 30)");
 			}
 		});
 

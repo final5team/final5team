@@ -17,7 +17,7 @@
 	<c:forEach var="request" items="${requestList}">
 		<tr>
 			<td class="rno">${request.rno}</td>
-			<td class="client">${request.sno}</td>
+			<td class="client">${request.systemName}</td>
 			<c:if test="${request.statusNo == 1}">
 				<td class="sysType">
 					<span class="badge badge-warning">미정</span>
