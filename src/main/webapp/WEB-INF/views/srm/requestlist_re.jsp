@@ -183,13 +183,13 @@
 						</c:if>
 						<!-- ajax 수정 목록 -->
 						<table class="member" id="table_content">
-							<tr>
-								<th>No.</th>
-								<th>시스템</th>
-								<th>요청 유형</th>
-								<th>요청 제목</th>
-								<th>요청 일자</th>
-								<th>단계</th>
+							<tr >
+								<th class="ex">No.</th>
+								<th class="ex">시스템</th>
+								<th class="ex">요청 유형</th>
+								<th class="ex">요청 제목</th>
+								<th class="ex">요청 일자</th>
+								<th class="ex" >단계</th>
 							</tr>
 
 							<c:forEach var="request" items="${requestList}">
@@ -300,14 +300,28 @@
  */
  
 // 내 요청 목록 ajax 호출 : switch 
+
 	function myRequestList(mtype){
 		let memberType = mtype;
 		// mtype 전달, 페이징 처리 
 		if($('#myRequest').is(":checked")){
 			
+			//테이블 색상 되돌리기
+			let tableHead = document.querySelectorAll(".ex");
+			console.log(tableHead);
+			for(let i = 0; i < tableHead.length; i++){
+				tableHead[i].classList.remove('bc');
+			}
+			
 			// 테이블 h4 태그 글자 바꾸기 
 			let name = document.getElementsByClassName("table-name")[0];
 			name.innerText='담당 업무 목록';
+			name.classList.remove('fc');
+			
+			//테이블 왼쪽 border 색 바꾸기
+			let tableBorder = document.querySelector(".table");
+			tableBorder.classList.add('border-left-dark');
+			tableBorder.classList.remove('border-left-primary');
 			
 			// 검색 h4 태그 글자 바꾸기
 			let filterName = document.getElementsByClassName("filtering-name")[0];
@@ -320,7 +334,8 @@
 				data : JSON.stringify(data),
 				contentType: "application/json; charset=UTF-8"
 			}).done((data) => {
-				$('#table_content').html(data);
+				$('table_content').html(data);
+				
 				
 				//기존 페이지 태그 삭제하기
 				const pageDefault = document.querySelector('.default');
@@ -335,10 +350,16 @@
 			// h4 태그 글자 바꾸기 
 			let name = document.getElementsByClassName("table-name")[0];
 			name.innerText='내 요청 목록';
+			name.classList.add('fc');
 			
 			// 검색 h4 태그 글자 바꾸기
 			let filterName = document.getElementsByClassName("filtering-name")[0];
 			filterName.innerText='요청 검색';
+			
+			//테이블 왼쪽 border 색 바꾸기
+			let tableBorder = document.querySelector(".table");
+			tableBorder.classList.remove('border-left-dark');
+			tableBorder.classList.add('border-left-primary');
 			
 			/* console.log("내 요청 목록 호출"); */
 			
@@ -350,6 +371,13 @@
 				contentType: "application/json; charset=UTF-8"
 			}).done((data) => {
 				$('#table_content').html(data);
+				
+				//테이블 색상 변경하기
+				let tableHead = document.querySelectorAll(".ex");
+				console.log(tableHead);
+				for(let i = 0; i < tableHead.length; i++){
+					tableHead[i].classList.add('bc');
+				}
 				
 				//기존 페이지 태그 삭제하기
 				const pageDefault = document.querySelector('.default');
@@ -394,6 +422,12 @@
 		// 담당 업무 목록으로 검색 
 		if($('#myRequest').is(":checked")){ 
 			console.log("담당 업무 목록 페이지 이동" + i);
+			//테이블 색상 되돌리기
+			let tableHead = document.querySelectorAll(".ex");
+			console.log(tableHead);
+			for(let i = 0; i < tableHead.length; i++){
+				tableHead[i].classList.remove('bc');
+			}
 			
 			$.ajax({
 				url : "myworklist",
@@ -421,6 +455,13 @@
 				
 			}).done((data) => {
 				$('#table_content').html(data);
+				
+				//테이블 색상 변경하기
+				let tableHead = document.querySelectorAll(".ex");
+				console.log(tableHead);
+				for(let i = 0; i < tableHead.length; i++){
+					tableHead[i].classList.add('bc');
+				}
 				
 				//기존 페이지 태그 삭제하기
 				const pageDefault = document.querySelector('.default');
@@ -464,6 +505,12 @@
 		if($('#myRequest').is(":checked")){ 
 			console.log("담당 업무 목록 검색")
 			
+			//테이블 색상 되돌리기
+			let tableHead = document.querySelectorAll(".ex");
+			console.log(tableHead);
+			for(let i = 0; i < tableHead.length; i++){
+				tableHead[i].classList.remove('bc');
+			}
 			$.ajax({
 				url : "myworklist",
 				method : "post",
@@ -493,6 +540,13 @@
 				if(pageDefault != null){
 					pageDefault.remove();
 				}
+				//테이블 색상 변경하기
+				let tableHead = document.querySelectorAll(".ex");
+				console.log(tableHead);
+				for(let i = 0; i < tableHead.length; i++){
+					tableHead[i].classList.add('bc');
+				}
+				
 			});
 		}
 	}	

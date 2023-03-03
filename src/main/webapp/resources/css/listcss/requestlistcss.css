@@ -35,8 +35,8 @@ main {
 	border-radius: 5px;
 	border: 1px solid rgba(0, 0, 0, 0.125);
 	border-radius: 0.25rem;
-	-webkit-box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
-	box-shadow: 1px 1px 5px rgba(126, 142, 159, 0.1);
+	box-shadow: 0 0.15rem 1.75rem 0 rgb(58 59 69 / 15%) !important;;
+	
 }
 
 .custom-select_re {
@@ -84,18 +84,18 @@ main {
 	height: 100px;
 	position: absolute;
 	margin: 0;
-	left: 23%;
+	left: 30%;
 }
 
 .filter .filter-name2 h6 {
 	font-size: 15px;
-	width : 170px;
+	width : 245px;
 	margin: 20px 10px;
 	display : inline-block;
 }
 
 .filter .filter-body {
-	width: 400px;
+	width: 500px;
 	height: 100px;
 	overflow: hidden;
 	position: absolute;
@@ -105,69 +105,70 @@ main {
 	font-size: 15px;
 }
 .filter .filter-body #req_type{
-	width: 130px;
+	width: 191.8px;
+	height : 31px;
 	margin: 8px;
-	
+	text-align: center;
 }
-
-
-.filter .filter-body #date_first{
-	width: 100px;
-	margin: 8px;
-}
-.filter .filter-body #date_last{
-	width: 100px;
-	margin: 8px;
-}
-
 .filter .filter-body .date_form {
 	position: absolute;
 	top : 39%;
 	
-	
 }
 .filter .filter-body #date_first{
-	width : 130px;
+	width : 180px;
 	height : 30px;
+	margin: 8px;
+	padding : 0px 5px;	
+	text-align: center;
 }
 .filter .filter-body #date_last{
-	width : 130px;
+	width : 180px;
 	height : 30px;
 	position : absolute;
-	left : 120%;
+	left : 130%;
+	margin: 8px;
 	z-index : 5;
+	padding : 0px 5px;	
+	text-align: center;
 }
 .filter .filter-body .date_icon{
 	position : absolute;
-	left : 105%;
+	left : 110%;
 	top : 38%;
+	
 }
 
 
 .filter .filter-body2 {
 	display : inline-block;
-	width: 400px;
+	width: 500px;
 	height: 80px;
 	overflow: hidden;
 	position: absolute;
-	left: 27%;
 	top: 31%;
+	left: 35.7%;
 	float: left;
 	font-size: 15px;
 }
 .filter .filter-body2 #statusNo {
-	width: 130px;
+	width: 191.8px;
+	height : 31px;
 	margin: 8px;
 	position : absolute;
 	top : 0%;
 	left : 0%;
+	text-align: center;
+	
 }
 .filter .filter-body2 #sno {
-	width: 130px;
+	width: 191.8px;
+	height : 31px;
 	margin: 8px;
 	position : absolute;
 	top : 20%;
-	left : 50%;
+	left : 55%;
+	text-align: center;
 }
 
 .table {
@@ -196,12 +197,14 @@ main {
 }
 
 .table .table-header h4 {
-	color: #5a5c69;
 	font: bold;
 	padding: 0.75rem 1.25rem;
 	font-size: 1.45rem;
 	margin: 0px;
 	font-weight: 700;
+}
+.table-name{
+	color: #5a5c69;
 }
 
 .table .table-body {
@@ -240,9 +243,9 @@ main {
 	white-space: nowrap;
 }
 
-.member tr th {
+.ex {
 	background-color: #5a5c69;
-		color: white;
+	color: white;
 }
 
 .member .step_td {
@@ -358,6 +361,12 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+.bc {
+	background-color :#1cc88a;
+}
+.fc{
+	color : #1cc88a;
 }
 
 
