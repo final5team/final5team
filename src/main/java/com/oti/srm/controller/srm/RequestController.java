@@ -355,7 +355,7 @@ public class RequestController {
 			
 			model.addAttribute("request", request);
 			model.addAttribute("systemList", systemList);
-			return "srm/request/request";
+			return "srm/request/requestdetail";
 		}
 	}
 	
