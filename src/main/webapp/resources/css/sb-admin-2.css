@@ -11540,9 +11540,6 @@ input[type="radio"]:checked + label:after {
 	.border-top-dark {
   border-top: 0.25rem solid #3A4651 !important;
 }
-   	.border-top-danger {
-  border-top: 0.25rem solid #ff4444 !important;
-}
   .card.card-dark > .card-header {
     background-color: #3A4651;
 	}
@@ -11563,6 +11560,9 @@ input[type="radio"]:checked + label:after {
 }
 .border-top-success{
 	border-top:  0.75rem solid #4bcf99 !important;
+}
+.border-top-danger{
+	border-top:  0.75rem solid #FF4444 !important;
 }
 
 /* btn 아웃라인 버튼 */

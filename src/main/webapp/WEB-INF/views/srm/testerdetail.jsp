@@ -134,7 +134,7 @@
 						<c:if test="${testerToDev != null}">
 						<div class="d-flex justify-content-center mt-4"> <!-- 히스토리 버튼 start -->
                	 			<div class="btn btn-primary-outline history-button" onclick="openHistories()">
-               	 				테스트 히스토리 보기  <i class="fas fa-history text-info"></i>
+               	 				테스트 내역 보기  <i class="fas fa-history"></i>
                	 			</div>
                	 		</div> <!-- 히스토리 버튼 end -->
 						</c:if>
@@ -142,7 +142,7 @@
 						
 						<section id="histories"><!-- 재검토 내역 start -->
 							<div class="title-block">
-	                	 		<h3 class="title">테스트 히스토리</h3>
+	                	 		<h3 class="title">테스트 내역</h3>
 	                	 	</div>
 	                	 	<c:forEach var="statusHistory" varStatus="index" items="${testerToDev}">
 	                	 	<c:if test="${statusHistory.nextStatus == 3}">
@@ -160,33 +160,29 @@
 	                	 				</c:if>
 	                	 				<c:if test="${statusHistory.nextStatus == 7}">
 	                	 				<h3 class="title text-primary">
-	                	 					 ${index.count}차 정상 내역  <i class="far fa-bookmark "></i>
+	                	 					 ${index.count}차 승인 내역  <i class="far fa-bookmark "></i>
 	                	 				</h3>
 	                	 				</c:if>
 	                	 			</div>
 	                	 			
 	                	 			<div class="card-body">
                 	 					<div>
-                	 						<div class="row">
-                	 							<div class="col-5 p-2">
-		                	 						<span class="label">작성자</span>
-		                	 						<span class="p-2">${statusHistory.writer}</span>
-                	 							</div>
-                	 							<div class="col-5 p-2">
-		                	 						<span class="label">테스트 완료일</span>
-		                	 						<span class="p-2"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></span>
-	                	 						</div>
-                	 						</div>
-                	 						<div class="row">
-	                	 						<span class="label" style="text-align :left; width: 10%;">내용</span>
-	                	 						<textarea rows="2" class="form-control boxed mr-5" readonly>${statusHistory.reply}</textarea>
+                	 						<div class="row mb-2">
+	                	 						<div class="col-2 label">작성자</div>
+	                	 						<div class="col-3">${statusHistory.writer}</div>
+	                	 						<div class="col-2 label">테스트 완료일</div>
+	                	 						<div class="col-3"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
                 	 						</div>
                 	 						<div class="row mt-3">
-	                	 						<span class="label" style="text-align :left; width: 10%;">첨부파일</span>
-	                	 						<div>
+	                	 						<div class="col-2 label">내용</div>
+	                	 						<textarea class="col-8 form-control boxed" rows="2"  readonly>${statusHistory.reply}</textarea>
+                	 						</div>
+                	 						<div class="row mt-3">
+	                	 						<div class="col-2 label">첨부파일</div>
+	                	 						<div class="col-8">
 	                	 							<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 													<div>
-														<span>${statusHistoryFile.fileName}</span>
+														<div>${statusHistoryFile.fileName}</div>
 														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
 															<i class="fas fa-cloud-download-alt"></i>
 														</a>
@@ -211,7 +207,7 @@
                 	 		</div><!-- status_history내역없을때 end -->
 	                	 	</c:if>
 						</section><!-- 재검토 내역 end -->
-						<button class="btn btn-dark btn-md ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
+						<button class="btn btn-dark btn-sm ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
 					 </div> <!-- main/ -->
                 </div>
                 <!-- 여기에 내용 담기 end -->

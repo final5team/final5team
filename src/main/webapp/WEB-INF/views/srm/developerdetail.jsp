@@ -144,7 +144,7 @@
                 	 	<c:if test="${devToTester != null}">
                	 		<div class="d-flex justify-content-center mt-4"> <!-- 히스토리 버튼 start -->
                	 			<div class="btn btn-primary-outline history-button" onclick="openHistories()">
-               	 				개발 히스토리 보기  <i class="fas fa-history"></i>
+               	 				개발 내역 보기  <i class="fas fa-history"></i>
                	 			</div>
                	 		</div> <!-- 히스토리 버튼 end -->
                 	 	</c:if>
@@ -152,7 +152,7 @@
                	 		
                 	 	<section id="histories" > <!-- 개발히스토리 start-->
                 	 		<div class="title-block">
-	                	 		<h3 class="title">개발 히스토리</h3>
+	                	 		<h3 class="title">개발 내역</h3>
 	                	 	</div>
 	                	 	<c:forEach var="statusHistory" varStatus="index" items="${devToTester}">
                 	 		<div class="card border-top-primary my-3"> <!-- foreach한다면 여기부터 start -->
@@ -164,27 +164,23 @@
 	                	 			</div>
                 	 				<div class="card-body">
                 	 					<div>
-                	 						<div class="row">
-                	 							<div class="col-5 p-2">
-		                	 						<span class="label">작성자</span>
-		                	 						<span class="p-2">${statusHistory.writer}</span>
-                	 							</div>
-                	 							<div class="col-5 p-2">
-		                	 						<span class="label">개발 완료일</span>
-		                	 						<span class="p-2"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></span>
-	                	 						</div>
+                	 						<div class="row mb-2">
+	                	 						<div class="col-2 label">작성자</div>
+	                	 						<div class="col-3 ">${statusHistory.writer}</div>
+	                	 						<div class="col-2 label">개발 완료일</div>
+	                	 						<div class="col-3 "><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
                 	 						</div>
                 	 						<div class="row">
-	                	 						<span class="label" style="text-align :left; width: 10%;">개발내용</span>
-	                	 						<textarea rows="2" class="form-control boxed mr-5" readonly>${statusHistory.reply}</textarea>
+	                	 						<div class="col-2 label" >개발내용</div>
+	                	 						<textarea class="col-8 form-control boxed" rows="2" readonly>${statusHistory.reply}</textarea>
                 	 						</div>
                 	 						<div class="row mt-3">
-	                	 						<span class="label" style="text-align :left; width: 10%;">배포소스(url)</span>
-	                	 						<input class="form-control boxed mr-5" style=" height: 15px;" value="${statusHistory.distSource}" readonly>
+	                	 						<div class="col-2 label">배포소스(url)</div>
+	                	 						<input class="col-8 form-control boxed mr-5" style=" height: 20px;" value="${statusHistory.distSource}" readonly>
                 	 						</div>
                 	 						<div class="row mt-3">
-	                	 						<span class="label" style="text-align :left; width: 10%;">첨부파일</span>
-	                	 						<div>
+	                	 						<div class="col-2 label">첨부파일</div>
+	                	 						<div class="col-8">
                 	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 													<div>
 														<span>${statusHistoryFile.fileName}</span>
@@ -216,7 +212,7 @@
                 	 		</c:if>
                 	 		
                 	 	</section> <!-- 개발히스토리end -->
-                	 	<button class="btn btn-dark btn-md ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
+                	 	<button class="btn btn-dark btn-sm ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
 					 </div> <!-- id=main div / -->
                 </div>
                 <!-- 여기에 내용 담기 end -->
