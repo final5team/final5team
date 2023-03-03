@@ -55,7 +55,9 @@ public class RequestController {
 	private IUserRegisterService userRegisterService;
 	@Autowired
 	private IRequestRegisterService requestService;
-
+	@Autowired
+	private pMService pm
+	
 	/**
 	 * Kang Ji Seong 유저 등록 페이지 조회
 	 */
@@ -305,8 +307,6 @@ public class RequestController {
 		// 필터에 출력할 시스템 리스트 조회
 		List<System> systemList = userRegisterService.getSystemList();
 		ListFilter returnList = requestService.dateFilterList(listFilter);
-		
-		log.info(listFilter.toString());
 		
 		//세션에 저장된 멤버 객체 전달
 		Member member = (Member) session.getAttribute("member");
