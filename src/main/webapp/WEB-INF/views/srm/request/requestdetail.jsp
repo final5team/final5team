@@ -330,7 +330,7 @@ textarea:focus::placeholder {
 										</h3>
 									</div>
 									<div class="card-body">
-										<form method="post" action="${pageContext.request.contextPath}/customer/request" enctype="multipart/form-data">
+										<form method="post" action="${pageContext.request.contextPath}/customer/requestupdate" enctype="multipart/form-data">
 											<article class="label item">
 												<h6>작성자</h6>
 												<h6>전화번호</h6>
@@ -404,7 +404,9 @@ textarea:focus::placeholder {
 											</article>
 
 											<article class="submit-button">
-												<button class="btn btn-dark btn-sm" type="submit">작성</button>
+											<!-- 승인이 아닌경우 수정 가능하도록 변경 c:if 사용 -->
+												<button class="btn btn-dark btn-sm" type="submit">수정</button>
+												
 											</article>
 											<article class="return-button">
 												<button class="btn btn-dark btn-sm" onclick="javascript:history.go(-1)">취소</button>
@@ -464,33 +466,7 @@ textarea:focus::placeholder {
 				deleteFile($(this));
 			});
 		})
-
-		$('#reqContent').keyup(function(e) {
-			let content = $(this).val();
-			$('#counterContent').html("(" + content.length + " / 300)");
-			if (content.length > 100) {
-				$('#countCheck').modal();
-				$('#counterContent').html("최대 300자까지 입니다.");
-				$(this).val(content.substring(0, 300));
-				$('#counter').html("(300 / 300)");
-			}
-		});
-		$('#reqTitle').keyup(function(e) {
-			let content = $(this).val();
-			$('#counterTitle').html("(" + content.length + " / 30)");
-			console.log(content.length);
-
-			if (content.length > 30) {
-				$('#countCheck').modal();
-				$('#countContent').html("최대 30자까지 입니다.");
-				$(this).val(content.substring(0, 30));
-				$('#counterTitle').html("(30 / 30)");
-			}
-		});
-
-		function openRegister() {
-
-		}
+		
 	</script>
 </body>
 

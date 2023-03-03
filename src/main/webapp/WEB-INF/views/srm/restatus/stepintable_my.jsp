@@ -316,7 +316,7 @@ margin: 0 0 1rem 0;
 			</li>
 			<li class="<c:if test="${request.statusNo >= 13}">is_active</c:if>
 				<c:if test="${request.statusNo == 11}">is_active</c:if>">
-				<a href="${pageContext.request.contextPath}/pm/completedetail?rno=${request.rno}" onclick="enddetail(${request.rno})">
+				<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}" onclick="enddetail(${request.rno})">
 					<span>
 						<c:if test="${request.statusNo < 11}">최종승인</c:if>
 						<c:if test="${request.statusNo == 11}">승인대기</c:if>
@@ -330,6 +330,7 @@ margin: 0 0 1rem 0;
 			</li>
 		</c:if>
 	</c:if>
+	
 	<c:if test="${request.statusNo == 12}">
 		<li class="is_reject_first is_reject">
 			<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
