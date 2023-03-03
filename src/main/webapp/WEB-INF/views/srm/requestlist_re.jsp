@@ -168,7 +168,8 @@
 							<article class="table-header">
 								<h4 class="table-name">담당 업무 목록</h4>
 								<div class="switch_div">
-									<label class="switch"> <input type="checkbox" checked onclick="myRequestList(`${sessionScope.member.mtype}`)" id="myRequest" /> <span class="slider round"></span>
+									<label class="switch"> <input type="checkbox" checked onclick="myRequestList(`${sessionScope.member.mtype}`)" id="myRequest" /> 
+									<span class="slider round"></span>
 									</label>
 								</div>
 							</article>

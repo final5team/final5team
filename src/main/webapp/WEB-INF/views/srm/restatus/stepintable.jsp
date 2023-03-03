@@ -147,12 +147,44 @@ margin: 0 0 1rem 0;
 
 </style> 
 <script>
-	/* 각각의 페이지 이동시, ajax 로 요청 */
-	function request(i){
+	// li click시 url 요청 함수 실행
+	// 1. 등록 단계 : 작성한 요청 상세조회
+	function register(i){
 		let rno = i;
-		console.log(i);
 		location.href ="${pageContext.request.contextPath}/customer/requestdetail?rno="+rno;
 	}
+	// 2. 접수단계
+	function receipt(i){
+		let rno = i;
+		location.href ="${pageContext.request.contextPath}/pm/receiptdetail?rno="+rno;
+	}
+	// 3. 개발단계
+	function developer(i){
+		let rno = i;
+		location.href ="${pageContext.request.contextPath}/developerdetail?rno="+rno;
+	}
+	// 4.테스트단계
+	function test(i){
+		let rno = i;
+		location.href ="${pageContext.request.contextPath}/testerdetail?rno="+rno;
+	}
+	// 5. 품질 테스트 단계
+	function quality(i){
+		let rno = i;
+		location.href ="${pageContext.request.contextPath}/testerdetail?rno="+rno;
+	}
+	// 6. 배포단계
+	function distribute(i){
+		let rno = i;
+		location.href ="${pageContext.request.contextPath}/distributedetail?rno="+rno;
+	}
+	// 7. 최종단계
+	function enddetail(i){
+		
+		
+	}
+	
+	
 	
 </script>
 
@@ -160,11 +192,11 @@ margin: 0 0 1rem 0;
 <ol class="progress_bar">
 	<c:if test="${request.statusNo != 12}">
 		<c:if test="${request.reqType == null || request.reqType == '정규'}">
-			<li class="is_complete" onclick="request(${request.rno})">
-				<span>요청</span>
+			<li class="is_complete" onclick="register(${request.rno})">
+				<span>등록</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 2}">is_complete</c:if>
-						 <c:if test="${request.statusNo == 1}">is_active</c:if>">
+						 <c:if test="${request.statusNo == 1}">is_active</c:if>" onclick="receipt(${request.rno})">
 					<a href="${pageContext.request.contextPath}/pm/receiptdetail?rno=${request.rno}">
 						<span>
 							<c:if test="${request.statusNo == 1}">접수</c:if>
@@ -173,7 +205,7 @@ margin: 0 0 1rem 0;
 					</a>
 				</li>
 			<li class="<c:if test="${request.statusNo >= 5}">is_complete</c:if>
-							<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>">
+							<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>" onclick="developer(${request.rno})">
 				<a href="${pageContext.request.contextPath}/developerdetail?rno=${request.rno}">
 					<span>
 						<c:if test="${request.statusNo < 2}">개발</c:if>
@@ -185,7 +217,7 @@ margin: 0 0 1rem 0;
 				</a>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 7}">is_complete</c:if>
-						<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>">
+						<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>" onclick="test(${request.rno})">
 				<a href="${pageContext.request.contextPath}/testerdetail?rno=${request.rno}">
 					<span>
 						<c:if test="${request.statusNo < 5}">테스트</c:if>
@@ -195,7 +227,8 @@ margin: 0 0 1rem 0;
 					</span>
 				</a>
 			</li>
-			<li class="<c:if test="${request.statusNo >= 9}">is_complete</c:if><c:if test="${request.statusNo >= 7 && request.statusNo <= 8}">is_active</c:if>">
+			<li class="<c:if test="${request.statusNo >= 9}">is_complete</c:if>
+						<c:if test="${request.statusNo >= 7 && request.statusNo <= 8}">is_active</c:if>" onclick="quality(${request.rno})">
 				<a href="${pageContext.request.contextPath}/usertestdetail?rno=${request.rno}">
 					<span>
 						<c:if test="${request.statusNo < 7}">품질테스트</c:if>
@@ -205,8 +238,9 @@ margin: 0 0 1rem 0;
 					</span>
 				</a>
 			</li>
-			<li class="<c:if test="${request.statusNo >= 11}">is_complete</c:if><c:if test="${request.statusNo >= 9 && request.statusNo <= 10}">is_active</c:if>">
-				<a href="${pageContext.request.contextPath}//distributedetail?rno=${request.rno}">
+			<li class="<c:if test="${request.statusNo >= 11}">is_complete</c:if>
+						<c:if test="${request.statusNo >= 9 && request.statusNo <= 10}">is_active</c:if>" onclick="distribute(${request.rno})">
+				<a href="${pageContext.request.contextPath}/distributedetail?rno=${request.rno}">
 					<span>
 						<c:if test="${request.statusNo < 9}">배포</c:if>
 						<c:if test="${request.statusNo == 9}">배포대기</c:if>
@@ -215,7 +249,8 @@ margin: 0 0 1rem 0;
 					</span>
 				</a>
 			</li>
-			<li class="<c:if test="${request.statusNo >= 13}">is_complete</c:if><c:if test="${request.statusNo == 11}">is_active</c:if>">
+			<li class="<c:if test="${request.statusNo >= 13}">is_complete</c:if>
+				<c:if test="${request.statusNo == 11}">is_active</c:if>" onclick="enddetail(${request.rno})">
 				<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">
 					<c:if test="${request.statusNo < 11}">
 						<span>
@@ -236,8 +271,8 @@ margin: 0 0 1rem 0;
 			</li>
 		</c:if>
 		<c:if test="${request.reqType == '긴급'}">
-			<li class="is_complete">
-				<span>요청완료</span>
+			<li class="is_complete" onclick="request(${request.rno})">
+				<span>등록</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 2}">is_complete</c:if><c:if test="${request.statusNo == 1}">is_active</c:if>">
 				<a href="${pageContext.request.contextPath}/pm/receiptdetail?rno=${request.rno}">
@@ -294,7 +329,7 @@ margin: 0 0 1rem 0;
 		</c:if>
 	</c:if>
 	<c:if test="${request.statusNo == 12}">
-		<li class="is_reject_first is_reject">
+		<li class="is_reject_first is_reject" onclick="request(${request.rno})">
 			<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 				<span>
 					등록

@@ -8,12 +8,11 @@
 --color-gray: #75787b; 
 --color-gray-light: #bbb; 
 --color-gray-disabled: #e8e8e8; 
---color-green: #72B22B; 
+--color-green: #72B22B;
 --color-green-dark: #383; 
 --font-size-small: .75rem; 
 --font-size-default: .875rem;
 }
-
 
 .progress_bar {
 display: flex;
@@ -22,20 +21,21 @@ list-style: none;
 padding: 0;
 margin: 0 0 1rem 0;
 }
-
+												
 .progress_bar li {
 	flex: 2;
 	position: relative;
 	padding: 0 0 14px 0;
 	font-size: var(--font-size-default);
 	line-height: 1.5;
-	color: var(--gray-dark);
+	color: var(--color-green);
 	font-weight: 600;
 	white-space: nowrap;
 	overflow: visible;
 	min-width: 0;
 	text-align: center;
 	border-bottom: 2px solid var(--color-gray-disabled);
+	cursor : pointer;
 }
 
 .progress_bar li:first-child, .progress_bar li:last-child {
@@ -74,6 +74,7 @@ margin: 0 0 1rem 0;
 	transition: opacity .3s ease-in-out;
 }
 
+
 .progress_bar li:not(.is_active) span {
 	opacity: 0;
 }
@@ -89,19 +90,6 @@ margin: 0 0 1rem 0;
 	z-index: 2;
 	border-bottom: 2px solid var(--color-green);
 }
-
-.progress_bar .is_reject:not(:first-child):after{
-	content: "";
-	display: block;
-	width: 100%;
-	position: absolute;
-	bottom: -2px;
-	left: -50%;
-	z-index: 2;
-	border-bottom: 2px solid var(--red);
-}
-
-
 .progress_bar li:last-child span {
 	width: 200%;
 	display: inline-block;
@@ -114,16 +102,9 @@ margin: 0 0 1rem 0;
 	width: 200%;
 	left: -100%;
 }
-.progress_bar .is_reject:last-child:after{
-	width : 200%;
-	left: -100%;
-}
 
 .progress_bar .is_complete:before {
 	background-color: var(--color-green);
-}
-.progress_bar .is_reject:before{
-	background-color : var(--red);
 }
 
 .progress_bar .is_active:before, .pli:hover:before,
@@ -151,8 +132,8 @@ margin: 0 0 1rem 0;
 }
 .progress-bar .has-changes {
     opacity: 1 !important;
-  }
-  .progress-bar .has-changes:before {
+}
+.progress-bar .has-changes:before {
     content: "";
     display: block;
     width: 8px;
@@ -160,22 +141,42 @@ margin: 0 0 1rem 0;
     position: absolute;
     left: 22px;
     bottom: -20px;
-  }
-</style> 
+}
 
+</style> 
+<script>
+	// li click시 url 요청 함수 실행
+	// 1. 등록 단계 : 작성한 요청 상세조회
+	function register(i){
+		let rno = i;
+		console.log(i);
+		location.href ="${pageContext.request.contextPath}/customer/requestdetail?rno="+rno;
+	}
+	// 2. 접수단계
+	function receipt(i){
+		let rno = i;
+		location.href ="${pageContext.request.contextPath}/pm/receiptdetail?rno="+rno;
+	}
+	
+	
+	
+	
+</script>
 <ol class="progress_bar">
 	<c:if test="${request.statusNo != 12}">
 		<c:if test="${request.reqType == null || request.reqType == '정규'}">
-			<li class="is_complete"><a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}"><span>요청</span></a></li>
+			<li class="is_complete" onclick="register(${request.rno})">
+				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}"><span>등록</span></a>
+			</li>
 			<li class="<c:if test="${request.statusNo >= 2}">is_complete</c:if>
-						 <c:if test="${request.statusNo == 1}">is_active</c:if>">
-					<a href="${pageContext.request.contextPath}/pm/receiptdetail?rno=${request.rno}">
-						<span>
-							<c:if test="${request.statusNo == 1}">접수</c:if>
-							<c:if test="${request.statusNo >= 2}">접수완료</c:if>
-						</span>
-					</a>
-				</li>
+						 <c:if test="${request.statusNo == 1}">is_active</c:if>" onclick="receipt(${request.rno})">
+				<a href="${pageContext.request.contextPath}/pm/receiptdetail?rno=${request.rno}">
+					<span>
+						<c:if test="${request.statusNo == 1}">접수</c:if>
+						<c:if test="${request.statusNo >= 2}">접수완료</c:if>
+					</span>
+				</a>
+			</li>
 			<li class="<c:if test="${request.statusNo >= 5}">is_complete</c:if>
 							<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>">
 				<a href="${pageContext.request.contextPath}/developerdetail?rno=${request.rno}">
@@ -240,7 +241,7 @@ margin: 0 0 1rem 0;
 		</c:if>
 		<c:if test="${request.reqType == '긴급'}">
 			<li class="is_complete">
-				<span>요청완료</span>
+				<span>등록</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 2}">is_complete</c:if>
 						<c:if test="${request.statusNo == 1}">is_active</c:if>">
