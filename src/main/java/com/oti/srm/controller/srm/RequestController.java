@@ -31,7 +31,6 @@ import com.oti.srm.dto.SelectPM;
 import com.oti.srm.dto.StatusHistoryFile;
 import com.oti.srm.service.member.IUserRegisterService;
 import com.oti.srm.service.srm.IRequestRegisterService;
-import com.oti.srm.service.srm.PMService;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -136,9 +135,7 @@ public class RequestController {
 		Member returnMember = userRegisterService.getUserInfo(mid);
 		
 		if(returnMember.getMfile() == null) {
-			
 			returnMember = userRegisterService.getUserInfo("img");
-			
 		}
 		HttpHeaders headers = new HttpHeaders();
 		String[] fileTypes = returnMember.getFileType().split("/");
@@ -158,6 +155,7 @@ public class RequestController {
 		request.setStatusName("접수중");
 		request.setStatusNo(1);
 		requestProcess.setReqType("정규");
+		
 		// 시스템 리스트 전달
 		List<System> systemList = userRegisterService.getSystemList();
 		model.addAttribute("request", request);
@@ -332,10 +330,7 @@ public class RequestController {
 		return result;
 	}
 	
-	/**
-	 * Kang Ji Seong 요청 글 상세보기
-	 */
-	
+	//요청 글 상세보기
 	@GetMapping("/requestdetail")
 	public String userRequestDetail(int rno, HttpSession session, Model model) {
 		Request request = requestService.getRequestDetail(rno);
@@ -349,7 +344,8 @@ public class RequestController {
 		//완료 페이지
 		} else if (request.getStatusNo() == 13) {
 			
-			return "srm/requestendpage";
+			
+			return "srm/pm/enddetail" + rno;
 		} else {
 			
 			model.addAttribute("request", request);
@@ -358,9 +354,23 @@ public class RequestController {
 		}
 	}
 	
-	/**
-	 * Kang Ji Seong 요청 글 파일 다운로드
-	 */
+	
+	//요청 수정하기
+	@PostMapping("/requestupdate")
+	public String requestUpdate(Request request, HttpSession session, Model model) {
+		
+		Member member = (Member) session.getAttribute("member");
+		request.setClient(member.getMid());
+
+		int result = requestService.updateRequest(request);
+		if (result == IRequestRegisterService.REQUEST_SUCCESS) {
+			return "redirect:requestdetail?rno=" + request.getRno();
+		} else {
+			return "redirect:requestdetail?rno=" + request.getRno();
+		}
+	}
+	
+	//요청 글 파일 다운로드
 	@RequestMapping("/requestdetail/filedownload")
 	public ResponseEntity<byte[]> filDownload(int fno) {
 		
