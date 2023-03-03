@@ -13,6 +13,17 @@
 		values(#{rno}, sysdate, #{reqTitle},
 		#{reqContent}, #{client}, #{sno}, #{reqExpectDate}, #{statusNo})
 	</insert>
+	
+	<update id="updateRequest" parameterType="com.oti.srm.dto.Request" >
+		update requests
+		    set REQ_TITLE = #{reqTitle}, 
+		        REQ_CONTENT = #{reqContent}, 
+		        REQ_EXPECT_DATE = #{reqExpectDate}, 
+		        SNO = #{sno}
+    	where rno = #{rno}
+	</update>
+	
+
 
 	<select id="getRequestList" resultType="com.oti.srm.dto.Request">
 		select RNO, REQ_DATE as
@@ -41,8 +52,7 @@
 		resultType="int">
 		select max(rno) as "rno"
 		from requests
-		where client =
-		#{client}
+		where client = #{client}
 	</select>
 
 

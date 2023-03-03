@@ -17,6 +17,7 @@ public interface IRequestRegisterService {
 	public static final int REQUEST_FAIL = 0;
 	
 	public int writeRequest(Request request, List<StatusHistoryFile> fileList);
+	public int updateRequest(Request request);
 
 	public List<Request> getRequestList(Request request, Pager pager);
 
