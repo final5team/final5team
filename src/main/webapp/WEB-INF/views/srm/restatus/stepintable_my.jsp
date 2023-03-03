@@ -330,6 +330,7 @@ margin: 0 0 1rem 0;
 			</li>
 		</c:if>
 	</c:if>
+	
 	<c:if test="${request.statusNo == 12}">
 		<li class="is_reject_first is_reject">
 			<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
