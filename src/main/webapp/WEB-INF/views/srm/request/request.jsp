@@ -325,8 +325,9 @@ textarea:focus::placeholder {
 												<h6>파일첨부</h6>
 											</article>
 											<article class="fileBody">
-												<div class="item" id="mfileList">
+												<div class="item">
 													<input class="btn btn-sm" multiple="multiple" type="file" id="mfile" name="mfile[]" />
+													<div id="mfileList"></div>
 												</div>
 											</article>
 
@@ -383,6 +384,9 @@ textarea:focus::placeholder {
 		</div>
 	</div>
 	<!-- 글자수 입력 확인 /-->
+	
+	
+	
 	<script>
 		/* 파일 */
 		$(document).ready(function() {
@@ -419,17 +423,22 @@ textarea:focus::placeholder {
 		let mfile = document.querySelector('#mfile');
 		mfile.addEventListener('change', function() {
 			// 파일 업로드 개수 제한 (3) 
-			
-			
-			// 파일 이름 출력 
-			let fileList ='';
-			for(i=0; i< mfile.files.length; i++){
-				fileList += mfile.files[i].name + '<br>'
+			if(mfile.files.length >3 ){
+				alert("파일 업로드 개수는 최대 3개입니다.");
+				mfile.value='';
+				return false;
+				
+			} else {
+				// 파일 이름 출력 
+				let fileList ='';
+				for(i=0; i< mfile.files.length; i++){
+					fileList += mfile.files[i].name + '<br>'
+				}
+				let inputtag = document.querySelector('#mfileList');
+				inputtag.innerHTML = fileList;
 			}
-			let inputtag = document.querySelector('#mfileList');
-			inputtag.innerHTML = fileList;
 			
-		})
+		});
 		
 		
 		
