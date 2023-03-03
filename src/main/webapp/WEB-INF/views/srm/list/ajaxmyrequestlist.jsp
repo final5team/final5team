@@ -5,12 +5,12 @@
 <!DOCTYPE html>
 <table>
 	<tr>
-		<th>No.</th>
-		<th>시스템</th>
-		<th>요청 유형</th>
-		<th>요청 제목</th>
-		<th>요청 일자</th>
-		<th>단계</th>
+		<th class="ex">No.</th>
+		<th class="ex">시스템</th>
+		<th class="ex">요청 유형</th>
+		<th class="ex">요청 제목</th>
+		<th class="ex">요청 일자</th>
+		<th class="ex">단계</th>
 	</tr>
 
 	<c:forEach var="request" items="${requestList}">
