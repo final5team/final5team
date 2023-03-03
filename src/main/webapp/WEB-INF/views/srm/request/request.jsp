@@ -162,7 +162,7 @@ a {
 	width: 80px;
 	height: 50px;
 	left: 50%;
-	top: 80%;
+	top: 85%;
 }
 
 .card-body .return-button {
@@ -170,7 +170,7 @@ a {
 	width: 80px;
 	height: 50px;
 	left: 55%;
-	top: 80%;
+	top: 85%;
 }
 
 .card-body .item .select-group select {
@@ -325,7 +325,7 @@ textarea:focus::placeholder {
 												<h6>파일첨부</h6>
 											</article>
 											<article class="fileBody">
-												<div class="item">
+												<div class="item" id="mfileList">
 													<input class="btn btn-sm" multiple="multiple" type="file" id="mfile" name="mfile[]" />
 												</div>
 											</article>
@@ -414,10 +414,28 @@ textarea:focus::placeholder {
 				$('#counterTitle').html("(30 / 30)");
 			}
 		});
-
-		function openRegister() {
-
-		}
+		
+		//파일 업로드 제약 자바스크립트
+		let mfile = document.querySelector('#mfile');
+		mfile.addEventListener('change', function() {
+			// 파일 업로드 개수 제한 (3) 
+			
+			
+			// 파일 이름 출력 
+			let fileList ='';
+			for(i=0; i< mfile.files.length; i++){
+				fileList += mfile.files[i].name + '<br>'
+			}
+			let inputtag = document.querySelector('#mfileList');
+			inputtag.innerHTML = fileList;
+			
+		})
+		
+		
+		
+		
+		
+		
 	</script>
 </body>
 
