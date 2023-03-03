@@ -49,9 +49,7 @@
 						</a>
 					</div>
 				</li>
-
 			</ul>
-
 		</nav>
 		<!-- Logout Modal-->
 	    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
