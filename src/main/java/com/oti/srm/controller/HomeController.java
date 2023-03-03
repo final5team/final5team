@@ -58,6 +58,14 @@ public class HomeController {
 		//세션에 담긴 member객체 받기
 		Member member = (Member) session.getAttribute("member");
 		
+		//PM이 / 경로를 요청했을 경우 /pmhome으로 리다이렉트 시킴
+		if(member.getMtype().equals("pm")) {
+			return "redirect:/pmhome";
+		}
+		if(member.getMtype().equals("user")) {
+			return "redirect:/userhome" ;
+		}
+		
 		//각 요청건 출력
 		HashMap<String,Integer> workingStatus = commonService.getWorkingStatus(member);
 		//직무 요청 리스트 출력 및 페이지 처리
@@ -99,6 +107,16 @@ public class HomeController {
 		log.info("실행");
 		//세션에 담긴 member객체 받기
 		Member member = (Member) session.getAttribute("member");
+		
+		//멤버 타입에 따라 경로 보내주기
+		if(member.getMtype().equals("pm")) {
+			return "redirect:/pmhome";
+		}
+		if(!member.getMtype().equals("pm")&&!member.getMtype().equals("user")) {
+			return "redirect:/" ;
+		}
+		
+		
 		//각 요청건 출력
 		HashMap<String, Integer> userRequestStatusCount = commonService.getUserRequestStatusCount(member);
 		// 나의 요청 상황 리스트 
@@ -127,6 +145,15 @@ public class HomeController {
 		log.info("실행");
 		//세션에 담긴 member객체 받기
 		Member member = (Member) session.getAttribute("member");
+		
+		//멤버 타입에 따라 경로 보내주기
+		if(member.getMtype().equals("user")) {
+			return "redirect:/userhome";
+		}
+		if(!member.getMtype().equals("pm")&&!member.getMtype().equals("user")) {
+			return "redirect:/" ;
+		}
+		
 		//각 요청건 출력
 		HashMap<String, Integer> workingStatus = commonService.getWorkingStatus(member);
 		//D-7 리스트 출력
