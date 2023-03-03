@@ -1,6 +1,9 @@
 package com.oti.srm.controller.srm;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,9 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.oti.srm.dto.Member;
 import com.oti.srm.dto.StatusHistory;
+import com.oti.srm.dto.StatusHistoryFile;
 import com.oti.srm.service.srm.ICommonService;
 
 import lombok.extern.log4j.Log4j2;
@@ -33,11 +38,8 @@ public class UserTestDistributeController {
 		model.addAttribute("request", commonService.getRequest(rno));
 		// 요청 처리정보
 		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
-		// 개발 완료 내역(개발내용)
-		model.addAttribute("devToTesterHistories", commonService.getDevToTesterHistories(rno));
-		// 고객테스트 완료 내역
+		// 품질검사 완료 내역
 		model.addAttribute("userTesterToDistributorHistories", commonService.getUserTesterToDistributorHistories(rno));
-		model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));
 		return "srm/userTester";
 	}
 
@@ -50,11 +52,8 @@ public class UserTestDistributeController {
 		model.addAttribute("request", commonService.getRequest(rno));
 		// 요청 처리정보
 		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
-		// 개발 완료 내역(배포 소스)
-		model.addAttribute("devToTesterHistories", commonService.getDevToTesterHistories(rno));
 		// 배포 완료 내역
 		model.addAttribute("distributorToPmHistories", commonService.getDistributorToPmHistories(rno));
-		model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));
 		return "srm/distributor";
 	}
 	
@@ -82,10 +81,28 @@ public class UserTestDistributeController {
 	// => requests테이블(현재단계 최신화) + status_histories테이블(단계 변경 이력 추가)
 	// + status_histories_files테이블(단계 변경 이력에 첨부파일 등록)
 	@PostMapping("/endwork")
-	public String endWork(StatusHistory statusHistory, HttpSession session) {
+	public String endWork(StatusHistory statusHistory, HttpSession session, MultipartFile[] files) {
 		log.info("실행");
 		Member me = (Member) session.getAttribute("member");
 		statusHistory.setWriter(me.getMid());
+		List<StatusHistoryFile> sFiles = new ArrayList<>();
+		try {
+			if (files != null ) {
+				for (MultipartFile file : files) {
+					if(!file.isEmpty()) {
+						StatusHistoryFile statusHistoryFile = new StatusHistoryFile();
+						statusHistoryFile.setFileName(file.getOriginalFilename());
+						statusHistoryFile.setFileType(file.getContentType());
+						statusHistoryFile.setFileData(file.getBytes());
+						sFiles.add(statusHistoryFile);
+					}
+				}
+				
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		statusHistory.setFileList(sFiles);
 		if (me.getMtype().equals("usertester")) {
 			statusHistory.setNextStatus(9);
 			commonService.endWork(statusHistory, me.getMtype());
