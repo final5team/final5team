@@ -32,7 +32,7 @@
 				<!-- 여기에 내용 담기 start -->
 				<div class="wrapper">
 					<main class="all">
-					<section class="filter border-left-dark">
+					<section class="filter border-left-dark shadow">
 						<form>
 							<article class="filter-head">
 								<h4 class="filtering-name">업무 검색</h4>
@@ -161,7 +161,7 @@
 
 						</form>
 					</section>
-					<section class="table border-left-dark">
+					<section class="table border-left-dark shadow">
 
 						<!-- 유저가 아닌 경우, 요청 목록과 업무 목록 스위치 -->
 						<c:if test="${sessionScope.member.mtype != 'user'}">
@@ -448,7 +448,7 @@
 		if(document.getElementById('sno') != null) {
 			console.log("pm인 경우");
 			let filterSno = document.getElementById('sno');
-			let sno = filterSno.options[filterSno.selectedIndex].value
+			sno = filterSno.options[filterSno.selectedIndex].value
 		} else {
 			console.log("pm이 아닌 경우");
 			sno = document.querySelector('.sno').value

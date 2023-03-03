@@ -14,9 +14,11 @@
 a {
 	text-decoration: none;
 }
+
 .card-block {
-	height : 600px;
+	height: 600px;
 }
+
 .card-body .label {
 	position: absolute;
 	width: 110px;
@@ -31,7 +33,7 @@ a {
 	margin-top: 3px;
 	margin-bottom: 24px;
 	font-weight: 600;
-    font-size: 1.0rem;
+	font-size: 1.0rem;
 }
 
 .card-body .inputData {
@@ -68,14 +70,18 @@ a {
 	height: 20px;
 	width: 200px;
 	font-size: 13px;
-	margin-bottom : 10px;
+	margin-bottom: 10px;
+	border: none;
+	background-color: white;
 }
 
 .card-body .inputData input {
 	height: 20px;
 	width: 200px;
 	font-size: 13px;
-	margin-bottom : 10px;
+	margin-bottom: 10px;
+	border: none;
+	background-color: white;
 }
 
 .card-body .titleLabel {
@@ -162,7 +168,7 @@ a {
 	width: 80px;
 	height: 50px;
 	left: 50%;
-	top: 85%;
+	top: 80%;
 }
 
 .card-body .return-button {
@@ -170,7 +176,7 @@ a {
 	width: 80px;
 	height: 50px;
 	left: 55%;
-	top: 85%;
+	top: 80%;
 }
 
 .card-body .item .select-group select {
@@ -201,18 +207,87 @@ a {
 textarea:focus::placeholder {
 	visibility: hidden;
 }
-.titleConfirm{
-	width : 100px;
-	position : absolute;
-	left : 83%;
-}
-.textConfirm{
-	width : 100px;
-	position : absolute;
-	left : 83%;
+
+.titleConfirm {
+	width: 100px;
+	position: absolute;
+	left: 83%;
 }
 
+.textConfirm {
+	width: 100px;
+	position: absolute;
+	left: 83%;
+}
 
+.section2 .fileTitle {
+	position: absolute;
+	width: 80px;
+	left: 8%;
+	top: 63%;
+	overflow: hidden;
+	text-align: start;
+	font-size: 15px;
+	font: bold;
+}
+
+.section2 .fileBody {
+	position: absolute;
+	width: 590px;
+	left: 18%;
+	height: 200px;
+	top: 63%;
+	overflow: hidden;
+	text-align: start;
+	font-size: 15px;
+	font: bold;
+}
+
+.upload_name {
+	position: absolute;
+	left: 15%;
+	z-index: 2;
+	display: inline-block;
+	height: 28px;
+	width: 495px;
+	vertical-align: middle;
+	border: 1px solid #d1d3e2;
+	border-radius: 5px;
+	color: #999999;
+}
+
+.filebox label {
+	position: absolute;
+	left: -1%;
+	display: inline-block;
+	padding: 5px 5px;
+	color: #fff;
+	vertical-align: middle;
+	background-color: #999999;
+	border-radius: 5px;
+	cursor: pointer;
+	height: 20px;
+	margin-left: 10px;
+}
+
+.filebox input[type="file"] {
+	position: absolute;
+	width: 0;
+	height: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 0;
+}
+
+.exist_file {
+	border: 1px solid #d1d3e2;
+	position: absolute;
+	top: 20%;
+	width: 588px;
+	height: 100px;
+	border: 1px solid #d1d3e2;
+	border-radius: 5px;
+}
 </style>
 <body id="page-top">
 	<!-- Page Wrapper -->
@@ -237,13 +312,13 @@ textarea:focus::placeholder {
 					<div id="main">
 						<!-- id=main div start -->
 						<div class="title-block">
-							<h3 class="title">요청 작성</h3>
+							<h3 class="title">요청 조회</h3>
 						</div>
 						<div>
 							<!-- 여기에 단계 상태 이력 넣기 -->
 							<%@ include file="/WEB-INF/views/srm/request/stepperprogress.jsp"%>
 						</div>
-						
+
 						<!-- 여기에 단계 상태 이력 넣기 /-->
 						<section>
 							<!-- 개발내역 입력폼 start -->
@@ -251,11 +326,11 @@ textarea:focus::placeholder {
 								<div class="card-block">
 									<div class="card-title-block">
 										<h3 class="title">
-											요청 내역 작성 <i class="fas fa-edit"></i>
+											요청 내역 조회 <i class="fas fa-edit"></i>
 										</h3>
 									</div>
 									<div class="card-body">
-										<form method="post" action="${pageContext.request.contextPath}/customer/request" enctype="multipart/form-data">
+										<form method="post" action="${pageContext.request.contextPath}/customer/requestupdate" >
 											<article class="label item">
 												<h6>작성자</h6>
 												<h6>전화번호</h6>
@@ -264,18 +339,18 @@ textarea:focus::placeholder {
 											</article>
 											<article class="inputData">
 												<div class="item">
-													<input type="text" class="form-control form-control-user" id="clientName" name="clientName" placeholder="${sessionScope.member.mname}" value="${sessionScope.member.mname}" readonly> 
+													<input type="text" class="form-control form-control-user" id="clientName" name="clientName" placeholder="${sessionScope.member.mname}" value="${sessionScope.member.mname}" readonly>
 												</div>
 												<div class="item">
-													<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="${sessionScope.member.phone}" value="${sessionScope.member.phone}" readonly> 
+													<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="${sessionScope.member.phone}" value="${sessionScope.member.phone}" readonly>
 												</div>
 												<div class="item">
-													<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="${sessionScope.member.position}" value="${sessionScope.member.position}" readonly> 
+													<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="${sessionScope.member.position}" value="${sessionScope.member.position}" readonly>
 												</div>
 												<div class="item">
 													<div class="select-group">
 														<select class="custom-select" id="sno" name="sno" required>
-															<option selected value="0">전체</option>
+															<option selected value="${request.sno}">${request.systemName}</option>
 															<c:forEach var="system" items="${systemList}">
 																<option value="${system.sno}">${system.systemName}</option>
 															</c:forEach>
@@ -293,10 +368,10 @@ textarea:focus::placeholder {
 													<input type="text" class="form-control form-control-user" id="organ" name="organ" placeholder="${sessionScope.member.organ}" value="${sessionScope.member.organ}" readonly>
 												</div>
 												<div class="item">
-													<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="${sessionScope.member.email}" value="${sessionScope.member.email}" readonly> 
+													<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="${sessionScope.member.email}" value="${sessionScope.member.email}" readonly>
 												</div>
 												<div class="item">
-													<input type="date" class="form-control form-control-user" id="reqExpectDate" name="reqExpectDate" required>
+													<input type="date" class="form-control form-control-user" id="reqExpectDate" name="reqExpectDate" value="<fmt:formatDate value="${request.reqExpectDate}" pattern="yyyy-MM-dd" />">
 												</div>
 											</article>
 											<article class="titleLabel">
@@ -304,10 +379,7 @@ textarea:focus::placeholder {
 											</article>
 											<article class="titleInput">
 												<div class="item">
-													<input type="text" id="reqTitle" name="reqTitle" placeholder="제목" required>
-													<div class="titleConfirm">
-														<small class=" mr-5" id="counterTitle">(0 / 30)</small>
-													</div>
+													<input type="text" id="reqTitle" name="reqTitle" placeholder="제목" value="${request.reqTitle}">
 												</div>
 											</article>
 											<article class="titleBody">
@@ -315,28 +387,33 @@ textarea:focus::placeholder {
 											</article>
 											<article class="bodyInput">
 												<div class="item">
-													<textarea id="reqContent" cols="30" name="reqContent" placeholder="내용" required></textarea>
-													<div class="textConfirm">
-														<small class=" mr-5" id="counterContent">(0 / 300)</small>
-													</div>
+													<textarea id="reqContent" cols="30" name="reqContent" placeholder="내용">${request.reqContent}</textarea>
 												</div>
 											</article>
 											<article class="fileTitle">
 												<h6>파일첨부</h6>
 											</article>
 											<article class="fileBody">
-												<div class="item" id="mfileList">
-													<input class="btn btn-sm" multiple="multiple" type="file" id="mfile" name="mfile[]" />
+												<div class="file-item">
+													<input class="upload_name" value="첨부파일" placeholder="첨부파일">
+													<div class="filebox">
+														<label for="mfile">파일찾기</label> 
+														<input multiple="multiple" type="file" id="mfile" name="mfile[]"/>
+													</div>
+													<div class="exist_file"></div>
 												</div>
 											</article>
 
 											<article class="submit-button">
-												<button class="btn btn-dark btn-sm" type="submit">작성</button>
+											<!-- 승인이 아닌경우 수정 가능하도록 변경 c:if 사용 -->
+												<button class="btn btn-dark btn-sm" type="submit">수정</button>
+												
 											</article>
 											<article class="return-button">
 												<button class="btn btn-dark btn-sm" onclick="javascript:history.go(-1)">취소</button>
 											</article>
-										</form>
+											<input type="hidden" value="${request.rno}" id="rno" name ="rno">
+										</form> 
 									</div>
 								</div>
 							</div>
@@ -391,50 +468,6 @@ textarea:focus::placeholder {
 				deleteFile($(this));
 			});
 		})
-
-		$('#reqContent').keyup(function(e) {
-			let content = $(this).val();
-			$('#counterContent').html("(" + content.length + " / 300)");
-			if (content.length > 100) {
-				$('#countCheck').modal();
-				$('#counterContent').html("최대 300자까지 입니다.");
-				$(this).val(content.substring(0, 300));
-				$('#counter').html("(300 / 300)");
-			}
-		});
-		$('#reqTitle').keyup(function(e) {
-			let content = $(this).val();
-			$('#counterTitle').html("(" + content.length + " / 30)");
-			console.log(content.length);
-			
-			if (content.length > 30) {
-				$('#countCheck').modal();
-				$('#countContent').html("최대 30자까지 입니다.");
-				$(this).val(content.substring(0, 30));
-				$('#counterTitle').html("(30 / 30)");
-			}
-		});
-		
-		//파일 업로드 제약 자바스크립트
-		let mfile = document.querySelector('#mfile');
-		mfile.addEventListener('change', function() {
-			// 파일 업로드 개수 제한 (3) 
-			
-			
-			// 파일 이름 출력 
-			let fileList ='';
-			for(i=0; i< mfile.files.length; i++){
-				fileList += mfile.files[i].name + '<br>'
-			}
-			let inputtag = document.querySelector('#mfileList');
-			inputtag.innerHTML = fileList;
-			
-		})
-		
-		
-		
-		
-		
 		
 	</script>
 </body>

@@ -43,15 +43,13 @@
 				<!-- Nav Item - User Information -->
 				<li class="nav-item dropdown no-arrow">
 					<div class="nav-link dropdown-toggle" id="userDropdown">
-						<img class="img-profile rounded-circle" src="${pageContext.request.contextPath}/customer/mypage/${member.mid}" >
+						<img class="img-profile rounded-circle" src="${pageContext.request.contextPath}/customer/mypage/${sessionScope.member.mid}" >
 						<a href="${pageContext.request.contextPath}/customer/mypage">
-							<span class="ml-3 mr-3 d-lg-inline font-weight-bold " style="color: #5C6B7A;">${member.mname} 님</span>
+							<span class="ml-3 mr-3 d-lg-inline font-weight-bold " style="color: #5C6B7A;">${sessionScope.member.mname} 님</span>
 						</a>
 					</div>
 				</li>
-
 			</ul>
-
 		</nav>
 		<!-- Logout Modal-->
 	    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

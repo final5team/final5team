@@ -29,15 +29,14 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	private IRequestDao requestDao;
 	@Autowired
 	private ICommonDao commonDao;
-
+	
+	//요청 작성
 	@Override
 	@Transactional
 	public int writeRequest(Request request, List<StatusHistoryFile> fileList) {
 
 		try {
-			log.info(request.getReqExpectDate());
 			int rows = requestDao.insertRequest(request);
-			
 			// 요청 성공후 결과값 가져오기
 			if (rows == 1) {
 				int requestRno = requestDao.selectRequest(request.getClient());
@@ -77,6 +76,21 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		}
 		return REQUEST_SUCCESS;
 	}
+	
+	//요청 수정
+	@Override
+	public int updateRequest(Request request) {
+		try {
+			//요청 내용 수정
+			int rows = requestDao.updateRequest(request);
+		} catch (Exception e) {
+			log.error(e.toString());
+			return REQUEST_FAIL;
+		}
+		return REQUEST_SUCCESS;
+	}
+	
+	
 
 	@Override
 	public List<Request> getRequestList(Request request, Pager pager) {
@@ -141,7 +155,6 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	@Override
 	public Request getRequestDetail(int rno) {
 		Request request = requestDao.selectRequestDetail(rno);
-		log.info(request.toString());
 		
 		request.setFileList(requestDao.setRequestFiles(request.getHno()));
 		return request;
@@ -254,6 +267,9 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		
 		return listFilter;
 	}
+
+
+
 	
 	
 

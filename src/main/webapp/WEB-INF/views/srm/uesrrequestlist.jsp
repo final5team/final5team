@@ -35,7 +35,7 @@
 				<!-- 여기에 내용 담기 start -->
 				<div class="wrapper">
 					<main class="all">
-					<section class="filter border-left-dark">
+					<section class="filter border-left-dark shadow">
 						<form>
 							<article class="filter-head">
 								<h4>요청 검색</h4>
@@ -101,7 +101,7 @@
 							</article>
 						</form>
 					</section>
-					<section class="table border-left-dark">
+					<section class="table border-left-dark shadow">
 						<article class="table-header">
 							<h4>내 요청 목록</h4>
 						</article>
