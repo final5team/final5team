@@ -75,10 +75,11 @@
 	                	 				</form>
 										<form role="form" id="writeform" action="${pageContext.request.contextPath}/devdone" method="POST" enctype="multipart/form-data">
 											<input type="hidden" name="rno" value="${request.rno}">
+											<input type="hidden" name ="nextStatus" value="14">
 											<div class="form-group d-flex">
 												<div class="label">개발 사항</div>
 												<div class="flex-grow-1">
-													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply"></textarea>
+													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply">${devTemp.reply}</textarea>
 													<div class="d-flex justify-content-end">
 														<small class=" mr-5" id="counter">(0 / 300)</small>
 													</div>
@@ -87,7 +88,7 @@
 											<div class="form-group d-flex">
 												<div class="label">배포소스(url)</div>
 												<div class="flex-grow-1">
-													<input class="form-control boxed" name="distSource" id="distSource" style="height: 20px;">
+													<input class="form-control boxed" name="distSource" id="distSource" style="height: 20px;" value="${devTemp.distSource}">
 													<div class="d-flex justify-content-end">
 														<small class=" mr-5" id="counterSource">(0 / 100)</small>
 													</div>
@@ -127,7 +128,7 @@
 										
 										<c:if test="${request.statusNo == 4}">
 										<div class="d-flex justify-content-end">
-										<button class="btn btn-warning btn-md mx-3">임시 저장</button>
+										<button class="btn btn-warning btn-md mx-3" onclick="tempStore()">임시 저장</button>
 										<c:if test="${requestProcess.devProgress == 100}">
 										<button class="btn btn-primary btn-md " onclick="devEnd()">개발 완료</button>
 										</c:if>
@@ -330,9 +331,18 @@
 		
 		$('#completeDueDate').modal('show');
 	}
+	
+	/* 개발 완료 버튼 클릭시 form데이터 전달 */
 	function devEnd(){
+		$('#writeform').attr('action', '${pageContext.request.contextPath}/devdone');
 		$('#writeform').submit();
 	}
+	/* 임시저장 버튼 클릭시 form 데이터 전달 */
+	function tempStore(){
+		$('#writeform').attr('action', '${pageContext.request.contextPath}/tempstore');
+		$('#writeform').submit();
+	}
+	
 	
 	function getDevContent(index){
 		var content = "#" + index;

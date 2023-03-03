@@ -39,7 +39,7 @@ public class DeveloperController {
 	 * @return developerdetail로 리턴
 	 */
 	@GetMapping("/developerdetail")
-	public String getDeveloperDetail(Model model, int rno) {
+	public String getDeveloperDetail(Model model, int rno, HttpSession session) {
 		log.info("실행");
 
 		// 요청내용 출력 -장현
@@ -52,6 +52,13 @@ public class DeveloperController {
 		List<StatusHistory> testerToDev = commonService.getTesterToDevHistories(rno);
 		// 접수완료일자 받기 (각 실무자의 할당시간 체크 용도)
 		Date receiptDoneDate = commonService.getReceiptDoneDate(rno);
+		//임시저장한 정보 가져오기
+		StatusHistory tempSh = new StatusHistory ();
+		tempSh.setRno(rno);
+		tempSh.setNextStatus(14);
+		
+		Member member = (Member)session.getAttribute("member");
+		StatusHistory devTemp = commonService.getTempStatusHistory(member, tempSh);
 		
 		// 요청, 요청프로세스, 작성내용들 모달에 담기 -장현
 		model.addAttribute("request", request);
@@ -60,6 +67,8 @@ public class DeveloperController {
 		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("receiptDoneDate", receiptDoneDate);
 		model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));
+		model.addAttribute("devTemp", devTemp);
+		
 		return "srm/developerdetail";
 	}
 
