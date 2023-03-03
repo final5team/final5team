@@ -316,25 +316,25 @@
 		 	rp.all_expect_date as "allExpectDate",
 		 	m.mname as "mname", 
 		 	st.status_name as "statusName", 
-		 	r.rno as "rno",
-		 <if test="member.mtype == 'developer'"> rp.developer as "developer"</if>
-		 <if test="member.mtype == 'usertester'"> rp.user_tester as "userTester"</if>
-		 <if test="member.mtype == 'tester'"> rp.tester as "tester"</if>
-		 <if test="member.mtype == 'distributor'"> rp.distributor as "distributor"</if>
+		 	r.rno as "rno"
+		 <if test="member.mtype == 'developer'">, rp.developer as "developer"</if>
+		 <if test="member.mtype == 'usertester'">, rp.user_tester as "userTester"</if>
+		 <if test="member.mtype == 'tester'">, rp.tester as "tester"</if>
+		 <if test="member.mtype == 'distributor'">, rp.distributor as "distributor"</if>
 		from requests r, request_process rp, systems s, members m, status st 
 		where r.rno = rp.rno
 		and r.sno = s.sno
 		 <if test="member.mtype == 'developer'"> and rp.developer = m.mid</if>
-		 <if test="member.mtype == 'usertester'">and rp.user_tester  = m.mid</if>
-		 <if test="member.mtype == 'tester'">and rp.tester = m.mid</if>
-		 <if test="member.mtype == 'distributor'">and rp.distributor  = m.mid</if>
+		 <if test="member.mtype == 'usertester'"> and rp.user_tester  = m.mid</if>
+		 <if test="member.mtype == 'tester'"> and rp.tester = m.mid</if>
+		 <if test="member.mtype == 'distributor'"> and rp.distributor  = m.mid</if>
 		and r.status_no = st.status_no
 		and r.sno = #{member.sno}
 		<if test='checkbox =="y"'>
 			<if test="member.mtype == 'developer'"> and rp.developer = #{member.mid}</if>
-		 	<if test="member.mtype == 'usertester'">and rp.user_tester  = #{member.mid}</if>
-		 	<if test="member.mtype == 'tester'">and rp.tester = #{member.mid}</if>
-		 	<if test="member.mtype == 'distributor'">and rp.distributor  = #{member.mid}</if>
+		 	<if test="member.mtype == 'usertester'"> and rp.user_tester  = #{member.mid}</if>
+		 	<if test="member.mtype == 'tester'"> and rp.tester = #{member.mid}</if>
+		 	<if test="member.mtype == 'distributor'"> and rp.distributor  = #{member.mid}</if>
 		</if>
 		order by r.req_date 
 		OFFSET (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS
