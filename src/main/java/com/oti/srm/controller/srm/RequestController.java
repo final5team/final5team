@@ -55,8 +55,6 @@ public class RequestController {
 	private IUserRegisterService userRegisterService;
 	@Autowired
 	private IRequestRegisterService requestService;
-	@Autowired
-	private pMService pm
 	
 	/**
 	 * Kang Ji Seong 유저 등록 페이지 조회
@@ -333,10 +331,7 @@ public class RequestController {
 		return result;
 	}
 	
-	/**
-	 * Kang Ji Seong 요청 글 상세보기
-	 */
-	
+	//요청 글 상세보기
 	@GetMapping("/requestdetail")
 	public String userRequestDetail(int rno, HttpSession session, Model model) {
 		Request request = requestService.getRequestDetail(rno);
@@ -350,7 +345,8 @@ public class RequestController {
 		//완료 페이지
 		} else if (request.getStatusNo() == 13) {
 			
-			return "srm/requestendpage";
+			
+			return "srm/pm/enddetail" + rno;
 		} else {
 			
 			model.addAttribute("request", request);
@@ -359,9 +355,40 @@ public class RequestController {
 		}
 	}
 	
-	/**
-	 * Kang Ji Seong 요청 글 파일 다운로드
-	 */
+	//요청 수정하기
+	@PostMapping("/requestupdate")
+	public String requestUpdate(int rno, Request request, HttpSession session, Model model ,
+								@RequestParam("mfile[]") MultipartFile[] files) {
+		// 요청 상태값은 1
+		request.setStatusNo(1);
+		Member member = (Member) session.getAttribute("member");
+		request.setClient(member.getMid());
+
+		List<StatusHistoryFile> fileList = new ArrayList<>();
+
+		try {
+			if (files != null) {
+				for (MultipartFile file : files) {
+					if (!file.isEmpty()) {
+						StatusHistoryFile shf = new StatusHistoryFile();
+						shf.setFileData(file.getBytes());
+						shf.setFileName(file.getOriginalFilename());
+						shf.setFileType(file.getContentType());
+						fileList.add(shf);
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "";
+	}
+	
+	
+	
+	//요청 글 파일 다운로드
 	@RequestMapping("/requestdetail/filedownload")
 	public ResponseEntity<byte[]> filDownload(int fno) {
 		
