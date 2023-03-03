@@ -61,7 +61,7 @@
 												<div class="flex-grow-1">
 													<c:if test="${request.statusNo == 7}">
 														<input type="date" class="date-form control" name="expectDate" id="userTestExpectDate">
-														<div class="btn btn-sm btn-primary" onclick="checkDate()">검사 시작</div>
+														<div class="btn btn-sm btn-primary" onclick="checkDate()">작업 시작</div>
 													</c:if>
 
 													<c:if test="${request.statusNo == 8}">
@@ -71,12 +71,14 @@
 												</div>
 											</div>
 	                	 				</form>
-										<form role="form" id="writeform" action="${pageContext.request.contextPath}/endwork" method="POST" enctype="multipart/form-data">
+										<form role="form" id="writeform" method="POST" enctype="multipart/form-data">
 											<input type="hidden" name="rno" value="${request.rno}">
+											<!-- 임시 저장 글 status_no -->
+											<input type="hidden" name="nextStatus" value="17"/>
 											<div class="form-group d-flex">
 												<div class="label">품질 검토 사항</div>
 												<div class="flex-grow-1">
-													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply"></textarea>
+													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply">${userTesterTemp.reply}</textarea>
 													<div class="d-flex justify-content-end">
 														<small class=" mr-5" id="counter">(0 / 300)</small>
 													</div>
@@ -92,14 +94,13 @@
 											        </div>
 			  									</div>	
 											</div>
-										</form>
-										<c:if test="${request.statusNo == 8}">
-											<div class="d-flex justify-content-end">
-												<button class="btn btn-warning btn-md mx-3">임시 저장</button>
-												<button class="btn btn-primary btn-md " onclick="userTestEnd()">개발 완료</button>
-											</div>
-										</c:if>
-										
+											<c:if test="${request.statusNo == 8}">
+												<div class="d-flex justify-content-end">
+													<button class="btn btn-warning btn-md mx-3"  formaction="${pageContext.request.contextPath}/tempstore">임시 저장</button>
+													<button class="btn btn-primary btn-md " formaction="${pageContext.request.contextPath}/endwork">개발 완료</button>
+												</div>
+											</c:if>
+										</form>				
 	                	 			</div>
                 	 			</div>
                 	 		</div>
@@ -178,7 +179,7 @@
                 	 		
                 	 	</section> 
                 	 	<!-- 품질 검토 내역 end-->
-                	 	<button class="btn btn-dark btn-md ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
+                	 	<button class="btn btn-dark btn-sm ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
 					 </div> <!-- id=main div / -->
                 </div>
                 <!-- 여기에 내용 담기 end -->
@@ -222,25 +223,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- 경고 모달창 (50% 이상일 경우) -->
-	<!-- 데이트 입력 확인 -->
-	<div class="modal fade" id="completeModal" aria-hidden="true" aria-labelledby="successOfDueDate">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5>확인</h5>
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body" style="display: flex; justify-content: center;">
-					<p id="completeContent"></p>
-				</div>
-				<div class="modal-footer" style="justify-content: center;">
-                    <a class="btn btn-primary" data-dismiss="modal" type="button">확인</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- 데이트 입력 확인 /-->
+	
 	<!-- 글자수 입력 확인 -->
 	<div class="modal fade" id="countCheck" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
@@ -290,11 +273,6 @@
 		$('#alartDateTooMuch').modal('hide');
 		//컨트롤러로 값 전달하기
 		$('#dueDateForm').submit();
-		
-		$('#completeDueDate').modal('show');
-	}
-	function userTestEnd(){
-		$('#writeform').submit();
 	}
 	
 	function getDevContent(index){

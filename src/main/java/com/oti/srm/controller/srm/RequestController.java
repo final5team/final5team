@@ -31,6 +31,7 @@ import com.oti.srm.dto.SelectPM;
 import com.oti.srm.dto.StatusHistoryFile;
 import com.oti.srm.service.member.IUserRegisterService;
 import com.oti.srm.service.srm.IRequestRegisterService;
+import com.oti.srm.service.srm.PMService;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -55,9 +56,7 @@ public class RequestController {
 	private IUserRegisterService userRegisterService;
 	@Autowired
 	private IRequestRegisterService requestService;
-	@Autowired
-	private pMService pm
-	
+
 	/**
 	 * Kang Ji Seong 유저 등록 페이지 조회
 	 */

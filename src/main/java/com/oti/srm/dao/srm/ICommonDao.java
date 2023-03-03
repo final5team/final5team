@@ -93,7 +93,7 @@ public interface ICommonDao {
 
 	public List<Request> selectUserRequestList(@Param("searchStatus") String searchStatus, @Param("member") Member member, @Param("uPager") Pager uPager);
 
-	public StatusHistory selectTempStatusHistory(@Param("member") Member member, @Param("searchStatus") StatusHistory statusHistory);
+	public StatusHistory selectTempStatusHistory(@Param("member") Member member, @Param("statusHistory") StatusHistory statusHistory);
 
 	public void updateDevProgress(RequestProcess rp);
 

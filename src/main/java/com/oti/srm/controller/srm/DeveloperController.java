@@ -35,7 +35,7 @@ public class DeveloperController {
 	/**
 	 * @author : 장현
 	 * @param model view에 전달할 객체 주입
-	 * @param rno Request객체 내용 출력위해 rno주입
+	 * @param rno   Request객체 내용 출력위해 rno주입
 	 * @return developerdetail로 리턴
 	 */
 	@GetMapping("/developerdetail")
@@ -52,7 +52,7 @@ public class DeveloperController {
 		List<StatusHistory> testerToDev = commonService.getTesterToDevHistories(rno);
 		// 접수완료일자 받기 (각 실무자의 할당시간 체크 용도)
 		Date receiptDoneDate = commonService.getReceiptDoneDate(rno);
-		
+
 		// 요청, 요청프로세스, 작성내용들 모달에 담기 -장현
 		model.addAttribute("request", request);
 		model.addAttribute("devToTester", devToTester);
@@ -63,12 +63,11 @@ public class DeveloperController {
 		return "srm/developerdetail";
 	}
 
-
 	/**
 	 * @author : 장현
-	 * @param statusHistory StatusHistory객체 주입
+	 * @param statusHistory     StatusHistory객체 주입
 	 * @param developExpectDate RequestProcess에 업데이트
-	 * @param session 세션에 저장된 member 통해서 StatusHistory의 writer 주입
+	 * @param session           세션에 저장된 member 통해서 StatusHistory의 writer 주입
 	 * @return developerdetail로 리다이렉트
 	 */
 	@PostMapping("/devinprogress")
@@ -81,33 +80,32 @@ public class DeveloperController {
 
 		return "redirect:/developerdetail?rno=" + statusHistory.getRno();
 	}
+
 	@GetMapping("/developerdetail2")
 	public String getDeveloperDetail2(Model model) {
 		log.info("실행");
 		return "srm/developerdetail2";
 	}
-	
+
 	/**
 	 * @author : 장현
-	 * @param rp rno 와 devProgress를 담은 객체
+	 * @param rp      rno 와 devProgress를 담은 객체
 	 * @param session
 	 * @return developerdetail로 리턴
 	 */
 	@PostMapping("/updatedevprogress")
 	public String updateDevProgress(RequestProcess rp, HttpSession session) {
-		
+
 		commonService.updateDevProgress(rp);
-		
+
 		return "redirect:/developerdetail?rno=" + rp.getRno();
 	}
-	
-	
-	
+
 	/**
 	 * @author : 장현
 	 * @param statusHistory 상태 업데이트
-	 * @param session member객체로 statusHistory에 wrtier주입
-	 * @param files 파일 입력
+	 * @param session       member객체로 statusHistory에 wrtier주입
+	 * @param files         파일 입력
 	 * @return developerdetail로 view전달
 	 */
 	@PostMapping("/devdone")
@@ -119,9 +117,9 @@ public class DeveloperController {
 		statusHistory.setNextStatus(5);
 		List<StatusHistoryFile> sFiles = new ArrayList<>();
 		try {
-			if (files != null ) {
+			if (files != null) {
 				for (MultipartFile file : files) {
-					if(!file.isEmpty()) {
+					if (!file.isEmpty()) {
 						StatusHistoryFile statusHistoryFile = new StatusHistoryFile();
 						statusHistoryFile.setFileName(file.getOriginalFilename());
 						statusHistoryFile.setFileType(file.getContentType());
@@ -129,7 +127,7 @@ public class DeveloperController {
 						sFiles.add(statusHistoryFile);
 					}
 				}
-				
+
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -138,7 +136,7 @@ public class DeveloperController {
 		commonService.endWork(statusHistory, member.getMtype());
 		return "redirect:/developerdetail?rno=" + statusHistory.getRno();
 	}
-	
+
 	@PostMapping("/tempstore")
 	public String tempStore(StatusHistory statusHistory, HttpSession session, Model model) {
 		log.info("실행");
@@ -146,14 +144,25 @@ public class DeveloperController {
 		statusHistory.setWriter(member.getMid());
 		// 기존 임시 저장글이 있는지 확인
 		StatusHistory tempStatusHistory = commonService.getTempStatusHistory(member, statusHistory);
-		if(tempStatusHistory == null) {
+		if (tempStatusHistory == null) {
 			// insert
 			commonService.writeStatusHistory(statusHistory);
-		}else {
+		} else {
 			// update
 			commonService.updateStatusHistory(statusHistory);
 		}
-		return "srm/developerdetail2";
+		if (member.getMtype().equals("developer")) {
+			return "redirect:/developerdetail?rno=" + statusHistory.getRno();
+		}
+		else if (member.getMtype().equals("tester")) {
+			return "redirect:/testerdetail?rno=" + statusHistory.getRno();
+		}
+		else if (member.getMtype().equals("usertester")) {
+			return "redirect:/usertestdetail?rno=" + statusHistory.getRno();
+		}
+		else {
+			return "redirect:/distributedetail?rno=" + statusHistory.getRno();
+		}
 	}
-	
+
 }

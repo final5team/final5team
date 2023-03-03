@@ -407,6 +407,13 @@
 	
 	<select id="selectTempStatusHistory" parameterType="map" resultType="com.oti.srm.dto.StatusHistory">
 		select 
+			hno as "hno",
+	        change_date as "changeDate",
+	        rno as "rno",
+	        next_status as "nextStatus",
+	        reply as "reply",
+	        dist_source as "distSource",
+	        writer as "writer"
 		from status_histories
 		where rno = #{statusHistory.rno}
 		and next_status = #{statusHistory.nextStatus}
@@ -418,7 +425,7 @@
 		set 
 			reply = #{reply},
 			dist_source = #{distSource},
-			change_date = #{changeDate}
+			change_date = sysdate
 		where rno = #{rno}
 		and next_status = #{nextStatus}
 		and writer = #{writer}
