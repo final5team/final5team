@@ -20,7 +20,26 @@
 					<td>${dayRequest.rno}</td>
 					<td>${dayRequest.systemName}</td>
 					<td>${dayRequest.reqType}</td>
-					<td class="tableContent">${dayRequest.reqTitle}</td>
+					<td class="tableContent">
+						<c:if test="${dayRequest.statusName eq '접수중' || dayRequest.statusName eq '접수완료'}">
+							<a href="${pageContext.request.contextPath}/pm/receiptdetail?rno=${dayRequest.rno}">${dayRequest.reqTitle}</a>
+						</c:if>
+						<c:if test="${dayRequest.statusName eq '개발중' || dayRequest.statusName eq '개발재검토' || dayRequest.statusName eq '개발완료'}">
+							<a href="${pageContext.request.contextPath}/developerdetail?rno=${dayRequest.rno}">${dayRequest.reqTitle}</a>
+						</c:if>
+						<c:if test="${dayRequest.statusName eq '테스트중' || dayRequest.statusName eq '테스트완료'}">
+							<a href="${pageContext.request.contextPath}/testerdetail?rno=${dayRequest.rno}">${dayRequest.reqTitle}</a>
+						</c:if>
+						<c:if test="${dayRequest.statusName eq '유저테스트중' || dayRequest.statusName eq '유저테스트완료'}">
+							<a href="${pageContext.request.contextPath}/usertestdetail?rno=${dayRequest.rno}">${dayRequest.reqTitle}</a>
+						</c:if>
+						<c:if test="${dayRequest.statusName eq '배포중' || dayRequest.statusName eq '배포완료'}">
+							<a href="${pageContext.request.contextPath}/distributedetail?rno=${dayRequest.rno}">${dayRequest.reqTitle}</a>
+						</c:if>
+						<c:if test="${dayRequest.statusName eq '완료' || dayRequest.statusName eq '반려'}">
+							<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${dayRequest.rno}">${dayRequest.reqTitle}</a>
+						</c:if>
+					</td>
 					<td>
 						<c:if test="${dayRequest.priority eq '하' || dayRequest.priority eq '중' ||dayRequest.priority eq '상'}">
 							<span class="fa fa-star checked" style="color: orange;"></span>

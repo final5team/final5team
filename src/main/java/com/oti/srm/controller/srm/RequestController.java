@@ -55,7 +55,7 @@ public class RequestController {
 	private IUserRegisterService userRegisterService;
 	@Autowired
 	private IRequestRegisterService requestService;
-	
+
 	/**
 	 * Kang Ji Seong 유저 등록 페이지 조회
 	 */

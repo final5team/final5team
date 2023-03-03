@@ -187,7 +187,7 @@ public class HomeController {
 		model.addAttribute("searchStatus", searchStatus);
 		model.addAttribute("uPager", uPager);
 		model.addAttribute("userRequestList",userRequestList);
-		return "srm/userRequestList";
+		return "srm/uRequestList";
 	}
 	
 	@GetMapping("/7dayslist")
