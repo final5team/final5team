@@ -27,7 +27,7 @@
 	<div class="stepper-item
 		<c:if test="${request.statusNo >= 5}">completed</c:if>
         <c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">active</c:if>">
-	  <a class="step-counter btn" href="${pageContext.request.contextPath}/developerdetail2?rno=${request.rno}">
+	  <a class="step-counter btn" href="${pageContext.request.contextPath}/developerdetail?rno=${request.rno}">
 	  	<i class="fas fa-laptop-code"></i>
 	  </a>
 	  <div class="step-name">
