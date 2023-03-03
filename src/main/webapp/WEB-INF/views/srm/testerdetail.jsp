@@ -96,13 +96,16 @@
 												</div>
 											</div>
 										</form>												
-										<form role="form" id="writeform" action="${pageContext.request.contextPath}/testdone" method="POST" enctype="multipart/form-data">
+										<form role="form" id="writeform" method="POST" enctype="multipart/form-data">
+											<input type="hidden" name="nextStatus" value="15">
 											<input type="hidden" name="rno" value="${request.rno}" id="rno">
 											<div class="form-group d-flex">
-												<div class="label" id="reply">내용 작성 </div>
+												<div class="label" id="replylabel">내용 작성 </div>
 												<!-- <textarea rows="3" class="form-control boxed flex-grow-1" name="reply"></textarea> -->
 												<div class="flex-grow-1">
-													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply"></textarea>
+													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply">${tempNormal.reply}</textarea>
+													<input type="hidden" id="tempNormal" value="${tempNormal.reply}">
+													<input type="hidden" id="tempReexam" value="${tempReexam.reply}">
 													<div class="d-flex justify-content-end">
 														<small class=" mr-5" id="counter">(0 / 300)</small>
 													</div>
@@ -120,8 +123,8 @@
 											</div>
 											<div class="d-flex justify-content-end">
 												<c:if test="${member.mid == requestProcess.tester && request.statusNo == 6}">
-												<button class="btn btn-warning btn-md mx-3 " type="submit">임시저장</button>
-												<button class="btn btn-primary btn-md " type="submit" id="testButton">테스트 완료</button>
+												<button class="btn btn-warning btn-md mx-3 " formaction="${pageContext.request.contextPath}/tempstore" >임시저장</button>
+												<button class="btn btn-primary btn-md " id="testButton" formaction="${pageContext.request.contextPath}/testdone">테스트 완료</button>
 												</c:if>
 											</div>
 										</form>
@@ -312,10 +315,6 @@
 		$('#completeDueDate').modal('show');
 		
 	}
-	function devEnd(rno){
-		let rnoNum = rno;
-		location.href='${pageContext.request.contextPath}/testdone?rno=' + rnoNum;
-	}
 	
 	$('.showContentButton').click(function(){
 		var fno = $(this).parent().parent().parent().next().toggle();
@@ -324,22 +323,34 @@
 	
 	/* 정상 & 재검토 버튼 눌렀을 시 */
 	function turnNormal(){
+		$('input[name="nextStatus"]').val("15");
 		$('#normal').addClass('active');
 		$('#reexam').removeClass('active');
-		$('#reply').text('내용작성');
-		$('#reply').removeClass('text-danger');
+		$('#replylabel').text('내용작성');
+		$('#replylabel').removeClass('text-danger');
 		$('#fileLabel').removeClass('text-danger');
-		$('#writeform').attr("action", "${pageContext.request.contextPath}/testdone");
+		/* 버튼 바꿔주기 */
 		$('#testButton').text('테스트 완료');
+		$('#testButton').attr('formaction', '${pageContext.request.contextPath}/testdone');
+		/* textarea 값 바꿔주기 */
+		var content = $('#tempNormal').val();
+		$('#reply').text(content);
+		
 	}
 	function turnReexam(){
+		$('input[name="nextStatus"]').val("16");
 		$('#reexam').addClass('active');
 		$('#normal').removeClass('active');
-		$('#reply').text('재검토사유');
-		$('#reply').addClass('text-danger');
+		$('#replylabel').text('재검토사유');
+		$('#replylabel').addClass('text-danger');
 		$('#fileLabel').addClass('text-danger');
-		$('#writeform').attr("action", "${pageContext.request.contextPath}/askreexam");
+		/* 버튼 바꾸기 */
+		$('#testButton').attr('formaction', '${pageContext.request.contextPath}/askreexam');
 		$('#testButton').text('재검토 요청');
+		/* textarea 값 바꿔주기 */
+		var content = $('#tempReexam').val();
+		$('#reply').text(content);
+		
 	}
 	
 	/* 파일 */
@@ -366,7 +377,17 @@
     function openHistories(){
     	$('#histories').toggle();
     }
-    
+	/* 글자수 세기 */
+   	$('#reply').keyup(function (e){
+   		let content = $(this).val();
+   		$('#counter').html("("+content.length+" / 300)");
+ 		if(content.length > 300){
+ 			$('#countCheck').modal();
+ 			$('#countContent').html("최대 300자까지 입니다.");
+ 			$(this).val(content.substring(0,300));
+ 			$('#counter').html("(300 / 300)");
+ 		}
+   	});
 	</script>
 </body>
 

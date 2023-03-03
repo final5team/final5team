@@ -51,12 +51,26 @@ public class TesterController {
 		List<StatusHistory> devToTester = commonService.getDevToTesterHistories(rno);
 		List<StatusHistory> testerToDev = commonService.getTesterToDevHistories(rno);
 		Date receiptDoneDate = commonService.getReceiptDoneDate(rno);
+		
+		//임시저장 가져오기 (정상 처리 저장)
+		StatusHistory sh = new StatusHistory();
+		sh.setRno(rno);
+		sh.setNextStatus(15);
+		Member member = (Member)session.getAttribute("member");
+		StatusHistory tempNormal = commonService.getTempStatusHistory(member, sh);
+		//임시저장 가져오기 (재검토 처리 저장)
+		sh.setNextStatus(16);
+		StatusHistory tempReexam = commonService.getTempStatusHistory(member, sh);
+		
 		model.addAttribute("request", request);
 		model.addAttribute("devToTester", devToTester);
 		model.addAttribute("testerToDev", testerToDev);
 		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("receiptDoneDate", receiptDoneDate);
 		model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));
+		model.addAttribute("tempNormal",tempNormal);
+		model.addAttribute("tempReexam",tempReexam);
+		
 		return "srm/testerdetail";
 	}
 

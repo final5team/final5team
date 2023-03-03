@@ -7,6 +7,11 @@
 <head>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
     <link href="${pageContext.request.contextPath}/resources/css/stepperprogress.css" rel="stylesheet">
+	<script src="${pageContext.request.contextPath}/resources/vendor/tinymce/tinymce.min.js"></script>    
+	<script src="${pageContext.request.contextPath}/resources/js/tinymceinit.js"></script>    
+	<script src="${pageContext.request.contextPath}/resources/vendor/tinymce/themes/silver/theme.min.js"></script>    
+    
+    
     <style>
     .progress-group{
     padding: 0px 220px;
@@ -80,9 +85,6 @@
 												<div class="label">개발 사항</div>
 												<div class="flex-grow-1">
 													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply">${devTemp.reply}</textarea>
-													<div class="d-flex justify-content-end">
-														<small class=" mr-5" id="counter">(0 / 300)</small>
-													</div>
 												</div>
 											</div>
 											<div class="form-group d-flex">
