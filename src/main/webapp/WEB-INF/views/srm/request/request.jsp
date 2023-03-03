@@ -162,7 +162,7 @@ a {
 	width: 80px;
 	height: 50px;
 	left: 50%;
-	top: 85%;
+	top: 90%;
 }
 
 .card-body .return-button {
@@ -170,7 +170,7 @@ a {
 	width: 80px;
 	height: 50px;
 	left: 55%;
-	top: 85%;
+	top: 90%;
 }
 
 .card-body .item .select-group select {
@@ -212,6 +212,49 @@ textarea:focus::placeholder {
 	left : 83%;
 }
 
+.upload_name {
+	position: absolute;
+	left: 15%;
+	z-index: 2;
+	display: inline-block;
+	height: 80px;
+	width: 495px;
+	vertical-align: middle;
+	border: 1px solid #d1d3e2;
+	border-radius: 5px;
+	color: #999999;
+}
+
+.filebox label {
+	position: absolute;
+	left: -1%;
+	display: inline-block;
+	padding: 5px 5px;
+	color: #fff;
+	vertical-align: middle;
+	background-color: #999999;
+	border-radius: 5px;
+	cursor: pointer;
+	height: 20px;
+	margin-left: 10px;
+}
+
+.filebox input[type="file"] {
+	position: absolute;
+	width: 0;
+	height: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 0;
+}
+
+.file-item {
+	width: 400px;
+	height: 100px;
+	top: 20%;
+	border-radius: 5px;
+	z-index : 5;
+}
 
 </style>
 <body id="page-top">
@@ -325,11 +368,14 @@ textarea:focus::placeholder {
 												<h6>파일첨부</h6>
 											</article>
 											<article class="fileBody">
-												<div class="item" id="mfileList">
-													<input class="btn btn-sm" multiple="multiple" type="file" id="mfile" name="mfile[]" />
+												<div class="file-item">
+													<div class="upload_name" id="exist_file" >첨부파일</div>
+													<div class="filebox">
+														<input multiple="multiple" type="file" id="mfile" name="mfile[]"/>
+														<label for="mfile">파일찾기</label> 
+													</div>
 												</div>
 											</article>
-
 											<article class="submit-button">
 												<button class="btn btn-dark btn-sm" type="submit">작성</button>
 											</article>
@@ -383,15 +429,10 @@ textarea:focus::placeholder {
 		</div>
 	</div>
 	<!-- 글자수 입력 확인 /-->
+	
+	
+	
 	<script>
-		/* 파일 */
-		$(document).ready(function() {
-			$(".file-delete").on("click", function(e) {
-				e.preventDefault();
-				deleteFile($(this));
-			});
-		})
-
 		$('#reqContent').keyup(function(e) {
 			let content = $(this).val();
 			$('#counterContent').html("(" + content.length + " / 300)");
@@ -414,22 +455,25 @@ textarea:focus::placeholder {
 				$('#counterTitle').html("(30 / 30)");
 			}
 		});
-		
 		//파일 업로드 제약 자바스크립트
 		let mfile = document.querySelector('#mfile');
 		mfile.addEventListener('change', function() {
 			// 파일 업로드 개수 제한 (3) 
-			
-			
-			// 파일 이름 출력 
-			let fileList ='';
-			for(i=0; i< mfile.files.length; i++){
-				fileList += mfile.files[i].name + '<br>'
+			if(mfile.files.length >3 ){
+				alert("파일 업로드 개수는 최대 3개입니다.");
+				mfile.value='';
+				return false;
+			} else {
+				// 파일 이름 출력 
+				let fileList ='';
+				for(i=0; i< mfile.files.length; i++){
+					fileList += mfile.files[i].name + '<br>'
+					console.log(fileList);
+				}
+				let inputtag = document.querySelector('#exist_file');
+				inputtag.innerHTML = fileList;
 			}
-			let inputtag = document.querySelector('#mfileList');
-			inputtag.innerHTML = fileList;
-			
-		})
+		});
 		
 		
 		

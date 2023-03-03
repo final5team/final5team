@@ -168,7 +168,7 @@ a {
 	width: 80px;
 	height: 50px;
 	left: 50%;
-	top: 80%;
+	top: 90%;
 }
 
 .card-body .return-button {
@@ -176,7 +176,7 @@ a {
 	width: 80px;
 	height: 50px;
 	left: 55%;
-	top: 80%;
+	top: 90%;
 }
 
 .card-body .item .select-group select {
@@ -248,7 +248,7 @@ textarea:focus::placeholder {
 	left: 15%;
 	z-index: 2;
 	display: inline-block;
-	height: 28px;
+	height: 80px;
 	width: 495px;
 	vertical-align: middle;
 	border: 1px solid #d1d3e2;
@@ -279,14 +279,12 @@ textarea:focus::placeholder {
 	border: 0;
 }
 
-.exist_file {
-	border: 1px solid #d1d3e2;
-	position: absolute;
-	top: 20%;
-	width: 588px;
+.file-item {
+	width: 400px;
 	height: 100px;
-	border: 1px solid #d1d3e2;
+	top: 20%;
 	border-radius: 5px;
+	z-index : 5;
 }
 </style>
 <body id="page-top">
@@ -395,12 +393,17 @@ textarea:focus::placeholder {
 											</article>
 											<article class="fileBody">
 												<div class="file-item">
-													<input class="upload_name" value="첨부파일" placeholder="첨부파일">
-													<div class="filebox">
-														<label for="mfile">파일찾기</label> 
-														<input multiple="multiple" type="file" id="mfile" name="mfile[]"/>
+													<div class="upload_name" id="exist_file" >
+														<c:forEach var="file" items="${request.fileList}">
+											    			<div>
+												    			<a href="${pageContext.request.contextPath}/customer/requestdetail/filedownload/${file.fno}">${file.fileName}</a>
+											    			</div>
+											    		</c:forEach>
 													</div>
-													<div class="exist_file"></div>
+													<div class="filebox">
+														<input multiple="multiple" type="file" id="mfile" name="mfile[]"/>
+														<label for="mfile">파일찾기</label> 
+													</div>
 												</div>
 											</article>
 
@@ -410,7 +413,7 @@ textarea:focus::placeholder {
 												
 											</article>
 											<article class="return-button">
-												<button class="btn btn-dark btn-sm" onclick="javascript:history.go(-1)">취소</button>
+												<button class="btn btn-dark btn-sm" type="button" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">취소</button>
 											</article>
 											<input type="hidden" value="${request.rno}" id="rno" name ="rno">
 										</form> 
@@ -461,13 +464,32 @@ textarea:focus::placeholder {
 	</div>
 	<!-- 글자수 입력 확인 /-->
 	<script>
-		/* 파일 */
+		/* 파일 버튼 변경*/
 		$(document).ready(function() {
 			$(".file-delete").on("click", function(e) {
 				e.preventDefault();
 				deleteFile($(this));
 			});
 		})
+		//파일 업로드 제약 자바스크립트
+		let mfile = document.querySelector('#mfile');
+		mfile.addEventListener('change', function() {
+			// 파일 업로드 개수 제한 (3) 
+			if(mfile.files.length >3 ){
+				alert("파일 업로드 개수는 최대 3개입니다.");
+				mfile.value='';
+				return false;
+			} else {
+				// 파일 이름 출력 
+				let fileList ='';
+				for(i=0; i< mfile.files.length; i++){
+					fileList += mfile.files[i].name + '<br>'
+					console.log(fileList);
+				}
+				let inputtag = document.querySelector('#exist_file');
+				inputtag.innerHTML = fileList;
+			}
+		});
 		
 	</script>
 </body>

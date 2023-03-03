@@ -1,8 +1,10 @@
 package com.oti.srm.controller.srm;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -334,7 +336,6 @@ public class RequestController {
 	@GetMapping("/requestdetail")
 	public String userRequestDetail(int rno, HttpSession session, Model model) {
 		Request request = requestService.getRequestDetail(rno);
-		
 		List<System> systemList = userRegisterService.getSystemList();
 		
 		//반려 페이지
@@ -352,6 +353,8 @@ public class RequestController {
 			model.addAttribute("systemList", systemList);
 			return "srm/request/requestdetail";
 		}
+		
+		
 	}
 	
 	
@@ -371,16 +374,18 @@ public class RequestController {
 	}
 	
 	//요청 글 파일 다운로드
-	@RequestMapping("/requestdetail/filedownload")
-	public ResponseEntity<byte[]> filDownload(int fno) {
+	@GetMapping("/requestdetail/filedownload/{fno}")
+	public ResponseEntity<byte[]> filDownload(@PathVariable int fno) throws UnsupportedEncodingException {
 		
-		StatusHistoryFile fileList = requestService.getMyRequestFile(fno);
+		log.info(fno);
+		
+		StatusHistoryFile file = requestService.getMyRequestFile(fno);
 		final HttpHeaders headers = new HttpHeaders();
-		String [] mtypes = fileList.getFileType().split("/");
+		String [] mtypes = file.getFileType().split("/");
 		headers.setContentType(new MediaType(mtypes[0], mtypes[1]));
-		headers.setContentDispositionFormData("attachment", fileList.getFileName());
+		headers.setContentDispositionFormData("attachment",new String(file.getFileName().getBytes("UTF-8"), "ISO-8859-1"));
 		
-		return new ResponseEntity<byte[]>(fileList.getFileData(), HttpStatus.OK);
+		return new ResponseEntity<byte[]>(file.getFileData(), headers, HttpStatus.OK);
 	}
 	
 	
