@@ -306,6 +306,8 @@ public class RequestController {
 		List<System> systemList = userRegisterService.getSystemList();
 		ListFilter returnList = requestService.dateFilterList(listFilter);
 		
+		log.info(listFilter.toString());
+		
 		//세션에 저장된 멤버 객체 전달
 		Member member = (Member) session.getAttribute("member");
 		int totalRows = requestService.getMyWorkRows(listFilter, member);
@@ -353,7 +355,7 @@ public class RequestController {
 			
 			model.addAttribute("request", request);
 			model.addAttribute("systemList", systemList);
-			return "srm/requestdetail";
+			return "srm/request/request";
 		}
 	}
 	
