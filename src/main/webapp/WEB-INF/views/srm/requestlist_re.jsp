@@ -448,7 +448,7 @@
 		if(document.getElementById('sno') != null) {
 			console.log("pm인 경우");
 			let filterSno = document.getElementById('sno');
-			let sno = filterSno.options[filterSno.selectedIndex].value
+			sno = filterSno.options[filterSno.selectedIndex].value
 		} else {
 			console.log("pm이 아닌 경우");
 			sno = document.querySelector('.sno').value

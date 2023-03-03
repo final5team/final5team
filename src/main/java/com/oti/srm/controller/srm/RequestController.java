@@ -55,7 +55,9 @@ public class RequestController {
 	private IUserRegisterService userRegisterService;
 	@Autowired
 	private IRequestRegisterService requestService;
-
+	@Autowired
+	private pMService pm
+	
 	/**
 	 * Kang Ji Seong 유저 등록 페이지 조회
 	 */
@@ -353,7 +355,7 @@ public class RequestController {
 			
 			model.addAttribute("request", request);
 			model.addAttribute("systemList", systemList);
-			return "srm/requestdetail";
+			return "srm/request/requestdetail";
 		}
 	}
 	

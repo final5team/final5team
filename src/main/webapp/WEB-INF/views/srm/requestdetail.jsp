@@ -377,54 +377,8 @@ textarea:focus::placeholder {
 	box-shadow: 0 0 5px #5a5c69;
 }
 
-.include {
-	margin: 0;
-	font-size: 15px;
-	padding: 10px;
-}
 
-article.include div {
-	margin: 0px 50px;
-	box-sizing: border-box;
-}
 
-.include .circle {
-	background-color: #fff;
-	text-align: center;
-	color: #999;
-	height: 28px;
-	width: 120px;
-	font-size: 15px;
-	border: 3px solid #e0e0e0;
-	transition: 0.4s ease;
-}
-
-.include .bar {
-	margin: 0px 110px;
-	background-color: #fff;
-	color: #999;
-	height: 30px;
-	width: 1px;
-	align-items: center;
-	justify-content: center;
-	border: 3px solid #e0e0e0;
-	transition: 0.4s ease;
-}
-
-.include .circle.done {
-	border-color: #5a5c69;
-	color: #5a5c69;
-}
-
-.include .circle.now {
-	border-color: white;
-	color: white;
-	background-color: #5a5c69;
-}
-
-.include .bar.active {
-	border-color: #5a5c69;
-}
 </style>
 </head>
 

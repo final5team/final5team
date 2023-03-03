@@ -123,6 +123,7 @@ main {
 	position: absolute;
 	top : 39%;
 	
+	
 }
 .filter .filter-body #date_first{
 	width : 130px;
@@ -133,6 +134,7 @@ main {
 	height : 30px;
 	position : absolute;
 	left : 120%;
+	z-index : 5;
 }
 .filter .filter-body .date_icon{
 	position : absolute;
