@@ -18,7 +18,7 @@
           
           // 그래프 옵션
           var options2 = {
-            title: '전체 지연율',   // 그래프 제목
+            title: '시스템별 지연율',   // 그래프 제목
             pieHole: 0.4,		// 그래프 중앙 빈 부분 크기 설정
 
             tooltip: { trigger: 'none' },   // 도움말 제거   
