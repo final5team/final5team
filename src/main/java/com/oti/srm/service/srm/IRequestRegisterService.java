@@ -1,6 +1,7 @@
 package com.oti.srm.service.srm;
 
 import java.util.List;
+import java.util.Map;
 
 import com.oti.srm.dto.ListFilter;
 import com.oti.srm.dto.Member;

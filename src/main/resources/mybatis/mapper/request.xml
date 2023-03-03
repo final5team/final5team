@@ -22,7 +22,7 @@
 		        SNO = #{sno}
     	where rno = #{rno}
 	</update>
-	
+
 
 
 	<select id="getRequestList" resultType="com.oti.srm.dto.Request">
@@ -404,10 +404,10 @@
         where r.rno=#{rno} and next_status = 1
 	</select>
 	
-	<select id="setRequestFiles" parameterType="int" resultType="com.oti.srm.dto.StatusHistoryFile">
+	<select id="setRequestFiles" resultType="int" parameterType="com.oti.srm.dto.StatusHistoryFile">
 		select FNO, SAVED_DATE as "savedDate", FILE_NAME as "fileName", FILE_TYPE as "fileType", FILE_DATA as "fileData", HNO
 		from STATUS_HISTORIES_FILES
-		where hno = #{hno}
+		where hno = #{hno}parameterType
 	</select>
 	
 	<select id="selectRequestFile" parameterType="int" resultType="com.oti.srm.dto.StatusHistoryFile">
@@ -415,7 +415,11 @@
 			from STATUS_HISTORIES_FILES
 			where hno = #{hno}
 	</select>
-	
+	<select id="selectFile" parameterType="int" resultType="com.oti.srm.dto.StatusHistoryFile">
+		select FNO, SAVED_DATE as "savedDate", FILE_NAME as "fileName", FILE_TYPE as "fileType", FILE_DATA as "fileData"
+			from STATUS_HISTORIES_FILES
+			where fno = #{fno}
+	</select>
 
 
 

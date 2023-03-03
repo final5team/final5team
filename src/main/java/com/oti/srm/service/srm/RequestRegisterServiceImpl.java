@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -152,18 +153,28 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		log.info(result.size());
 		return result;
 	}
+	//작성한 요청 상세 정보 가져오기
 	@Override
+	@Transactional
 	public Request getRequestDetail(int rno) {
+		//요청 제목, 내용 가져오기
 		Request request = requestDao.selectRequestDetail(rno);
+		int hno = request.getHno();
+		log.info(hno);
+		//요청시 첨부된 파일 가져오기
+		request.setFileList(requestDao.selectRequestFile(hno));
 		
-		request.setFileList(requestDao.setRequestFiles(request.getHno()));
+		
+		
 		return request;
 	}
-	
 	@Override
 	public StatusHistoryFile getMyRequestFile(int fno) {
-		return requestDao.selectRequestFile(fno);
+		StatusHistoryFile file = requestDao.selectFile(fno);
+		return file;
 	}
+
+	
 	
 	
 	
@@ -267,6 +278,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		
 		return listFilter;
 	}
+
 
 
 
