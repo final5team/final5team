@@ -12,8 +12,12 @@ import com.oti.srm.dto.StatusHistoryFile;
 
 @Mapper
 public interface IRequestDao {
-	//요청 작성 : 모든 유저
+	// 요청 작성 : 모든 유저
 	public int insertRequest(Request request);
+	// 요청 수정 
+	public int updateRequest(Request request);
+	
+	
 	public List<Request> getRequestList();
 	public int getPresentStep(int rno);
 	

@@ -330,7 +330,7 @@ textarea:focus::placeholder {
 										</h3>
 									</div>
 									<div class="card-body">
-										<form method="post" action="${pageContext.request.contextPath}/customer/requestupdate" enctype="multipart/form-data">
+										<form method="post" action="${pageContext.request.contextPath}/customer/requestupdate" >
 											<article class="label item">
 												<h6>작성자</h6>
 												<h6>전화번호</h6>
@@ -397,7 +397,8 @@ textarea:focus::placeholder {
 												<div class="file-item">
 													<input class="upload_name" value="첨부파일" placeholder="첨부파일">
 													<div class="filebox">
-														<label for="mfile">파일찾기</label> <input multiple="multiple" type="file" id="mfile" name="mfile[]" />
+														<label for="mfile">파일찾기</label> 
+														<input multiple="multiple" type="file" id="mfile" name="mfile[]"/>
 													</div>
 													<div class="exist_file"></div>
 												</div>
@@ -411,7 +412,8 @@ textarea:focus::placeholder {
 											<article class="return-button">
 												<button class="btn btn-dark btn-sm" onclick="javascript:history.go(-1)">취소</button>
 											</article>
-										</form>
+											<input type="hidden" value="${request.rno}" id="rno" name ="rno">
+										</form> 
 									</div>
 								</div>
 							</div>
