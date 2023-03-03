@@ -39,21 +39,21 @@
                 <div class="container">
                 	 <div id="main"> <!-- id=main div start -->
                 	 	<div class="title-block">
-                	 		<h3 class="title">품질검토 상세 보기</h3>
+                	 		<h3 class="title">배포 상세 보기</h3>
                 	 	</div>
                 	 	<div> <!-- 여기에 단계 상태 이력 넣기 -->
                 	 		<%@ include file="/WEB-INF/views/srm/restatus/stepperprogress.jsp" %>
                 	 	</div>	<!-- 여기에 단계 상태 이력 넣기 /-->
-                	 	<c:if test="${member.mid eq requestProcess.userTester 
+                	 	<c:if test="${member.mid eq requestProcess.distributor 
                 	 	&& ((request.statusNo == 7 && requestProcess.reqType == '긴급') || 
                 	 	(request.statusNo == 9 && requestProcess.reqType == '정규')
                 	 	|| (request.statusNo == 10))}">
-                	 	<section> <!-- 개발내역 입력폼 start -->
+                	 	<section> <!-- 배포내역 입력폼 start -->
                 	 		<div class="card border-top-dark">
                 	 			<div class="card-block">
 	                	 			<div class="card-title-block">
 	                	 				<h3 class="title">
-		                	 				품질 검토 내역 작성 <i class="fas fa-edit"></i>
+		                	 				배포 내역 작성 <i class="fas fa-edit"></i>
 	                	 				</h3>
 	                	 			</div>
 	                	 			<div class="card-body">
@@ -65,7 +65,7 @@
 													<c:if test="${(request.statusNo == 7 && requestProcess.reqType == '긴급') || 
                 	 									(request.statusNo == 9 && requestProcess.reqType == '정규')}">
 														<input type="date" class="date-form control" name="expectDate" id="distExpectDate">
-														<div class="btn btn-sm btn-primary" onclick="checkDate()">검사 시작</div>
+														<div class="btn btn-sm btn-primary" onclick="checkDate()">작업 시작</div>
 													</c:if>
 
 													<c:if test="${request.statusNo == 10}">
@@ -76,12 +76,14 @@
 												</div>
 											</div>
 	                	 				</form>
-										<form role="form" id="writeform" action="${pageContext.request.contextPath}/endwork" method="POST" enctype="multipart/form-data">
+										<form role="form" id="writeform" method="POST" enctype="multipart/form-data">
 											<input type="hidden" name="rno" value="${request.rno}">
+											<!-- 임시 저장 글 status_no -->
+											<input type="hidden" name="nextStatus" value="18"/>
 											<div class="form-group d-flex">
 												<div class="label">배포 내용</div>
 												<div class="flex-grow-1">
-													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply"></textarea>
+													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply">${distributorTemp.reply}</textarea>
 													<div class="d-flex justify-content-end">
 														<small class=" mr-5" id="counter">(0 / 300)</small>
 													</div>
@@ -97,24 +99,23 @@
 											        </div>
 			  									</div>	
 											</div>
+											<c:if test="${request.statusNo == 10}">
+												<div class="d-flex justify-content-end">
+													<button class="btn btn-warning btn-md mx-3"  formaction="${pageContext.request.contextPath}/tempstore">임시 저장</button>
+													<button class="btn btn-primary btn-md " formaction="${pageContext.request.contextPath}/endwork">배포 완료</button>
+												</div>
+											</c:if>
 										</form>
-										<c:if test="${request.statusNo == 10}">
-											<div class="d-flex justify-content-end">
-												<button class="btn btn-warning btn-md mx-3">임시 저장</button>
-												<button class="btn btn-primary btn-md " onclick="userTestEnd()">배포 완료</button>
-											</div>
-										</c:if>
-										
 	                	 			</div>
                 	 			</div>
                 	 		</div>
-                	 	</section><!-- 개발내역 입력폼 end -->
+                	 	</section><!-- 배포내역 입력폼 end -->
                 	 	</c:if>
                 	 	
-                	 	<c:if test="${userTesterToDistributorHistories != null}">
+                	 	<c:if test="${distributorToPmHistories != null}">
                	 		<div class="d-flex justify-content-center mt-4"> <!-- 히스토리 버튼 start -->
                	 			<div class="btn btn-primary-outline history-button" onclick="openHistories()">
-               	 				품질 검토 내역 보기  <i class="fas fa-history"></i>
+               	 				배포 내역 보기  <i class="fas fa-history"></i>
                	 			</div>
                	 		</div> <!-- 히스토리 버튼 end -->
                 	 	</c:if>
@@ -122,7 +123,7 @@
                	 		<!-- 배포 내역 start-->
                 	 	<section id="histories" > 
                 	 		<div class="title-block">
-	                	 		<h3 class="title">품질 검토 내역</h3>
+	                	 		<h3 class="title">배포 내역</h3>
 	                	 	</div>
 	                	 	<c:forEach var="statusHistory" varStatus="index" items="${distributorToPmHistories}">
                 	 		<div class="card border-top-primary my-3"> <!-- foreach한다면 여기부터 start -->
@@ -183,7 +184,7 @@
                 	 		
                 	 	</section> 
                 	 	<!-- 배포 내역 end-->
-                	 	<button class="btn btn-dark btn-md ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
+                	 	<button class="btn btn-dark btn-sm ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
 					 </div> <!-- id=main div / -->
                 </div>
                 <!-- 여기에 내용 담기 end -->
@@ -208,7 +209,7 @@
     
 	
 		
-	<!-- 경고 모달창 (50% 이상일 경우)-->
+	<!-- 경고 모달창 -->
 	<div class="modal fade" id="alartDateTooMuch" aria-hidden="true" aria-labelledby="alartOfTimeTooMuch">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
@@ -227,25 +228,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- 경고 모달창 (50% 이상일 경우) -->
-	<!-- 데이트 입력 확인 -->
-	<div class="modal fade" id="completeModal" aria-hidden="true" aria-labelledby="successOfDueDate">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5>확인</h5>
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body" style="display: flex; justify-content: center;">
-					<p id="completeContent"></p>
-				</div>
-				<div class="modal-footer" style="justify-content: center;">
-                    <a class="btn btn-primary" data-dismiss="modal" type="button">확인</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- 데이트 입력 확인 /-->
+
 	<!-- 글자수 입력 확인 -->
 	<div class="modal fade" id="countCheck" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
@@ -295,12 +278,8 @@
 		$('#alartDateTooMuch').modal('hide');
 		//컨트롤러로 값 전달하기
 		$('#dueDateForm').submit();
-		
-		$('#completeDueDate').modal('show');
 	}
-	function userTestEnd(){
-		$('#writeform').submit();
-	}
+
 	
 	function getDevContent(index){
 		var content = "#" + index;

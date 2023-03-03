@@ -28,6 +28,7 @@ import lombok.extern.log4j.Log4j2;
 public class UserTestDistributeController {
 	@Autowired
 	ICommonService commonService;
+
 	// 작성자 : 송영훈
 	// 고객테스트 단계(고객테스트 요청, 고객테스트 중)상세보기
 	@GetMapping("/usertestdetail")
@@ -40,6 +41,12 @@ public class UserTestDistributeController {
 		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
 		// 품질검사 완료 내역
 		model.addAttribute("userTesterToDistributorHistories", commonService.getUserTesterToDistributorHistories(rno));
+		// 임시저장 정보
+		StatusHistory sh = new StatusHistory();
+		sh.setRno(rno);
+		sh.setNextStatus(17);
+		Member member = (Member) session.getAttribute("member");
+		model.addAttribute("userTesterTemp", commonService.getTempStatusHistory(member, sh));
 		return "srm/userTester";
 	}
 
@@ -54,14 +61,21 @@ public class UserTestDistributeController {
 		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
 		// 배포 완료 내역
 		model.addAttribute("distributorToPmHistories", commonService.getDistributorToPmHistories(rno));
+		// 임시저장 정보
+		StatusHistory sh = new StatusHistory();
+		sh.setRno(rno);
+		sh.setNextStatus(18);
+		Member member = (Member) session.getAttribute("member");
+		model.addAttribute("distributorTemp", commonService.getTempStatusHistory(member, sh));
 		return "srm/distributor";
 	}
-	
+
 	// 작성자 : 송영훈
 	// 작업 시작(고객테스터 / 배포자 공용)
 	// => requests테이블(현재단계 최신화 + 완료예정일 기입) + status_histories테이블(단계 변경 이력 추가)
 	@PostMapping("/startwork")
-	public String startWork(StatusHistory statusHistory, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expectDate, HttpSession session, Model model) {
+	public String startWork(StatusHistory statusHistory,
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expectDate, HttpSession session, Model model) {
 		log.info("실행");
 		Member me = (Member) session.getAttribute("member");
 		statusHistory.setWriter(me.getMid());
@@ -75,7 +89,7 @@ public class UserTestDistributeController {
 			return "redirect:/distributedetail?rno=" + statusHistory.getRno();
 		}
 	}
-	
+
 	// 작성자 : 송영훈
 	// 작업 완료(고객테스터 / 배포자 공용)
 	// => requests테이블(현재단계 최신화) + status_histories테이블(단계 변경 이력 추가)
@@ -87,9 +101,9 @@ public class UserTestDistributeController {
 		statusHistory.setWriter(me.getMid());
 		List<StatusHistoryFile> sFiles = new ArrayList<>();
 		try {
-			if (files != null ) {
+			if (files != null) {
 				for (MultipartFile file : files) {
-					if(!file.isEmpty()) {
+					if (!file.isEmpty()) {
 						StatusHistoryFile statusHistoryFile = new StatusHistoryFile();
 						statusHistoryFile.setFileName(file.getOriginalFilename());
 						statusHistoryFile.setFileType(file.getContentType());
@@ -97,7 +111,7 @@ public class UserTestDistributeController {
 						sFiles.add(statusHistoryFile);
 					}
 				}
-				
+
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

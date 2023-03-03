@@ -189,7 +189,7 @@
 												</thead>
 												<tbody>
 													<c:forEach var="request" items="${userRequestList}">
-														<tr>
+														<tr style="text-align: center;">
 															<td>${request.rno}</td>
 															<td class="tableContent">
 																<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
@@ -261,7 +261,7 @@
 												</thead>
 												<tbody>
 													<c:forEach var="notice" items="${noticeList}">
-														<tr>
+														<tr style="text-align: center;">
 															<th>${notice.nno}</th>
 															<td class="tableContent">
 																<a href="${pageContext.request.contextPath}/noticedetail?nno=${notice.nno}">
