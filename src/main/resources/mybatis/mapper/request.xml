@@ -275,7 +275,7 @@
 				and REQ_TYPE = #{listFilter.reqType}
 			</if>
 			<if test='listFilter.sno != 0'>
-					and sno = #{listFilter.sno}
+					and r.sno = #{listFilter.sno}
 			</if>
 			<if test='listFilter.dateValue.equals("zero")'> 
 				<![CDATA[
@@ -339,7 +339,7 @@
 				and REQ_TYPE = #{listFilter.reqType}
 			</if>
 			<if test='listFilter.sno != 0'>
-				and sno = #{listFilter.sno}
+				and r.sno = #{listFilter.sno}
 			</if>
 			<if test='listFilter.dateValue.equals("zero")'>
 			</if>

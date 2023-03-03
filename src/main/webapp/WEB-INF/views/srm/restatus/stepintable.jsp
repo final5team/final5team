@@ -180,8 +180,8 @@ margin: 0 0 1rem 0;
 	}
 	// 7. 최종단계
 	function enddetail(i){
-		
-		
+		let rno = i;
+		location.href ="${pageContext.request.contextPath}/pm/enddetail?rno="+rno;
 	}
 	
 	
