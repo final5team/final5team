@@ -79,11 +79,20 @@ public class StatsController {
 		return "srm/stats";
 	}
 	
+	/**
+	 * 
+	 * @author: KIM JI YOUNG
+	 * @param session
+	 * @param model
+	 * @param sno
+	 * @return
+	 */
 	@RequestMapping(value="/comrate/{sno}", method = RequestMethod.GET)
 	public String getComRateSystem(HttpSession session, Model model, @PathVariable int sno) {
 		model.addAttribute("comRate", statsService.getComRate(sno));		
 		return "srm/comrate";
 	}
+	
 	
 	@RequestMapping(value="/delrate/{sno}", method = RequestMethod.GET)
 	public String getDelRateSystem(HttpSession session, Model model, @PathVariable int sno) {
