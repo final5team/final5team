@@ -20,7 +20,7 @@
 			<td class="client">${request.systemName}</td>
 			<c:if test="${request.statusNo == 1}">
 				<td class="sysType">
-					<span class="badge badge-warning">미정</span>
+					<span class="badge badge-warning">대기</span>
 				</td>
 			</c:if>
 			<c:if test="${request.statusNo == 12}">

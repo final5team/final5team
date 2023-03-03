@@ -169,14 +169,15 @@
                     on r.sno = s.sno
 		            
 		    ]]>
+		    
 		<where>
 			<if test='member.mtype.equals("pm")'>
 				<if test='listFilter.sno != 0'>
-					and sno = #{listFilter.sno}
+					and r.sno = #{listFilter.sno}
 				</if>
 			</if>
 			<if test='member.mtype neq "pm"'>
-				and sno = #{member.sno}
+				and r.sno = #{member.sno}
 
 				<if test='member.mtype eq "developer"'>
 					and developer = #{member.mid}
