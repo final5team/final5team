@@ -88,7 +88,7 @@
 		</table>
 	</div>
 	<div>
-		<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
+		<ul class="pagination pagination-sm d-flex justify-content-center mt-2">
 		    <li class="page-item"><a class="page-link" onclick="requestProcessList(1)">처음</a></li>
 		    <c:if test="${rpPager.groupNo>1}">
 			    <li class="page-item">

@@ -301,7 +301,7 @@ input:checked + .slider:before {
 							<!-- 오늘마감start -->
 							<div class="col-12 my-4">
 								<div class="card tasks border-left-dark shadow" style="height: 420.896px;">
-									<div class="card-title-block mt-3 d-flex">
+									<div class="card-header d-flex">
 			                			<h5 class="title ml-3 mr-auto" id="devTitle">
 			                				<c:if test="${member.mtype == 'developer'}">
 			                					<input type="hidden" value="developer" id="memberType"/>
@@ -417,7 +417,7 @@ input:checked + .slider:before {
 											</table>
 										</div>
 										<div>
-											<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
+											<ul class="pagination pagination-sm d-flex justify-content-center mt-2">
 											    <li class="page-item"><a class="page-link" onclick="requestProcessList(1)">처음</a></li>
 											    <c:if test="${rpPager.groupNo>1}">
 												    <li class="page-item">
@@ -453,7 +453,7 @@ input:checked + .slider:before {
 							<!-- 공지사항 start -->
 							<div class="col-12">
 								<div class="card border-left-primary shadow mb-4" style="height: 420.896px;" >
-									<div class="card-title-block mt-3">
+									<div class="card-header">
 			                			<h5 class="title ml-3">공지사항</h5>
 			                		</div>
 			                		<div class="card-body" id="mainNoticeListContainer">
