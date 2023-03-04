@@ -3,7 +3,6 @@
 a {
 	text-decoration: none;
 }
-
 .card-block {
 	height : 600px;
 }
@@ -58,7 +57,7 @@ a {
 	margin-bottom : 10px;
 	position : absolute;
 	left : 0;
-	top : -23.5%;
+	top : -19.5%;
 }
 .card-body .data_one input{
 	height: 20px;
@@ -126,23 +125,23 @@ a {
 .card-body #postcode{
 	position : absolute;
 	left : 1.8%;
-	top : -5%;
+	top : 19%;
 }
 .card-body #addr1{
 	position : absolute;
 	left: 40%;
-	top : -5%;
+	top : 19%;
 	width : 250px;
 }
 .card-body #addr2{
 	position : absolute;
-	top : 25%;
+	top : 47%;
 	left: 1.7%;
 	width : 473px;
 }
 .card-body .address-button button{
 	position : absolute;
-	top : -4.5%;
+	top : 19%;
 	left : 91.5%;
 	height : 33px;
 	width : 100px;
