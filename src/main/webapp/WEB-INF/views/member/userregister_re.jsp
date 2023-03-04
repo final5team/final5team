@@ -94,9 +94,10 @@
 										<h3 class="title">
 											사용자 등록 <i class="fas fa-edit"></i>
 										</h3>
+										<h6><i class="fas fa-star-of-life"></i> 초기 비밀번호는 000 입니다.</h6>
 									</div>
 									<div class="card-body">
-										<form method="post" action="${pageContext.request.contextPath}/customer/request" enctype="multipart/form-data">
+										<form method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data">
 											<section class="section2">
 												<article class="photo">
 													<img id="preview" src="${pageContext.request.contextPath}/resources/img/default-image.gif" 
@@ -111,10 +112,11 @@
 														</div>
 													</article>
 												</article>
+												
 												<article class="label item">
 													<h6>사용자 구분</h6>
 													<h6>아이디</h6>
-													<h6>시스템</h6>
+													<h6>이름</h6>
 													<h6>이메일</h6>
 													<h6>생년월일</h6>
 													<h6>우편번호</h6>
@@ -153,11 +155,12 @@
 													<h6>휴대폰 번호</h6>
 												</article>
 
-
+											
 												<article class="data_two">
+												
 													<div class="input-group">
 														<select class="custom-select" id="sno" name="sno" style="visibility : hidden;">
-															<option selected>시스템 선택</option>
+															<option value="0" selected>시스템 선택</option>
 															<c:forEach var="system" items="${systemList}">
 																<option value="${system.sno}">${system.systemName}</option>
 															</c:forEach>
@@ -171,6 +174,7 @@
 															</select>
 														</div>
 													</div>
+													
 													<div class="item">
 														<div class="input-group">
 															<select class="custom-select" id="position" name="position" required>
@@ -182,6 +186,7 @@
 															</select>
 														</div>
 													</div>
+													
 													<div class="item">
 														<div class="input-group">
 															<select class="custom-select" id="organ" name="organ" required>
@@ -192,11 +197,12 @@
 															</select>
 														</div>
 													</div>
+													
 													<div class="item" style="margin-top: 10px;">
 														<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="핸드폰" required>
 													</div>
 												</article>
-												
+												 
 												<article class="address-input">
 													<div class="item address1">
 														<input type="text" class="form-control form-control-user" id="postcode" name="postcode" placeholder="우편번호" readonly>
@@ -218,6 +224,7 @@
 													<button class="btn btn-dark btn-sm" type="submit">취소</button>
 												</article>
 											</section>
+											
 										</form>
 									</div>
 								</div>

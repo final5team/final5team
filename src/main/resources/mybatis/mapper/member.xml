@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oti.srm.dao.member.IMemberDao">
 	
+	<insert id=""></insert>
+	
+	
+	
+	
 	<select id="getMember" parameterType="com.oti.srm.dto.Member" resultType="com.oti.srm.dto.Member">
 		select  MID as"mid",
 				MTYPE as"mtype",

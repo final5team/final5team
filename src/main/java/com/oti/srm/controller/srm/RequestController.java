@@ -75,8 +75,10 @@ public class RequestController {
 	public String register(Member member, Model model) {
 		String address = member.getPostcode() + "-" + member.getAddr1() + "-" + member.getAddr2();
 		member.setAddress(address);
+		member.setPassword("0000");
 		MultipartFile mfile = member.getMfile();
 		log.info("유저 등록");
+		log.info(member.toString());
 		
 		try {
 			if (mfile != null && !mfile.isEmpty()) {

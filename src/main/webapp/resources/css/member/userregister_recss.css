@@ -21,7 +21,9 @@ a {
 	border-radius: 10px;
 	left : 10%;
 }
-
+.card-title-block h6{
+	margin-top : 15px;
+}
 /* 첫번째 데이터 그룹 */
 .card-body .label {
 	position: absolute;
