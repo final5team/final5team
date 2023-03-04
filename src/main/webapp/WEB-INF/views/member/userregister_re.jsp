@@ -39,22 +39,20 @@
 			document.getElementById('preview').src = "";
 		}
 	}
-	
-	function changeUserType(){
+
+	function changeUserType() {
 		var typeSelect = document.getElementById("mtype");
 		var selectValue = typeSelect.options[typeSelect.selectedIndex].value;
 		console.log(selectValue);
-		if(selectValue == 'pm'){
+		if (selectValue == 'pm') {
 			$("#sno").css("visibility", "hidden");
-			$("#sno_icon").css("visibility","hidden");
+			$("#sno_icon").css("visibility", "hidden");
 
 		} else {
 			$("#sno").css("visibility", "visible");
-			$("#sno_icon").css("visibility","visible");
+			$("#sno_icon").css("visibility", "visible");
 		}
 	}
-	
-	
 </script>
 
 </head>
@@ -96,89 +94,126 @@
 									</div>
 									<div class="card-body">
 										<form method="post" action="${pageContext.request.contextPath}/customer/request" enctype="multipart/form-data">
-											<article class="label item">
-												<h6>작성자</h6>
-												<h6>전화번호</h6>
-												<h6>직급</h6>
-												<h6>시스템</h6>
-											</article>
-											<article class="inputData">
-												<div class="item">
-													<input type="text" class="form-control form-control-user" id="clientName" name="clientName" placeholder="${sessionScope.member.mname}" value="${sessionScope.member.mname}" readonly> 
-												</div>
-												<div class="item">
-													<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="${sessionScope.member.phone}" value="${sessionScope.member.phone}" readonly> 
-												</div>
-												<div class="item">
-													<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="${sessionScope.member.position}" value="${sessionScope.member.position}" readonly> 
-												</div>
-												<div class="item">
-													<div class="select-group">
-														<select class="custom-select" id="sno" name="sno" required>
-															<option selected value="0">전체</option>
+											<section class="section2">
+												<article class="photo">
+													<img id="preview" src="${pageContext.request.contextPath}/resources/img/default-image.gif" 
+														onerror = "this.src='${pageContext.request.contextPath}/resources/img/default-image.gif'"/>
+													<article class="fileBody">
+														<div class="file-item">
+															<div class="upload_name" id="exist_file" style="width : 110px; white-space: nowrap; overflow: hidden;" >FileName</div>
+															<div class="filebox">
+																<input type="file" id="mfile" name="mfile" accept="image/*" onchange="readURL(this);"/>
+																<label for="mfile">이미지</label> 
+															</div>
+														</div>
+													</article>
+												</article>
+												<article class="label item">
+													<h6>사용자 구분</h6>
+													<h6>아이디</h6>
+													<h6>시스템</h6>
+													<h6>이메일</h6>
+													<h6>생년월일</h6>
+													<h6>우편번호</h6>
+												</article>
+
+												<article class="data_one">
+													<select class="custom-select" id="mtype" name="mtype" onchange="changeUserType()">
+														<option value="user" selected>USER</option>
+														<option value="pm">PM</option>
+														<option value="developer">DEVELOPER</option>
+														<option value="distributer">DISTRIBUTOR</option>
+														<option value="tester">TESTER</option>
+														<option value="user_tester">QUALITY</option>
+													</select>
+													<div class="data">
+														<div class="item">
+															<input type="text" class="form-control form-control-user" id="mid" name="mid" placeholder="아이디" required>
+														</div>
+														<div class="item">
+															<input type="text" class="form-control form-control-user" id="mname" name="mname" placeholder="이름" required>
+														</div>
+														<div class="item">
+															<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="이메일" required>
+														</div>
+														<div class="item">
+															<input type="date" id="birth" name="birth" class="form-control form-control-user" required>
+														</div>
+													</div>
+												</article>
+
+												<article class="label_two item">
+													<h6>시스템</h6>
+													<h6>성별</h6>
+													<h6>직급</h6>
+													<h6>소속 회사</h6>
+													<h6>휴대폰 번호</h6>
+												</article>
+
+												<article class="data_two">
+													<div class="input-group">
+														<select class="custom-select" id="sno" name="sno">
+															<option selected>시스템 선택</option>
 															<c:forEach var="system" items="${systemList}">
 																<option value="${system.sno}">${system.systemName}</option>
 															</c:forEach>
 														</select>
 													</div>
-												</div>
-											</article>
-											<article class="label2">
-												<h6>소속기관</h6>
-												<h6>이메일</h6>
-												<h6>완료 희망 일자</h6>
-											</article>
-											<article class="inputData2">
-												<div class="item">
-													<input type="text" class="form-control form-control-user" id="organ" name="organ" placeholder="${sessionScope.member.organ}" value="${sessionScope.member.organ}" readonly>
-												</div>
-												<div class="item">
-													<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="${sessionScope.member.email}" value="${sessionScope.member.email}" readonly> 
-												</div>
-												<div class="item">
-													<input type="date" class="form-control form-control-user" id="reqExpectDate" name="reqExpectDate" required>
-												</div>
-											</article>
-											<article class="titleLabel">
-												<h6>제목</h6>
-											</article>
-											<article class="titleInput">
-												<div class="item">
-													<input type="text" id="reqTitle" name="reqTitle" placeholder="제목" required>
-													<div class="titleConfirm">
-														<small class=" mr-5" id="counterTitle">(0 / 30)</small>
+													<div class="item">
+														<div class="input-group">
+															<select class="custom-select" id="gender" name="gender" required>
+																<option value="1">남</option>
+																<option value="2">여</option>
+															</select>
+														</div>
 													</div>
-												</div>
-											</article>
-											<article class="titleBody">
-												<h6>내용</h6>
-											</article>
-											<article class="bodyInput">
-												<div class="item">
-													<textarea id="reqContent" cols="30" name="reqContent" placeholder="내용" required></textarea>
-													<div class="textConfirm">
-														<small class=" mr-5" id="counterContent">(0 / 300)</small>
+													<div class="item">
+														<div class="input-group">
+															<select class="custom-select" id="position" name="position" required>
+																<option selected>직급 선택</option>
+																<option value="사원">사원</option>
+																<option value="대리">대리</option>
+																<option value="과장">과장</option>
+																<option value="차장">차장</option>
+															</select>
+														</div>
 													</div>
-												</div>
-											</article>
-											<article class="fileTitle">
-												<h6>파일첨부</h6>
-											</article>
-											<article class="fileBody">
-												<div class="file-item">
-													<div class="upload_name" id="exist_file" >첨부파일</div>
-													<div class="filebox">
-														<input multiple="multiple" type="file" id="mfile" name="mfile[]"/>
-														<label for="mfile">파일찾기</label> 
+													<div class="item">
+														<div class="input-group">
+															<select class="custom-select" id="organ" name="organ" required>
+																<option selected>소속 기관 선택</option>
+																<option value="1">1</option>
+																<option value="2">2</option>
+																<option value="3">3</option>
+															</select>
+														</div>
 													</div>
-												</div>
-											</article>
-											<article class="submit-button">
-												<button class="btn btn-dark btn-sm" type="submit">작성</button>
-											</article>
-											<article class="return-button">
-												<button class="btn btn-dark btn-sm" onclick="javascript:history.go(-1)">취소</button>
-											</article>
+													<div class="item" style="margin-top: 10px;">
+														<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="핸드폰" required>
+													</div>
+												</article>
+												
+												<article class="address-input">
+													<div class="item address1">
+														<input type="text" class="form-control form-control-user" id="postcode" name="postcode" placeholder="우편번호" readonly>
+													</div>
+													<div class="item address2">
+														<input type="text" class="form-control form-control-user" id="addr1" name="addr1" placeholder="도로명 주소" readonly>
+													</div>
+													<div class="item address3">
+														<input type="text" id="addr2" name="addr2" class="form-control form-control-user"  placeholder="상세 주소" required>
+													</div>
+													<div class="item address-button">
+														<button type="button" class="btn btn-dark btn-sm" id="address" name="address" onclick="findAddress()">우편번호</button>
+													</div>
+												</article>
+												<article class="submit-button">
+													<button class="btn btn-dark btn-sm" type="submit">회원 등록</button>
+												</article>
+												<article class="return-button">
+													<button class="btn btn-dark btn-sm" type="submit">취소</button>
+												</article>
+											</section>
 										</form>
 									</div>
 								</div>
@@ -188,7 +223,7 @@
 					</div>
 					<!-- id=main div / -->
 				</div>
-					<!-- 여기에 내용 담기 end -->
+				<!-- 여기에 내용 담기 end -->
 				<!-- End of Main Content -->
 
 				<!-- Footer -->
@@ -203,6 +238,31 @@
 	<!-- Scroll to Top Button-->
 	<a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
 	</a>
+	<script>
+	
+	//이미지 검증
+	mfile.addEventListener('change', function() {
+		//파일 업로드 제약 자바스크립트
+		let mfile = document.querySelector('#mfile');
+		let fileList = mfile.files[0].name;
+		
+		//이미지 파일만 입력받기
+		const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+		if(!allowedExtensions.exec(fileList)){
+			alert('jpg, jpeg, png, gif 파일만 업로드할 수 있습니다.');
+			mfile.value = '';
+			let image = document.querySelector('#preview');
+			image.src = '${pageContext.request.contextPath}/resources/img/default-image.gif';
+			return false;
+		}else{
+			// 파일 이름 출력 
+			let inputtag = document.querySelector('#exist_file');
+			inputtag.innerHTML = fileList;
+		}
+	});
+	</script>
+	
+	
 </body>
 
 </html>
