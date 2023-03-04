@@ -44,15 +44,18 @@
 		var typeSelect = document.getElementById("mtype");
 		var selectValue = typeSelect.options[typeSelect.selectedIndex].value;
 		console.log(selectValue);
-		if (selectValue == 'pm') {
-			$("#sno").css("visibility", "hidden");
-			$("#sno_icon").css("visibility", "hidden");
+		if (selectValue !== 'pm' && selectValue !== 'user') {
+			$("#sno").css("visibility", "visible");
+			$("#system").css("visibility", "visible");
 
 		} else {
-			$("#sno").css("visibility", "visible");
-			$("#sno_icon").css("visibility", "visible");
+			$("#sno").css("visibility", "hidden");
+			$("#system").css("visibility", "hidden");
 		}
 	}
+	
+	
+	
 </script>
 
 </head>
@@ -143,7 +146,7 @@
 												</article>
 
 												<article class="label_two item">
-													<h6>시스템</h6>
+													<h6 id="system" style="visibility : hidden;">시스템</h6>
 													<h6>성별</h6>
 													<h6>직급</h6>
 													<h6>소속 회사</h6>
@@ -152,7 +155,7 @@
 
 												<article class="data_two">
 													<div class="input-group">
-														<select class="custom-select" id="sno" name="sno">
+														<select class="custom-select" id="sno" name="sno" style="visibility : hidden;">
 															<option selected>시스템 선택</option>
 															<c:forEach var="system" items="${systemList}">
 																<option value="${system.sno}">${system.systemName}</option>
