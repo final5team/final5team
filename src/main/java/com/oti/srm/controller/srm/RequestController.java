@@ -93,20 +93,13 @@ public class RequestController {
 				} else {
 					return "redirect:/";
 				}
-
-			} else {
-				int result = userRegisterService.register(member);
-				if (result == IUserRegisterService.REGISTER_FAIL) {
-					return "redirect:/customer/register";
-				} else {
-					return "redirect:/";
-				}
-			}
+			} 
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("registerResult", "FAIL");
 			return "redirect:/customer/register";
 		}
+		return "redirect:/customer/register";
 	}
 
 	/**
