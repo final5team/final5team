@@ -157,7 +157,6 @@
 
 											
 												<article class="data_two">
-												
 													<div class="input-group">
 														<select class="custom-select" id="sno" name="sno" style="visibility : hidden;">
 															<option value="0" selected>시스템 선택</option>
