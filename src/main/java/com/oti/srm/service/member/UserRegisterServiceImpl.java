@@ -22,6 +22,7 @@ public class UserRegisterServiceImpl implements IUserRegisterService {
 	@Override
 	public int register(Member member) {
 		int rows = memberDao.insertMember(member);
+		log.info("서비스");
 		return rows;
 	}
 
