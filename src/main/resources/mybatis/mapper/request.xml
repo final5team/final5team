@@ -309,7 +309,7 @@
 			</if>
 			<if test='listFilter.statusNo != 0 '>
 				
-				<if test='listFilter.statusValue eq"개발"'>
+				<if test='listFilter.statusValue eq"진행중"'>
 				<![CDATA[
 					and status_no in (1, 2, 3, 4, 5, 6, 7, 8, 10)
 				]]>

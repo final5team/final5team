@@ -65,7 +65,7 @@ public class RequestController {
 	public String register(Model model) {
 		List<System> systemList = userRegisterService.getSystemList();
 		model.addAttribute("systemList", systemList);
-		return "member/userregister";
+		return "member/userregister_re";
 	}
 
 	/**
