@@ -190,9 +190,9 @@
 														<div class="input-group">
 															<select class="custom-select" id="organ" name="organ" required>
 																<option selected>소속 기관 선택</option>
-																<option value="1">1</option>
-																<option value="2">2</option>
-																<option value="3">3</option>
+																<option value="오티아이">오티아이</option>
+																<option value="쇼핑몰">쇼핑몰</option>
+																<option value="학사관리">학사관리</option>
 															</select>
 														</div>
 													</div>
@@ -279,6 +279,9 @@
 		let idTest = idPattern.test(id);
 		if(!idTest){
 			alert("아이디는 알파벳 대소문자, 숫자를 혼용해서 6자 이상 10자 이하 입니다.");
+			$('#mid').css('border', '2px solid red');
+			$('#idconfirm').html('중복된 아이디입니다.');
+			$('#idconfirm').css('color', 'red');
 		} else {
 			data = {mid : id};	
 			$.ajax ({
@@ -291,13 +294,13 @@
 					console.log(result);
 					if(result ==0){
 						$('#idconfirm').html('사용 가능한 아이디입니다.');
-						$('#idconfirm').css('color', 'red');
+						$('#idconfirm').css('color', 'blue');
+						$('#mid').css('border', '1px solid #ced4da');
 					} else {
 						$('#idconfirm').html('중복된 아이디입니다.');
 						$('#idconfirm').css('color', 'red');
+						
 					}
-					
-					
 				}
 			});
 		}
