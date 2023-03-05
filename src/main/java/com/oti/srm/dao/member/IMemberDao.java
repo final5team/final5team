@@ -17,6 +17,8 @@ public interface IMemberDao {
 	public Member selectMemberInfo(String mid);
 	//유저 정보 수정
 	public int updateUserInfo(Member member);
+	//아이디 중복 확인
+	public int selectMid(String mid);
 	
 	
 	

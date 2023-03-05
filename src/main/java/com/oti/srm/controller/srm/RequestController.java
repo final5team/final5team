@@ -366,10 +366,7 @@ public class RequestController {
 			model.addAttribute("systemList", systemList);
 			return "srm/request/requestdetail";
 		}
-		
-		
 	}
-	
 	
 	//요청 수정하기
 	@PostMapping("/requestupdate")
