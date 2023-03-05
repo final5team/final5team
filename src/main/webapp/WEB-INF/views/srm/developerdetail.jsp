@@ -16,8 +16,8 @@
     .progress-group{
     padding: 0px 220px;
     margin: 15px 0px;
-    
     }
+    
     </style>
 </head>
 
@@ -99,6 +99,7 @@
 											
 											<div class="filebox d-flex">
 												<div class="label" id="fileLable">첨부파일</div>
+												
 												<div class="form-group" id="file-list">
 											        <a href="#this" onclick="addFile()">파일추가</a>
 											        <div class="file-group">
@@ -107,7 +108,6 @@
 			  									</div>	
 											</div>
 										</form>
-										
 										<c:if test="${request.statusNo == 4}">
 										<form id="progressForm" action="${pageContext.request.contextPath}/updatedevprogress" method="POST">
 											<div class="d-flex">
@@ -431,12 +431,8 @@
 			}
 			
 		}
-		
-		
-		
 	}
-   	
-    
+
 	</script>
 </body>
 

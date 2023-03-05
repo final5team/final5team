@@ -301,11 +301,7 @@ input:checked + .slider:before {
 							<!-- 오늘마감start -->
 							<div class="col-12 my-4">
 								<div class="card tasks border-left-dark shadow" style="height: 420.896px;">
-<<<<<<< HEAD
-									<div class="card-title-block mt-3 d-flex mb-0">
-=======
 									<div class="card-header d-flex">
->>>>>>> branch 'master' of https://github.com/final5team/final5team.git
 			                			<h5 class="title ml-3 mr-auto" id="devTitle">
 			                				<c:if test="${member.mtype == 'developer'}">
 			                					<input type="hidden" value="developer" id="memberType"/>
