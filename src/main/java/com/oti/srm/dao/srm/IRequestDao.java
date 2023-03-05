@@ -28,9 +28,14 @@ public interface IRequestDao {
 	public int countRows(HashMap<String, Object> map);
 	public List<SelectPM> selectMyWorkList(HashMap<String, Object> map);
 	
-	//내 요청 리스트 조회
+	//사용자 요청 리스트 개수 조회
 	public int countRequestRows(HashMap<String, Object> map);
+	//사용자의 요청 리스트 조회
 	public List<SelectPM> selectMyRequest(HashMap<String, Object> map);
+	//업무 담당자의 요청 리스트 개수 조회
+	public int countWorkerRequestRows(HashMap<String, Object> map);
+	//업무 담당자의 요청 리스트 조회
+	public List<SelectPM> selectWorkerRequest(HashMap<String, Object> map);
 	
 	//내 요청 상세보기
 	public Request selectRequestDetail(int rno);

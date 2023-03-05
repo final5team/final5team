@@ -372,7 +372,7 @@
 			
 			data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1}
 			$.ajax({
-		  		url : "myrequestlist",
+		  		url : "workerrequestlist",
 				method : "post",
 				data : JSON.stringify(data),
 				contentType: "application/json; charset=UTF-8",
@@ -463,7 +463,7 @@
 		} else {
 			console.log("내 요청 목록 페이지 이동" + i);
 			$.ajax({
-				url : "myrequestlist",
+				url : "workerrequestlist",
 				method : "post",
 				data : JSON.stringify(data),
 				contentType: "application/json; charset=UTF-8",
@@ -552,7 +552,7 @@
 		} else {
 			console.log("내 요청 목록 검색")
 			$.ajax({
-				url : "myrequestlist",
+				url : "workerrequestlist",
 				method : "post",
 				data : JSON.stringify(data),
 				contentType: "application/json; charset=UTF-8",
