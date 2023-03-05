@@ -8,7 +8,10 @@
 
 <head>
     <link href="${pageContext.request.contextPath}/resources/css/stepperprogress.css" rel="stylesheet">
-
+	<script src="${pageContext.request.contextPath}/resources/vendor/tinymce/tinymce.min.js"></script>    
+	<script src="${pageContext.request.contextPath}/resources/js/tinymceinit.js"></script>    
+	<script src="${pageContext.request.contextPath}/resources/vendor/tinymce/themes/silver/theme.min.js"></script>
+	
 	<style>
 	span::after {
 	  padding-left: 5px;
@@ -253,7 +256,7 @@
 											
 												<div class="row mb-2">
 													<div class="label col-3">*의견 내용</div>
-													<textarea rows="2" class="form-control boxed col-7" name="reply" style="padding: 0px" required></textarea>
+													<textarea class="form-control boxed col-7 pmcontent" name="reply" style="padding: 0px" required></textarea>
 												</div>											
 												<div class="row form-group filebox">
 													<div class="label col-3">첨부파일</div>
@@ -285,9 +288,9 @@
 			                	 				</h3>
 			                	 			</div>
 											<div class="card-body">
-												<div class="form-group">
+												<div class="form-group d-flex">
 													<label class="label">반려 사유</label>
-													<textarea rows="2" class="form-control boxed" name="reply" style="width: 80%; margin: auto;" required></textarea>
+													<textarea  class="form-control boxed pmcontent" name="reply" style="width: 80%; margin: auto;" required></textarea>
 												</div>											
 												<div class="filebox row">
 													<label for="file" class=" col-3 label">첨부파일</label>
@@ -321,22 +324,22 @@
 											<div class="row mt-3">
 												<div class="col-3 label">요청 유형</div>
 												<div class="col-2">
-													<c:if test="${reqProcess.reqType eq '정규'}">
+													<c:if test="${requestProcess.reqType eq '정규'}">
 														<div>정규<i class="far fa-registered text-secondary"></i></div>
 													</c:if>
-													<c:if test="${reqProcess.reqType eq '긴급'}">
+													<c:if test="${requestProcess.reqType eq '긴급'}">
 														<div>긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
 													</c:if>
 												</div>
 												<div class="col-3 label">중요도</div>
 												<div class="col-2">
-													<c:if test="${reqProcess.priority eq '하' || reqProcess.priority eq '중' ||reqProcess.priority eq '상'}">
+													<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
 														<span class="fa fa-star checked" style="color: orange;"></span>
 													</c:if>
-													<c:if test="${reqProcess.priority eq '중' || reqProcess.priority eq '상'}">
+													<c:if test="${requestProcess.priority eq '중' || requestProcess.priority eq '상'}">
 														<span class="fa fa-star checked" style="color: orange;"></span>
 													</c:if>
-													<c:if test="${reqProcess.priority eq '상'}">
+													<c:if test="${requestProcess.priority eq '상'}">
 														<span class="fa fa-star checked" style="color: orange;"></span>
 													</c:if>
 												</div>
@@ -346,24 +349,24 @@
 											<div class="row">
 												<div class="col-3 label">요청 완료 예정일</div>
 												<div class="col-7">
-													<fmt:formatDate value="${reqProcess.allExpectDate}" pattern="yyyy-MM-dd"/>
+													<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>
 												</div>
 											</div>
 											<hr/>
 											<div class="row">
 												<div class="col-3 label">개발 담당자</div>
-												<div class="col-2">${reqProcess.developer}</div>
+												<div class="col-2">${requestProcess.developer}</div>
 												<div class="col-3 label">테스트 담당자</div>
-												<div class="col-2">${reqProcess.tester}</div>
+												<div class="col-2">${requestProcess.tester}</div>
 											</div>	
 											<hr/>
 											<div class="row">
-												<c:if test="${reqProcess.reqType eq '정규'}">
+												<c:if test="${requestProcess.reqType eq '정규'}">
 													<div class="col-3 label">품질검토 담당자</div>
-													<div class="col-2">${reqProcess.userTester}</div>
+													<div class="col-2">${requestProcess.userTester}</div>
 												</c:if>
 												<div class="col-3 label">배포 담당자</div>
-												<div class="col-2">${reqProcess.distributor}</div>
+												<div class="col-2">${requestProcess.distributor}</div>
 											</div>	
 											<hr/>
 											<c:forEach var="statusHistory" items="${pmToAllHistories}">
@@ -409,8 +412,8 @@
 														<div class="col-2">
 															<select class="dropdown-toggle" style="width: 175px;" data-toggle="dropdown" name="reqType" id="reqType" onchange="rtype()" required>															
 																<option value="" class="text-center">요청 유형</option>
-																<option value="정규" class="text-center" <c:if test="${reqProcess.reqType == '정규'}">selected</c:if>>정규</option>
-															    <option value="긴급" class="text-center" <c:if test="${reqProcess.reqType == '긴급'}">selected</c:if>>긴급</option>																																																						
+																<option value="정규" class="text-center" <c:if test="${requestProcess.reqType == '정규'}">selected</c:if>>정규</option>
+															    <option value="긴급" class="text-center" <c:if test="${requestProcess.reqType == '긴급'}">selected</c:if>>긴급</option>																																																						
 															</select>																								
 														</div>
 														<div class="col-3 label">
@@ -419,16 +422,16 @@
 														<div class="col-2">
 															<select class="dropdown-toggle" style="width: 175px;" data-toggle="dropdown" name="priority" required>															
 																<option value="" class="text-center">중요도</option>
-																<option value="상" class="text-center" <c:if test="${reqProcess.priority == '상'}">selected</c:if>>상 (★★★)</option>
-																<option value="중" class="text-center" <c:if test="${reqProcess.priority == '중'}">selected</c:if>>중 (★★)</option>
-																<option value="하" class="text-center" <c:if test="${reqProcess.priority == '하'}">selected</c:if>>하 (★)</option>															    																																																						
+																<option value="상" class="text-center" <c:if test="${requestProcess.priority == '상'}">selected</c:if>>상 (★★★)</option>
+																<option value="중" class="text-center" <c:if test="${requestProcess.priority == '중'}">selected</c:if>>중 (★★)</option>
+																<option value="하" class="text-center" <c:if test="${requestProcess.priority == '하'}">selected</c:if>>하 (★)</option>															    																																																						
 															</select>												
 														</div>												
 													</div>
 													<div class="row">
 														<div class="col-3 label">*완료예정일</div>
 														<div class="col-7">
-															<input type="date" class="form-control boxed" name="allExpectDate" id="allExpectDate" required pattern="\d{4}-\d{2}-\d{2}" style="width: 220px; padding: 0;" value="<fmt:formatDate value="${reqProcess.allExpectDate}" pattern="yyyy-MM-dd"/>">
+															<input type="date" class="form-control boxed" name="allExpectDate" id="allExpectDate" required pattern="\d{4}-\d{2}-\d{2}" style="width: 220px; padding: 0;" value="<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>">
 															<span class="validity m-2"></span>
 														</div>	
 													</div>
@@ -438,7 +441,7 @@
 														<select class="dropdown-toggle col-7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer" required>
 															<option value="">개발 담당자 선택 | 현재담당건수 </option>		
 															<c:forEach var="staff" items="${devStaffList}">
-																<option value="${staff.mid}" <c:if test="${staff.mid == reqProcess.developer}">selected</c:if>>${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+																<option value="${staff.mid}" <c:if test="${staff.mid == requestProcess.developer}">selected</c:if>>${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 															</c:forEach>															
 														</select>
 													</div>
@@ -447,7 +450,7 @@
 														<select class="dropdown-toggle col-7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester" requried>
 															<option value="">테스트 담당자 선택 | 현재담당건수 </option>	
 															<c:forEach var="staff" items="${tesStaffList}">
-																<option value="${staff.mid}" <c:if test="${staff.mid == reqProcess.tester}">selected</c:if>>${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+																<option value="${staff.mid}" <c:if test="${staff.mid == requestProcess.tester}">selected</c:if>>${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 															</c:forEach>
 														</select>
 													</div>
@@ -456,7 +459,7 @@
 														<select class="dropdown-toggle col-7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
 															<option value="">품질 검토 담당자 선택 | 현재담당건수 </option>	
 															<c:forEach var="staff" items="${uteStaffList}">
-																<option value="${staff.mid}" <c:if test="${staff.mid == reqProcess.userTester}">selected</c:if>>${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+																<option value="${staff.mid}" <c:if test="${staff.mid == requestProcess.userTester}">selected</c:if>>${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 															</c:forEach>
 														</select>
 													</div>
@@ -465,7 +468,7 @@
 														<select class="dropdown-toggle col-7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor" required>
 															<option value="">배포 담당자 선택 | 현재담당건수 </option>	
 															<c:forEach var="staff" items="${disStaffList}">
-																<option value="${staff.mid}" <c:if test="${staff.mid == reqProcess.distributor}">selected</c:if>>${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+																<option value="${staff.mid}" <c:if test="${staff.mid == requestProcess.distributor}">selected</c:if>>${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 															</c:forEach>
 														</select>
 													</div>
@@ -513,12 +516,12 @@
 								<div class="card-body">									
 									<div class="form-group">
 										<label class="control-label">반려 사유</label>
-										<textarea rows="2" class="form-control boxed" name="reply" readonly>${staHistory.reply}</textarea>
+										<textarea rows="2" class="form-control boxed" name="reply" readonly>${rejectHistory.reply}</textarea>
 									</div>											
 									<div class="mt-3 row">
 										<c:if test="${request.files != null}">
 											<div class="col-3 label">첨부 파일
-												<c:forEach var="file" items="${request.files}">
+												<c:forEach var="file" items="${rejectHistory.fileList}">
 													<div>
 														<span>${file.fileName}</span>
 														<a href="${pageContext.request.contextPath}/filedouwnload/${file.fno}" role="button">
