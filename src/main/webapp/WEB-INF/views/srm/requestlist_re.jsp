@@ -379,8 +379,6 @@
 				if(pageDefault != null){
 					pageDefault.remove();
 				}
-				
-				
 			});
 		}
 	} 
