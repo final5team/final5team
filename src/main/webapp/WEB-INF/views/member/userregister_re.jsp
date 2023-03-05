@@ -133,7 +133,7 @@
 													</select>
 													<div class="data">
 														<div class="item">
-															<input type="text" class="form-control form-control-user" id="mid" name="mid" placeholder="아이디" required>
+															<input type="text" class="form-control form-control-user" id="mid" name="mid" onfocusout="checkId()" placeholder="아이디" required>
 														</div>
 														<div class="item">
 															<input type="text" class="form-control form-control-user" id="mname" name="mname" placeholder="이름" required>
@@ -190,9 +190,9 @@
 														<div class="input-group">
 															<select class="custom-select" id="organ" name="organ" required>
 																<option selected>소속 기관 선택</option>
-																<option value="1">1</option>
-																<option value="2">2</option>
-																<option value="3">3</option>
+																<option value="오티아이">오티아이</option>
+																<option value="쇼핑몰">쇼핑몰</option>
+																<option value="학사관리">학사관리</option>
 															</select>
 														</div>
 													</div>
@@ -223,7 +223,7 @@
 													<button class="btn btn-dark btn-sm" type="submit">취소</button>
 												</article>
 											</section>
-											
+											<span id="idconfirm"></span>
 										</form>
 									</div>
 								</div>
@@ -233,13 +233,14 @@
 					</div>
 					<!-- id=main div / -->
 				</div>
+				
 				<!-- 여기에 내용 담기 end -->
 				<!-- End of Main Content -->
 
 				<!-- Footer -->
 				<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 				<!-- End of Footer -->
-
+			
 			</div>
 			<!-- End of Content Wrapper -->
 		</div>
@@ -270,6 +271,43 @@
 			inputtag.innerHTML = fileList;
 		}
 	});
+	// 아이디 중복 체크 ajax
+	function checkId(){
+		let id = $('#mid').val();
+		//알파벳 대소문자, 숫자를 혼용해서 6자 이상 10자 이하
+		const idPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,10}$/;
+		let idTest = idPattern.test(id);
+		if(!idTest){
+			alert("아이디는 알파벳 대소문자, 숫자를 혼용해서 6자 이상 10자 이하 입니다.");
+			$('#mid').css('border', '2px solid red');
+			$('#idconfirm').html('중복된 아이디입니다.');
+			$('#idconfirm').css('color', 'red');
+		} else {
+			data = {mid : id};	
+			$.ajax ({
+				url : "/srm/idconfrim",
+				method : "post",
+				data : JSON.stringify(id),
+				contentType: "application/json; charset=UTF-8",
+				success : function(result){
+					console.log('전송 성공');
+					console.log(result);
+					if(result ==0){
+						$('#idconfirm').html('사용 가능한 아이디입니다.');
+						$('#idconfirm').css('color', 'blue');
+						$('#mid').css('border', '1px solid #ced4da');
+					} else {
+						$('#idconfirm').html('중복된 아이디입니다.');
+						$('#idconfirm').css('color', 'red');
+						
+					}
+				}
+			});
+		}
+		
+	}
+	
+	
 	</script>
 	
 	

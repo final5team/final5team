@@ -29,10 +29,15 @@ public interface IRequestRegisterService {
 	public int getMyWorkRows(ListFilter listFilter, Member member);
 	public List<SelectPM> getMyWorkList( ListFilter listFilter, Pager pager, Member member);
 
-	// 내 요청 조회
+	// 내 요청 개수 조회
 	public int getRequestListRows(ListFilter listFilter, Member member);
+	//사용자의 요청 리스트 조회
 	public List<SelectPM> getMyRequestList(ListFilter listFilter, Pager pager, Member member);
-
+	// 업무 담당자 요청 개수 조회
+	public int getWorkerRequestListRows(ListFilter listFilter, Member member);
+	//업무 담당자의 요청 리스트 조회
+	public List<SelectPM> getWorkerRequestList(ListFilter listFilter, Pager pager, Member member);
+	
 	public Request getRequestDetail(int rno);
 
 	public StatusHistoryFile getMyRequestFile(int fno);

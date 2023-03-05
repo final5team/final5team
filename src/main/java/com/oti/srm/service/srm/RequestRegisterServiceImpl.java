@@ -124,14 +124,11 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		map.put("listFilter", statusFilterList(dateFilterList(sysName(listFilter))));
 		map.put("pager", pager);
 		map.put("member", member);
-		
-	
 		List<SelectPM> result = requestDao.selectMyWorkList(map);
-		
 		return result;
 
 	}
-	// 작성한 요청의 개수 가져오기
+	// (사용자) 작성한 요청의 개수 가져오기
 	@Override
 	public int getRequestListRows(ListFilter listFilter, Member member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -142,7 +139,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		log.info(rows);
 		return rows;
 	}
-	//작성한 요청목록 가져오기 
+	//사용자가 작성한 요청목록 가져오기 
 	@Override
 	public List<SelectPM> getMyRequestList(ListFilter listFilter, Pager pager, Member member){
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -153,6 +150,31 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		log.info(result.size());
 		return result;
 	}
+	// (담당자) 작성한 요청의 개수 가져오기
+		@Override
+		public int getWorkerRequestListRows(ListFilter listFilter, Member member) {
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("listFilter", statusFilterList(dateFilterList(listFilter)));
+			map.put("member", member);
+			
+			int rows = requestDao.countWorkerRequestRows(map);
+			log.info(rows);
+			return rows;
+		}
+	
+	
+	//담당자의 요청 목록 가져오기
+	@Override
+	public List<SelectPM> getWorkerRequestList(ListFilter listFilter, Pager pager, Member member) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("listFilter", statusFilterList(dateFilterList(sysName(listFilter))));
+		map.put("pager", pager);
+		map.put("member", member);
+		List<SelectPM> result = requestDao.selectWorkerRequest(map);
+		log.info(result.size());
+		return result;
+	}
+	
 	//작성한 요청 상세 정보 가져오기
 	@Override
 	@Transactional
@@ -163,9 +185,6 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		log.info(hno);
 		//요청시 첨부된 파일 가져오기
 		request.setFileList(requestDao.selectRequestFile(hno));
-		
-		
-		
 		return request;
 	}
 	@Override
@@ -173,7 +192,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		StatusHistoryFile file = requestDao.selectFile(fno);
 		return file;
 	}
-
+	
 	
 	
 	
@@ -278,6 +297,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		
 		return listFilter;
 	}
+
 
 
 

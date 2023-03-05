@@ -95,7 +95,7 @@
 											<option value="1">접수</option>
 											<option value="2">개발</option>
 											<option value="5">테스트</option>
-											<option value="8">유저테스트</option>
+											<option value="8">품질테스트</option>
 											<option value="10">배포</option>
 											<option value="11">완료</option>
 											<option value="12">반려</option>
@@ -116,7 +116,7 @@
 												<option value="5">테스트</option>
 											</c:if>
 											<c:if test="${listFilter.statusNo != 8}">
-												<option value="8">유저테스트</option>
+												<option value="8">품질테스트</option>
 											</c:if>
 											<c:if test="${listFilter.statusNo != 10}">
 												<option value="10">배포</option>
@@ -255,7 +255,11 @@
 								<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
 							</div>
 						</div>
-
+						<div class="loading">
+							<span></span>
+						    <span></span>
+						    <span></span>
+						</div>
 
 					</section>
 					</main>
@@ -303,6 +307,10 @@
 // 내 요청 목록 ajax 호출 : switch 
 	function myRequestList(mtype){
 		let memberType = mtype;
+		
+		let loading = document.querySelector(".loading");
+		loading.style.visibility = 'visible';
+		
 		// mtype 전달, 페이징 처리 
 		if($('#myRequest').is(":checked")){
 			//테이블 색상 되돌리기
@@ -327,7 +335,12 @@
 		  		url : "myworklist",
 				method : "post",
 				data : JSON.stringify(data),
-				contentType: "application/json; charset=UTF-8"
+				contentType: "application/json; charset=UTF-8",
+				success : function (){
+					loading.style.visibility = 'hidden';
+				}
+				
+				
 			}).done((data) => {
 				let table = document.querySelector('#table_content');
 				$('#table_content').html(data);
@@ -337,7 +350,6 @@
 				if(pageDefault != null){
 					pageDefault.remove();
 				}
-				
 			});
 			
 			// 내 요청 목록 호출 
@@ -360,10 +372,15 @@
 			
 			data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1}
 			$.ajax({
-		  		url : "myrequestlist",
+		  		url : "workerrequestlist",
 				method : "post",
 				data : JSON.stringify(data),
-				contentType: "application/json; charset=UTF-8"
+				contentType: "application/json; charset=UTF-8",
+				success : function (){
+					loading.style.visibility = 'hidden';
+				}
+				
+				
 			}).done((data) => {
 				$('#table_content').html(data);
 				
@@ -384,6 +401,8 @@
 	} 
 	// 페이지 이동 ajax
 	function pageChange(i){
+		let loading = document.querySelector(".loading");
+		loading.style.visibility = 'visible';
 		let pageNo = i;
 		
 		let filterReqType = document.getElementById('req_type');
@@ -426,7 +445,10 @@
 				url : "myworklist",
 				method : "post",
 				data : JSON.stringify(data),
-				contentType: "application/json; charset=UTF-8"
+				contentType: "application/json; charset=UTF-8",
+				success : function (){
+					loading.style.visibility = 'hidden';
+				}
 				
 			}).done((data) => {
 				$('#table_content').html(data);
@@ -441,10 +463,13 @@
 		} else {
 			console.log("내 요청 목록 페이지 이동" + i);
 			$.ajax({
-				url : "myrequestlist",
+				url : "workerrequestlist",
 				method : "post",
 				data : JSON.stringify(data),
-				contentType: "application/json; charset=UTF-8"
+				contentType: "application/json; charset=UTF-8",
+				success : function (){
+					loading.style.visibility = 'hidden';
+				}
 				
 			}).done((data) => {
 				$('#table_content').html(data);
@@ -468,6 +493,8 @@
 	
 	// filter 검색 기능 ajax
 	function search(){
+		let loading = document.querySelector(".loading");
+		loading.style.visibility = 'visible';
 //		검색 filter 값 가져오기
 		let filterReqType = document.getElementById('req_type');
 		let ReqType = filterReqType.options[filterReqType.selectedIndex].text;
@@ -508,7 +535,10 @@
 				url : "myworklist",
 				method : "post",
 				data : JSON.stringify(data),
-				contentType: "application/json; charset=UTF-8"
+				contentType: "application/json; charset=UTF-8",
+				success : function (){
+					loading.style.visibility = 'hidden';
+				}
 				
 			}).done((data) => {
 				$('#table_content').html(data);
@@ -522,10 +552,15 @@
 		} else {
 			console.log("내 요청 목록 검색")
 			$.ajax({
-				url : "myrequestlist",
+				url : "workerrequestlist",
 				method : "post",
 				data : JSON.stringify(data),
-				contentType: "application/json; charset=UTF-8"
+				contentType: "application/json; charset=UTF-8",
+				success : function (){
+					loading.style.visibility = 'hidden';
+				}
+				
+				
 			}).done((data) => {
 				$('#table_content').html(data);
 				//기존 페이지 태그 삭제하기

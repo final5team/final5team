@@ -154,9 +154,14 @@
 					where mid = #{mid}
 				</if>
 		</if>
-		
-		
 	</update>
+	
+	<select id="selectMid" parameterType="string" resultType="int">
+		select count(*)
+		from members
+		where mid = #{mid}
+	
+	</select>
 	
 	
 	
