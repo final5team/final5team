@@ -417,7 +417,7 @@ input:checked + .slider:before {
 											</table>
 										</div>
 										<div>
-											<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
+											<ul class="pagination pagination-sm d-flex justify-content-center mt-3">
 											    <li class="page-item"><a class="page-link" onclick="requestProcessList(1)">처음</a></li>
 											    <c:if test="${rpPager.groupNo>1}">
 												    <li class="page-item">
@@ -453,7 +453,7 @@ input:checked + .slider:before {
 							<!-- 공지사항 start -->
 							<div class="col-12">
 								<div class="card border-left-primary shadow mb-4" style="height: 420.896px;" >
-									<div class="card-title-block mt-3">
+									<div class="card-title-block mt-3 mb-0">
 			                			<h5 class="title ml-3">공지사항</h5>
 			                		</div>
 			                		<div class="card-body" id="mainNoticeListContainer">
