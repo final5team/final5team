@@ -51,23 +51,21 @@ public class PMController {
 		Request request=commonService.getRequest(rno);
 		model.addAttribute("request", request);
 		// 요청 상태가 접수중일 때  담당자 정보
-		if(request.getStatusNo()==1) {
-			// 개발자 정보
-			model.addAttribute("devStaffList", pMService.getStaffBySno(request.getSno(), "developer"));
-			// 테스터 정보
-			model.addAttribute("tesStaffList", pMService.getStaffBySno(request.getSno(), "tester"));
-			// 유저테스터 정보
-			model.addAttribute("uteStaffList", pMService.getStaffBySno(request.getSno(), "usertester"));
-			// 배포자 정보
-			model.addAttribute("disStaffList", pMService.getStaffBySno(request.getSno(), "distributor"));
-		// 요청 상태가 반려일 때 상태 변경 정보(반려 사유)
-		} else if(request.getStatusNo()==12) {
-			model.addAttribute("staHistory", pMService.getStatusHistory(rno, "reject"));
-		// 요청 상태가 접수 완료일 때 요청 처리 정보(담당자 선택 내역)
-		} else {
-			model.addAttribute("reqProcess", commonService.getRequestProcess(rno));
-			model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));
-		}				
+		// 개발자 정보
+		model.addAttribute("devStaffList", pMService.getStaffBySno(request.getSno(), "developer"));
+		// 테스터 정보
+		model.addAttribute("tesStaffList", pMService.getStaffBySno(request.getSno(), "tester"));
+		// 유저테스터 정보
+		model.addAttribute("uteStaffList", pMService.getStaffBySno(request.getSno(), "usertester"));
+		// 배포자 정보
+		model.addAttribute("disStaffList", pMService.getStaffBySno(request.getSno(), "distributor"));
+		model.addAttribute("reqProcess", commonService.getRequestProcess(rno));
+		model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));	
+	// 요청 상태가 반려일 때 상태 변경 정보(반려 사유)
+		if(request.getStatusNo()==12) {
+		model.addAttribute("staHistory", pMService.getStatusHistory(rno, "reject"));
+		}
+			
 		return "srm/receipt";
 	}
 	
