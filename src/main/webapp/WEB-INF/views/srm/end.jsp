@@ -81,22 +81,22 @@
 										<div class="row">
 											<div class="col-3 label">요청 유형</div>
 											<div class="col-2">
-												<c:if test="${reqProcess.reqType eq '정규'}">
+												<c:if test="${requestProcess.reqType eq '정규'}">
 													<div>정규<i class="far fa-registered text-secondary"></i></div>
 												</c:if>
-												<c:if test="${reqProcess.reqType eq '긴급'}">
+												<c:if test="${requestProcess.reqType eq '긴급'}">
 													<div>긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
 												</c:if>
 											</div>
 											<div class="col-3 label">중요도</div>
 											<div class="col-2">
-												<c:if test="${reqProcess.priority eq '하' || reqProcess.priority eq '중' ||reqProcess.priority eq '상'}">
+												<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
 													<span class="fa fa-star checked" style="color: orange;"></span>
 												</c:if>
-												<c:if test="${reqProcess.priority eq '중' || reqProcess.priority eq '상'}">
+												<c:if test="${requestProcess.priority eq '중' || requestProcess.priority eq '상'}">
 													<span class="fa fa-star checked" style="color: orange;"></span>
 												</c:if>
-												<c:if test="${reqProcess.priority eq '상'}">
+												<c:if test="${requestProcess.priority eq '상'}">
 													<span class="fa fa-star checked" style="color: orange;"></span>
 												</c:if>
 											</div>
@@ -155,35 +155,35 @@
 									   <tbody>
 											     <tr>
 											        <td>개발</td>
-											        <td>${reqProcess.developer}</td>
-											        <td><fmt:formatDate value="${reqProcess.devExpectDate}" pattern="yyyy-MM-dd"/></td>
-											        <td><fmt:formatDate value="${reqProcess.devCompDate}" pattern="yyyy-MM-dd"/></td>
+											        <td>${requestProcess.developer}</td>
+											        <td><fmt:formatDate value="${requestProcess.devExpectDate}" pattern="yyyy-MM-dd"/></td>
+											        <td><fmt:formatDate value="${requestProcess.devCompDate}" pattern="yyyy-MM-dd"/></td>
 											     </tr>
 											     <tr>
 											        <td>테스트</td>
-											        <td>${reqProcess.tester}</td>
-											        <td><fmt:formatDate value="${reqProcess.testExpectDate}" pattern="yyyy-MM-dd"/></td>
-											        <td><fmt:formatDate value="${reqProcess.testCompDate}" pattern="yyyy-MM-dd"/></td>
+											        <td>${requestProcess.tester}</td>
+											        <td><fmt:formatDate value="${requestProcess.testExpectDate}" pattern="yyyy-MM-dd"/></td>
+											        <td><fmt:formatDate value="${requestProcess.testCompDate}" pattern="yyyy-MM-dd"/></td>
 											     </tr>
-											     <c:if test="${reqProcess.reqType eq '정규'}">
+											     <c:if test="${requestProcess.reqType eq '정규'}">
 												     <tr>
 												        <td>유저 테스트</td>
-												        <td>${reqProcess.userTester}</td>
-												        <td><fmt:formatDate value="${reqProcess.userTestExpectDate}" pattern="yyyy-MM-dd"/></td>
-												        <td><fmt:formatDate value="${reqProcess.userTestCompDate}" pattern="yyyy-MM-dd"/></td>
+												        <td>${requestProcess.userTester}</td>
+												        <td><fmt:formatDate value="${requestProcess.userTestExpectDate}" pattern="yyyy-MM-dd"/></td>
+												        <td><fmt:formatDate value="${requestProcess.userTestCompDate}" pattern="yyyy-MM-dd"/></td>
 												     </tr>
 											     </c:if>
 											     <tr>
 											        <td>배포</td>
-											        <td>${reqProcess.distributor}</td>
-											        <td><fmt:formatDate value="${reqProcess.distExpectDate}" pattern="yyyy-MM-dd"/></td>
-											        <td><fmt:formatDate value="${reqProcess.distCompDate}" pattern="yyyy-MM-dd"/></td>
+											        <td>${requestProcess.distributor}</td>
+											        <td><fmt:formatDate value="${requestProcess.distExpectDate}" pattern="yyyy-MM-dd"/></td>
+											        <td><fmt:formatDate value="${requestProcess.distCompDate}" pattern="yyyy-MM-dd"/></td>
 											     </tr>
 									     <tr>
 									        <td>최종 승인</td>
-									        <td>${reqProcess.pm}</td>
-									        <td><fmt:formatDate value="${reqProcess.allExpectDate}" pattern="yyyy-MM-dd"/></td>
-									        <td><fmt:formatDate value="${reqProcess.allCompDate}" pattern="yyyy-MM-dd"/></td>
+									        <td>${requestProcess.pm}</td>
+									        <td><fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/></td>
+									        <td><fmt:formatDate value="${requestProcess.allCompDate}" pattern="yyyy-MM-dd"/></td>
 									     </tr>
 									  </tbody>
 								   </table>
