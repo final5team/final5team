@@ -18,7 +18,8 @@ public interface IUserRegisterService {
 	public List<System> getSystemList();
 	// 유저 정보 조회
 	public Member getUserInfo(String mid);
-
+	// 유저 정보 수정
+	public int updateUserInfo(Member member);
 	
 	
 }

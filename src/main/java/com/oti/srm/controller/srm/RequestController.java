@@ -116,12 +116,30 @@ public class RequestController {
 		returnMember.setPostcode(Integer.parseInt(address[0]));
 		returnMember.setAddr1(address[1]);
 		returnMember.setAddr2(address[2]);
-
+		
+		//시스템
+		List<System> systemList = userRegisterService.getSystemList();
+		model.addAttribute("systemList", systemList);
 
 		model.addAttribute("returnMember", returnMember);
 
 		return "member/mypage_re";
 	}
+	
+	@PostMapping("/mypageupdate")
+	public String myPageUpdate(Member member, Model model) {
+		String address = member.getPostcode() + "-" + member.getAddr1() + "-" + member.getAddr2();
+		member.setAddress(address);
+		log.info(member.toString());
+		
+		//유저 정보 수정
+		int result = userRegisterService.updateUserInfo(member);
+		
+		
+		
+		return "member/mypage_re";
+	}
+	
 
 	/**
 	 * Kang Ji Seong img byte[] 변환 메소드
@@ -131,7 +149,7 @@ public class RequestController {
 		
 		Member returnMember = userRegisterService.getUserInfo(mid);
 		
-		if(returnMember.getMfile() == null) {
+		if(returnMember.getFileName() == null) {
 			returnMember = userRegisterService.getUserInfo("img");
 		}
 		HttpHeaders headers = new HttpHeaders();
