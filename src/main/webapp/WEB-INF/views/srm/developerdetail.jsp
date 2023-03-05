@@ -14,9 +14,8 @@
     
     <style>
     .progress-group{
-    padding: 0px 220px;
+    padding: 0px 140px;
     margin: 15px 0px;
-    
     }
     </style>
 </head>
@@ -62,7 +61,7 @@
 	                	 				<form id="dueDateForm" action="${pageContext.request.contextPath}/devinprogress" method="POST" >
 											<input type="hidden" name="rno" value="${request.rno}">
 											<div class="form-group d-flex">
-												<div class="label">완료예정일</div>
+												<div class="label label-write">완료예정일</div>
 												<div class="flex-grow-1">
 													
 													<c:if test="${request.statusNo ==2 || request.statusNo ==3}">
@@ -82,13 +81,13 @@
 											<input type="hidden" name="rno" value="${request.rno}">
 											<input type="hidden" name ="nextStatus" value="14">
 											<div class="form-group d-flex">
-												<div class="label">개발 사항</div>
+												<div class="label label-write">개발 사항</div>
 												<div class="flex-grow-1">
 													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply">${devTemp.reply}</textarea>
 												</div>
 											</div>
 											<div class="form-group d-flex">
-												<div class="label">배포소스(url)</div>
+												<div class="label label-write">배포소스(url)</div>
 												<div class="flex-grow-1">
 													<input class="form-control boxed" name="distSource" id="distSource" style="height: 20px;" value="${devTemp.distSource}">
 													<div class="d-flex justify-content-end">
@@ -98,7 +97,8 @@
 											</div>
 											
 											<div class="filebox d-flex">
-												<div class="label" id="fileLable">첨부파일</div>
+												<div class="label label-write" id="fileLable">첨부파일</div>
+												
 												<div class="form-group" id="file-list">
 											        <a href="#this" onclick="addFile()">파일추가</a>
 											        <div class="file-group">
@@ -107,11 +107,10 @@
 			  									</div>	
 											</div>
 										</form>
-										
 										<c:if test="${request.statusNo == 4}">
 										<form id="progressForm" action="${pageContext.request.contextPath}/updatedevprogress" method="POST">
 											<div class="d-flex">
-												<div class="label">진척률</div>
+												<div class="label label-write">진척률</div>
 												<div class="flex-grow-1 d-flex">
 													<input type="hidden" value="${request.rno}" name="rno">
 													<input type="text" class="form-control boxed" style="width: 100px; height: 20px;" value="${requestProcess.devProgress}" name="devProgress" id="devProgress">
@@ -173,14 +172,26 @@
 	                	 						<div class="col-2 label">개발 완료일</div>
 	                	 						<div class="col-3 "><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
                 	 						</div>
-                	 						<div class="row">
-	                	 						<div class="col-2 label" >개발내용</div>
-	                	 						<textarea class="col-8 form-control boxed" rows="2" readonly>${statusHistory.reply}</textarea>
-                	 						</div>
-                	 						<div class="row mt-3">
-	                	 						<div class="col-2 label">배포소스(url)</div>
-	                	 						<input class="col-8 form-control boxed mr-5" style=" height: 20px;" value="${statusHistory.distSource}" readonly>
-                	 						</div>
+                	 						<c:if test="${request.statusNo != 5 || requestProcess.developer != member.mid}">
+	                	 						<div class="row">
+		                	 						<div class="col-2 label" >개발내용</div>
+		                	 						<textarea class="col-8 form-control boxed" rows="2" readonly>${statusHistory.reply}</textarea>
+	                	 						</div>
+	                	 						<div class="row mt-3">
+		                	 						<div class="col-2 label">배포소스(url)</div>
+		                	 						<input class="col-8 form-control boxed mr-5" style=" height: 20px;" value="${statusHistory.distSource}" readonly>
+	                	 						</div>
+                	 						</c:if>
+                	 						<c:if test="${request.statusNo == 5 && requestProcess.developer == member.mid && index.last}">
+	                	 						<div class="row">
+		                	 						<div class="col-2 label" >개발내용</div>
+		                	 						<textarea class="col-8 form-control boxed" rows="2" readonly>${statusHistory.reply}</textarea>
+	                	 						</div>
+	                	 						<div class="row mt-3">
+		                	 						<div class="col-2 label">배포소스(url)</div>
+		                	 						<input class="col-8 form-control boxed mr-5" style=" height: 20px;" value="${statusHistory.distSource}" readonly>
+	                	 						</div>
+                	 						</c:if>
                 	 						<div class="row mt-3">
 	                	 						<div class="col-2 label">첨부파일</div>
 	                	 						<div class="col-8">
@@ -431,12 +442,8 @@
 			}
 			
 		}
-		
-		
-		
 	}
-   	
-    
+
 	</script>
 </body>
 

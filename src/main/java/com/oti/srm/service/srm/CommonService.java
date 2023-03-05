@@ -333,6 +333,17 @@ public class CommonService implements ICommonService {
 		
 	}
 
+	@Override
+	@Transactional
+	public void updateHistory(RequestProcess rp, StatusHistory sh, Member member) {
+		if(member.getMtype().equals("pm")) {
+			commonDao.updateRequestProcess(rp);
+			commonDao.updateRealStatusHistory(sh);
+		}else {
+			commonDao.updateRealStatusHistory(sh);
+		}
+	}
+
 	
 
 	
