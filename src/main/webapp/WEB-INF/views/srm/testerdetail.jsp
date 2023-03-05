@@ -155,12 +155,8 @@
 	                	 		<h3 class="title">테스트 내역</h3>
 	                	 	</div>
 	                	 	<c:forEach var="statusHistory" varStatus="index" items="${testerToDev}">
-	                	 	<c:if test="${statusHistory.nextStatus == 3}">
-	                	 	<div class="card border-top-success my-3"> <!-- foreach한다면 여기부터 end -->
-	                	 	</c:if>
-	                	 	<c:if test="${statusHistory.nextStatus == 7}">
-	                	 	<div class="card border-top-primary my-3"> <!-- foreach한다면 여기부터 end -->
-	                	 	</c:if>
+	                	 	<div <c:if test="${statusHistory.nextStatus == 3}">class="card border-top-success my-3"</c:if>
+	                	 	<c:if test="${statusHistory.nextStatus == 7}">class="card border-top-primary my-3"</c:if>> <!-- foreach한다면 여기부터 end -->
 	                	 		<div class="card-block">
 	                	 			<div class="card-block-title mb-0">
 	                	 				<c:if test="${statusHistory.nextStatus == 3}">
@@ -174,7 +170,7 @@
 	                	 				</h3>
 	                	 				</c:if>
 	                	 			</div>
-	                	 			
+	                	 			<form method="post" action="<c:url value='/updatehistory'/>">
 	                	 			<div class="card-body">
                 	 					<div>
                 	 						<div class="row mb-2">
@@ -183,25 +179,80 @@
 	                	 						<div class="col-2 label">테스트 완료일</div>
 	                	 						<div class="col-3"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
                 	 						</div>
-                	 						<div class="row mt-3">
-	                	 						<div class="col-2 label">내용</div>
-	                	 						<textarea class="col-8 form-control boxed" rows="2"  readonly>${statusHistory.reply}</textarea>
-                	 						</div>
+                	 						<c:if test="${member.mid != requestProcess.tester}">
+	                	 						<div class="row mt-3">
+		                	 						<div class="col-2 label">내용</div>
+		                	 						<textarea class="col-8 form-control boxed" rows="2"  readonly>${statusHistory.reply}</textarea>
+	                	 						</div>
+                	 						</c:if>
+                	 						<c:if test="${member.mid == requestProcess.tester}">
+                	 							<c:if test="${index.last}">
+                	 								<c:if test="${statusHistory.nextStatus == 7}">
+                	 										<c:if test="${request.statusNo == 7}">
+                	 											<div class="row mt-3">
+                	 												<input type="hidden" name="rno" value="${request.rno}"/>
+			                	 									<input type="hidden" name="hno" value="${statusHistory.hno}"/>
+						                	 						<div class="col-2 label">내용</div>
+						                	 						<textarea name="reply" class="col-8 form-control boxed" rows="2">${statusHistory.reply}</textarea>
+					                	 						</div>
+                	 										</c:if>
+                	 										<c:if test="${request.statusNo != 7}">
+                	 											<div class="row mt-3">
+						                	 						<div class="col-2 label">내용</div>
+						                	 						<textarea class="col-8 form-control boxed" rows="2"  readonly>${statusHistory.reply}</textarea>
+					                	 						</div>
+                	 										</c:if>
+                	 								</c:if>
+                	 								<c:if test="${statusHistory.nextStatus == 3}">
+                	 									<c:if test="${request.statusNo == 3}">
+	                	 									<div class="row mt-3">
+		                	 									<input type="hidden" name="rno" value="${request.rno}"/>
+		                	 									<input type="hidden" name="hno" value="${statusHistory.hno}"/>
+					                	 						<div class="col-2 label">내용</div>
+					                	 						<textarea name="reply" class="col-8 form-control boxed" rows="2">${statusHistory.reply}</textarea>
+	               	 										</div>
+               	 										</c:if>
+               	 										<c:if test="${request.statusNo != 3}">
+               	 											<div class="row mt-3">
+					                	 						<div class="col-2 label">내용</div>
+					                	 						<textarea class="col-8 form-control boxed" rows="2"  readonly>${statusHistory.reply}</textarea>
+				                	 						</div>
+               	 										</c:if>
+                	 								</c:if>
+                	 								<c:if test="${statusHistory.nextStatus != 7 && statusHistory.nextStatus != 3}">
+                	 									<div class="row mt-3">
+				                	 						<div class="col-2 label">내용</div>
+				                	 						<textarea class="col-8 form-control boxed" rows="2"  readonly>${statusHistory.reply}</textarea>
+			                	 						</div>
+                	 								</c:if>
+                	 							</c:if>
+                	 							<c:if test="${!index.last}">
+                	 								<div class="row mt-3">
+			                	 						<div class="col-2 label">내용</div>
+			                	 						<textarea class="col-8 form-control boxed" rows="2"  readonly>${statusHistory.reply}</textarea>
+		                	 						</div>
+                	 							</c:if>
+                	 						</c:if>
                 	 						<div class="row mt-3">
 	                	 						<div class="col-2 label">첨부파일</div>
 	                	 						<div class="col-8">
 	                	 							<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 													<div>
-														<div>${statusHistoryFile.fileName}</div>
+														<span>${statusHistoryFile.fileName}</span>
 														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-															<i class="fas fa-cloud-download-alt"></i>
+															<i class="text-info fas fa-cloud-download-alt"></i>
 														</a>
 													</div>
 													</c:forEach>
 	                	 						</div>
                 	 						</div>
+                	 						<c:if test="${(request.statusNo == 3 && requestProcess.tester == member.mid && index.last && statusHistory.nextStatus == 3)
+                	 						|| (request.statusNo == 7 && requestProcess.tester == member.mid && index.last && statusHistory.nextStatus == 7)}">
+                	 							<button type="submit" class="btn btn-primary btn-md mx-3">수정</button>	
+                	 						</c:if>	
                 	 					</div>
                 	 				</div>
+                	 				</form>
 	                	 		</div>
 	                	 	</div> <!-- foreach한다면 여기부터 end -->
 	                	 	</c:forEach>
