@@ -15,7 +15,9 @@ public interface IMemberDao {
 	public List<System> selectSystem();
 	//유저 정보 조회
 	public Member selectMemberInfo(String mid);
-
+	//유저 정보 수정
+	public int updateUserInfo(Member member);
+	
 	
 	
 	
