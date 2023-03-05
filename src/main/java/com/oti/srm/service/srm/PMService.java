@@ -73,15 +73,17 @@ public class PMService implements IPMService {
 	@Override
 	@Transactional
 	public StatusHistory getStatusHistory(int rno, String string) {
+		StatusHistory reject = null;
 		// 전체 요청 처리 내역
-		commonDao.selectRequestHistories(rno);
-		// 해당 태스크별 처리 내역		
-		
-		
-		// 일단 반려 해야되니까 임시로 하나만 빼봄
-		StatusHistory result = commonDao.selectRequestHistories(rno).get(0);
-		
-		return result;
+		List<StatusHistory> histories = commonDao.selectRequestHistories(rno);
+		for(StatusHistory sh : histories) {
+			if(sh.getNextStatus() == 12) {
+				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
+				reject = sh;
+				break;
+			}
+		}
+		return reject;
 	}
 
 }
