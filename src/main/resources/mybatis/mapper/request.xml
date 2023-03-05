@@ -54,11 +54,7 @@
 		from requests
 		where client = #{client}
 	</select>
-
-
-
-
-
+	
 	<select id="countRows" parameterType="hashmap" resultType="int">
 		select count(*)
 		from ( select rownum as rnum, r.RNO, r.REQ_DATE,
@@ -177,9 +173,7 @@
 		            on r.RNO = rp.RNO
 		            inner join systems s
                     on r.sno = s.sno
-		            
 		    ]]>
-		    
 		<where>
 			<if test='member.mtype.equals("pm")'>
 				<if test='listFilter.sno != 0'>
@@ -368,15 +362,180 @@
 					and REQ_DATE between to_date(#{listFilter.dateFirst}, 'yyyy-MM-dd') and to_date(#{listFilter.dateLast}, 'yyyy-MM-dd')
 				]]>
 			</if>
-			<if test='listFilter.statusNo != 0'>
+			<if test='listFilter.statusNo != 0 '>
+				
 				<if test='listFilter.statusValue eq"진행중"'>
 				<![CDATA[
-					and status_no in (1, 2, 3, 4, 5, 6, 7, 8, 10, 11)
+					and status_no in (1, 2, 3, 4, 5, 6, 7, 8, 10)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"완료"'>
 				<![CDATA[
-					and status_no in (13)
+					and status_no in (11, 13)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"반려"'>
+				<![CDATA[
+					and status_no in (12)
+				]]>
+				</if>
+			</if>
+		</where>
+		order by req_date desc
+		) t offset (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS 
+			fetch first (#{pager.rowsPerPage}) rows only
+		
+	</select>
+	<select id="countWorkerRequestRows" parameterType="hashmap"
+		resultType="int">
+		select count(*)
+		from(
+			   select r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT,
+                r.CLIENT, r.SNO, r.REQ_EXPECT_DATE , r.STATUS_NO, rp.req_type
+			    from requests r left join request_process rp
+                on r.rno = rp.rno
+                inner join systems s
+                on r.sno = s.sno
+		<where>
+			client = #{member.mid}
+
+			<if test='listFilter.reqType neq "전체"'>
+				and REQ_TYPE = #{listFilter.reqType}
+			</if>
+			<if test='listFilter.sno != 0'>
+					and r.sno = #{listFilter.sno}
+			</if>
+			<if test='listFilter.dateValue.equals("zero")'> 
+				<![CDATA[
+					
+				]]>
+			</if>
+			<if test='listFilter.dateValue.equals("first")'>
+				<![CDATA[
+					and REQ_DATE <= to_date(#{listFilter.dateLast}, 'yyyy-MM-dd') + 1
+				]]>
+			</if>
+			<if test='listFilter.dateValue.equals("last")'>
+				<![CDATA[
+					and to_date(#{listFilter.dateFirst}, 'yyyy-MM-dd') <= REQ_DATE 
+				]]>
+			</if>
+			<if test='listFilter.dateValue.equals("both")'>
+				<![CDATA[
+					and REQ_DATE between to_date(#{listFilter.dateFirst}, 'yyyy-MM-dd') and to_date(#{listFilter.dateLast}, 'yyyy-MM-dd')
+				]]>
+			</if>
+			<if test='listFilter.statusNo != 0'>
+				<if test='listFilter.statusValue eq"접수"'>
+				<![CDATA[
+					and status_no in (1, 2)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"개발"'>
+				<![CDATA[
+					and status_no in (3, 4)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"테스트"'>
+				<![CDATA[
+					and status_no in (5, 6)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"유저테스트"'>
+				<![CDATA[
+					and status_no in (7, 8)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"배포"'>
+				<![CDATA[
+					and status_no in (9, 10)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"완료"'>
+				<![CDATA[
+					and status_no in (11, 13)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"반려"'>
+				<![CDATA[
+					and status_no in (12)
+				]]>
+				</if>
+			</if>
+			order by req_date desc)
+			
+		</where>
+	</select>
+	
+	
+	<select id="selectWorkerRequest" parameterType="hashmap"
+		resultType="com.oti.srm.dto.SelectPM">
+		<![CDATA[
+			select RNO, REQ_DATE as "reqDate", REQ_TITLE as "reqTitle", REQ_CONTENT as "reqContent"
+					, CLIENT, SNO, REQ_EXPECT_DATE as "reqExpectDate" , STATUS_NO as "statusNo", t.req_type as "reqType",
+					t.SYSTEM_NAME as "systemName"
+			from(
+			    select r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT,
+                    r.CLIENT, r.SNO, r.REQ_EXPECT_DATE , r.STATUS_NO, rp.req_type ,  s.SYSTEM_NAME
+			    from requests r left join request_process rp
+                on r.rno = rp.rno
+                inner join systems s
+                on r.sno = s.sno
+		]]>
+		<where>
+			client = #{member.mid}
+			<if test='listFilter.reqType neq "전체"'>
+				and REQ_TYPE = #{listFilter.reqType}
+			</if>
+			<if test='listFilter.sno != 0'>
+				and r.sno = #{listFilter.sno}
+			</if>
+			<if test='listFilter.dateValue.equals("zero")'>
+			</if>
+			<if test='listFilter.dateValue.equals("first")'>
+				<![CDATA[
+					and REQ_DATE <= to_date(#{listFilter.dateLast}, 'yyyy-MM-dd') + 1
+				]]>
+			</if>
+			<if test='listFilter.dateValue.equals("last")'>
+				<![CDATA[
+					and to_date(#{listFilter.dateFirst}, 'yyyy-MM-dd') <= REQ_DATE 
+				]]>
+			</if>
+			<if test='listFilter.dateValue.equals("both")'>
+				<![CDATA[
+					and REQ_DATE between to_date(#{listFilter.dateFirst}, 'yyyy-MM-dd') and to_date(#{listFilter.dateLast}, 'yyyy-MM-dd')
+				]]>
+			</if>
+			<if test='listFilter.statusNo != 0'>
+				<if test='listFilter.statusValue eq"접수"'>
+				<![CDATA[
+					and status_no in (1, 2)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"개발"'>
+				<![CDATA[
+					and status_no in (3, 4)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"테스트"'>
+				<![CDATA[
+					and status_no in (5, 6)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"유저테스트"'>
+				<![CDATA[
+					and status_no in (7, 8)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"배포"'>
+				<![CDATA[
+					and status_no in (9, 10)
+				]]>
+				</if>
+				<if test='listFilter.statusValue eq"완료"'>
+				<![CDATA[
+					and status_no in (11, 13)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"반려"'>
@@ -392,7 +551,7 @@
 			fetch first (#{pager.rowsPerPage}) rows only
 		
 	</select>
-
+	
 
 	<select id="selectRequestDetail" parameterType="int" resultType="com.oti.srm.dto.Request">
 		select r.RNO, r.REQ_DATE as "reqDate" , r.REQ_TITLE as "reqTitle" , r.REQ_CONTENT as "reqContent", 

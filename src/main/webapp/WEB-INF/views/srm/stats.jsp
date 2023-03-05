@@ -49,8 +49,8 @@
             tooltip: { trigger: 'none' },   // 도움말 제거   
             legend: 'none',					// 범례 여부(표시 안 함)
             slices: {
-                0: { color: 'green', textStyle: {color: 'transparent'} },  			// 그래프 완료 부분 색 설정(미표시)
-                1: { color: 'transparent' , textStyle: {color: 'transparent'}}		// 그래프 미완료 부분 색 설정(미표시)
+                0: { color: '#46eb98', textStyle: {color: 'transparent'} },  			// 그래프 완료 부분 색 설정(초록, 글자 미표시)
+                1: { color: '#d4d4d4' , textStyle: {color: 'transparent'}}				// 그래프 미완료 부분 색 설정(회색, 글자 미표시)
             }
           };
 		  
@@ -73,8 +73,8 @@
             tooltip: { trigger: 'none' },   // 도움말 제거   
             legend: 'none',					// 범례 여부(표시 안 함)
             slices: {
-                0: { color: 'red', textStyle: {color: 'transparent'} },  			// 그래프 완료 부분 색 설정(미표시)
-                1: { color: 'transparent' , textStyle: {color: 'transparent'}}		// 그래프 미완료 부분 색 설정(미표시)
+                0: { color: '#fa6666', textStyle: {color: 'transparent'} },  			// 그래프 지연 부분 색 설정(빨강, 글자 미표시)
+                1: { color: '#d4d4d4' , textStyle: {color: 'transparent'}}				// 그래프 미지연 부분 색 설정(회색, 글자 미표시)
             }
           };
           
@@ -135,8 +135,8 @@
 	    	// 그래프 옵션
 	        var options = {
 	          title: '분기별 서비스 요청 및 완료',  		//그래프 제목
-	          curveType: 'function',  			//그래프 선 설정(부드러운 선)
-	          legend: { position: 'bottom' }    //범례 위치 (하단 위치)
+	          curveType: 'function',  				//그래프 선 설정(부드러운 선)
+	          legend: { position: 'bottom' }   		//범례 위치 (하단 위치)
 	        };
 	        
 			// 그래프 그리기

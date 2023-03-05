@@ -46,8 +46,14 @@
 							<article class="filter-name2">
 								<h6>단계</h6>
 
-								<c:if test="${sessionScope.member.mtype == 'pm'}">
-									<h6>시스템</h6>
+								<c:if test="${sessionScope.member.mtype != 'user'}">
+								<!-- pm이 아닌 경우, 초기 시스템 선택 숨김상태 -->
+									<c:if test="${sessionScope.member.mtype == 'pm'}">
+										<h6>시스템</h6>
+									</c:if>
+									<c:if test="${sessionScope.member.mtype != 'pm'}">
+										<h6 id="sno_label" style="visibility : hidden;">시스템</h6>
+									</c:if>
 								</c:if>
 							</article>
 							<article class="search-button">
@@ -95,7 +101,7 @@
 											<option value="1">접수</option>
 											<option value="2">개발</option>
 											<option value="5">테스트</option>
-											<option value="8">유저테스트</option>
+											<option value="8">품질테스트</option>
 											<option value="10">배포</option>
 											<option value="11">완료</option>
 											<option value="12">반려</option>
@@ -116,7 +122,7 @@
 												<option value="5">테스트</option>
 											</c:if>
 											<c:if test="${listFilter.statusNo != 8}">
-												<option value="8">유저테스트</option>
+												<option value="8">품질테스트</option>
 											</c:if>
 											<c:if test="${listFilter.statusNo != 10}">
 												<option value="10">배포</option>
@@ -129,36 +135,56 @@
 											</c:if>
 										</select>
 									</c:if>
-
 								</div>
-								<c:if test="${sessionScope.member.mtype == 'pm'}">
-									<div class="input-group">
-										<select class="custom-select_re sno" id="sno" name="sno">
-											<c:if test="${listFilter.sno == 0}">
-												<option value="0" selected>전체</option>
-												<c:forEach var="system" items="${systemList}">
-													<option value="${system.sno}">${system.systemName}</option>
-												</c:forEach>
-											</c:if>
-											<c:if test="${listFilter.sno != 0}">
-												<option value="${listFilter.sno}" selected>${listFilter.systemName}</option>
-												<c:forEach var="system" items="${systemList}">
-													<c:if test="${system.sno != listFilter.sno}">
+									<c:if test="${sessionScope.member.mtype == 'pm'}">
+										<div class="input-group">
+											<select class="custom-select_re sno" id="sno" name="sno">
+												<c:if test="${listFilter.sno == 0}">
+													<option value="0" selected>전체</option>
+													<c:forEach var="system" items="${systemList}">
 														<option value="${system.sno}">${system.systemName}</option>
-													</c:if>
-												</c:forEach>
-											</c:if>
-										</select>
-									</div>
-								</c:if>
-								<c:if test="${sessionScope.member.mtype != 'pm'}">
+													</c:forEach>
+												</c:if>
+												<c:if test="${listFilter.sno != 0}">
+													<option value="${listFilter.sno}" selected>${listFilter.systemName}</option>
+													<c:forEach var="system" items="${systemList}">
+														<c:if test="${system.sno != listFilter.sno}">
+															<option value="${system.sno}">${system.systemName}</option>
+														</c:if>
+													</c:forEach>
+												</c:if>
+											</select>
+										</div>
+									</c:if>
+									<c:if test="${sessionScope.member.mtype != 'pm'}">
+									<!-- pm이 아닌 경우, 초기 시스템 선택 숨김상태 -->
+										<div class="input-group">
+											<select class="custom-select_re sno" id="sno" name="sno" style="visibility : hidden;">
+												<c:if test="${listFilter.sno == 0}">
+													<option value="0" selected>전체</option>
+													<c:forEach var="system" items="${systemList}">
+														<option value="${system.sno}">${system.systemName}</option>
+													</c:forEach>
+												</c:if>
+												<c:if test="${listFilter.sno != 0}">
+													<option value="${listFilter.sno}" selected>${listFilter.systemName}</option>
+													<c:forEach var="system" items="${systemList}">
+														<c:if test="${system.sno != listFilter.sno}">
+															<option value="${system.sno}">${system.systemName}</option>
+														</c:if>
+													</c:forEach>
+												</c:if>
+											</select>
+										</div>
+									</c:if>
+								
+								
+								<!-- 지워야 함-->
+								<%-- <c:if test="${sessionScope.member.mtype != 'pm'}">
 									<input type="hidden" class="sno" value="${sessionScope.member.sno}"> 
-								</c:if>
+								</c:if> --%>
+								
 							</article>
-
-
-
-
 						</form>
 					</section>
 					<section class="table border-left-dark shadow">
@@ -255,7 +281,11 @@
 								<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
 							</div>
 						</div>
-
+						<div class="loading">
+							<span></span>
+						    <span></span>
+						    <span></span>
+						</div>
 
 					</section>
 					</main>
@@ -303,8 +333,20 @@
 // 내 요청 목록 ajax 호출 : switch 
 	function myRequestList(mtype){
 		let memberType = mtype;
+		
+		let loading = document.querySelector(".loading");
+		loading.style.visibility = 'visible';
+		
 		// mtype 전달, 페이징 처리 
 		if($('#myRequest').is(":checked")){
+			if(memberType != 'pm'){
+				//담당자들 시스템 필터 hidden처리
+				let sno_label = document.querySelector("#sno_label");
+				let sno_input = document.querySelector('#sno');
+				sno_label.style.visibility = 'hidden';
+				sno_input.style.visibility = 'hidden';
+			}
+			
 			//테이블 색상 되돌리기
 			let tableHead = document.querySelectorAll(".ex");
 			for(let i = 0; i < tableHead.length; i++){
@@ -327,7 +369,12 @@
 		  		url : "myworklist",
 				method : "post",
 				data : JSON.stringify(data),
-				contentType: "application/json; charset=UTF-8"
+				contentType: "application/json; charset=UTF-8",
+				success : function (){
+					loading.style.visibility = 'hidden';
+				}
+				
+				
 			}).done((data) => {
 				let table = document.querySelector('#table_content');
 				$('#table_content').html(data);
@@ -337,11 +384,21 @@
 				if(pageDefault != null){
 					pageDefault.remove();
 				}
-				
 			});
 			
 			// 내 요청 목록 호출 
 		} else {
+			//담당자들 시스템 필터 hidden처리
+			if(memberType != 'pm'){
+				let sno_label = document.querySelector("#sno_label");
+				let sno_input = document.querySelector('#sno');
+				sno_label.style.visibility = 'visible';
+				sno_input.style.visibility = 'visible';
+			}
+			
+			
+			
+			
 			// h4 태그 글자 바꾸기 
 			let name = document.getElementsByClassName("table-name")[0];
 			name.innerText='내 요청 목록';
@@ -360,10 +417,15 @@
 			
 			data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1}
 			$.ajax({
-		  		url : "myrequestlist",
+		  		url : "workerrequestlist",
 				method : "post",
 				data : JSON.stringify(data),
-				contentType: "application/json; charset=UTF-8"
+				contentType: "application/json; charset=UTF-8",
+				success : function (){
+					loading.style.visibility = 'hidden';
+				}
+				
+				
 			}).done((data) => {
 				$('#table_content').html(data);
 				
@@ -384,6 +446,8 @@
 	} 
 	// 페이지 이동 ajax
 	function pageChange(i){
+		let loading = document.querySelector(".loading");
+		loading.style.visibility = 'visible';
 		let pageNo = i;
 		
 		let filterReqType = document.getElementById('req_type');
@@ -426,7 +490,10 @@
 				url : "myworklist",
 				method : "post",
 				data : JSON.stringify(data),
-				contentType: "application/json; charset=UTF-8"
+				contentType: "application/json; charset=UTF-8",
+				success : function (){
+					loading.style.visibility = 'hidden';
+				}
 				
 			}).done((data) => {
 				$('#table_content').html(data);
@@ -441,10 +508,13 @@
 		} else {
 			console.log("내 요청 목록 페이지 이동" + i);
 			$.ajax({
-				url : "myrequestlist",
+				url : "workerrequestlist",
 				method : "post",
 				data : JSON.stringify(data),
-				contentType: "application/json; charset=UTF-8"
+				contentType: "application/json; charset=UTF-8",
+				success : function (){
+					loading.style.visibility = 'hidden';
+				}
 				
 			}).done((data) => {
 				$('#table_content').html(data);
@@ -468,6 +538,8 @@
 	
 	// filter 검색 기능 ajax
 	function search(){
+		let loading = document.querySelector(".loading");
+		loading.style.visibility = 'visible';
 //		검색 filter 값 가져오기
 		let filterReqType = document.getElementById('req_type');
 		let ReqType = filterReqType.options[filterReqType.selectedIndex].text;
@@ -508,7 +580,10 @@
 				url : "myworklist",
 				method : "post",
 				data : JSON.stringify(data),
-				contentType: "application/json; charset=UTF-8"
+				contentType: "application/json; charset=UTF-8",
+				success : function (){
+					loading.style.visibility = 'hidden';
+				}
 				
 			}).done((data) => {
 				$('#table_content').html(data);
@@ -522,10 +597,15 @@
 		} else {
 			console.log("내 요청 목록 검색")
 			$.ajax({
-				url : "myrequestlist",
+				url : "workerrequestlist",
 				method : "post",
 				data : JSON.stringify(data),
-				contentType: "application/json; charset=UTF-8"
+				contentType: "application/json; charset=UTF-8",
+				success : function (){
+					loading.style.visibility = 'hidden';
+				}
+				
+				
 			}).done((data) => {
 				$('#table_content').html(data);
 				//기존 페이지 태그 삭제하기

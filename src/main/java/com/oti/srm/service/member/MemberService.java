@@ -21,5 +21,12 @@ public class MemberService implements IMemberService {
 	public Member getMember(Member member) {
 		return memberDao.getMember(member);
 	}
+	
+	//유저 아이디 중복 확인
+	@Override
+	public int checkId(String mid) {
+		
+		return memberDao.selectMid(mid);
+	}
 
 }
