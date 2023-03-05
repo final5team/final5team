@@ -176,6 +176,11 @@
 								<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
 							</div>
 						</div>
+						<div class="loading">
+							<span></span>
+						    <span></span>
+						    <span></span>
+						</div>
 
 					</section>
 					</main>
@@ -219,6 +224,10 @@
 
 // 페이지 이동 ajax
 	function pageChange(i){
+		let loading = document.querySelector(".loading");
+		loading.style.visibility = 'visible';	
+		console.log(loading);
+	
 		console.log("페이지 이동" + i);
 		let pageNo = i;
 		
@@ -237,23 +246,30 @@
 		let filterStatusNo = document.getElementById('statusNo');  
 		let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
 		
+	
 		data = {pageNo : i, reqType : ReqType, dateFirst : dateFirst, dateLast : dateLast, sno : parseInt(sno), statusNo : parseInt(statusNo)}
 		$.ajax({
 			url : "myrequestlist",
 			method : "post",
 			data : JSON.stringify(data),
-			contentType: "application/json; charset=UTF-8"
+			contentType: "application/json; charset=UTF-8",
+			success : function (){
+				loading.style.visibility = 'hidden';
+			}
 			
 		}).done((data) => {
 			$('#table_content').html(data);
-			const pageDefault = document.querySelector('.default');
-			pageDefault.remove();
+			if(document.querySelector('.default')) {
+				const pageDefault = document.querySelector('.default');
+				pageDefault.remove();
+			}
 		});
 	}	
 	
 // filter 검색 기능 ajax
 	function search(){
-		console.log("검색 실행")
+		let loading = document.querySelector(".loading");
+		loading.style.visibility = 'visible';	
 //		검색 filter 값 가져오기
 		let filterReqType = document.getElementById('req_type');
 		let ReqType = filterReqType.options[filterReqType.selectedIndex].text;
@@ -285,13 +301,17 @@
 			url : "myrequestlist",
 			method : "post",
 			data : JSON.stringify(data),
-			contentType: "application/json; charset=UTF-8"
+			contentType: "application/json; charset=UTF-8",
+			success : function (){
+				loading.style.visibility = 'hidden';
+			}
 			
 		}).done((data) => {
 			$('#table_content').html(data);
-			const pageDefault = document.querySelector('.default');
-			pageDefault.remove();
-			
+			if(document.querySelector('.default')) {
+				const pageDefault = document.querySelector('.default');
+				pageDefault.remove();
+			}
 		});
 	}
 	
