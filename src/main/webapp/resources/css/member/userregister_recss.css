@@ -1,0 +1,217 @@
+@charset "UTF-8";
+<style>
+a {
+	text-decoration: none;
+}
+
+.card-block {
+	height : 600px;
+}
+.card-body .photo{
+	position : absolute;
+	height : 200px;
+	width : 200px;
+	align-items: center;
+	top : 25%;
+}
+.card-body img {
+	border: 1px solid #d1d3e2;
+	position : absolute;
+	width: 150px;
+	height: 150px;
+	border-radius: 10px;
+	left : 10%;
+}
+.card-title-block h6{
+	margin-top : 15px;
+}
+/* 첫번째 데이터 그룹 */
+.card-body .label {
+	position: absolute;
+	width: 110px;
+	left: 20%;
+	top: 16%;
+	overflow: hidden;
+	text-align: center;
+	margin-bottom: 24px;
+}
+.card-body h6 {
+	margin-top: 3px;
+	margin-bottom: 24px;
+	font-weight: 600;
+    font-size: 1.0rem;
+}
+
+.card-body .data_one{
+	position: absolute;
+	width: 220px;
+	left: 30%;
+	top: 22%;
+	text-align: center;
+}
+.card-body .data_one select{
+	width: 200px;
+	height: 35px;
+	font-size: 13px;
+	padding-top: 0;
+	padding-bottom: 0;
+	margin-bottom : 10px;
+	position : absolute;
+	left : 0;
+	top : -23.5%;
+}
+.card-body .data_one input{
+	height: 20px;
+	width: 175px;
+	font-size: 13px;
+	margin-bottom : 10px;
+}
+/* 두번째 데이터 그룹 */
+.card-body .label_two {
+	position: absolute;
+	width: 110px;
+	left: 58%;
+	top: 16%;
+	overflow: hidden;
+	text-align: center;
+	margin-bottom: 24px;
+}
+.card-body .data_two{
+	position: absolute;
+	width: 220px;
+	left: 70%;
+	top: 15%;
+	text-align: center;
+}
+.card-body .data_two select {
+	width: 200px;
+	height: 35px;
+	font-size: 13px;
+	padding-top: 0;
+	padding-bottom: 0;
+	margin-bottom : 10px;
+	flex : none;
+}
+.card-body .data_two input{
+	height: 20px;
+	width: 175px;
+	font-size: 13px;
+	margin-bottom : 10px;
+	position : absolute;
+	top : 95%;
+}
+
+.card-body .address-input {
+	position: absolute;
+	margin: 0;
+	width: 580px;
+	height: 150px;
+	left: 29%;
+	top: 52%;
+	box-sizing: border-box;
+	z-index: 0;
+}
+
+/* 우편번호 */
+.card-body .address-input{
+	position : absolute;
+	
+}
+.card-body .address-input input{
+	height: 20px;
+	width: 175px;
+	font-size: 13px;
+	position : relative;
+}
+.card-body #postcode{
+	position : absolute;
+	left : 1.8%;
+	top : -5%;
+}
+.card-body #addr1{
+	position : absolute;
+	left: 40%;
+	top : -5%;
+	width : 250px;
+}
+.card-body #addr2{
+	position : absolute;
+	top : 25%;
+	left: 1.7%;
+	width : 473px;
+}
+.card-body .address-button button{
+	position : absolute;
+	top : -4.5%;
+	left : 91.5%;
+	height : 33px;
+	width : 100px;
+}
+
+.card-body .submit-button {
+	position : absolute;
+	left: 50%;
+	top: 70%;
+}
+.card-body .return-button {
+	position : absolute;
+	width: 120px;
+	height: 150px;
+	left: 60%;
+	top: 70%;
+}
+
+.upload_name {
+	position: absolute;
+	top : 80%;
+	left: 30%;
+	z-index: 2;
+	display: inline-block;
+	height: 30px;
+	width: 120px;
+	vertical-align: middle;
+	border: 1px solid #d1d3e2;
+	border-radius: 5px;
+	color: #999999;
+	text-align: center;
+}
+
+.filebox label {
+	position: absolute;
+	width : 50px;
+	height : 30px;
+	left: 0%;
+	top : 80%;
+	color: #fff;
+	vertical-align: middle;
+	background-color: #999999;
+	border-radius: 5px;
+	cursor: pointer;
+	text-align: center;
+	padding-top : 3px;
+}
+
+.filebox input[type="file"] {
+	position: absolute;
+	width: 0;
+	height: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 0;
+}
+
+.file-item {
+	width: 400px;
+	height: 100px;
+	top: 20%;
+	border-radius: 5px;
+	z-index : 5;
+}
+
+
+
+
+
+
+
+</style>

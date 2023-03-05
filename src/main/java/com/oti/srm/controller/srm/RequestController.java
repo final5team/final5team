@@ -65,7 +65,7 @@ public class RequestController {
 	public String register(Model model) {
 		List<System> systemList = userRegisterService.getSystemList();
 		model.addAttribute("systemList", systemList);
-		return "member/userregister";
+		return "member/userregister_re";
 	}
 
 	/**
@@ -75,8 +75,10 @@ public class RequestController {
 	public String register(Member member, Model model) {
 		String address = member.getPostcode() + "-" + member.getAddr1() + "-" + member.getAddr2();
 		member.setAddress(address);
+		member.setPassword("0000");
 		MultipartFile mfile = member.getMfile();
 		log.info("유저 등록");
+		log.info(member.toString());
 		
 		try {
 			if (mfile != null && !mfile.isEmpty()) {
@@ -91,20 +93,13 @@ public class RequestController {
 				} else {
 					return "redirect:/";
 				}
-
-			} else {
-				int result = userRegisterService.register(member);
-				if (result == IUserRegisterService.REGISTER_FAIL) {
-					return "redirect:/customer/register";
-				} else {
-					return "redirect:/";
-				}
-			}
+			} 
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("registerResult", "FAIL");
 			return "redirect:/customer/register";
 		}
+		return "redirect:/customer/register";
 	}
 
 	/**
@@ -125,7 +120,7 @@ public class RequestController {
 
 		model.addAttribute("returnMember", returnMember);
 
-		return "member/mypage";
+		return "member/mypage_re";
 	}
 
 	/**
