@@ -332,7 +332,7 @@ public class RequestController {
 		model.addAttribute("pager", pager);
 		// filter 전달
 		model.addAttribute("listFilter", returnList);
-		
+		log.info("스위치 실행");
 		return "srm/list/ajaxmyworklist";
 	}
 	/**

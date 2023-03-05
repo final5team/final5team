@@ -182,6 +182,7 @@
 							</article>
 						</c:if>
 						<!-- ajax 수정 목록 -->
+						<!-- 기존 페이지-->
 						<table class="member" id="table_content">
 							<tr >
 								<th class="ex">No.</th>
@@ -304,24 +305,19 @@
 		let memberType = mtype;
 		// mtype 전달, 페이징 처리 
 		if($('#myRequest').is(":checked")){
-			
 			//테이블 색상 되돌리기
 			let tableHead = document.querySelectorAll(".ex");
-			console.log(tableHead);
 			for(let i = 0; i < tableHead.length; i++){
 				tableHead[i].classList.remove('bc');
 			}
-			
 			// 테이블 h4 태그 글자 바꾸기 
 			let name = document.getElementsByClassName("table-name")[0];
 			name.innerText='담당 업무 목록';
 			name.classList.remove('fc');
-			
 			//테이블 왼쪽 border 색 바꾸기
 			let tableBorder = document.querySelector(".table");
 			tableBorder.classList.add('border-left-dark');
 			tableBorder.classList.remove('border-left-primary');
-			
 			// 검색 h4 태그 글자 바꾸기
 			let filterName = document.getElementsByClassName("filtering-name")[0];
 			filterName.innerText='업무 검색';
@@ -333,8 +329,8 @@
 				data : JSON.stringify(data),
 				contentType: "application/json; charset=UTF-8"
 			}).done((data) => {
-				$('table_content').html(data);
-				
+				let table = document.querySelector('#table_content');
+				$('#table_content').html(data);
 				
 				//기존 페이지 태그 삭제하기
 				const pageDefault = document.querySelector('.default');
