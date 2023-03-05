@@ -50,19 +50,21 @@
                		 	<div class="card border-left-dark" style="height:700px;">
                		 		<div class="title-block d-flex">
                		 			<h2 class="font-weight-bold"  style="display: inline-block">공지사항 목록</h2>
-               		 			<form class="form-group form-inline mt-2  ml-auto" action="${pageContext.request.contextPath}/noticelist" method="get">
-							    <label for="searchType"></label>
-							    <select class="form-control boxed p-0" id="searchType" name="searchType">
-							        <option value="제목" <c:if test="${searchType == '제목'}">selected</c:if>>제목</option>
-							        <option value="작성자" <c:if test="${searchType == '작성자'}">selected</c:if>>작성자</option>
-							    </select>
-							    <input type="text" class="form-control boxed ml-2 p-0" name="searchWord" value="${searchWord}"/>
-							    <button type="submit" class="btn btn-sm btn-primary ml-2">검색</button>
-							</form>
                		 		</div>
-               		 		<div class="d-flex justify-content-end px-4">
+               		 		<div class="d-flex px-4 justify-content-end">
+               		 			<form class="form-group form-inline mt-2 " action="${pageContext.request.contextPath}/noticelist" method="get">
+								    <label for="searchType"></label>
+								    <select class="form-control boxed p-0" id="searchType" name="searchType">
+								        <option value="제목" <c:if test="${searchType == '제목'}">selected</c:if>>제목</option>
+								        <option value="작성자" <c:if test="${searchType == '작성자'}">selected</c:if>>작성자</option>
+								    </select>
+								    <input type="text" class="form-control boxed ml-2 p-0" name="searchWord" value="${searchWord}"/>
+								    <button type="submit" class="btn btn-sm btn-primary ml-2">검색</button>
+								</form>
 	               		 		<c:if test="${member.mtype == 'pm'}">
-			                		<a href="${pageContext.request.contextPath}/noticewriteform" class="btn btn-sm btn-primary">공지사항 작성</a>
+	               		 			<div class="pt-2 mx-3">
+				                		<a href="${pageContext.request.contextPath}/noticewriteform" class="btn btn-md btn-primary">공지사항 작성</a>
+	               		 			</div>
 			                	</c:if>
                		 		</div>
                		 		<div class="card-body">

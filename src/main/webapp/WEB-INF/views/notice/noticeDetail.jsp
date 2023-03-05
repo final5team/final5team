@@ -22,6 +22,16 @@
      	width : 20px;
      	height : 20px;
      }
+     .label{
+		text-align :center;
+		padding: 0 20px;
+		width: 180px;
+		font-weight: 600;
+		font-size: 1.0rem;
+	   }
+	   .form-control[readonly]{
+	   background-color: #ffffff;
+	   }
     </style>
 </head>
 
@@ -65,24 +75,20 @@
 							    		<span style="font-size: 18px;">공개 설정</span>
 							    	</div>
 							    	<div class="col-9">
+						    		<img src="resources/img/multiple-users.png" class="checkboxIcon"/>
 							    	<c:if test="${notice.userShow == 'Y'}">
-							    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
 								    	<span class="mr-1">고객</span>
 							    	</c:if>
 							    	<c:if test="${notice.devShow == 'Y'}">
-							    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
 								    	<span class="mr-1">개발자</span>
 							    	</c:if>
 							    	<c:if test="${notice.testerShow == 'Y'}">
-							    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
 								    	<span class="mr-1">테스터</span>
 							    	</c:if>
 							    	<c:if test="${notice.userTesterShow == 'Y'}">
-							    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
 								    	<span class="mr-1">고객테스터</span>
 							    	</c:if>
 							    	<c:if test="${notice.distributorShow == 'Y'}">
-							    		<img src="resources/img/checkbox.png" class="checkboxIcon"/>
 								    	<span class="mr-1">배포담당자</span>
 							    	</c:if>
 							    	</div>
@@ -97,7 +103,7 @@
 							    	<div class="col-2 d-flex justify-content-end">
 							    		<span style="font-size: 18px;">내용</span>
 							    	</div>
-							    	<textarea class="form-control boxed col-9" rows="10" readonly>${notice.noticeContent}</textarea>
+							    	<textarea class="form-control boxed col-9" rows="13" readonly>${notice.noticeContent}</textarea>
 							    </div>
 							  	<div class="row p-2">
 							  		<div class="col-2 d-flex justify-content-end">

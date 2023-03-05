@@ -8,7 +8,10 @@
 
 <head>
     <link href="${pageContext.request.contextPath}/resources/css/stepperprogress.css" rel="stylesheet">
-
+	<script src="${pageContext.request.contextPath}/resources/vendor/tinymce/tinymce.min.js"></script>    
+	<script src="${pageContext.request.contextPath}/resources/js/tinymceinit.js"></script>    
+	<script src="${pageContext.request.contextPath}/resources/vendor/tinymce/themes/silver/theme.min.js"></script>
+	
 	<style>
 	span::after {
 	  padding-left: 5px;
@@ -253,7 +256,7 @@
 											
 												<div class="row mb-2">
 													<div class="label col-3">*의견 내용</div>
-													<textarea rows="2" class="form-control boxed col-7" name="reply" style="padding: 0px" required></textarea>
+													<textarea class="form-control boxed col-7 pmcontent" name="reply" style="padding: 0px" required></textarea>
 												</div>											
 												<div class="row form-group filebox">
 													<div class="label col-3">첨부파일</div>
@@ -285,9 +288,9 @@
 			                	 				</h3>
 			                	 			</div>
 											<div class="card-body">
-												<div class="form-group">
+												<div class="form-group d-flex">
 													<label class="label">반려 사유</label>
-													<textarea rows="2" class="form-control boxed" name="reply" style="width: 80%; margin: auto;" required></textarea>
+													<textarea  class="form-control boxed pmcontent" name="reply" style="width: 80%; margin: auto;" required></textarea>
 												</div>											
 												<div class="filebox row">
 													<label for="file" class=" col-3 label">첨부파일</label>
