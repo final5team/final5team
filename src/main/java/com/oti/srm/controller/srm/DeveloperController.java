@@ -52,14 +52,14 @@ public class DeveloperController {
 		List<StatusHistory> testerToDev = commonService.getTesterToDevHistories(rno);
 		// 접수완료일자 받기 (각 실무자의 할당시간 체크 용도)
 		Date receiptDoneDate = commonService.getReceiptDoneDate(rno);
-		//임시저장한 정보 가져오기
-		StatusHistory tempSh = new StatusHistory ();
+		// 임시저장한 정보 가져오기
+		StatusHistory tempSh = new StatusHistory();
 		tempSh.setRno(rno);
 		tempSh.setNextStatus(14);
-		
-		Member member = (Member)session.getAttribute("member");
+
+		Member member = (Member) session.getAttribute("member");
 		StatusHistory devTemp = commonService.getTempStatusHistory(member, tempSh);
-		
+
 		// 요청, 요청프로세스, 작성내용들 모달에 담기 -장현
 		model.addAttribute("request", request);
 		model.addAttribute("devToTester", devToTester);
@@ -68,7 +68,7 @@ public class DeveloperController {
 		model.addAttribute("receiptDoneDate", receiptDoneDate);
 		model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));
 		model.addAttribute("devTemp", devTemp);
-		
+
 		return "srm/developerdetail";
 	}
 
@@ -162,15 +162,33 @@ public class DeveloperController {
 		}
 		if (member.getMtype().equals("developer")) {
 			return "redirect:/developerdetail?rno=" + statusHistory.getRno();
+		} else if (member.getMtype().equals("tester")) {
+			return "redirect:/testerdetail?rno=" + statusHistory.getRno();
+		} else if (member.getMtype().equals("usertester")) {
+			return "redirect:/usertestdetail?rno=" + statusHistory.getRno();
+		} else {
+			return "redirect:/distributedetail?rno=" + statusHistory.getRno();
+		}
+	}
+
+	@PostMapping("updatehistory")
+	public String updateHistory(RequestProcess rp, StatusHistory sh, HttpSession session, Model model) {
+		Member member = (Member) session.getAttribute("member");
+		commonService.updateHistory(rp, sh, member);
+		if (member.getMtype().equals("developer")) {		
+			return "redirect:/developerdetail?rno=" + rp.getRno();
 		}
 		else if (member.getMtype().equals("tester")) {
-			return "redirect:/testerdetail?rno=" + statusHistory.getRno();
+			return "redirect:/testerdetail?rno=" + rp.getRno();
 		}
 		else if (member.getMtype().equals("usertester")) {
-			return "redirect:/usertestdetail?rno=" + statusHistory.getRno();
+			return "redirect:/usertestdetail?rno=" + rp.getRno();
+		}
+		else if (member.getMtype().equals("distributor")) {
+			return "redirect:/distributedetail?rno=" + rp.getRno();
 		}
 		else {
-			return "redirect:/distributedetail?rno=" + statusHistory.getRno();
+			return "redirect:/pm/receiptdetail?rno=" + sh.getRno();
 		}
 	}
 

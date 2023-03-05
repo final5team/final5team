@@ -437,6 +437,28 @@
 			dev_progress = #{devProgress}
 		where rno = #{rno}	
 	</update>
+	
+	<update id="updateRequestProcess" parameterType="com.oti.srm.dto.RequestProcess">
+		update request_process
+		set
+			req_type = #{reqType},
+			priority = #{priority},
+			all_expect_date = #{allExpectDate},
+			developer = #{developer},
+			tester = #{tester},
+			user_tester = #{userTester},
+			distributor = #{distributor}
+		where rno = #{rno}	
+	</update>
+	
+	<update id="updateRealStatusHistory" parameterType="com.oti.srm.dto.StatusHistory">
+		update status_histories
+		set
+			reply = #{reply},
+			dist_source = #{distSource},
+			change_date = sysdate
+		where hno = #{hno}
+	</update>
 		
 	
 </mapper>
