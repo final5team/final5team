@@ -8,6 +8,10 @@
 <head>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
      <link href="${pageContext.request.contextPath}/resources/css/stepperprogress.css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/resources/vendor/tinymce/tinymce.min.js"></script>    
+	<script src="${pageContext.request.contextPath}/resources/js/tinymceinit.js"></script>    
+	<script src="${pageContext.request.contextPath}/resources/vendor/tinymce/themes/silver/theme.min.js"></script>
+    
     <style>
    	.navUl{
    		list-style:none;
@@ -28,6 +32,9 @@
    	.check-group{
    		margin:auto;
    	}
+   	 .label-write{
+    width: 100px;
+    }
     </style>
 </head>
 
@@ -83,7 +90,7 @@
 										<form id="dueDateForm" action="${pageContext.request.contextPath}/testinprogress"  method="POST">
 											<input type="hidden" name="rno" value="${request.rno}" id="rno">
 											<div class="form-group d-flex" id="expectDateForm"> 
-												<div class="label">완료예정일</div>
+												<div class="label label-write">완료예정일</div>
 												<div class="flex-grow-1">
 													<c:if test="${request.statusNo == 5}">
 													<input type="date" class="date-form control" id="testExpectDate" name="testExpectDate" >
@@ -100,7 +107,7 @@
 											<input type="hidden" name="nextStatus" value="15">
 											<input type="hidden" name="rno" value="${request.rno}" id="rno">
 											<div class="form-group d-flex">
-												<div class="label" id="replylabel">내용 작성 </div>
+												<div class="label label-write" id="replylabel">내용 작성 </div>
 												<!-- <textarea rows="3" class="form-control boxed flex-grow-1" name="reply"></textarea> -->
 												<div class="flex-grow-1">
 													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply">${tempNormal.reply}</textarea>
@@ -113,7 +120,7 @@
 											</div>
 											
 											<div class="filebox d-flex">
-												<div class="label" id="fileLabel">첨부파일</div>
+												<div class="label label-write" id="fileLabel">첨부파일</div>
 												<div class="form-group" id="file-list">
 											        <a href="#this" onclick="addFile()">파일추가</a>
 											        <div class="file-group">
@@ -388,6 +395,22 @@
  			$('#counter').html("(300 / 300)");
  		}
    	});
+	
+	/* form 제출 시 글자수 체크 */
+	$('#testButton').click(function(){
+		let content = $('#reply').val();
+		if(content.length > 300){
+ 			$('#countCheck').modal();
+ 			$('#countContent').html("최대 300자까지 입니다.");
+ 			$(this).val(content.substring(0,300));
+ 			$('#counter').html("(300 / 300)");
+ 		} else{
+ 			$('#writeform').submit();
+ 		}
+		
+		
+	});
+	
 	</script>
 </body>
 
