@@ -96,7 +96,7 @@ public class StatsController {
 	
 	@RequestMapping(value="/delrate/{sno}", method = RequestMethod.GET)
 	public String getDelRateSystem(HttpSession session, Model model, @PathVariable int sno) {
-		model.addAttribute("comRate", statsService.getDelRate(sno));		
+		model.addAttribute("delRate", statsService.getDelRate(sno));		
 		return "srm/delrate";
 	}
 	
