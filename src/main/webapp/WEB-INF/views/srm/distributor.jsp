@@ -7,6 +7,9 @@
 <head>
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
     <link href="${pageContext.request.contextPath}/resources/css/stepperprogress.css" rel="stylesheet">
+   	<script src="${pageContext.request.contextPath}/resources/vendor/tinymce/tinymce.min.js"></script>    
+	<script src="${pageContext.request.contextPath}/resources/js/tinymceinit.js"></script>    
+	<script src="${pageContext.request.contextPath}/resources/vendor/tinymce/themes/silver/theme.min.js"></script>    
     <style>
     .progress-group{
     padding: 0px 220px;
@@ -60,7 +63,7 @@
 	                	 				<form id="dueDateForm" action="${pageContext.request.contextPath}/startwork" method="POST" >
 											<input type="hidden" name="rno" value="${request.rno}">
 											<div class="form-group d-flex">
-												<div class="label">완료예정일</div>
+												<div class="label label-write">완료예정일</div>
 												<div class="flex-grow-1">
 													<c:if test="${(request.statusNo == 7 && requestProcess.reqType == '긴급') || 
                 	 									(request.statusNo == 9 && requestProcess.reqType == '정규')}">
@@ -81,7 +84,7 @@
 											<!-- 임시 저장 글 status_no -->
 											<input type="hidden" name="nextStatus" value="18"/>
 											<div class="form-group d-flex">
-												<div class="label">배포 내용</div>
+												<div class="label label-write">배포 내용</div>
 												<div class="flex-grow-1">
 													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply">${distributorTemp.reply}</textarea>
 													<div class="d-flex justify-content-end">
@@ -91,7 +94,7 @@
 											</div>
 											
 											<div class="filebox d-flex">
-												<div class="label" id="fileLable">첨부파일</div>
+												<div class="label label-write" id="fileLable">첨부파일</div>
 												<div class="form-group" id="file-list">
 											        <a href="#this" onclick="addFile()">파일추가</a>
 											        <div class="file-group">
