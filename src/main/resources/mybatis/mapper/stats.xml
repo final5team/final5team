@@ -63,7 +63,10 @@
 	</select>
 	<select id="selectDelReq" parameterType="int" resultType="int">
 		select count(*) as cnt
-		from REQUEST_PROCESS p, REQUESTS r		
+		from REQUEST_PROCESS p
+		<if test="sno != 0">
+		, REQUESTS r
+		</if>		
 		<where>
 			ALL_EXPECT_DATE <![CDATA[<]]> ALL_COMP_DATE
 			<if test="sno == 0"></if>

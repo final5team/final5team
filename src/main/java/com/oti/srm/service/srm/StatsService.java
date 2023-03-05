@@ -52,15 +52,29 @@ public class StatsService implements IStatsService {
 	// 서비스 요청 완료율 구하기
 	@Override
 	public int getComRate(int sno) {
+		// 해당하는 전체 서비스 건수 구하기
+		int all = statsDao.selectAllReq(sno);
+		// 해당 전체 서비스 건수가 0일 경우(분모가 0일 경우)
+		if(all==0) {
+			// 0 반환하기
+			return 0;
+		}
 		// 서비스 요청 완료율 구하기(완료된 서비스 건 / 전체 서비스 건)
 		// 월별 필터 적용하면 selectSRChange 메소드 재활용해도 될 듯
-		return 100* statsDao.selectComReq(sno) / statsDao.selectAllReq(sno);
+		return 100* statsDao.selectComReq(sno) / all;
 	}
 	// 서비스 요청 지연율 구하기
 	@Override
 	public int getDelRate(int sno) {
-		// 서비스 요청 지연율 구하기(지연된 서비스 건 / 완료된 서비스 건)
-		return 100* statsDao.selectDelReq(sno) / statsDao.selectComReq(sno);
+		// 해당 완료 서비스 건수 구하기
+		int com = statsDao.selectComReq(sno);
+		// 해당 완료 서비스 건수가 0일 경우(분모가 0일 경우)
+		if(com==0) {
+			// 0 반환하기
+			return 0;
+		}
+		// 서비스 요청 지연율 반환하기(지연된 서비스 건 / 완료된 서비스 건)
+		return 100* statsDao.selectDelReq(sno) / com;
 	}
 	// 태스크별 서비스 요청 지연율 구하기
 	@Override
