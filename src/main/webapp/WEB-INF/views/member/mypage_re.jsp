@@ -96,7 +96,7 @@
 										</h3>
 									</div>
 									<div class="card-body">
-										<form method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data">
+										<form method="post" action="${pageContext.request.contextPath}/customer/mypageupdate" enctype="multipart/form-data">
 											<section class="section2">
 												<article class="photo">
 													<img id="preview" src="${pageContext.request.contextPath}/customer/mypage/${returnMember.mid}"
@@ -126,6 +126,7 @@
 													<select class="custom-select" id="mtype" name="mtype" onchange="changeUserType()">
 														<option value="${returnMember.mtype}" selected>${returnMember.mtype}</option>
 														<c:if test="${sessionScope.member.mtype == 'pm'}">
+															<option value="user">USER</option>
 															<option value="pm">PM</option>
 															<option value="developer">DEVELOPER</option>
 															<option value="distributer">DISTRIBUTOR</option>
@@ -200,11 +201,11 @@
 													<div class="item">
 														<div class="input-group">
 															<select class="custom-select" id="organ" name="organ" required>
-																<option selected>소속 기관 선택</option>
+																<option value='${returnMember.organ}'>${returnMember.organ}</option>
 																	<c:if test="${sessionScope.member.mtype == 'pm'}">
-																		<option value="1">1</option>
-																		<option value="2">2</option>
-																		<option value="3">3</option>
+																		<option value="오티아이">오티아이</option>
+																		<option value="쇼핑몰">쇼핑몰</option>
+																		<option value="학사관리">학사관리</option>
 																	</c:if>
 															</select>
 														</div>
@@ -230,7 +231,7 @@
 													</div>
 												</article>
 												<article class="submit-button">
-													<button class="btn btn-dark btn-sm" type="submit">회원 등록</button>
+													<button class="btn btn-dark btn-sm" type="submit">정보 수정</button>
 												</article>
 												<article class="return-button">
 													<button class="btn btn-dark btn-sm" type="submit">취소</button>

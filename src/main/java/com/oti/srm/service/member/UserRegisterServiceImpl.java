@@ -37,4 +37,10 @@ public class UserRegisterServiceImpl implements IUserRegisterService {
 	public Member getUserInfo(String mid) {
 		return memberDao.selectMemberInfo(mid);
 	}
+	
+	//유저 정보 수정
+	@Override
+	public int updateUserInfo(Member member) {
+		return memberDao.updateUserInfo(member);
+	}
 }

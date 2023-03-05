@@ -5,24 +5,24 @@
 			<if test='fileName == null'>
 				<if test='mtype.equals("pm") or mtype.equals("user") '>
 				insert into members (MID, MTYPE, MNAME, BIRTH, GENDER, ADDRESS, EMAIL, PASSWORD, ORGAN, PHONE, POSITION)
-				values (#{mid}, #{mtype}, #{mname}, sysdate, #{gender}, #{address}, #{email}, #{password}, #{organ}, #{phone}, #{position})
+				values (#{mid}, #{mtype}, #{mname}, #{birth}, #{gender}, #{address}, #{email}, #{password}, #{organ}, #{phone}, #{position})
 				</if>
 				<if test='!mtype.equals("pm") and !mtype.equals("user")'>
 				insert into members (MID, MTYPE, MNAME, BIRTH, GENDER, ADDRESS, SNO, EMAIL, PASSWORD, ORGAN, PHONE, POSITION)
-				values (#{mid}, #{mtype}, #{mname}, sysdate, #{gender}, #{address}, #{sno}, #{email}, #{password}, #{organ}, #{phone}, #{position})
+				values (#{mid}, #{mtype}, #{mname}, #{birth}, #{gender}, #{address}, #{sno}, #{email}, #{password}, #{organ}, #{phone}, #{position})
 				</if>
 			</if>
 			<if test='fileName != null'>
 				<if test='mtype.equals("pm") or mtype.equals("user")'>
 				insert into members (MID, MTYPE, MNAME, BIRTH, GENDER, ADDRESS, EMAIL, PASSWORD, ORGAN, PHONE, POSITION
 									,FILE_DATA ,FILE_TYPE, FILE_NAME, SAVED_DATE)
-				values (#{mid}, #{mtype}, #{mname}, sysdate, #{gender}, #{address}, #{email}, #{password}, #{organ}, #{phone}, #{position}, 
+				values (#{mid}, #{mtype}, #{mname}, #{birth}, #{gender}, #{address}, #{email}, #{password}, #{organ}, #{phone}, #{position}, 
 						#{fileData}, #{fileType}, #{fileName}, #{savedDate} )
 				</if>
 				<if test='!mtype.equals("pm") and !mtype.equals("user")'>
 				insert into members (MID, MTYPE, MNAME, BIRTH, GENDER, ADDRESS, SNO, EMAIL, PASSWORD, ORGAN, PHONE, POSITION
 									,FILE_DATA ,FILE_TYPE, FILE_NAME, SAVED_DATE)
-				values (#{mid}, #{mtype}, #{mname}, sysdate, #{gender}, #{address}, #{sno}, #{email}, #{password}, #{organ}, #{phone}, #{position}, 
+				values (#{mid}, #{mtype}, #{mname}, #{birth}, #{gender}, #{address}, #{sno}, #{email}, #{password}, #{organ}, #{phone}, #{position}, 
 						#{fileData}, #{fileType}, #{fileName}, #{savedDate} )
 				</if>
 			</if>
@@ -79,7 +79,84 @@
 		where mid = #{mid}
 	</select>	
 	
-	
+	<update id="updateUserInfo" parameterType="com.oti.srm.dto.Member">
+		<if test='fileName == null'>
+			<if test='mtype.equals("pm") or mtype.equals("user") '>
+					update members
+					set 	
+						    MTYPE = #{mtype},
+						    MNAME = #{mname},
+							BIRTH = #{birth},
+							GENDER = #{gender},
+							ADDRESS = #{address},
+							EMAIL = #{email},
+							PASSWORD = #{password},
+							ORGAN = #{organ},
+							POSITION = #{position},
+							PHONE = #{phone}
+					where mid = #{mid}
+			</if>
+			<if test='!mtype.equals("pm") and !mtype.equals("user")'>
+					update members
+						set 	
+						    MTYPE = #{mtype},
+						    MNAME = #{mname},
+							BIRTH = #{birth},
+							GENDER = #{gender},
+							ADDRESS = #{address},
+							SNO = #{sno},
+							EMAIL = #{email},
+							PASSWORD = #{password},
+							ORGAN = #{organ},
+							POSITION = #{position},
+							PHONE = #{phone}
+					where mid = #{mid}
+			</if>
+		</if>
+		<if test='fileName != null'>
+			<if test='mtype.equals("pm") or mtype.equals("user") '>
+				update members
+					set 	
+					    MTYPE = #{mtype},
+					    MNAME = #{mname},
+						BIRTH = #{birth},
+						GENDER = #{gender},
+						ADDRESS = #{address},
+						EMAIL = #{email},
+						PASSWORD = #{password},
+						ORGAN = #{organ},
+						POSITION = #{position},
+						PHONE = #{phone},
+						FILE_DATA = #{fileData},
+						FILE_TYPE = #{fileType},
+						FILE_NAME = #{fileName},
+						SAVED_DATE = #{savedDate}
+					where mid = #{mid}
+				</if>
+				<if test='!mtype.equals("pm") and !mtype.equals("user")'>
+					update members
+					set 	
+					    MTYPE = #{mtype},
+					    MNAME = #{mname},
+						BIRTH = #{birth},
+						GENDER = #{gender},
+						ADDRESS = #{address},
+						SNO = #{sno},
+						EMAIL = #{email},
+						PASSWORD = #{password},
+						ORGAN = #{organ},
+						POSITION = #{position},
+						PHONE = #{phone},
+						FILE_DATA = #{fileData},
+						FILE_TYPE = #{fileType},
+						FILE_NAME = #{fileName},
+						SAVED_DATE = #{savedDate}
+					where mid = #{mid}
+				</if>
+		</if>
+		
+		
+	</update>
 	
 	
 	
