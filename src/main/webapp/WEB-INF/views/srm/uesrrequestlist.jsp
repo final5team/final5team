@@ -246,6 +246,7 @@
 		let filterStatusNo = document.getElementById('statusNo');  
 		let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
 		
+		
 	
 		data = {pageNo : i, reqType : ReqType, dateFirst : dateFirst, dateLast : dateLast, sno : parseInt(sno), statusNo : parseInt(statusNo)}
 		$.ajax({
