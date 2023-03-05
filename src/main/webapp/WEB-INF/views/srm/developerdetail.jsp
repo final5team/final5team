@@ -163,51 +163,70 @@
 	                	 				<h3 class="title">
 	                	 					 ${index.count}차 내역  <i class="far fa-bookmark success"></i>
 	                	 				</h3>
-	                	 			</div>
-                	 				<div class="card-body">
-                	 					<div>
-                	 						<div class="row mb-2">
-	                	 						<div class="col-2 label">작성자</div>
-	                	 						<div class="col-3 ">${statusHistory.writer}</div>
-	                	 						<div class="col-2 label">개발 완료일</div>
-	                	 						<div class="col-3 "><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
-                	 						</div>
-                	 						<c:if test="${request.statusNo != 5 || requestProcess.developer != member.mid}">
-	                	 						<div class="row">
-		                	 						<div class="col-2 label" >개발내용</div>
-		                	 						<textarea class="col-8 form-control boxed" rows="2" readonly>${statusHistory.reply}</textarea>
+	                	 			</div>   	 	
+	                	 			<form method="post" action="<c:url value='/updatehistory'/>">
+	                	 				<div class="card-body">
+	                	 					<div>
+	                	 						<div class="row mb-2">
+		                	 						<div class="col-2 label">작성자</div>
+		                	 						<div class="col-3 ">${statusHistory.writer}</div>
+		                	 						<div class="col-2 label">개발 완료일</div>
+		                	 						<div class="col-3 "><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
 	                	 						</div>
+	                	 						<c:if test="${member.mid != requestProcess.developer}">
+		                	 						<div class="row">
+			                	 						<div class="col-2 label" >개발내용</div>
+			                	 						<textarea class="col-8 form-control boxed" rows="2" readonly>${statusHistory.reply}</textarea>
+		                	 						</div>
+		                	 						<div class="row mt-3">
+			                	 						<div class="col-2 label">배포소스(url)</div>
+			                	 						<input class="col-8 form-control boxed mr-5" style=" height: 20px;" value="${statusHistory.distSource}" readonly>
+		                	 						</div>
+	                	 						</c:if>
+	                	 						<c:if test="${requestProcess.developer == member.mid}">
+	                	 								<c:if test="${!index.last || request.statusNo != 5}">
+	                	 									<div class="row">
+				                	 							<div class="col-2 label" >개발내용</div>
+				                	 							<textarea class="col-8 form-control boxed" rows="2" readonly>${statusHistory.reply}</textarea>
+				                	 						</div>
+				                	 						<div class="row mt-3">
+					                	 						<div class="col-2 label">배포소스(url)</div>
+					                	 						<input class="col-8 form-control boxed mr-5" style=" height: 20px;" value="${statusHistory.distSource}" readonly>
+				                	 						</div>
+	                	 								</c:if>
+			                	 				
+			                	 						<c:if test="${index.last && request.statusNo == 5}">
+			                	 							<input type="hidden" name="rno" value="${request.rno}"/>
+			                	 							<input type="hidden" name="hno" value="${statusHistory.hno}"/>
+				                	 						<div class="row">
+					                	 						<div class="col-2 label" >개발내용</div>
+					                	 						<textarea name="reply"class="col-8 form-control boxed" rows="2">${statusHistory.reply}</textarea>
+				                	 						</div>
+				                	 						<div class="row mt-3">
+					                	 						<div class="col-2 label">배포소스(url)</div>
+					                	 						<input name="distSource" class="col-8 form-control boxed mr-5" style=" height: 20px;" value="${statusHistory.distSource}">
+				                	 						</div>
+			                	 						</c:if>
+	                	 						</c:if>
 	                	 						<div class="row mt-3">
-		                	 						<div class="col-2 label">배포소스(url)</div>
-		                	 						<input class="col-8 form-control boxed mr-5" style=" height: 20px;" value="${statusHistory.distSource}" readonly>
-	                	 						</div>
-                	 						</c:if>
-                	 						<c:if test="${request.statusNo == 5 && requestProcess.developer == member.mid && index.last}">
-	                	 						<div class="row">
-		                	 						<div class="col-2 label" >개발내용</div>
-		                	 						<textarea class="col-8 form-control boxed" rows="2" readonly>${statusHistory.reply}</textarea>
-	                	 						</div>
-	                	 						<div class="row mt-3">
-		                	 						<div class="col-2 label">배포소스(url)</div>
-		                	 						<input class="col-8 form-control boxed mr-5" style=" height: 20px;" value="${statusHistory.distSource}" readonly>
-	                	 						</div>
-                	 						</c:if>
-                	 						<div class="row mt-3">
-	                	 						<div class="col-2 label">첨부파일</div>
-	                	 						<div class="col-8">
-                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-													<div>
-														<span>${statusHistoryFile.fileName}</span>
-														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-															<i class="fas fa-cloud-download-alt text-info"></i>
-														</a>
-													</div>
-													</c:forEach>
-	                	 						</div>
-                	 						</div>
-                	 						
-                	 					</div>
-                	 				</div>
+		                	 						<div class="col-2 label">첨부파일</div>
+		                	 						<div class="col-8">
+	                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+														<div>
+															<span>${statusHistoryFile.fileName}</span>
+															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																<i class="fas fa-cloud-download-alt text-info"></i>
+															</a>
+														</div>
+														</c:forEach>
+		                	 						</div>
+	                	 						</div>		
+	                	 						<c:if test="${request.statusNo == 5 && requestProcess.developer == member.mid && index.last}">
+	                	 							<button type="submit" class="btn btn-primary btn-md mx-3">수정</button>	
+	                	 						</c:if>	
+	                	 					</div>
+	                	 				</div>
+                	 				</form>
                 	 			</div>
                 	 		
                 	 		</div><!-- foreach한다면 여기부터 end -->
