@@ -122,12 +122,12 @@
 			<if test='listFilter.statusNo != 0 '>
 				<if test='listFilter.statusValue eq"접수"'>
 				<![CDATA[
-					and status_no in (1, 2)
+					and status_no in (1)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"개발"'>
 				<![CDATA[
-					and status_no in (3, 4)
+					and status_no in (2, 3, 4)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"테스트"'>
@@ -222,12 +222,12 @@
 			<if test='listFilter.statusNo != 0'>
 				<if test='listFilter.statusValue eq"접수"'>
 				<![CDATA[
-					and status_no in (1, 2)
+					and status_no in (1)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"개발"'>
 				<![CDATA[
-					and status_no in (3, 4)
+					and status_no in (2, 3, 4)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"테스트"'>
@@ -428,12 +428,12 @@
 			<if test='listFilter.statusNo != 0'>
 				<if test='listFilter.statusValue eq"접수"'>
 				<![CDATA[
-					and status_no in (1, 2)
+					and status_no in (1)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"개발"'>
 				<![CDATA[
-					and status_no in (3, 4)
+					and status_no in (2, 3, 4)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"테스트"'>
@@ -510,12 +510,12 @@
 			<if test='listFilter.statusNo != 0'>
 				<if test='listFilter.statusValue eq"접수"'>
 				<![CDATA[
-					and status_no in (1, 2)
+					and status_no in (1)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"개발"'>
 				<![CDATA[
-					and status_no in (3, 4)
+					and status_no in (2, 3, 4)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"테스트"'>

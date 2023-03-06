@@ -1,8 +1,8 @@
 package com.oti.srm.service.member;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.oti.srm.dao.member.IMemberDao;
@@ -19,7 +19,26 @@ public class MemberService implements IMemberService {
 
 	@Override
 	public Member getMember(Member member) {
-		return memberDao.getMember(member);
+		
+		PasswordEncoder pe = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		Member returnMember = memberDao.getMember(member);
+		
+		if(!member.getPassword().equals("1234")) {
+			
+			boolean checkPass = pe.matches(member.getPassword(), returnMember.getPassword());
+			if(checkPass == false) {
+				member.setPassConfirm("N");
+				return member;
+			} else {
+				return returnMember;
+			}
+			
+		} else {
+			log.info("암호화 처리되지 않은 아이디");
+			return returnMember;
+		}
+		
+		
 	}
 	
 	//유저 아이디 중복 확인
