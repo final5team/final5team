@@ -345,6 +345,7 @@ textarea:focus::placeholder {
 												<div class="item">
 													<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="${sessionScope.member.position}" value="${sessionScope.member.position}" readonly>
 												</div>
+												
 												<div class="item">
 													<div class="select-group">
 														<select class="custom-select" id="sno" name="sno" required>
