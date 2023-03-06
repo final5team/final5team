@@ -193,7 +193,9 @@ margin: 0 0 1rem 0;
 	<c:if test="${request.statusNo != 12}">
 		<c:if test="${request.reqType == null || request.reqType == '정규'}">
 			<li class="is_complete" onclick="register(${request.rno})">
-				<span>등록</span>
+				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
+					<span>등록</span>
+				</a>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 2}">is_complete</c:if>
 						 <c:if test="${request.statusNo == 1}">is_active</c:if>" onclick="receipt(${request.rno})">
@@ -272,7 +274,9 @@ margin: 0 0 1rem 0;
 		</c:if>
 		<c:if test="${request.reqType == '긴급'}">
 			<li class="is_complete" onclick="request(${request.rno})">
-				<span>등록</span>
+				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
+					<span>등록</span>
+				</a>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 2}">is_complete</c:if>
 				<c:if test="${request.statusNo == 1}">is_active</c:if>">
@@ -341,9 +345,15 @@ margin: 0 0 1rem 0;
 				</span>
 			</a>
 		</li>
-		<li class="is_reject" onclick="receipt(${request.rno})"><span>접수</span></li>
-		<li class="is_reject"><a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
-			<span class="has-changes">반려</span></a>
+		<li class="is_reject" onclick="receipt(${request.rno})">
+			<a href="${pageContext.request.contextPath}/pm/receiptdetail?rno=${request.rno}" onclick="receipt(${request.rno})">
+				<span>접수</span>
+			</a>
+		</li>
+		<li class="is_reject">
+			<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">
+				<span class="has-changes">반려</span>
+			</a>
 		</li>
 	</c:if>
 </ol>
