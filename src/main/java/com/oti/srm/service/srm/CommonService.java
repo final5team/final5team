@@ -344,6 +344,19 @@ public class CommonService implements ICommonService {
 		}
 	}
 
+	@Override
+	public int isThereTestReject(int rno) {
+		List<StatusHistory> histories = commonDao.selectRequestHistories(rno);
+		for(StatusHistory sh : histories) {
+			if(sh.getNextStatus() == 3) {
+				return 1;
+			}
+		}
+		return 0;
+	}
+	
+	
+
 	
 
 	

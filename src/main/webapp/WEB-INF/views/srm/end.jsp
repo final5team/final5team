@@ -15,6 +15,12 @@
 		background-position: 700px 420px;
 		background-size: 200px;		
     }
+    #rejectInfo {
+   	 	background-image: url('${pageContext.request.contextPath}/resources/img/rejectedStamp.jpg'); 
+		background-repeat: no-repeat;
+		background-position: 700px 350px;
+		background-size: 200px;		
+    }
     </style>
 </head>
 
@@ -48,7 +54,7 @@
                 	 	</div>	<!-- 여기에 단계 상태 이력 넣기 /-->
 						<!-- 게시글 상세보기 start -->
 						<section><!-- 요청정보 DIV START -->
-							<div class="card border-top-dark mt-3" id= "<c:if test='${request.statusNo==13}'>requestInfo</c:if>" >
+							<div class="card border-top-dark mt-3" id="<c:if test='${request.statusNo==13}'>requestInfo</c:if><c:if test='${request.statusNo==12}'>rejectInfo</c:if>" >
 								<div class="card-block">
 									<div class="card-title-block">
 	                	 				<h3 class="title">
@@ -77,30 +83,33 @@
 											<div class="col-3 label">소속 기관</div>
 											<div class="col-2">${request.organ}</div>
 										</div>
-										<hr/>
-										<div class="row">
-											<div class="col-3 label">요청 유형</div>
-											<div class="col-2">
-												<c:if test="${requestProcess.reqType eq '정규'}">
-													<div>정규<i class="far fa-registered text-secondary"></i></div>
-												</c:if>
-												<c:if test="${requestProcess.reqType eq '긴급'}">
-													<div>긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
-												</c:if>
+										<c:if test="${request.statusNo != 12}">
+											<hr/>
+											<div class="row">
+												<div class="col-3 label">요청 유형</div>
+												<div class="col-2">
+													<c:if test="${requestProcess.reqType eq '정규'}">
+														<div>정규<i class="far fa-registered text-secondary"></i></div>
+													</c:if>
+													<c:if test="${requestProcess.reqType eq '긴급'}">
+														<div>긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
+													</c:if>
+												</div>
+											
+												<div class="col-3 label">중요도</div>
+												<div class="col-2">
+													<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
+														<span class="fa fa-star checked" style="color: orange;"></span>
+													</c:if>
+													<c:if test="${requestProcess.priority eq '중' || requestProcess.priority eq '상'}">
+														<span class="fa fa-star checked" style="color: orange;"></span>
+													</c:if>
+													<c:if test="${requestProcess.priority eq '상'}">
+														<span class="fa fa-star checked" style="color: orange;"></span>
+													</c:if>
+												</div>
 											</div>
-											<div class="col-3 label">중요도</div>
-											<div class="col-2">
-												<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
-													<span class="fa fa-star checked" style="color: orange;"></span>
-												</c:if>
-												<c:if test="${requestProcess.priority eq '중' || requestProcess.priority eq '상'}">
-													<span class="fa fa-star checked" style="color: orange;"></span>
-												</c:if>
-												<c:if test="${requestProcess.priority eq '상'}">
-													<span class="fa fa-star checked" style="color: orange;"></span>
-												</c:if>
-											</div>
-										</div>
+										</c:if>
 										<hr/>
 										<div class="row">
 											<div class="col-3 label">제목</div>
@@ -135,7 +144,7 @@
 							</div>
 						</section><!-- 요청정보 DIV END -->
 						<!-- 단계별 처리 내역 start -->
-				   	 	<c:if test="${member.mtype !='user'}">
+				   	 	<c:if test="${member.mtype !='user' && request.statusNo != 12}">
 							<div class="card border-top-primary mt-3 mb-3" id="requestEndInfo">
 								<div class="card-block">
 									<div class="card-title-block">
