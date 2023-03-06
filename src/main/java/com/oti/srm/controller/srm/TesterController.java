@@ -70,7 +70,7 @@ public class TesterController {
 		model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));
 		model.addAttribute("tempNormal",tempNormal);
 		model.addAttribute("tempReexam",tempReexam);
-		
+		model.addAttribute("testRejectExist", commonService.isThereTestReject(rno));
 		return "srm/testerdetail";
 	}
 

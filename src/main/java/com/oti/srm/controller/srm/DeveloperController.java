@@ -43,7 +43,7 @@ public class DeveloperController {
 		log.info("실행");
 
 		// 요청내용 출력 -장현
-		Request request = commonService.getRequest(rno);
+		Request request = commonService.getRequest(rno);		
 		// 요청 프로세스 출력 -장현
 		RequestProcess requestProcess = commonService.getRequestProcess(rno);
 		// 개발자가 테스터로 넘길시 작성했던 내용 출력 -장현
@@ -68,6 +68,7 @@ public class DeveloperController {
 		model.addAttribute("receiptDoneDate", receiptDoneDate);
 		model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));
 		model.addAttribute("devTemp", devTemp);
+		model.addAttribute("testRejectExist", commonService.isThereTestReject(rno));
 
 		return "srm/developerdetail";
 	}
