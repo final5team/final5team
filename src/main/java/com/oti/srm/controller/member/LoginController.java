@@ -31,16 +31,27 @@ public class LoginController {
 		log.info("실행"); // 패스워드 암호화 ( 암호화된걸 복호화는 못함. 비교만 가능)
 		
 		Member dbMember = memberService.getMember(member);
+		
+		
 		if(dbMember == null) {
 			model.addAttribute("member", member);
 			model.addAttribute("loginResult", "잘못된 아이디입니다.");
 			return "member/loginform";
-		}else {
-			if(!dbMember.getPassword().equals(member.getPassword())) {
+		} else {
+			//암호화 처리 로직
+			if(dbMember.getPassConfirm() == "N") {
 				model.addAttribute("member", member);
 				model.addAttribute("loginResult", "잘못된 비밀번호입니다.");
 				return "member/loginform";
 			}
+			
+			//기존 로직
+//			if(!dbMember.getPassword().equals(member.getPassword())) {
+//				model.addAttribute("member", member);
+//				model.addAttribute("loginResult", "잘못된 비밀번호입니다.");
+//				return "member/loginform";
+//			}
+			
 		}
 		
 		session.setAttribute("member", dbMember);

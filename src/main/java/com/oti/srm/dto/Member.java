@@ -38,5 +38,7 @@ public class Member {
 	//담당 건수
 	private int quota;
 	
+	//비밀번호 오류
+	private String passConfirm;
 	
 }
