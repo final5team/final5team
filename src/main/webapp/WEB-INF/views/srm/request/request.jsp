@@ -284,7 +284,7 @@ textarea:focus::placeholder {
 						</div>
 						<div>
 							<!-- 여기에 단계 상태 이력 넣기 -->
-							<%@ include file="/WEB-INF/views/srm/request/stepperprogress.jsp"%>
+							<%@ include file="/WEB-INF/views/srm/request/userstepperprogress.jsp" %>
 						</div>
 						
 						<!-- 여기에 단계 상태 이력 넣기 /-->
@@ -388,6 +388,8 @@ textarea:focus::placeholder {
 							</div>
 						</section>
 						<!-- 개발내역 입력폼 end -->
+						
+						
 					</div>
 					<!-- id=main div / -->
 				</div>
