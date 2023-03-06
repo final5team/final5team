@@ -473,13 +473,33 @@
 					console.log(fileInput);
 					const files = Array.from(fileInput.files);
 					files.forEach(file => {
-						fileList.innerHTML += '<div id="${file.lastModified}">${file.name}<button data-index="'
-						+ ${file.lastModified}'" class="file-"></button></div>'
+						fileList.innerHTML += '<p id='${file.lastModified}'>'${file.name}'<button data-index='${file.lastModified}' class='file-remove'>X</button></p>';
 					});
 				});
-			}
-	}
+			},
+			
+			removeFile: () => {
+                document.addEventListener('click', (e) => {
+                if(e.target.className !== 'file-remove') return;
+                const removeTargetId = e.target.dataset.index;
+                const removeTarget = document.getElementById(removeTargetId);
+                const files = document.querySelector('#file-input').files;
+                const dataTranster = new DataTransfer();
+                
+                Array.from(files)
+                .filter(file => file.lastModified != removeTargetId)
+                .forEach(file => {
+                dataTranster.items.add(file);
+             });
 
+            document.querySelector('#file-input').files = dataTranster.files;
+
+            removeTarget.remove();
+        })
+        }
+	}
+	handler.init();
+    handler.removeFile();
 	</script>
 </body>
 
