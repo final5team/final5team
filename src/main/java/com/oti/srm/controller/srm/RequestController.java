@@ -37,18 +37,6 @@ import com.oti.srm.service.srm.IRequestRegisterService;
 
 import lombok.extern.log4j.Log4j2;
 
-/**
- * @author KOSA
- *
- */
-/**
- * @author KOSA
- *
- */
-/**
- * @author KOSA
- *
- */
 @Controller
 @Log4j2
 @RequestMapping("/customer")
@@ -93,18 +81,21 @@ public class RequestController {
 
 				int result = userRegisterService.register(member);
 				if (result == IUserRegisterService.REGISTER_FAIL) {
-					return "redirect:/customer/register";
+					return "redirect:/";
 				} else {
-					result = userRegisterService.register(member);
+					result = IUserRegisterService.REGISTER_SUCCESS;
 					return "redirect:/";
 				}
-			} 
+			} else {
+				int result = userRegisterService.register(member);
+				return "redirect:/";
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("registerResult", "FAIL");
 			return "redirect:/customer/register";
 		}
-		return "redirect:/";
 	}
 
 	/**

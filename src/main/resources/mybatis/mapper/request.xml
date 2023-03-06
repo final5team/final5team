@@ -305,12 +305,12 @@
 				
 				<if test='listFilter.statusValue eq"진행중"'>
 				<![CDATA[
-					and status_no in (1, 2, 3, 4, 5, 6, 7, 8, 10)
+					and status_no in (1, 2, 3, 4, 5, 6, 7, 8, 10, 11)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"완료"'>
 				<![CDATA[
-					and status_no in (11, 13)
+					and status_no in (13)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"반려"'>
@@ -366,12 +366,12 @@
 				
 				<if test='listFilter.statusValue eq"진행중"'>
 				<![CDATA[
-					and status_no in (1, 2, 3, 4, 5, 6, 7, 8, 10)
+					and status_no in (1, 2, 3, 4, 5, 6, 7, 8, 10, 11)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"완료"'>
 				<![CDATA[
-					and status_no in (11, 13)
+					and status_no in (13)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"반려"'>
