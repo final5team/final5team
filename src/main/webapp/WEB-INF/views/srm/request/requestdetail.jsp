@@ -5,287 +5,17 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<script src="${pageContext.request.contextPath}/resources/vendor/tinymce/tinymce.min.js"></script>    
+<script src="${pageContext.request.contextPath}/resources/js/tinymceinit.js"></script>    
+<script src="${pageContext.request.contextPath}/resources/vendor/tinymce/themes/silver/theme.min.js"></script>
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
 <link href="${pageContext.request.contextPath}/resources/css/stepperprogress.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/requestdetail.css" rel="stylesheet">
 <style>
 </style>
 </head>
 <style>
-a {
-	text-decoration: none;
-}
 
-.card-block {
-	height: 600px;
-}
-
-.card-body .label {
-	position: absolute;
-	width: 110px;
-	left: 2%;
-	top: 15%;
-	overflow: hidden;
-	text-align: center;
-	margin-bottom: 24px;
-}
-
-.card-body h6 {
-	margin-top: 3px;
-	margin-bottom: 24px;
-	font-weight: 600;
-	font-size: 1.0rem;
-}
-
-.card-body .inputData {
-	position: absolute;
-	width: 250px;
-	height: 200px;
-	left: 18%;
-	top: 15%;
-	overflow: hidden;
-	text-align: start;
-}
-
-.card-body .label2 {
-	position: absolute;
-	width: 110px;
-	left: 57%;
-	top: 15%;
-	overflow: hidden;
-	text-align: center;
-	margin-bottom: 24px;
-}
-
-.card-body .inputData2 {
-	position: absolute;
-	width: 250px;
-	height: 200px;
-	left: 70%;
-	top: 15%;
-	overflow: hidden;
-	text-align: start;
-}
-
-.card-body .inputData2 input {
-	height: 20px;
-	width: 200px;
-	font-size: 13px;
-	margin-bottom: 10px;
-	border: none;
-	background-color: white;
-}
-
-.card-body .inputData input {
-	height: 20px;
-	width: 200px;
-	font-size: 13px;
-	margin-bottom: 10px;
-	border: none;
-	background-color: white;
-}
-
-.card-body .titleLabel {
-	position: absolute;
-	width: 50px;
-	left: 8%;
-	top: 48%;
-	overflow: hidden;
-	text-align: start;
-	font-size: 15px;
-}
-
-.card-body .titleLabel h6 {
-	font: bold;
-}
-
-.card-body .titleInput {
-	position: absolute;
-	width: 800px;
-	left: 18%;
-	top: 48%;
-	text-align: start;
-	font-size: 15px;
-	font: bold;
-}
-
-.card-body .titleInput input {
-	width: 710px;
-	height: 25px;
-}
-
-.card-body .titleBody {
-	position: absolute;
-	width: 300px;
-	left: 8%;
-	top: 57%;
-	text-align: start;
-	font-size: 15px;
-	font: bold;
-}
-
-.card-body .bodyInput {
-	position: absolute;
-	width: 800px;
-	left: 18%;
-	top: 57%;
-	text-align: start;
-	font-size: 15px;
-	font: bold;
-}
-
-.card-body .bodyInput textarea {
-	width: 710px;
-	font-size: 15px;
-	font: bold;
-	height: 100px;
-	resize: none;
-}
-
-.card-body .fileTitle {
-	position: absolute;
-	width: 110px;
-	left: 4%;
-	top: 75%;
-	overflow: hidden;
-	text-align: center;
-	font-size: 15px;
-	font: bold;
-}
-
-.card-body .fileBody {
-	position: absolute;
-	width: 700px;
-	left: 18%;
-	top: 75%;
-	overflow: hidden;
-	text-align: start;
-	font-size: 15px;
-	font: bold;
-}
-
-.card-body .submit-button {
-	position: absolute;
-	width: 80px;
-	height: 50px;
-	left: 50%;
-	top: 90%;
-}
-
-.card-body .return-button {
-	position: absolute;
-	width: 80px;
-	height: 50px;
-	left: 55%;
-	top: 90%;
-}
-
-.card-body .item .select-group select {
-	width: 200px;
-	height: 35px;
-	font-size: 13px;
-	padding-top: 0;
-	padding-bottom: 0;
-}
-
-.card-body .include {
-	position: absolute;
-	width: 240px;
-	height: 500px;
-	left: 76%;
-	top: 15%;
-	z-index: 5;
-	width: 240px;
-	height: 500px;
-	left: 76%;
-	top: 15%;
-}
-
-[type="text"]:focus::placeholder {
-	visibility: hidden;
-}
-
-textarea:focus::placeholder {
-	visibility: hidden;
-}
-
-.titleConfirm {
-	width: 100px;
-	position: absolute;
-	left: 83%;
-}
-
-.textConfirm {
-	width: 100px;
-	position: absolute;
-	left: 83%;
-}
-
-.section2 .fileTitle {
-	position: absolute;
-	width: 80px;
-	left: 8%;
-	top: 63%;
-	overflow: hidden;
-	text-align: start;
-	font-size: 15px;
-	font: bold;
-}
-
-.section2 .fileBody {
-	position: absolute;
-	width: 590px;
-	left: 18%;
-	height: 200px;
-	top: 63%;
-	overflow: hidden;
-	text-align: start;
-	font-size: 15px;
-	font: bold;
-}
-
-.upload_name {
-	position: absolute;
-	left: 15%;
-	z-index: 2;
-	display: inline-block;
-	height: 80px;
-	width: 495px;
-	vertical-align: middle;
-	border: 1px solid #d1d3e2;
-	border-radius: 5px;
-	color: #999999;
-}
-
-.filebox label {
-	position: absolute;
-	left: -1%;
-	display: inline-block;
-	padding: 5px 5px;
-	color: #fff;
-	vertical-align: middle;
-	background-color: #999999;
-	border-radius: 5px;
-	cursor: pointer;
-	height: 20px;
-	margin-left: 10px;
-}
-
-.filebox input[type="file"] {
-	position: absolute;
-	width: 0;
-	height: 0;
-	padding: 0;
-	overflow: hidden;
-	border: 0;
-}
-
-.file-item {
-	width: 400px;
-	height: 100px;
-	top: 20%;
-	border-radius: 5px;
-	z-index : 5;
-}
 </style>
 <body id="page-top">
 	<!-- Page Wrapper -->
@@ -312,16 +42,15 @@ textarea:focus::placeholder {
 						<div class="title-block">
 							<h3 class="title">요청 조회</h3>
 						</div>
+						<!-- 여기에 단계 상태 이력 넣기 -->
 						<div>
-							<!-- 여기에 단계 상태 이력 넣기 -->
-							<%@ include file="/WEB-INF/views/srm/request/stepperprogress.jsp"%>
+							<%@ include file="/WEB-INF/views/srm/request/userstepperprogress.jsp" %>
 						</div>
-
 						<!-- 여기에 단계 상태 이력 넣기 /-->
-						<section>
-							<!-- 개발내역 입력폼 start -->
-							<div class="card border-top-dark">
-								<div class="card-block">
+						<c:if test="${request.statusNo == 1 }">
+						<section> <!-- 개발내역 입력폼 start -->
+							<div class="card border-top-dark mb-3">
+								<div class="card-block js">
 									<div class="card-title-block">
 										<h3 class="title">
 											요청 내역 조회 <i class="fas fa-edit"></i>
@@ -329,7 +58,7 @@ textarea:focus::placeholder {
 									</div>
 									<div class="card-body">
 										<form method="post" action="${pageContext.request.contextPath}/customer/requestupdate" >
-											<article class="label item">
+											<article class="label js item">
 												<h6>작성자</h6>
 												<h6>전화번호</h6>
 												<h6>직급</h6>
@@ -421,10 +150,159 @@ textarea:focus::placeholder {
 									</div>
 								</div>
 							</div>
+						</section> <!-- 개발내역 입력폼 end -->
+						</c:if>
+						<c:if test="${request.statusNo != 1 }">
+						<section> <!-- 접수되었을 때 -->
+							<div class="card border-top-dark mb-3">
+								<div class="card-block"> <!-- card-block  -->
+									<div class="card-title-block">
+	                	 				<h3 class="title">
+		                	 				요청번호 No. ${request.rno}
+	                	 				</h3>
+	                	 			</div>
+	                	 			<div class="card-body">
+										<div class="row mt-3">
+											<div class="col-3 label jh">요청자</div>
+											<div class="col-2">${request.clientName}</div>
+											<div class="col-3 label jh">소속 기관</div>
+											<div class="col-2">${request.organ}</div>
+										</div>
+										<hr/>
+										<div class="row">
+											<div class="col-3 label jh">요청일</div>
+											<div class="col-2"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd"/></div>
+											<div class="col-3 label jh">완료 희망일 </div>
+											<div class="col-2"><fmt:formatDate value="${request.reqExpectDate}" pattern="yyyy-MM-dd"/></div>
+										</div>
+										<hr/>
+										<div class="row">
+											<div class="col-3 label jh">시스템</div>
+											<div class="col-8">${request.systemName}</div>
+										</div>
+										<hr/>
+										<div class="row">
+											<div class="col-3 label jh">제목</div>
+											<div class="col-8">${request.reqTitle}</div>
+										</div>
+										<hr/>
+										<div class="row">
+											<div class="col-3 label jh">내용</div>
+											<textarea class="col-7 form-control boxed mr-5" rows="3" readonly>${request.reqContent}</textarea>
+										</div>
+										<hr/>
+										<div class="row">
+											<div class="col-3 label jh">요청 첨부파일</div>
+											<div class="col-7">
+												<c:if test="${request.files != null}">
+													<c:forEach var="statusHistoryFile" items="${request.files}">
+														<div>
+															<span>${statusHistoryFile.fileName}</span>
+															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																<i class="fas fa-cloud-download-alt"></i>
+															</a>
+														</div>
+													</c:forEach>
+												</c:if>
+											</div>
+										</div>
+										<div class="d-flex justify-content-end">
+											<c:if test="${request.statusNo==1 && member.mtype =='pm'}">
+												<div class="d-flex justify-content-end">
+													<button class="btn btn-primary btn-lg mt-3 ml-3" type="button" id="receiptbtn">접수</button>
+													<button class="btn btn-danger btn-lg mt-3 ml-3" type="button" id="rejectbtn">반려</button>
+												</div>
+											</c:if>
+										</div>
+	                	 			</div>
+								</div> <!-- card-block / -->
+							</div>
 						</section>
-						<!-- 개발내역 입력폼 end -->
-					</div>
-					<!-- id=main div / -->
+						</c:if>
+						<c:if test="${request.statusNo == 12}">
+						<section><!-- 접수결과 반려 start -->
+						  <div class="card border-top-danger my-3">
+		                       <div class="card-block">
+		                          <div class="card-title-block">
+	                                   <h3 class="title">
+	                                     	 반려 처리 내역 <i class="fas fa-scroll"></i>
+	                                   </h3>
+	                              </div>
+	                              <div class="card-body">
+		                              <div class="form-group row">
+		                                 <div class="col-3 label">반려 사유</div>
+		                                 <textarea rows="2" class="form-control boxed" name="reply" readonly>${rejectHistory.reply}</textarea>
+		                              </div> 
+		                                                              
+	                                 <div class="mt-3 row">
+		                                <div class="col-3 label">첨부 파일</div>
+	                                    <div class="col-7">
+				                            <c:if test="${request.files != null}">
+			                                       <c:forEach var="file" items="${rejectHistory.fileList}">
+			                                          <div>
+			                                             <span>${file.fileName}</span>
+			                                             <a href="${pageContext.request.contextPath}/filedouwnload/${file.fno}" role="button">
+			                                                <i class="fas fa-cloud-download-alt text-info"></i>
+			                                             </a>
+			                                          </div>
+			                                       </c:forEach>
+				                            </c:if>
+				                            <c:if test="${request.files == null}">
+				                            	<div class="text-gray">첨부된 파일이 없습니다.</div>
+				                            </c:if>
+	                                    </div>   
+	                                 </div>                                                                                          
+		                              
+	                              </div>
+		                        </div>
+		                     </div>
+						</section><!-- 접수결과 반려 end -->
+						</c:if>
+						<c:if test="${request.statusNo != 1 && request.statusNo != 12 }">
+						<section> <!-- 접수결과 승인 start -->
+							<div class="card border-top-primary my-3">
+								<div class="card-block">
+									<div class="card-title-block">
+	                                   <h3 class="title">
+	                                     	 진행 내역 <i class="fas fa-scroll"></i>
+	                                   </h3>
+	                            	</div>
+	                            	<table class="table table-striped" style="text-align: center;">
+	                            		<thead>
+	                            			<tr>
+	                            				<th>단계</th>
+	                            				<th>완료일</th>
+	                            			</tr>
+	                            		</thead>
+	                            		<tbody>
+	                            			<tr>
+	                            				<td>개발</td>
+	                            				<td><fmt:formatDate value="${requestProcess.devCompDate}" pattern="yyyy-MM-dd"/></td>
+	                            			</tr>
+	                            			<tr>
+	                            				<td>테스트</td>
+	                            				<td><fmt:formatDate value="${requestProcess.testCompDate}" pattern="yyyy-MM-dd"/></td>
+	                            			</tr>
+	                            			<tr>
+	                            				<td>품질테스트</td>
+	                            				<td><fmt:formatDate value="${requestProcess.userTestCompDate}" pattern="yyyy-MM-dd"/></td>
+	                            			</tr>
+	                            			<tr>
+	                            				<td>배포</td>
+	                            				<td><fmt:formatDate value="${requestProcess.distCompDate}" pattern="yyyy-MM-dd"/></td>
+	                            			</tr>
+	                            			<tr>
+	                            				<td>최종 승인</td>
+	                            				<td><fmt:formatDate value="${requestProcess.allCompDate}" pattern="yyyy-MM-dd"/></td>
+	                            			</tr>
+	                            		</tbody>
+	                            	</table>
+								</div>
+							</div>
+						</section> <!-- 접수결과 승인 start -->
+						</c:if>
+						
+					</div><!-- id=main div / -->
 				</div>
 				<!-- 여기에 내용 담기 end -->
 
