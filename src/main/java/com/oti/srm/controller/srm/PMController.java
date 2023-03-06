@@ -91,28 +91,35 @@ public class PMController {
 			
 			// 첨부파일 매핑
 			if(files!=null) {
+				// 첨부파일 저장할 List 객체 생성
 				List<StatusHistoryFile> fileList=new ArrayList<>();
 				for(MultipartFile file : files) {
+					// 첨부파일 값이 존재할 때
 					if(file!=null && !file.isEmpty()) {
+						// 상태 이력 파일 DTO에 저장
 						StatusHistoryFile shf = new StatusHistoryFile();
-						
+						// 첨부파일 이름 저장
 						shf.setFileName(file.getOriginalFilename());
+						// 첨부파일 타입 저장
 						shf.setFileType(file.getContentType());
+						// 첨부파일 데이터 저장
 						shf.setFileData(file.getBytes());
+						// List에 파일 저장
 						fileList.add(shf);
 					}
 				}
+				// 상태 이력 기록 파일에 파일 저장
 				statusHistory.setFileList(fileList);
 			}			
 			// 접수 완료
 			int result=pMService.receipt(statusHistory, requestProcess);
 			if(result==1) {
-				return "redirect:/customer/requestlist"; ////////////목록 가든가 개발 상세 가든가
+				return "redirect:/customer/requestlist"; 
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}		
-		return "redirect:/customer/requestlist";
+		return "redirect:/pm/receiptdetail?rno="+requestProcess.getRno();
 	}
 	
 	/**
