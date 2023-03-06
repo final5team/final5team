@@ -256,7 +256,7 @@
 											
 												<div class="row mb-2">
 													<div class="label col-3">*의견 내용</div>
-													<textarea class="form-control boxed col-7 pmcontent" name="reply" style="padding: 0px" required></textarea>
+													<textarea class="form-control boxed col-7 pmcontent" name="reply" style="padding: 0px"></textarea>
 												</div>											
 												<div class="row form-group filebox">
 													<div class="label col-3">첨부파일</div>
@@ -290,7 +290,7 @@
 											<div class="card-body">
 												<div class="form-group d-flex">
 													<label class="label">반려 사유</label>
-													<textarea  class="form-control boxed pmcontent" name="reply" style="width: 80%; margin: auto;" required></textarea>
+													<textarea  class="form-control boxed pmcontent" name="reply" style="width: 80%; margin: auto;"></textarea>
 												</div>											
 												<div class="filebox row">
 													<label for="file" class=" col-3 label">첨부파일</label>
@@ -311,8 +311,88 @@
 							</div>
 						</c:if>
 						<!-- 요청 처리 계획 start-->
-						<c:if test="${request.statusNo!=1 && member.mtype !='user' && request.statusNo!=12}">
-							<c:if test="${request.statusNo > 2}">
+						<c:if test="${member.mtype !='user' && member.mtype != 'pm' && request.statusNo != 12}">
+								<div class="card border-top-dark my-3">
+									<div class="card-block"> <!-- card-block -->
+										<div class="card-title-block">
+			               	 				<h3 class="title">
+			                	 				요청 처리 계획 <i class="far fa-calendar-check"></i>
+			               	 				</h3>
+			               	 			</div>
+										<div class="card-body">
+											<div class="row mt-3">
+												<div class="col-3 label">요청 유형</div>
+												<div class="col-2">
+													<c:if test="${requestProcess.reqType eq '정규'}">
+														<div>정규<i class="far fa-registered text-secondary"></i></div>
+													</c:if>
+													<c:if test="${requestProcess.reqType eq '긴급'}">
+														<div>긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
+													</c:if>
+												</div>
+												<div class="col-3 label">중요도</div>
+												<div class="col-2">
+													<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
+														<span class="fa fa-star checked" style="color: orange;"></span>
+													</c:if>
+													<c:if test="${requestProcess.priority eq '중' || requestProcess.priority eq '상'}">
+														<span class="fa fa-star checked" style="color: orange;"></span>
+													</c:if>
+													<c:if test="${requestProcess.priority eq '상'}">
+														<span class="fa fa-star checked" style="color: orange;"></span>
+													</c:if>
+												</div>
+											</div>
+											<hr/>
+			
+											<div class="row">
+												<div class="col-3 label">요청 완료 예정일</div>
+												<div class="col-7">
+													<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>
+												</div>
+											</div>
+											<hr/>
+											<div class="row">
+												<div class="col-3 label">개발 담당자</div>
+												<div class="col-2">${requestProcess.developer}</div>
+												<div class="col-3 label">테스트 담당자</div>
+												<div class="col-2">${requestProcess.tester}</div>
+											</div>	
+											<hr/>
+											<div class="row">
+												<c:if test="${requestProcess.reqType eq '정규'}">
+													<div class="col-3 label">품질검토 담당자</div>
+													<div class="col-2">${requestProcess.userTester}</div>
+												</c:if>
+												<div class="col-3 label">배포 담당자</div>
+												<div class="col-2">${requestProcess.distributor}</div>
+											</div>	
+											<hr/>
+											<c:forEach var="statusHistory" items="${pmToAllHistories}">
+											<div class="row">
+												<div class="col-3 label">검토 의견</div>
+												<div class="col-7 border" style="min-height:100px;">${statusHistory.reply}</div>
+											</div>
+											<hr/>
+											<div class="row">
+												<div class="col-3 label">검토 첨부파일</div>
+												<div class="col-7">
+													<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+														<div>
+															<span>${statusHistoryFile.fileName}</span>
+															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																<i class="fas fa-cloud-download-alt"></i>
+															</a>
+														</div>
+													</c:forEach>
+												</div>
+											</div>	
+											</c:forEach>
+										</div>
+									</div> <!-- card-block -->						
+								</div>
+							</c:if>
+							<c:if test="${member.mtype == 'pm' && request.statusNo > 2 && request.statusNo != 12}">
 								<div class="card border-top-dark my-3">
 									<div class="card-block"> <!-- card-block -->
 										<div class="card-title-block">
@@ -475,7 +555,7 @@
 												
 													<c:forEach var="statusHistory" items="${pmToAllHistories}">
 														<input type="hidden" name="hno" value="${statusHistory.hno}"/>
- 														<div class="row">
+															<div class="row">
 															<div class="col-3 label">검토 의견</div>
 															<textarea class="col-7" name="reply">${statusHistory.reply}</textarea>
 														</div>
@@ -505,7 +585,6 @@
 								<!-- 요청 접수 card end-->								
 								</div>
 							</c:if>
-						</c:if>
 						<!-- 요청 처리 계획 end-->
 						<!-- 반려 처리 정보 start -->
 						<c:if test="${request.statusNo==12}">
@@ -536,7 +615,12 @@
 							</div>
 						</c:if>
 						<!-- 반려 처리 정보 end-->
-						<button class="btn btn-dark btn-sm ml-5 mb-3" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
+						<c:if test="${sessionScope.member.mtype != 'user'}">
+							<button class="btn btn-dark btn-sm ml-5 mb-3" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
+						</c:if>
+						<c:if test="${sessionScope.member.mtype == 'user'}">
+							<button class="btn btn-dark btn-sm ml-5 mb-3" onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'">목록</button>
+						</c:if>
 					<!-- 게시글 상세보기 end -->
 					</div>
                 </div>

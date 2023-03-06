@@ -157,7 +157,7 @@ margin: 0 0 1rem 0;
 		let rno = i;
 		location.href ="${pageContext.request.contextPath}/pm/receiptdetail?rno="+rno;
 	}
-	// 3. 개발단계
+	/* // 3. 개발단계
 	function developer(i){
 		let rno = i;
 		location.href ="${pageContext.request.contextPath}/developerdetail?rno="+rno;
@@ -176,7 +176,7 @@ margin: 0 0 1rem 0;
 	function distribute(i){
 		let rno = i;
 		location.href ="${pageContext.request.contextPath}/distributedetail?rno="+rno;
-	}
+	} */
 	// 7. 최종단계
 	function enddetail(i){
 		let rno = i;
@@ -202,49 +202,41 @@ margin: 0 0 1rem 0;
 				</a>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 5}">is_complete</c:if>
-							<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>" onclick="developer(${request.rno})">
-				<a href="${pageContext.request.contextPath}/developerdetail?rno=${request.rno}">
-					<span>
-						<c:if test="${request.statusNo < 2}">개발</c:if>
-						<c:if test="${request.statusNo == 2}">개발대기</c:if>
-						<c:if test="${request.statusNo == 4}">개발중</c:if>
-						<c:if test="${request.statusNo == 3}">재검토</c:if>
-						<c:if test="${request.statusNo >= 5}">개발완료</c:if>
-					</span>
-				</a>
+						<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>" >
+				<span>
+					<c:if test="${request.statusNo < 2}">개발</c:if>
+					<c:if test="${request.statusNo == 2}">개발대기</c:if>
+					<c:if test="${request.statusNo == 4}">개발중</c:if>
+					<c:if test="${request.statusNo == 3}">재검토</c:if>
+					<c:if test="${request.statusNo >= 5}">개발완료</c:if>
+				</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 7}">is_complete</c:if>
-				<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>" onclick="test(${request.rno})">
-				<a href="${pageContext.request.contextPath}/testerdetail?rno=${request.rno}">
-					<span>
-						<c:if test="${request.statusNo < 5}">테스트</c:if>
-						<c:if test="${request.statusNo == 5}">테스트대기</c:if>
-						<c:if test="${request.statusNo == 6}">테스트중</c:if>
-						<c:if test="${request.statusNo >= 7}">테스트완료</c:if>
-					</span>
-				</a>
+				<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>" >
+				<span>
+					<c:if test="${request.statusNo < 5}">테스트</c:if>
+					<c:if test="${request.statusNo == 5}">테스트대기</c:if>
+					<c:if test="${request.statusNo == 6}">테스트중</c:if>
+					<c:if test="${request.statusNo >= 7}">테스트완료</c:if>
+				</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 9}">is_complete</c:if>
-				<c:if test="${request.statusNo >= 7 && request.statusNo <= 8}">is_active</c:if>" onclick="quality(${request.rno})">
-				<a href="${pageContext.request.contextPath}/usertestdetail?rno=${request.rno}">
-					<span>
-						<c:if test="${request.statusNo < 7}">품질테스트</c:if>
-						<c:if test="${request.statusNo == 7}">품질테스트대기</c:if>
-						<c:if test="${request.statusNo == 8}">유저테스트중</c:if>
-						<c:if test="${request.statusNo >= 9}">유저테스트완료</c:if>
-					</span>
-				</a>
+				<c:if test="${request.statusNo >= 7 && request.statusNo <= 8}">is_active</c:if>">
+				<span>
+					<c:if test="${request.statusNo < 7}">품질테스트</c:if>
+					<c:if test="${request.statusNo == 7}">품질테스트대기</c:if>
+					<c:if test="${request.statusNo == 8}">유저테스트중</c:if>
+					<c:if test="${request.statusNo >= 9}">유저테스트완료</c:if>
+				</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 11}">is_complete</c:if>
-				<c:if test="${request.statusNo >= 9 && request.statusNo <= 10}">is_active</c:if>" onclick="distribute(${request.rno})">
-				<a href="${pageContext.request.contextPath}//distributedetail?rno=${request.rno}">
-					<span>
-						<c:if test="${request.statusNo < 9}">배포</c:if>
-						<c:if test="${request.statusNo == 9}">배포대기</c:if>
-						<c:if test="${request.statusNo == 10}">배포중</c:if>
-						<c:if test="${request.statusNo >= 11}">배포완료</c:if>
-					</span>
-				</a>
+				<c:if test="${request.statusNo >= 9 && request.statusNo <= 10}">is_active</c:if>" >
+				<span>
+					<c:if test="${request.statusNo < 9}">배포</c:if>
+					<c:if test="${request.statusNo == 9}">배포대기</c:if>
+					<c:if test="${request.statusNo == 10}">배포중</c:if>
+					<c:if test="${request.statusNo >= 11}">배포완료</c:if>
+				</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 13}">is_complete</c:if>
 				<c:if test="${request.statusNo == 11}">is_active</c:if>" onclick="enddetail(${request.rno})">
@@ -283,38 +275,32 @@ margin: 0 0 1rem 0;
 				</a>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 5}">is_complete</c:if>
-				<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>" onclick="developer(${request.rno})">
-				<a href="${pageContext.request.contextPath}/developerdetail?rno=${request.rno}">
-					<span>
-						<c:if test="${request.statusNo < 2}">개발</c:if>
-						<c:if test="${request.statusNo == 2}">개발대기</c:if>
-						<c:if test="${request.statusNo == 4}">개발중</c:if>
-						<c:if test="${request.statusNo == 3}">재검토</c:if>
-						<c:if test="${request.statusNo >= 5}">개발완료</c:if>
-					</span>
-				</a>
+				<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>" >
+				<span>
+					<c:if test="${request.statusNo < 2}">개발</c:if>
+					<c:if test="${request.statusNo == 2}">개발대기</c:if>
+					<c:if test="${request.statusNo == 4}">개발중</c:if>
+					<c:if test="${request.statusNo == 3}">재검토</c:if>
+					<c:if test="${request.statusNo >= 5}">개발완료</c:if>
+				</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 7}">is_complete</c:if>
-				<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>" onclick="test(${request.rno})">
-				<a href="${pageContext.request.contextPath}/testerdetail?rno=${request.rno}">
-					<span>
-						<c:if test="${request.statusNo < 5}">테스트</c:if>
-						<c:if test="${request.statusNo == 5}">테스트대기</c:if>
-						<c:if test="${request.statusNo == 6}">테스트중</c:if>
-						<c:if test="${request.statusNo >= 7}">테스트완료</c:if>
-					</span>
-				</a>
+				<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>">
+				<span>
+					<c:if test="${request.statusNo < 5}">테스트</c:if>
+					<c:if test="${request.statusNo == 5}">테스트대기</c:if>
+					<c:if test="${request.statusNo == 6}">테스트중</c:if>
+					<c:if test="${request.statusNo >= 7}">테스트완료</c:if>
+				</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 11}">is_complete</c:if>
-				<c:if test="${request.statusNo >= 7 && request.statusNo <= 10}">is_active</c:if>" onclick="distribute(${request.rno})">
-				<a href="${pageContext.request.contextPath}//distributedetail?rno=${request.rno}">
-					<span>
-						<c:if test="${request.statusNo < 7}">배포</c:if>
-						<c:if test="${request.statusNo == 7}">배포대기</c:if>
-						<c:if test="${request.statusNo == 10}">배포중</c:if>
-						<c:if test="${request.statusNo >= 11}">배포완료</c:if>
-					</span>
-				</a>
+				<c:if test="${request.statusNo >= 7 && request.statusNo <= 10}">is_active</c:if>" >
+				<span>
+					<c:if test="${request.statusNo < 7}">배포</c:if>
+					<c:if test="${request.statusNo == 7}">배포대기</c:if>
+					<c:if test="${request.statusNo == 10}">배포중</c:if>
+					<c:if test="${request.statusNo >= 11}">배포완료</c:if>
+				</span>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 13}">is_active</c:if>
 				<c:if test="${request.statusNo == 11}">is_active</c:if>">
