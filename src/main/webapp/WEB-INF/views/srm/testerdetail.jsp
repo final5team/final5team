@@ -392,7 +392,8 @@
 		$('#testButton').attr('formaction', '${pageContext.request.contextPath}/testdone');
 		/* textarea 값 바꿔주기 */
 		var content = $('#tempNormal').val();
-		$('#reply').text(content);
+		tinymce.get('reply').setContent(content);
+
 		
 	}
 	function turnReexam(){
@@ -407,7 +408,7 @@
 		$('#testButton').text('재검토 요청');
 		/* textarea 값 바꿔주기 */
 		var content = $('#tempReexam').val();
-		$('#reply').text(content);
+		tinymce.get('reply').setContent(content);
 		
 	}
 	

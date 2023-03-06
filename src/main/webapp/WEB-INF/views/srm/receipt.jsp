@@ -290,7 +290,7 @@
 											<div class="card-body">
 												<div class="form-group d-flex">
 													<label class="label">반려 사유</label>
-													<textarea  class="form-control boxed pmcontent" name="reply" style="width: 80%; margin: auto;" required></textarea>
+													<textarea  class="form-control boxed pmcontent" name="reply" style="width: 80%; margin: auto;"></textarea>
 												</div>											
 												<div class="filebox row">
 													<label for="file" class=" col-3 label">첨부파일</label>
@@ -311,7 +311,7 @@
 							</div>
 						</c:if>
 						<!-- 요청 처리 계획 start-->
-						<c:if test="${member.mtype !='user' && member.mtype != 'pm'}">
+						<c:if test="${member.mtype !='user' && member.mtype != 'pm' && request.statusNo != 12}">
 								<div class="card border-top-dark my-3">
 									<div class="card-block"> <!-- card-block -->
 										<div class="card-title-block">
@@ -392,7 +392,7 @@
 									</div> <!-- card-block -->						
 								</div>
 							</c:if>
-							<c:if test="${member.mtype == 'pm' && request.statusNo > 2}">
+							<c:if test="${member.mtype == 'pm' && request.statusNo > 2 && request.statusNo != 12}">
 								<div class="card border-top-dark my-3">
 									<div class="card-block"> <!-- card-block -->
 										<div class="card-title-block">
