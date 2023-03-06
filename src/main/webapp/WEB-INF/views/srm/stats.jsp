@@ -22,8 +22,7 @@
 		
     	// 그래프 옵션
         var options = {
-          title: '전체 서비스 요청 중 시스템별 비중',   // 그래프 제목
-          is3D: true						// 그래프 형식(3D 그래프)
+          title: '전체 서비스 요청 중 시스템별 비중'   // 그래프 제목
         };
         
 		//그래프 그리기
@@ -49,7 +48,7 @@
             tooltip: { trigger: 'none' },   // 도움말 제거   
             legend: 'none',					// 범례 여부(표시 안 함)
             slices: {
-                0: { color: '#46eb98', textStyle: {color: 'transparent'} },  			// 그래프 완료 부분 색 설정(초록, 글자 미표시)
+                0: { color: '#4ae095', textStyle: {color: 'transparent'} },  			// 그래프 완료 부분 색 설정(초록, 글자 미표시)
                 1: { color: '#d4d4d4' , textStyle: {color: 'transparent'}}				// 그래프 미완료 부분 색 설정(회색, 글자 미표시)
             }
           };
@@ -127,14 +126,14 @@
 	    	  // 월별 값 설정
 	        var data = google.visualization.arrayToDataTable([
 	          ['월', '${systemList[0].systemName}', '${systemList[1].systemName}', '${systemList[2].systemName}', '${systemList[3].systemName}'],
-	          ['01월',  ${SRChange[0][0]}, ${SRChange[1][0]},  ${SRChange[2][0]},  ${SRChange[3][0]}],
-	          ['02월',  ${SRChange[0][1]}, ${SRChange[1][1]},  ${SRChange[2][1]},  ${SRChange[3][1]}],
-	          ['03월',  ${SRChange[0][2]}, ${SRChange[1][2]},  ${SRChange[2][2]},  ${SRChange[3][2]}]	         
+	          ['${SRChangeMonth}월',  ${SRChange[0][0]}, ${SRChange[1][0]},  ${SRChange[2][0]},  ${SRChange[3][0]}],
+	          ['${SRChangeMonth+1}월',  ${SRChange[0][1]}, ${SRChange[1][1]},  ${SRChange[2][1]},  ${SRChange[3][1]}],
+	          ['${SRChangeMonth+2}월',  ${SRChange[0][2]}, ${SRChange[1][2]},  ${SRChange[2][2]},  ${SRChange[3][2]}]	         
 	        ]);
 
 	    	// 그래프 옵션
 	        var options = {
-	          title: '분기별 서비스 요청 및 완료',  		//그래프 제목
+	          title: '분기별 서비스 요청 추이',  			//그래프 제목
 	          curveType: 'function',  				//그래프 선 설정(부드러운 선)
 	          legend: { position: 'bottom' }   		//범례 위치 (하단 위치)
 	        };
@@ -165,6 +164,18 @@
 			dataType:"html", 						// 데이터 타입: html
 			success : function(result){
 				$('#systemDel').html(result);		// 시스템별 지연율 그래프와 수치 	재출력	
+			}
+		});
+    }
+    
+    // 분기별 서비스 요청 추이 보여주기
+    function searchCurve(){
+    	$.ajax({
+			type: "GET", 							// 요청방식: GET
+			url:"${pageContext.request.contextPath}/stats/curve/"+$("#curveMonth").val(),		//URL+선택한 날짜(월)
+			dataType:"html", 						// 데이터 타입: html
+			success : function(result){
+				$('#curveReq').html(result);		// 분기별 서비스 요청 추이 그래프와 수치 	재출력	
 			}
 		});
     }
@@ -247,7 +258,7 @@
 	                                <!-- Card Body -->
 	                                <div class="card-body">		                               
 	                                	<div style="width:290px; height: 200px; overflow: hidden;" id="systemCom"> 	                                	
-	                                		<div id="donutchart" style="height: 250px; position: relative; top: -10px;"></div>	                                			                                			                                		   												
+	                                		<div id="donutchart" style="height: 230px; position: relative; top: -10px;"></div>	                                			                                			                                		   												
 	                                		<div class="center">${comRate}%</div>
 	                                	</div>		                                		                               
 	                                </div>
@@ -271,7 +282,7 @@
 	                                <!-- Card Body -->
 	                                <div class="card-body">
 	                                	<div style="width:290px; height: 200px; overflow: hidden;" id="systemDel">		                                	
-		                                	<div id="chart_div" style="height: 250px; position: relative; top: -10px;"></div>
+		                                	<div id="chart_div" style="height: 230px; position: relative; top: -10px;"></div>
 		                                	<div class="center">${delRate}%</div> 
 		                                </div>                                  
 	                                </div>
@@ -681,14 +692,29 @@
 							<div class="card sameheight-item shadow mb-4">
 							    <div class="card-block">
 							        <!-- Nav tabs -->
-							        <div class="card-title-block">
-										<h3 class="title ml-3 mt-3">
-											서비스 요청 추이
-										</h3>
+							        <div class="card-title-block row">
+										<div class="col">
+											<h3 class="title ml-3 mt-3">
+												서비스 요청 추이
+											</h3>
+										</div>
+										<div class="col text-right">
+											<label> 시작 날짜 : </label>
+											<input type="month" id="curveMonth" step=3 onchange="searchCurve()">
+										</div>
 									</div>
 							        <div class="tab-content tabs-bordered">
-							        	<div class="m-3">
-							        		<div id="curve_chart"></div>						        		
+							        	<div class="m-3" id="curveReq">
+							        		<div id="curve_chart"></div>	
+							        		<div class="text-center">
+									     		<h5>
+										     		<c:if test="${SRChangeMonth==1}">1</c:if>
+										     		<c:if test="${SRChangeMonth==4}">2</c:if>
+										     		<c:if test="${SRChangeMonth==7}">3</c:if>
+										     		<c:if test="${SRChangeMonth==10}">4</c:if>
+									     			분기
+									     		</h5>
+									     	</div>						        		
 							        	</div>
 							        </div>
 								</div>
