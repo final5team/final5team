@@ -1,5 +1,6 @@
 package com.oti.srm.controller.srm;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -71,8 +72,16 @@ public class StatsController {
 		// 서비스 요청 추이
 		// 시스템 정보 구하기
 		model.addAttribute("systemList", userRegisterService.getSystemList());
-		// 월별 서비스 요청 건수 구하기
-		model.addAttribute("SRChange", statsService.getSRChange());
+		// 현재 연도 구하기
+		String year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+		// 현재 월 구하기
+		int month = Calendar.getInstance().get(Calendar.MONTH)+1;
+		// 현재 월에 따른 분기 계산하기
+		month=(month<4)?1:(month<7)?4:(month<10)?7:10;
+		// 현재 기준 월별 서비스 요청 건수 구하기
+		model.addAttribute("SRChange", statsService.getSRChange(year,month));
+		// 해당 날짜(월) 반환하기
+		model.addAttribute("SRChangeMonth", month);	
 		// 월별 서비스  완료 건수 구하기
 		//model.addAttribute("SRComChange", statsService.getSRChange(1));
 				
@@ -87,17 +96,46 @@ public class StatsController {
 	 * @param sno
 	 * @return
 	 */
+	// Ajax로 시스템별 완료율 구하기
 	@RequestMapping(value="/comrate/{sno}", method = RequestMethod.GET)
 	public String getComRateSystem(HttpSession session, Model model, @PathVariable int sno) {
+		// 해당 시스템 번호에 맞는 완료율 구하기
 		model.addAttribute("comRate", statsService.getComRate(sno));		
 		return "srm/comrate";
 	}
 	
-	
+	/**
+	 * 
+	 * @author: KIM JI YOUNG
+	 * @param session
+	 * @param model
+	 * @param sno
+	 * @return
+	 */
+	// Ajax로 시스템별 지연율 구하기
 	@RequestMapping(value="/delrate/{sno}", method = RequestMethod.GET)
 	public String getDelRateSystem(HttpSession session, Model model, @PathVariable int sno) {
+		// 해당 시스템 번호에 맞는 지연율 구하기
 		model.addAttribute("delRate", statsService.getDelRate(sno));		
 		return "srm/delrate";
+	}
+	
+	// 
+	@RequestMapping(value="/curve/{date}", method = RequestMethod.GET)
+	public String getCurveSystem(HttpSession session, Model model, @PathVariable String date) {
+		// 서비스 요청 추이
+		// 시스템 정보 구하기
+		model.addAttribute("systemList", userRegisterService.getSystemList());
+		// 조건에 맞는 연도 구하기
+		String year= date.substring(0, 4);
+		// 조건에 맞는 월 구하기
+		int month= Integer.parseInt(date.substring(5, 7));
+		// 월별 서비스 요청 건수 구하기
+		model.addAttribute("SRChange", statsService.getSRChange(year, month));	
+		// 해당 날짜(월) 반환하기
+		model.addAttribute("SRChangeMonth", month);	
+		
+		return "srm/curve";
 	}
 	
 }

@@ -38,7 +38,12 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-				
+		<!-- Bouncy Castle JCE Provider -->
+	    <dependency>
+	        <groupId>org.bouncycastle</groupId>
+	        <artifactId>bcprov-jdk15on</artifactId>
+	        <version>1.68</version>
+	    </dependency>		
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>

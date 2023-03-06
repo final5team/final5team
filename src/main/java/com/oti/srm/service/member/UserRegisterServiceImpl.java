@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.oti.srm.dao.member.IMemberDao;
 import com.oti.srm.dto.Member;
+import com.oti.srm.encrypt.AesUtil;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -25,8 +26,11 @@ public class UserRegisterServiceImpl implements IUserRegisterService {
 		
 		PasswordEncoder pe = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		member.setPassword(pe.encode(member.getPassword()));
+		member.setPhone(AesUtil.encrypt(member.getPhone()));
+		
 		int rows = memberDao.insertMember(member);
 		log.info("서비스");
+		
 		return rows;
 	}
 
@@ -39,13 +43,28 @@ public class UserRegisterServiceImpl implements IUserRegisterService {
 	// 유저 정보 조회
 	@Override
 	public Member getUserInfo(String mid) {
-		return memberDao.selectMemberInfo(mid);
+		
+		Member returnMember = memberDao.selectMemberInfo(mid);
+		log.info(returnMember.getPhone());
+		//핸드폰 번호 복호화 처리
+		returnMember.setPhone(AesUtil.decrypt(returnMember.getPhone()));
+		log.info(returnMember.getPhone());
+		return returnMember;
 	}
 	
 	//유저 정보 수정
 	@Override
 	public int updateUserInfo(Member member) {
-		return memberDao.updateUserInfo(member);
+		PasswordEncoder pe = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		//패스워드 암호화 처리
+		member.setPassword(pe.encode(member.getPassword()));
+		
+		//핸드폰 번호 암호화 처리
+		String phone = AesUtil.encrypt(member.getPhone());
+		member.setPhone(phone);
+		
+		int rows = memberDao.updateUserInfo(member);
+		return rows;
 	}
 	
 }

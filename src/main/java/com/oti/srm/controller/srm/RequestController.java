@@ -95,6 +95,7 @@ public class RequestController {
 				if (result == IUserRegisterService.REGISTER_FAIL) {
 					return "redirect:/customer/register";
 				} else {
+					result = userRegisterService.register(member);
 					return "redirect:/";
 				}
 			} 
@@ -103,7 +104,7 @@ public class RequestController {
 			model.addAttribute("registerResult", "FAIL");
 			return "redirect:/customer/register";
 		}
-		return "redirect:/customer/register";
+		return "redirect:/";
 	}
 
 	/**
@@ -131,14 +132,15 @@ public class RequestController {
 	}
 	
 	@PostMapping("/mypageupdate")
-	public String myPageUpdate(Member member, Model model) {
+	public String myPageUpdate(Member member, Model model, HttpSession session) {
+		Member Sessionmember = (Member) session.getAttribute("member");
+		
 		String address = member.getPostcode() + "-" + member.getAddr1() + "-" + member.getAddr2();
 		member.setAddress(address);
-		log.info(member.toString());
+		member.setSno(Sessionmember.getSno());
 		
 		//유저 정보 수정
 		int result = userRegisterService.updateUserInfo(member);
-		
 		
 		
 		return "member/mypage_re";
