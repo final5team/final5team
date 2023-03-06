@@ -69,11 +69,12 @@
 													<input type="text" class="form-control form-control-user" id="clientName" name="clientName" placeholder="${sessionScope.member.mname}" value="${sessionScope.member.mname}" readonly>
 												</div>
 												<div class="item">
-													<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="${sessionScope.member.phone}" value="${sessionScope.member.phone}" readonly>
+													<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="${member.phone}" value="${member.phone}" readonly>
 												</div>
 												<div class="item">
 													<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="${sessionScope.member.position}" value="${sessionScope.member.position}" readonly>
 												</div>
+												
 												<div class="item">
 													<div class="select-group">
 														<select class="custom-select" id="sno" name="sno" required>
