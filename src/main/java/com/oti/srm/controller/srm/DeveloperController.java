@@ -149,6 +149,8 @@ public class DeveloperController {
 	@PostMapping("/tempstore")
 	public String tempStore(StatusHistory statusHistory, HttpSession session, Model model) {
 		log.info("실행");
+		log.info("rno : " + statusHistory.getRno());
+		log.info("nextStatus : " + statusHistory.getNextStatus());
 		Member member = (Member) session.getAttribute("member");
 		statusHistory.setWriter(member.getMid());
 		// 기존 임시 저장글이 있는지 확인
