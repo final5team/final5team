@@ -131,19 +131,17 @@ public class StatsService implements IStatsService {
 	//서비스 요청 추이 그래프 값 구하기
 	@Override
 	@Transactional
-	public List<ArrayList<Integer>> getSRChange() {
+	public List<ArrayList<Integer>> getSRChange(String year, int month) {
 		// 값 저장할 List 객체 생성하기
-		List<ArrayList<Integer>> change = new ArrayList<>();
-		// 현재 연도 구하기
-		int year = Calendar.getInstance().get(Calendar.YEAR);
+		List<ArrayList<Integer>> change = new ArrayList<>();		
 		// 시스템별 요청 추이 값 저장하기
 		for(int j=1; j<5; j++) {
 			// 값 저장할 ArrayList 객체 생성하기
 			ArrayList<Integer> list = new ArrayList<>();
-				
+
 			// 월별 서비스 요청 추이 값 저장하기
-			for(int i=1; i<13; i++) {
-				// 현재 연도와 월 구하기
+			for(int i=month; i<month+3; i++) {				
+				// 해당 연도와 월 구하기
 				DecimalFormat df= new DecimalFormat("00");
 				String result=year+df.format(i);
 				/*

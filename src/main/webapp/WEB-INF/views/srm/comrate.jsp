@@ -24,7 +24,7 @@
             tooltip: { trigger: 'none' },   // 도움말 제거   
             legend: 'none',					// 범례 여부(표시 안 함)
             slices: {
-                0: { color: '46eb98', textStyle: {color: 'transparent'} },  			// 그래프 완료 부분 색 설정(초록, 글자 미표시)
+                0: { color: '#4ae095', textStyle: {color: 'transparent'} },  			// 그래프 완료 부분 색 설정(초록, 글자 미표시)
                 1: { color: '#d4d4d4' , textStyle: {color: 'transparent'}}				// 그래프 미완료 부분 색 설정(회색, 글자 미표시)
             }
           };
@@ -36,7 +36,7 @@
         }      		 
     </script>
     <div style="width:290px; height: 200px; overflow: hidden;" id="systemCom"> 
-        <div id="donutchart" style="height: 250px; position: relative; top: -10px;"></div>	                                			                                			                                		   												
+        <div id="donutchart" style="height: 230px; position: relative; top: -10px;"></div>	                                			                                			                                		   												
 	    <div class="center">${comRate}%</div>
     </div>	
     

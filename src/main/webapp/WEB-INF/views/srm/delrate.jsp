@@ -36,7 +36,7 @@
         }      		 
     </script>
     <div style="width:290px; height: 200px; overflow: hidden;" id="systemCom"> 
-      	<div id="chart_div" style="height: 250px; position: relative; top: -10px;"></div>
+      	<div id="chart_div" style="height: 230px; position: relative; top: -10px;"></div>
 		<div class="center">${delRate}%</div> 
     </div>	
     
