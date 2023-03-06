@@ -78,7 +78,6 @@ public class StatsController {
 		int month = Calendar.getInstance().get(Calendar.MONTH)+1;
 		// 현재 월에 따른 분기 계산하기
 		month=(month<4)?1:(month<7)?4:(month<10)?7:10;
-		log.info(month);
 		// 현재 기준 월별 서비스 요청 건수 구하기
 		model.addAttribute("SRChange", statsService.getSRChange(year,month));
 		// 해당 날짜(월) 반환하기
@@ -129,10 +128,8 @@ public class StatsController {
 		model.addAttribute("systemList", userRegisterService.getSystemList());
 		// 조건에 맞는 연도 구하기
 		String year= date.substring(0, 4);
-		log.info(year);
 		// 조건에 맞는 월 구하기
 		int month= Integer.parseInt(date.substring(5, 7));
-		log.info(month);
 		// 월별 서비스 요청 건수 구하기
 		model.addAttribute("SRChange", statsService.getSRChange(year, month));	
 		// 해당 날짜(월) 반환하기

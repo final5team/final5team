@@ -47,6 +47,7 @@ public class UserTestDistributeController {
 		sh.setNextStatus(17);
 		Member member = (Member) session.getAttribute("member");
 		model.addAttribute("userTesterTemp", commonService.getTempStatusHistory(member, sh));
+		model.addAttribute("testRejectExist", commonService.isThereTestReject(rno));
 		return "srm/userTester";
 	}
 
@@ -67,6 +68,7 @@ public class UserTestDistributeController {
 		sh.setNextStatus(18);
 		Member member = (Member) session.getAttribute("member");
 		model.addAttribute("distributorTemp", commonService.getTempStatusHistory(member, sh));
+		model.addAttribute("testRejectExist", commonService.isThereTestReject(rno));
 		return "srm/distributor";
 	}
 

@@ -77,5 +77,7 @@ public interface ICommonService {
 	public void updateDevProgress(RequestProcess rp);
 
 	public void updateHistory(RequestProcess rp, StatusHistory sh, Member member); 
+	
+	public int isThereTestReject(int rno);
 
 }

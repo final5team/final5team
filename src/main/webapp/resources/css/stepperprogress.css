@@ -91,6 +91,12 @@
   z-index: 3;
 }
 
+
+.stepper-item.warning .step-counter {
+  background-color: #fe974b;
+  color: white;
+}
+
 .stepper-item:first-child::before {
   content: none;
 }
