@@ -380,7 +380,7 @@ public class RequestController {
 		List<System> systemList = userRegisterService.getSystemList();
 		RequestProcess requestProcess = commonService.getRequestProcess(rno);
 		model.addAttribute("request", request);
-		model.addAttribute("requestProcess", request);
+		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("systemList", systemList);
 		
 		//세션에 저장된 멤버 객체 전달
