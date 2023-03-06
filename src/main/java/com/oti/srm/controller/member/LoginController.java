@@ -32,6 +32,7 @@ public class LoginController {
 		
 		Member dbMember = memberService.getMember(member);
 		
+		
 		if(dbMember == null) {
 			model.addAttribute("member", member);
 			model.addAttribute("loginResult", "잘못된 아이디입니다.");
