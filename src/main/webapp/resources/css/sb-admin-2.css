@@ -11593,4 +11593,7 @@ input[type="radio"]:checked + label:after {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(133, 206, 54, 0.5);
           box-shadow: 0 0 0 0.2rem rgba(133, 206, 54, 0.5); 
  }
+ .text-gray{
+ 	color: #d7dde4;
+ }
  
