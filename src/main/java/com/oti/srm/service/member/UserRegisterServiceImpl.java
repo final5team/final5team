@@ -45,10 +45,8 @@ public class UserRegisterServiceImpl implements IUserRegisterService {
 	public Member getUserInfo(String mid) {
 		
 		Member returnMember = memberDao.selectMemberInfo(mid);
-		log.info(returnMember.getPhone());
 		//핸드폰 번호 복호화 처리
 		returnMember.setPhone(AesUtil.decrypt(returnMember.getPhone()));
-		log.info(returnMember.getPhone());
 		return returnMember;
 	}
 	

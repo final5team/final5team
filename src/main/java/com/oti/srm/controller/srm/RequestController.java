@@ -30,6 +30,7 @@ import com.oti.srm.dto.Request;
 import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.SelectPM;
 import com.oti.srm.dto.StatusHistoryFile;
+import com.oti.srm.encrypt.AesUtil;
 import com.oti.srm.service.member.IUserRegisterService;
 import com.oti.srm.service.srm.ICommonService;
 import com.oti.srm.service.srm.IPMService;
@@ -116,7 +117,9 @@ public class RequestController {
 		//시스템
 		List<System> systemList = userRegisterService.getSystemList();
 		model.addAttribute("systemList", systemList);
-
+		
+		//핸드폰 번호 복호화 처리
+		returnMember.setPhone(AesUtil.decrypt(returnMember.getPhone()));
 		model.addAttribute("returnMember", returnMember);
 
 		return "member/mypage_re";
@@ -168,12 +171,16 @@ public class RequestController {
 		request.setStatusNo(1);
 		requestProcess.setReqType("정규");
 		
+		Member sessionMember = (Member) session.getAttribute("member");
+		//핸드폰 번호 복호화 처리
+		sessionMember.setPhone(AesUtil.decrypt(sessionMember.getPhone()));
+		
 		// 시스템 리스트 전달
 		List<System> systemList = userRegisterService.getSystemList();
 		model.addAttribute("request", request);
 		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("systemList", systemList);
-		
+		model.addAttribute("member", sessionMember);
 		return "srm/request/request";
 	}
 	
