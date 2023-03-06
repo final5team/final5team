@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -32,6 +31,8 @@ import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.SelectPM;
 import com.oti.srm.dto.StatusHistoryFile;
 import com.oti.srm.service.member.IUserRegisterService;
+import com.oti.srm.service.srm.ICommonService;
+import com.oti.srm.service.srm.IPMService;
 import com.oti.srm.service.srm.IRequestRegisterService;
 
 import lombok.extern.log4j.Log4j2;
@@ -57,7 +58,10 @@ public class RequestController {
 	private IUserRegisterService userRegisterService;
 	@Autowired
 	private IRequestRegisterService requestService;
-
+	@Autowired
+	private ICommonService commonService;
+	@Autowired
+	private IPMService pMService;
 	/**
 	 * Kang Ji Seong 유저 등록 페이지 조회
 	 */
@@ -374,22 +378,15 @@ public class RequestController {
 	public String userRequestDetail(int rno, HttpSession session, Model model) {
 		Request request = requestService.getRequestDetail(rno);
 		List<System> systemList = userRegisterService.getSystemList();
-		
-		//반려 페이지
-		if(request.getStatusNo() == 12) {
-			
-			return "srm/requestrejectpage";
-		//완료 페이지
-		} else if (request.getStatusNo() == 13) {
-			
-			
-			return "srm/pm/enddetail" + rno;
-		} else {
-			
-			model.addAttribute("request", request);
-			model.addAttribute("systemList", systemList);
-			return "srm/request/requestdetail";
+		RequestProcess requestProcess = commonService.getRequestProcess(rno);
+		model.addAttribute("request", request);
+		model.addAttribute("requestProcess", request);
+		model.addAttribute("systemList", systemList);
+		// 요청 상태가 반려일 때 상태 변경 정보(반려 사유)
+		if(request.getStatusNo()==12) {
+			model.addAttribute("rejectHistory", pMService.getStatusHistory(rno, "reject"));
 		}
+		return "srm/request/requestdetail";
 	}
 	
 	//요청 수정하기
