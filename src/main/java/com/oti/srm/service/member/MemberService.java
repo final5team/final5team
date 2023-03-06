@@ -13,38 +13,30 @@ import lombok.extern.log4j.Log4j2;
 @Service
 @Log4j2
 public class MemberService implements IMemberService {
-	
+
 	@Autowired
 	IMemberDao memberDao;
 
 	@Override
 	public Member getMember(Member member) {
-		
+
 		PasswordEncoder pe = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		Member returnMember = memberDao.getMember(member);
-		
-		if(!member.getPassword().equals("1234")) {
-			
-			boolean checkPass = pe.matches(member.getPassword(), returnMember.getPassword());
-			if(checkPass == false) {
-				member.setPassConfirm("N");
-				return member;
-			} else {
-				return returnMember;
-			}
-			
+
+		boolean checkPass = pe.matches(member.getPassword(), returnMember.getPassword());
+		if (checkPass == false) {
+			member.setPassConfirm("N");
+			return member;
 		} else {
-			log.info("암호화 처리되지 않은 아이디");
 			return returnMember;
 		}
-		
-		
+
 	}
-	
-	//유저 아이디 중복 확인
+
+	// 유저 아이디 중복 확인
 	@Override
 	public int checkId(String mid) {
-		
+
 		return memberDao.selectMid(mid);
 	}
 
