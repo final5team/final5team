@@ -12,6 +12,7 @@
 				values (#{mid}, #{mtype}, #{mname}, #{birth}, #{gender}, #{address}, #{sno}, #{email}, #{password}, #{organ}, #{phone}, #{position})
 				</if>
 			</if>
+			
 			<if test='fileName != null'>
 				<if test='mtype.equals("pm") or mtype.equals("user")'>
 				insert into members (MID, MTYPE, MNAME, BIRTH, GENDER, ADDRESS, EMAIL, PASSWORD, ORGAN, PHONE, POSITION
