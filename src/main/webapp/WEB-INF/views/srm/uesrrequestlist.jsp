@@ -147,7 +147,7 @@
 										<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
 									</td>
 									<td class="step_td">
-										<%@ include file="/WEB-INF/views/srm/restatus/stepintable_my.jsp"%>
+										<%@ include file="/WEB-INF/views/srm/restatus/stepintable_user.jsp"%>
 									</td>
 								</tr>
 							</c:forEach>
