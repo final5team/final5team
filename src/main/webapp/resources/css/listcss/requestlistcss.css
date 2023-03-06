@@ -419,13 +419,28 @@ input:checked + .slider:before {
   }
 }
 
-.sorted:after{
-	content : "▼";
-	display : inline-block;
-	
-	
+.member th.sorted{
+	text-align: left;
 }
 
+/* 
+th.sorted:after{
+	content : "▼";
+	display : inline-block;
+	font-size : .5em;
+	position : relative;
+	left : 10%;
+	top : 10%;
+}
+th.sorted:before{
+	content : "▲";
+	display : inline-block;
+	font-size : .5em;
+	position : relative;
+	left : 90%;
+	top : -10%;
+}
+ */
 
 
 </style>

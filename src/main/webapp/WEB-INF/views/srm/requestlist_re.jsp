@@ -216,7 +216,7 @@
 								<th class="ex sorted">요청 유형</th>
 								<th class="ex sorted">요청 제목</th>
 								<th class="ex sorted">요청 일자</th>
-								<th class="ex sorted">단계</th>
+								<th class="ex">단계</th>
 							</tr>
 
 							<c:forEach var="request" items="${requestList}">
