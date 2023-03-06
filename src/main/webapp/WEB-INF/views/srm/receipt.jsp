@@ -15,49 +15,46 @@
 	<style>
 	span::after {
 	  padding-left: 5px;
-	}
-	
+	}	
 
 	input:valid + span::after {
 	  content: "✓";
 	}
+   	.navBtn{
+   		border: 1px solid #85ce36;
+   		background-color: white;
+   		border-radius: 0px;
+   		padding: 10px 15px;
+   	}
+   	.navBtn.active {
+   		background-color: #85ce36;
+   		color: white;
+   	}
     </style>
+    
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script>
 		$(document).ready(function(){
-			// 접수 입력 항목 숨기기
-		  $("#receiptdiv").hide();
 			// 반려 입력 항목 숨기기
 		  $("#rejectdiv").hide();
-			// 접수 입력 항목 열고 반려 입력 항목 숨기기
-		  $("#receiptbtn").click(function(){
-			  $("#rejectdiv").hide();
-		      $("#receiptdiv").toggle();
-		  });
+
 			// 반려 입력 항목 열고 접수 입력 항목 숨기기
 		  $("#rejectbtn").click(function(){
 			  $("#receiptdiv").hide();
-			  $("#rejectdiv").toggle();
+			  $("#rejectdiv").show();
 		   });
 			// 완료 예정일에 현재 날짜 이후 날짜만 선택 가능하게 만들기
 		  document.getElementById("allExpectDate").min
-		  = new Date().toISOString().slice(0, 10);
-			
+		  = new Date().toISOString().slice(0, 10);			
 			
 		});
-		// 접수 토글 숨기고 입력 내용 삭제하기
-		function receiptCancel(){
-			$("#receiptdiv").hide();
-			$("input").val("");
-			$("textarea").val("");		
-		}
-		// 반려 토글 숨기고 입력 내용 삭제하기
-		function rejectCancel(){
-			$("#rejectdiv").hide();
-			$("input").val("");
-			$("textarea").val("");
-		}	
+		// 접수 입력 항목 열고 반려 입력 항목 숨기기
+		function receiptbtn(){
+			 $("#rejectdiv").hide();
+		     $("#receiptdiv").show();
+		}		
+						
 		// 요청 유형에 따른 유저 테스터 선택 여부
 		function rtype(){
 			var reqType = $("#reqType").val();
@@ -78,6 +75,22 @@
 				$("#userTester").attr("required", "required")
 			}			
 		}
+		// 파일 추가
+		function addFile() {
+			// 파일 업로드 input tag
+       		var str = "<div class='file-group'><input type='file' name='files'><a href='#this' name='file-delete'>x</a></div>";
+       		// 파일 업로드 버튼 추가
+	        $("#file-list").append(str);
+       		// 파일 삭제 버튼 선택 시 해당 파일 삭제
+	        $("a[name='file-delete']").on("click", function(e) {
+	            e.preventDefault();
+	            deleteFile($(this));
+	        });
+	    }
+	 	// 파일 삭제	
+	    function deleteFile(obj) {
+	        obj.parent().remove();
+	    }
 	</script>
 </head>
 
@@ -160,15 +173,7 @@
 													</div>
 												</c:forEach>
 											</div>
-										</div>
-										<div class="d-flex justify-content-end">
-											<c:if test="${request.statusNo==1 && member.mtype =='pm'}">
-												<div class="d-flex justify-content-end">
-													<button class="btn btn-primary btn-lg mt-3 ml-3" type="button" id="receiptbtn">접수</button>
-													<button class="btn btn-danger btn-lg mt-3 ml-3" type="button" id="rejectbtn">반려</button>
-												</div>
-											</c:if>
-										</div>
+										</div>										
 	                	 			</div>
 								</div> <!-- card-block / -->
 							</div>				
@@ -177,13 +182,19 @@
 						<c:if test="${member.mtype == 'pm' && request.statusNo == 1}">
 							<div id="receiptdiv"> 						            
 								<!-- 요청 접수 card start-->
-								<div class="card border-top-primary mt-3 mb-3">
+								<div class="card border-top-dark mt-3 mb-3">
 									<div class="card-block">
-										<div class="card-title-block">
-		                	 				<h3 class="title">
-			                	 				요청 처리 계획 작성<i class="ml-1  fas fa-pen-alt"></i>
-		                	 				</h3>
-		                	 			</div>
+										<div class="d-flex">
+											<div class="card-title-block">
+			                	 				<h3 class="title">
+			                	 					요청 처리 계획 작성<i class="ml-1  fas fa-pen-alt"></i>
+		                	 					</h3>
+			                	 			</div>
+			                	 			<div class="d-flex justify-content-end" style="margin-left: auto; margin-right: 30px;">
+												<button class="navBtn active mt-3" type="button" id="receiptbtn">접수</button>
+												<button class="navBtn mt-3" type="button" id="rejectbtn">반려</button>
+											</div>
+										</div>									
 										<div class="card-body">
 											<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data">
 												<div class="row form-group">
@@ -211,8 +222,8 @@
 												</div>
 												<div class="row">
 													<div class="col-3 label">*완료예정일</div>
-													<div class="col-7">
-														<input type="date" class="form-control boxed" name="allExpectDate" id="allExpectDate" required pattern="\d{4}-\d{2}-\d{2}" style="width: 220px; padding: 0;">
+													<div class="col-8">
+														<input type="date" class="form-control boxed" name="allExpectDate" id="allExpectDate" pattern="\d{4}-\d{2}-\d{2}" max="2099-12-31" style="width: 220px; padding: 0;" required>
 														<span class="validity m-2"></span>
 													</div>	
 												</div>
@@ -256,41 +267,50 @@
 											
 												<div class="row mb-2">
 													<div class="label col-3">*의견 내용</div>
-													<textarea class="form-control boxed col-7 pmcontent" name="reply" style="padding: 0px"></textarea>
-												</div>											
-												<div class="row form-group filebox">
-													<div class="label col-3">첨부파일</div>
-													<div class="col-7">
-														<input type="file" id="files" name="files" multiple>
-														<input type="hidden" name="rno" value="${request.rno}">
-													</div>
+													<textarea class="form-control boxed col-7 pmcontent" id="reply" name="reply" style="padding: 0px"></textarea>
+												</div>																						
+												<div class="filebox d-flex">
+													<div class="label label-write" id="fileLable">첨부파일</div>
+													<div class="form-group" id="file-list">
+												        <a href="#this" onclick="addFile()">파일추가</a>
+												        <div class="file-group">
+												            <input type="file" name="files"><a href='#this' class='file-delete' name='file-delete'>x</a>
+												            <input type="hidden" name="rno" value="${request.rno}">
+												        </div>
+				  									</div>	
 												</div>
-											<div class="d-flex justify-content-end">						
-												<button class="btn btn-primary btn-lg mt-3 ml-3" type="submit" value=2 name="nextStatus">접수 완료</button>
-												<a class="btn btn-secondary btn-lg mt-3 ml-3" onclick="receiptCancel()">취소</a>												
-											</div>
-										</form>											
-									</div><!-- card-body -->
-								</div><!-- card-block -->										
+												<div class="d-flex justify-content-end">						
+													<button class="btn btn-primary btn-md mt-3 ml-3" type="submit" value=2 name="nextStatus">접수 완료</button>
+													<a class="btn btn-secondary btn-md mt-3 ml-3" onclick="location.reload()">취소</a>												
+												</div>
+											</form>											
+										</div><!-- card-body -->
+									</div><!-- card-block -->										
+								</div>
+								<!-- 요청 접수 card end-->								
 							</div>
-							<!-- 요청 접수 card end-->								
-						</div>
 						
 						<!-- 반려 -->
 							<div id="rejectdiv"> 						            
 								<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data">
 									<!-- 요청 접수 card start-->
-									<div class="card border-top-danger mt-3 mb-1">
+									<div class="card border-top-dark mt-3 mb-1">
 										<div class="card-block">
-											<div class="card-title-block">
-			                	 				<h3 class="title">
-				                	 				반려 사유 작성<i class="ml-1 fas fa-external-link-alt"></i>
-			                	 				</h3>
-			                	 			</div>
+											<div class="d-flex">
+												<div class="card-title-block">
+				                	 				<h3 class="title">
+				                	 					반려 사유 작성<i class="ml-1 fas fa-external-link-alt"></i>
+			                	 					</h3>
+				                	 			</div>
+				                	 			<div class="d-flex justify-content-end" style="margin-left: auto; margin-right: 30px;">
+													<button class="navBtn mt-3" type="button" onclick="receiptbtn()">접수</button>
+													<button class="navBtn active mt-3" type="button">반려</button>
+												</div>
+											</div>		
 											<div class="card-body">
 												<div class="form-group d-flex">
 													<label class="label">반려 사유</label>
-													<textarea  class="form-control boxed pmcontent" name="reply" style="width: 80%; margin: auto;"></textarea>
+													<textarea class="form-control boxed pmcontent" name="reply" style="width: 65%; margin: auto;"></textarea>
 												</div>											
 												<div class="filebox row">
 													<label for="file" class=" col-3 label">첨부파일</label>
@@ -300,8 +320,8 @@
 													</div>
 												</div>													
 												<div class="d-flex justify-content-end">									
-													<button class="btn btn-danger btn-lg mt-3 ml-3" type="submit" value=12 name="nextStatus">반려 완료</button>												
-													<a class="btn btn-secondary btn-lg mt-3 ml-3" onclick="rejectCancel()">취소</a>									
+													<button class="btn btn-danger btn-md mt-3 ml-3" type="submit" value=12 name="nextStatus">반려 완료</button>												
+													<a class="btn btn-secondary btn-md mt-3 ml-3" onclick="location.reload()">취소</a>									
 												</div>
 											</div>
 										</div>
@@ -588,18 +608,19 @@
 						<!-- 요청 처리 계획 end-->
 						<!-- 반려 처리 정보 start -->
 						<c:if test="${request.statusNo==12}">
-							<div class="card mt-3 mb-1">
-								<h3 class="font-weight-bold">						
-									반려 처리 내역
+							<div class="card border-top-danger mt-3 mb-1">
+								<h3 class="title m-3">						
+									반려 처리 내역 <i class="ml-1 fas fa-external-link-alt"></i>
 								</h3>
 								<div class="card-body">									
-									<div class="form-group">
-										<label class="control-label">반려 사유</label>
-										<textarea rows="2" class="form-control boxed" name="reply" readonly>${rejectHistory.reply}</textarea>
+									<div class="form-group row">
+										<label class="label col-3">반려 사유</label>
+										<textarea rows="2" class="form-control boxed col-7" name="reply" readonly>${rejectHistory.reply}</textarea>
 									</div>											
 									<div class="mt-3 row">
 										<c:if test="${request.files != null}">
-											<div class="col-3 label">첨부 파일
+											<div class="col-3 label">첨부 파일</div>
+											<div class="col">
 												<c:forEach var="file" items="${rejectHistory.fileList}">
 													<div>
 														<span>${file.fileName}</span>
@@ -617,10 +638,10 @@
 						
 						<!-- 반려 처리 정보 end-->
 						<c:if test="${sessionScope.member.mtype != 'user'}">
-							<button class="btn btn-dark btn-sm ml-5 mb-3" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
+							<button class="btn btn-dark btn-sm ml-5 m-3" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
 						</c:if>
 						<c:if test="${sessionScope.member.mtype == 'user'}">
-							<button class="btn btn-dark btn-sm ml-5 mb-3" onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'">목록</button>
+							<button class="btn btn-dark btn-sm ml-5 m-3" onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'">목록</button>
 						</c:if>
 					<!-- 게시글 상세보기 end -->
 					</div>
