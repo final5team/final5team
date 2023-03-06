@@ -211,12 +211,12 @@
 						<!-- 기존 페이지-->
 						<table class="member" id="table_content">
 							<tr >
-								<th class="ex">No.</th>
-								<th class="ex">시스템</th>
-								<th class="ex">요청 유형</th>
-								<th class="ex">요청 제목</th>
-								<th class="ex">요청 일자</th>
-								<th class="ex" >단계</th>
+								<th class="ex sorted">No.</th>
+								<th class="ex sorted">시스템</th>
+								<th class="ex sorted">요청 유형</th>
+								<th class="ex sorted">요청 제목</th>
+								<th class="ex sorted">요청 일자</th>
+								<th class="ex sorted">단계</th>
 							</tr>
 
 							<c:forEach var="request" items="${requestList}">

@@ -419,6 +419,13 @@ input:checked + .slider:before {
   }
 }
 
+.sorted:after{
+	content : "▼";
+	display : inline-block;
+	
+	
+}
+
 
 
 </style>
