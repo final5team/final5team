@@ -30,6 +30,7 @@ import com.oti.srm.dto.Request;
 import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.SelectPM;
 import com.oti.srm.dto.StatusHistoryFile;
+import com.oti.srm.encrypt.AesUtil;
 import com.oti.srm.service.member.IUserRegisterService;
 import com.oti.srm.service.srm.ICommonService;
 import com.oti.srm.service.srm.IPMService;
@@ -37,18 +38,6 @@ import com.oti.srm.service.srm.IRequestRegisterService;
 
 import lombok.extern.log4j.Log4j2;
 
-/**
- * @author KOSA
- *
- */
-/**
- * @author KOSA
- *
- */
-/**
- * @author KOSA
- *
- */
 @Controller
 @Log4j2
 @RequestMapping("/customer")
@@ -93,18 +82,21 @@ public class RequestController {
 
 				int result = userRegisterService.register(member);
 				if (result == IUserRegisterService.REGISTER_FAIL) {
-					return "redirect:/customer/register";
+					return "redirect:/";
 				} else {
-					result = userRegisterService.register(member);
+					result = IUserRegisterService.REGISTER_SUCCESS;
 					return "redirect:/";
 				}
-			} 
+			} else {
+				int result = userRegisterService.register(member);
+				return "redirect:/";
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("registerResult", "FAIL");
 			return "redirect:/customer/register";
 		}
-		return "redirect:/";
 	}
 
 	/**
@@ -125,7 +117,9 @@ public class RequestController {
 		//시스템
 		List<System> systemList = userRegisterService.getSystemList();
 		model.addAttribute("systemList", systemList);
-
+		
+		//핸드폰 번호 복호화 처리
+		returnMember.setPhone(AesUtil.decrypt(returnMember.getPhone()));
 		model.addAttribute("returnMember", returnMember);
 
 		return "member/mypage_re";
@@ -177,12 +171,16 @@ public class RequestController {
 		request.setStatusNo(1);
 		requestProcess.setReqType("정규");
 		
+		Member sessionMember = (Member) session.getAttribute("member");
+		//핸드폰 번호 복호화 처리
+		sessionMember.setPhone(AesUtil.decrypt(sessionMember.getPhone()));
+		
 		// 시스템 리스트 전달
 		List<System> systemList = userRegisterService.getSystemList();
 		model.addAttribute("request", request);
 		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("systemList", systemList);
-		
+		model.addAttribute("member", sessionMember);
 		return "srm/request/request";
 	}
 	
@@ -384,6 +382,12 @@ public class RequestController {
 		model.addAttribute("request", request);
 		model.addAttribute("requestProcess", request);
 		model.addAttribute("systemList", systemList);
+		
+		//세션에 저장된 멤버 객체 전달
+		Member member = (Member) session.getAttribute("member");
+		//핸드폰 번호 복호화 처리
+		member.setPhone(AesUtil.decrypt(member.getPhone()));
+		model.addAttribute("returnMember", member);
 		// 요청 상태가 반려일 때 상태 변경 정보(반려 사유)
 		if(request.getStatusNo()==12) {
 			model.addAttribute("rejectHistory", pMService.getStatusHistory(rno, "reject"));
