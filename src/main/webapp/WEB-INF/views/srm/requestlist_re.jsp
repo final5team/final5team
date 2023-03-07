@@ -261,21 +261,21 @@
 							<div class="pagingButtonSet d-flex justify-content-center">
 								<a onclick="pageChange(1)" type="button" class="btn btn-muted shadow">처음</a>
 								<c:if test="${pager.groupNo > 1}">
-									<a onclick="pageChange(${pager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
+									<a onclick="pageChange(${pager.startPageNo-1}  )" class="btn btn-muted shadow">이전</a>
 
 								</c:if>
 
 								<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
 									<c:if test="${pager.pageNo != i}">
-										<a onclick="pageChange(${i})" type="button" class="btn btn-white shadow">${i}</a>
+										<a onclick="pageChange(${i} )" type="button" class="btn btn-white shadow">${i}</a>
 									</c:if>
 									<c:if test="${pager.pageNo == i}">
-										<a onclick="pageChange(${i})" type="button" class="btn btn-dark shadow">${i}</a>
+										<a onclick="pageChange(${i} )" type="button" class="btn btn-dark shadow">${i}</a>
 									</c:if>
 								</c:forEach>
 
 								<c:if test="${pager.groupNo < pager.totalGroupNo }">
-									<a onclick="pageChange(${pager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
+									<a onclick="pageChange(${pager.endPageNo+1} )" type="button" class="btn btn-muted shadow">다음</a>
 
 								</c:if>
 								<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
@@ -286,8 +286,10 @@
 						    <span></span>
 						    <span></span>
 						</div>
-
+					
 					</section>
+					<input type="hidden" id="state" value=""> 
+					<input type="hidden" id="th_first_id" value=""> 
 					</main>
 				</div>
 			</div>
@@ -308,15 +310,42 @@
 	</a>
 
 	<script>
-
+	$(document).ready(function() {
+		//테이블 정렬을 위한 변수
+		let state_value = document.querySelector('#state');
+		let state = state_value.value;
+		
+		let th_first_id_value = document.querySelector('#th_first_id');
+		let th_first_id = th_first_id_value.value;
+				
+		//정렬 기능 적용하기 위한 css
+		let th_no = document.querySelector('#th_no');
+		//th_first 클릭이므로
+		th_no.addEventListener('click', (event) => {
+			event.preventDefault();
+			//변수값 설정
+			state = 'asc';
+			th_first_id = 'th_no';
+			//hidden 태그 값 설정
+			state_value.value = 'asc';
+			th_first_id_value.value = 'th_no';
+ 			//css 변경
+			th_no.classList.remove('th_first');
+			th_no.classList.add('th_first_asc');
+			
+ 			search(state, th_first_id);
+			
+		});
+		
+		
+		
+	})
  
 // 내 요청 목록 ajax 호출 : switch 
 	function myRequestList(mtype){
 		let memberType = mtype;
-		
 		let loading = document.querySelector(".loading");
 		loading.style.visibility = 'visible';
-		
 		// mtype 전달, 페이징 처리 
 		if($('#myRequest').is(":checked")){
 			if(memberType != 'pm'){
@@ -343,7 +372,6 @@
 			// 검색 h4 태그 글자 바꾸기
 			let filterName = document.getElementsByClassName("filtering-name")[0];
 			filterName.innerText='업무 검색';
-			
 			data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1 };	
 			$.ajax({
 		  		url : "myworklist",
@@ -353,19 +381,15 @@
 				success : function (){
 					loading.style.visibility = 'hidden';
 				}
-				
-				
 			}).done((data) => {
 				let table = document.querySelector('#table_content');
 				$('#table_content').html(data);
-				
 				//기존 페이지 태그 삭제하기
 				const pageDefault = document.querySelector('.default');
 				if(pageDefault != null){
 					pageDefault.remove();
 				}
 			});
-			
 			// 내 요청 목록 호출 
 		} else {
 			//담당자들 시스템 필터 hidden처리
@@ -375,24 +399,17 @@
 				sno_label.style.visibility = 'visible';
 				sno_input.style.visibility = 'visible';
 			}
-			
-			
-			
-			
 			// h4 태그 글자 바꾸기 
 			let name = document.getElementsByClassName("table-name")[0];
 			name.innerText='내 요청 목록';
 			name.classList.add('fc');
-			
 			// 검색 h4 태그 글자 바꾸기
 			let filterName = document.getElementsByClassName("filtering-name")[0];
 			filterName.innerText='요청 검색';
-			
 			//테이블 왼쪽 border 색 바꾸기
 			let tableBorder = document.querySelector(".table");
 			tableBorder.classList.remove('border-left-dark');
 			tableBorder.classList.add('border-left-primary');
-			
 			/* console.log("내 요청 목록 호출"); */
 			
 			data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1}
@@ -404,18 +421,14 @@
 				success : function (){
 					loading.style.visibility = 'hidden';
 				}
-				
-				
 			}).done((data) => {
 				$('#table_content').html(data);
-				
 				//테이블 색상 변경하기
 				let tableHead = document.querySelectorAll(".ex");
 				console.log(tableHead);
 				for(let i = 0; i < tableHead.length; i++){
 					tableHead[i].classList.add('bc');
 				}
-				
 				//기존 페이지 태그 삭제하기
 				const pageDefault = document.querySelector('.default');
 				if(pageDefault != null){
@@ -426,7 +439,18 @@
 	} 
 	
 		// 페이지 이동 ajax
-		function pageChange(i){
+		function pageChange(i, state, th_first_id){
+			console.log('페이지 이동 ajax');
+			console.log(state, th_first_id);
+			
+			//hidden tag 가져오기
+			let state_value = document.querySelector('#state');
+			let th_first_id_value = document.querySelector('#th_first_id');
+			
+			//가져온 hedden tag에 값 넣어주기
+			state_value.value = state;
+			th_first_id_value.value = th_first_id;
+			console.log("넣어준 값" ,state_value, th_first_id_value);
 			
 			
 			let loading = document.querySelector(".loading");
@@ -450,8 +474,6 @@
 				sno = document.querySelector('.sno').value
 				console.log(sno);
 			}
-			
-			
 			let filterStatusNo = document.getElementById('statusNo');  
 			let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
 			
@@ -459,7 +481,7 @@
 			
 			
 			data = {pageNo : i, reqType : ReqType, dateFirst : dateFirst, dateLast : dateLast, sno : parseInt(sno), 
-					statusNo : parseInt(statusNo)}
+					statusNo : parseInt(statusNo), columnName : th_first_id, sortState : state}
 			
 			// 담당 업무 목록으로 검색 
 			if($('#myRequest').is(":checked")){ 
@@ -523,7 +545,15 @@
 		}	
 	// filter 검색 기능 ajax
 	function search(state, th_first_id){
-		console.log(state, th_first_id);
+			//테이블 정렬을 위한 변수
+			let state_value = document.querySelector('#state');
+			state = state_value.value;
+			let th_first_id_value = document.querySelector('#th_first_id');
+			th_first_id = th_first_id_value.value;
+			
+			console.log("검색 전 태그값" , state_value, th_first_id_value);
+			console.log("검색 전 매개변수 값" ,state, th_first_id);
+		
 		
 			let loading = document.querySelector(".loading");
 			loading.style.visibility = 'visible';
@@ -551,6 +581,8 @@
 			let filterStatusNo = document.getElementById('statusNo');  
 			let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
 			
+			
+			
 			if(typeof state == 'undefined' || typeof th_first_id == 'undefined'){
 				console.log('검색에 정렬 입력값 들어옴');
 				console.log(state);
@@ -558,7 +590,8 @@
 			} 
 			
 			
-			data = {reqType : ReqType, dateFirst : dateFirst, dateLast : dateLast, sno : parseInt(sno), statusNo : parseInt(statusNo), columnName : th_first_id, sortState : state }
+			data = {reqType : ReqType, dateFirst : dateFirst, dateLast : dateLast, sno : parseInt(sno), statusNo : parseInt(statusNo), 
+					columnName : th_first_id, sortState : state }
 			
 			// 담당 업무 목록 검색 기능
 			if($('#myRequest').is(":checked")){ 
@@ -616,66 +649,11 @@
 					}
 				});
 			}
-			
-		
-		
 	}	
 	
 	
-	//처음 클릭시 내림차순 다음 클릭시 오름차순
-	//th_first 클릭
-	$(document).ready(function() {
-		let state = '';
-		let th_first_id = '';
-		
-		//정렬 기능 적용하기 위한 css
-		let ex = document.querySelector('#th_no');
-		state = 'asc';
-		ex.addEventListener('click', (event) => {
-			if(state == 'asc'){
-				event.preventDefault();
-				
-				
-				ex.classList.remove('th_first');
-				ex.classList.add('th_first_asc');
-				
-				let th_first = document.querySelector('#th_no');	
-				let th_first_id = th_first.id;
-				//검색 함수 실행 (변수를 넣어준다)
-				console.log('오름차순 정렬 됨');
-				search(state, th_first_id);
-				state = 'asc';
-				
-				
-				
-			} 
-			
-// 			else if(state == 'desc') {
-// 				event.preventDefault();
-// 				state = 'asc';
-// 				//내림차순 정렬
-// 				console.log('desc');
-// 				ex.classList.remove('th_first_asc');
-// 				ex.classList.add('th_first_desc');
-				
-				
-// 				console.log(ex);
-				
-// 				state= 'none';
-				
-// 			} else {
-// 				event.preventDefault();
-// 				state = 'asc';
-// 				ex.classList.remove('th_first_desc');
-// 				ex.classList.add('th_first');
-				
-// 				console.log(ex);
-// 			}
-			
-			
-		});
-		
-	})
+
+
 	
 	
 	

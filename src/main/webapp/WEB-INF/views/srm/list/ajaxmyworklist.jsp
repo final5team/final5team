@@ -5,8 +5,9 @@
 <!DOCTYPE html>
 <table>
 	<tr>
-		<th class="ex <c:if test="${listFilter.columnName == 'th_no' && listFilter.sortState == 'desc'}">th_first_desc</c:if>
-						<c:if test="${listFilter.columnName == 'th_no' && listFilter.sortState == 'asc'}">th_first_asc</c:if>" 
+		<th class="ex th_first <c:if test="${listFilter.columnName == 'th_no' && listFilter.sortState == 'desc'}">th_first_desc</c:if>
+						<c:if test="${listFilter.columnName == 'th_no' && listFilter.sortState == 'asc'}">th_first_asc</c:if>
+						<c:if test="${listFilter.columnName == 'th_no' && listFilter.sortState == 'none'}"></c:if>" 
 			id="th_no">
 			No.
 		</th>
@@ -64,70 +65,90 @@
 
 <div class="pager">
 	<div class="pagingButtonSet d-flex justify-content-center">
-		<a onclick="pageChange(1)" type="button" class="btn btn-muted shadow">처음</a>
+		<a onclick="pageChange(1, '${listFilter.sortState}', '${listFilter.columnName}')" type="button" class="btn btn-muted shadow">처음</a>
 		<c:if test="${pager.groupNo > 1}">
-			<a onclick="pageChange(${pager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
+			<a onclick="pageChange(${pager.startPageNo-1}, '${listFilter.sortState}', '${listFilter.columnName}')" class="btn btn-muted shadow">이전</a>
 								 
 		</c:if>
 
 		<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
 			<c:if test="${pager.pageNo != i}">
-				<a onclick="pageChange(${i})" type="button" class="btn btn-white shadow">${i}</a>
+				<a onclick="pageChange(${i}, '${listFilter.sortState}', '${listFilter.columnName}')" type="button" class="btn btn-white shadow">${i}</a>
 			</c:if>
 			<c:if test="${pager.pageNo == i}">
-				<a onclick="pageChange(${i})" type="button" class="btn btn-dark shadow">${i}</a>
+				<a onclick="pageChange(${i}, '${listFilter.sortState}', '${listFilter.columnName}')" type="button" class="btn btn-dark shadow">${i}</a>
 			</c:if>
 		</c:forEach>
 
 		<c:if test="${pager.groupNo < pager.totalGroupNo }">
-			<a onclick="pageChange(${pager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
+			<a onclick="pageChange(${pager.endPageNo+1}, '${listFilter.sortState}', '${listFilter.columnName}')" type="button" class="btn btn-muted shadow">다음</a>
 
 		</c:if>
-		<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
+		<a onclick="pageChange(${pager.totalPageNo}, '${listFilter.sortState}', '${listFilter.columnName}')" type="button" class="btn btn-muted shadow">맨끝</a>
 	</div>
 </div>
 
+<input type="hidden" id="state" value="${listFilter.sortState}"> 
+<input type="hidden" id="th_first_id" value="${listFilter.columnName}"> 
 <script>
-//처음 클릭시 내림차순 다음 클릭시 오름차순
+
 //th_first 클릭
 $(document).ready(function() {
+	//ajax input 태그 값
+	//ajax 매개변수 값
+	//테이블 정렬을 위한 변수
+	let state_value = document.querySelector('#state');
+	let state = state_value.value;
+	
+	let th_first_id_value = document.querySelector('#th_first_id');
+	let th_first_id = th_first_id_value.value;
+	
+	console.log("ajax 이후 태그",state_value, th_first_id_value);
+	console.log("ajax 이후 변수값", state, th_first_id);
+		
 	//정렬 기능 적용하기 위한 css
 	let ex = document.querySelector('#th_no');
-	let state = 'asc';
 	console.log('ajax로 불러온 페이지');
 	
 	ex.addEventListener('click', (event) => {
 		
-		//오름차순 정렬 결과이므로 내림차순 정렬
+		//내림차순 정렬 실행
 		if(ex.classList.contains('th_first_asc')){
 			event.preventDefault();
-			
-			console.log('desc');
-			
+			state = 'desc';
+			th_first_id = th_first_id;
+			//hidden tag 값 설정
+			state_value.value = 'desc';
+			th_first_id_value.value = th_first_id;
+			//css 설정
 			ex.classList.remove('th_first_asc');
 			ex.classList.add('th_first_desc');
 			
-			let th_first = document.querySelector('#th_no');	
-			let th_first_id = th_first.id;
-			//검색 완료 되었으므로 내림차순으로 변경
-			state = 'desc';
-			
 			search(state, th_first_id);
-			
 			
 		} else if(ex.classList.contains('th_first_desc')){
 			event.preventDefault();
-			console.log('asc');
-			ex.classList.remove('th_first_desc');
-			ex.classList.add('th_first_asc');
-			let th_first = document.querySelector('#th_no');	
-			let th_first_id = th_first.id;
-			//내림차순 검색했으므로 없는 상태로 변경
 			state = 'none';
+			th_first_id = th_first_id;
+			//hidden tag 값 설정
+			state_value.value = 'none';
+			th_first_id_value.value = th_first_id;
+			//css 설정
+			ex.classList.remove('th_first_desc');
+
+			search(state, th_first_id);
+		} else {
+			event.preventDefault();
+			state = 'asc';
+			th_first_id = th_first_id;
+			//hidden tag 값 설정
+			state_value.value = 'asc';
+			th_first_id_value.value = th_first_id;
+			//css 설정
+			ex.classList.remove('th_first_asc');
 			
 			search(state, th_first_id);
 		}
-		
 		
 		
 	});
