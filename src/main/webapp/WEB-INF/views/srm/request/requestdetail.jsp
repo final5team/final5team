@@ -66,13 +66,13 @@
 											</article>
 											<article class="inputData">
 												<div class="item">
-													<input type="text" class="form-control form-control-user" id="clientName" name="clientName" placeholder="${request.clientName}" value="${request.clientName}" readonly>
+													<input type="text" class="form-control form-control-user" id="clientName" name="clientName" placeholder="${request.rname}" value="${request.rname}" readonly>
 												</div>
 												<div class="item">
-													<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="${member.phone}" value="${member.phone}" readonly>
+													<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="${request.rphone}" value="${request.rphone}" readonly>
 												</div>
 												<div class="item">
-													<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="" value="" readonly>
+													<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="${request.rposition}" value="${request.rposition}" readonly>
 												</div>
 												
 												<div class="item">
@@ -93,10 +93,10 @@
 											</article>
 											<article class="inputData2">
 												<div class="item">
-													<input type="text" class="form-control form-control-user" id="organ" name="organ" placeholder="${request.organ}" value="${request.organ}" readonly>
+													<input type="text" class="form-control form-control-user" id="organ" name="organ" placeholder="${request.rorgan}" value="${request.rorgan}" readonly>
 												</div>
 												<div class="item">
-													<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="${request.email}" value="${request.email}" readonly>
+													<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="${request.remail}" value="${request.remail}" readonly>
 												</div>
 												<div class="item">
 													<input type="date" class="form-control form-control-user" id="reqExpectDate" name="reqExpectDate" value="<fmt:formatDate value="${request.reqExpectDate}" pattern="yyyy-MM-dd" />">

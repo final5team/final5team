@@ -383,19 +383,16 @@ public class RequestController {
 		Request request = requestService.getRequestDetail(rno);
 		List<System> systemList = userRegisterService.getSystemList();
 		RequestProcess requestProcess = commonService.getRequestProcess(rno);
+		
+		
+		
+		if(request.getRphone().charAt(0) != '0') {
+			request.setRphone(AesUtil.decrypt(request.getRphone()));
+		}
+		
 		model.addAttribute("request", request);
 		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("systemList", systemList);
-		
-		
-		//세션에 저장된 멤버 객체 전달, 번호 복호화
-		Member member = (Member) session.getAttribute("member");
-		log.info(member);
-		if(member.getPhone().charAt(0) != '0') {
-			member.setPhone(AesUtil.decrypt(member.getPhone()));
-		}
-		model.addAttribute("returnMember", member);
-		
 		// 요청 상태가 반려일 때 상태 변경 정보(반려 사유)
 		if(request.getStatusNo()==12) {
 			model.addAttribute("rejectHistory", pMService.getStatusHistory(rno, "reject"));
