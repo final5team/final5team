@@ -19,6 +19,7 @@ import com.oti.srm.dto.Request;
 import com.oti.srm.dto.SelectPM;
 import com.oti.srm.dto.StatusHistory;
 import com.oti.srm.dto.StatusHistoryFile;
+import com.oti.srm.dto.StatusNoFilter;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -193,10 +194,6 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		return file;
 	}
 	
-	
-	
-	
-	
 //	DB에 없거나, mapper에서 편하게 사용하기 위해 정의 내려준 메소드
 
 	//날짜 필터링 메소드
@@ -296,6 +293,16 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		}
 		
 		return listFilter;
+	}
+
+	@Override
+	public int getMainToWorkerListRows(StatusNoFilter statusNoFilter, Member member) {
+		return requestDao.selectMainToWorkerListRows(statusNoFilter.getStatusNo(), member);
+	}
+
+	@Override
+	public List<SelectPM> getMainToWorkerList(StatusNoFilter statusNoFilter, Member member, Pager pager) {
+		return requestDao.selectMainToWorkerList(statusNoFilter.getStatusNo(), member, pager);
 	}
 
 

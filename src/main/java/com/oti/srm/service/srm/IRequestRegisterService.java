@@ -3,12 +3,15 @@ package com.oti.srm.service.srm;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.oti.srm.dto.ListFilter;
 import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.SelectPM;
 import com.oti.srm.dto.StatusHistoryFile;
+import com.oti.srm.dto.StatusNoFilter;
 
 public interface IRequestRegisterService {
 	public enum RequestResult {
@@ -43,6 +46,7 @@ public interface IRequestRegisterService {
 	public StatusHistoryFile getMyRequestFile(int fno);
 
 	public ListFilter dateFilterList(ListFilter listFilter);
-	
+	public int getMainToWorkerListRows(StatusNoFilter statusNoFilter, Member member);
+	public List<SelectPM> getMainToWorkerList(StatusNoFilter statusNoFilter, Member member, Pager pager);
 	
 }

@@ -322,20 +322,41 @@
 		 <if test="member.mtype == 'tester'">, rp.tester as "tester"</if>
 		 <if test="member.mtype == 'distributor'">, rp.distributor as "distributor"</if>
 		from requests r, request_process rp, systems s, members m, status st 
-		where r.rno = rp.rno
-		and r.sno = s.sno
-		 <if test="member.mtype == 'developer'"> and rp.developer = m.mid</if>
-		 <if test="member.mtype == 'usertester'"> and rp.user_tester  = m.mid</if>
-		 <if test="member.mtype == 'tester'"> and rp.tester = m.mid</if>
-		 <if test="member.mtype == 'distributor'"> and rp.distributor  = m.mid</if>
-		and r.status_no = st.status_no
-		and r.sno = #{member.sno}
-		<if test='checkbox =="y"'>
-			<if test="member.mtype == 'developer'"> and rp.developer = #{member.mid}</if>
-		 	<if test="member.mtype == 'usertester'"> and rp.user_tester  = #{member.mid}</if>
-		 	<if test="member.mtype == 'tester'"> and rp.tester = #{member.mid}</if>
-		 	<if test="member.mtype == 'distributor'"> and rp.distributor  = #{member.mid}</if>
-		</if>
+		<where> 
+			r.rno = rp.rno
+			and r.sno = s.sno
+			 <if test="member.mtype == 'developer'"> and rp.developer = m.mid</if>
+			 <if test="member.mtype == 'usertester'">and rp.user_tester  = m.mid</if>
+			 <if test="member.mtype == 'tester'">and rp.tester = m.mid</if>
+			 <if test="member.mtype == 'distributor'">and rp.distributor  = m.mid</if>
+			and r.status_no = st.status_no
+			and r.sno = #{member.sno}
+			<if test='checkbox =="y"'>
+				<if test="member.mtype == 'developer'"> and rp.developer = #{member.mid}</if>
+				 <if test="member.mtype == 'usertester'">and rp.user_tester  = #{member.mid}</if>
+				 <if test="member.mtype == 'tester'">and rp.tester = #{member.mid}</if>
+				 <if test="member.mtype == 'distributor'">and rp.distributor  = #{member.mid}</if>
+			</if>
+			<if test="status == '대기'">
+				<if test="member.mtype == 'developer'"> and r.status_no <![CDATA[=]]> 2</if>
+				<if test="member.mtype == 'tester'">and r.status_no <![CDATA[<=]]> 5</if>
+				<if test="member.mtype == 'usertester'">and r.status_no <![CDATA[<=]]> 7</if>
+				<if test="member.mtype == 'distributor'">and r.status_no <![CDATA[<=]]> 9</if>
+			</if>
+			<if test="status == '진행중'">
+				<if test="member.mtype == 'developer'"> and r.status_no <![CDATA[=]]> 4</if>
+				<if test="member.mtype == 'tester'">and r.status_no <![CDATA[=]]> 6</if>
+				<if test="member.mtype == 'usertester'">and r.status_no <![CDATA[=]]> 8</if>
+				<if test="member.mtype == 'distributor'">and r.status_no <![CDATA[=]]> 10</if>
+			</if>
+			<if test="status == '완료'">
+				<if test="member.mtype == 'developer'"> and r.status_no <![CDATA[>=]]> 5 </if>
+				<if test="member.mtype == 'tester'">and r.status_no <![CDATA[>=]]> 7</if>
+				<if test="member.mtype == 'usertester'">and r.status_no <![CDATA[>=]]> 9</if>
+				<if test="member.mtype == 'distributor'">and r.status_no <![CDATA[>=]]> 11</if>
+			</if>
+			<if test="status == '재검토'"> and r.status_no <![CDATA[=]]> 3</if>
+		</where>
 		order by r.req_date 
 		OFFSET (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS
 		FETCH NEXT #{pager.rowsPerPage} ROWS ONLY
@@ -344,20 +365,41 @@
 	<select id="selectRequestProcessRows" parameterType="map" resultType="int">
 		select count(*)
 		from requests r, request_process rp, systems s, members m, status st 
-		where r.rno = rp.rno
-		and r.sno = s.sno
-		 <if test="member.mtype == 'developer'"> and rp.developer = m.mid</if>
-		 <if test="member.mtype == 'usertester'">and rp.user_tester  = m.mid</if>
-		 <if test="member.mtype == 'tester'">and rp.tester = m.mid</if>
-		 <if test="member.mtype == 'distributor'">and rp.distributor  = m.mid</if>
-		and r.status_no = st.status_no
-		and r.sno = #{member.sno}
-		<if test='checkbox =="y"'>
-			<if test="member.mtype == 'developer'"> and rp.developer = #{member.mid}</if>
-			 <if test="member.mtype == 'usertester'">and rp.user_tester  = #{member.mid}</if>
-			 <if test="member.mtype == 'tester'">and rp.tester = #{member.mid}</if>
-			 <if test="member.mtype == 'distributor'">and rp.distributor  = #{member.mid}</if>
-		</if>
+		<where> 
+			r.rno = rp.rno
+			and r.sno = s.sno
+			 <if test="member.mtype == 'developer'"> and rp.developer = m.mid</if>
+			 <if test="member.mtype == 'usertester'">and rp.user_tester  = m.mid</if>
+			 <if test="member.mtype == 'tester'">and rp.tester = m.mid</if>
+			 <if test="member.mtype == 'distributor'">and rp.distributor  = m.mid</if>
+			and r.status_no = st.status_no
+			and r.sno = #{member.sno}
+			<if test='checkbox =="y"'>
+				<if test="member.mtype == 'developer'"> and rp.developer = #{member.mid}</if>
+				 <if test="member.mtype == 'usertester'">and rp.user_tester  = #{member.mid}</if>
+				 <if test="member.mtype == 'tester'">and rp.tester = #{member.mid}</if>
+				 <if test="member.mtype == 'distributor'">and rp.distributor  = #{member.mid}</if>
+			</if>
+			<if test="status == '대기'">
+				<if test="member.mtype == 'developer'"> and r.status_no <![CDATA[=]]> 2</if>
+				<if test="member.mtype == 'tester'">and r.status_no <![CDATA[<=]]> 5</if>
+				<if test="member.mtype == 'usertester'">and r.status_no <![CDATA[<=]]> 7</if>
+				<if test="member.mtype == 'distributor'">and r.status_no <![CDATA[<=]]> 9</if>
+			</if>
+			<if test="status == '진행중'">
+				<if test="member.mtype == 'developer'"> and r.status_no <![CDATA[=]]> 4</if>
+				<if test="member.mtype == 'tester'">and r.status_no <![CDATA[=]]> 6</if>
+				<if test="member.mtype == 'usertester'">and r.status_no <![CDATA[=]]> 8</if>
+				<if test="member.mtype == 'distributor'">and r.status_no <![CDATA[=]]> 10</if>
+			</if>
+			<if test="status == '완료'">
+				<if test="member.mtype == 'developer'"> and r.status_no <![CDATA[>=]]> 5 </if>
+				<if test="member.mtype == 'tester'">and r.status_no <![CDATA[>=]]> 7</if>
+				<if test="member.mtype == 'usertester'">and r.status_no <![CDATA[>=]]> 9</if>
+				<if test="member.mtype == 'distributor'">and r.status_no <![CDATA[>=]]> 11</if>
+			</if>
+			<if test="status == '재검토'"> and r.status_no <![CDATA[=]]> 3</if>
+		</where>
 	</select>
 	
 	<select id="selectUserRequestListCount" parameterType="map" resultType="int">
@@ -459,6 +501,60 @@
 			change_date = sysdate
 		where hno = #{hno}
 	</update>
+	
+	<select id="selectPmRequestProcessList" parameterType="map" resultType="com.oti.srm.dto.RequestProcess">
+		select 
+			r.req_title as "reqTitle", 
+			rp.req_type as "reqType", 
+			rp.priority as "priority", 
+			r.req_date as "reqDate",
+		 	rp.all_expect_date as "allExpectDate",
+		 	st.status_name as "statusName", 
+		 	r.rno as "rno"
+		from requests r, request_process rp, systems s, status st 
+		<where> 
+			r.rno = rp.rno(+)
+			and r.sno = s.sno
+			and r.status_no = st.status_no
+			<if test="status == '접수대기'">
+				and r.status_no = 1
+			</if>
+			<if test="status == '승인대기'">
+				and r.status_no = 11
+			</if>
+			<if test="status == '진행중'">
+				and r.status_no in (2, 3, 4, 5, 6, 7, 8, 9, 10)
+			</if>
+			<if test="status == '완료및반려'"> 
+			 	and r.status_no in (12, 13)
+			 </if>
+		</where>
+		order by r.req_date 
+		OFFSET (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS
+		FETCH NEXT #{pager.rowsPerPage} ROWS ONLY
+	</select>
+	
+	<select id="selectPmRequestProcessRows" parameterType="map" resultType="int">
+		select count(*)
+		from requests r, request_process rp, systems s, status st 
+		<where> 
+			r.rno = rp.rno(+)
+			and r.sno = s.sno
+			and r.status_no = st.status_no
+			<if test="status == '접수대기'">
+				and r.status_no = 1
+			</if>
+			<if test="status == '승인대기'">
+				and r.status_no = 11
+			</if>
+			<if test="status == '진행중'">
+				and r.status_no in (2, 3, 4, 5, 6, 7, 8, 9, 10)
+			</if>
+			<if test="status == '완료및반려'"> 
+			 	and r.status_no in (12, 13)
+			 </if>
+		</where>
+	</select>
 		
 	
 </mapper>

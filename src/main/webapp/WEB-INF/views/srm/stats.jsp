@@ -333,7 +333,7 @@
 							        			 <!-- 단계 카드들 -->
 												<div class="row">
 	
-												    <div class="mb-4 m-2 ml-4">
+												    <a class="mb-4 m-2" href="${pageContext.request.contextPath}/customer/requestlist?statusNo=1">
 										                <div class="card border-left-primary shadow h-100 py-2" style="width:140px">
 										                     <div class="card-body">
 										                          <div class="row no-gutters align-items-center">
@@ -347,9 +347,9 @@
 										                           </div>
 										                        </div>
 										                  </div>
-										             </div>
+										             </a>
 										                        
-										             <div class="mb-4 m-2">
+										             <a class="mb-4 m-2" href="${pageContext.request.contextPath}/customer/requestlist?statusNo=2">
 										                 <div class="card border-left-success shadow h-100 py-2" style="width:140px">
 										                     <div class="card-body">
 										                          <div class="row no-gutters align-items-center">
@@ -363,9 +363,9 @@
 										                          </div>
 										                      </div>
 										                  </div>
-										              </div>
+										              </a>
 										
-										              <div class="mb-4 m-2">
+										              <a class="mb-4 m-2" href="${pageContext.request.contextPath}/customer/requestlist?statusNo=5">
 										                   <div class="card border-left-info shadow h-100 py-2" style="width:140px">
 										                        <div class="card-body">
 										                             <div class="row no-gutters align-items-center">
@@ -379,9 +379,9 @@
 										                                </div>
 										                            </div>
 										                       </div>
-										                 </div>
+										                 </a>
 								
-								                        <div class="mb-4 m-2">
+								                        <a class="mb-4 m-2" href="${pageContext.request.contextPath}/customer/requestlist?statusNo=8">
 								                            <div class="card border-left-warning shadow h-100 py-2" style="width:150px">
 								                                <div class="card-body">
 								                                    <div class="row no-gutters align-items-center">
@@ -395,9 +395,9 @@
 								                                    </div>
 								                                </div>
 								                            </div>
-								                        </div>
+								                        </a>
 										                        
-								                        <div class="mb-4 m-2">
+								                        <a class="mb-4 m-2" href="${pageContext.request.contextPath}/customer/requestlist?statusNo=10">
 								                            <div class="card border-left-danger shadow h-100 py-2" style="width:140px">
 								                                <div class="card-body">
 								                                    <div class="row no-gutters align-items-center">
@@ -411,9 +411,9 @@
 								                                    </div>
 								                                </div>
 								                            </div>
-								                        </div>
+								                        </a>
 								                        
-								                        <div class="mb-4 m-2">
+								                        <a class="mb-4 m-2" href="${pageContext.request.contextPath}/customer/requestlist?statusNo=11">
 								                            <div class="card border-left-secondary shadow h-100 py-2" style="width:140px">
 								                                <div class="card-body">
 								                                    <div class="row no-gutters align-items-center">
@@ -427,7 +427,7 @@
 								                                    </div>
 								                                </div>
 								                            </div>
-								                        </div>
+								                        </a>
 	       
 												  </div>
 							        		

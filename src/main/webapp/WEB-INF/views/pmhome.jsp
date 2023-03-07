@@ -42,7 +42,7 @@
                		<div id="main" >
                			<!-- 상단 업무 현황 바 start -->
                			<div class="d-flex justify-content-between" style="flex-wrap: nowrap;">
-               				<div class="uppermain mb-4 ml-3">
+               				<a class="uppermain mb-4 ml-3" href="#" onclick="pmRequestProcessList(1, '접수대기')">
 	                            <div class="card border-left-primary shadow h-100 py-2">
 	                                <div class="card-body">
 	                                    <div class="row no-gutters align-items-center">
@@ -60,9 +60,9 @@
 	                                    </div>
 	                                </div>
 	                            </div>
-	                        </div>
+	                        </a>
 	                        
-	                        <div class="uppermain mb-4">
+	                        <a class="uppermain mb-4" href="#" onclick="pmRequestProcessList(1, '승인대기')">
 	                            <div class="card border-left-primary shadow h-100 py-2">
 	                                <div class="card-body">
 	                                    <div class="row no-gutters align-items-center">
@@ -80,10 +80,10 @@
 	                                    </div>
 	                                </div>
 	                            </div>
-	                        </div>
+	                        </a>
 	                        
                			
-	               			 <div class="uppermain mb-4">
+	               			 <a class="uppermain mb-4" href="#" onclick="pmRequestProcessList(1, '진행중')">
 	                            <div class="card border-left-success shadow h-100 py-2">
 	                                <div class="card-body">
 	                                    <div class="row no-gutters align-items-center">
@@ -110,9 +110,9 @@
 	                                    </div>
 	                                </div>
 	                            </div>
-	                        </div>
+	                        </a>
 	               			
-	               			<div class="uppermain mb-4">
+	               			<a class="uppermain mb-4" href="#" onclick="pmRequestProcessList(1, '완료및반려')">
 	                            <div class="card border-left-info shadow h-100 py-2">
 	                                <div class="card-body">
 	                                    <div class="row no-gutters align-items-center">
@@ -131,12 +131,156 @@
 	                                    </div>
 	                                </div>
 	                            </div>
-	                        </div>         
+	                        </a>         
                			</div>
                			<!-- 상단 업무 현황 바 end -->
                			
                			<!-- 하단 오늘 마감 and 공지사항 start-->
 							<!-- 오늘마감start -->
+							<!-- pm 업무 리스트 start -->
+							<div class="col-12 my-4">
+								<div class="card tasks border-left-dark shadow" style="height: 420.896px;">
+									<div class="card-header d-flex">
+			                			<h5 class="title ml-3 mr-auto" id="devTitle">
+			                				<span id="title">PM 업무 리스트</span>		
+			                			</h5>
+									</div>
+									<div class="card-block pt-2" style="height: 350px;" id="requestProcessListContainer">
+										<!-- 리스트 start -->
+										<div style="height: 305px;">
+											<table class="table tasks-block table-striped table-hover"  >
+												<thead style="background-color: #3A4651;" class="text-white">
+													<tr style="text-align: center;">
+														<th>번호</th>
+														<th>요청유형</th>
+														<th>제목</th>
+														<th>우선순위</th>
+														<th>요청일</th>
+														<th>완료예정일</th>
+														<th>진행상황</th>
+													</tr>
+												</thead>
+												<tbody >
+													<c:forEach var="requestProcess" items="${requestProcessList}" varStatus="i">
+													<tr style="text-align: center;">
+														<td>${i.count}</td>
+														<c:if test="${requestProcess.reqType != null}">
+															<td <c:if test="${requestProcess.reqType == '긴급'}"> class="text-danger"</c:if>>
+																${requestProcess.reqType}
+															</td>
+														</c:if>
+														<c:if test="${requestProcess.reqType == null}">
+															<c:if test="${requestProcess.statusName == '접수중'}">
+																<td class="text-primary">
+																	미정
+																</td>
+															</c:if>
+															<c:if test="${requestProcess.statusName == '반려'}">
+																<td class="text-warning">
+																	반려
+																</td>
+															</c:if>
+														</c:if>
+														<td class="tableContent">
+															<a href="${pageContext.request.contextPath}/developerdetail?rno=${requestProcess.rno}">
+																${requestProcess.reqTitle}
+															</a>
+														</td>
+														<td>
+															<c:if test="${requestProcess.priority != null}">
+																<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
+																	<span class="fa fa-star checked" style="color: orange;"></span>
+																</c:if>
+																<c:if test="${requestProcess.priority eq '중' || requestProcess.priority eq '상'}">
+																	<span class="fa fa-star checked" style="color: orange;"></span>
+																</c:if>
+																<c:if test="${requestProcess.priority eq '상'}">
+																	<span class="fa fa-star checked" style="color: orange;"></span>
+																</c:if>
+															</c:if>
+															<c:if test="${requestProcess.priority == null}">
+																<span class="text-info">미정</span>
+															</c:if>
+														</td>
+														<td>
+															<c:if test="${requestProcess.reqDate != null}">
+																<fmt:formatDate value="${requestProcess.reqDate}" pattern="yyyy-MM-dd"/>
+															</c:if>
+															<c:if test="${requestProcess.reqDate == null}">
+																<span class="text-info">미정</span>
+															</c:if>
+															
+														</td>
+														<td>
+															<c:if test="${requestProcess.allExpectDate != null}">
+																<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>
+															</c:if>
+															<c:if test="${requestProcess.allExpectDate == null}">
+																<span class="text-info">미정</span>
+															</c:if>
+														</td>
+														<td>
+															<c:if test="${requestProcess.statusName eq '접수중' || requestProcess.statusName eq '접수완료' }">
+																<span class="badge badge-warning">${requestProcess.statusName}</span>
+															</c:if>
+															<c:if test="${requestProcess.statusName eq '개발재검토' || requestProcess.statusName eq '반려' }">
+																<span class="badge badge-danger">${requestProcess.statusName}</span>
+															</c:if>
+															<c:if test="${requestProcess.statusName eq '개발중' || requestProcess.statusName eq '개발완료' }">
+																<span class="badge badge-primary">${requestProcess.statusName}</span>
+															</c:if>
+															<c:if test="${requestProcess.statusName eq '테스트중' || requestProcess.statusName eq '테스트완료' }">
+																<span class="badge badge-success">${requestProcess.statusName}</span>
+															</c:if>
+															<c:if test="${requestProcess.statusName eq '유저테스트중' || requestProcess.statusName eq '유저테스트완료' }">
+																<span class="badge badge-info">${requestProcess.statusName}</span>
+															</c:if>
+															<c:if test="${requestProcess.statusName eq '배포중' || requestProcess.statusName eq '배포완료' }">
+																<span class="badge badge-secondary">${requestProcess.statusName}</span>
+															</c:if>
+															<c:if test="${requestProcess.statusName eq '완료'}">
+																<span class="badge badge-dark">${requestProcess.statusName}</span>
+															</c:if>
+														
+														</td>
+													</tr>
+													</c:forEach>
+												</tbody>
+											</table>
+										</div>
+										<div>
+											<div class="pager default mt-3">
+												<div class="pagingButtonSet d-flex justify-content-center">
+													<a onclick="pmRequestProcessList(1, '${searchStatus}')" type="button" class="btn btn-muted shadow">처음</a>
+													<c:if test="${rpPager.groupNo > 1}">
+														<a onclick="pmRequestProcessList(${rpPager.startPageNo-1}, '${searchStatus}')" class="btn btn-muted shadow">이전</a>
+					
+													</c:if>
+					
+													<c:forEach var="i" begin="${rpPager.startPageNo}" end="${rpPager.endPageNo}">
+														<c:if test="${rpPager.pageNo != i}">
+															<a onclick="pmRequestProcessList(${i}, '${searchStatus}')" type="button" class="btn btn-white shadow">${i}</a>
+														</c:if>
+														<c:if test="${rpPager.pageNo == i}">
+															<a onclick="pmRequestProcessList(${i}, '${searchStatus}')" type="button" class="btn btn-dark shadow">${i}</a>
+														</c:if>
+													</c:forEach>
+					
+													<c:if test="${rpPager.groupNo < rpPager.totalGroupNo }">
+														<a onclick="pmRequestProcessList(${rpPager.endPageNo+1}, '${searchStatus}')" type="button" class="btn btn-muted shadow">다음</a>
+					
+													</c:if>
+													<a onclick="pmRequestProcessList(${rpPager.totalPageNo}, '${searchStatus}')" type="button" class="btn btn-muted shadow">맨끝</a>
+												</div>
+											</div>
+										</div>	
+
+										<!--리스트 end -->
+									</div>
+								</div>
+							</div>
+							<!-- pm 업무 리스트 end -->
+							<!-- dday7 업무 리스트 start -->
 							<div class="col-12 my-4">
 								<div class="card border-left-dark shadow" style="height: 420.896px;">
 									<div class="card-header">
@@ -223,36 +367,35 @@
 												</tbody>
 											</table>
 										</div>
-										<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
-										    <li class="page-item"><a class="page-link" onclick="sevenDaysList(1)">처음</a></li>
-										    <c:if test="${dPager.groupNo>1}">
-											    <li class="page-item">
-											    	<a class="page-link" onclick="sevenDaysList(${dPager.startPageNo-1})">
-											    		<i class="fas fa-caret-left"></i>
-											    	</a>
-											    </li>
-										    </c:if>
-										    <c:forEach var="i" begin="${dPager.startPageNo}" end="${dPager.endPageNo}">
-										    	<c:if test="${dPager.pageNo != i}">
-											    	<li class="page-item"><a class="page-link" onclick="sevenDaysList(${i})">${i}</a></li>
-										    	</c:if>
-										    	<c:if test="${dPager.pageNo == i}">
-											    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" onclick="sevenDaysList(${i})">${i}</a></li>
-										    	</c:if>
-										    </c:forEach>
-										    <c:if test="${dPager.groupNo< dPager.totalGroupNo}">
-											    <li class="page-item">
-											    	<a class="page-link" onclick="sevenDaysList(${dPager.endPageNo + 1})">
-											    		<i class="fas fa-caret-right"></i>
-											   	 	</a>
-											    </li>
-										    </c:if>
-										    <li class="page-item"><a class="page-link" onclick="sevenDaysList(${dPager.totalPageNo})">맨끝</a></li>
-										</ul>
+										<div class="pager default mt-4">
+											<div class="pagingButtonSet d-flex justify-content-center">
+												<a onclick="sevenDaysList(1)" type="button" class="btn btn-muted shadow">처음</a>
+												<c:if test="${dPager.groupNo > 1}">
+													<a onclick="sevenDaysList(${dPager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
+				
+												</c:if>
+				
+												<c:forEach var="i" begin="${dPager.startPageNo}" end="${dPager.endPageNo}">
+													<c:if test="${dPager.pageNo != i}">
+														<a onclick="sevenDaysList(${i})" type="button" class="btn btn-white shadow">${i}</a>
+													</c:if>
+													<c:if test="${dPager.pageNo == i}">
+														<a onclick="sevenDaysList(${i})" type="button" class="btn btn-dark shadow">${i}</a>
+													</c:if>
+												</c:forEach>
+				
+												<c:if test="${dPager.groupNo < dPager.totalGroupNo }">
+													<a onclick="sevenDaysList(${dPager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
+				
+												</c:if>
+												<a onclick="sevenDaysList(${dPager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
+											</div>
+										</div>
 										<!-- 개발리스트 end -->
 									</div>
 								</div>
 							</div>
+							<!-- dday7 업무 리스트 end -->
 							<!-- 오늘마감end -->
 							<!-- 공지사항 start -->
 							<div class="col-12 mb-4">
@@ -287,32 +430,30 @@
 												</tbody>
 											</table>
 										</div>
-										<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
-										    <li class="page-item"><a class="page-link" onclick="mainNoticeList(1)">처음</a></li>
-										    <c:if test="${nPager.groupNo>1}">
-											    <li class="page-item">
-											    	<a class="page-link" onclick="mainNoticeList(${nPager.startPageNo-1})">
-											    		<i class="fas fa-caret-left"></i>
-											    	</a>
-											    </li>
-										    </c:if>
-										    <c:forEach var="i" begin="${nPager.startPageNo}" end="${nPager.endPageNo}">
-										    	<c:if test="${nPager.pageNo != i}">
-											    	<li class="page-item"><a class="page-link" onclick="mainNoticeList(${i})">${i}</a></li>
-										    	</c:if>
-										    	<c:if test="${nPager.pageNo == i}">
-											    	<li class="page-item"><a class="page-link" style="background-color: #72B22B; color: white;"onclick="mainNoticeList(${i})">${i}</a></li>
-										    	</c:if>
-										    </c:forEach>
-										    <c:if test="${nPager.groupNo<nPager.totalGroupNo}">
-											    <li class="page-item">
-											    	<a class="page-link" onclick="mainNoticeList(${nPager.endPageNo + 1})">
-											    		<i class="fas fa-caret-right"></i>
-											   	 	</a>
-											    </li>
-										    </c:if>
-										    <li class="page-item"><a class="page-link" onclick="mainNoticeList(${nPager.totalPageNo})">맨끝</a></li>
-										</ul>
+										<div class="pager default mt-4">
+											<div class="pagingButtonSet d-flex justify-content-center">
+												<a onclick="mainNoticeList(1)" type="button" class="btn btn-muted shadow">처음</a>
+												<c:if test="${nPager.groupNo > 1}">
+													<a onclick="mainNoticeList(${nPager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
+				
+												</c:if>
+				
+												<c:forEach var="i" begin="${nPager.startPageNo}" end="${nPager.endPageNo}">
+													<c:if test="${nPager.pageNo != i}">
+														<a onclick="mainNoticeList(${i})" type="button" class="btn btn-white shadow">${i}</a>
+													</c:if>
+													<c:if test="${nPager.pageNo == i}">
+														<a onclick="mainNoticeList(${i})" type="button" class="btn btn-dark shadow">${i}</a>
+													</c:if>
+												</c:forEach>
+				
+												<c:if test="${nPager.groupNo < nPager.totalGroupNo }">
+													<a onclick="mainNoticeList(${nPager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
+				
+												</c:if>
+												<a onclick="mainNoticeList(${nPager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -361,6 +502,17 @@
     </div>
 
 	<script>
+		function pmRequestProcessList(pageNo, status){
+			$.ajax({
+				type: "GET", //요청 메소드 방식
+				url:"${pageContext.request.contextPath}/pmrequestprocesslist?pmWorkPageNo=" + pageNo + "&status=" + status,
+				dataType:"html", 
+				success : function(result){
+					$('#requestProcessListContainer').html(result);
+					console.log("success");
+				}
+			})
+		} 
 		function sevenDaysList(pageNo){
 			console.log("실행");
 			$.ajax({

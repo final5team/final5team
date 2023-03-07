@@ -69,8 +69,12 @@
 		r.RNO = rp.RNO
 		inner join systems s
         on r.sno = s.sno
-		order by
-		r.req_date desc
+        
+        <if test ='listFilter.columnName == null'>
+			<![CDATA[
+				order by r.req_date desc 
+			]]>
+		</if>
 		)
 		<where>
 			<if test='member.mtype.equals("pm")'>
@@ -257,7 +261,25 @@
 				</if>
 			</if>
 		</where>
-		order by r.req_date desc
+		<if test ='listFilter.columnName == null'>
+				order by r.req_date desc
+			
+		</if>
+		<if test ='listFilter.columnName != null'>
+			<if test ='listFilter.columnName == "th_no"'>
+				<if test='listFilter.sortState == "asc"'>
+					order by r.rno  asc
+				</if>
+				<if test='listFilter.sortState == "desc"'>
+					order by r.rno  desc
+				</if>
+			</if>
+			
+			
+			
+			
+		</if>
+		
 		) j offset (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS 
 			fetch first (#{pager.rowsPerPage}) rows only
 	</select>
@@ -555,11 +577,15 @@
 
 	<select id="selectRequestDetail" parameterType="int" resultType="com.oti.srm.dto.Request">
 		select r.RNO, r.REQ_DATE as "reqDate" , r.REQ_TITLE as "reqTitle" , r.REQ_CONTENT as "reqContent", 
-				r.CLIENT, r.SNO, r.REQ_EXPECT_DATE as "reqExpectDate", r.STATUS_NO as "statusNo", sh.hno, s.SYSTEM_NAME as "systemName"
+				r.CLIENT, r.SNO, r.REQ_EXPECT_DATE as "reqExpectDate", r.STATUS_NO as "statusNo", sh.hno, s.SYSTEM_NAME as "systemName",
+				m.MNAME as "rname", m.PHONE as "rphone", m.POSITION as "rposition", m.ORGAN as "rorgan", m.EMAIL as "remail"
+				
         from status_histories sh left outer join requests r
         	on sh.rno = r.rno
         inner join systems s
         	on r.sno = s.sno
+        	inner join members m
+            on r.client = m.MID
         where r.rno=#{rno} and next_status = 1
 	</select>
 	
@@ -579,8 +605,90 @@
 			from STATUS_HISTORIES_FILES
 			where fno = #{fno}
 	</select>
-
-
+	
+	<select id="selectMainToWorkerListRows" parameterType="map" resultType="int">
+		select count(*)
+		from requests r left join request_process rp
+                on r.rno = rp.rno
+                inner join systems s
+                on r.sno = s.sno
+         <where>
+        	<if test="statusNoFilter != null">
+        		<foreach item="item" index="index" collection="statusNoFilter"
+			        open="r.status_no in (" separator="," close=")">
+			          #{item}
+			    </foreach>
+        	</if>
+        	<if test="member.mtype == 'developer'">
+        		and developer = #{member.mid}
+        		and r.sno = #{member.sno}
+        	</if>
+        	<if test="member.mtype == 'tester'">
+        		and tester = #{member.mid}
+        		and r.sno = #{member.sno}
+        	</if>
+        	<if test="member.mtype == 'usertester'">
+        		and user_tester = #{member.mid}
+        		and r.sno = #{member.sno}
+        	</if>
+        	<if test="member.mtype == 'distributor'">
+        		and distributor = #{member.mid}
+        		and r.sno = #{member.sno}
+        	</if>
+        </where>
+        
+	</select>
+	
+	<select id="selectMainToWorkerList" parameterType="map" resultType="com.oti.srm.dto.SelectPM">
+		select 
+			r.rno as "rno",
+			req_date as "reqDate",
+			req_title as "reqTitle",
+			req_content as "reqContent", 
+		 	client as "client",
+		 	r.sno as "sno",
+		 	req_expect_date as "reqExpectDate",
+		 	r.status_no as "statusNo",
+		    req_type as "reqType",
+		    developer as "developer",
+		    tester as "tester",
+		    distributor as "distributor",
+		    pm as "pm",
+		    user_tester as "userTester",
+		    system_name as "systemName"
+		from requests r left join request_process rp
+                on r.rno = rp.rno
+                inner join systems s
+                on r.sno = s.sno
+        <where>
+        	<if test="statusNoFilter != null">
+        		<foreach item="item" index="index" collection="statusNoFilter"
+			        open="r.status_no in (" separator="," close=")">
+			          #{item}
+			    </foreach>
+        	</if>
+        	<if test="member.mtype == 'developer'">
+        		and developer = #{member.mid}
+        		and r.sno = #{member.sno}
+        	</if>
+        	<if test="member.mtype == 'tester'">
+        		and tester = #{member.mid}
+        		and r.sno = #{member.sno}
+        	</if>
+        	<if test="member.mtype == 'usertester'">
+        		and user_tester = #{member.mid}
+        		and r.sno = #{member.sno}
+        	</if>
+        	<if test="member.mtype == 'distributor'">
+        		and distributor = #{member.mid}
+        		and r.sno = #{member.sno}
+        	</if>
+        </where>
+		order by req_date desc
+        offset (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS 
+		fetch first (#{pager.rowsPerPage}) rows only
+	</select>
+	
 
 
 

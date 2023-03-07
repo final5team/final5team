@@ -18,7 +18,7 @@ a {
 	text-decoration: none;
 }
 .card-block {
-	height : 600px;
+	height: 800px;
 }
 .card-body .label {
 	position: absolute;
@@ -85,7 +85,7 @@ a {
 	position: absolute;
 	width: 50px;
 	left: 8%;
-	top: 48%;
+	top: 36.5%;
 	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
@@ -99,7 +99,7 @@ a {
 	position: absolute;
 	width: 800px;
 	left: 18%;
-	top: 48%;
+	top: 36.5%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -114,7 +114,7 @@ a {
 	position: absolute;
 	width: 300px;
 	left: 8%;
-	top: 57%;
+	top: 42%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -124,7 +124,7 @@ a {
 	position: absolute;
 	width: 800px;
 	left: 18%;
-	top: 57%;
+	top: 42%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -313,7 +313,7 @@ textarea:focus::placeholder {
 													<input type="text" class="form-control form-control-user" id="clientName" name="clientName" placeholder="${sessionScope.member.mname}" value="${sessionScope.member.mname}" readonly> 
 												</div>
 												<div class="item">
-													<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="${member.phone}" value="${sessionScope.member.phone}" readonly> 
+													<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="${member.phone}" value="${member.phone}" readonly> 
 												</div>
 												<div class="item">
 													<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="${sessionScope.member.position}" value="${sessionScope.member.position}" readonly> 

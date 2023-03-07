@@ -13,7 +13,6 @@ public class ListFilter{
 	// 시스템 이름
 	private String systemName;
 	
-	
 	private String dateValue;
 	private String statusValue;
 	
@@ -24,5 +23,12 @@ public class ListFilter{
 	
 	//pageNo 저장
 	private int pageNo;
+	
+	//정렬 기능
+	//정렬할 열 이름
+	private String columnName;
+	//정렬할 열의 상태 asc, desc
+	private String sortState;
+	
 	
 }

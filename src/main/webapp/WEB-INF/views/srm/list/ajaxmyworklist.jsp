@@ -5,7 +5,15 @@
 <!DOCTYPE html>
 <table>
 	<tr>
-		<th class="ex">No.</th>
+		<th class="ex <c:if test="${listFilter.columnName == 'th_no' && listFilter.sortState == 'desc'}">th_first_desc</c:if>
+						<c:if test="${listFilter.columnName == 'th_no' && listFilter.sortState == 'asc'}">th_first_asc</c:if>" 
+			id="th_no">
+			No.
+		</th>
+																		
+								
+							
+						
 		<th class="ex">시스템</th>
 		<th class="ex">요청 유형</th>
 		<th class="ex">요청 제목</th>
@@ -78,4 +86,53 @@
 		<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
 	</div>
 </div>
+
+<script>
+//처음 클릭시 내림차순 다음 클릭시 오름차순
+//th_first 클릭
+$(document).ready(function() {
+	//정렬 기능 적용하기 위한 css
+	let ex = document.querySelector('#th_no');
+	let state = 'asc';
+	console.log('ajax로 불러온 페이지');
+	
+	ex.addEventListener('click', (event) => {
+		
+		//오름차순 정렬 결과이므로 내림차순 정렬
+		if(ex.classList.contains('th_first_asc')){
+			event.preventDefault();
+			
+			console.log('desc');
+			
+			ex.classList.remove('th_first_asc');
+			ex.classList.add('th_first_desc');
+			
+			let th_first = document.querySelector('#th_no');	
+			let th_first_id = th_first.id;
+			//검색 완료 되었으므로 내림차순으로 변경
+			state = 'desc';
+			
+			search(state, th_first_id);
+			
+			
+		} else if(ex.classList.contains('th_first_desc')){
+			event.preventDefault();
+			console.log('asc');
+			ex.classList.remove('th_first_desc');
+			ex.classList.add('th_first_asc');
+			let th_first = document.querySelector('#th_no');	
+			let th_first_id = th_first.id;
+			//내림차순 검색했으므로 없는 상태로 변경
+			state = 'none';
+			
+			search(state, th_first_id);
+		}
+		
+		
+		
+	});
+	
+})
+
+</script>
 

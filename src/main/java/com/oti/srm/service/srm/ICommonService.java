@@ -60,9 +60,9 @@ public interface ICommonService {
 	public StatusHistoryFile getFile(int fno);
 	
 	//직무 리스트
-	public List<RequestProcess> getRequestProcessList(Member member, String checkbox, Pager pager);
+	public List<RequestProcess> getRequestProcessList(Member member, String checkbox, String status, Pager pager);
 	//직무 리스트 행 수 가져오기
-	public int getRequestProcessRows(Member member, String checkbox);
+	public int getRequestProcessRows(Member member, String checkbox, String status);
 
 	public int getUserRequestListCount(String searchStatus, Member member);
 
@@ -79,5 +79,9 @@ public interface ICommonService {
 	public void updateHistory(RequestProcess rp, StatusHistory sh, Member member); 
 	
 	public int isThereTestReject(int rno);
+
+	public int getPmRequestProcessRows(String status);
+
+	public List<RequestProcess> getPmRequestProcessList(String status, Pager rpPager);
 
 }

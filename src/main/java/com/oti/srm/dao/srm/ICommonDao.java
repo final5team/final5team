@@ -84,10 +84,10 @@ public interface ICommonDao {
 	public int selectRequestReject();
 	
 	//직무별 요청리스트 출력
-	public List<RequestProcess> selectRequestProcessList(@Param("member")Member member,@Param("checkbox") String checkbox,@Param("pager") Pager pager);
+	public List<RequestProcess> selectRequestProcessList(@Param("member")Member member,@Param("checkbox") String checkbox, @Param("status") String status, @Param("pager") Pager pager);
 	
 	//직무별 요청리스트 행의 수 출력
-	public int selectRequestProcessRows(@Param("member")Member member,@Param("checkbox") String checkbox);
+	public int selectRequestProcessRows(@Param("member")Member member,@Param("checkbox") String checkbox, @Param("status") String status);
 
 	public int selectUserRequestListCount(@Param("searchStatus") String searchStatus,@Param("member")  Member member);
 
@@ -103,5 +103,7 @@ public interface ICommonDao {
 	// 단계 처리 이력 수정
 	public void updateRealStatusHistory(StatusHistory sh);
 	
-
+	public List<RequestProcess> selectPmRequestProcessList(@Param("status") String status, @Param("pager") Pager rpPager);
+	
+	public int selectPmRequestProcessRows(@Param("status") String status);
 }
