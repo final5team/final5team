@@ -333,7 +333,7 @@
 							        			 <!-- 단계 카드들 -->
 												<div class="row">
 	
-												    <div class="mb-4 m-2">
+												    <div class="mb-4 m-2 ml-4">
 										                <div class="card border-left-primary shadow h-100 py-2" style="width:140px">
 										                     <div class="card-body">
 										                          <div class="row no-gutters align-items-center">
