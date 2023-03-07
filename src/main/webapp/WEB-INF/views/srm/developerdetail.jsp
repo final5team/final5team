@@ -298,7 +298,7 @@
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5>확인</h5>
+					<h5>Check</h5>
 					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body" style="display: flex; justify-content: center;">
@@ -496,7 +496,8 @@
 	    
 	    // 파일 개수 확인 및 제한
 	    if (fileCount + filesArr.length > totalCount) {
-	      alert('파일은 최대 '+totalCount+'개까지 업로드 할 수 있습니다.');
+	    	$('#completeModal').modal();
+	    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
 	      return;
 	    } else {
 	    	 fileCount = fileCount + filesArr.length;

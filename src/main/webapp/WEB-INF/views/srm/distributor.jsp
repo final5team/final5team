@@ -93,13 +93,15 @@
 												</div>
 											</div>
 											
-											<div class="filebox d-flex">
-												<div class="label label-write" id="fileLable">첨부파일</div>
-												<div class="form-group" id="file-list">
-											        <a href="#this" onclick="addFile()">파일추가</a>
-											        <div class="file-group">
-											            <input type="file" name="files"><a href='#this' class='file-delete'>x</a>
-											        </div>
+											<div class="filebox d-flex mb-3">
+												<div class="label label-write" id="fileLable">
+													<div>첨부파일</div>
+													<div class="btn btn-sm btn-info" id="btn-upload">파일 추가</div>
+													<input type="file" name="files" id="fileInput" multiple style="display: none;">
+												</div>
+												
+												<div class="border flex-grow-1 border-success" id="file-list">
+			  									
 			  									</div>	
 											</div>
 											<c:if test="${request.statusNo == 10}">
@@ -270,6 +272,24 @@
 		</div>
 	</div>
 	<!-- 글자수 입력 확인 /-->
+	<!-- 데이트 입력 확인 -->
+	<div class="modal fade" id="completeModal" aria-hidden="true" aria-labelledby="successOfDueDate">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Check</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" style="display: flex; justify-content: center;">
+					<p id="completeContent"></p>
+				</div>
+				<div class="modal-footer" style="justify-content: center;">
+                    <a class="btn btn-primary" data-dismiss="modal" type="button">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 데이트 입력 확인 /-->
 	<script>
 
 	function checkDate(){
@@ -318,26 +338,7 @@
 		
 	}
 	
-	/* 파일 */
-	$(document).ready(function() {
-	    $(".file-delete").on("click", function(e) {
-	        e.preventDefault();
-	        deleteFile($(this));
-	    });
-	})
-	 function addFile() {
-        var str = "<div class='file-group'><input type='file' name='files'><a href='#this' name='file-delete'>x</a></div>";
-        $("#file-list").append(str);
-        $("a[name='file-delete']").on("click", function(e) {
-            e.preventDefault();
-            deleteFile($(this));
-        });
-    }
- 
-    function deleteFile(obj) {
-        obj.parent().remove();
-    }
-    
+	
 	/* 글자수 세기 */
    	$('#reply').keyup(function (e){
    		let content = $(this).val();
@@ -349,7 +350,73 @@
  			$('#counter').html("(300 / 300)");
  		}
    	});
+   	/****** 업로드된 파일 리스트 출력하기 *****/
+	$(document).ready(function()
+		// input file 파일 첨부시 fileCheck 함수 실행
+	{
+		$("#fileInput").on("change", fileCheck);
+	});
+	
+	/* '파일추가' 버튼 누를 때마다 파일input 실행 */
+	$(function () {
+	    $('#btn-upload').click(function (e) {
+	        e.preventDefault();
+	        $('#fileInput').click();
+	    });
+	})
+	
+	// 파일 현재 필드 숫자 totalCount랑 비교값
+	var fileCount = 0;
+	// 해당 숫자를 수정하여 전체 업로드 갯수를 정한다.
+	var totalCount = 5;
+	// 파일 고유넘버
+	var fileNum = 0;
+	// 첨부파일 배열
+	var content_files = new Array();
 
+	function fileCheck(e) {
+	    var files = e.target.files;
+	    
+	    // 파일 배열 담기
+	    var filesArr = Array.prototype.slice.call(files);
+	    
+	    // 파일 개수 확인 및 제한
+	    if (fileCount + filesArr.length > totalCount) {
+	    	console.log("모달아 왜 안뜨냐");
+	    	$('#completeModal').modal();
+	    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
+	      return;
+	    } else {
+	    	 fileCount = fileCount + filesArr.length;
+	    }
+	    
+	    // 각각의 파일 배열담기 및 기타
+	    filesArr.forEach(function (f) {
+	      var reader = new FileReader();
+	      
+	      reader.onload = function (e) {
+		        content_files.push(f);
+		        $('#file-list').append(
+		       		'<div id="file' + fileNum + '">'
+		       		+ '<font style="font-size:15px">' + f.name + '</font>'  
+		       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
+		       		+ '<div/>'
+				);
+		        fileNum ++;
+	      };
+	      
+	      reader.readAsDataURL(f);
+	    });
+	  }
+
+	// 파일 부분 삭제 함수
+	function fileDelete(fileId){
+	    var fileNum = fileId.replace("file", "");
+	    content_files[fileNum].is_delete = true;
+	    
+		$('#' + fileId).remove();
+		fileCount --;
+	}
 	</script>
 </body>
 
