@@ -33,7 +33,7 @@
     </style>
     
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    
     <script>	      
 		$(document).ready(function(){
 			// 반려 입력 항목 숨기기
@@ -104,14 +104,14 @@
 	 	
 	 	// 의견 내용 유효성 검사
 	    function validate() {
-			var result = true;
-			
+	 		// 유효한 입력 내용
+			var result = true;			
 			// 의견 내용 길이 구하기
 			var content=tinymce.activeEditor.getContent().length;
 			// 의견 내용 길이가 300자 이상일 경우 제출 불가
 			if(content > 300){
 				// 300자 이하 입력 경고 창 
-				alert("300자 이하로 입력해 주세요.")
+				$("#cautionModal").modal();			
 				// 제출 불가
 				result = false;
 			}
@@ -293,12 +293,12 @@
 												</div>
 											
 												<div class="row mb-2">
-													<div class="label col-3">*의견 내용</div>
+													<div class="label col-3">의견 내용</div>
 													<textarea class="form-control boxed col-7 pmcontent ml-2" id="reply" name="reply" style="padding: 0px" maxlength="300"></textarea>													
 												</div>																																
 												<div class="filebox d-flex">
-													<div class="label label-write" id="fileLable">첨부파일</div>
-													<div class="form-group" id="file-list">
+													<div class="col-3 label label-write" id="fileLable">첨부파일</div>
+													<div class="col-7 form-group" id="file-list">
 												        <a href="#this" onclick="addFile()">파일추가</a>
 												        <div class="file-group">
 												            <input type="file" name="files"><a href='#this' class='file-delete' name='file-delete'>x</a>
@@ -316,8 +316,27 @@
 								</div>
 								<!-- 요청 접수 card end-->								
 							</div>
+							
+							<!-- 글자수 경고 모달창 start -->
+							 <div class="modal fade" id="cautionModal" role="dialog" aria-labelledby="cautionModal" aria-hidden="true" >
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-header">											
+											<h5 class="modal-title" id="developDueDate">경고</h5>
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+										</div>
+										<div class="modal-body text-center">	
+											<p>글자수가 초과되었습니다. 300자 이하로 작성해주세요.</p>																				
+										</div>
+										<div class="modal-footer">																				
+											<button class="btn btn-secondary" type="button" data-dismiss="modal">확인</button>					                    
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 글자수 경고 모달창 end -->	
 						
-						<!-- 반려 -->
+							<!-- 반려 -->
 							<div id="rejectdiv"> 						            
 								<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data" onsubmit="return validate()">
 									<!-- 요청 접수 card start-->
