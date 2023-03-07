@@ -65,8 +65,11 @@ public class CommonService implements ICommonService {
 		List<StatusHistory> UserTesterToDistributorHistories = new ArrayList<StatusHistory>();
 
 		for (StatusHistory sh : requestHistories) {
-			// 개발자 -> 테스터 단계 이력만 담기
+			// 테스터 -> 배포자 단계 이력만 담기
 			if (sh.getNextStatus() == 9) {
+				if(sh.getReply()== null) {
+					sh.setReply("내용이 없습니다.");
+				}
 				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
 				UserTesterToDistributorHistories.add(sh);
 			}
@@ -82,8 +85,11 @@ public class CommonService implements ICommonService {
 		List<StatusHistory> distributorToPmHistories = new ArrayList<StatusHistory>();
 
 		for (StatusHistory sh : requestHistories) {
-			// 개발자 -> 테스터 단계 이력만 담기
+			// 배포자 -> pm 단계 이력만 담기
 			if (sh.getNextStatus() == 11) {
+				if(sh.getReply()== null) {
+					sh.setReply("내용이 없습니다.");
+				}
 				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
 				distributorToPmHistories.add(sh);
 			}
@@ -99,8 +105,11 @@ public class CommonService implements ICommonService {
 		List<StatusHistory> pmToAllHistories = new ArrayList<StatusHistory>();
 
 		for (StatusHistory sh : requestHistories) {
-			// 개발자 -> 테스터 단계 이력만 담기
+			// pm -> all 이력만 담기
 			if (sh.getNextStatus() == 2) {
+				if(sh.getReply()== null) {
+					sh.setReply("내용이 없습니다.");
+				}
 				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
 				pmToAllHistories.add(sh);
 			}
@@ -182,6 +191,9 @@ public class CommonService implements ICommonService {
 		for (StatusHistory tester : allHistories) {
 			if (tester.getNextStatus() == 3 || tester.getNextStatus() == 7) {
 				tester.setFileList(commonDao.selectStatusHistoryFiles(tester.getHno()));
+				if(tester.getReply()==null) {
+					tester.setReply("내용이 없습니다.");
+				}
 				testerToDevHistories.add(tester);
 			}
 		}
