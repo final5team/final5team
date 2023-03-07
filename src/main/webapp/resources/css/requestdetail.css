@@ -75,7 +75,7 @@ a {
 	position: absolute;
 	width: 50px;
 	left: 8%;
-	top: 38%;
+	top: 36.5%;
 	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
@@ -89,7 +89,7 @@ a {
 	position: absolute;
 	width: 800px;
 	left: 18%;
-	top: 38%;
+	top: 36.5%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -104,7 +104,7 @@ a {
 	position: absolute;
 	width: 300px;
 	left: 8%;
-	top: 57%;
+	top: 42%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -114,7 +114,7 @@ a {
 	position: absolute;
 	width: 800px;
 	left: 18%;
-	top: 57%;
+	top: 42%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -172,6 +172,7 @@ a {
 	font-size: 13px;
 	padding-top: 0;
 	padding-bottom: 0;
+	margin-top : 5px;
 }
 
 .card-body .include {

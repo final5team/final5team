@@ -168,10 +168,12 @@ public class RequestController {
 		request.setStatusName("접수중");
 		request.setStatusNo(1);
 		requestProcess.setReqType("정규");
-		
+		//세션에 저장된 멤버 객체 전달, 번호 복호화
 		Member sessionMember = (Member) session.getAttribute("member");
-		//핸드폰 번호 복호화 처리
-		sessionMember.setPhone(AesUtil.decrypt(sessionMember.getPhone()));
+		if(sessionMember.getPhone().charAt(0) != '0') {
+			sessionMember.setPhone(AesUtil.decrypt(member.getPhone()));
+			}
+		model.addAttribute("returnMember", sessionMember);
 		
 		// 시스템 리스트 전달
 		List<System> systemList = userRegisterService.getSystemList();
@@ -382,9 +384,12 @@ public class RequestController {
 		model.addAttribute("systemList", systemList);
 		
 		
-		//세션에 저장된 멤버 객체 전달
+		//세션에 저장된 멤버 객체 전달, 번호 복호화
 		Member member = (Member) session.getAttribute("member");
-		member.setPhone(AesUtil.decrypt(member.getPhone()));
+		log.info(member);
+		if(member.getPhone().charAt(0) != '0') {
+			member.setPhone(AesUtil.decrypt(member.getPhone()));
+		}
 		model.addAttribute("returnMember", member);
 		
 		
