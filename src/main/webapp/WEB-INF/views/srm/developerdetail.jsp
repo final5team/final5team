@@ -103,7 +103,7 @@
 													<input type="file" name="files" id="fileInput" multiple style="display: none;">
 												</div>
 												
-												<div class="border flex-grow-1" id="file-list">
+												<div class="border flex-grow-1 border-success" id="file-list">
 			  									
 			  									</div>	
 											</div>
@@ -165,7 +165,7 @@
 	                	 					 ${index.count}차 내역  <i class="far fa-bookmark success"></i>
 	                	 				</h3>
 	                	 			</div>   	 	
-	                	 			<form method="post" action="<c:url value='/updatehistory'/>">
+	                	 			<form method="post" action="<c:url value='/updatehistory'/>" enctype="multipart/form-data">
 	                	 				<div class="card-body">
 	                	 					<div>
 	                	 						<div class="row mb-2">
@@ -194,6 +194,19 @@
 					                	 						<div class="col-2 label">배포소스(url)</div>
 					                	 						<input class="col-8 form-control boxed mr-5" style=" height: 20px;" value="${statusHistory.distSource}" readonly>
 				                	 						</div>
+				                	 						<div class="row mt-3">
+					                	 						<div class="col-2 label">첨부파일</div>
+					                	 						<div class="col-8">
+				                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+																	<div>
+																		<span>${statusHistoryFile.fileName}</span>
+																		<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																			<i class="fas fa-cloud-download-alt text-info"></i>
+																		</a>
+																	</div>
+																	</c:forEach>
+					                	 						</div>
+				                	 						</div>
 	                	 								</c:if>
 			                	 				
 			                	 						<c:if test="${index.last && request.statusNo == 5}">
@@ -207,21 +220,20 @@
 					                	 						<div class="col-2 label">배포소스(url)</div>
 					                	 						<input name="distSource" class="col-8 form-control boxed mr-5" style=" height: 20px;" value="${statusHistory.distSource}">
 				                	 						</div>
+				                	 						<div class="filebox d-flex mb-3">
+																<div class="label label-write" id="fileLable">
+																	<div>첨부파일</div>
+																	<div class="btn btn-sm btn-info" id="btn-upload">파일 추가</div>
+																	<input type="file" name="files" id="fileInput" multiple style="display: none;">
+																</div>
+																
+																<div class="border flex-grow-1 border-success" id="file-list">
+							  									
+							  									</div>	
+															</div>
 			                	 						</c:if>
 	                	 						</c:if>
-	                	 						<div class="row mt-3">
-		                	 						<div class="col-2 label">첨부파일</div>
-		                	 						<div class="col-8">
-	                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-														<div>
-															<span>${statusHistoryFile.fileName}</span>
-															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-																<i class="fas fa-cloud-download-alt text-info"></i>
-															</a>
-														</div>
-														</c:forEach>
-		                	 						</div>
-	                	 						</div>		
+	                	 								
 	                	 						<c:if test="${request.statusNo == 5 && requestProcess.developer == member.mid && index.last}">
 	                	 							<div class="d-flex justify-content-end">
 	                	 								<button type="submit" class="btn btn-primary btn-sm mx-3">수정</button>	
