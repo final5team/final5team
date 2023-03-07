@@ -392,7 +392,6 @@ public class RequestController {
 		}
 		model.addAttribute("returnMember", member);
 		
-		
 		// 요청 상태가 반려일 때 상태 변경 정보(반려 사유)
 		if(request.getStatusNo()==12) {
 			model.addAttribute("rejectHistory", pMService.getStatusHistory(rno, "reject"));
