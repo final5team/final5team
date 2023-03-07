@@ -13,7 +13,6 @@ public class ListFilter{
 	// 시스템 이름
 	private String systemName;
 	
-	
 	private String dateValue;
 	private String statusValue;
 	

@@ -66,13 +66,13 @@
 											</article>
 											<article class="inputData">
 												<div class="item">
-													<input type="text" class="form-control form-control-user" id="clientName" name="clientName" placeholder="${sessionScope.member.mname}" value="${sessionScope.member.mname}" readonly>
+													<input type="text" class="form-control form-control-user" id="clientName" name="clientName" placeholder="${request.clientName}" value="${request.clientName}" readonly>
 												</div>
 												<div class="item">
 													<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="${member.phone}" value="${member.phone}" readonly>
 												</div>
 												<div class="item">
-													<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="${sessionScope.member.position}" value="${sessionScope.member.position}" readonly>
+													<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="" value="" readonly>
 												</div>
 												
 												<div class="item">
@@ -93,10 +93,10 @@
 											</article>
 											<article class="inputData2">
 												<div class="item">
-													<input type="text" class="form-control form-control-user" id="organ" name="organ" placeholder="${sessionScope.member.organ}" value="${sessionScope.member.organ}" readonly>
+													<input type="text" class="form-control form-control-user" id="organ" name="organ" placeholder="${request.organ}" value="${request.organ}" readonly>
 												</div>
 												<div class="item">
-													<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="${sessionScope.member.email}" value="${sessionScope.member.email}" readonly>
+													<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="${request.email}" value="${request.email}" readonly>
 												</div>
 												<div class="item">
 													<input type="date" class="form-control form-control-user" id="reqExpectDate" name="reqExpectDate" value="<fmt:formatDate value="${request.reqExpectDate}" pattern="yyyy-MM-dd" />">

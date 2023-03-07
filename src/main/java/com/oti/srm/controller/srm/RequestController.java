@@ -170,9 +170,10 @@ public class RequestController {
 		requestProcess.setReqType("정규");
 		//세션에 저장된 멤버 객체 전달, 번호 복호화
 		Member sessionMember = (Member) session.getAttribute("member");
+		log.info(sessionMember.toString());
 		if(sessionMember.getPhone().charAt(0) != '0') {
-			sessionMember.setPhone(AesUtil.decrypt(member.getPhone()));
-			}
+			sessionMember.setPhone(AesUtil.decrypt(sessionMember.getPhone()));
+		}
 		model.addAttribute("returnMember", sessionMember);
 		
 		// 시스템 리스트 전달
@@ -358,9 +359,12 @@ public class RequestController {
 		// 목록 리스트와 페이지 return
 		model.addAttribute("requestList", requestList);
 		model.addAttribute("pager", pager);
-		// filter 전달
+		// filter 전달, 정렬 상태 전달
 		model.addAttribute("listFilter", returnList);
-		log.info("스위치 실행");
+		
+		log.info(listFilter.toString());
+		
+		
 		return "srm/list/ajaxmyworklist";
 	}
 	/**

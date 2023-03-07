@@ -69,8 +69,12 @@
 		r.RNO = rp.RNO
 		inner join systems s
         on r.sno = s.sno
-		order by
-		r.req_date desc
+        
+        <if test ='listFilter.columnName == null'>
+			<![CDATA[
+				order by r.req_date desc 
+			]]>
+		</if>
 		)
 		<where>
 			<if test='member.mtype.equals("pm")'>
@@ -257,7 +261,25 @@
 				</if>
 			</if>
 		</where>
-		order by r.req_date desc
+		<if test ='listFilter.columnName == null'>
+				order by r.req_date desc
+			
+		</if>
+		<if test ='listFilter.columnName != null'>
+			<if test ='listFilter.columnName == "th_no"'>
+				<if test='listFilter.sortState == "asc"'>
+					order by r.rno  asc
+				</if>
+				<if test='listFilter.sortState == "desc"'>
+					order by r.rno  desc
+				</if>
+			</if>
+			
+			
+			
+			
+		</if>
+		
 		) j offset (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS 
 			fetch first (#{pager.rowsPerPage}) rows only
 	</select>
