@@ -168,10 +168,13 @@ public class RequestController {
 		request.setStatusName("접수중");
 		request.setStatusNo(1);
 		requestProcess.setReqType("정규");
-		
+		//세션에 저장된 멤버 객체 전달, 번호 복호화
 		Member sessionMember = (Member) session.getAttribute("member");
-		//핸드폰 번호 복호화 처리
-		sessionMember.setPhone(AesUtil.decrypt(sessionMember.getPhone()));
+		log.info(sessionMember.toString());
+		if(sessionMember.getPhone().charAt(0) != '0') {
+			sessionMember.setPhone(AesUtil.decrypt(sessionMember.getPhone()));
+		}
+		model.addAttribute("returnMember", sessionMember);
 		
 		// 시스템 리스트 전달
 		List<System> systemList = userRegisterService.getSystemList();
@@ -356,9 +359,12 @@ public class RequestController {
 		// 목록 리스트와 페이지 return
 		model.addAttribute("requestList", requestList);
 		model.addAttribute("pager", pager);
-		// filter 전달
+		// filter 전달, 정렬 상태 전달
 		model.addAttribute("listFilter", returnList);
-		log.info("스위치 실행");
+		
+		log.info(listFilter.toString());
+		
+		
 		return "srm/list/ajaxmyworklist";
 	}
 	/**
@@ -377,15 +383,16 @@ public class RequestController {
 		Request request = requestService.getRequestDetail(rno);
 		List<System> systemList = userRegisterService.getSystemList();
 		RequestProcess requestProcess = commonService.getRequestProcess(rno);
+		
+		
+		
+		if(request.getRphone().charAt(0) != '0') {
+			request.setRphone(AesUtil.decrypt(request.getRphone()));
+		}
+		
 		model.addAttribute("request", request);
 		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("systemList", systemList);
-		
-		//세션에 저장된 멤버 객체 전달
-		Member member = (Member) session.getAttribute("member");
-		//핸드폰 번호 복호화 처리
-		member.setPhone(AesUtil.decrypt(member.getPhone()));
-		model.addAttribute("returnMember", member);
 		// 요청 상태가 반려일 때 상태 변경 정보(반려 사유)
 		if(request.getStatusNo()==12) {
 			model.addAttribute("rejectHistory", pMService.getStatusHistory(rno, "reject"));

@@ -43,7 +43,8 @@
 	        <groupId>org.bouncycastle</groupId>
 	        <artifactId>bcprov-jdk15on</artifactId>
 	        <version>1.68</version>
-	    </dependency>		
+	    </dependency>			
+	    
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>

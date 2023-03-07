@@ -46,4 +46,14 @@ public class Request {
 	
 	//파일을 가져오기 위한 status_histories hno 값
 	private int hno;
+	
+	//요청자 정보
+	private String rname; 
+	private String rphone; 
+	private String rposition; 
+	private String rorgan; 
+	private String remail;
+	
+	
+	
 }
