@@ -208,15 +208,15 @@
 							</article>
 						</c:if>
 						<!-- ajax 수정 목록 -->
-						<!-- 기존 페이지-->
 						<table class="member" id="table_content">
+							<!-- 기존 페이지-->
 							<tr >
-								<th class="ex">No.</th>
-								<th class="ex">시스템</th>
-								<th class="ex">요청 유형</th>
-								<th class="ex">요청 제목</th>
-								<th class="ex">요청 일자</th>
-								<th class="ex" >단계</th>
+								<th class="ex th_first" id="th_no">No.</th>
+								<th class="ex th_second" id="th_sno">시스템</th>
+								<th class="ex th_third" id="th_reqtype">요청 유형</th>
+								<th class="ex th_four" id="th_title">요청 제목</th>
+								<th class="ex th_five" id="th_reqdate">요청 일자</th>
+								<th class="ex">단계</th>
 							</tr>
 
 							<c:forEach var="request" items="${requestList}">
@@ -309,26 +309,6 @@
 
 	<script>
 
-// 유저 제외 담당자들의 ajax 호출
-
-
-
-// 내 담당 업무 목록 ajax 호출 : 페이지 로딩
-/* 		
-		$(document).ready(function () {
-			//member의 type은 controller에서 넣어줌, 설정 필요 없음
-			console.log("바로 실행");
-			data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1 };	
-			$.ajax({
-		  		url : "myworklist",
-				method : "post",
-				data : JSON.stringify(data),
-				contentType: "application/json; charset=UTF-8"
-			}).done((data) => {
-				$('#table_content').html(data);
-			});
-		});
- */
  
 // 내 요청 목록 ajax 호출 : switch 
 	function myRequestList(mtype){
@@ -444,188 +424,265 @@
 			});
 		}
 	} 
-	// 페이지 이동 ajax
-	function pageChange(i){
-		let loading = document.querySelector(".loading");
-		loading.style.visibility = 'visible';
-		let pageNo = i;
-		
-		let filterReqType = document.getElementById('req_type');
-		let ReqType = filterReqType.options[filterReqType.selectedIndex].text;
-		
-		let filterDateFirst = document.getElementById('date_first');
-		let dateFirst = filterDateFirst.value
-		
-		let filterDateLast = document.getElementById('date_last');
-		let dateLast = filterDateLast.value
-		
-		let sno = '0';
-		if(document.getElementById('sno') != null) {
-			console.log("pm인 경우");
-			let filterSno = document.getElementById('sno');
-			let sno = filterSno.options[filterSno.selectedIndex].value
-		} else {
-			console.log("pm이 아닌 경우");
-			sno = document.querySelector('.sno').value
-			console.log(sno);
-		}
-		
-		
-		let filterStatusNo = document.getElementById('statusNo');  
-		let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
-		
-		data = {pageNo : i, reqType : ReqType, dateFirst : dateFirst, dateLast : dateLast, sno : parseInt(sno), statusNo : parseInt(statusNo)}
-		
-		// 담당 업무 목록으로 검색 
-		if($('#myRequest').is(":checked")){ 
-			console.log("담당 업무 목록 페이지 이동" + i);
-			//테이블 색상 되돌리기
-			let tableHead = document.querySelectorAll(".ex");
-			console.log(tableHead);
-			for(let i = 0; i < tableHead.length; i++){
-				tableHead[i].classList.remove('bc');
+	
+		// 페이지 이동 ajax
+		function pageChange(i){
+			
+			
+			let loading = document.querySelector(".loading");
+			loading.style.visibility = 'visible';
+			let pageNo = i;
+			
+			let filterReqType = document.getElementById('req_type');
+			let ReqType = filterReqType.options[filterReqType.selectedIndex].text;
+			
+			let filterDateFirst = document.getElementById('date_first');
+			let dateFirst = filterDateFirst.value
+			
+			let filterDateLast = document.getElementById('date_last');
+			let dateLast = filterDateLast.value
+			
+			let sno = '0';
+			if(document.getElementById('sno') != null) {
+				let filterSno = document.getElementById('sno');
+				let sno = filterSno.options[filterSno.selectedIndex].value
+			} else {
+				sno = document.querySelector('.sno').value
+				console.log(sno);
 			}
 			
-			$.ajax({
-				url : "myworklist",
-				method : "post",
-				data : JSON.stringify(data),
-				contentType: "application/json; charset=UTF-8",
-				success : function (){
-					loading.style.visibility = 'hidden';
-				}
-				
-			}).done((data) => {
-				$('#table_content').html(data);
-				
-				//기존 페이지 태그 삭제하기
-				const pageDefault = document.querySelector('.default');
-				if(pageDefault != null){
-					pageDefault.remove();
-				}
-				
-			});
-		} else {
-			console.log("내 요청 목록 페이지 이동" + i);
-			$.ajax({
-				url : "workerrequestlist",
-				method : "post",
-				data : JSON.stringify(data),
-				contentType: "application/json; charset=UTF-8",
-				success : function (){
-					loading.style.visibility = 'hidden';
-				}
-				
-			}).done((data) => {
-				$('#table_content').html(data);
-				
-				//테이블 색상 변경하기
+			
+			let filterStatusNo = document.getElementById('statusNo');  
+			let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
+			
+			
+			
+			
+			data = {pageNo : i, reqType : ReqType, dateFirst : dateFirst, dateLast : dateLast, sno : parseInt(sno), 
+					statusNo : parseInt(statusNo)}
+			
+			// 담당 업무 목록으로 검색 
+			if($('#myRequest').is(":checked")){ 
+				console.log("담당 업무 목록 페이지 이동" + i);
+				//테이블 색상 되돌리기
 				let tableHead = document.querySelectorAll(".ex");
 				console.log(tableHead);
 				for(let i = 0; i < tableHead.length; i++){
-					tableHead[i].classList.add('bc');
+					tableHead[i].classList.remove('bc');
 				}
 				
-				//기존 페이지 태그 삭제하기
-				const pageDefault = document.querySelector('.default');
-				if(pageDefault != null){
-					pageDefault.remove();
-				}
-				
-			});
-		}
-	}	
-	
+				$.ajax({
+					url : "myworklist",
+					method : "post",
+					data : JSON.stringify(data),
+					contentType: "application/json; charset=UTF-8",
+					success : function (){
+						loading.style.visibility = 'hidden';
+					}
+					
+				}).done((data) => {
+					$('#table_content').html(data);
+					
+					//기존 페이지 태그 삭제하기
+					const pageDefault = document.querySelector('.default');
+					if(pageDefault != null){
+						pageDefault.remove();
+					}
+					
+					
+				});
+			} else {
+				console.log("내 요청 목록 페이지 이동" + i);
+				$.ajax({
+					url : "workerrequestlist",
+					method : "post",
+					data : JSON.stringify(data),
+					contentType: "application/json; charset=UTF-8",
+					success : function (){
+						loading.style.visibility = 'hidden';
+					}
+					
+				}).done((data) => {
+					$('#table_content').html(data);
+					
+					//테이블 색상 변경하기
+					let tableHead = document.querySelectorAll(".ex");
+					console.log(tableHead);
+					for(let i = 0; i < tableHead.length; i++){
+						tableHead[i].classList.add('bc');
+					}
+					
+					//기존 페이지 태그 삭제하기
+					const pageDefault = document.querySelector('.default');
+					if(pageDefault != null){
+						pageDefault.remove();
+					}
+					
+				});
+			}
+		}	
 	// filter 검색 기능 ajax
-	function search(){
-		let loading = document.querySelector(".loading");
-		loading.style.visibility = 'visible';
-//		검색 filter 값 가져오기
-		let filterReqType = document.getElementById('req_type');
-		let ReqType = filterReqType.options[filterReqType.selectedIndex].text;
+	function search(state, th_first_id){
+		console.log(state, th_first_id);
 		
-		let filterDateFirst = document.getElementById('date_first');
-		let dateFirst = filterDateFirst.value
-		
-		let filterDateLast = document.getElementById('date_last');
-		let dateLast = filterDateLast.value
-		
-		let sno = '0';
-		if(document.getElementById('sno') != null) {
-			console.log("pm인 경우");
-			let filterSno = document.getElementById('sno');
-			sno = filterSno.options[filterSno.selectedIndex].value
-		} else {
-			console.log("pm이 아닌 경우");
-			sno = document.querySelector('.sno').value
-			console.log(sno);
-		}
-		
-		let filterStatusNo = document.getElementById('statusNo');  
-		let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
-		
-		data = {reqType : ReqType, dateFirst : dateFirst, dateLast : dateLast, sno : parseInt(sno), statusNo : parseInt(statusNo)}
-		
-		// 담당 업무 목록 검색 기능
-		if($('#myRequest').is(":checked")){ 
-			console.log("담당 업무 목록 검색")
+			let loading = document.querySelector(".loading");
+			loading.style.visibility = 'visible';
+	//		검색 filter 값 가져오기
+			let filterReqType = document.getElementById('req_type');
+			let ReqType = filterReqType.options[filterReqType.selectedIndex].text;
 			
-			//테이블 색상 되돌리기
-			let tableHead = document.querySelectorAll(".ex");
-			console.log(tableHead);
-			for(let i = 0; i < tableHead.length; i++){
-				tableHead[i].classList.remove('bc');
+			let filterDateFirst = document.getElementById('date_first');
+			let dateFirst = filterDateFirst.value
+			
+			let filterDateLast = document.getElementById('date_last');
+			let dateLast = filterDateLast.value
+			
+			let sno = '0';
+			if(document.getElementById('sno') != null) {
+				console.log("pm인 경우");
+				let filterSno = document.getElementById('sno');
+				sno = filterSno.options[filterSno.selectedIndex].value
+			} else {
+				console.log("pm이 아닌 경우");
+				sno = document.querySelector('.sno').value
+				console.log(sno);
 			}
-			$.ajax({
-				url : "myworklist",
-				method : "post",
-				data : JSON.stringify(data),
-				contentType: "application/json; charset=UTF-8",
-				success : function (){
-					loading.style.visibility = 'hidden';
-				}
+			
+			let filterStatusNo = document.getElementById('statusNo');  
+			let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
+			
+			if(typeof state == 'undefined' || typeof th_first_id == 'undefined'){
+				console.log('검색에 정렬 입력값 들어옴');
+				console.log(state);
+				console.log(th_first_id);
+			} 
+			
+			
+			data = {reqType : ReqType, dateFirst : dateFirst, dateLast : dateLast, sno : parseInt(sno), statusNo : parseInt(statusNo), columnName : th_first_id, sortState : state }
+			
+			// 담당 업무 목록 검색 기능
+			if($('#myRequest').is(":checked")){ 
 				
-			}).done((data) => {
-				$('#table_content').html(data);
-				//기존 페이지 태그 삭제하기
-				const pageDefault = document.querySelector('.default');
-				if(pageDefault != null){
-					pageDefault.remove();
-				}
-			});
-		// 내 요청 목록 검색 기능
-		} else {
-			console.log("내 요청 목록 검색")
-			$.ajax({
-				url : "workerrequestlist",
-				method : "post",
-				data : JSON.stringify(data),
-				contentType: "application/json; charset=UTF-8",
-				success : function (){
-					loading.style.visibility = 'hidden';
-				}
-				
-				
-			}).done((data) => {
-				$('#table_content').html(data);
-				//기존 페이지 태그 삭제하기
-				const pageDefault = document.querySelector('.default');
-				if(pageDefault != null){
-					pageDefault.remove();
-				}
-				//테이블 색상 변경하기
+				//테이블 색상 되돌리기
 				let tableHead = document.querySelectorAll(".ex");
-				console.log(tableHead);
 				for(let i = 0; i < tableHead.length; i++){
-					tableHead[i].classList.add('bc');
+					tableHead[i].classList.remove('bc');
 				}
-				
-			});
-		}
+				$.ajax({
+					url : "myworklist",
+					method : "post",
+					data : JSON.stringify(data),
+					contentType: "application/json; charset=UTF-8",
+					success : function (){
+						loading.style.visibility = 'hidden';
+					}
+					
+				}).done((data) => {
+					$('#table_content').html(data);
+					//기존 페이지 태그 삭제하기
+					const pageDefault = document.querySelector('.default');
+					if(pageDefault != null){
+						pageDefault.remove();
+					}
+					let ex = document.querySelector('#th_no');
+					console.log(ex);
+					
+					
+				});
+			// 내 요청 목록 검색 기능
+			} else {
+				console.log("내 요청 목록 검색")
+				$.ajax({
+					url : "workerrequestlist",
+					method : "post",
+					data : JSON.stringify(data),
+					contentType: "application/json; charset=UTF-8",
+					success : function (){
+						loading.style.visibility = 'hidden';
+					}
+					
+					
+				}).done((data) => {
+					$('#table_content').html(data);
+					//기존 페이지 태그 삭제하기
+					const pageDefault = document.querySelector('.default');
+					if(pageDefault != null){
+						pageDefault.remove();
+					}
+					//테이블 색상 변경하기
+					let tableHead = document.querySelectorAll(".ex");
+					for(let i = 0; i < tableHead.length; i++){
+						tableHead[i].classList.add('bc');
+					}
+				});
+			}
+			
+		
+		
 	}	
 	
 	
-
+	//처음 클릭시 내림차순 다음 클릭시 오름차순
+	//th_first 클릭
+	$(document).ready(function() {
+		let state = '';
+		let th_first_id = '';
+		
+		//정렬 기능 적용하기 위한 css
+		let ex = document.querySelector('#th_no');
+		state = 'asc';
+		ex.addEventListener('click', (event) => {
+			if(state == 'asc'){
+				event.preventDefault();
+				
+				
+				ex.classList.remove('th_first');
+				ex.classList.add('th_first_asc');
+				
+				let th_first = document.querySelector('#th_no');	
+				let th_first_id = th_first.id;
+				//검색 함수 실행 (변수를 넣어준다)
+				console.log('오름차순 정렬 됨');
+				search(state, th_first_id);
+				state = 'asc';
+				
+				
+				
+			} 
+			
+// 			else if(state == 'desc') {
+// 				event.preventDefault();
+// 				state = 'asc';
+// 				//내림차순 정렬
+// 				console.log('desc');
+// 				ex.classList.remove('th_first_asc');
+// 				ex.classList.add('th_first_desc');
+				
+				
+// 				console.log(ex);
+				
+// 				state= 'none';
+				
+// 			} else {
+// 				event.preventDefault();
+// 				state = 'asc';
+// 				ex.classList.remove('th_first_desc');
+// 				ex.classList.add('th_first');
+				
+// 				console.log(ex);
+// 			}
+			
+			
+		});
+		
+	})
+	
+	
+	
+	
+	
+	
+	
 
 </script>
 

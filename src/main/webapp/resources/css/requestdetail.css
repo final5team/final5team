@@ -1,0 +1,290 @@
+a {
+	text-decoration: none;
+}
+
+.card-block.js {
+	height: 800px;
+}
+
+.card-body .label.js {
+	position: absolute;
+	width: 110px;
+	left: 2%;
+	top: 15%;
+	overflow: hidden;
+	text-align: center;
+	margin-bottom: 24px;
+}
+
+.card-body h6 {
+	margin-top: 3px;
+	margin-bottom: 24px;
+	font-weight: 600;
+	font-size: 1.0rem;
+}
+
+.card-body .inputData {
+	position: absolute;
+	width: 250px;
+	height: 200px;
+	left: 18%;
+	top: 14.5%;
+	overflow: hidden;
+	text-align: start;
+}
+
+.card-body .label2 {
+	position: absolute;
+	width: 110px;
+	left: 57%;
+	top: 15%;
+	overflow: hidden;
+	text-align: center;
+	margin-bottom: 24px;
+}
+
+.card-body .inputData2 {
+	position: absolute;
+	width: 250px;
+	height: 200px;
+	left: 70%;
+	top: 14.5%;
+	overflow: hidden;
+	text-align: start;
+}
+
+.card-body .inputData2 input {
+	height: 20px;
+	width: 200px;
+	font-size: 13px;
+	margin-bottom: 10px;
+	border: none;
+	background-color: white;
+}
+
+.card-body .inputData input {
+	height: 20px;
+	width: 200px;
+	font-size: 13px;
+	margin-bottom: 10px;
+	border: none;
+	background-color: white;
+}
+
+.card-body .titleLabel {
+	position: absolute;
+	width: 50px;
+	left: 8%;
+	top: 36.5%;
+	overflow: hidden;
+	text-align: start;
+	font-size: 15px;
+}
+
+.card-body .titleLabel h6 {
+	font: bold;
+}
+
+.card-body .titleInput {
+	position: absolute;
+	width: 800px;
+	left: 18%;
+	top: 36.5%;
+	text-align: start;
+	font-size: 15px;
+	font: bold;
+}
+
+.card-body .titleInput input {
+	width: 710px;
+	height: 25px;
+}
+
+.card-body .titleBody {
+	position: absolute;
+	width: 300px;
+	left: 8%;
+	top: 42%;
+	text-align: start;
+	font-size: 15px;
+	font: bold;
+}
+
+.card-body .bodyInput {
+	position: absolute;
+	width: 800px;
+	left: 18%;
+	top: 42%;
+	text-align: start;
+	font-size: 15px;
+	font: bold;
+}
+
+.card-body .bodyInput textarea {
+	width: 710px;
+	font-size: 15px;
+	font: bold;
+	height: 100px;
+	resize: none;
+}
+
+.card-body .fileTitle {
+	position: absolute;
+	width: 110px;
+	left: 4%;
+	top: 75%;
+	overflow: hidden;
+	text-align: center;
+	font-size: 15px;
+	font: bold;
+}
+
+.card-body .fileBody {
+	position: absolute;
+	width: 700px;
+	left: 18%;
+	top: 75%;
+	overflow: hidden;
+	text-align: start;
+	font-size: 15px;
+	font: bold;
+}
+
+.card-body .submit-button {
+	position: absolute;
+	width: 80px;
+	height: 50px;
+	left: 50%;
+	top: 90%;
+}
+
+.card-body .return-button {
+	position: absolute;
+	width: 80px;
+	height: 50px;
+	left: 55%;
+	top: 90%;
+}
+
+.card-body .item .select-group select {
+	width: 200px;
+	height: 35px;
+	font-size: 13px;
+	padding-top: 0;
+	padding-bottom: 0;
+	margin-top : 5px;
+}
+
+.card-body .include {
+	position: absolute;
+	width: 240px;
+	height: 500px;
+	left: 76%;
+	top: 15%;
+	z-index: 5;
+	width: 240px;
+	height: 500px;
+	left: 76%;
+	top: 15%;
+}
+
+[type="text"]:focus::placeholder {
+	visibility: hidden;
+}
+
+textarea:focus::placeholder {
+	visibility: hidden;
+}
+
+.titleConfirm {
+	width: 100px;
+	position: absolute;
+	left: 83%;
+}
+
+.textConfirm {
+	width: 100px;
+	position: absolute;
+	left: 83%;
+}
+
+.section2 .fileTitle {
+	position: absolute;
+	width: 80px;
+	left: 8%;
+	top: 63%;
+	overflow: hidden;
+	text-align: start;
+	font-size: 15px;
+	font: bold;
+}
+
+.section2 .fileBody {
+	position: absolute;
+	width: 590px;
+	left: 18%;
+	height: 200px;
+	top: 63%;
+	overflow: hidden;
+	text-align: start;
+	font-size: 15px;
+	font: bold;
+}
+
+.upload_name {
+	position: absolute;
+	left: 15%;
+	z-index: 2;
+	display: inline-block;
+	height: 80px;
+	width: 495px;
+	vertical-align: middle;
+	border: 1px solid #d1d3e2;
+	border-radius: 5px;
+	color: #999999;
+}
+
+.filebox label {
+	position: absolute;
+	left: -1%;
+	display: inline-block;
+	padding: 5px 5px;
+	color: #fff;
+	vertical-align: middle;
+	background-color: #999999;
+	border-radius: 5px;
+	cursor: pointer;
+	height: 20px;
+	margin-left: 10px;
+}
+
+.filebox input[type="file"] {
+	position: absolute;
+	width: 0;
+	height: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 0;
+}
+
+.file-item {
+	width: 400px;
+	height: 100px;
+	top: 20%;
+	border-radius: 5px;
+	z-index : 5;
+}
+.label.jh{
+text-align :center;
+padding: 0 20px;
+width: 180px;
+font-weight: 600;
+font-size: 1.0rem;
+}
+.label{
+text-align :center;
+padding: 0 20px;
+width: 180px;
+font-weight: 600;
+font-size: 1.0rem;
+}

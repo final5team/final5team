@@ -31,6 +31,7 @@ import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.SelectPM;
 import com.oti.srm.dto.StatusHistoryFile;
 import com.oti.srm.dto.StatusNoFilter;
+import com.oti.srm.encrypt.AesUtil;
 import com.oti.srm.service.member.IUserRegisterService;
 import com.oti.srm.service.srm.ICommonService;
 import com.oti.srm.service.srm.IPMService;
@@ -95,18 +96,22 @@ public class RequestController {
 
 				int result = userRegisterService.register(member);
 				if (result == IUserRegisterService.REGISTER_FAIL) {
-					return "redirect:/customer/register";
+					return "redirect:/";
 				} else {
-					result = userRegisterService.register(member);
+					result = IUserRegisterService.REGISTER_SUCCESS;
 					return "redirect:/";
 				}
 			}
+			else {
+				int result = userRegisterService.register(member);
+				return "redirect:/";
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("registerResult", "FAIL");
 			return "redirect:/customer/register";
 		}
-		return "redirect:/";
 	}
 
 	/**
@@ -175,6 +180,13 @@ public class RequestController {
 		request.setStatusName("접수중");
 		request.setStatusNo(1);
 		requestProcess.setReqType("정규");
+		//세션에 저장된 멤버 객체 전달, 번호 복호화
+		Member sessionMember = (Member) session.getAttribute("member");
+		log.info(sessionMember.toString());
+		if(sessionMember.getPhone().charAt(0) != '0') {
+			sessionMember.setPhone(AesUtil.decrypt(sessionMember.getPhone()));
+		}
+		model.addAttribute("returnMember", sessionMember);
 
 		// 시스템 리스트 전달
 		List<System> systemList = userRegisterService.getSystemList();
@@ -182,9 +194,10 @@ public class RequestController {
 		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("systemList", systemList);
 
+		model.addAttribute("member", sessionMember);
 		return "srm/request/request";
 	}
-
+	
 	/**
 	 * 요청 등록 폼 작성
 	 */
@@ -388,9 +401,12 @@ public class RequestController {
 		// 목록 리스트와 페이지 return
 		model.addAttribute("requestList", requestList);
 		model.addAttribute("pager", pager);
-		// filter 전달
+		// filter 전달, 정렬 상태 전달
 		model.addAttribute("listFilter", returnList);
-		log.info("스위치 실행");
+		
+		log.info(listFilter.toString());
+		
+		
 		return "srm/list/ajaxmyworklist";
 	}
 
@@ -410,8 +426,15 @@ public class RequestController {
 		Request request = requestService.getRequestDetail(rno);
 		List<System> systemList = userRegisterService.getSystemList();
 		RequestProcess requestProcess = commonService.getRequestProcess(rno);
+		
+		
+		
+		if(request.getRphone().charAt(0) != '0') {
+			request.setRphone(AesUtil.decrypt(request.getRphone()));
+		}
+		
 		model.addAttribute("request", request);
-		model.addAttribute("requestProcess", request);
+		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("systemList", systemList);
 		// 요청 상태가 반려일 때 상태 변경 정보(반려 사유)
 		if (request.getStatusNo() == 12) {

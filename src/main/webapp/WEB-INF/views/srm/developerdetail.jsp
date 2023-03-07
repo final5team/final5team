@@ -96,14 +96,15 @@
 												</div>
 											</div>
 											
-											<div class="filebox d-flex">
-												<div class="label label-write" id="fileLable">첨부파일</div>
+											<div class="filebox d-flex mb-3">
+												<div class="label label-write" id="fileLable">
+													<div>첨부파일</div>
+													<div class="btn btn-sm btn-info" id="btn-upload">파일 추가</div>
+													<input type="file" name="files" id="fileInput" multiple style="display: none;">
+												</div>
 												
-												<div class="form-group" id="file-list">
-											        <a href="#this" onclick="addFile()">파일추가</a>
-											        <div class="file-group">
-											            <input type="file" name="files"><a href='#this' class='file-delete'>x</a>
-											        </div>
+												<div class="border flex-grow-1" id="file-list">
+			  									
 			  									</div>	
 											</div>
 										</form>
@@ -222,7 +223,9 @@
 		                	 						</div>
 	                	 						</div>		
 	                	 						<c:if test="${request.statusNo == 5 && requestProcess.developer == member.mid && index.last}">
-	                	 							<button type="submit" class="btn btn-primary btn-md mx-3">수정</button>	
+	                	 							<div class="d-flex justify-content-end">
+	                	 								<button type="submit" class="btn btn-primary btn-sm mx-3">수정</button>	
+	                	 							</div>
 	                	 						</c:if>	
 	                	 					</div>
 	                	 				</div>
@@ -232,11 +235,11 @@
                 	 		</div><!-- foreach한다면 여기부터 end -->
                 	 		</c:forEach>
                 	 		
-                	 		<c:if test="${devToTester == null}">
+                	 		<c:if test="${devToTester[0].reply == null}">
                 	 		<div class="card border-top-primary my-3"> <!-- status_history내역없을때 start -->
                 	 			<div class="card-block">
 	                	 			<div class="card-block-title mb-0 d-flex justify-content-center">
-	                	 				<h3 class="title">
+	                	 				<h3 class="title text-gray-400">
 	                	 					내역이 없습니다. 
 	                	 				</h3>
 	                	 			</div>
@@ -276,7 +279,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<i class="fa fa-exclamation-circle mr-2" aria-hidden="true" style="font-size: 25px; color: red;"></i>
-					<h5>경고</h5>
+					<h5>Alert</h5>
 					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
@@ -367,6 +370,21 @@
 	/* 개발 완료 버튼 클릭시 form데이터 전달 */
 	function devEnd(){
 		$('#writeform').attr('action', '${pageContext.request.contextPath}/devdone');
+		
+		//선택된 파일 지우기
+		var fileInput = $('#fileInput')[0];
+		var fileBuffer = new DataTransfer();
+		fileInput.files = fileBuffer.files;
+		
+		//배열의 항목으로 채우기
+		fileBuffer = new DataTransfer();
+		for(var i = 0; i < content_files.length; i ++){
+			if(!content_files[i].is_delete){
+				fileBuffer.items.add(content_files[i]);
+			} 
+		}
+		fileInput.files = fileBuffer.files;
+		
 		$('#writeform').submit();
 	}
 	/* 임시저장 버튼 클릭시 form 데이터 전달 */
@@ -392,25 +410,7 @@
 		
 	}
 	
-	/* 파일 */
-	$(document).ready(function() {
-	    $(".file-delete").on("click", function(e) {
-	        e.preventDefault();
-	        deleteFile($(this));
-	    });
-	})
-	 function addFile() {
-        var str = "<div class='file-group'><input type='file' name='files'><a href='#this' name='file-delete'>x</a></div>";
-        $("#file-list").append(str);
-        $("a[name='file-delete']").on("click", function(e) {
-            e.preventDefault();
-            deleteFile($(this));
-        });
-    }
- 
-    function deleteFile(obj) {
-        obj.parent().remove();
-    }
+	
 	/* 글자수 세기 */
    	$('#reply').keyup(function (e){
    		let content = $(this).val();
@@ -461,6 +461,73 @@
 			}
 			
 		}
+	}
+	
+ 	
+	/****** 업로드된 파일 리스트 출력하기 *****/
+	$(document).ready(function()
+		// input file 파일 첨부시 fileCheck 함수 실행
+	{
+		$("#fileInput").on("change", fileCheck);
+	});
+	
+	/* '파일추가' 버튼 누를 때마다 파일input 실행 */
+	$(function () {
+	    $('#btn-upload').click(function (e) {
+	        e.preventDefault();
+	        $('#fileInput').click();
+	    });
+	})
+	
+	// 파일 현재 필드 숫자 totalCount랑 비교값
+	var fileCount = 0;
+	// 해당 숫자를 수정하여 전체 업로드 갯수를 정한다.
+	var totalCount = 5;
+	// 파일 고유넘버
+	var fileNum = 0;
+	// 첨부파일 배열
+	var content_files = new Array();
+
+	function fileCheck(e) {
+	    var files = e.target.files;
+	    
+	    // 파일 배열 담기
+	    var filesArr = Array.prototype.slice.call(files);
+	    
+	    // 파일 개수 확인 및 제한
+	    if (fileCount + filesArr.length > totalCount) {
+	      alert('파일은 최대 '+totalCount+'개까지 업로드 할 수 있습니다.');
+	      return;
+	    } else {
+	    	 fileCount = fileCount + filesArr.length;
+	    }
+	    
+	    // 각각의 파일 배열담기 및 기타
+	    filesArr.forEach(function (f) {
+	      var reader = new FileReader();
+	      
+	      reader.onload = function (e) {
+		        content_files.push(f);
+		        $('#file-list').append(
+		       		'<div id="file' + fileNum + '">'
+		       		+ '<font style="font-size:15px">' + f.name + '</font>'  
+		       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
+		       		+ '<div/>'
+				);
+		        fileNum ++;
+	      };
+	      
+	      reader.readAsDataURL(f);
+	    });
+	  }
+
+	// 파일 부분 삭제 함수
+	function fileDelete(fileId){
+	    var fileNum = fileId.replace("file", "");
+	    content_files[fileNum].is_delete = true;
+	    
+		$('#' + fileId).remove();
+		fileCount --;
 	}
 
 	</script>

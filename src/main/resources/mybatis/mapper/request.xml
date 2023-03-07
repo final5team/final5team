@@ -69,8 +69,12 @@
 		r.RNO = rp.RNO
 		inner join systems s
         on r.sno = s.sno
-		order by
-		r.req_date desc
+        
+        <if test ='listFilter.columnName == null'>
+			<![CDATA[
+				order by r.req_date desc 
+			]]>
+		</if>
 		)
 		<where>
 			<if test='member.mtype.equals("pm")'>
@@ -257,7 +261,25 @@
 				</if>
 			</if>
 		</where>
-		order by r.req_date desc
+		<if test ='listFilter.columnName == null'>
+				order by r.req_date desc
+			
+		</if>
+		<if test ='listFilter.columnName != null'>
+			<if test ='listFilter.columnName == "th_no"'>
+				<if test='listFilter.sortState == "asc"'>
+					order by r.rno  asc
+				</if>
+				<if test='listFilter.sortState == "desc"'>
+					order by r.rno  desc
+				</if>
+			</if>
+			
+			
+			
+			
+		</if>
+		
 		) j offset (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS 
 			fetch first (#{pager.rowsPerPage}) rows only
 	</select>
@@ -305,12 +327,12 @@
 				
 				<if test='listFilter.statusValue eq"진행중"'>
 				<![CDATA[
-					and status_no in (1, 2, 3, 4, 5, 6, 7, 8, 10)
+					and status_no in (1, 2, 3, 4, 5, 6, 7, 8, 10, 11)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"완료"'>
 				<![CDATA[
-					and status_no in (11, 13)
+					and status_no in (13)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"반려"'>
@@ -366,12 +388,12 @@
 				
 				<if test='listFilter.statusValue eq"진행중"'>
 				<![CDATA[
-					and status_no in (1, 2, 3, 4, 5, 6, 7, 8, 10)
+					and status_no in (1, 2, 3, 4, 5, 6, 7, 8, 10, 11)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"완료"'>
 				<![CDATA[
-					and status_no in (11, 13)
+					and status_no in (13)
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"반려"'>
@@ -555,11 +577,15 @@
 
 	<select id="selectRequestDetail" parameterType="int" resultType="com.oti.srm.dto.Request">
 		select r.RNO, r.REQ_DATE as "reqDate" , r.REQ_TITLE as "reqTitle" , r.REQ_CONTENT as "reqContent", 
-				r.CLIENT, r.SNO, r.REQ_EXPECT_DATE as "reqExpectDate", r.STATUS_NO as "statusNo", sh.hno, s.SYSTEM_NAME as "systemName"
+				r.CLIENT, r.SNO, r.REQ_EXPECT_DATE as "reqExpectDate", r.STATUS_NO as "statusNo", sh.hno, s.SYSTEM_NAME as "systemName",
+				m.MNAME as "rname", m.PHONE as "rphone", m.POSITION as "rposition", m.ORGAN as "rorgan", m.EMAIL as "remail"
+				
         from status_histories sh left outer join requests r
         	on sh.rno = r.rno
         inner join systems s
         	on r.sno = s.sno
+        	inner join members m
+            on r.client = m.MID
         where r.rno=#{rno} and next_status = 1
 	</select>
 	

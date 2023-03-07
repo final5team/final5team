@@ -7,6 +7,9 @@
 <head>
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
 <link href="${pageContext.request.contextPath}/resources/css/stepperprogress.css" rel="stylesheet">
+<script src="${pageContext.request.contextPath}/resources/vendor/tinymce/tinymce.min.js"></script>    
+<script src="${pageContext.request.contextPath}/resources/js/tinymceinit.js"></script>    
+<script src="${pageContext.request.contextPath}/resources/vendor/tinymce/themes/silver/theme.min.js"></script>    
 <style>
 </style>
 </head>
@@ -15,7 +18,7 @@ a {
 	text-decoration: none;
 }
 .card-block {
-	height : 600px;
+	height: 800px;
 }
 .card-body .label {
 	position: absolute;
@@ -82,7 +85,7 @@ a {
 	position: absolute;
 	width: 50px;
 	left: 8%;
-	top: 48%;
+	top: 36.5%;
 	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
@@ -96,7 +99,7 @@ a {
 	position: absolute;
 	width: 800px;
 	left: 18%;
-	top: 48%;
+	top: 36.5%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -111,7 +114,7 @@ a {
 	position: absolute;
 	width: 300px;
 	left: 8%;
-	top: 57%;
+	top: 42%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -121,7 +124,7 @@ a {
 	position: absolute;
 	width: 800px;
 	left: 18%;
-	top: 57%;
+	top: 42%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -284,7 +287,7 @@ textarea:focus::placeholder {
 						</div>
 						<div>
 							<!-- 여기에 단계 상태 이력 넣기 -->
-							<%@ include file="/WEB-INF/views/srm/request/stepperprogress.jsp"%>
+							<%@ include file="/WEB-INF/views/srm/request/userstepperprogress.jsp" %>
 						</div>
 						
 						<!-- 여기에 단계 상태 이력 넣기 /-->
@@ -310,7 +313,7 @@ textarea:focus::placeholder {
 													<input type="text" class="form-control form-control-user" id="clientName" name="clientName" placeholder="${sessionScope.member.mname}" value="${sessionScope.member.mname}" readonly> 
 												</div>
 												<div class="item">
-													<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="${sessionScope.member.phone}" value="${sessionScope.member.phone}" readonly> 
+													<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="${member.phone}" value="${member.phone}" readonly> 
 												</div>
 												<div class="item">
 													<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="${sessionScope.member.position}" value="${sessionScope.member.position}" readonly> 
@@ -358,7 +361,7 @@ textarea:focus::placeholder {
 											</article>
 											<article class="bodyInput">
 												<div class="item">
-													<textarea id="reqContent" cols="30" name="reqContent" placeholder="내용" required></textarea>
+													<textarea id="reqContent" cols="30" name="reqContent" placeholder="내용"></textarea>
 													<div class="textConfirm">
 														<small class=" mr-5" id="counterContent">(0 / 300)</small>
 													</div>
@@ -388,6 +391,8 @@ textarea:focus::placeholder {
 							</div>
 						</section>
 						<!-- 개발내역 입력폼 end -->
+						
+						
 					</div>
 					<!-- id=main div / -->
 				</div>

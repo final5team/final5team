@@ -419,6 +419,169 @@ input:checked + .slider:before {
   }
 }
 
+.member th.sorted{
+	text-align: left;
+}
+
+/* 
+th.sorted:after{
+	content : "▼";
+	display : inline-block;
+	font-size : .5em;
+	position : relative;
+	left : 10%;
+	top : 10%;
+}
+th.sorted:before{
+	content : "▲";
+	display : inline-block;
+	font-size : .5em;
+	position : relative;
+	left : 90%;
+	top : -10%;
+}
+  */
+
+  .th_first:after{
+  	content : "▲";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 4.2%;
+  	opacity : .6;
+  	cursor:pointer;
+  }
+  .th_first:before{
+  	content : "▼";
+  	font-size : .3em;
+  	position : absolute;
+  	left : 4.2%;
+  	top : 12.5%;
+  	opacity : .6;
+  	cursor:pointer;
+  }
+  .th_first_asc:after{
+  	content : "▲";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 4.2%;
+  	opacity : 1;
+  	cursor:pointer;
+  }
+  .th_first_asc:before{
+  	content : "▼";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 4.2%;
+  	top : 12.5%;
+  	opacity : .6;
+  	cursor:pointer;
+  }
+  .th_first_desc:after{
+  	content : "▲";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 4.2%;
+  	opacity : .6;
+  	cursor:pointer;
+  }  
+  .th_first_desc:before{
+  	content : "▼";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 4.2%;
+  	top : 12.5%;
+  	opacity : 1;
+  	cursor:pointer;
+  }  
+    
+  /*  */
+  .th_second:after{
+    content : "▲";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 12.5%;
+  	opacity : .6;
+  	cursor:pointer;
+  }
+  .th_second:before{
+    content : "▼";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	top : 12.5%;
+  	left : 12.5%;
+  	opacity : .6;
+  	cursor:pointer;
+  }
+
+  
+  .th_third:after{
+ 	content : "▲";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 22%;
+  	opacity : .6;
+  	cursor:pointer;
+  }
+  .th_third:before{
+  	content : "▼";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 22%;
+  	top : 12.5%;
+  	opacity : .6;
+  	cursor:pointer;
+  }
+  
+  .th_four:after{
+  	content : "▲";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 35%;
+  	opacity : .6;
+  	cursor:pointer;
+  }
+  .th_four:before{
+  	content : "▼";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	top : 12.5%;
+  	left : 35%;
+  	opacity : .6;
+  	cursor:pointer;
+  }
+  .th_five:after{
+  	content : "▲";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 49.5%;
+  	opacity : .6;
+  	cursor:pointer;
+  }
+  .th_five:before{
+  	content : "▼";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 49.5%;
+  	top : 12.5%;
+  	opacity : .6;
+  	cursor:pointer;
+  }
+  
+  
+  
 
 
 </style>
