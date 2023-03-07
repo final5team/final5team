@@ -381,11 +381,13 @@ public class RequestController {
 		model.addAttribute("requestProcess", request);
 		model.addAttribute("systemList", systemList);
 		
+		
 		//세션에 저장된 멤버 객체 전달
 		Member member = (Member) session.getAttribute("member");
-		//핸드폰 번호 복호화 처리
 		member.setPhone(AesUtil.decrypt(member.getPhone()));
 		model.addAttribute("returnMember", member);
+		
+		
 		// 요청 상태가 반려일 때 상태 변경 정보(반려 사유)
 		if(request.getStatusNo()==12) {
 			model.addAttribute("rejectHistory", pMService.getStatusHistory(rno, "reject"));

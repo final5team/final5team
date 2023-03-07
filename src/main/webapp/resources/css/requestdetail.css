@@ -3,7 +3,7 @@ a {
 }
 
 .card-block.js {
-	height: 600px;
+	height: 800px;
 }
 
 .card-body .label.js {
@@ -28,7 +28,7 @@ a {
 	width: 250px;
 	height: 200px;
 	left: 18%;
-	top: 15%;
+	top: 14.5%;
 	overflow: hidden;
 	text-align: start;
 }
@@ -48,7 +48,7 @@ a {
 	width: 250px;
 	height: 200px;
 	left: 70%;
-	top: 15%;
+	top: 14.5%;
 	overflow: hidden;
 	text-align: start;
 }
@@ -75,7 +75,7 @@ a {
 	position: absolute;
 	width: 50px;
 	left: 8%;
-	top: 48%;
+	top: 38%;
 	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
@@ -89,7 +89,7 @@ a {
 	position: absolute;
 	width: 800px;
 	left: 18%;
-	top: 48%;
+	top: 38%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
