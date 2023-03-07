@@ -14,10 +14,10 @@
 								
 							
 						
-		<th class="ex">시스템</th>
-		<th class="ex">요청 유형</th>
-		<th class="ex">요청 제목</th>
-		<th class="ex">요청 일자</th>
+		<th class="ex th_second">시스템</th>
+		<th class="ex th_third">요청 유형</th>
+		<th class="ex th_four">요청 제목</th>
+		<th class="ex th_five">요청 일자</th>
 		<th class="ex">단계</th>
 
 	</tr>
