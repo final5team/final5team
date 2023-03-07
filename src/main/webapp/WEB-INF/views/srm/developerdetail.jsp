@@ -220,16 +220,25 @@
 					                	 						<div class="col-2 label">배포소스(url)</div>
 					                	 						<input name="distSource" class="col-8 form-control boxed mr-5" style=" height: 20px;" value="${statusHistory.distSource}">
 				                	 						</div>
+				                	 						<div class="row mt-3">
+				                	 							<div class="col-2 label">첨부파일</div>
+					                	 						<div class="col-8">
+				                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+																	<div>
+																		<span>${statusHistoryFile.fileName}</span>
+																		<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																			<i class="fas fa-cloud-download-alt text-info"></i>
+																		</a>
+																	</div>
+																	</c:forEach>
+					                	 						</div>
+				                	 						</div>
 				                	 						<div class="filebox d-flex mb-3">
 																<div class="label label-write" id="fileLable">
-																	<div>첨부파일</div>
-																	<div class="btn btn-sm btn-info" id="btn-upload">파일 추가</div>
-																	<input type="file" name="files" id="fileInput" multiple style="display: none;">
+																	<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
+																	<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
 																</div>
-																
-																<div class="border flex-grow-1 border-success" id="file-list">
-							  									
-							  									</div>	
+																<div class="border flex-grow-1 border-success" id="file-list-update"></div>	
 															</div>
 			                	 						</c:if>
 	                	 						</c:if>
@@ -481,6 +490,7 @@
 		// input file 파일 첨부시 fileCheck 함수 실행
 	{
 		$("#fileInput").on("change", fileCheck);
+		$("#fileInputUPdate").on("change", fileUpdate);
 	});
 	
 	/* '파일추가' 버튼 누를 때마다 파일input 실행 */
@@ -542,7 +552,27 @@
 		$('#' + fileId).remove();
 		fileCount --;
 	}
-
+	/********* 파일 수정 *********/
+	
+	/* '파일수정' 버튼 누를 때마다 파일input 실행 */
+	$(function () {
+	    $('#btn-upload-update').click(function (e) {
+	        e.preventDefault();
+	        $('#fileInputUpdate').click();
+	    });
+	})
+	function fileCheck (e){
+		
+		//파일 객체 갖고오기
+		var files = e.target.files;
+		
+		// 파일 배열 담기
+	    var filesArr = Array.prototype.slice.call(files);
+		
+		//기존에 있던 파일 객체
+	    var existfiles = $('.existfiles');
+	}
+	
 	</script>
 </body>
 
