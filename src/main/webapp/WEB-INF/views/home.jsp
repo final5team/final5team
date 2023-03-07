@@ -120,7 +120,7 @@ input:checked + .slider:before {
                			<!-- 상단 업무 현황 바 start -->
                			<div class=" d-flex justify-content-between" style="flex-wrap: nowrap;">
 	               			<!-- 처리 대기 건 -->
-               				<div 
+               				<a href="#" onclick="requestProcessList(1, '대기', 'boxclick')"
                					<c:if test="${member.mtype == 'developer'}">class="uppermain mb-4 ml-3"</c:if>
                					<c:if test="${member.mtype != 'developer'}">class="uppermain2 mb-4 ml-3"</c:if>
                				 >
@@ -171,10 +171,10 @@ input:checked + .slider:before {
 	                                    </div>
 	                                </div>
 	                            </div>
-	                        </div>
+	                        </a>
                			
                				<!-- 진행요청건 -->
-	               			 <div 
+	               			 <a href="#" onclick="requestProcessList(1, '진행중', 'boxclick')"
                					<c:if test="${member.mtype == 'developer'}">class="uppermain mb-4"</c:if>
                					<c:if test="${member.mtype != 'developer'}">class="uppermain2 mb-4"</c:if>
                				 >
@@ -217,10 +217,10 @@ input:checked + .slider:before {
 	                                    </div>
 	                                </div>
 	                            </div>
-	                        </div>
+	                        </a>
 	               			
 	               			<!-- 완료건 -->
-	               			 <div 
+	               			 <a href="#" onclick="requestProcessList(1, '완료', 'boxclick')"
                					<c:if test="${member.mtype == 'developer'}">class="uppermain mb-4"</c:if>
                					<c:if test="${member.mtype != 'developer'}">class="uppermain2 mb-4"</c:if>
                				 >
@@ -271,10 +271,10 @@ input:checked + .slider:before {
 	                                    </div>
 	                                </div>
 	                            </div>
-	                        </div>
+	                        </a>
 							<!-- mtype이 developer라면 재검토요청건 존재 -->
 							<c:if test="${member.mtype == 'developer'}">
-	               			<div class="uppermain mb-4">
+	               			<a href="#" onclick="requestProcessList(1, '재검토', 'boxclick')" class="uppermain mb-4">
 	                            <div class="card border-left-warning shadow h-100 py-2">
 	                                <div class="card-body">
 	                                    <div class="row no-gutters align-items-center">
@@ -291,7 +291,7 @@ input:checked + .slider:before {
 	                                    </div>
 	                                </div>
 	                            </div>
-	                        </div>
+	                        </a>
 							</c:if>
 	                        
                			</div>
@@ -326,7 +326,6 @@ input:checked + .slider:before {
 											  <span class="slider round"></span>
 											</label>
 				                		</div>
-			                			
 									</div>
 									<div class="card-block pt-2" style="height: 350px;" id="requestProcessListContainer">
 										<!-- 리스트 start -->
@@ -417,32 +416,30 @@ input:checked + .slider:before {
 											</table>
 										</div>
 										<div>
-											<ul class="pagination pagination-sm d-flex justify-content-center mt-2">
-											    <li class="page-item"><a class="page-link" onclick="requestProcessList(1)">처음</a></li>
-											    <c:if test="${rpPager.groupNo>1}">
-												    <li class="page-item">
-												    	<a class="page-link" onclick="requestProcessList(${rpPager.startPageNo-1})">
-												    		<i class="fas fa-caret-left"></i>
-												    	</a>
-												    </li>
-											    </c:if>
-											    <c:forEach var="i" begin="${rpPager.startPageNo}" end="${rpPager.endPageNo}">
-											    	<c:if test="${rpPager.pageNo != i}">
-												    	<li class="page-item"><a class="page-link" onclick="requestProcessList(${i})">${i}</a></li>
-											    	</c:if>
-											    	<c:if test="${rpPager.pageNo == i}">
-												    	<li class="page-item"><a class="page-link" style="background-color: #3A4651; color: white;" onclick="requestProcessList(${i})">${i}</a></li>
-											    	</c:if>
-											    </c:forEach>
-											    <c:if test="${rpPager.groupNo<rpPager.totalGroupNo}">
-												    <li class="page-item">
-												    	<a class="page-link" onclick="requestProcessList(${rpPager.endPageNo + 1})">
-												    		<i class="fas fa-caret-right"></i>
-												   	 	</a>
-												    </li>
-											    </c:if>
-											    <li class="page-item"><a class="page-link" onclick="requestProcessList(${rpPager.totalPageNo})">맨끝</a></li>
-											</ul>
+											<div class="pager default mt-2">
+												<div class="pagingButtonSet d-flex justify-content-center">
+													<a onclick="requestProcessList(1)" type="button" class="btn btn-muted shadow">처음</a>
+													<c:if test="${rpPager.groupNo > 1}">
+														<a onclick="requestProcessList(${rpPager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
+					
+													</c:if>
+					
+													<c:forEach var="i" begin="${rpPager.startPageNo}" end="${rpPager.endPageNo}">
+														<c:if test="${rpPager.pageNo != i}">
+															<a onclick="requestProcessList(${i})" type="button" class="btn btn-white shadow">${i}</a>
+														</c:if>
+														<c:if test="${rpPager.pageNo == i}">
+															<a onclick="requestProcessList(${i})" type="button" class="btn btn-dark shadow">${i}</a>
+														</c:if>
+													</c:forEach>
+					
+													<c:if test="${rpPager.groupNo < rpPager.totalGroupNo }">
+														<a onclick="requestProcessList(${rpPager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
+					
+													</c:if>
+													<a onclick="requestProcessList(${rpPager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
+												</div>
+											</div>
 										</div>	
 
 										<!--리스트 end -->
@@ -483,32 +480,30 @@ input:checked + .slider:before {
 												</tbody>
 											</table>
 										</div>
-										<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
-										    <li class="page-item"><a class="page-link" onclick="mainNoticeList(1)">처음</a></li>
-										    <c:if test="${nPager.groupNo>1}">
-											    <li class="page-item">
-											    	<a class="page-link" onclick="mainNoticeList(${nPager.startPageNo-1})">
-											    		<i class="fas fa-caret-left"></i>
-											    	</a>
-											    </li>
-										    </c:if>
-										    <c:forEach var="i" begin="${nPager.startPageNo}" end="${nPager.endPageNo}">
-										    	<c:if test="${nPager.pageNo != i}">
-											    	<li class="page-item"><a class="page-link" onclick="mainNoticeList(${i})">${i}</a></li>
-										    	</c:if>
-										    	<c:if test="${nPager.pageNo == i}">
-											    	<li class="page-item"><a class="page-link" style="background-color: #72B22B; color: white;" onclick="mainNoticeList(${i})">${i}</a></li>
-										    	</c:if>
-										    </c:forEach>
-										    <c:if test="${nPager.groupNo<nPager.totalGroupNo}">
-											    <li class="page-item">
-											    	<a class="page-link" onclick="mainNoticeList(${nPager.endPageNo + 1})">
-											    		<i class="fas fa-caret-right"></i>
-											   	 	</a>
-											    </li>
-										    </c:if>
-										    <li class="page-item"><a class="page-link" onclick="mainNoticeList(${nPager.totalPageNo})">맨끝</a></li>
-										</ul>
+										<div class="pager default mt-4">
+											<div class="pagingButtonSet d-flex justify-content-center">
+												<a onclick="mainNoticeList(1)" type="button" class="btn btn-muted shadow">처음</a>
+												<c:if test="${nPager.groupNo > 1}">
+													<a onclick="mainNoticeList(${nPager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
+				
+												</c:if>
+				
+												<c:forEach var="i" begin="${nPager.startPageNo}" end="${nPager.endPageNo}">
+													<c:if test="${nPager.pageNo != i}">
+														<a onclick="mainNoticeList(${i})" type="button" class="btn btn-white shadow">${i}</a>
+													</c:if>
+													<c:if test="${nPager.pageNo == i}">
+														<a onclick="mainNoticeList(${i})" type="button" class="btn btn-dark shadow">${i}</a>
+													</c:if>
+												</c:forEach>
+				
+												<c:if test="${nPager.groupNo < nPager.totalGroupNo }">
+													<a onclick="mainNoticeList(${nPager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
+				
+												</c:if>
+												<a onclick="mainNoticeList(${nPager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
+											</div>
+										</div>
 			                		</div>
 								</div>
 							</div>
@@ -557,7 +552,11 @@ input:checked + .slider:before {
     </div>
     
     <script>
-    	function requestProcessList(pageNo){
+    	function requestProcessList(pageNo, status, clickType){
+    		console.log(clickType);
+    		if(clickType == 'boxclick'){
+    			$('#toggleButton').prop("checked", true);
+    		}
     		var checkbox = '';
     		if($('#toggleButton').is(":checked")){
     			checkbox = 'y';
@@ -592,7 +591,7 @@ input:checked + .slider:before {
     		console.log(checkbox);
     		$.ajax({
     			type: "GET", //요청 메소드 방식
-    			url:"${pageContext.request.contextPath}/requestprocesslist?workPageNo=" + pageNo + "&checkbox=" + checkbox,
+    			url:"${pageContext.request.contextPath}/requestprocesslist?workPageNo=" + pageNo + "&checkbox=" + checkbox + "&status=" + status,
     			dataType:"html", 
     			success : function(result){
     				$('#requestProcessListContainer').html(result);
