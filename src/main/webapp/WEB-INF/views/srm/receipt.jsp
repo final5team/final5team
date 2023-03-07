@@ -37,10 +37,12 @@
     <script>	      
 		$(document).ready(function(){
 			// 반려 입력 항목 숨기기
-		  $("#rejectdiv").hide();		  
+		   $("#rejectdiv").hide();	
+			// 접수 완료 후 요청 처리 계획 확인 시 품질 검토 담당자 표시 여부 
+		   rtype();
 
 			// 반려 입력 항목 열고 접수 입력 항목 숨기기
-		  $("#rejectbtn").click(function(){
+		   $("#rejectbtn").click(function(){
 			  $("#receiptdiv").hide();
 			  $("#rejectdiv").show();
 		   });
@@ -48,12 +50,12 @@
 			// 현재 날짜 구하기
 			var now = new Date();
 			// 완료 예정일에 현재 날짜 이후 날짜만 선택 가능하게 만들기(최소값)
-		  document.getElementById("allExpectDate").min
-		  = now.toISOString().slice(0, 10);		
+		   document.getElementById("allExpectDate").min
+		   = now.toISOString().slice(0, 10);		
 			
 			// 완료 예정일에 현재 날짜 1년 이내 날짜만 선택 가능하게 만들기(최대값)
-		  document.getElementById("allExpectDate").max
-		  = new Date(now.setFullYear(now.getFullYear() + 1)).toISOString().slice(0, 10);
+		   document.getElementById("allExpectDate").max
+		   = new Date(now.setFullYear(now.getFullYear() + 1)).toISOString().slice(0, 10);
 			
 		});
 		
@@ -63,44 +65,26 @@
 		     $("#receiptdiv").show();
 		}		
 						
-		// 요청 유형에 따른 유저 테스터 선택 여부
+		// 요청 유형에 따른 품질 검토 담당자 선택 여부
 		function rtype(){
 			var reqType = $("#reqType").val();
-			// 요청 유형이 긴급일 때 유저 테스터 선택하지 않기
+			// 요청 유형이 긴급일 때 품질 검토 담당자 선택하지 않기
 			if(reqType == '긴급'){
-				// 유저 테스터 선택 불가
+				// 품질 검토 담당자 선택 불가
 				$("#utester").hide();
-				// 유저 테스터 값 null
+				// 품질 검토 담당자 값 null
 				$("#userTester").val("");
-				// 유저 테스터 미입력 가능
+				// 품질 검토 담당자 미입력 가능
 				$("#userTester").removeAttr("required");
 			}
-			// 요청 유형이 정규일 때 유저 테스터 선택하기
+			// 요청 유형이 정규일 때 품질 검토 담당자 선택하기
 			if(reqType == '정규'){
-				// 유저 테스터 선택 가능
+				// 품질 검토 담당자 선택 가능
 				$("#utester").show();
-				// 유저 테스터 필수 입력
+				// 품질 검토 담당자 필수 입력
 				$("#userTester").attr("required", "required")
 			}			
-		}
-		// 파일 추가
-		function addFile() {
-			// 파일 업로드 input tag
-       		var str = "<div class='file-group'><input type='file' name='files'><a href='#this' name='file-delete'>x</a></div>";
-       		// 파일 업로드 버튼 추가
-	        $("#file-list").append(str);
-       		// 파일 삭제 버튼 선택 시 해당 파일 삭제
-	        $("a[name='file-delete']").on("click", function(e) {
-	        	// 기본 동작(이동) 방지
-	            e.preventDefault();
-	        	// 해당 파일 삭제
-	            deleteFile($(this));
-	        });
-	    }
-	 	// 파일 삭제	
-	    function deleteFile(obj) {
-	        obj.parent().remove();
-	    }
+		}		
 	 	
 	 	// 의견 내용 유효성 검사
 	    function validate() {
@@ -117,6 +101,114 @@
 			}
 			// 유효성 검사 결과 반환
 			return result;
+		}
+	 	
+	    /****** 업로드된 파일 리스트 출력하기 *****/
+		$(document).ready(function(){
+			// input file 파일 첨부시 fileCheck 함수 실행		
+			$("#fileInput").on("change", fileCheck);
+			$("#fileInput2").on("change", fileCheck2);
+		});
+		
+		/* '파일추가' 버튼 누를 때마다 파일input 실행 */
+		$(function () {
+			// 접수 시 첨부 파일 추가
+		    $('#btn-upload').click(function (e) {
+		        e.preventDefault();
+		        $('#fileInput').click();
+		    });
+			// 반려 시 첨부 파일 추가
+		    $('#btn-upload2').click(function (e) {
+		        e.preventDefault();
+		        $('#fileInput2').click();
+		    });
+		})
+		
+		// 파일 현재 필드 숫자 totalCount랑 비교값
+		// 접수 파일 개수
+		var fileCount = 0;
+		// 반려 파일 개수
+		var fileCount2 = 0;
+		// 해당 숫자를 수정하여 전체 업로드 갯수를 정한다.
+		var totalCount = 5;
+		// 파일 고유넘버
+		var fileNum = 0;
+		// 첨부파일 배열
+		var content_files = new Array();
+
+		function fileCheck(e) {
+		    var files = e.target.files;
+		    
+		    // 파일 배열 담기
+		    var filesArr = Array.prototype.slice.call(files);
+		    
+		    // 파일 개수 확인 및 제한
+		    if (fileCount + filesArr.length > totalCount) {
+		      alert('파일은 최대 '+totalCount+'개까지 업로드 할 수 있습니다.');
+		      return;
+		    } else {
+		    	 fileCount = fileCount + filesArr.length;
+		    }
+		    
+		    // 각각의 파일 배열담기 및 기타
+		    filesArr.forEach(function (f) {
+		      var reader = new FileReader();
+		      
+		      reader.onload = function (e) {
+			        content_files.push(f);
+			        $('#file-list').append(
+			       		'<div id="file' + fileNum + '">'
+			       		+ '<font style="font-size:15px">' + f.name + '</font>'  
+			       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
+			       		+ '<div/>'
+					);
+			        fileNum ++;
+		      };
+		      
+		      reader.readAsDataURL(f);
+		    });
+		  }
+		
+		function fileCheck2(e) {
+		    var files = e.target.files;
+		    
+		    // 파일 배열 담기
+		    var filesArr = Array.prototype.slice.call(files);
+		    
+		    // 파일 개수 확인 및 제한
+		    if (fileCount2 + filesArr.length > totalCount) {
+		      alert('파일은 최대 '+totalCount+'개까지 업로드 할 수 있습니다.');
+		      return;
+		    } else {
+		    	 fileCount2 = fileCount2 + filesArr.length;
+		    }
+		    
+		    // 각각의 파일 배열담기 및 기타
+		    filesArr.forEach(function (f) {
+		      var reader = new FileReader();
+		      
+		      reader.onload = function (e) {
+			        content_files.push(f);
+			        $('#file-list2').append(
+			       		'<div id="file' + fileNum + '">'
+			       		+ '<font style="font-size:15px">' + f.name + '</font>'  
+			       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
+			       		+ '<div/>'
+					);
+			        fileNum ++;
+		      };
+		      
+		      reader.readAsDataURL(f);
+		    });
+		  }
+
+		// 파일 부분 삭제 함수
+		function fileDelete(fileId){
+		    var fileNum = fileId.replace("file", "");
+		    content_files[fileNum].is_delete = true;
+		    
+			$('#' + fileId).remove();
+			fileCount --;
 		}
 	</script>
 </head>
@@ -295,18 +387,20 @@
 												<div class="row mb-2">
 													<div class="label col-3">의견 내용</div>
 													<textarea class="form-control boxed col-7 pmcontent ml-2" id="reply" name="reply" style="padding: 0px" maxlength="300"></textarea>													
-												</div>																																
-												<div class="filebox d-flex">
-													<div class="col-3 label label-write" id="fileLable">첨부파일</div>
-													<div class="col-7 form-group" id="file-list">
-												        <a href="#this" onclick="addFile()">파일추가</a>
-												        <div class="file-group">
-												            <input type="file" name="files"><a href='#this' class='file-delete' name='file-delete'>x</a>
-												            <input type="hidden" name="rno" value="${request.rno}">
-												        </div>
+												</div>	
+												<div class="filebox d-flex mb-3">
+													<div class="label label-write" id="fileLable">
+														<div>첨부파일</div>
+														<div class="btn btn-sm btn-info" id="btn-upload">파일 추가</div>
+														<input type="file" name="files" id="fileInput" multiple style="display: none;">
+													</div>
+													
+													<div class="border flex-grow-1" id="file-list">
+				  									
 				  									</div>	
-												</div>
-												<div class="d-flex justify-content-end">						
+												</div>																																											
+												<div class="d-flex justify-content-end">	
+													<input type="hidden" name="rno" value="${request.rno}">					
 													<button class="btn btn-primary btn-md mt-3 ml-3" type="submit" value=2 name="nextStatus">접수 완료</button>
 													<a class="btn btn-secondary btn-md mt-3 ml-3" onclick="location.reload()">취소</a>												
 												</div>
@@ -358,14 +452,19 @@
 													<label class="label">반려 사유</label>
 													<textarea class="form-control boxed pmcontent" name="reply" style="width: 65%; margin: auto;" maxlength="300"></textarea>
 												</div>											
-												<div class="filebox row">
-													<label for="file" class=" col-3 label">첨부파일</label>
-													<div class="col-7">
-														<input type="file" id="files" name="files" multiple>
-														<input type="hidden" name="rno" value="${request.rno}">
+												<div class="filebox d-flex mb-3">
+													<div class="label label-write" id="fileLable">
+														<div>첨부파일</div>
+														<div class="btn btn-sm btn-info" id="btn-upload2">파일 추가</div>
+														<input type="file" name="files" id="fileInput2" multiple style="display: none;">
 													</div>
-												</div>													
-												<div class="d-flex justify-content-end">									
+													
+													<div class="border flex-grow-1" id="file-list2">
+				  									
+				  									</div>	
+												</div>												
+												<div class="d-flex justify-content-end">	
+													<input type="hidden" name="rno" value="${request.rno}">								
 													<button class="btn btn-danger btn-md mt-3 ml-3" type="submit" value=12 name="nextStatus">반려 완료</button>												
 													<a class="btn btn-secondary btn-md mt-3 ml-3" onclick="location.reload()">취소</a>									
 												</div>
@@ -516,24 +615,24 @@
 											</div>	
 											<hr/>
 											<c:forEach var="statusHistory" items="${pmToAllHistories}">
-											<div class="row">
-												<div class="col-3 label">검토 의견</div>
-												<div class="col-7 border" style="min-height:100px;">${statusHistory.reply}</div>
-											</div>
-											<hr/>
-											<div class="row">
-												<div class="col-3 label">검토 첨부파일</div>
-												<div class="col-7">
-													<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-														<div>
-															<span>${statusHistoryFile.fileName}</span>
-															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-																<i class="fas fa-cloud-download-alt"></i>
-															</a>
-														</div>
-													</c:forEach>
+												<div class="row">
+													<div class="col-3 label">검토 의견</div>
+													<div class="col-7 border" style="min-height:100px;">${statusHistory.reply}</div>
 												</div>
-											</div>	
+												<hr/>
+												<div class="row">
+													<div class="col-3 label">검토 첨부파일</div>
+													<div class="col-7">
+														<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+															<div>
+																<span>${statusHistoryFile.fileName}</span>
+																<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																	<i class="fas fa-cloud-download-alt"></i>
+																</a>
+															</div>
+														</c:forEach>
+													</div>
+												</div>	
 											</c:forEach>
 										</div>
 									</div> <!-- card-block -->						
@@ -600,6 +699,7 @@
 															</c:forEach>
 														</select>
 													</div>
+													
 													<div class="row mb-2" id="utester">
 														<label class="label col-3">*품질 검토 담당자 선택</label>
 														<select class="dropdown-toggle col-7 ml-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
@@ -609,6 +709,7 @@
 															</c:forEach>
 														</select>
 													</div>
+													
 													<div class="row mb-2">
 														<label class="label col-3">*배포 담당자 선택</label>
 														<select class="dropdown-toggle col-7 ml-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor" required>
