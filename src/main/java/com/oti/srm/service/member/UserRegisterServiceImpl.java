@@ -29,7 +29,6 @@ public class UserRegisterServiceImpl implements IUserRegisterService {
 		member.setPhone(AesUtil.encrypt(member.getPhone()));
 		
 		int rows = memberDao.insertMember(member);
-		log.info("서비스");
 		
 		return rows;
 	}
@@ -47,7 +46,6 @@ public class UserRegisterServiceImpl implements IUserRegisterService {
 		Member returnMember = memberDao.selectMemberInfo(mid);
 		//핸드폰 번호 복호화 처리
 		returnMember.setPhone(AesUtil.decrypt(returnMember.getPhone()));
-		log.info(returnMember.getPhone());
 		return returnMember;
 	}
 	

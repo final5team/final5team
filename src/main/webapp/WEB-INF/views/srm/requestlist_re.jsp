@@ -211,11 +211,11 @@
 						<!-- 기존 페이지-->
 						<table class="member" id="table_content">
 							<tr >
-								<th class="ex sorted">No.</th>
-								<th class="ex sorted">시스템</th>
-								<th class="ex sorted">요청 유형</th>
-								<th class="ex sorted">요청 제목</th>
-								<th class="ex sorted">요청 일자</th>
+								<th class="ex th_first" id="th_no">No.</th>
+								<th class="ex th_second" id="th_sno">시스템</th>
+								<th class="ex th_third" id="th_reqtype">요청 유형</th>
+								<th class="ex th_four" id="th_title">요청 제목</th>
+								<th class="ex th_five" id="th_reqdate">요청 일자</th>
 								<th class="ex">단계</th>
 							</tr>
 
@@ -309,26 +309,6 @@
 
 	<script>
 
-// 유저 제외 담당자들의 ajax 호출
-
-
-
-// 내 담당 업무 목록 ajax 호출 : 페이지 로딩
-/* 		
-		$(document).ready(function () {
-			//member의 type은 controller에서 넣어줌, 설정 필요 없음
-			console.log("바로 실행");
-			data = {reqType : '전체', dateFirst: '', dateLast : '', sno : '0', statusNo : '0',  pageNo : 1 };	
-			$.ajax({
-		  		url : "myworklist",
-				method : "post",
-				data : JSON.stringify(data),
-				contentType: "application/json; charset=UTF-8"
-			}).done((data) => {
-				$('#table_content').html(data);
-			});
-		});
- */
  
 // 내 요청 목록 ajax 호출 : switch 
 	function myRequestList(mtype){
@@ -619,13 +599,58 @@
 				for(let i = 0; i < tableHead.length; i++){
 					tableHead[i].classList.add('bc');
 				}
-				
 			});
 		}
 	}	
 	
 	
-
+	//정렬 기능 적용하기 위한 css
+	let ex = document.querySelector('#th_no');
+	let state = 'asc';
+	//처음 클릭시 내림차순 다음 클릭시 오름차순
+	//th_first 클릭
+	ex.addEventListener('click', (event) => {
+		if(state == 'asc'){
+			event.preventDefault();
+			state = 'desc';
+			//오름차순 정렬
+			console.log('asc');
+			
+			ex.classList.remove('th_first');
+			ex.classList.add('th_first_asc');
+			
+			console.log(ex);
+			
+			
+		} else if(state == 'desc') {
+			event.preventDefault();
+			state = 'asc';
+			//내림차순 정렬
+			console.log('desc');
+			ex.classList.remove('th_first_asc');
+			ex.classList.add('th_first_desc');
+			
+			
+			console.log(ex);
+			
+			state= 'none';
+			
+		} else {
+			event.preventDefault();
+			state = 'asc';
+			ex.classList.remove('th_first_desc');
+			ex.classList.add('th_first');
+			
+			console.log(ex);
+		}
+		
+	});
+	
+	
+	
+	
+	
+	
 
 </script>
 

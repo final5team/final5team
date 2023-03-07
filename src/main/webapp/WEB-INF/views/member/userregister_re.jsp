@@ -280,7 +280,7 @@
 		if(!idTest){
 			alert("아이디는 알파벳 대소문자, 숫자를 혼용해서 6자 이상 10자 이하 입니다.");
 			$('#mid').css('border', '2px solid red');
-			$('#idconfirm').html('중복된 아이디입니다.');
+			$('#idconfirm').html('아이디 형식을 확인해주세요.');
 			$('#idconfirm').css('color', 'red');
 		} else {
 			data = {mid : id};	
