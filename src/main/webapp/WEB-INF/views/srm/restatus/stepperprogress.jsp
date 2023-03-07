@@ -10,9 +10,9 @@
 	<c:if test="${requestProcess.reqType == null || requestProcess.reqType == '정규'}">
 		<div class="stepper-wrapper">
 			<div class="stepper-item completed">
-			  <div class="step-counter btn" onclick="openRegister()">
+			  <a class="step-counter btn"  href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 			  	<i class="fas fa-file-word"></i>
-			  </div>
+			  </a>
 			  <div class="step-name">등록</div>
 			</div>
 			<div class="stepper-item
@@ -132,9 +132,9 @@
 	<c:if test="${requestProcess.reqType == '긴급'}">
 		<div class="stepper-wrapper">
 			<div class="stepper-item completed">
-			  <div class="step-counter btn" onclick="openRegister()">
+			  <a class="step-counter btn"  href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 			  	<i class="fas fa-file-word"></i>
-			  </div>
+			  </a>
 			  <div class="step-name">등록</div>
 			</div>
 			<div class="stepper-item
