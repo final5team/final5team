@@ -290,14 +290,14 @@ public class CommonService implements ICommonService {
 
 
 	@Override
-	public List<RequestProcess> getRequestProcessList(Member member, String checkbox, Pager pager) {
-		List<RequestProcess> list = commonDao.selectRequestProcessList(member, checkbox, pager);
+	public List<RequestProcess> getRequestProcessList(Member member, String checkbox, String status, Pager pager) {
+		List<RequestProcess> list = commonDao.selectRequestProcessList(member, checkbox, status, pager);
 		return list;
 	}
 
 	@Override
-	public int getRequestProcessRows(Member member, String checkbox) {
-		return commonDao.selectRequestProcessRows(member,checkbox);
+	public int getRequestProcessRows(Member member, String checkbox, String status) {
+		return commonDao.selectRequestProcessRows(member,checkbox, status);
 	}
 
 	@Override
@@ -353,6 +353,16 @@ public class CommonService implements ICommonService {
 			}
 		}
 		return 0;
+	}
+
+	@Override
+	public int getPmRequestProcessRows(String status) {
+		return commonDao.selectPmRequestProcessRows(status);
+	}
+
+	@Override
+	public List<RequestProcess> getPmRequestProcessList(String status, Pager rpPager) {
+		return  commonDao.selectPmRequestProcessList(status, rpPager);
 	}
 	
 	

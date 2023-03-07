@@ -4,11 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
-import com.oti.srm.dto.ListFilter;
+import com.oti.srm.dto.Member;
+import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.SelectPM;
 import com.oti.srm.dto.StatusHistoryFile;
+import com.oti.srm.dto.StatusNoFilter;
 
 @Mapper
 public interface IRequestDao {
@@ -43,6 +46,9 @@ public interface IRequestDao {
 	public List<StatusHistoryFile> selectRequestFile(int fno);
 	public StatusHistoryFile selectFile(int fno);
 	
+	// 메인에서 업무현황 클릭 후 담당목록 조회
+	public int selectMainToWorkerListRows(@Param("statusNoFilter") List<Integer> statusNoFilter, @Param("member") Member member);
+	public List<SelectPM> selectMainToWorkerList(@Param("statusNoFilter") List<Integer>  statusNoFilter, @Param("member") Member member, @Param("pager") Pager pager);
 	
 	
 }

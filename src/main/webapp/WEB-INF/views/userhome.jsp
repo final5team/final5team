@@ -214,32 +214,30 @@
 													</tbody>
 												</table>
 										</div>
-											<ul class="pagination pagination-sm d-flex justify-content-center">
-											    <li class="page-item"><a class="page-link" onclick="userRequestList('${searchStatus}', 1)">처음</a></li>
-											   <c:if test="${uPager.groupNo>1}">
-											    <li class="page-item">
-											    	<a class="page-link" onclick="userRequestList('${searchStatus}', ${uPager.startPageNo-1})">
-											    		<i class="fas fa-caret-left"></i>
-											    	</a>
-											    </li>
-											   </c:if>
-											   <c:forEach var="i" begin="${uPager.startPageNo}" end="${uPager.endPageNo}">
-											   	<c:if test="${uPager.pageNo != i}">
-											    	<li class="page-item"><a class="page-link" onclick="userRequestList('${searchStatus}', ${i})">${i}</a></li>
-											   	</c:if>
-											   	<c:if test="${uPager.pageNo == i}">
-											    	<li class="page-item"><a class="page-link" style="background-color: #76D4F5; color: white;" onclick="userRequestList('${searchStatus}', ${i})">${i}</a></li>
-											   	</c:if>
-											   </c:forEach>
-											   <c:if test="${uPager.groupNo<pager.totalGroupNo}">
-											    <li class="page-item">
-											    	<a class="page-link" onclick="userRequestList('${searchStatus}', ${uPager.endPageNo + 1})">
-											    		<i class="fas fa-caret-right"></i>
-											   	 	</a>
-											    </li>
-											   </c:if>
-											   <li class="page-item"><a class="page-link"onclick="userRequestList('${searchStatus}', ${uPager.totalPageNo})">맨끝</a></li>
-											</ul>
+										<div class="pager default mt-1">
+											<div class="pagingButtonSet d-flex justify-content-center">
+												<a onclick="userRequestList('${searchStatus}', 1)" type="button" class="btn btn-muted shadow">처음</a>
+												<c:if test="${uPager.groupNo > 1}">
+													<a onclick="userRequestList('${searchStatus}', ${uPager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
+				
+												</c:if>
+				
+												<c:forEach var="i" begin="${uPager.startPageNo}" end="${uPager.endPageNo}">
+													<c:if test="${uPager.pageNo != i}">
+														<a onclick="userRequestList('${searchStatus}', ${i})" type="button" class="btn btn-white shadow">${i}</a>
+													</c:if>
+													<c:if test="${uPager.pageNo == i}">
+														<a onclick="userRequestList('${searchStatus}', ${i})" type="button" class="btn btn-dark shadow">${i}</a>
+													</c:if>
+												</c:forEach>
+				
+												<c:if test="${uPager.groupNo < uPager.totalGroupNo }">
+													<a onclick="userRequestList('${searchStatus}', ${uPager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
+				
+												</c:if>
+												<a onclick="userRequestList('${searchStatus}', ${uPager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>	               			
@@ -275,32 +273,30 @@
 												</tbody>
 											</table>
 										</div>
-										<ul class="pagination pagination-sm d-flex justify-content-center mt-4">
-										    <li class="page-item"><a class="page-link" onclick="mainNoticeList(1)">처음</a></li>
-										    <c:if test="${nPager.groupNo>1}">
-											    <li class="page-item">
-											    	<a class="page-link" onclick="mainNoticeList(${nPager.startPageNo-1})">
-											    		<i class="fas fa-caret-left"></i>
-											    	</a>
-											    </li>
-										    </c:if>
-										    <c:forEach var="i" begin="${nPager.startPageNo}" end="${nPager.endPageNo}">
-										    	<c:if test="${nPager.pageNo != i}">
-											    	<li class="page-item"><a class="page-link" onclick="mainNoticeList(${i})">${i}</a></li>
-										    	</c:if>
-										    	<c:if test="${nPager.pageNo == i}">
-											    	<li class="page-item"><a class="page-link" style="background-color: #72B22B; color: white;" onclick="mainNoticeList(${i})">${i}</a></li>
-										    	</c:if>
-										    </c:forEach>
-										    <c:if test="${nPager.groupNo<nPager.totalGroupNo}">
-											    <li class="page-item">
-											    	<a class="page-link" onclick="mainNoticeList(${nPager.endPageNo + 1})">
-											    		<i class="fas fa-caret-right"></i>
-											   	 	</a>
-											    </li>
-										    </c:if>
-										    <li class="page-item"><a class="page-link" onclick="mainNoticeList(${nPager.totalPageNo})">맨끝</a></li>
-										</ul>
+										<div class="pager default mt-4">
+											<div class="pagingButtonSet d-flex justify-content-center">
+												<a onclick="mainNoticeList(1)" type="button" class="btn btn-muted shadow">처음</a>
+												<c:if test="${nPager.groupNo > 1}">
+													<a onclick="mainNoticeList(${nPager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
+				
+												</c:if>
+				
+												<c:forEach var="i" begin="${nPager.startPageNo}" end="${nPager.endPageNo}">
+													<c:if test="${nPager.pageNo != i}">
+														<a onclick="mainNoticeList(${i})" type="button" class="btn btn-white shadow">${i}</a>
+													</c:if>
+													<c:if test="${nPager.pageNo == i}">
+														<a onclick="mainNoticeList(${i})" type="button" class="btn btn-dark shadow">${i}</a>
+													</c:if>
+												</c:forEach>
+				
+												<c:if test="${nPager.groupNo < nPager.totalGroupNo }">
+													<a onclick="mainNoticeList(${nPager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
+				
+												</c:if>
+												<a onclick="mainNoticeList(${nPager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
+											</div>
+										</div>
 									</div>
 								
 								</div>

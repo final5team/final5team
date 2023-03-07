@@ -19,6 +19,7 @@ import com.oti.srm.dto.Request;
 import com.oti.srm.dto.SelectPM;
 import com.oti.srm.dto.StatusHistory;
 import com.oti.srm.dto.StatusHistoryFile;
+import com.oti.srm.dto.StatusNoFilter;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -296,6 +297,16 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		}
 		
 		return listFilter;
+	}
+
+	@Override
+	public int getMainToWorkerListRows(StatusNoFilter statusNoFilter, Member member) {
+		return requestDao.selectMainToWorkerListRows(statusNoFilter.getStatusNo(), member);
+	}
+
+	@Override
+	public List<SelectPM> getMainToWorkerList(StatusNoFilter statusNoFilter, Member member, Pager pager) {
+		return requestDao.selectMainToWorkerList(statusNoFilter.getStatusNo(), member, pager);
 	}
 
 
