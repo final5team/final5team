@@ -191,11 +191,11 @@
                 	 		</div><!-- foreach한다면 여기부터 end -->
                 	 		</c:forEach>
                 	 		
-                	 		<c:if test="${distributorToPmHistories == null}">
+                	 		<c:if test="${distributorToPmHistories[0].reply == null}">
                 	 		<div class="card border-top-primary my-3"> <!-- status_history내역없을때 start -->
                 	 			<div class="card-block">
 	                	 			<div class="card-block-title mb-0 d-flex justify-content-center">
-	                	 				<h3 class="title">
+	                	 				<h3 class="title text-gray-400">
 	                	 					내역이 없습니다. 
 	                	 				</h3>
 	                	 			</div>

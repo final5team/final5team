@@ -33,22 +33,30 @@
     </style>
     
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script>
+    
+    <script>	      
 		$(document).ready(function(){
 			// 반려 입력 항목 숨기기
-		  $("#rejectdiv").hide();
+		  $("#rejectdiv").hide();		  
 
 			// 반려 입력 항목 열고 접수 입력 항목 숨기기
 		  $("#rejectbtn").click(function(){
 			  $("#receiptdiv").hide();
 			  $("#rejectdiv").show();
 		   });
-			// 완료 예정일에 현재 날짜 이후 날짜만 선택 가능하게 만들기
+			
+			// 현재 날짜 구하기
+			var now = new Date();
+			// 완료 예정일에 현재 날짜 이후 날짜만 선택 가능하게 만들기(최소값)
 		  document.getElementById("allExpectDate").min
-		  = new Date().toISOString().slice(0, 10);			
+		  = now.toISOString().slice(0, 10);		
+			
+			// 완료 예정일에 현재 날짜 1년 이내 날짜만 선택 가능하게 만들기(최대값)
+		  document.getElementById("allExpectDate").max
+		  = new Date(now.setFullYear(now.getFullYear() + 1)).toISOString().slice(0, 10);
 			
 		});
+		
 		// 접수 입력 항목 열고 반려 입력 항목 숨기기
 		function receiptbtn(){
 			 $("#rejectdiv").hide();
@@ -83,7 +91,9 @@
 	        $("#file-list").append(str);
        		// 파일 삭제 버튼 선택 시 해당 파일 삭제
 	        $("a[name='file-delete']").on("click", function(e) {
+	        	// 기본 동작(이동) 방지
 	            e.preventDefault();
+	        	// 해당 파일 삭제
 	            deleteFile($(this));
 	        });
 	    }
@@ -91,6 +101,23 @@
 	    function deleteFile(obj) {
 	        obj.parent().remove();
 	    }
+	 	
+	 	// 의견 내용 유효성 검사
+	    function validate() {
+	 		// 유효한 입력 내용
+			var result = true;			
+			// 의견 내용 길이 구하기
+			var content=tinymce.activeEditor.getContent().length;
+			// 의견 내용 길이가 300자 이상일 경우 제출 불가
+			if(content > 300){
+				// 300자 이하 입력 경고 창 
+				$("#cautionModal").modal();			
+				// 제출 불가
+				result = false;
+			}
+			// 유효성 검사 결과 반환
+			return result;
+		}
 	</script>
 </head>
 
@@ -196,7 +223,7 @@
 											</div>
 										</div>									
 										<div class="card-body">
-											<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data">
+											<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data" onsubmit="return validate()">
 												<div class="row form-group">
 													<div class="col-3 label">
 														<label>*요청 유형</label>
@@ -222,15 +249,15 @@
 												</div>
 												<div class="row">
 													<div class="col-3 label">*완료예정일</div>
-													<div class="col-8">
-														<input type="date" class="form-control boxed" name="allExpectDate" id="allExpectDate" pattern="\d{4}-\d{2}-\d{2}" max="2099-12-31" style="width: 220px; padding: 0;" required>
+													<div class="col-7 row mb-2" style="margin-left: 0.5px">
+														<input type="date" class="form-control boxed" name="allExpectDate" id="allExpectDate" pattern="\d{4}-\d{2}-\d{2}" style="width: 250px; padding: 0;" required>
 														<span class="validity m-2"></span>
 													</div>	
 												</div>
 													
 												<div class="row mb-2">
 													<label class="label col-3">*개발 담당자 선택</label>
-													<select class="dropdown-toggle col-7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer" required>
+													<select class="dropdown-toggle col-7 ml-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer" required>
 														<option value="">개발 담당자 선택 | 현재담당건수 </option>		
 														<c:forEach var="staff" items="${devStaffList}">
 															<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
@@ -239,7 +266,7 @@
 												</div>
 												<div class="row mb-2">
 													<label class="label col-3">*테스트 담당자 선택</label>
-													<select class="dropdown-toggle col-7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester" requried>
+													<select class="dropdown-toggle col-7 ml-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester" requried>
 														<option value="">테스트 담당자 선택 | 현재담당건수 </option>	
 														<c:forEach var="staff" items="${tesStaffList}">
 															<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
@@ -248,7 +275,7 @@
 												</div>
 												<div class="row mb-2" id="utester">
 													<label class="label col-3">*품질 검토 담당자 선택</label>
-													<select class="dropdown-toggle col-7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
+													<select class="dropdown-toggle col-7 ml-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
 														<option value="">품질 검토 담당자 선택 | 현재담당건수 </option>	
 														<c:forEach var="staff" items="${uteStaffList}">
 															<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
@@ -257,7 +284,7 @@
 												</div>
 												<div class="row mb-2">
 													<label class="label col-3">*배포 담당자 선택</label>
-													<select class="dropdown-toggle col-7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor" required>
+													<select class="dropdown-toggle col-7 ml-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor" required>
 														<option value="">배포 담당자 선택 | 현재담당건수 </option>	
 														<c:forEach var="staff" items="${disStaffList}">
 															<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
@@ -266,12 +293,12 @@
 												</div>
 											
 												<div class="row mb-2">
-													<div class="label col-3">*의견 내용</div>
-													<textarea class="form-control boxed col-7 pmcontent" id="reply" name="reply" style="padding: 0px"></textarea>
-												</div>																						
+													<div class="label col-3">의견 내용</div>
+													<textarea class="form-control boxed col-7 pmcontent ml-2" id="reply" name="reply" style="padding: 0px" maxlength="300"></textarea>													
+												</div>																																
 												<div class="filebox d-flex">
-													<div class="label label-write" id="fileLable">첨부파일</div>
-													<div class="form-group" id="file-list">
+													<div class="col-3 label label-write" id="fileLable">첨부파일</div>
+													<div class="col-7 form-group" id="file-list">
 												        <a href="#this" onclick="addFile()">파일추가</a>
 												        <div class="file-group">
 												            <input type="file" name="files"><a href='#this' class='file-delete' name='file-delete'>x</a>
@@ -289,10 +316,29 @@
 								</div>
 								<!-- 요청 접수 card end-->								
 							</div>
+							
+							<!-- 글자수 경고 모달창 start -->
+							 <div class="modal fade" id="cautionModal" role="dialog" aria-labelledby="cautionModal" aria-hidden="true" >
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-header">											
+											<h5 class="modal-title" id="developDueDate">경고</h5>
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+										</div>
+										<div class="modal-body text-center">	
+											<p>글자수가 초과되었습니다. 300자 이하로 작성해주세요.</p>																				
+										</div>
+										<div class="modal-footer">																				
+											<button class="btn btn-secondary" type="button" data-dismiss="modal">확인</button>					                    
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 글자수 경고 모달창 end -->	
 						
-						<!-- 반려 -->
+							<!-- 반려 -->
 							<div id="rejectdiv"> 						            
-								<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data">
+								<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data" onsubmit="return validate()">
 									<!-- 요청 접수 card start-->
 									<div class="card border-top-dark mt-3 mb-1">
 										<div class="card-block">
@@ -310,7 +356,7 @@
 											<div class="card-body">
 												<div class="form-group d-flex">
 													<label class="label">반려 사유</label>
-													<textarea class="form-control boxed pmcontent" name="reply" style="width: 65%; margin: auto;"></textarea>
+													<textarea class="form-control boxed pmcontent" name="reply" style="width: 65%; margin: auto;" maxlength="300"></textarea>
 												</div>											
 												<div class="filebox row">
 													<label for="file" class=" col-3 label">첨부파일</label>
@@ -530,15 +576,15 @@
 													</div>
 													<div class="row">
 														<div class="col-3 label">*완료예정일</div>
-														<div class="col-7">
-															<input type="date" class="form-control boxed" name="allExpectDate" id="allExpectDate" required pattern="\d{4}-\d{2}-\d{2}" style="width: 220px; padding: 0;" value="<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>">
+														<div class="col-7 row">
+															<input type="date" class="form-control boxed ml-2 mb-2" name="allExpectDate" id="allExpectDate" required pattern="\d{4}-\d{2}-\d{2}" style="width: 250px; padding: 0;" value="<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>">
 															<span class="validity m-2"></span>
 														</div>	
 													</div>
 														
 													<div class="row mb-2">
 														<label class="label col-3">*개발 담당자 선택</label>
-														<select class="dropdown-toggle col-7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer" required>
+														<select class="dropdown-toggle col-7 ml-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer" required>
 															<option value="">개발 담당자 선택 | 현재담당건수 </option>		
 															<c:forEach var="staff" items="${devStaffList}">
 																<option value="${staff.mid}" <c:if test="${staff.mid == requestProcess.developer}">selected</c:if>>${staff.mname} | 현재담당건수(${staff.quota})</option>																												
@@ -547,7 +593,7 @@
 													</div>
 													<div class="row mb-2">
 														<label class="label col-3">*테스트 담당자 선택</label>
-														<select class="dropdown-toggle col-7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester" requried>
+														<select class="dropdown-toggle col-7 ml-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester" requried>
 															<option value="">테스트 담당자 선택 | 현재담당건수 </option>	
 															<c:forEach var="staff" items="${tesStaffList}">
 																<option value="${staff.mid}" <c:if test="${staff.mid == requestProcess.tester}">selected</c:if>>${staff.mname} | 현재담당건수(${staff.quota})</option>																												
@@ -556,7 +602,7 @@
 													</div>
 													<div class="row mb-2" id="utester">
 														<label class="label col-3">*품질 검토 담당자 선택</label>
-														<select class="dropdown-toggle col-7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
+														<select class="dropdown-toggle col-7 ml-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
 															<option value="">품질 검토 담당자 선택 | 현재담당건수 </option>	
 															<c:forEach var="staff" items="${uteStaffList}">
 																<option value="${staff.mid}" <c:if test="${staff.mid == requestProcess.userTester}">selected</c:if>>${staff.mname} | 현재담당건수(${staff.quota})</option>																												
@@ -565,7 +611,7 @@
 													</div>
 													<div class="row mb-2">
 														<label class="label col-3">*배포 담당자 선택</label>
-														<select class="dropdown-toggle col-7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor" required>
+														<select class="dropdown-toggle col-7 ml-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor" required>
 															<option value="">배포 담당자 선택 | 현재담당건수 </option>	
 															<c:forEach var="staff" items="${disStaffList}">
 																<option value="${staff.mid}" <c:if test="${staff.mid == requestProcess.distributor}">selected</c:if>>${staff.mname} | 현재담당건수(${staff.quota})</option>																												
@@ -576,8 +622,8 @@
 													<c:forEach var="statusHistory" items="${pmToAllHistories}">
 														<input type="hidden" name="hno" value="${statusHistory.hno}"/>
 															<div class="row">
-															<div class="col-3 label">검토 의견</div>
-															<textarea class="col-7" name="reply">${statusHistory.reply}</textarea>
+															<div class="col-3 label ml-2">검토 의견</div>
+															<textarea class="col-7" name="reply" maxlength="300">${statusHistory.reply}</textarea>
 														</div>
 														<hr/>
 														<div class="row">
@@ -595,7 +641,7 @@
 														</div>	
 														</c:forEach>
 												<div class="d-flex justify-content-end">						
-													<button class="btn btn-primary btn-lg mt-3 ml-3" type="submit">수정</button>										
+													<button class="btn btn-primary btn-md mt-3 ml-3" type="submit">수정</button>										
 												</div>
 												<input type="hidden" name="rno" value="${request.rno}">
 											</form>											
