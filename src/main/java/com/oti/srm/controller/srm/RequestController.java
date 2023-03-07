@@ -118,8 +118,6 @@ public class RequestController {
 		List<System> systemList = userRegisterService.getSystemList();
 		model.addAttribute("systemList", systemList);
 		
-		//핸드폰 번호 복호화 처리
-		returnMember.setPhone(AesUtil.decrypt(returnMember.getPhone()));
 		model.addAttribute("returnMember", returnMember);
 
 		return "member/mypage_re";
