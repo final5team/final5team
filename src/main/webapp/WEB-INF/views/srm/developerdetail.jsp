@@ -96,14 +96,14 @@
 												</div>
 											</div>
 											
-											<div class="filebox d-flex">
-												<div class="label label-write" id="fileLable">첨부파일</div>
+											<div class="filebox d-flex mb-3">
+												<div class="label label-write" id="fileLable">
+													<div>첨부파일</div>
+													<input type="file" name="files" id="fileInput" multiple>
+												</div>
 												
-												<div class="form-group" id="file-list">
-											        <a href="#this" onclick="addFile()">파일추가</a>
-											        <div class="file-group">
-											            <input type="file" name="files"><a href='#this' class='file-delete'>x</a>
-											        </div>
+												<div class="border flex-grow-1" id="file-list">
+			  									
 			  									</div>	
 											</div>
 										</form>
@@ -392,25 +392,7 @@
 		
 	}
 	
-	/* 파일 */
-	$(document).ready(function() {
-	    $(".file-delete").on("click", function(e) {
-	        e.preventDefault();
-	        deleteFile($(this));
-	    });
-	})
-	 function addFile() {
-        var str = "<div class='file-group'><input type='file' name='files'><a href='#this' name='file-delete'>x</a></div>";
-        $("#file-list").append(str);
-        $("a[name='file-delete']").on("click", function(e) {
-            e.preventDefault();
-            deleteFile($(this));
-        });
-    }
- 
-    function deleteFile(obj) {
-        obj.parent().remove();
-    }
+	
 	/* 글자수 세기 */
    	$('#reply').keyup(function (e){
    		let content = $(this).val();
@@ -462,7 +444,62 @@
 			
 		}
 	}
+	
+ 	/* 파일 */
+	$(document).ready(function() {
+	    $(".file-delete").on("click", function(e) {
+	        e.preventDefault();
+	        deleteFile($(this));
+	    });
+	})
+	 function addFile() {
+        var str = "<div class='file-group'><input type='file' name='files'><a href='#this' name='file-delete'>x</a></div>";
+        $("#file-list").append(str);
+        $("a[name='file-delete']").on("click", function(e) {
+            e.preventDefault();
+            deleteFile($(this));
+        });
+    }
+ 
+    function deleteFile(obj) {
+        obj.parent().remove();
+    }
+	/* 업로드된 파일 리스트 출력하기 */
+	const handler = {
+			init(){
+				const fileInput = document.querySelector('#fileInput');
+				const fileList = document.querySelector('#file-list');
+				fileInput.addEventListener('change',() =>{
+					console.log(fileInput);
+					const files = Array.from(fileInput.files);
+					files.forEach(file => {
+						fileList.innerHTML += '<p id='${file.lastModified}'>'${file.name}'<button data-index='${file.lastModified}' class='file-remove'>X</button></p>';
+					});
+				});
+			},
+			
+			removeFile: () => {
+                document.addEventListener('click', (e) => {
+                if(e.target.className !== 'file-remove') return;
+                const removeTargetId = e.target.dataset.index;
+                const removeTarget = document.getElementById(removeTargetId);
+                const files = document.querySelector('#file-input').files;
+                const dataTranster = new DataTransfer();
+                
+                Array.from(files)
+                .filter(file => file.lastModified != removeTargetId)
+                .forEach(file => {
+                dataTranster.items.add(file);
+             });
 
+            document.querySelector('#file-input').files = dataTranster.files;
+
+            removeTarget.remove();
+        })
+        }
+	}
+	handler.init();
+    handler.removeFile();
 	</script>
 </body>
 

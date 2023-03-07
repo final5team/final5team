@@ -7,6 +7,9 @@
 <head>
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
 <link href="${pageContext.request.contextPath}/resources/css/stepperprogress.css" rel="stylesheet">
+<script src="${pageContext.request.contextPath}/resources/vendor/tinymce/tinymce.min.js"></script>    
+<script src="${pageContext.request.contextPath}/resources/js/tinymceinit.js"></script>    
+<script src="${pageContext.request.contextPath}/resources/vendor/tinymce/themes/silver/theme.min.js"></script>    
 <style>
 </style>
 </head>
@@ -358,7 +361,7 @@ textarea:focus::placeholder {
 											</article>
 											<article class="bodyInput">
 												<div class="item">
-													<textarea id="reqContent" cols="30" name="reqContent" placeholder="내용" required></textarea>
+													<textarea id="reqContent" cols="30" name="reqContent" placeholder="내용"></textarea>
 													<div class="textConfirm">
 														<small class=" mr-5" id="counterContent">(0 / 300)</small>
 													</div>
