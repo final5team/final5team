@@ -30,7 +30,6 @@ import com.oti.srm.dto.Request;
 import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.SelectPM;
 import com.oti.srm.dto.StatusHistoryFile;
-import com.oti.srm.dto.StatusNoFilter;
 import com.oti.srm.encrypt.AesUtil;
 import com.oti.srm.service.member.IUserRegisterService;
 import com.oti.srm.service.srm.ICommonService;
@@ -39,18 +38,6 @@ import com.oti.srm.service.srm.IRequestRegisterService;
 
 import lombok.extern.log4j.Log4j2;
 
-/**
- * @author KOSA
- *
- */
-/**
- * @author KOSA
- *
- */
-/**
- * @author KOSA
- *
- */
 @Controller
 @Log4j2
 @RequestMapping("/customer")
@@ -64,7 +51,6 @@ public class RequestController {
 	private ICommonService commonService;
 	@Autowired
 	private IPMService pMService;
-
 	/**
 	 * Kang Ji Seong 유저 등록 페이지 조회
 	 */
@@ -86,7 +72,7 @@ public class RequestController {
 		MultipartFile mfile = member.getMfile();
 		log.info("유저 등록");
 		log.info(member.toString());
-
+		
 		try {
 			if (mfile != null && !mfile.isEmpty()) {
 				member.setFileName(mfile.getOriginalFilename());
@@ -101,8 +87,7 @@ public class RequestController {
 					result = IUserRegisterService.REGISTER_SUCCESS;
 					return "redirect:/";
 				}
-			}
-			else {
+			} else {
 				int result = userRegisterService.register(member);
 				return "redirect:/";
 			}
@@ -128,39 +113,41 @@ public class RequestController {
 		returnMember.setPostcode(Integer.parseInt(address[0]));
 		returnMember.setAddr1(address[1]);
 		returnMember.setAddr2(address[2]);
-
-		// 시스템
+		
+		//시스템
 		List<System> systemList = userRegisterService.getSystemList();
 		model.addAttribute("systemList", systemList);
-
+		
 		model.addAttribute("returnMember", returnMember);
 
 		return "member/mypage_re";
 	}
-
+	
 	@PostMapping("/mypageupdate")
 	public String myPageUpdate(Member member, Model model, HttpSession session) {
 		Member Sessionmember = (Member) session.getAttribute("member");
-
+		
 		String address = member.getPostcode() + "-" + member.getAddr1() + "-" + member.getAddr2();
 		member.setAddress(address);
 		member.setSno(Sessionmember.getSno());
-
-		// 유저 정보 수정
+		
+		//유저 정보 수정
 		int result = userRegisterService.updateUserInfo(member);
-
+		
+		
 		return "member/mypage_re";
 	}
+	
 
 	/**
 	 * Kang Ji Seong img byte[] 변환 메소드
 	 */
 	@GetMapping("/mypage/{mid}")
 	public ResponseEntity<byte[]> returnImg(@PathVariable String mid) {
-
+		
 		Member returnMember = userRegisterService.getUserInfo(mid);
-
-		if (returnMember.getFileName() == null) {
+		
+		if(returnMember.getFileName() == null) {
 			returnMember = userRegisterService.getUserInfo("img");
 		}
 		HttpHeaders headers = new HttpHeaders();
@@ -169,6 +156,7 @@ public class RequestController {
 		headers.setContentDispositionFormData("attachment", returnMember.getFileName());
 		return new ResponseEntity<byte[]>(returnMember.getFileData(), headers, HttpStatus.OK);
 
+		
 	}
 
 	// 요청 작성 페이지
@@ -187,13 +175,12 @@ public class RequestController {
 			sessionMember.setPhone(AesUtil.decrypt(sessionMember.getPhone()));
 		}
 		model.addAttribute("returnMember", sessionMember);
-
+		
 		// 시스템 리스트 전달
 		List<System> systemList = userRegisterService.getSystemList();
 		model.addAttribute("request", request);
 		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("systemList", systemList);
-
 		model.addAttribute("member", sessionMember);
 		return "srm/request/request";
 	}
@@ -228,33 +215,33 @@ public class RequestController {
 		}
 		int result = requestService.writeRequest(request, fileList);
 		if (result == IRequestRegisterService.REQUEST_SUCCESS) {
-			if (member.getMtype().equals("user")) {
+			if(member.getMtype().equals("user")) {
 				return "redirect:/customer/userrequestlist";
 			} else {
 				return "redirect:/customer/requestlist";
 			}
 		} else {
 			model.addAttribute("requestResult", "FAIL");
-			if (member.getMtype().equals("user")) {
+			if(member.getMtype().equals("user")) {
 				return "redirect:/customer/userrequestlist";
 			} else {
 				return "redirect:/customer/requestlist";
 			}
 		}
 	}
-
-	// (유저) 요청 리스트 초기 조회
+	
+	//(유저) 요청 리스트 초기 조회
 
 	@GetMapping("/userrequestlist")
-	public String myrequestlist(Model model, HttpSession session) {
-		// 시스템
+	public String myrequestlist (Model model, HttpSession session) {
+		//시스템
 		List<System> systemList = userRegisterService.getSystemList();
 		model.addAttribute("systemList", systemList);
-
+		
 		// 유저 정보 전달
 		Member member = (Member) session.getAttribute("member");
-
-		// 초기값
+		
+		//초기값
 		ListFilter listFilter = new ListFilter();
 		listFilter.setReqType("전체");
 		listFilter.setDateFirst("");
@@ -262,25 +249,25 @@ public class RequestController {
 		listFilter.setSno(0);
 		listFilter.setStatusNo(0);
 		listFilter.setPageNo(1);
-
+		
 		ListFilter returnList = requestService.dateFilterList(listFilter);
 		// 보여줄 행 수 조회
-
+		
 		int totalRows = requestService.getRequestListRows(listFilter, member);
 		Pager pager = new Pager(7, 5, totalRows, listFilter.getPageNo());
 		List<SelectPM> requestList = requestService.getMyRequestList(listFilter, pager, member);
-
+		
 		// 시스템 리스트 전달
 		// 목록 리스트와 페이지 return
 		model.addAttribute("requestList", requestList);
 		model.addAttribute("pager", pager);
 		// filter 전달
 		model.addAttribute("listFilter", returnList);
-
+		
 		return "srm/uesrrequestlist";
 	}
-
-	// (유저) 요청 목록 조회 ajax
+	
+	//(유저) 요청 목록 조회 ajax
 	@PostMapping("/myrequestlist")
 	public String myRequestList(@RequestBody ListFilter listFilter, Model model, HttpSession session) {
 		// 요청 조회 필터
@@ -292,7 +279,7 @@ public class RequestController {
 		int totalRows = requestService.getRequestListRows(listFilter, member);
 		Pager pager = new Pager(7, 5, totalRows, listFilter.getPageNo());
 		List<SelectPM> requestList = requestService.getMyRequestList(listFilter, pager, member);
-
+		
 		// 시스템 리스트 전달
 		model.addAttribute("systemList", systemList);
 		// 목록 리스트와 페이지 return
@@ -302,43 +289,44 @@ public class RequestController {
 		model.addAttribute("listFilter", returnList);
 		return "srm/list/ajaxmyrequestlist";
 	}
-
-	// (담당자) 요청 목록 조회 ajax
-	@PostMapping("/workerrequestlist")
-	public String workerRequestList(@RequestBody ListFilter listFilter, Model model, HttpSession session) {
-		// 요청 조회 필터
-		List<System> systemList = userRegisterService.getSystemList();
-		// 유저 정보 전달
-		Member member = (Member) session.getAttribute("member");
-		ListFilter returnList = requestService.dateFilterList(listFilter);
-		// 보여줄 행 수 조회
-		int totalRows = requestService.getWorkerRequestListRows(listFilter, member);
-		Pager pager = new Pager(7, 5, totalRows, listFilter.getPageNo());
-		List<SelectPM> requestList = requestService.getWorkerRequestList(listFilter, pager, member);
-
-		// 시스템 리스트 전달
-		model.addAttribute("systemList", systemList);
-		// 목록 리스트와 페이지 return
-		model.addAttribute("requestList", requestList);
-		model.addAttribute("pager", pager);
-		// filter 전달
-		model.addAttribute("listFilter", returnList);
-		return "srm/list/ajaxmyrequestlist";
-	}
-
-	// 담당 요청 목록 이동 페이지
+	
+	//(담당자) 요청 목록 조회 ajax
+		@PostMapping("/workerrequestlist")
+		public String workerRequestList(@RequestBody ListFilter listFilter, Model model, HttpSession session) {
+			// 요청 조회 필터
+			List<System> systemList = userRegisterService.getSystemList();
+			// 유저 정보 전달
+			Member member = (Member) session.getAttribute("member");
+			ListFilter returnList = requestService.dateFilterList(listFilter);
+			// 보여줄 행 수 조회
+			int totalRows = requestService.getWorkerRequestListRows(listFilter, member);
+			Pager pager = new Pager(7, 5, totalRows, listFilter.getPageNo());
+			List<SelectPM> requestList = requestService.getWorkerRequestList(listFilter, pager, member);
+			
+			// 시스템 리스트 전달
+			model.addAttribute("systemList", systemList);
+			// 목록 리스트와 페이지 return
+			model.addAttribute("requestList", requestList);
+			model.addAttribute("pager", pager);
+			// filter 전달
+			model.addAttribute("listFilter", returnList);
+			return "srm/list/ajaxmyrequestlist";
+		}
+		
+		
+	//담당 요청 목록 이동 페이지
 	@GetMapping("/requestlist")
-	public String requestList(@RequestParam(defaultValue = "0") int statusNo, Model model, HttpSession session) {
+	public String requestList(Model model, HttpSession session) {
 		List<System> systemList = userRegisterService.getSystemList();
 		// 유저 정보 전달
 		Member member = (Member) session.getAttribute("member");
-		// 초기값
+		//초기값
 		ListFilter listFilter = new ListFilter();
 		listFilter.setReqType("전체");
 		listFilter.setDateFirst("");
 		listFilter.setDateLast("");
 		listFilter.setSno(0);
-		listFilter.setStatusNo(statusNo);
+		listFilter.setStatusNo(0);
 		listFilter.setPageNo(1);
 		ListFilter returnList = requestService.dateFilterList(listFilter);
 		int totalRows = requestService.getMyWorkRows(listFilter, member);
@@ -353,45 +341,15 @@ public class RequestController {
 		model.addAttribute("listFilter", returnList);
 		return "srm/requestlist_re";
 	}
-
-	// 메인화면에서 업무현황 눌러서 이동하는 담당 목록 페이지
-	@GetMapping("/hometorequestlist")
-	public String homeToRequestList(StatusNoFilter statusNoFilter, Model model, HttpSession session) {
-		List<System> systemList = userRegisterService.getSystemList();
-		log.info(statusNoFilter);
-		// 유저 정보 전달
-		Member member = (Member) session.getAttribute("member");
-		// 초기값
-		ListFilter listFilter = new ListFilter();
-		listFilter.setReqType("전체");
-		listFilter.setDateFirst("");
-		listFilter.setDateLast("");
-		listFilter.setSno(member.getSno());
-		listFilter.setStatusNo(0);
-		listFilter.setPageNo(1);
-		ListFilter returnList = requestService.dateFilterList(listFilter);
-		int totalRows = requestService.getMainToWorkerListRows(statusNoFilter, member);
-		Pager pager = new Pager(7, 5, totalRows, 1);
-		List<SelectPM> requestList = requestService.getMainToWorkerList(statusNoFilter, member, pager);
-		model.addAttribute("systemList", systemList);
-		// 목록 리스트와 페이지 return
-		model.addAttribute("requestList", requestList);
-		model.addAttribute("isMainReq", "true");
-		model.addAttribute("pager", pager);
-		// filter 전달
-		model.addAttribute("listFilter", returnList);
-		return "srm/requestlist_re";
-	}
-
-	// 담당 요청 목록 조회 ajax
+	//담당 요청 목록 조회 ajax
 	@PostMapping("/myworklist")
 	public String myWrokList(@RequestBody ListFilter listFilter, Model model, HttpSession session) {
 
 		// 필터에 출력할 시스템 리스트 조회
 		List<System> systemList = userRegisterService.getSystemList();
 		ListFilter returnList = requestService.dateFilterList(listFilter);
-
-		// 세션에 저장된 멤버 객체 전달
+		
+		//세션에 저장된 멤버 객체 전달
 		Member member = (Member) session.getAttribute("member");
 		int totalRows = requestService.getMyWorkRows(listFilter, member);
 		Pager pager = new Pager(7, 5, totalRows, listFilter.getPageNo());
@@ -409,7 +367,6 @@ public class RequestController {
 		
 		return "srm/list/ajaxmyworklist";
 	}
-
 	/**
 	 * Kang Ji Seong member type 단계 처리 가져오기
 	 */
@@ -419,8 +376,8 @@ public class RequestController {
 		int result = requestService.getPresentStep(request.getRno());
 		return result;
 	}
-
-	// 요청 글 상세보기
+	
+	//요청 글 상세보기
 	@GetMapping("/requestdetail")
 	public String userRequestDetail(int rno, HttpSession session, Model model) {
 		Request request = requestService.getRequestDetail(rno);
@@ -437,16 +394,16 @@ public class RequestController {
 		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("systemList", systemList);
 		// 요청 상태가 반려일 때 상태 변경 정보(반려 사유)
-		if (request.getStatusNo() == 12) {
+		if(request.getStatusNo()==12) {
 			model.addAttribute("rejectHistory", pMService.getStatusHistory(rno, "reject"));
 		}
 		return "srm/request/requestdetail";
 	}
-
-	// 요청 수정하기
+	
+	//요청 수정하기
 	@PostMapping("/requestupdate")
 	public String requestUpdate(Request request, HttpSession session, Model model) {
-
+		
 		Member member = (Member) session.getAttribute("member");
 		request.setClient(member.getMid());
 
@@ -457,21 +414,27 @@ public class RequestController {
 			return "redirect:requestdetail?rno=" + request.getRno();
 		}
 	}
-
-	// 요청 글 파일 다운로드
+	
+	//요청 글 파일 다운로드
 	@GetMapping("/requestdetail/filedownload/{fno}")
 	public ResponseEntity<byte[]> filDownload(@PathVariable int fno) throws UnsupportedEncodingException {
-
+		
 		log.info(fno);
-
+		
 		StatusHistoryFile file = requestService.getMyRequestFile(fno);
 		final HttpHeaders headers = new HttpHeaders();
-		String[] mtypes = file.getFileType().split("/");
+		String [] mtypes = file.getFileType().split("/");
 		headers.setContentType(new MediaType(mtypes[0], mtypes[1]));
-		headers.setContentDispositionFormData("attachment",
-				new String(file.getFileName().getBytes("UTF-8"), "ISO-8859-1"));
-
+		headers.setContentDispositionFormData("attachment",new String(file.getFileName().getBytes("UTF-8"), "ISO-8859-1"));
+		
 		return new ResponseEntity<byte[]>(file.getFileData(), headers, HttpStatus.OK);
 	}
+	
+	
+
+	
+	
+	
+	
 
 }

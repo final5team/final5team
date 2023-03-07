@@ -273,6 +273,9 @@
 				<if test='listFilter.sortState == "desc"'>
 					order by r.rno  desc
 				</if>
+				<if test='listFilter.sortState == "none"'>
+					order by r.rno  desc
+				</if>
 			</if>
 			
 			
