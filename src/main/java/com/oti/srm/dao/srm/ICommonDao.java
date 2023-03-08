@@ -107,5 +107,8 @@ public interface ICommonDao {
 	
 	public int selectPmRequestProcessRows(@Param("status") String status);
 
+	// 서비스 변경 사항 확인 여부 변경(확인)
 	public int updateCheck(@Param("mtype")String mtype, @Param("rno")int rno);
+	// 서비스 변경 사항 확인 여부 변경(미확인)
+	public int updateNotCheck(@Param("mtype")String mtype, @Param("rno")int rno);
 }

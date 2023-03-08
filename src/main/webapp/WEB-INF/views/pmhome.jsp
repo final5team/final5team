@@ -165,7 +165,7 @@
 													<tr style="text-align: center;">
 														<td>${i.count}  
 															<c:if test="${requestProcess.pmCheck == 1}">
-																<i class="fas fa-bell text-success" style="position: absolute; left: 25px"></i>
+																<strong class="text-danger" style="position: absolute; left: 28px">N</strong>																
 															</c:if>
 														</td>
 														<c:if test="${requestProcess.reqType != null}">
