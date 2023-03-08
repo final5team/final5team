@@ -111,4 +111,6 @@ public interface ICommonDao {
 	public int updateCheck(@Param("mtype")String mtype, @Param("rno")int rno);
 	// 서비스 변경 사항 확인 여부 변경(미확인)
 	public int updateNotCheck(@Param("mtype")String mtype, @Param("rno")int rno);
+	// 서비스 변경 알림
+	public List<Request> selectNewAlertList(Member member);
 }

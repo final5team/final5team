@@ -88,5 +88,7 @@ public interface ICommonService {
 	public int check(String mtype, int rno);
 	// 서비스 변경 사항 확인 여부 변경(미확인)
 	public int notCheck(String mtype, int rno);
+	// 신규 내역 알림
+	public List<Request> getNewAlertList(Member dbMember);
 
 }
