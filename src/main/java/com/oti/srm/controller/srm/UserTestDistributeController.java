@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.oti.srm.dto.Member;
+import com.oti.srm.dto.Request;
+import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.StatusHistory;
 import com.oti.srm.dto.StatusHistoryFile;
 import com.oti.srm.service.srm.ICommonService;
@@ -36,9 +38,11 @@ public class UserTestDistributeController {
 		log.info("요청번호" + rno);
 		// Validation(내 담당건 맞는지)
 		// 요청정보
-		model.addAttribute("request", commonService.getRequest(rno));
+		Request request = commonService.getRequest(rno);
+		model.addAttribute("request", request);
 		// 요청 처리정보
-		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
+		RequestProcess requestProcess = commonService.getRequestProcess(rno);
+		model.addAttribute("requestProcess", requestProcess);
 		// 품질검사 완료 내역
 		model.addAttribute("userTesterToDistributorHistories", commonService.getUserTesterToDistributorHistories(rno));
 		// 임시저장 정보
@@ -48,6 +52,12 @@ public class UserTestDistributeController {
 		Member member = (Member) session.getAttribute("member");
 		model.addAttribute("userTesterTemp", commonService.getTempStatusHistory(member, sh));
 		model.addAttribute("testRejectExist", commonService.isThereTestReject(rno));
+		
+		// 품질 검토 담당자 확인 여부 변경(확인)	
+		if(request.getUttCheck()==1 && member.getMtype().equals("usertester") && requestProcess.getUserTester().equals(member.getMid())) {
+			commonService.check("usertester", request.getRno());
+		}
+				
 		return "srm/userTester";
 	}
 
@@ -57,9 +67,11 @@ public class UserTestDistributeController {
 		log.info("요청번호" + rno);
 		// Validation(내 담당건 맞는지)
 		// 요청정보
-		model.addAttribute("request", commonService.getRequest(rno));
+		Request request = commonService.getRequest(rno);
+		model.addAttribute("request", request);
 		// 요청 처리정보
-		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
+		RequestProcess requestProcess = commonService.getRequestProcess(rno);
+		model.addAttribute("requestProcess", requestProcess);
 		// 배포 완료 내역
 		model.addAttribute("distributorToPmHistories", commonService.getDistributorToPmHistories(rno));
 		// 임시저장 정보
@@ -69,6 +81,11 @@ public class UserTestDistributeController {
 		Member member = (Member) session.getAttribute("member");
 		model.addAttribute("distributorTemp", commonService.getTempStatusHistory(member, sh));
 		model.addAttribute("testRejectExist", commonService.isThereTestReject(rno));
+		
+		// 배포 담당자 확인 여부 변경(확인)	
+		if(request.getDisCheck()==1 && member.getMtype().equals("distributor") && requestProcess.getDistributor().equals(member.getMid())) {
+			commonService.check("distributor", request.getRno());
+		}
 		return "srm/distributor";
 	}
 
@@ -122,6 +139,10 @@ public class UserTestDistributeController {
 		if (me.getMtype().equals("usertester")) {
 			statusHistory.setNextStatus(9);
 			commonService.endWork(statusHistory, me.getMtype());
+			
+			// 서비스 변경 여부(배포자 미확인  상태 변경)
+			commonService.notCheck("distributor", statusHistory.getRno());
+			
 			return "redirect:/usertestdetail?rno=" + statusHistory.getRno();
 		} else {
 			statusHistory.setNextStatus(11);

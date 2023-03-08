@@ -71,6 +71,11 @@ public class TesterController {
 		model.addAttribute("tempNormal",tempNormal);
 		model.addAttribute("tempReexam",tempReexam);
 		model.addAttribute("testRejectExist", commonService.isThereTestReject(rno));
+		
+		// 테스트 담당자 확인 여부 변경(확인)	
+		if(request.getTesCheck()==1 && member.getMtype().equals("tester") && requestProcess.getTester().equals(member.getMid())) {
+			commonService.check("tester", request.getRno());
+		}
 		return "srm/testerdetail";
 	}
 
@@ -131,6 +136,10 @@ public class TesterController {
 		}
 		statusHistory.setFileList(sFiles);
 		commonService.reWork(statusHistory, member.getMtype());
+		
+		// 서비스 변경 여부(개발자 미확인  상태 변경)
+		commonService.notCheck("developer", statusHistory.getRno());
+				
 		return "redirect:/testerdetail?rno=" + statusHistory.getRno();
 		
 	}
@@ -166,6 +175,15 @@ public class TesterController {
 		}
 		statusHistory.setFileList(sFiles);
 		commonService.endWork(statusHistory, member.getMtype());
+		
+		// 서비스 변경 여부(담당자 미확인  상태 변경)
+		// 서비스 유형 확인
+		if(commonService.getRequestProcess(statusHistory.getRno()).getReqType().equals("긴급")) {
+			commonService.notCheck("distributor", statusHistory.getRno());
+		} else {
+			commonService.notCheck("usertester", statusHistory.getRno());
+		}
+				
 		return "redirect:/testerdetail?rno=" + statusHistory.getRno();
 		
 	}
