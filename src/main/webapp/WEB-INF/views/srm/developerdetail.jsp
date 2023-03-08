@@ -445,7 +445,6 @@
 		
 	}
 	
-	
 	/* 글자수 세기 */
    	$('#reply').keyup(function (e){
    		let content = $(this).val();
