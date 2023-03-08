@@ -447,7 +447,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 4.2%;
+  	left : 5%;
   	opacity : .6;
   	cursor:pointer;
   }
@@ -455,7 +455,7 @@ th.sorted:before{
   	content : "▼";
   	font-size : .3em;
   	position : absolute;
-  	left : 4.2%;
+  	left : 5%;
   	top : 12.5%;
   	opacity : .6;
   	cursor:pointer;
@@ -465,7 +465,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 4.2%;
+  	left : 5%;
   	opacity : 1;
   	cursor:pointer;
   }
@@ -474,7 +474,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 4.2%;
+  	left : 5%;
   	top : 12.5%;
   	opacity : .6;
   	cursor:pointer;
@@ -484,7 +484,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 4.2%;
+  	left : 5%;
   	opacity : .6;
   	cursor:pointer;
   }  
@@ -493,7 +493,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 4.2%;
+  	left : 5%;
   	top : 12.5%;
   	opacity : 1;
   	cursor:pointer;
@@ -505,7 +505,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 12.5%;
+  	left : 13%;
   	opacity : .6;
   	cursor:pointer;
   }
@@ -515,7 +515,7 @@ th.sorted:before{
   	display : inline-block;
   	position : absolute;
   	top : 12.5%;
-  	left : 12.5%;
+  	left : 13%;
   	opacity : .6;
   	cursor:pointer;
   }
@@ -524,7 +524,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 12.5%;
+  	left : 13%;
   	opacity : 1;
   	cursor:pointer;
   }
@@ -533,7 +533,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 12.5%;
+  	left : 13%;
   	top : 12.5%;
   	opacity : .6;
   	cursor:pointer;
@@ -543,7 +543,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 12.5%;
+  	left : 13%;
   	opacity : .6;
   	cursor:pointer;
   }  
@@ -552,7 +552,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 12.5%;
+  	left : 13%;
   	top : 12.5%;
   	opacity : 1;
   	cursor:pointer;
@@ -565,7 +565,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 22%;
+  	left : 22.5%;
   	opacity : .6;
   	cursor:pointer;
   }
@@ -574,7 +574,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 22%;
+  	left : 22.5%;
   	top : 12.5%;
   	opacity : .6;
   	cursor:pointer;
@@ -584,7 +584,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 22%;
+  	left : 22.5%;
   	opacity : 1;
   	cursor:pointer;
   }
@@ -593,7 +593,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 22%;
+  	left : 22.5%;
   	top : 12.5%;
   	opacity : .6;
   	cursor:pointer;
@@ -603,7 +603,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 22%;
+  	left : 22.5%;
   	opacity : .6;
   	cursor:pointer;
   }  
@@ -612,7 +612,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 22%;
+  	left : 22.5%;
   	top : 12.5%;
   	opacity : 1;
   	cursor:pointer;
@@ -626,7 +626,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 35%;
+  	left : 35.5%;
   	opacity : .6;
   	cursor:pointer;
   }
@@ -636,7 +636,7 @@ th.sorted:before{
   	display : inline-block;
   	position : absolute;
   	top : 12.5%;
-  	left : 35%;
+  	left : 35.5%;
   	opacity : .6;
   	cursor:pointer;
   }
@@ -645,7 +645,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 35%;
+  	left : 35.5%;
   	opacity : 1;
   	cursor:pointer;
   }
@@ -654,7 +654,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 35%;
+  	left : 35.5%;
   	top : 12.5%;
   	opacity : .6;
   	cursor:pointer;
@@ -664,7 +664,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 35%;
+  	left : 35.5%;
   	opacity : .6;
   	cursor:pointer;
   }  
@@ -673,7 +673,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 35%;
+  	left : 35.5%;
   	top : 12.5%;
   	opacity : 1;
   	cursor:pointer;
@@ -688,7 +688,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 49.5%;
+  	left : 50%;
   	opacity : .6;
   	cursor:pointer;
   }
@@ -697,7 +697,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 49.5%;
+  	left : 50%;
   	top : 12.5%;
   	opacity : .6;
   	cursor:pointer;
@@ -707,7 +707,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 49.5%;
+  	left : 50%;
   	opacity : 1;
   	cursor:pointer;
   }
@@ -716,7 +716,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 49.5%;
+  	left : 50%;
   	top : 12.5%;
   	opacity : .6;
   	cursor:pointer;
@@ -726,7 +726,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 49.5%;
+  	left : 50%;
   	opacity : .6;
   	cursor:pointer;
   }  
@@ -735,7 +735,7 @@ th.sorted:before{
   	font-size : .3em;
   	display : inline-block;
   	position : absolute;
-  	left : 49.5%;
+  	left : 50%;
   	top : 12.5%;
   	opacity : 1;
   	cursor:pointer;
