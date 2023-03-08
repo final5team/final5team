@@ -176,7 +176,7 @@ public class DeveloperController {
 	}
 
 	@PostMapping("updatehistory")
-	public String updateHistory(RequestProcess rp, StatusHistory sh, HttpSession session, Model model) {
+	public String updateHistory(RequestProcess rp, StatusHistory sh, HttpSession session, Model model, MultipartFile[] files) {
 		Member member = (Member) session.getAttribute("member");
 		commonService.updateHistory(rp, sh, member);
 		if (member.getMtype().equals("developer")) {		

@@ -25,7 +25,7 @@ public interface INoticeService {
 	
 	public void noticeUpdate(Notice notice);
 
-	public void deleteNoticeFile(int fno);
+	public void deleteNoticeFile(int fno, int distinguish);
 
 	public List<NoticeFile> getNoticeFileList(int nno);
 }

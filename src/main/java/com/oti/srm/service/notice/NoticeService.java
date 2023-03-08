@@ -79,13 +79,14 @@ public class NoticeService implements INoticeService {
 	}
 
 	@Override
-	public void deleteNoticeFile(int fno) {
-		noticeDao.deleteNoticeFile(fno);
+	public void deleteNoticeFile(int fno, int distinguish) {
+		noticeDao.deleteNoticeFile(fno, distinguish);
 	}
 
 	@Override
 	public List<NoticeFile> getNoticeFileList(int nno) {
 		return noticeDao.selectNoticeFiles(nno);
 	}
+
 
 }

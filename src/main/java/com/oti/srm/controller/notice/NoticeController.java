@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -174,8 +175,9 @@ public class NoticeController {
 	// 공지사항 단일 파일 삭제 
 	@PostMapping("/noticefiledelete")
 	@ResponseBody
-	public Map<String, String> noticeFileDelete(int fno, Model model) {
-		noticeService.deleteNoticeFile(fno);
+	public Map<String, String> noticeFileDelete(int fno, Model model,
+			@RequestParam(defaultValue = "0") int distinguish) {
+		noticeService.deleteNoticeFile(fno, distinguish);
 		Map<String,String> map = new HashMap<>();
 		map.put("result", "파일 삭제 완료");
 		return map;

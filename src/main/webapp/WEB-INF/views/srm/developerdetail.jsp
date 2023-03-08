@@ -229,16 +229,18 @@
 																		<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
 																			<i class="fas fa-cloud-download-alt text-info"></i>
 																		</a>
+																		<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a>
+																		<input type="hidden" name = "fno" value="${statusHistoryFile.fno}">
 																	</div>
 																	</c:forEach>
 					                	 						</div>
 				                	 						</div>
-				                	 						<div class="filebox d-flex mb-3">
-																<div class="label label-write" id="fileLable">
+				                	 						<div class="filebox row mb-3">
+																<div class="col-2 label label-write" id="fileLable">
 																	<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
 																	<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
 																</div>
-																<div class="border flex-grow-1 border-success" id="file-list-update"></div>	
+																<div class="border flex-grow-1 border-success col-8" id="file-list-update"></div>	
 															</div>
 			                	 						</c:if>
 	                	 						</c:if>
@@ -490,7 +492,7 @@
 		// input file 파일 첨부시 fileCheck 함수 실행
 	{
 		$("#fileInput").on("change", fileCheck);
-		$("#fileInputUPdate").on("change", fileUpdate);
+		$("#fileInputUpdate").on("change", fileUpdate);
 	});
 	
 	/* '파일추가' 버튼 누를 때마다 파일input 실행 */
@@ -561,8 +563,8 @@
 	        $('#fileInputUpdate').click();
 	    });
 	})
-	function fileCheck (e){
-		
+	function fileUpdate (e){
+		console.log("fileUpdate");
 		//파일 객체 갖고오기
 		var files = e.target.files;
 		
@@ -571,7 +573,54 @@
 		
 		//기존에 있던 파일 객체
 	    var existfiles = $('.existfiles');
+	    fileCount = existfiles.length;
+	    
+	    if(fileCount + filesArr.length > totalCount ){
+	    	$('#completeModal').modal();
+	    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
+	      return;
+	    }else {
+	    	 fileCount = fileCount + filesArr.length;
+	    }
+	 	// 각각의 파일 배열담기 및 기타
+	    filesArr.forEach(function (f) {
+	      var reader = new FileReader();
+	      
+	      reader.onload = function (e) {
+		        content_files.push(f);
+		        $('#file-list-update').append(
+		       		'<div id="file' + fileNum + '">'
+		       		+ '<font style="font-size:15px">' + f.name + '</font>'  
+		       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
+		       		+ '<div/>'
+				);
+		        fileNum ++;
+	      };
+	      
+	      reader.readAsDataURL(f);
+	    });
 	}
+	/***************** 올린 파일 삭제 *****************/
+	$('.deletefileButton').click(function(){
+		var deleteDiv = $(this).parent();
+		var fno = $(this).next().val();
+		let distinguish = 1;
+		
+		$.ajax({
+			type:"POST",
+			url:"${pageContext.request.contextPath}/noticefiledelete?fno=" + fno,
+			dataType: "json",
+			data: {
+				distinguish : distinguish
+			},
+			success: function(result){
+				deleteDiv.remove();
+				fileCount --;
+			}
+		});
+		
+		
+	});
 	
 	</script>
 </body>
