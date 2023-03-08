@@ -84,4 +84,6 @@ public interface ICommonService {
 
 	public List<RequestProcess> getPmRequestProcessList(String status, Pager rpPager);
 
+	public int check(String mtype, int rno);
+
 }

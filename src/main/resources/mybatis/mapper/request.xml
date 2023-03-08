@@ -9,9 +9,9 @@
 			from dual
 		</selectKey>
 		insert into requests (RNO, REQ_DATE, REQ_TITLE, REQ_CONTENT, CLIENT,
-		SNO, REQ_EXPECT_DATE, STATUS_NO)
+		SNO, REQ_EXPECT_DATE, STATUS_NO, PM_CHECK)
 		values(#{rno}, sysdate, #{reqTitle},
-		#{reqContent}, #{client}, #{sno}, #{reqExpectDate}, #{statusNo})
+		#{reqContent}, #{client}, #{sno}, #{reqExpectDate}, #{statusNo}, 1)
 	</insert>
 	
 	<update id="updateRequest" parameterType="com.oti.srm.dto.Request" >

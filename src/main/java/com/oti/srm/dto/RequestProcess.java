@@ -37,4 +37,6 @@ public class RequestProcess {
 	private String reqTitle;
 	private String mname;
 	private String statusName;
+	
+	private int pmCheck;
 }

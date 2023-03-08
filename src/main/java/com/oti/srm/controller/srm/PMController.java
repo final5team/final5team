@@ -62,6 +62,8 @@ public class PMController {
 		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
 		model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));	
 		model.addAttribute("testRejectExist", commonService.isThereTestReject(rno));
+		// 확인 여부 변경
+		commonService.check("pm", request.getRno());
 		// 요청 상태가 반려일 때 상태 변경 정보(반려 사유)
 		if(request.getStatusNo()==12) {
 			model.addAttribute("rejectHistory", pMService.getStatusHistory(rno, "reject"));
