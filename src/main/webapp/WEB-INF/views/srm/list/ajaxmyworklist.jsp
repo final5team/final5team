@@ -43,8 +43,8 @@
 
 	<c:forEach var="request" items="${requestList}">
 		<tr>
-			<td class="rno">${request.rno}</td>
-			<td class="client">${request.systemName}</td>
+			<td class="rno" style="max-width: 40px;  min-width : 40px; white-space: nowrap; overflow: hidden;">${request.rno}</td>
+			<td class="client" style="max-width: 95px;  min-width : 95px; white-space: nowrap; overflow: hidden;">${request.systemName}</td>
 			<c:if test="${request.statusNo == 1}">
 				<td class="sysType">
 					<span class="badge badge-warning">대기</span>
@@ -69,8 +69,8 @@
 					</c:if>
 				</c:if>
 			</c:if>
-			<td class="reqTitle" style="max-width: 200px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
-			<td class="reqDate" style="max-width: 100px; white-space: nowrap; overflow: hidden;">
+			<td class="reqTitle" style="max-width: 190px;  min-width : 190px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
+			<td class="reqDate" style="max-width: 87px;  min-width : 87px; white-space: nowrap; overflow: hidden;">
 				<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
 			</td>
 			<td class="step_td">
@@ -167,6 +167,9 @@ $(document).ready(function() {
 				
 				search(state, th_first_id);
 			}
+			
+			
+			
 		});
 	
 	let ex2 = document.querySelector('#th_sno');
