@@ -17,11 +17,7 @@
 			<tbody >
 				<c:forEach var="requestProcess" items="${requestProcessList}" varStatus="i">
 				<tr style="text-align: center;">
-					<td>${i.count}  
-						<c:if test="${requestProcess.pmCheck == 1}">
-							<strong class="text-danger" style="position: absolute; left: 28px">N</strong>																
-						</c:if>
-					</td>
+					<td>${i.count}</td>
 					<c:if test="${requestProcess.reqType != null}">
 						<td <c:if test="${requestProcess.reqType == '긴급'}"> class="text-danger"</c:if>>
 							${requestProcess.reqType}
@@ -40,9 +36,27 @@
 						</c:if>
 					</c:if>
 					<td class="tableContent">
-						<a href="${pageContext.request.contextPath}/developerdetail?rno=${requestProcess.rno}">
-							${requestProcess.reqTitle}
-						</a>
+						<c:if test="${requestProcess.pmCheck == 1}">
+							<strong class="text-danger">N</strong>																
+						</c:if>
+						<c:if test="${requestProcess.statusName eq '접수중' || requestProcess.statusName eq '접수완료'}">
+							<a href="${pageContext.request.contextPath}/pm/receiptdetail?rno=${requestProcess.rno}">${requestProcess.reqTitle}</a>
+						</c:if>
+						<c:if test="${requestProcess.statusName eq '개발중' || requestProcess.statusName eq '개발재검토' || requestProcess.statusName eq '개발완료'}">
+							<a href="${pageContext.request.contextPath}/developerdetail?rno=${requestProcess.rno}">${requestProcess.reqTitle}</a>
+						</c:if>
+						<c:if test="${requestProcess.statusName eq '테스트중' || requestProcess.statusName eq '테스트완료'}">
+							<a href="${pageContext.request.contextPath}/testerdetail?rno=${requestProcess.rno}">${requestProcess.reqTitle}</a>
+						</c:if>
+						<c:if test="${requestProcess.statusName eq '유저테스트중' || requestProcess.statusName eq '유저테스트완료'}">
+							<a href="${pageContext.request.contextPath}/usertestdetail?rno=${requestProcess.rno}">${requestProcess.reqTitle}</a>
+						</c:if>
+						<c:if test="${requestProcess.statusName eq '배포중' || requestProcess.statusName eq '배포완료'}">
+							<a href="${pageContext.request.contextPath}/distributedetail?rno=${requestProcess.rno}">${requestProcess.reqTitle}</a>
+						</c:if>
+						<c:if test="${requestProcess.statusName eq '완료' || requestProcess.statusName eq '반려'}">
+							<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${requestProcess.rno}">${requestProcess.reqTitle}</a>
+						</c:if>
 					</td>
 					<td>
 						<c:if test="${requestProcess.priority != null}">

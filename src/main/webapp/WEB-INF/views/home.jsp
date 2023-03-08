@@ -418,26 +418,26 @@ input:checked + .slider:before {
 										<div>
 											<div class="pager default mt-2">
 												<div class="pagingButtonSet d-flex justify-content-center">
-													<a onclick="requestProcessList(1)" type="button" class="btn btn-muted shadow">처음</a>
+													<a onclick="requestProcessList(1,'${searchStatus}')" type="button" class="btn btn-muted shadow">처음</a>
 													<c:if test="${rpPager.groupNo > 1}">
-														<a onclick="requestProcessList(${rpPager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
+														<a onclick="requestProcessList(${rpPager.startPageNo-1}, '${searchStatus}')" class="btn btn-muted shadow">이전</a>
 					
 													</c:if>
 					
 													<c:forEach var="i" begin="${rpPager.startPageNo}" end="${rpPager.endPageNo}">
 														<c:if test="${rpPager.pageNo != i}">
-															<a onclick="requestProcessList(${i})" type="button" class="btn btn-white shadow">${i}</a>
+															<a onclick="requestProcessList(${i}, '${searchStatus}')" type="button" class="btn btn-white shadow">${i}</a>
 														</c:if>
 														<c:if test="${rpPager.pageNo == i}">
-															<a onclick="requestProcessList(${i})" type="button" class="btn btn-dark shadow">${i}</a>
+															<a onclick="requestProcessList(${i}, '${searchStatus}')" type="button" class="btn btn-dark shadow">${i}</a>
 														</c:if>
 													</c:forEach>
 					
 													<c:if test="${rpPager.groupNo < rpPager.totalGroupNo }">
-														<a onclick="requestProcessList(${rpPager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
+														<a onclick="requestProcessList(${rpPager.endPageNo+1}, '${searchStatus}')" type="button" class="btn btn-muted shadow">다음</a>
 					
 													</c:if>
-													<a onclick="requestProcessList(${rpPager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
+													<a onclick="requestProcessList(${rpPager.totalPageNo}, '${searchStatus}')" type="button" class="btn btn-muted shadow">맨끝</a>
 												</div>
 											</div>
 										</div>	

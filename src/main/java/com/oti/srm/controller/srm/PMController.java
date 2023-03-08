@@ -118,6 +118,7 @@ public class PMController {
 			}			
 			// 접수 완료
 			int result=pMService.receipt(statusHistory, requestProcess);
+			// 접수 성공
 			if(result==1) {
 				return "redirect:/customer/requestlist"; 
 			}
@@ -163,7 +164,11 @@ public class PMController {
 		
 		//최종 완료 처리
 		statusHistory.setNextStatus(13);
+		// PM 처리 완료(완료 승인)
 		commonService.endWork(statusHistory, me.getMtype());
+		// 서비스 변경 여부(사용자 미확인)
+		commonService.notCheck("user", statusHistory.getRno());
+		
 		return "redirect:/pm/enddetail?rno=" + statusHistory.getRno();
 	}
 	
@@ -179,10 +184,15 @@ public class PMController {
 	@RequestMapping("/enddetail")
 	public String endDetail(int rno, HttpSession session, Model model) {
 		// 서비스 요청 정보
-		model.addAttribute("request", commonService.getRequest(rno));	
+		Request request = commonService.getRequest(rno);
+		model.addAttribute("request", request);	
 		// 요청 처리 정보
 		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
 		// 요청 처리 내역
+		// 요청 상태가 반려일 때 상태 변경 정보(반려 사유)
+		if(request.getStatusNo()==12) {
+			model.addAttribute("rejectHistory", pMService.getStatusHistory(rno, "reject"));
+		}
 		model.addAttribute("devStatusHistory", pMService.getStatusHistory(rno, "developer"));
 		model.addAttribute("tesStatusHistory", pMService.getStatusHistory(rno, "tester"));
 		model.addAttribute("uteStatusHistory", pMService.getStatusHistory(rno, "usertester"));

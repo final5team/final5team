@@ -58,11 +58,15 @@ public class PMService implements IPMService {
 			// 서비스 요청 처리 프로세스
 			// 접수 완료
 			if(statusHistory.getNextStatus()==2) {
-				int result=pMDao.insertRequestProcess(requestProcess);
+				// 서비스 처리 내역 생성
+				int result = pMDao.insertRequestProcess(requestProcess);
+				// 서비스 변경 여부(개발자 미확인 상태 변경)
+				result = commonDao.updateNotCheck("developer", statusHistory.getRno());
 				return (result==1)?1:0;	
 			//반려 처리	
 			} else if(statusHistory.getNextStatus()==12){
-				return 1;
+				// 서비스 변경 여부(사용자 미확인 상태 변경)
+				return commonDao.updateNotCheck("user", statusHistory.getRno());
 			}			
 		} catch(Exception e) {
 			e.printStackTrace();			
@@ -76,6 +80,7 @@ public class PMService implements IPMService {
 		StatusHistory reject = null;
 		// 전체 요청 처리 내역
 		List<StatusHistory> histories = commonDao.selectRequestHistories(rno);
+		// 처리 내역 확인
 		for(StatusHistory sh : histories) {
 			if(sh.getNextStatus() == 12) {
 				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));

@@ -54,8 +54,12 @@ public class Request {
 	private String rorgan; 
 	private String remail;
 	
-	// 신규 알림 확인
+	// 서비스 변경 여부(신규 알림) 확인
 	private int usrCheck;
 	private int pmCheck;
+	private int devCheck;
+	private int tesCheck;
+	private int uttCheck;
+	private int disCheck;	
 	
 }

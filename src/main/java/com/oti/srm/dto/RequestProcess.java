@@ -38,6 +38,7 @@ public class RequestProcess {
 	private String mname;
 	private String statusName;
 	
+	// 서비스 변경 여부 (신규 알림) 확인
 	private int pmCheck;
 	private int devCheck;
 	private int tesCheck;

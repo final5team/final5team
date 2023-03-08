@@ -266,7 +266,7 @@
 			
 		</if>
 		<if test ='listFilter.columnName != null'>
-			<if test ='listFilter.columnName == "th_no"'>
+			<if test ='listFilter.columnName == "th_rno"'>
 				<if test='listFilter.sortState == "asc"'>
 					order by r.rno  asc
 				</if>

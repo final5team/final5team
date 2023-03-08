@@ -9,7 +9,7 @@
     <link href="${pageContext.request.contextPath}/resources/css/stepperprogress.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <style>
-    #requestInfo {
+    #completeInfo {
    	 	background-image: url('${pageContext.request.contextPath}/resources/img/completed.png'); 
 		background-repeat: no-repeat;
 		background-position: 700px 420px;
@@ -49,103 +49,15 @@
                 		<div class="title-block">
                 	 		<h3 class="title">최종 승인 상세 보기</h3>
                 	 	</div>
-                	 	<div> <!-- 여기에 단계 상태 이력 넣기 -->
-                	 		<%@ include file="/WEB-INF/views/srm/restatus/stepperprogress.jsp" %>
-                	 	</div>	<!-- 여기에 단계 상태 이력 넣기 /-->
-						<!-- 게시글 상세보기 start -->
-						<section><!-- 요청정보 DIV START -->
-							<div class="card border-top-dark mt-3" id="<c:if test='${request.statusNo==13}'>requestInfo</c:if><c:if test='${request.statusNo==12}'>rejectInfo</c:if>" >
-								<div class="card-block">
-									<div class="card-title-block">
-	                	 				<h3 class="title">
-		                	 				요청 상세 보기<i class="ml-1 fas fa-book-open"></i>
-	                	 				</h3>
-	                	 			</div>
-	                	 			<div class="card-body"><!-- card-body start -->
-										<div class="row">
-											<div class="col-3 label">요청자</div>
-											<div class="col-2">${request.clientName}</div>
-											<div class="col-3 label">요청 번호</div>
-											<div class="col-2">No.${request.rno}</div>
-										</div>
-										<hr/>
-										
-										<div class="row">
-											<div class="col-3 label">요청일</div>
-											<div class="col-2"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd"/></div>
-											<div class="col-3 label">완료 희망일</div>
-											<div class="col-2"><fmt:formatDate value="${request.reqExpectDate}" pattern="yyyy-MM-dd"/></div>
-										</div>
-										<hr/>
-										<div class="row">
-											<div class="col-3 label">시스템 </div>
-											<div class="col-2">${request.systemName}</div>
-											<div class="col-3 label">소속 기관</div>
-											<div class="col-2">${request.organ}</div>
-										</div>
-										<c:if test="${request.statusNo != 12}">
-											<hr/>
-											<div class="row">
-												<div class="col-3 label">요청 유형</div>
-												<div class="col-2">
-													<c:if test="${requestProcess.reqType eq '정규'}">
-														<div>정규<i class="far fa-registered text-secondary"></i></div>
-													</c:if>
-													<c:if test="${requestProcess.reqType eq '긴급'}">
-														<div>긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
-													</c:if>
-												</div>
-											
-												<div class="col-3 label">중요도</div>
-												<div class="col-2">
-													<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
-														<span class="fa fa-star checked" style="color: orange;"></span>
-													</c:if>
-													<c:if test="${requestProcess.priority eq '중' || requestProcess.priority eq '상'}">
-														<span class="fa fa-star checked" style="color: orange;"></span>
-													</c:if>
-													<c:if test="${requestProcess.priority eq '상'}">
-														<span class="fa fa-star checked" style="color: orange;"></span>
-													</c:if>
-												</div>
-											</div>
-										</c:if>
-										<hr/>
-										<div class="row">
-											<div class="col-3 label">제목</div>
-											<div class="col-8">${request.reqTitle}</div>
-										</div>
-										<hr/>
-										<div class="row">
-											<div class="col-3 label">내용</div>
-											<div class="col-7 border" style="min-height:100px;">${request.reqContent}</div>
-										</div>
-										<hr/>
-										<div class="row">
-											<div class="col-3 label">첨부파일</div>
-											<div class="col-7">
-												<c:forEach var="statusHistoryFile" items="${request.files}">
-													<div>
-														<span>${statusHistoryFile.fileName}</span>
-														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-															<i class="fas fa-cloud-download-alt"></i>
-														</a>
-													</div>
-												</c:forEach>
-											</div>
-										</div>
-										<c:if test="${request.statusNo==11 && member.mtype =='pm'}">
-											<div class="d-flex justify-content-end">
-												<button class="btn btn-primary btn-md mt-3 ml-3" type="button" data-toggle="modal" data-target="#completeModal">처리 완료</button>									
-											</div>	
-										</c:if>
-									</div> <!-- card-body/ -->	
-								</div> <!-- card-block /-->	
-							</div>
-						</section><!-- 요청정보 DIV END -->
-						<!-- 단계별 처리 내역 start -->
-				   	 	<c:if test="${member.mtype !='user' && request.statusNo != 12}">
-							<div class="card border-top-primary mt-3 mb-3" id="requestEndInfo">
+                	 	<!-- 여기에 단계 상태 이력 넣기 -->
+                	 	<div> 
+	                	 <%@ include file="/WEB-INF/views/srm/restatus/stepperprogress.jsp" %>
+                	 	</div>	
+                	 	<!-- 여기에 단계 상태 이력 넣기 /-->
+						
+						<!-- 접수 완료 start -->
+				   	 	<c:if test="${request.statusNo != 12}">
+							<div class="card border-top-primary mt-3 mb-3" id="completeInfo">
 								<div class="card-block">
 									<div class="card-title-block">
 		               	 				<h3 class="title">
@@ -197,11 +109,51 @@
 										</tbody>
 								   </table>
 							   </div>
+							   <c:if test="${request.statusNo==11 && member.mtype =='pm'}">
+							 	  	<div class="d-flex justify-content-end ">
+										<button class="btn btn-primary btn-md my-2 mx-3" type="button" data-toggle="modal" data-target="#completeModal">처리 완료</button>									
+									</div>
+								</c:if>
 							</div>
 				     	</c:if>
-						<button class="btn btn-dark btn-sm ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
-						<!-- 단계별 처리 내역 end -->
 						
+						<!-- 접수 완료 end -->
+						<!-- 접수 반려 start -->
+						<c:if test="${request.statusNo == 12}">
+						<div class="card border-top-danger mt-3 mb-1">
+								<h3 class="title m-3">						
+									반려 처리 내역 <i class="ml-1 fas fa-external-link-alt"></i>
+								</h3>
+								<div class="card-body">									
+									<div class="form-group row">
+										<label class="label col-3">반려 사유</label>
+										<textarea rows="2" class="form-control boxed col-7" name="reply" readonly>${rejectHistory.reply}</textarea>
+									</div>											
+									<div class="mt-3 row">
+										<c:if test="${request.files != null}">
+											<div class="col-3 label">첨부 파일</div>
+											<div class="col">
+												<c:forEach var="file" items="${rejectHistory.fileList}">
+													<div>
+														<span>${file.fileName}</span>
+														<a href="${pageContext.request.contextPath}/filedouwnload/${file.fno}" role="button">
+															<i class="fas fa-cloud-download-alt"></i>
+														</a>
+													</div>
+												</c:forEach>
+											</div>
+										</c:if>
+									</div>																														
+								</div>										
+							</div>
+						</c:if>
+						<c:if test="${member.mtype == 'user'}">
+							<button class="btn btn-dark btn-sm ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'">목록</button>
+						</c:if>
+						<c:if test="${member.mtype != 'user'}">
+							<button class="btn btn-dark btn-sm ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
+						</c:if>
+						<!-- 접수결과 반려 end -->
 						<!-- 처리 완료 모달창 start -->
 						 <div class="modal fade" id="completeModal" role="dialog" aria-labelledby="dueDate" aria-hidden="true" >
 							<div class="modal-dialog modal-dialog-centered" role="document">
