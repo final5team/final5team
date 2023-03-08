@@ -184,10 +184,15 @@ public class PMController {
 	@RequestMapping("/enddetail")
 	public String endDetail(int rno, HttpSession session, Model model) {
 		// 서비스 요청 정보
-		model.addAttribute("request", commonService.getRequest(rno));	
+		Request request = commonService.getRequest(rno);
+		model.addAttribute("request", request);	
 		// 요청 처리 정보
 		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
 		// 요청 처리 내역
+		// 요청 상태가 반려일 때 상태 변경 정보(반려 사유)
+		if(request.getStatusNo()==12) {
+			model.addAttribute("rejectHistory", pMService.getStatusHistory(rno, "reject"));
+		}
 		model.addAttribute("devStatusHistory", pMService.getStatusHistory(rno, "developer"));
 		model.addAttribute("tesStatusHistory", pMService.getStatusHistory(rno, "tester"));
 		model.addAttribute("uteStatusHistory", pMService.getStatusHistory(rno, "usertester"));

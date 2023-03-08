@@ -353,21 +353,33 @@ input:checked + .slider:before {
 														<td class="tableContent">
 															<c:if test="${member.mtype == 'developer'}">
 																<a href="${pageContext.request.contextPath}/developerdetail?rno=${requestProcess.rno}">
+																	<c:if test="${requestProcess.devCheck == 1}">
+																		<strong class="text-danger">N</strong>																
+																	</c:if>
 																	${requestProcess.reqTitle}
 																</a>
 															</c:if>
 															<c:if test="${member.mtype == 'tester'}">
 																<a href="${pageContext.request.contextPath}/testerdetail?rno=${requestProcess.rno}">
+																	<c:if test="${requestProcess.tesCheck == 1}">
+																		<strong class="text-danger">N</strong>																
+																	</c:if>
 																	${requestProcess.reqTitle}
 																</a>
 															</c:if>
 															<c:if test="${member.mtype == 'usertester'}">
 																<a href="${pageContext.request.contextPath}/usertestdetail?rno=${requestProcess.rno}">
+																	<c:if test="${requestProcess.uttCheck == 1}">
+																		<strong class="text-danger">N</strong>																
+																	</c:if>
 																	${requestProcess.reqTitle}
 																</a>
 															</c:if>
 															<c:if test="${member.mtype == 'distributor'}">
 																<a href="${pageContext.request.contextPath}/distributedetail?rno=${requestProcess.rno}">
+																	<c:if test="${requestProcess.disCheck == 1}">
+																		<strong class="text-danger">N</strong>																
+																	</c:if>
 																	${requestProcess.reqTitle}
 																</a>
 															</c:if>

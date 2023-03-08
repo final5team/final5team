@@ -321,7 +321,11 @@
 		 	rp.all_expect_date as "allExpectDate",
 		 	m.mname as "mname", 
 		 	st.status_name as "statusName", 
-		 	r.rno as "rno"
+		 	r.rno as "rno",
+		 	DEV_CHECK as "devCheck",
+		 	TES_CHECK as "tesCheck",
+		 	UTT_CHECK as "uttCheck",
+		 	DIS_CHECK as "disCheck"
 		 <if test="member.mtype == 'developer'">, rp.developer as "developer"</if>
 		 <if test="member.mtype == 'usertester'">, rp.user_tester as "userTester"</if>
 		 <if test="member.mtype == 'tester'">, rp.tester as "tester"</if>

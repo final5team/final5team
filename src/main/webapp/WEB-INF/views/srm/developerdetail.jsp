@@ -284,7 +284,7 @@
                 	 		</c:if>
                 	 		
                 	 	</section> <!-- 개발히스토리end -->
-                	 	<button class="btn btn-dark btn-sm ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
+                	 	<button class="btn btn-dark btn-sm ml-5 mb-3" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
 					 </div> <!-- id=main div / -->
                 </div>
                 <!-- 여기에 내용 담기 end -->
@@ -429,7 +429,6 @@
 		$('#writeform').submit();
 	}
 	
-	
 	function getDevContent(index){
 		var content = "#" + index;
 		$(content).toggle();
@@ -445,7 +444,6 @@
 		$('#histories').toggle();
 		
 	}
-	
 	
 	/* 글자수 세기 */
    	$('#reply').keyup(function (e){
