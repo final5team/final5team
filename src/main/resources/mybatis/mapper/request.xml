@@ -277,10 +277,51 @@
 					order by r.rno  desc
 				</if>
 			</if>
+			<if test ='listFilter.columnName == "th_sno"'>
+				<if test='listFilter.sortState == "asc"'>
+					order by r.sno  asc, r.rno asc
+				</if>
+				<if test='listFilter.sortState == "desc"'>
+					order by r.sno  desc, r.rno desc
+				</if>
+				<if test='listFilter.sortState == "none"'>
+					order by r.sno  desc, r.rno desc
+				</if>
+			</if>
+			<if test ='listFilter.columnName == "th_reqtype"'>
+				<if test='listFilter.sortState == "asc"'>
+					order by rp.REQ_TYPE  asc, r.rno asc
+				</if>
+				<if test='listFilter.sortState == "desc"'>
+					order by rp.REQ_TYPE  desc, r.rno desc
+				</if>
+				<if test='listFilter.sortState == "none"'>
+					order by rp.REQ_TYPE  desc, r.rno desc
+				</if>
+			</if>
 			
-			
-			
-			
+			<if test ='listFilter.columnName == "th_title"'>
+				<if test='listFilter.sortState == "asc"'>
+					order by r.REQ_TITLE  asc, r.rno asc
+				</if>
+				<if test='listFilter.sortState == "desc"'>
+					order by r.REQ_TITLE  desc, r.rno desc
+				</if>
+				<if test='listFilter.sortState == "none"'>
+					order by r.REQ_TITLE  desc, r.rno desc
+				</if>
+			</if>
+			<if test ='listFilter.columnName == "th_reqdate"'>
+				<if test='listFilter.sortState == "asc"'>
+					order by r.REQ_DATE  asc, r.rno asc
+				</if>
+				<if test='listFilter.sortState == "desc"'>
+					order by r.REQ_DATE  desc, r.rno desc
+				</if>
+				<if test='listFilter.sortState == "none"'>
+					order by r.REQ_DATE  desc, r.rno desc
+				</if>
+			</if>
 		</if>
 		
 		) j offset (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS 

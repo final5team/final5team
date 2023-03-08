@@ -318,11 +318,15 @@
 		let th_first_id_value = document.querySelector('#th_first_id');
 		let th_first_id = th_first_id_value.value;
 				
-		//정렬 기능 적용하기 위한 css
+		
+		
+		//글 번호 정렬 선택
 		let th_no = document.querySelector('#th_no');
-		//th_first 클릭이므로
 		th_no.addEventListener('click', (event) => {
 			event.preventDefault();
+			
+			console.log('rno');
+			
 			//변수값 설정
 			state = 'asc';
 			th_first_id = 'th_no';
@@ -335,6 +339,81 @@
 			
  			search(state, th_first_id);
 			
+		});
+		
+		//시스템 정렬 선택
+		let th_sno = document.querySelector('#th_sno');
+		th_sno.addEventListener('click', (event)=> {
+			event.preventDefault();
+			
+			console.log('sno');
+			//변수값 설정
+			state = 'asc';
+			th_first_id = 'th_sno';
+			//hidden 태그 값 설정
+			state_value.value = 'asc';
+			th_first_id_value.value = 'th_sno';
+			//css 변경
+			th_no.classList.remove('th_second');
+			th_no.classList.add('th_second_asc');
+			
+			search(state, th_first_id);
+		});
+		
+		//요청 유형 정렬 선택
+		let th_reqtype = document.querySelector('#th_reqtype');
+		th_reqtype.addEventListener('click', (event)=> {
+			event.preventDefault();
+			
+			console.log('reqtype');
+			//변수값 설정
+			state = 'asc';
+			th_first_id = 'th_reqtype';
+			//hidden 태그 값 설정
+			state_value.value = 'asc';
+			th_first_id_value.value = 'th_reqtype';
+			//css 변경
+			th_no.classList.remove('th_third');
+			th_no.classList.add('th_third_asc');
+			
+			search(state, th_first_id);
+		});
+		
+		//요청 제목 정렬 선택
+		let th_title = document.querySelector('#th_title');
+		th_title.addEventListener('click', (event)=> {
+			event.preventDefault();
+			
+			console.log('th_title');
+			//변수값 설정
+			state = 'asc';
+			th_first_id = 'th_title';
+			//hidden 태그 값 설정
+			state_value.value = 'asc';
+			th_first_id_value.value = 'th_title';
+			//css 변경
+			th_no.classList.remove('th_four');
+			th_no.classList.add('th_four_asc');
+			
+			search(state, th_first_id);
+		});
+		
+		//요청 일자 정렬 선택
+		let th_reqdate = document.querySelector('#th_reqdate');
+		th_reqdate.addEventListener('click', (event)=> {
+			event.preventDefault();
+			console.log('th_reqdate');
+			//변수값 설정
+			state = 'asc';
+			th_first_id = 'th_reqdate';
+			//hidden 태그 값 설정
+			state_value.value = 'asc';
+			th_first_id_value.value = 'th_reqdate';
+			//css 변경
+			th_no.classList.remove('th_five');
+			th_no.classList.add('th_five_asc');
+			
+			search(state, th_first_id);
 		});
 		
 		

@@ -6,20 +6,38 @@
 <table>
 	<tr>
 		<th class="ex th_first <c:if test="${listFilter.columnName == 'th_no' && listFilter.sortState == 'desc'}">th_first_desc</c:if>
-						<c:if test="${listFilter.columnName == 'th_no' && listFilter.sortState == 'asc'}">th_first_asc</c:if>
-						<c:if test="${listFilter.columnName == 'th_no' && listFilter.sortState == 'none'}"></c:if>" 
-			id="th_no">
+					<c:if test="${listFilter.columnName == 'th_no' && listFilter.sortState == 'asc'}">th_first_asc</c:if>
+					<c:if test="${listFilter.columnName == 'th_no' && listFilter.sortState == 'none'}"></c:if>" id="th_no">
+			
 			No.
 		</th>
 																		
 								
 							
 						
-		<th class="ex th_second">시스템</th>
-		<th class="ex th_third">요청 유형</th>
-		<th class="ex th_four">요청 제목</th>
-		<th class="ex th_five">요청 일자</th>
-		<th class="ex">단계</th>
+		<th class="ex th_second <c:if test="${listFilter.columnName == 'th_sno' && listFilter.sortState == 'desc'}">th_second_desc</c:if>
+					<c:if test="${listFilter.columnName == 'th_sno' && listFilter.sortState == 'asc'}">th_second_asc</c:if>
+					<c:if test="${listFilter.columnName == 'th_sno' && listFilter.sortState == 'none'}"></c:if>" id= "th_sno">
+			시스템
+		</th>
+		<th class="ex th_third <c:if test="${listFilter.columnName == 'th_reqtype' && listFilter.sortState == 'desc'}">th_third_desc</c:if>
+					<c:if test="${listFilter.columnName == 'th_reqtype' && listFilter.sortState == 'asc'}">th_third_asc</c:if>
+					<c:if test="${listFilter.columnName == 'th_sno' && listFilter.sortState == 'none'}"></c:if>" id="th_reqtype"> 
+			요청 유형
+		</th>
+		<th class="ex th_four <c:if test="${listFilter.columnName == 'th_title' && listFilter.sortState == 'desc'}">th_four_desc</c:if>
+					<c:if test="${listFilter.columnName == 'th_title' && listFilter.sortState == 'asc'}">th_four_asc</c:if>
+					<c:if test="${listFilter.columnName == 'th_title' && listFilter.sortState == 'none'}"></c:if>" id="th_title">
+			요청 제목
+		</th>
+		<th class="ex th_five <c:if test="${listFilter.columnName == 'th_reqdate' && listFilter.sortState == 'desc'}">th_five_desc</c:if>
+					<c:if test="${listFilter.columnName == 'th_reqdate' && listFilter.sortState == 'asc'}">th_five_asc</c:if>
+					<c:if test="${listFilter.columnName == 'th_reqdate' && listFilter.sortState == 'none'}"></c:if>" id="th_reqdate">
+			요청 일자
+		</th>
+		<th class="ex">
+			단계
+		</th>
 
 	</tr>
 
@@ -110,10 +128,52 @@ $(document).ready(function() {
 	let ex = document.querySelector('#th_no');
 	console.log('ajax로 불러온 페이지');
 	
-	ex.addEventListener('click', (event) => {
+		ex.addEventListener('click', (event) => {
+			
+			//내림차순 정렬 실행
+			if(ex.classList.contains('th_first_asc')){
+				event.preventDefault();
+				state = 'desc';
+				th_first_id = th_first_id;
+				//hidden tag 값 설정
+				state_value.value = 'desc';
+				th_first_id_value.value = th_first_id;
+				//css 설정
+				ex.classList.remove('th_first_asc');
+				ex.classList.add('th_first_desc');
+				
+				search(state, th_first_id);
+				
+			} else if(ex.classList.contains('th_first_desc')){
+				event.preventDefault();
+				state = 'none';
+				th_first_id = th_first_id;
+				//hidden tag 값 설정
+				state_value.value = 'none';
+				th_first_id_value.value = th_first_id;
+				//css 설정
+				ex.classList.remove('th_first_desc');
+	
+				search(state, th_first_id);
+			} else {
+				event.preventDefault();
+				state = 'asc';
+				th_first_id = th_first_id;
+				//hidden tag 값 설정
+				state_value.value = 'asc';
+				th_first_id_value.value = th_first_id;
+				//css 설정
+				ex.classList.remove('th_first_asc');
+				
+				search(state, th_first_id);
+			}
+		});
+	
+	let ex2 = document.querySelector('#th_sno');
+		ex2.addEventListener('click', (event) => {
 		
 		//내림차순 정렬 실행
-		if(ex.classList.contains('th_first_asc')){
+		if(ex2.classList.contains('th_second_asc')){
 			event.preventDefault();
 			state = 'desc';
 			th_first_id = th_first_id;
@@ -121,12 +181,12 @@ $(document).ready(function() {
 			state_value.value = 'desc';
 			th_first_id_value.value = th_first_id;
 			//css 설정
-			ex.classList.remove('th_first_asc');
-			ex.classList.add('th_first_desc');
+			ex.classList.remove('th_second_asc');
+			ex.classList.add('th_second_desc');
 			
 			search(state, th_first_id);
 			
-		} else if(ex.classList.contains('th_first_desc')){
+		} else if(ex2.classList.contains('th_second_desc')){
 			event.preventDefault();
 			state = 'none';
 			th_first_id = th_first_id;
@@ -134,7 +194,7 @@ $(document).ready(function() {
 			state_value.value = 'none';
 			th_first_id_value.value = th_first_id;
 			//css 설정
-			ex.classList.remove('th_first_desc');
+			ex.classList.remove('th_second_desc');
 
 			search(state, th_first_id);
 		} else {
@@ -145,13 +205,139 @@ $(document).ready(function() {
 			state_value.value = 'asc';
 			th_first_id_value.value = th_first_id;
 			//css 설정
-			ex.classList.remove('th_first_asc');
+			ex.classList.remove('th_second_asc');
 			
 			search(state, th_first_id);
 		}
-		
-		
 	});
+		let ex3 = document.querySelector('#th_reqtype');
+		ex3.addEventListener('click', (event) => {
+		
+		//내림차순 정렬 실행
+		if(ex3.classList.contains('th_third_asc')){
+			event.preventDefault();
+			state = 'desc';
+			th_first_id = th_first_id;
+			//hidden tag 값 설정
+			state_value.value = 'desc';
+			th_first_id_value.value = th_first_id;
+			//css 설정
+			ex.classList.remove('th_third_asc');
+			ex.classList.add('th_third_desc');
+			
+			search(state, th_first_id);
+			
+		} else if(ex3.classList.contains('th_third_desc')){
+			event.preventDefault();
+			state = 'none';
+			th_first_id = th_first_id;
+			//hidden tag 값 설정
+			state_value.value = 'none';
+			th_first_id_value.value = th_first_id;
+			//css 설정
+			ex.classList.remove('th_third_desc');
+
+			search(state, th_first_id);
+		} else {
+			event.preventDefault();
+			state = 'asc';
+			th_first_id = th_first_id;
+			//hidden tag 값 설정
+			state_value.value = 'asc';
+			th_first_id_value.value = th_first_id;
+			//css 설정
+			ex.classList.remove('th_third_asc');
+			
+			search(state, th_first_id);
+		}
+	});	
+		let ex4 = document.querySelector('#th_title');
+		ex4.addEventListener('click', (event) => {
+		
+		//내림차순 정렬 실행
+		if(ex4.classList.contains('th_four_asc')){
+			event.preventDefault();
+			state = 'desc';
+			th_first_id = th_first_id;
+			//hidden tag 값 설정
+			state_value.value = 'desc';
+			th_first_id_value.value = th_first_id;
+			//css 설정
+			ex.classList.remove('th_four_asc');
+			ex.classList.add('th_four_desc');
+			
+			search(state, th_first_id);
+			
+		} else if(ex4.classList.contains('th_four_desc')){
+			event.preventDefault();
+			state = 'none';
+			th_first_id = th_first_id;
+			//hidden tag 값 설정
+			state_value.value = 'none';
+			th_first_id_value.value = th_first_id;
+			//css 설정
+			ex.classList.remove('th_four_desc');
+
+			search(state, th_first_id);
+		} else {
+			event.preventDefault();
+			state = 'asc';
+			th_first_id = th_first_id;
+			//hidden tag 값 설정
+			state_value.value = 'asc';
+			th_first_id_value.value = th_first_id;
+			//css 설정
+			ex.classList.remove('th_four_asc');
+			
+			search(state, th_first_id);
+		}
+	});	
+		
+		let ex5 = document.querySelector('#th_reqdate');
+		ex5.addEventListener('click', (event) => {
+		
+		//내림차순 정렬 실행
+		if(ex5.classList.contains('th_five_asc')){
+			event.preventDefault();
+			state = 'desc';
+			th_first_id = th_first_id;
+			//hidden tag 값 설정
+			state_value.value = 'desc';
+			th_first_id_value.value = th_first_id;
+			//css 설정
+			ex.classList.remove('th_five_asc');
+			ex.classList.add('th_five_desc');
+			
+			search(state, th_first_id);
+			
+		} else if(ex5.classList.contains('th_five_desc')){
+			event.preventDefault();
+			state = 'none';
+			th_first_id = th_first_id;
+			//hidden tag 값 설정
+			state_value.value = 'none';
+			th_first_id_value.value = th_first_id;
+			//css 설정
+			ex.classList.remove('th_five_desc');
+
+			search(state, th_first_id);
+		} else {
+			event.preventDefault();
+			state = 'asc';
+			th_first_id = th_first_id;
+			//hidden tag 값 설정
+			state_value.value = 'asc';
+			th_first_id_value.value = th_first_id;
+			//css 설정
+			ex.classList.remove('th_five_asc');
+			
+			search(state, th_first_id);
+		}
+	});			
+		
+		
+	
+	
 	
 })
 

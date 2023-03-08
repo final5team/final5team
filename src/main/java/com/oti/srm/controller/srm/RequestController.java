@@ -349,6 +349,12 @@ public class RequestController {
 		List<System> systemList = userRegisterService.getSystemList();
 		ListFilter returnList = requestService.dateFilterList(listFilter);
 		
+		log.info(listFilter.toString());
+		if(listFilter.getColumnName() == "" || listFilter.getSortState() == "") {
+			listFilter.setColumnName(null);
+			listFilter.setSortState(null);
+		}
+		
 		//세션에 저장된 멤버 객체 전달
 		Member member = (Member) session.getAttribute("member");
 		int totalRows = requestService.getMyWorkRows(listFilter, member);
@@ -362,7 +368,7 @@ public class RequestController {
 		// filter 전달, 정렬 상태 전달
 		model.addAttribute("listFilter", returnList);
 		
-		log.info(listFilter.toString());
+		
 		
 		
 		return "srm/list/ajaxmyworklist";
