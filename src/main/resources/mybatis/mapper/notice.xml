@@ -130,9 +130,14 @@
 		(seq_notice_files.nextval, sysdate, #{fileName}, #{fileType}, #{fileData}, #{nno})
 	</insert>
 	
-	<delete id="deleteNoticeFile" parameterType="int">
+	<delete id="deleteNoticeFile" parameterType="map">
 		delete 
+		<if test="distinguish == 0">
 		from notice_files
+		</if>
+		<if test="distinguish == 1">
+		from STATUS_HISTORIES_FILES
+		</if>
 		where fno = #{fno}
 	</delete>
 	
