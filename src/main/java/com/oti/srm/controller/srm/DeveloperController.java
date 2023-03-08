@@ -178,7 +178,6 @@ public class DeveloperController {
 	@PostMapping("updatehistory")
 	public String updateHistory(RequestProcess rp, StatusHistory sh, HttpSession session, Model model, MultipartFile[] files) {
 		log.info("updateHistory");
-		log.info(files.length);
 		
 		Member member = (Member) session.getAttribute("member");
 		

@@ -103,7 +103,7 @@
 											<c:if test="${request.statusNo == 8}">
 												<div class="d-flex justify-content-end">
 													<button class="btn btn-warning btn-md mx-3"  formaction="${pageContext.request.contextPath}/tempstore">임시 저장</button>
-													<button class="btn btn-primary btn-md " formaction="${pageContext.request.contextPath}/endwork">개발 완료</button>
+													<button class="btn btn-primary btn-md " onclick="userTestDone()">유저테스트 완료</button>
 												</div>
 											</c:if>
 										</form>				
@@ -131,55 +131,94 @@
                 	 			<div class="card-block">
 	                	 			<div class="card-block-title mb-0">
 	                	 				<h3 class="title">
-	                	 					 ${index.count}차 내역  <i class="far fa-bookmark success"></i>
+	                	 					테스트 내역  <i class="far fa-bookmark success"></i>
 	                	 				</h3>
 	                	 			</div>
-	                	 			<form method="post" action="<c:url value='/updatehistory'/>">
+	                	 			<form method="post" action="<c:url value='/updatehistory'/>" enctype="multipart/form-data">
 	                	 				<div class="card-body">
 	                	 					<div>
 	                	 						<div class="row">
-	                	 							<div class="col-5 p-2">
-			                	 						<span class="label">작성자</span>
-			                	 						<span class="p-2">${statusHistory.writer}</span>
-	                	 							</div>
-	                	 							<div class="col-5 p-2">
-			                	 						<span class="label">품질검토 완료일</span>
-			                	 						<span class="p-2"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></span>
-		                	 						</div>
+		                	 						<span class="col-2 label">작성자</span>
+		                	 						<span class="col-3 p-2">${statusHistory.writer}</span>
+		                	 						<span class="col-2 label">품질검토 완료일</span>
+		                	 						<span class="col-3 p-2"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></span>
 	                	 						</div>
-	                	 						<div class="row">
-	                	 							<c:if test="${requestProcess.userTester != member.mid}">
-	                	 								<span class="label" style="text-align :left; width: 10%;">검토 내용</span>
+                	 							<c:if test="${requestProcess.userTester != member.mid}">
+		                	 						<div class="row">
+	                	 								<span class="col-2 label">검토 내용</span>
 		                	 							<textarea rows="2" class="form-control boxed mr-5" readonly>${statusHistory.reply}</textarea>
-	                	 							</c:if>
-                	 								<c:if test="${requestProcess.userTester == member.mid}">
-                	 									<c:if test="${request.statusNo == 9}">
+		                	 						</div>
+		                	 						<div class="row mt-3">
+			                	 						<span class="col-2 label">첨부파일</span>
+			                	 						<div>
+		                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+															<div>
+																<span>${statusHistoryFile.fileName}</span>
+																<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																	<i class="fas fa-cloud-download-alt text-info"></i>
+																</a>
+															</div>
+															</c:forEach>
+			                	 						</div>
+		                	 						</div>
+                	 							</c:if>
+                	 							
+               	 								<c:if test="${requestProcess.userTester == member.mid}">
+               	 									<c:if test="${request.statusNo == 9}">
+	              	 									<div class="row">
 	                	 									<input type="hidden" name="rno" value="${request.rno}"/>
 		                	 								<input type="hidden" name="hno" value="${statusHistory.hno}"/>
-	                	 									<span class="label" style="text-align :left; width: 10%;">검토 내용</span>
+	                	 									<span class="col-2 label" >검토 내용</span>
 		                	 								<textarea rows="2" class="form-control boxed mr-5" name="reply">${statusHistory.reply}</textarea>
-	                	 								</c:if>
-	                	 								<c:if test="${request.statusNo != 9}">
-	                	 									<span class="label" style="text-align :left; width: 10%;">검토 내용</span>
-		                	 								<textarea rows="2" class="form-control boxed mr-5" readonly>${statusHistory.reply}</textarea>
-	                	 								</c:if>
-	                	 							</c:if>
-	                	 						</div>
-	                	 						<div class="row mt-3">
-		                	 						<span class="label" style="text-align :left; width: 10%;">첨부파일</span>
-		                	 						<div>
-	                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-														<div>
-															<span>${statusHistoryFile.fileName}</span>
-															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-																<i class="fas fa-cloud-download-alt text-info"></i>
-															</a>
+    	          	 									</div>
+    	          	 									<div class="row mt-3">
+				                	 						<span class="col-2 label" >첨부파일</span>
+				                	 						<div>
+			                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+																<div>
+																	<span>${statusHistoryFile.fileName}</span>
+																	<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																		<i class="fas fa-cloud-download-alt text-info"></i>
+																	</a>
+																	<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a>
+																	<input type="hidden" name = "fno" value="${statusHistoryFile.fno}">
+																</div>
+																</c:forEach>
+				                	 						</div>
+			                	 						</div>
+			                	 						<div class="filebox row mb-3">
+															<div class="col-2 label label-write" id="fileLable">
+																<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
+																<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
+															</div>
+															<div class="border flex-grow-1 border-success col-8" id="file-list-update"></div>	
 														</div>
-														</c:forEach>
-		                	 						</div>
-	                	 						</div>
+                	 								</c:if>
+                	 								<c:if test="${request.statusNo != 9}">
+                	 									<div class="row">
+	                	 									<span class="col-2 label">검토 내용</span>
+		                	 								<textarea rows="2" class="form-control boxed mr-5" readonly>${statusHistory.reply}</textarea>
+                	 									</div>
+                	 									<div class="row mt-3">
+				                	 						<span class="col-2 label" style="text-align :left; width: 10%;">첨부파일</span>
+				                	 						<div>
+			                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+																<div>
+																	<span>${statusHistoryFile.fileName}</span>
+																	<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																		<i class="fas fa-cloud-download-alt text-info"></i>
+																	</a>
+																</div>
+																</c:forEach>
+				                	 						</div>
+			                	 						</div>
+                	 								</c:if>
+                	 							</c:if>
+	                	 						
 	                	 						<c:if test="${request.statusNo == 9 && requestProcess.userTester == member.mid}">
-	                	 							<button type="submit" class="btn btn-primary btn-md mx-3">수정</button>	
+	                	 							<div class="d-flex justify-content-end">
+		                	 							<button onclick="update()" class="btn btn-primary btn-sm mx-3">수정</button>	
+	                	 							</div>
 	                	 						</c:if>	
 	                	 					</div>
 	                	 				</div>
@@ -369,6 +408,7 @@
 		// input file 파일 첨부시 fileCheck 함수 실행
 	{
 		$("#fileInput").on("change", fileCheck);
+		$("#fileInputUpdate").on("change", fileUpdate);
 	});
 	
 	/* '파일추가' 버튼 누를 때마다 파일input 실행 */
@@ -429,6 +469,112 @@
 	    
 		$('#' + fileId).remove();
 		fileCount --;
+	}
+	/* '유저테스트완료' 버튼 입력시 form데이터 전달 */
+	function userTestDone(){
+		$('#writeform').attr('action','${pageContext.request.contextPath}/endwork');
+		
+		//input에 담긴 파일 제거
+		var fileInput = $('#fileInput')[0];
+		console.log($('#fileInput'))
+		console.log($('#fileInput')[0])
+		var fileBuffer = new DataTransfer();
+		fileInput.files = fileBuffer.files;
+		
+		//conten_file 에 담긴 파일 input에 담기
+		fileBuffer = new DataTransfer();
+		for(var i = 0; i<content_files.length; i ++){
+			if(!content_files[i].is_delete){
+				fileBuffer.items.add(content_files[i]);
+			}
+		}
+		fileInput.files = fileBuffer.files;
+		
+		$('#writeform').submit();
+	}
+	
+/********* 파일 수정 *********/
+	
+	/* '파일수정' 버튼 누를 때마다 파일input 실행 */
+	$(function () {
+	    $('#btn-upload-update').click(function (e) {
+	        e.preventDefault();
+	        $('#fileInputUpdate').click();
+	    });
+	})
+	function fileUpdate (e){
+		console.log("fileUpdate");
+		//파일 객체 갖고오기
+		var files = e.target.files;
+		
+		// 파일 배열 담기
+	    var filesArr = Array.prototype.slice.call(files);
+		
+		//기존에 있던 파일 객체
+	    var existfiles = $('.existfiles');
+	    
+	    if(fileCount + filesArr.length > totalCount - existfiles.length){
+	    	$('#completeModal').modal();
+	    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
+	      return;
+	    }else {
+	    	 fileCount = fileCount + filesArr.length;
+	    }
+	 	// 각각의 파일 배열담기 및 기타
+	    filesArr.forEach(function (f) {
+	      var reader = new FileReader();
+	      
+	      reader.onload = function (e) {
+		        content_files.push(f);
+		        $('#file-list-update').append(
+		       		'<div id="file' + fileNum + '">'
+		       		+ '<font style="font-size:15px">' + f.name + '</font>'  
+		       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
+		       		+ '<div/>'
+				);
+		        fileNum ++;
+	      };
+	      
+	      reader.readAsDataURL(f);
+	    });
+	}
+	/***************** 올린 파일 삭제 *****************/
+	$('.deletefileButton').click(function(){
+		var deleteDiv = $(this).parent();
+		var fno = $(this).next().val();
+		let distinguish = 1;
+		
+		$.ajax({
+			type:"POST",
+			url:"${pageContext.request.contextPath}/noticefiledelete?fno=" + fno,
+			dataType: "json",
+			data: {
+				distinguish : distinguish
+			},
+			success: function(result){
+				deleteDiv.remove();
+			}
+		});
+		
+		
+	});
+	/****** update() '수정'버튼 클릭 ******/
+	function update(){
+		//선택된 파일 지우기
+		var fileInput = $('#fileInputUpdate')[0];
+		var fileBuffer = new DataTransfer();
+		fileInput.files = fileBuffer.files;
+		
+		//배열의 항목으로 채우기
+		fileBuffer = new DataTransfer();
+		for(var i = 0; i < content_files.length; i ++){
+			if(!content_files[i].is_delete){
+				fileBuffer.items.add(content_files[i]);
+			} 
+		}
+		fileInput.files = fileBuffer.files;
+		
+		$('#updateForm').submit();
 	}
 	</script>
 </body>
