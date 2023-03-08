@@ -429,7 +429,6 @@
 		$('#writeform').submit();
 	}
 	
-	
 	function getDevContent(index){
 		var content = "#" + index;
 		$(content).toggle();
