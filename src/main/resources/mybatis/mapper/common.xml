@@ -590,6 +590,42 @@
 		</set> 	
 		where RNO= #{rno}	
 	</update>
+	
+	<select id="selectNewAlertList" parameterType="com.oti.srm.dto.Member" resultType="com.oti.srm.dto.Request">
+		select 
+			REQ_TITLE as "reqTitle",
+			REQ_DATE as "reqDate",
+			STATUS_NO as "statusNo",
+			RNO as "rno"				
+		from REQUESTS r 
+		<if test="mtype != 'user'">
+			<if test="mtype != 'pm'">
+				, REQUEST_PROCESS p
+			</if>
+		</if>		  
+		<where> 
+			<if test="mtype == 'user'">
+				USR_CHECK=1 and CLIENT=#{mid}
+			</if>
+			<if test="mtype == 'pm'">
+				PM_CHECK=1
+			</if>
+			<if test="mtype == 'developer'">
+				DEV_CHECK=1 and DEVELOPER=#{mid} and r.RNO = p.RNO
+			</if>
+			<if test="mtype == 'tester'">
+				TES_CHECK=1 and TESTER=#{mid} and r.RNO = p.RNO
+			</if>
+			<if test="mtype == 'usertester'">
+				UTT_CHECK=1 and USER_TESTER=#{mid} and r.RNO = p.RNO
+			</if>
+			<if test="mtype == 'distributor'">
+				DIS_CHECK=1 and DISTRIBUTOR=#{mid} and r.RNO = p.RNO
+			</if>
+		</where>
+			
+
+	</select>
 		
 	
 </mapper>
