@@ -118,6 +118,7 @@ public class PMController {
 			}			
 			// 접수 완료
 			int result=pMService.receipt(statusHistory, requestProcess);
+			// 접수 성공
 			if(result==1) {
 				return "redirect:/customer/requestlist"; 
 			}
@@ -163,7 +164,11 @@ public class PMController {
 		
 		//최종 완료 처리
 		statusHistory.setNextStatus(13);
+		// PM 처리 완료(완료 승인)
 		commonService.endWork(statusHistory, me.getMtype());
+		// 서비스 변경 여부(사용자 미확인)
+		commonService.notCheck("user", statusHistory.getRno());
+		
 		return "redirect:/pm/enddetail?rno=" + statusHistory.getRno();
 	}
 	
