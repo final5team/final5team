@@ -176,12 +176,25 @@
 	                	 						</div>
 	                	 						<c:if test="${member.mid != requestProcess.developer}">
 		                	 						<div class="row">
-			                	 						<div class="col-2 label" >개발내용</div>
-			                	 						<textarea class="col-8 form-control boxed" rows="2" readonly>${statusHistory.reply}</textarea>
+		                	 							<div class="col-2 label" >개발내용</div>
+		                	 							<textarea class="col-8 form-control boxed" rows="2" readonly>${statusHistory.reply}</textarea>
 		                	 						</div>
 		                	 						<div class="row mt-3">
 			                	 						<div class="col-2 label">배포소스(url)</div>
 			                	 						<input class="col-8 form-control boxed mr-5" style=" height: 20px;" value="${statusHistory.distSource}" readonly>
+		                	 						</div>
+		                	 						<div class="row mt-3">
+			                	 						<div class="col-2 label">첨부파일</div>
+			                	 						<div class="col-8">
+		                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+															<div>
+																<span>${statusHistoryFile.fileName}</span>
+																<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																	<i class="fas fa-cloud-download-alt text-info"></i>
+																</a>
+															</div>
+															</c:forEach>
+			                	 						</div>
 		                	 						</div>
 	                	 						</c:if>
 	                	 						<c:if test="${requestProcess.developer == member.mid}">

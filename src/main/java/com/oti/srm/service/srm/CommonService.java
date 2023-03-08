@@ -351,8 +351,24 @@ public class CommonService implements ICommonService {
 		if(member.getMtype().equals("pm")) {
 			commonDao.updateRequestProcess(rp);
 			commonDao.updateRealStatusHistory(sh);
+			if(sh.getFileList() != null) {
+				List<StatusHistoryFile> fileList = sh.getFileList();
+				for(StatusHistoryFile file : fileList) {
+					file.setHno(sh.getHno());
+					commonDao.insertStatusHistoryFile(file);
+				}
+			}
+			
 		}else {
 			commonDao.updateRealStatusHistory(sh);
+
+			if(sh.getFileList() != null) {
+				List<StatusHistoryFile> fileList = sh.getFileList();
+				for(StatusHistoryFile file : fileList) {
+					file.setHno(sh.getHno());
+					commonDao.insertStatusHistoryFile(file);
+				}
+			}
 		}
 	}
 

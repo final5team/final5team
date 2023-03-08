@@ -177,8 +177,29 @@ public class DeveloperController {
 
 	@PostMapping("updatehistory")
 	public String updateHistory(RequestProcess rp, StatusHistory sh, HttpSession session, Model model, MultipartFile[] files) {
+		log.info("updateHistory");
+		log.info(files.length);
+		
 		Member member = (Member) session.getAttribute("member");
+		
+		//MultipartFile[] 타입 파일 StatusHistoryFile 객체에 아서 서비스 전달
+		if(files != null) {
+			List<StatusHistoryFile> fileList = new ArrayList<StatusHistoryFile>();
+			try {
+				for(MultipartFile file : files) {
+					StatusHistoryFile shfile = new StatusHistoryFile();
+					shfile.setFileData(file.getBytes());
+					shfile.setFileName(file.getOriginalFilename());
+					shfile.setFileType(file.getContentType());
+					fileList.add(shfile);
+				}
+				sh.setFileList(fileList);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		commonService.updateHistory(rp, sh, member);
+		
 		if (member.getMtype().equals("developer")) {		
 			return "redirect:/developerdetail?rno=" + rp.getRno();
 		}
