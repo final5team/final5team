@@ -42,7 +42,8 @@
 	    	req_expect_date as "reqExpectDate",
 	    	r.status_no as "statusNo",
 	    	status_name as "statusName",
-	    	m.organ as "organ"
+	    	m.organ as "organ",
+	    	PM_CHECK as "pmCheck"
 		from requests r, status s, systems sy, members m
 		where s.status_no = r.status_no 
 		and r.sno = sy.sno
@@ -427,7 +428,8 @@
 			req_title as "reqTitle",
 			system_name as "systemName",
 			req_date as "reqDate",
-			status_no as "statusNo"	
+			status_no as "statusNo",	
+			USR_CHECK as "usrCheck"
 		from requests r, systems s
 		<where>
 			r.sno = s.sno
@@ -560,12 +562,23 @@
 	<update id="updateCheck" parameterType="map">
 		update REQUESTS
 		<set>
-			<if test="mtype == 'user'">USER_CHECK=0</if>
+			<if test="mtype == 'user'">USR_CHECK=0</if>
 			<if test="mtype == 'pm'">PM_CHECK=0</if>
-			<if test="mtype == 'developer'"></if>
-			<if test="mtype == 'tester'"></if>
-			<if test="mtype == 'usertester'"></if>
-			<if test="mtype == 'distributor'"></if>
+			<if test="mtype == 'developer'">DEV_CHECK=0</if>
+			<if test="mtype == 'tester'">TES_CHECK=0</if>
+			<if test="mtype == 'usertester'">UTT_CHECK=0</if>
+			<if test="mtype == 'distributor'">DIS_CHECK=0</if>
+		</set> 	
+		where RNO= #{rno}	
+	</update>
+	<update id="updateNotCheck" parameterType="map">
+		update REQUESTS
+		<set>
+			<if test="mtype == 'user'">USR_CHECK=1</if>
+			<if test="mtype == 'developer'">DEV_CHECK=1</if>
+			<if test="mtype == 'tester'">TES_CHECK=1</if>
+			<if test="mtype == 'usertester'">UTT_CHECK=1</if>
+			<if test="mtype == 'distributor'">DIS_CHECK=1</if>
 		</set> 	
 		where RNO= #{rno}	
 	</update>
