@@ -299,6 +299,7 @@
 					order by rp.REQ_TYPE  desc, r.rno desc
 				</if>
 			</if>
+			
 			<if test ='listFilter.columnName == "th_title"'>
 				<if test='listFilter.sortState == "asc"'>
 					order by r.REQ_TITLE  asc, r.rno asc
