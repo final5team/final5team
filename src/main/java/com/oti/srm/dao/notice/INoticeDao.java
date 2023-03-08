@@ -31,7 +31,7 @@ public interface INoticeDao {
 	
 	public int insertNoticeFile(NoticeFile noticeFile);
 	
-	public void deleteNoticeFile(int fno);
+	public void deleteNoticeFile(@Param("fno")int fno,@Param("distinguish") int distinguish);
 
 	public List<System> selectSystemList();
 	
