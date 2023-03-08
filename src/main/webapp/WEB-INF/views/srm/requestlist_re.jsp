@@ -110,25 +110,54 @@
 
 									<c:if test="${listFilter.statusValue != null}">
 										<select class="custom-select_re" id="statusNo" name="statusNo">
-											<option value="${listFilter.statusNo}" selected>${listFilter.statusValue}</option>
 											<option value="0">전체</option>
+											<c:if test="${listFilter.statusNo == 1}">
+												<option value="1" selected>접수</option>
+											</c:if>
 											<c:if test="${listFilter.statusNo != 1}">
 												<option value="1">접수</option>
 											</c:if>
-											<c:if test="${listFilter.statusNo != 2 && listFilter.statusNo != 3 && listFilter.statusNo != 4}">
+											<c:if test="${listFilter.statusNo >= 2 && listFilter.statusNo <= 4}">
+												<option value="2" selected>개발</option>
+											</c:if>	
+											<c:if test="${listFilter.statusNo < 2 && listFilter.statusNo > 4}">
 												<option value="2">개발</option>
 											</c:if>
-											<c:if test="${listFilter.statusNo != 5 && listFilter.statusNo != 6 && listFilter.statusNo != 7}">
+											
+											
+											<c:if test="${listFilter.statusNo >= 5 && listFilter.statusNo <= 7}">
+												<option value="5" selected>테스트</option>
+											</c:if>
+											<c:if test="${listFilter.statusNo < 5 && listFilter.statusNo > 7}">
 												<option value="5">테스트</option>
+											</c:if>
+											
+											
+											<c:if test="${listFilter.statusNo == 8}">
+												<option value="8" selected>품질테스트</option>
 											</c:if>
 											<c:if test="${listFilter.statusNo != 8}">
 												<option value="8">품질테스트</option>
 											</c:if>
+											
+											
+											<c:if test="${listFilter.statusNo == 10}">
+												<option value="10" selected>배포</option>
+											</c:if>
 											<c:if test="${listFilter.statusNo != 10}">
 												<option value="10">배포</option>
 											</c:if>
-											<c:if test="${listFilter.statusNo != 11 && listFilter.statusNo != 13}">
+											
+											
+											<c:if test="${listFilter.statusNo >= 11 && listFilter.statusNo <= 13}">
+												<option value="11" selected>완료</option>
+											</c:if>
+											<c:if test="${listFilter.statusNo < 11 && listFilter.statusNo > 13}">
 												<option value="11">완료</option>
+											</c:if>
+											
+											<c:if test="${listFilter.statusNo == 12}">
+												<option value="12" selected>반려</option>
 											</c:if>
 											<c:if test="${listFilter.statusNo != 12}">
 												<option value="12">반려</option>
@@ -211,7 +240,7 @@
 						<table class="member" id="table_content">
 							<!-- 기존 페이지-->
 							<tr >
-								<th class="ex th_first" id="th_rno">No.</th>
+								<th class="ex th_first" id="th_no">No.</th>
 								<th class="ex th_second" id="th_sno">시스템</th>
 								<th class="ex th_third" id="th_reqtype">요청 유형</th>
 								<th class="ex th_four" id="th_title">요청 제목</th>
@@ -309,7 +338,6 @@
 	<a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
 	</a>
 
-
 	<script>
 	$(document).ready(function() {
 		//테이블 정렬을 위한 변수
@@ -322,20 +350,20 @@
 		
 		
 		//글 번호 정렬 선택
-		let th_rno = document.querySelector('#th_rno');
-		th_rno.addEventListener('click', (event) => {
+		let th_no = document.querySelector('#th_no');
+		th_no.addEventListener('click', (event) => {
 			event.preventDefault();
 			
-			console.log('rno');
+			//console.log('rno');
 			//변수값 설정
 			state = 'asc';
-			th_first_id = 'th_rno';
+			th_first_id = 'th_no';
 			//hidden 태그 값 설정
 			state_value.value = 'asc';
-			th_first_id_value.value = 'th_rno';
+			th_first_id_value.value = 'th_no';
  			//css 변경
-			th_rno.classList.remove('th_first');
-			th_rno.classList.add('th_first_asc');
+			th_no.classList.remove('th_first');
+			th_no.classList.add('th_first_asc');
 			
  			search(state, th_first_id);
  			
@@ -347,7 +375,7 @@
 		th_sno.addEventListener('click', (event)=> {
 			event.preventDefault();
 			
-			console.log('sno');
+			//console.log('sno');
 			//변수값 설정
 			state = 'asc';
 			th_first_id = 'th_sno';
@@ -355,8 +383,8 @@
 			state_value.value = 'asc';
 			th_first_id_value.value = 'th_sno';
 			//css 변경
-			th_rno.classList.remove('th_second');
-			th_rno.classList.add('th_second_asc');
+			th_no.classList.remove('th_second');
+			th_no.classList.add('th_second_asc');
 			
 			search(state, th_first_id);
 		});
@@ -366,7 +394,7 @@
 		th_reqtype.addEventListener('click', (event)=> {
 			event.preventDefault();
 			
-			console.log('reqtype');
+			//console.log('reqtype');
 			//변수값 설정
 			state = 'asc';
 			th_first_id = 'th_reqtype';
@@ -374,8 +402,8 @@
 			state_value.value = 'asc';
 			th_first_id_value.value = 'th_reqtype';
 			//css 변경
-			th_rno.classList.remove('th_third');
-			th_rno.classList.add('th_third_asc');
+			th_no.classList.remove('th_third');
+			th_no.classList.add('th_third_asc');
 			
 			search(state, th_first_id);
 		});
@@ -385,7 +413,7 @@
 		th_title.addEventListener('click', (event)=> {
 			event.preventDefault();
 			
-			console.log('th_title');
+			//console.log('th_title');
 			//변수값 설정
 			state = 'asc';
 			th_first_id = 'th_title';
@@ -393,8 +421,8 @@
 			state_value.value = 'asc';
 			th_first_id_value.value = 'th_title';
 			//css 변경
-			th_rno.classList.remove('th_four');
-			th_rno.classList.add('th_four_asc');
+			th_no.classList.remove('th_four');
+			th_no.classList.add('th_four_asc');
 			
 			search(state, th_first_id);
 		});
@@ -403,7 +431,7 @@
 		let th_reqdate = document.querySelector('#th_reqdate');
 		th_reqdate.addEventListener('click', (event)=> {
 			event.preventDefault();
-			console.log('th_reqdate');
+			//console.log('th_reqdate');
 			//변수값 설정
 			state = 'asc';
 			th_first_id = 'th_reqdate';
@@ -411,8 +439,8 @@
 			state_value.value = 'asc';
 			th_first_id_value.value = 'th_reqdate';
 			//css 변경
-			th_rno.classList.remove('th_five');
-			th_rno.classList.add('th_five_asc');
+			th_no.classList.remove('th_five');
+			th_no.classList.add('th_five_asc');
 			
 			search(state, th_first_id);
 		});
@@ -483,6 +511,9 @@
 			// 내 요청 목록 호출 
 		} else {
 			//filter 초기화
+			let statusNo = document.querySelector('#statusNo')
+			console.log(statusNo);
+			console.log(typeof statusNo);
 			$('#req_type option:eq(0)').prop("selected", true);
 			$('#statusNo option:eq(0)').prop("selected", true);
 			$('#sno option:eq(0)').prop('selected', true);
@@ -524,7 +555,7 @@
 				$('#table_content').html(data);
 				//테이블 색상 변경하기
 				let tableHead = document.querySelectorAll(".ex");
-				console.log(tableHead);
+				//console.log(tableHead);
 				for(let i = 0; i < tableHead.length; i++){
 					tableHead[i].classList.add('bc');
 				}
@@ -539,8 +570,8 @@
 	
 		// 페이지 이동 ajax
 		function pageChange(i, state, th_first_id){
-			console.log('페이지 이동 ajax');
-			console.log(state, th_first_id);
+			//console.log('페이지 이동 ajax');
+			//console.log(state, th_first_id);
 			
 			//hidden tag 가져오기
 			let state_value = document.querySelector('#state');
@@ -549,7 +580,7 @@
 			//가져온 hedden tag에 값 넣어주기
 			state_value.value = state;
 			th_first_id_value.value = th_first_id;
-			console.log("넣어준 값" ,state_value, th_first_id_value);
+			//console.log("넣어준 값" ,state_value, th_first_id_value);
 			
 			
 			let loading = document.querySelector(".loading");
@@ -571,7 +602,7 @@
 				let sno = filterSno.options[filterSno.selectedIndex].value
 			} else {
 				sno = document.querySelector('.sno').value
-				console.log(sno);
+				//console.log(sno);
 			}
 			let filterStatusNo = document.getElementById('statusNo');  
 			let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
@@ -584,10 +615,10 @@
 			
 			// 담당 업무 목록으로 검색 
 			if($('#myRequest').is(":checked")){ 
-				console.log("담당 업무 목록 페이지 이동" + i);
+				//console.log("담당 업무 목록 페이지 이동" + i);
 				//테이블 색상 되돌리기
 				let tableHead = document.querySelectorAll(".ex");
-				console.log(tableHead);
+				//console.log(tableHead);
 				for(let i = 0; i < tableHead.length; i++){
 					tableHead[i].classList.remove('bc');
 				}
@@ -613,7 +644,7 @@
 					
 				});
 			} else {
-				console.log("내 요청 목록 페이지 이동" + i);
+				//console.log("내 요청 목록 페이지 이동" + i);
 				$.ajax({
 					url : "workerrequestlist",
 					method : "post",
@@ -628,7 +659,7 @@
 					
 					//테이블 색상 변경하기
 					let tableHead = document.querySelectorAll(".ex");
-					console.log(tableHead);
+					//console.log(tableHead);
 					for(let i = 0; i < tableHead.length; i++){
 						tableHead[i].classList.add('bc');
 					}
@@ -650,8 +681,8 @@
 			let th_first_id_value = document.querySelector('#th_first_id');
 			th_first_id = th_first_id_value.value;
 			
-			console.log("검색 전 태그값" , state_value, th_first_id_value);
-			console.log("검색 전 매개변수 값" ,state, th_first_id);
+			//console.log("검색 전 태그값" , state_value, th_first_id_value);
+			//console.log("검색 전 매개변수 값" ,state, th_first_id);
 		
 		
 			let loading = document.querySelector(".loading");
@@ -668,13 +699,13 @@
 			
 			let sno = '0';
 			if(document.getElementById('sno') != null) {
-				console.log("pm인 경우");
+				//console.log("pm인 경우");
 				let filterSno = document.getElementById('sno');
 				sno = filterSno.options[filterSno.selectedIndex].value
 			} else {
-				console.log("pm이 아닌 경우");
+				//console.log("pm이 아닌 경우");
 				sno = document.querySelector('.sno').value
-				console.log(sno);
+				//console.log(sno);
 			}
 			
 			let filterStatusNo = document.getElementById('statusNo');  
@@ -683,9 +714,9 @@
 			
 			
 			if(typeof state == 'undefined' || typeof th_first_id == 'undefined'){
-				console.log('검색에 정렬 입력값 들어옴');
-				console.log(state);
-				console.log(th_first_id);
+				//console.log('검색에 정렬 입력값 들어옴');
+				//console.log(state);
+				//console.log(th_first_id);
 			} 
 			
 			
@@ -716,12 +747,14 @@
 					if(pageDefault != null){
 						pageDefault.remove();
 					}
-					let ex = document.querySelector('#th_rno');
-					console.log(ex);
+					let ex = document.querySelector('#th_no');
+					//console.log(ex);
+					
+					
 				});
 			// 내 요청 목록 검색 기능
 			} else {
-				console.log("내 요청 목록 검색")
+				//console.log("내 요청 목록 검색")
 				$.ajax({
 					url : "workerrequestlist",
 					method : "post",
@@ -747,6 +780,17 @@
 				});
 			}
 	}	
+	
+	
+
+
+	
+	
+	
+	
+	
+	
+	
 
 </script>
 

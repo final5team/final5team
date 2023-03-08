@@ -327,6 +327,7 @@ public class RequestController {
 		listFilter.setDateLast("");
 		listFilter.setSno(0);
 		listFilter.setStatusNo(statusNo);
+		log.info("전달받은 상태값" + statusNo);
 		listFilter.setPageNo(1);
 		ListFilter returnList = requestService.dateFilterList(listFilter);
 		int totalRows = requestService.getMyWorkRows(listFilter, member);

@@ -66,3 +66,4 @@
 	<a onclick="userRequestList('${searchStatus}', ${uPager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
 	</div>
 </div>
+
