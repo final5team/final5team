@@ -376,7 +376,7 @@ textarea:focus::placeholder {
 													<div class="upload_name" id="exist_file" >첨부파일</div>
 													<div class="filebox">
 														<input multiple="multiple" type="file" id="mfile" name="mfile[]"/>
-														<label for="mfile">파일찾기</label> 
+														<label for="mfile" id="btn-upload">파일찾기</label> 
 													</div>
 												</div>
 											</article>
@@ -461,6 +461,19 @@ textarea:focus::placeholder {
 				$('#counterTitle').html("(30 / 30)");
 			}
 		});
+		//파일 추가 버튼 클릭시 파일 input
+		$(function (){
+			let inputLabel = document.querySelector('#btn-upload');
+			console.log(inputLabel);
+			
+			inputLabel.addEventListener('click', function(event) => {
+				console.log('클릭 실행');			
+				
+			});
+		});
+		
+		
+		
 		/****** 업로드된 파일 리스트 출력하기 *****/
 		$(document).ready(function()
 			// input file 파일 첨부시 fileCheck 함수 실행
@@ -473,6 +486,7 @@ textarea:focus::placeholder {
 		$(function () {
 		    $('#btn-upload').click(function (e) {
 		        e.preventDefault();
+		        console.log('파일 추가 선택');
 		        $('#fileInput').click();
 		    });
 		})
