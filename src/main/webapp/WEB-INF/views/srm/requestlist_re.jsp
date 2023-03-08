@@ -211,7 +211,7 @@
 						<table class="member" id="table_content">
 							<!-- 기존 페이지-->
 							<tr >
-								<th class="ex th_first" id="th_no">No.</th>
+								<th class="ex th_first" id="th_rno">No.</th>
 								<th class="ex th_second" id="th_sno">시스템</th>
 								<th class="ex th_third" id="th_reqtype">요청 유형</th>
 								<th class="ex th_four" id="th_title">요청 제목</th>
@@ -321,20 +321,20 @@
 		
 		
 		//글 번호 정렬 선택
-		let th_no = document.querySelector('#th_no');
-		th_no.addEventListener('click', (event) => {
+		let th_rno = document.querySelector('#th_rno');
+		th_rno.addEventListener('click', (event) => {
 			event.preventDefault();
 			
 			console.log('rno');
 			//변수값 설정
 			state = 'asc';
-			th_first_id = 'th_no';
+			th_first_id = 'th_rno';
 			//hidden 태그 값 설정
 			state_value.value = 'asc';
-			th_first_id_value.value = 'th_no';
+			th_first_id_value.value = 'th_rno';
  			//css 변경
-			th_no.classList.remove('th_first');
-			th_no.classList.add('th_first_asc');
+			th_rno.classList.remove('th_first');
+			th_rno.classList.add('th_first_asc');
 			
  			search(state, th_first_id);
  			
@@ -354,8 +354,8 @@
 			state_value.value = 'asc';
 			th_first_id_value.value = 'th_sno';
 			//css 변경
-			th_no.classList.remove('th_second');
-			th_no.classList.add('th_second_asc');
+			th_rno.classList.remove('th_second');
+			th_rno.classList.add('th_second_asc');
 			
 			search(state, th_first_id);
 		});
@@ -373,8 +373,8 @@
 			state_value.value = 'asc';
 			th_first_id_value.value = 'th_reqtype';
 			//css 변경
-			th_no.classList.remove('th_third');
-			th_no.classList.add('th_third_asc');
+			th_rno.classList.remove('th_third');
+			th_rno.classList.add('th_third_asc');
 			
 			search(state, th_first_id);
 		});
@@ -392,8 +392,8 @@
 			state_value.value = 'asc';
 			th_first_id_value.value = 'th_title';
 			//css 변경
-			th_no.classList.remove('th_four');
-			th_no.classList.add('th_four_asc');
+			th_rno.classList.remove('th_four');
+			th_rno.classList.add('th_four_asc');
 			
 			search(state, th_first_id);
 		});
@@ -410,8 +410,8 @@
 			state_value.value = 'asc';
 			th_first_id_value.value = 'th_reqdate';
 			//css 변경
-			th_no.classList.remove('th_five');
-			th_no.classList.add('th_five_asc');
+			th_rno.classList.remove('th_five');
+			th_rno.classList.add('th_five_asc');
 			
 			search(state, th_first_id);
 		});
@@ -715,7 +715,7 @@
 					if(pageDefault != null){
 						pageDefault.remove();
 					}
-					let ex = document.querySelector('#th_no');
+					let ex = document.querySelector('#th_rno');
 					console.log(ex);
 				});
 			// 내 요청 목록 검색 기능
