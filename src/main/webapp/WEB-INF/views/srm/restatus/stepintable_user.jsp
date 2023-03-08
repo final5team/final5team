@@ -303,8 +303,6 @@ margin: 0 0 1rem 0;
 				</c:if>
 			</li>
 		</c:if>
-		
-		
 		<c:if test="${request.reqType == '긴급'}">
 		<!-- 단계 : 등록  -->	
 			<li class="is_complete" onclick="receipt(${request.rno})" style="cursor : pointer;">
