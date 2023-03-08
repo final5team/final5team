@@ -50,7 +50,13 @@
                 	 		<h3 class="title">최종 승인 상세 보기</h3>
                 	 	</div>
                 	 	<div> <!-- 여기에 단계 상태 이력 넣기 -->
-                	 		<%@ include file="/WEB-INF/views/srm/restatus/stepperprogress.jsp" %>
+                	 	<c:if test="${member.mtype == 'user'}">
+                	 		<%@ include file="/WEB-INF/views/srm/request/userstepperprogress.jsp" %>
+                	 	</c:if>
+               	 		<c:if test="${member.mtype != 'user'}">
+               	 			<%@ include file="/WEB-INF/views/srm/restatus/stepperprogress.jsp" %>
+                	 	</c:if>
+                	 		
                 	 	</div>	<!-- 여기에 단계 상태 이력 넣기 /-->
 						<!-- 게시글 상세보기 start -->
 						<section><!-- 요청정보 DIV START -->
@@ -144,7 +150,7 @@
 							</div>
 						</section><!-- 요청정보 DIV END -->
 						<!-- 단계별 처리 내역 start -->
-				   	 	<c:if test="${member.mtype !='user' && request.statusNo != 12}">
+				   	 	<c:if test="${request.statusNo != 12}">
 							<div class="card border-top-primary mt-3 mb-3" id="requestEndInfo">
 								<div class="card-block">
 									<div class="card-title-block">
