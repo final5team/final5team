@@ -333,7 +333,7 @@
 							        			 <!-- 단계 카드들 -->
 												<div class="row">
 	
-												    <a class="mb-4 m-2" href="${pageContext.request.contextPath}/customer/requestlist?statusNo=1">
+												    <a class="mb-4 m-2 ml-4" href="${pageContext.request.contextPath}/customer/requestlist?statusNo=1">
 										                <div class="card border-left-primary shadow h-100 py-2" style="width:140px">
 										                     <div class="card-body">
 										                          <div class="row no-gutters align-items-center">
@@ -429,16 +429,12 @@
 								                            </div>
 								                        </a>
 	       
-												  </div>
-							        		
+												  </div>							        		
 							        		</div>
 							        		<div>
 							        			<div id="barchart_material"></div>
-							        		</div>
-							        								        	
-							        	</div>
-							            
-							            
+							        		</div>							        								        	
+							        	</div>							            							            
 							            
 							            </div>
 							            <div class="tab-pane fade" id="profile">

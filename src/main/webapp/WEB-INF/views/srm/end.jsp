@@ -136,7 +136,7 @@
 										</div>
 										<c:if test="${request.statusNo==11 && member.mtype =='pm'}">
 											<div class="d-flex justify-content-end">
-												<button class="btn btn-primary btn-lg mt-3 ml-3" type="button" data-toggle="modal" data-target="#completeModal">처리 완료</button>									
+												<button class="btn btn-primary btn-md mt-3 ml-3" type="button" data-toggle="modal" data-target="#completeModal">처리 완료</button>									
 											</div>	
 										</c:if>
 									</div> <!-- card-body/ -->	
@@ -207,7 +207,7 @@
 							<div class="modal-dialog modal-dialog-centered" role="document">
 								<div class="modal-content">
 									<div class="modal-header">											
-										<h5 class="modal-title" id="developDueDate">처리 완료</h5>
+										<h5 class="modal-title" id="dueDate">처리 완료</h5>
 										<button type="button" class="close" data-dismiss="modal">&times;</button>
 									</div>
 									<div class="modal-body text-center">	
