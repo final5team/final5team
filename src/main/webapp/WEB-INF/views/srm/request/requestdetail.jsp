@@ -119,25 +119,33 @@
 															<textarea id="reqContent" cols="30" name="reqContent" placeholder="내용">${request.reqContent}</textarea>
 														</div>
 													</article>
-													<article class="fileTitle">
-														<h6>파일첨부</h6>
-													</article>
+		 
+		 
 													<article class="fileBody">
-														<div class="file-item">
-															<div class="upload_name" id="exist_file" >
-																<c:forEach var="file" items="${request.fileList}">
-													    			<div>
-														    			<a href="${pageContext.request.contextPath}/customer/requestdetail/filedownload/${file.fno}">${file.fileName}</a>
-													    			</div>
-													    		</c:forEach>
+														<div class="row mt-3">
+			                	 							<div class="col-2 label">첨부파일</div>
+				                	 						<div class="col-8">
+			                	 								<c:forEach var="file" items="${request.fileList}">
+																<div>
+																	<span>${file.fileName}</span>
+																	<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${file.fno}" role="button">
+																		<i class="fas fa-cloud-download-alt text-info"></i>
+																	</a>
+																	<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a>
+																	<input type="hidden" name = "fno" value="${file.fno}">
+																</div>
+																</c:forEach>
+				                	 						</div>
+			                	 						</div>
+			                	 						<div class="filebox row mb-3">
+															<div class="col-2 label label-write" id="fileLable">
+																<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
+																<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
 															</div>
-															<div class="filebox">
-																<input multiple="multiple" type="file" id="mfile" name="mfile[]"/>
-																<label for="mfile">파일찾기</label> 
-															</div>
+															<div class="border flex-grow-1 border-success col-8" id="file-list-update"></div>	
 														</div>
 													</article>
-		
+													
 													<article class="submit-button">
 													<!-- 승인이 아닌경우 수정 가능하도록 변경 c:if 사용 -->
 														<button class="btn btn-dark btn-sm" type="submit">수정</button>
@@ -342,32 +350,160 @@
 	</div>
 	<!-- 글자수 입력 확인 /-->
 	<script>
-		/* 파일 버튼 변경*/
-		$(document).ready(function() {
-			$(".file-delete").on("click", function(e) {
-				e.preventDefault();
-				deleteFile($(this));
-			});
-		})
-		//파일 업로드 제약 자바스크립트
-		let mfile = document.querySelector('#mfile');
-		mfile.addEventListener('change', function() {
-			// 파일 업로드 개수 제한 (3) 
-			if(mfile.files.length >3 ){
-				alert("파일 업로드 개수는 최대 3개입니다.");
-				mfile.value='';
-				return false;
-			} else {
-				// 파일 이름 출력 
-				let fileList ='';
-				for(i=0; i< mfile.files.length; i++){
-					fileList += mfile.files[i].name + '<br>'
-					console.log(fileList);
-				}
-				let inputtag = document.querySelector('#exist_file');
-				inputtag.innerHTML = fileList;
+	/****** 업로드된 파일 리스트 출력하기 *****/
+	$(document).ready(function()
+		// input file 파일 첨부시 fileCheck 함수 실행
+	{
+		$("#fileInput").on("change", fileCheck);
+		$("#fileInputUpdate").on("change", fileUpdate);
+	});
+	
+	/* '파일추가' 버튼 누를 때마다 파일input 실행 */
+	$(function () {
+	    $('#btn-upload').click(function (e) {
+	        e.preventDefault();
+	        $('#fileInput').click();
+	    });
+	})
+	
+	// 파일 현재 필드 숫자 totalCount랑 비교값
+	var fileCount = 0;
+	// 해당 숫자를 수정하여 전체 업로드 갯수를 정한다.
+	var totalCount = 5;
+	// 파일 고유넘버
+	var fileNum = 0;
+	// 첨부파일 배열
+	var content_files = new Array();
+
+	function fileCheck(e) {
+	    var files = e.target.files;
+	    
+	    // 파일 배열 담기
+	    var filesArr = Array.prototype.slice.call(files);
+	    
+	    // 파일 개수 확인 및 제한
+	    if (fileCount + filesArr.length > totalCount) {
+	    	$('#completeModal').modal();
+	    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
+	      return;
+	    } else {
+	    	 fileCount = fileCount + filesArr.length;
+	    }
+	    
+	    // 각각의 파일 배열담기 및 기타
+	    filesArr.forEach(function (f) {
+	      var reader = new FileReader();
+	      
+	      reader.onload = function (e) {
+		        content_files.push(f);
+		        $('#file-list').append(
+		       		'<div id="file' + fileNum + '">'
+		       		+ '<font style="font-size:15px">' + f.name + '</font>'  
+		       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
+		       		+ '<div/>'
+				);
+		        fileNum ++;
+	      };
+	      
+	      reader.readAsDataURL(f);
+	    });
+	  }
+
+	// 파일 부분 삭제 함수
+	function fileDelete(fileId){
+	    var fileNum = fileId.replace("file", "");
+	    content_files[fileNum].is_delete = true;
+	    
+		$('#' + fileId).remove();
+		fileCount --;
+	}
+	/********* 파일 수정 *********/
+	
+	/* '파일수정' 버튼 누를 때마다 파일input 실행 */
+	$(function () {
+	    $('#btn-upload-update').click(function (e) {
+	        e.preventDefault();
+	        $('#fileInputUpdate').click();
+	    });
+	})
+	function fileUpdate (e){
+		console.log("fileUpdate");
+		//파일 객체 갖고오기
+		var files = e.target.files;
+		
+		// 파일 배열 담기
+	    var filesArr = Array.prototype.slice.call(files);
+		
+		//기존에 있던 파일 객체
+	    var existfiles = $('.existfiles');
+	    
+    	console.log("fileCount: "+ fileCount);	
+    	console.log("filesArr.length: "+filesArr.length);
+    	console.log("existfiles.length: "+existfiles.length);
+	    if(fileCount + filesArr.length > totalCount - existfiles.length ){
+	    	$('#completeModal').modal();
+	    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
+	      return;
+	    }else {
+	    	 fileCount = fileCount + filesArr.length;
+	    }
+	 	// 각각의 파일 배열담기 및 기타
+	    filesArr.forEach(function (f) {
+	      var reader = new FileReader();
+	      
+	      reader.onload = function (e) {
+		        content_files.push(f);
+		        $('#file-list-update').append(
+		       		'<div id="file' + fileNum + '">'
+		       		+ '<font style="font-size:15px">' + f.name + '</font>'  
+		       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
+		       		+ '<div/>'
+				);
+		        fileNum ++;
+	      };
+	      
+	      reader.readAsDataURL(f);
+	    });
+	 	
+	}
+	/***************** 올린 파일 삭제 *****************/
+	$('.deletefileButton').click(function(){
+		var deleteDiv = $(this).parent();
+		var fno = $(this).next().val();
+		let distinguish = 1;
+		
+		$.ajax({
+			type:"POST",
+			url:"${pageContext.request.contextPath}/noticefiledelete?fno=" + fno,
+			dataType: "json",
+			data: {
+				distinguish : distinguish
+			},
+			success: function(result){
+				deleteDiv.remove();
 			}
 		});
+		
+		
+	});
+	/****** update() '수정'버튼 클릭 ******/
+	function update(){
+		//선택된 파일 지우기
+		var fileInput = $('#fileInputUpdate')[0];
+		var fileBuffer = new DataTransfer();
+		fileInput.files = fileBuffer.files;
+		
+		//배열의 항목으로 채우기
+		fileBuffer = new DataTransfer();
+		for(var i = 0; i < content_files.length; i ++){
+			if(!content_files[i].is_delete){
+				fileBuffer.items.add(content_files[i]);
+			} 
+		}
+		fileInput.files = fileBuffer.files;
+		
+		$('#updateForm').submit();
+	}
 		
 	</script>
 </body>
