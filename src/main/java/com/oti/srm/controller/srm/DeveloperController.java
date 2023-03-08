@@ -70,6 +70,11 @@ public class DeveloperController {
 		model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));
 		model.addAttribute("devTemp", devTemp);
 		model.addAttribute("testRejectExist", commonService.isThereTestReject(rno));
+		
+		// 개발 담당자 확인 여부 변경(확인)	
+		if(request.getDevCheck()==1 && member.getMtype().equals("developer") && requestProcess.getDeveloper().equals(member.getMid())) {
+			commonService.check("developer", request.getRno());
+		}
 
 		return "srm/developerdetail";
 	}
@@ -145,6 +150,10 @@ public class DeveloperController {
 		}
 		statusHistory.setFileList(sFiles);
 		commonService.endWork(statusHistory, member.getMtype());
+		
+		// 서비스 변경 여부(테스터 미확인  상태 변경)
+		commonService.notCheck("tester", statusHistory.getRno());
+		
 		return "redirect:/developerdetail?rno=" + statusHistory.getRno();
 	}
 

@@ -403,11 +403,8 @@ public class RequestController {
 		if(request.getStatusNo()==12) {
 			model.addAttribute("rejectHistory", pMService.getStatusHistory(rno, "reject"));
 		}
-		// 사용자 확인 여부 변경
-		Member member=(Member) session.getAttribute("member");
-		log.info("check: "+request.getUsrCheck());
-		log.info("mtype: "+member.getMtype());
-		log.info("client: "+(request.getClient().equals(member.getMid())));
+		// 사용자 확인 여부 변경(확인)
+		Member member=(Member) session.getAttribute("member");		
 		if(request.getUsrCheck()==1 && member.getMtype().equals("user") && request.getClient().equals(member.getMid())) {
 			commonService.check("user", request.getRno());
 		}

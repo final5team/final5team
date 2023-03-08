@@ -393,6 +393,9 @@ public class CommonService implements ICommonService {
 		return  commonDao.selectPmRequestProcessList(status, rpPager);
 	}
 
+	/**
+	 * 신규 알림(서비스 변경 사항 확인)
+	 */
 	
 	// 서비스 변경 사항 확인
 	@Override
