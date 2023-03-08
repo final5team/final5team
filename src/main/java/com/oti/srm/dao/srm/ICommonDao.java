@@ -106,4 +106,6 @@ public interface ICommonDao {
 	public List<RequestProcess> selectPmRequestProcessList(@Param("status") String status, @Param("pager") Pager rpPager);
 	
 	public int selectPmRequestProcessRows(@Param("status") String status);
+
+	public int updateCheck(@Param("mtype")String mtype, @Param("rno")int rno);
 }
