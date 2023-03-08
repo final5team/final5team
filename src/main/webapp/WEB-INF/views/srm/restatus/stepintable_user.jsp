@@ -189,18 +189,27 @@ margin: 0 0 1rem 0;
 <ol class="progress_bar">
 	<c:if test="${request.statusNo != 12}">
 		<c:if test="${request.reqType == null || request.reqType == '정규'}">
+		<!-- 단계 : 등록  -->
 			<li class="is_complete" onclick="register(${request.rno})" style="cursor : pointer;">
 				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}"><span>등록</span></a>
 			</li>
+			
+		<!-- 단계 : 접수  -->
 			<li class="<c:if test="${request.statusNo >= 2}">is_complete</c:if>
-						 <c:if test="${request.statusNo == 1}">is_active</c:if>" onclick="receipt(${request.rno})" >
+						 <c:if test="${request.statusNo == 1}">is_active</c:if>" onclick="receipt(${request.rno})" style="cursor: pointer;">
 					<span>
 						<c:if test="${request.statusNo == 1}">접수</c:if>
 						<c:if test="${request.statusNo >= 2}">접수완료</c:if>
 					</span>
 			</li>
+		<!-- 단계 : 개발  -->	
 			<li class="<c:if test="${request.statusNo >= 5}">is_complete</c:if>
-						<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>" >
+						<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>" 
+				<c:if test="${request.statusNo >= 2}">
+					onclick="developer(${request.rno})" style="cursor: pointer;"
+				</c:if>	
+					>
+			<c:if test="${request.statusNo >= 2}">			
 				<span>
 					<c:if test="${request.statusNo < 2}">개발</c:if>
 					<c:if test="${request.statusNo == 2}">개발대기</c:if>
@@ -208,119 +217,187 @@ margin: 0 0 1rem 0;
 					<c:if test="${request.statusNo == 3}">재검토</c:if>
 					<c:if test="${request.statusNo >= 5}">개발완료</c:if>
 				</span>
+			</c:if>
 				<c:if test="${request.statusNo == 4}">
 					<c:if test="${request.devProgress > 0}">
 						<div class="percent">${request.devProgress}%</div>
 					</c:if>
 				</c:if>
 			</li>
+			
+		<!-- 단계 : 테스트  -->		
 			<li class="<c:if test="${request.statusNo >= 7}">is_complete</c:if>
-				<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>" >
+				<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>" 
+				<c:if test="${request.statusNo >= 5}">
+					onclick="test(${request.rno})" style="cursor: pointer;"
+				</c:if>
+					>
+			<c:if test="${request.statusNo >= 5}">		
 				<span>
 					<c:if test="${request.statusNo < 5}">테스트</c:if>
 					<c:if test="${request.statusNo == 5}">테스트대기</c:if>
 					<c:if test="${request.statusNo == 6}">테스트중</c:if>
 					<c:if test="${request.statusNo >= 7}">테스트완료</c:if>
 				</span>
+			</c:if>
 			</li>
+			
+		<!-- 단계 : 품질 테스트  -->	
 			<li class="<c:if test="${request.statusNo >= 9}">is_complete</c:if>
-				<c:if test="${request.statusNo >= 7 && request.statusNo <= 8}">is_active</c:if>">
-				<span>
-					<c:if test="${request.statusNo < 7}">품질테스트</c:if>
-					<c:if test="${request.statusNo == 7}">품질테스트대기</c:if>
-					<c:if test="${request.statusNo == 8}">유저테스트중</c:if>
-					<c:if test="${request.statusNo >= 9}">유저테스트완료</c:if>
-				</span>
+				<c:if test="${request.statusNo >= 7 && request.statusNo <= 8}">is_active</c:if>"
+				<c:if test ="${request.statusNo >= 7}"> 
+					onclick="quality(${request.rno})" style="cursor: pointer;"
+				</c:if>	
+					>
+				<c:if test ="${request.statusNo >= 7}">	
+					<span>
+						<c:if test="${request.statusNo < 7}">품질테스트</c:if>
+						<c:if test="${request.statusNo == 7}">품질테스트대기</c:if>
+						<c:if test="${request.statusNo == 8}">유저테스트중</c:if>
+						<c:if test="${request.statusNo >= 9}">유저테스트완료</c:if>
+					</span>
+				</c:if>
 			</li>
+			
+		<!-- 단계 : 배포  -->	
 			<li class="<c:if test="${request.statusNo >= 11}">is_complete</c:if>
-				<c:if test="${request.statusNo >= 9 && request.statusNo <= 10}">is_active</c:if>" >
-				<span>
-					<c:if test="${request.statusNo < 9}">배포</c:if>
-					<c:if test="${request.statusNo == 9}">배포대기</c:if>
-					<c:if test="${request.statusNo == 10}">배포중</c:if>
-					<c:if test="${request.statusNo >= 11}">배포완료</c:if>
-				</span>
+				<c:if test="${request.statusNo >= 9 && request.statusNo <= 10}">is_active</c:if>" 
+				<c:if test="${request.statusNo >= 9}">
+					onclick="distribute(${request.rno})" style="cursor: pointer;"
+				</c:if>	
+					>
+				<c:if test ="${request.statusNo >= 9}">	
+					<span>
+						<c:if test="${request.statusNo < 9}">배포</c:if>
+						<c:if test="${request.statusNo == 9}">배포대기</c:if>
+						<c:if test="${request.statusNo == 10}">배포중</c:if>
+						<c:if test="${request.statusNo >= 11}">배포완료</c:if>
+					</span>
+				</c:if>
 			</li>
+		<!-- 단계 : 최종 승인  -->			
 			<li class="<c:if test="${request.statusNo >= 13}">is_complete</c:if>
-				<c:if test="${request.statusNo == 11}">is_active</c:if>" onclick="enddetail(${request.rno})" style="cursor : pointer;">
-				<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">
-					<c:if test="${request.statusNo < 11}">
-						<span>
-							최종승인
-						</span>
-					</c:if>
-					<c:if test="${request.statusNo == 11}">
-						<span>
-							승인대기
-						</span>
-					</c:if>
-					<c:if test="${request.statusNo == 13}">
-						<span class="has-changes">
-							완료
-						</span>
-					</c:if>
-				</a>
+				<c:if test="${request.statusNo == 11}">is_active</c:if>" 
+				<c:if test ="${request.statusNo >= 11}">
+					onclick="enddetail(${request.rno})" style="cursor : pointer;"
+				</c:if>
+					>
+				<c:if test = "${request.statusNo >= 11}">
+					<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">
+						<c:if test="${request.statusNo < 11}">
+							<span>
+								최종승인
+							</span>
+						</c:if>
+						<c:if test="${request.statusNo == 11}">
+							<span>
+								승인대기
+							</span>
+						</c:if>
+						<c:if test="${request.statusNo == 13}">
+							<span class="has-changes">
+								완료
+							</span>
+						</c:if>
+					</a>
+				</c:if>
 			</li>
 		</c:if>
+		
+		
 		<c:if test="${request.reqType == '긴급'}">
+		<!-- 단계 : 등록  -->	
 			<li class="is_complete" onclick="receipt(${request.rno})" style="cursor : pointer;">
 				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<span>등록</span>
 				</a>
 			</li>
+			
+		<!-- 단계 : 접수  -->	
 			<li class="<c:if test="${request.statusNo >= 2}">is_complete</c:if>
-						<c:if test="${request.statusNo == 1}">is_active</c:if>" onclick="receipt(${request.rno})">
+						<c:if test="${request.statusNo == 1}">is_active</c:if>" onclick="receipt(${request.rno})" style="cursor: pointer;">
 					<span>
 						<c:if test="${request.statusNo == 1}">접수</c:if>
 						<c:if test="${request.statusNo >= 2}">접수완료</c:if>
 					</span>
 			</li>
+		<!-- 단계 : 개발  -->	
 			<li class="<c:if test="${request.statusNo >= 5}">is_complete</c:if>
-				<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>" >
-				<span>
-					<c:if test="${request.statusNo < 2}">개발</c:if>
-					<c:if test="${request.statusNo == 2}">개발대기</c:if>
-					<c:if test="${request.statusNo == 4}">개발중</c:if>
-					<c:if test="${request.statusNo == 3}">재검토</c:if>
-					<c:if test="${request.statusNo >= 5}">개발완료</c:if>
-				</span>
+				<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>" 
+				<c:if test="${request.statusNo >= 2}">
+						onclick="developer(${request.rno})" style="cursor: pointer;"
+				</c:if>
+					>
+				<c:if test="${request.statusNo >= 2}">	
+					<span>
+						<c:if test="${request.statusNo < 2}">개발</c:if>
+						<c:if test="${request.statusNo == 2}">개발대기</c:if>
+						<c:if test="${request.statusNo == 4}">개발중</c:if>
+						<c:if test="${request.statusNo == 3}">재검토</c:if>
+						<c:if test="${request.statusNo >= 5}">개발완료</c:if>
+					</span>
+				</c:if>
 				<c:if test="${request.statusNo == 4}">
 					<c:if test="${request.devProgress > 0}">
 						<div class="percent">${request.devProgress}%</div>
 					</c:if>
 				</c:if>
 			</li>
+			
+		<!-- 단계 : 테스트  -->		
 			<li class="<c:if test="${request.statusNo >= 7}">is_complete</c:if>
-				<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>">
-				<span>
-					<c:if test="${request.statusNo < 5}">테스트</c:if>
-					<c:if test="${request.statusNo == 5}">테스트대기</c:if>
-					<c:if test="${request.statusNo == 6}">테스트중</c:if>
-					<c:if test="${request.statusNo >= 7}">테스트완료</c:if>
-				</span>
-			</li>
-			<li class="<c:if test="${request.statusNo >= 11}">is_complete</c:if>
-				<c:if test="${request.statusNo >= 7 && request.statusNo <= 10}">is_active</c:if>" >
-				<span>
-					<c:if test="${request.statusNo < 7}">배포</c:if>
-					<c:if test="${request.statusNo == 7}">배포대기</c:if>
-					<c:if test="${request.statusNo == 10}">배포중</c:if>
-					<c:if test="${request.statusNo >= 11}">배포완료</c:if>
-				</span>
-			</li>
-			<li class="<c:if test="${request.statusNo >= 13}">is_active</c:if>
-				<c:if test="${request.statusNo == 11}">is_active</c:if>">
-				<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}" onclick="enddetail(${request.rno})" style="cursor : pointer;">
+				<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>"
+				<c:if test="${request.statusNo >= 5}">
+					onclick="test(${request.rno})" style="cursor: pointer;"
+				</c:if>
+					>
+				<c:if test="${request.statusNo >= 5}">
 					<span>
-						<c:if test="${request.statusNo < 11}">최종승인</c:if>
-						<c:if test="${request.statusNo == 11}">승인대기</c:if>
+						<c:if test="${request.statusNo < 5}">테스트</c:if>
+						<c:if test="${request.statusNo == 5}">테스트대기</c:if>
+						<c:if test="${request.statusNo == 6}">테스트중</c:if>
+						<c:if test="${request.statusNo >= 7}">테스트완료</c:if>
 					</span>
-				</a>
-				<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">
-					<span class="has-changes">
-						<c:if test="${request.statusNo == 13}">완료</c:if>
+				</c:if>
+			</li>
+			
+		<!-- 단계 : 배포  -->
+			<li class="<c:if test="${request.statusNo >= 11}">is_complete</c:if>
+				<c:if test="${request.statusNo >= 7 && request.statusNo <= 10}">is_active</c:if>" 
+				<c:if test="${request.statusNo >= 9}">
+					onclick="distribute(${request.rno})" style="cursor: pointer;"
+				</c:if>	
+					>
+				<c:if test ="${request.statusNo >= 9}">		
+					<span>
+						<c:if test="${request.statusNo < 7}">배포</c:if>
+						<c:if test="${request.statusNo == 7}">배포대기</c:if>
+						<c:if test="${request.statusNo == 10}">배포중</c:if>
+						<c:if test="${request.statusNo >= 11}">배포완료</c:if>
 					</span>
-				</a>
+				</c:if>
+			</li>
+			
+			<!-- 단계 : 최종 승인  -->
+			<li class="<c:if test="${request.statusNo >= 13}">is_active</c:if>
+				<c:if test="${request.statusNo == 11}">is_active</c:if>"
+				<c:if test ="${request.statusNo >= 11}">
+					onclick="enddetail(${request.rno})" style="cursor: pointer;"
+				</c:if>
+					>
+				<c:if test = "${request.statusNo >= 11}">	
+					<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}" onclick="enddetail(${request.rno})" style="cursor : pointer;">
+						<span>
+							<c:if test="${request.statusNo < 11}">최종승인</c:if>
+							<c:if test="${request.statusNo == 11}">승인대기</c:if>
+						</span>
+					</a>
+					<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">
+						<span class="has-changes">
+							<c:if test="${request.statusNo == 13}">완료</c:if>
+						</span>
+					</a>
+				</c:if>
 			</li>
 		</c:if>
 	</c:if>
@@ -333,9 +410,11 @@ margin: 0 0 1rem 0;
 				</span>
 			</a>
 		</li>
-		<li class="is_reject"><span>접수</span></li>
-		<li class="is_reject" style="cursor : pointer;">
-			<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
+		<li class="is_reject">
+			<span>접수</span>
+		</li>
+		<li class="is_reject" style="cursor: pointer;" onclick="enddetail(${request.rno})">
+			<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">
 				<span class="has-changes">반려</span>
 			</a>
 		</li>
