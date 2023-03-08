@@ -142,6 +142,16 @@ margin: 0 0 1rem 0;
     left: 22px;
     bottom: -20px;
 }
+.percent{
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	opacity : 1;
+  	z-index : 6;
+  	left : 38%;
+  	top : 130%;
+  	color : red;
+}
 
 
 
@@ -217,6 +227,11 @@ margin: 0 0 1rem 0;
 						<c:if test="${request.statusNo >= 5}">개발완료</c:if>
 					</span>
 				</a>
+				<c:if test="${request.statusNo == 4}">
+					<c:if test="${request.devProgress > 0}">
+						<div class="percent">${request.devProgress}%</div>
+					</c:if>
+				</c:if>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 7}">is_complete</c:if>
 						<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>" onclick="test(${request.rno})">
@@ -298,6 +313,11 @@ margin: 0 0 1rem 0;
 						<c:if test="${request.statusNo >= 5}">개발완료</c:if>
 					</span>
 				</a>
+				<c:if test="${request.statusNo == 4}">
+					<c:if test="${request.devProgress > 0}">
+						<div class="percent">${request.devProgress}%</div>
+					</c:if>
+				</c:if>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 7}">is_complete</c:if>
 				<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>" onclick="test(${request.rno})">
@@ -324,13 +344,13 @@ margin: 0 0 1rem 0;
 			<li class="<c:if test="${request.statusNo >= 13}">is_active</c:if>
 				<c:if test="${request.statusNo == 11}">is_active</c:if>"  onclick="enddetail(${request.rno})">
 				<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">
-					<span>
+					<span style="width: 40px;">
 						<c:if test="${request.statusNo < 11}">최종승인</c:if>
 						<c:if test="${request.statusNo == 11}">승인대기</c:if>
 					</span>
 				</a>
 				<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">
-					<span class="has-changes">
+					<span class="has-changes" style="width: 40px;">
 						<c:if test="${request.statusNo == 13}">완료</c:if>
 					</span>
 				</a>
