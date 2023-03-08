@@ -196,11 +196,46 @@
 						                	 						<div class="col-2 label">내용</div>
 						                	 						<textarea name="reply" class="col-8 form-control boxed" rows="2">${statusHistory.reply}</textarea>
 					                	 						</div>
+					                	 						<div class="row mt-3">
+						                	 						<span class="col-2 label" >첨부파일</span>
+						                	 						<div>
+					                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+																		<div>
+																			<span>${statusHistoryFile.fileName}</span>
+																			<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																				<i class="fas fa-cloud-download-alt text-info"></i>
+																			</a>
+																			<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a>
+																			<input type="hidden" name = "fno" value="${statusHistoryFile.fno}">
+																		</div>
+																		</c:forEach>
+						                	 						</div>
+					                	 						</div>
+					                	 						<div class="filebox row mb-3">
+																	<div class="col-2 label label-write" id="fileLable">
+																		<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
+																		<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
+																	</div>
+																	<div class="border flex-grow-1 border-success col-8" id="file-list-update"></div>	
+																</div>
                 	 										</c:if>
                 	 										<c:if test="${request.statusNo != 7}">
                 	 											<div class="row mt-3">
 						                	 						<div class="col-2 label">내용</div>
 						                	 						<textarea class="col-8 form-control boxed" rows="2"  readonly>${statusHistory.reply}</textarea>
+					                	 						</div>
+					                	 						<div class="row mt-3">
+						                	 						<div class="col-2 label">첨부파일</div>
+						                	 						<div class="col-8">
+						                	 							<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+																		<div>
+																			<span>${statusHistoryFile.fileName}</span>
+																			<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																				<i class="text-info fas fa-cloud-download-alt"></i>
+																			</a>
+																		</div>
+																		</c:forEach>
+						                	 						</div>
 					                	 						</div>
                 	 										</c:if>
                 	 								</c:if>
@@ -212,11 +247,46 @@
 					                	 						<div class="col-2 label">내용</div>
 					                	 						<textarea name="reply" class="col-8 form-control boxed" rows="2">${statusHistory.reply}</textarea>
 	               	 										</div>
+	               	 										<div class="row mt-3">
+					                	 						<span class="col-2 label" >첨부파일</span>
+					                	 						<div>
+				                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+																	<div>
+																		<span>${statusHistoryFile.fileName}</span>
+																		<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																			<i class="fas fa-cloud-download-alt text-info"></i>
+																		</a>
+																		<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a>
+																		<input type="hidden" name = "fno" value="${statusHistoryFile.fno}">
+																	</div>
+																	</c:forEach>
+					                	 						</div>
+				                	 						</div>
+				                	 						<div class="filebox row mb-3">
+																<div class="col-2 label label-write" id="fileLable">
+																	<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
+																	<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
+																</div>
+																<div class="border flex-grow-1 border-success col-8" id="file-list-update"></div>	
+															</div>
                	 										</c:if>
                	 										<c:if test="${request.statusNo != 3}">
                	 											<div class="row mt-3">
 					                	 						<div class="col-2 label">내용</div>
 					                	 						<textarea class="col-8 form-control boxed" rows="2"  readonly>${statusHistory.reply}</textarea>
+				                	 						</div>
+				                	 						<div class="row mt-3">
+					                	 						<div class="col-2 label">첨부파일</div>
+					                	 						<div class="col-8">
+					                	 							<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+																	<div>
+																		<span>${statusHistoryFile.fileName}</span>
+																		<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																			<i class="text-info fas fa-cloud-download-alt"></i>
+																		</a>
+																	</div>
+																	</c:forEach>
+					                	 						</div>
 				                	 						</div>
                	 										</c:if>
                 	 								</c:if>
@@ -234,23 +304,11 @@
 		                	 						</div>
                 	 							</c:if>
                 	 						</c:if>
-                	 						<div class="row mt-3">
-	                	 						<div class="col-2 label">첨부파일</div>
-	                	 						<div class="col-8">
-	                	 							<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-													<div>
-														<span>${statusHistoryFile.fileName}</span>
-														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-															<i class="text-info fas fa-cloud-download-alt"></i>
-														</a>
-													</div>
-													</c:forEach>
-	                	 						</div>
-                	 						</div>
+                	 						
                 	 						<c:if test="${(request.statusNo == 3 && requestProcess.tester == member.mid && index.last && statusHistory.nextStatus == 3)
                 	 						|| (request.statusNo == 7 && requestProcess.tester == member.mid && index.last && statusHistory.nextStatus == 7)}">
                 	 							<div class="d-flex justify-content-end">
-                	 								<button type="submit" class="btn btn-primary btn-sm mx-3">수정</button>	
+                	 								<button onclick="update()" class="btn btn-primary btn-sm mx-3" type="button">수정</button>	
                 	 							</div>
                 	 						</c:if>	
                 	 					</div>
@@ -451,6 +509,7 @@
 		// input file 파일 첨부시 fileCheck 함수 실행
 	{
 		$("#fileInput").on("change", fileCheck);
+		$("#fileInputUpdate").on("change", fileUpdate);
 	});
 	
 	/* '파일추가' 버튼 누를 때마다 파일input 실행 */
@@ -512,7 +571,7 @@
 		$('#' + fileId).remove();
 		fileCount --;
 	}
-	
+	/* 테스트 완료 버튼 누를 시 */
 	function testdone(){
 		$('#writeform').attr('action','${pageContext.request.contextPath}/testdone');
 		
@@ -530,6 +589,92 @@
 		}
 		fileInput.files = fileBuffer.files;
 		$('#writeform').submit();
+	}
+/********* 파일 수정 *********/
+	
+	/* '파일수정' 버튼 누를 때마다 파일input 실행 */
+	$(function () {
+	    $('#btn-upload-update').click(function (e) {
+	        e.preventDefault();
+	        $('#fileInputUpdate').click();
+	    });
+	})
+	function fileUpdate (e){
+		console.log("fileUpdate");
+		//파일 객체 갖고오기
+		var files = e.target.files;
+		
+		// 파일 배열 담기
+	    var filesArr = Array.prototype.slice.call(files);
+		
+		//기존에 있던 파일 객체
+	    var existfiles = $('.existfiles');
+	    
+	    if(fileCount + filesArr.length > totalCount - existfiles.length ){
+	    	$('#completeModal').modal();
+	    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
+	      return;
+	    }else {
+	    	 fileCount = fileCount + filesArr.length;
+	    }
+	 	// 각각의 파일 배열담기 및 기타
+	    filesArr.forEach(function (f) {
+	      var reader = new FileReader();
+	      
+	      reader.onload = function (e) {
+		        content_files.push(f);
+		        $('#file-list-update').append(
+		       		'<div id="file' + fileNum + '">'
+		       		+ '<font style="font-size:15px">' + f.name + '</font>'  
+		       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
+		       		+ '<div/>'
+				);
+		        fileNum ++;
+	      };
+	      
+	      reader.readAsDataURL(f);
+	    });
+	}
+	
+	/***************** 올린 파일 삭제 *****************/
+	$('.deletefileButton').click(function(){
+		var deleteDiv = $(this).parent();
+		var fno = $(this).next().val();
+		let distinguish = 1;
+		
+		$.ajax({
+			type:"POST",
+			url:"${pageContext.request.contextPath}/noticefiledelete?fno=" + fno,
+			dataType: "json",
+			data: {
+				distinguish : distinguish
+			},
+			success: function(result){
+				deleteDiv.remove();
+			}
+		});
+		
+		
+	});
+	/****** update() '수정'버튼 클릭 ******/
+	function update(){
+
+		console.log("수정버튼 클릭까지 옴");
+		//선택된 파일 지우기
+		var fileInput = $('#fileInputUpdate')[0];
+		var fileBuffer = new DataTransfer();
+		fileInput.files = fileBuffer.files;
+		console.log(fileInput);
+		//배열의 항목으로 채우기
+		fileBuffer = new DataTransfer();
+		for(var i = 0; i < content_files.length; i ++){
+			if(!content_files[i].is_delete){
+				fileBuffer.items.add(content_files[i]);
+			} 
+		}
+		fileInput.files = fileBuffer.files;
+		
+		 $('#updateForm').submit(); 
 	}
 	
 	
