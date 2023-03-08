@@ -717,8 +717,6 @@
 					}
 					let ex = document.querySelector('#th_no');
 					console.log(ex);
-					
-					
 				});
 			// 내 요청 목록 검색 기능
 			} else {
