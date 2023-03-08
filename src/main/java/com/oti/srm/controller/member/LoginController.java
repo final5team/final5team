@@ -1,5 +1,7 @@
 package com.oti.srm.controller.member;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.oti.srm.dto.Member;
+import com.oti.srm.dto.Request;
 import com.oti.srm.service.member.IMemberService;
+import com.oti.srm.service.srm.ICommonService;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -19,6 +23,9 @@ public class LoginController {
 	
 	@Autowired
 	IMemberService memberService;
+	@Autowired
+	ICommonService commonService;
+	
 	/* 로그인 */
 	@GetMapping("/login")
 	public String loginForm() {
@@ -56,6 +63,10 @@ public class LoginController {
 		
 		session.setAttribute("member", dbMember);
 		String mtype = dbMember.getMtype();
+		
+		// 신규 내역 알림 
+		List<Request> newAlertList = commonService.getNewAlertList(dbMember);
+		session.setAttribute("newAlertList", newAlertList);
 
 		if(mtype.equals("user")) {
 			return "redirect:" + "/userhome";
