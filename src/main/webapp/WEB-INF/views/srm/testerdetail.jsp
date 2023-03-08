@@ -171,7 +171,7 @@
 	                	 				</h3>
 	                	 				</c:if>
 	                	 			</div>
-	                	 			<form method="post" action="<c:url value='/updatehistory'/>">
+	                	 			<form method="post" action="<c:url value='/updatehistory'/>" id="updateForm" enctype="multipart/form-data">
 	                	 			<div class="card-body">
                 	 					<div>
                 	 						<div class="row mb-2">
@@ -197,7 +197,7 @@
 						                	 						<textarea name="reply" class="col-8 form-control boxed" rows="2">${statusHistory.reply}</textarea>
 					                	 						</div>
 					                	 						<div class="row mt-3">
-						                	 						<span class="col-2 label" >첨부파일</span>
+						                	 						<span class="col-2 label">첨부파일</span>
 						                	 						<div>
 					                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 																		<div>
@@ -308,7 +308,7 @@
                 	 						<c:if test="${(request.statusNo == 3 && requestProcess.tester == member.mid && index.last && statusHistory.nextStatus == 3)
                 	 						|| (request.statusNo == 7 && requestProcess.tester == member.mid && index.last && statusHistory.nextStatus == 7)}">
                 	 							<div class="d-flex justify-content-end">
-                	 								<button onclick="update()" class="btn btn-primary btn-sm mx-3" type="button">수정</button>	
+                	 								<button onclick="update(${request.statusNo})" class="btn btn-primary btn-sm mx-3" type="button">수정</button>	
                 	 							</div>
                 	 						</c:if>	
                 	 					</div>
@@ -329,7 +329,7 @@
                 	 		</div><!-- status_history내역없을때 end -->
 	                	 	</c:if>
 						</section><!-- 재검토 내역 end -->
-						<button class="btn btn-dark btn-sm ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
+						<button class="btn btn-dark btn-sm ml-5 mb-3" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
 					 </div> <!-- main/ -->
                 </div>
                 <!-- 여기에 내용 담기 end -->
@@ -390,9 +390,24 @@
 			</div>
 		</div>
 	</div>
-	<script>
 	<!-- 데이트 입력 확인 /-->
-	
+	<div class="modal fade" id="completeModal" aria-hidden="true" aria-labelledby="successOfDueDate">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Check</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" style="display: flex; justify-content: center;">
+					<p id="completeContent"></p>
+				</div>
+				<div class="modal-footer" style="justify-content: center;">
+	                <a class="btn btn-primary" data-dismiss="modal" type="button">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
 	
 	function checkDate(){
 		$('#noInputDate').text("");
@@ -658,13 +673,11 @@
 	});
 	/****** update() '수정'버튼 클릭 ******/
 	function update(){
-
-		console.log("수정버튼 클릭까지 옴");
 		//선택된 파일 지우기
 		var fileInput = $('#fileInputUpdate')[0];
 		var fileBuffer = new DataTransfer();
 		fileInput.files = fileBuffer.files;
-		console.log(fileInput);
+		
 		//배열의 항목으로 채우기
 		fileBuffer = new DataTransfer();
 		for(var i = 0; i < content_files.length; i ++){
@@ -673,8 +686,8 @@
 			} 
 		}
 		fileInput.files = fileBuffer.files;
-		
-		 $('#updateForm').submit(); 
+		console.log("fileInput.files" + fileInput.files.length);
+		 $('#updateForm').submit();
 	}
 	
 	
