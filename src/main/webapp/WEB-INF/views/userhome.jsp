@@ -190,12 +190,11 @@
 												<tbody>
 													<c:forEach var="request" items="${userRequestList}">
 														<tr style="text-align: center;">
-															<td>${request.rno}
-																<c:if test="${request.usrCheck == 1}">
-																	<strong class="text-danger" style="position: absolute; left: 28px">N</strong>
-																</c:if>
-															</td>
+															<td>${request.rno}</td>
 															<td class="tableContent">
+																<c:if test="${request.usrCheck == 1}">
+																	<strong class="text-danger">N</strong>
+																</c:if>
 																<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 																	${request.reqTitle}
 																</a>
