@@ -9,9 +9,9 @@
 			from dual
 		</selectKey>
 		insert into requests (RNO, REQ_DATE, REQ_TITLE, REQ_CONTENT, CLIENT,
-		SNO, REQ_EXPECT_DATE, STATUS_NO)
+		SNO, REQ_EXPECT_DATE, STATUS_NO, PM_CHECK)
 		values(#{rno}, sysdate, #{reqTitle},
-		#{reqContent}, #{client}, #{sno}, #{reqExpectDate}, #{statusNo})
+		#{reqContent}, #{client}, #{sno}, #{reqExpectDate}, #{statusNo}, 1)
 	</insert>
 	
 	<update id="updateRequest" parameterType="com.oti.srm.dto.Request" >
@@ -622,7 +622,7 @@
 	<select id="selectRequestDetail" parameterType="int" resultType="com.oti.srm.dto.Request">
 		select r.RNO, r.REQ_DATE as "reqDate" , r.REQ_TITLE as "reqTitle" , r.REQ_CONTENT as "reqContent", 
 				r.CLIENT, r.SNO, r.REQ_EXPECT_DATE as "reqExpectDate", r.STATUS_NO as "statusNo", sh.hno, s.SYSTEM_NAME as "systemName",
-				m.MNAME as "rname", m.PHONE as "rphone", m.POSITION as "rposition", m.ORGAN as "rorgan", m.EMAIL as "remail"
+				m.MNAME as "rname", m.PHONE as "rphone", m.POSITION as "rposition", m.ORGAN as "rorgan", m.EMAIL as "remail", USR_CHECK as "usrCheck"
 				
         from status_histories sh left outer join requests r
         	on sh.rno = r.rno

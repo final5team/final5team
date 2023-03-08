@@ -83,5 +83,10 @@ public interface ICommonService {
 	public int getPmRequestProcessRows(String status);
 
 	public List<RequestProcess> getPmRequestProcessList(String status, Pager rpPager);
+	
+	// 서비스 변경 사항 확인 여부 변경(확인)
+	public int check(String mtype, int rno);
+	// 서비스 변경 사항 확인 여부 변경(미확인)
+	public int notCheck(String mtype, int rno);
 
 }
