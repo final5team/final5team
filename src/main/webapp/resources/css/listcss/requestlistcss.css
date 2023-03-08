@@ -499,7 +499,7 @@ th.sorted:before{
   	cursor:pointer;
   }  
     
-  /*  */
+  /* sno */
   .th_second:after{
     content : "▲";
   	font-size : .3em;
@@ -519,8 +519,47 @@ th.sorted:before{
   	opacity : .6;
   	cursor:pointer;
   }
+  .th_second_asc:after{
+  	content : "▲";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 12.5%;
+  	opacity : 1;
+  	cursor:pointer;
+  }
+  .th_second_asc:before{
+  	content : "▼";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 12.5%;
+  	top : 12.5%;
+  	opacity : .6;
+  	cursor:pointer;
+  }
+  .th_second_desc:after{
+  	content : "▲";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 12.5%;
+  	opacity : .6;
+  	cursor:pointer;
+  }  
+  .th_second_desc:before{
+  	content : "▼";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 12.5%;
+  	top : 12.5%;
+  	opacity : 1;
+  	cursor:pointer;
+  }  
 
   
+  /*  */
   .th_third:after{
  	content : "▲";
   	font-size : .3em;
@@ -540,6 +579,47 @@ th.sorted:before{
   	opacity : .6;
   	cursor:pointer;
   }
+  .th_third_asc:after{
+  	content : "▲";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 22%;
+  	opacity : 1;
+  	cursor:pointer;
+  }
+  .th_third_asc:before{
+  	content : "▼";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 22%;
+  	top : 12.5%;
+  	opacity : .6;
+  	cursor:pointer;
+  }
+  .th_third_desc:after{
+  	content : "▲";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 22%;
+  	opacity : .6;
+  	cursor:pointer;
+  }  
+  .th_third_desc:before{
+  	content : "▼";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 22%;
+  	top : 12.5%;
+  	opacity : 1;
+  	cursor:pointer;
+  }
+  
+  
+  /* title 정렬 */
   
   .th_four:after{
   	content : "▲";
@@ -560,6 +640,49 @@ th.sorted:before{
   	opacity : .6;
   	cursor:pointer;
   }
+.th_four_asc:after{
+  	content : "▲";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 35%;
+  	opacity : 1;
+  	cursor:pointer;
+  }
+  .th_four_asc:before{
+  	content : "▼";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 35%;
+  	top : 12.5%;
+  	opacity : .6;
+  	cursor:pointer;
+  }
+  .th_four_desc:after{
+  	content : "▲";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 35%;
+  	opacity : .6;
+  	cursor:pointer;
+  }  
+  .th_four_desc:before{
+  	content : "▼";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 35%;
+  	top : 12.5%;
+  	opacity : 1;
+  	cursor:pointer;
+  }  
+  
+  
+  
+  
+  
   .th_five:after{
   	content : "▲";
   	font-size : .3em;
@@ -579,7 +702,44 @@ th.sorted:before{
   	opacity : .6;
   	cursor:pointer;
   }
-  
+.th_five_asc:after{
+  	content : "▲";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 49.5%;
+  	opacity : 1;
+  	cursor:pointer;
+  }
+  .th_five_asc:before{
+  	content : "▼";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 49.5%;
+  	top : 12.5%;
+  	opacity : .6;
+  	cursor:pointer;
+  }
+  .th_five_desc:after{
+  	content : "▲";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 49.5%;
+  	opacity : .6;
+  	cursor:pointer;
+  }  
+  .th_five_desc:before{
+  	content : "▼";
+  	font-size : .3em;
+  	display : inline-block;
+  	position : absolute;
+  	left : 49.5%;
+  	top : 12.5%;
+  	opacity : 1;
+  	cursor:pointer;
+  }    
   
   
 
