@@ -102,7 +102,7 @@
 											</div>
 											<c:if test="${request.statusNo == 8}">
 												<div class="d-flex justify-content-end">
-													<button class="btn btn-warning btn-md mx-3"  onclick="tempStore()">임시 저장</button>
+													<button class="btn btn-warning btn-md mx-3"  onclick="tempStore(${request.rno},17)">임시 저장</button>
 													<button class="btn btn-primary btn-md " onclick="userTestDone()">유저테스트 완료</button>
 												</div>
 											</c:if>
@@ -577,13 +577,18 @@
 		$('#updateForm').submit();
 	}
 	/******* 임시저장 *******/
-	function tempStore(){
-		var form = $('#writeform').serialize();
-		console.log(form);
+	function tempStore(rno,nextStatus){
+		var reply = tinymce.activeEditor.getContent();
+		var rno = rno;
+		var nextStatus = nextStatus;
 		$.ajax({
 			type: "POST",
 			url: "${pageContext.request.contextPath}/tempstore",
-			data: form,
+			data: {
+				reply:reply,
+				rno:rno,
+				nextStatus:nextStatus
+			},
 			dataType: "json",
 			success : function(result){
 				console.log(result.result);

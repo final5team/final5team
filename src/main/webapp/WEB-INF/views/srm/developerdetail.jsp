@@ -130,7 +130,7 @@
 										
 										<c:if test="${request.statusNo == 4}">
 										<div class="d-flex justify-content-end">
-										<button class="btn btn-warning btn-md mx-3" onclick="tempStore(${request.rno},14,'${devTemp.distSource}')">임시 저장</button>
+										<button class="btn btn-warning btn-md mx-3" onclick="tempStore(${request.rno},14)">임시 저장</button>
 										<c:if test="${requestProcess.devProgress == 100}">
 										<button class="btn btn-primary btn-md " onclick="devEnd()">개발 완료</button>
 										</c:if>
@@ -424,11 +424,11 @@
 		$('#writeform').submit();
 	}
 	/* 임시저장 버튼 클릭시 form 데이터 전달 */
-	function tempStore(rno,nextStatus,distSource){
+	function tempStore(rno,nextStatus){
 		var reply = tinymce.activeEditor.getContent();
 		var rno = rno;
 		var nextStatus = nextStatus;
-		var distSource = distSource;
+		var distSource = $('#distSource').val();
 		
 		$.ajax({
 			type: "POST",
