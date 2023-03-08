@@ -28,7 +28,7 @@ margin: 0 0 1rem 0;
 	padding: 0 0 14px 0;
 	font-size: var(--font-size-default);
 	line-height: 1.5;
-	color: var(--color-green);
+	color: #5a5c69;
 	font-weight: 600;
 	white-space: nowrap;
 	overflow: visible;

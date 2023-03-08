@@ -325,7 +325,7 @@
 		th_no.addEventListener('click', (event) => {
 			event.preventDefault();
 			
-			console.log('rno');
+			//console.log('rno');
 			//변수값 설정
 			state = 'asc';
 			th_first_id = 'th_no';
@@ -346,7 +346,7 @@
 		th_sno.addEventListener('click', (event)=> {
 			event.preventDefault();
 			
-			console.log('sno');
+			//console.log('sno');
 			//변수값 설정
 			state = 'asc';
 			th_first_id = 'th_sno';
@@ -365,7 +365,7 @@
 		th_reqtype.addEventListener('click', (event)=> {
 			event.preventDefault();
 			
-			console.log('reqtype');
+			//console.log('reqtype');
 			//변수값 설정
 			state = 'asc';
 			th_first_id = 'th_reqtype';
@@ -384,7 +384,7 @@
 		th_title.addEventListener('click', (event)=> {
 			event.preventDefault();
 			
-			console.log('th_title');
+			//console.log('th_title');
 			//변수값 설정
 			state = 'asc';
 			th_first_id = 'th_title';
@@ -402,7 +402,7 @@
 		let th_reqdate = document.querySelector('#th_reqdate');
 		th_reqdate.addEventListener('click', (event)=> {
 			event.preventDefault();
-			console.log('th_reqdate');
+			//console.log('th_reqdate');
 			//변수값 설정
 			state = 'asc';
 			th_first_id = 'th_reqdate';
@@ -523,7 +523,7 @@
 				$('#table_content').html(data);
 				//테이블 색상 변경하기
 				let tableHead = document.querySelectorAll(".ex");
-				console.log(tableHead);
+				//console.log(tableHead);
 				for(let i = 0; i < tableHead.length; i++){
 					tableHead[i].classList.add('bc');
 				}
@@ -538,8 +538,8 @@
 	
 		// 페이지 이동 ajax
 		function pageChange(i, state, th_first_id){
-			console.log('페이지 이동 ajax');
-			console.log(state, th_first_id);
+			//console.log('페이지 이동 ajax');
+			//console.log(state, th_first_id);
 			
 			//hidden tag 가져오기
 			let state_value = document.querySelector('#state');
@@ -548,7 +548,7 @@
 			//가져온 hedden tag에 값 넣어주기
 			state_value.value = state;
 			th_first_id_value.value = th_first_id;
-			console.log("넣어준 값" ,state_value, th_first_id_value);
+			//console.log("넣어준 값" ,state_value, th_first_id_value);
 			
 			
 			let loading = document.querySelector(".loading");
@@ -570,7 +570,7 @@
 				let sno = filterSno.options[filterSno.selectedIndex].value
 			} else {
 				sno = document.querySelector('.sno').value
-				console.log(sno);
+				//console.log(sno);
 			}
 			let filterStatusNo = document.getElementById('statusNo');  
 			let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
@@ -583,10 +583,10 @@
 			
 			// 담당 업무 목록으로 검색 
 			if($('#myRequest').is(":checked")){ 
-				console.log("담당 업무 목록 페이지 이동" + i);
+				//console.log("담당 업무 목록 페이지 이동" + i);
 				//테이블 색상 되돌리기
 				let tableHead = document.querySelectorAll(".ex");
-				console.log(tableHead);
+				//console.log(tableHead);
 				for(let i = 0; i < tableHead.length; i++){
 					tableHead[i].classList.remove('bc');
 				}
@@ -612,7 +612,7 @@
 					
 				});
 			} else {
-				console.log("내 요청 목록 페이지 이동" + i);
+				//console.log("내 요청 목록 페이지 이동" + i);
 				$.ajax({
 					url : "workerrequestlist",
 					method : "post",
@@ -627,7 +627,7 @@
 					
 					//테이블 색상 변경하기
 					let tableHead = document.querySelectorAll(".ex");
-					console.log(tableHead);
+					//console.log(tableHead);
 					for(let i = 0; i < tableHead.length; i++){
 						tableHead[i].classList.add('bc');
 					}
@@ -649,8 +649,8 @@
 			let th_first_id_value = document.querySelector('#th_first_id');
 			th_first_id = th_first_id_value.value;
 			
-			console.log("검색 전 태그값" , state_value, th_first_id_value);
-			console.log("검색 전 매개변수 값" ,state, th_first_id);
+			//console.log("검색 전 태그값" , state_value, th_first_id_value);
+			//console.log("검색 전 매개변수 값" ,state, th_first_id);
 		
 		
 			let loading = document.querySelector(".loading");
@@ -667,13 +667,13 @@
 			
 			let sno = '0';
 			if(document.getElementById('sno') != null) {
-				console.log("pm인 경우");
+				//console.log("pm인 경우");
 				let filterSno = document.getElementById('sno');
 				sno = filterSno.options[filterSno.selectedIndex].value
 			} else {
-				console.log("pm이 아닌 경우");
+				//console.log("pm이 아닌 경우");
 				sno = document.querySelector('.sno').value
-				console.log(sno);
+				//console.log(sno);
 			}
 			
 			let filterStatusNo = document.getElementById('statusNo');  
@@ -682,9 +682,9 @@
 			
 			
 			if(typeof state == 'undefined' || typeof th_first_id == 'undefined'){
-				console.log('검색에 정렬 입력값 들어옴');
-				console.log(state);
-				console.log(th_first_id);
+				//console.log('검색에 정렬 입력값 들어옴');
+				//console.log(state);
+				//console.log(th_first_id);
 			} 
 			
 			
@@ -716,13 +716,13 @@
 						pageDefault.remove();
 					}
 					let ex = document.querySelector('#th_no');
-					console.log(ex);
+					//console.log(ex);
 					
 					
 				});
 			// 내 요청 목록 검색 기능
 			} else {
-				console.log("내 요청 목록 검색")
+				//console.log("내 요청 목록 검색")
 				$.ajax({
 					url : "workerrequestlist",
 					method : "post",

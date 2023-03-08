@@ -107,11 +107,11 @@ $(document).ready(function() {
 	let th_first_id_value = document.querySelector('#th_first_id');
 	let th_first_id = th_first_id_value.value;
 	
-	console.log("ajax 이후 태그",state_value, th_first_id_value);
-	console.log("ajax 이후 변수값", state, th_first_id);
+	//console.log("ajax 이후 태그",state_value, th_first_id_value);
+	//console.log("ajax 이후 변수값", state, th_first_id);
 	
 	
-	console.log('ajax로 불러온 페이지');
+	//console.log('ajax로 불러온 페이지');
 		
 	//rno로 정렬하기
 	let ex = document.querySelector('#th_rno');
@@ -142,27 +142,27 @@ $(document).ready(function() {
 		
 		if(event.target.id === 'th_rno'){
 			th_first_id = 'th_rno';		
-			console.log(th_first_id);
+			//console.log(th_first_id);
 			th_rno_click(event);
 			
 		} else if (event.target.id === 'th_sno'){
 			th_first_id = 'th_sno';		
-			console.log(th_first_id);
+			//console.log(th_first_id);
 			th_sno_click(event);
 			
 		} else if (event.target.id === 'th_reqtype'){
 			th_first_id = 'th_reqtype';		
-			console.log(th_first_id);
+			//console.log(th_first_id);
 			th_req_type_click(event);
 			
 		} else if (event.target.id === 'th_title'){
 			th_first_id = 'th_title';
-			console.log(th_first_id);
+			//console.log(th_first_id);
 			th_title_click(event);
 			
 		} else if (event.target.id === 'th_reqdate'){
 			th_first_id = 'th_reqdate';
-			console.log(th_first_id);
+			//console.log(th_first_id);
 			th_reqdate_click(event);
 			
 		}
@@ -179,7 +179,7 @@ $(document).ready(function() {
 	
 	//rno sort 함수
 	function th_rno_click(event) {
-		console.log('실행');
+		//console.log('실행');
 		if (th_first_id === 'th_rno') {
 			// 내림차순 정렬 실행
 			if (ex.classList.contains('th_first_asc')) {
@@ -219,7 +219,7 @@ $(document).ready(function() {
 				search(state, th_first_id);
 			} 
 		} 
-		console.log('rno 말고 요청 클릭함')
+		//console.log('rno 말고 요청 클릭함')
 		
 		
 	};
@@ -264,7 +264,7 @@ $(document).ready(function() {
 				search(state, th_first_id);
 			}
 		} else {
-			console.log('sno 말고 요청 클릭함')
+			//console.log('sno 말고 요청 클릭함')
 			
 			
 			
@@ -314,7 +314,7 @@ $(document).ready(function() {
 				search(state, th_first_id);
 			}
 		} else {
-			console.log('reqtype 말고 요청 클릭함')
+			//console.log('reqtype 말고 요청 클릭함')
 			
 			
 			
@@ -364,7 +364,7 @@ $(document).ready(function() {
 				search(state, th_first_id);
 			}
 		} else {
-			console.log('title 말고 요청 클릭함')
+			//console.log('title 말고 요청 클릭함')
 			
 			
 			
@@ -415,7 +415,7 @@ $(document).ready(function() {
 				search(state, th_first_id);
 			}
 		} else {
-			console.log('reqdate 말고 요청 클릭함')
+			//console.log('reqdate 말고 요청 클릭함')
 			
 			
 			

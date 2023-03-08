@@ -35,7 +35,6 @@ margin: 0 0 1rem 0;
 	min-width: 0;
 	text-align: center;
 	border-bottom: 2px solid var(--color-gray-disabled);
-	cursor : pointer;
 }
 
 .progress_bar li:first-child, .progress_bar li:last-child {
