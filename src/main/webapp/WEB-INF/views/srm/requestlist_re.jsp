@@ -427,6 +427,16 @@
 		loading.style.visibility = 'visible';
 		// mtype 전달, 페이징 처리 
 		if($('#myRequest').is(":checked")){
+			
+			//filter 초기화
+			$('#req_type option:eq(0)').prop("selected", true);
+			$('#statusNo option:eq(0)').prop("selected", true);
+			$('#sno option:eq(0)').prop('selected', true);
+			let date_first = document.querySelector('#date_first');
+			date_first.value = null;
+			let date_last = document.querySelector('#date_last');
+			date_last.value = null;
+			
 			if(memberType != 'pm'){
 				//담당자들 시스템 필터 hidden처리
 				let sno_label = document.querySelector("#sno_label");
@@ -471,6 +481,15 @@
 			});
 			// 내 요청 목록 호출 
 		} else {
+			//filter 초기화
+			$('#req_type option:eq(0)').prop("selected", true);
+			$('#statusNo option:eq(0)').prop("selected", true);
+			$('#sno option:eq(0)').prop('selected', true);
+			let date_first = document.querySelector('#date_first');
+			date_first.value = null;
+			let date_last = document.querySelector('#date_last');
+			date_last.value = null;
+			
 			//담당자들 시스템 필터 hidden처리
 			if(memberType != 'pm'){
 				let sno_label = document.querySelector("#sno_label");
