@@ -80,6 +80,7 @@ public class PMService implements IPMService {
 		StatusHistory reject = null;
 		// 전체 요청 처리 내역
 		List<StatusHistory> histories = commonDao.selectRequestHistories(rno);
+		// 처리 내역 확인
 		for(StatusHistory sh : histories) {
 			if(sh.getNextStatus() == 12) {
 				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
