@@ -55,7 +55,7 @@
 				  </c:if>
 	           </c:if>
 			  <div class="step-name">
-			  	<c:if test="${request.statusNo < 2}">개발단계</c:if>
+			  	<c:if test="${request.statusNo < 2}">개발</c:if>
 			    <c:if test="${request.statusNo == 2}">개발요청</c:if>
 		    	<c:if test="${request.statusNo == 3}">개발재검토</c:if>
 		        <c:if test="${request.statusNo == 4}">개발중</c:if>
@@ -86,7 +86,7 @@
 	          </c:if>
 		     
 			  <div class="step-name">
-			  	<c:if test="${request.statusNo < 5}">테스트단계</c:if>
+			  	<c:if test="${request.statusNo < 5}">테스트</c:if>
 		        <c:if test="${request.statusNo == 5}">테스트요청</c:if>
 		        <c:if test="${request.statusNo == 6}">테스트중</c:if>
 		        <c:if test="${request.statusNo >= 7}">테스트완료</c:if>
@@ -114,7 +114,7 @@
 			  </c:if>
 		      
 			  <div class="step-name">
-			  	<c:if test="${request.statusNo < 7}">품질검사단계</c:if>
+			  	<c:if test="${request.statusNo < 7}">품질검사</c:if>
 		        <c:if test="${request.statusNo == 7}">품질검사요청</c:if>
 		        <c:if test="${request.statusNo == 8}">품질검사중</c:if>
 		        <c:if test="${request.statusNo >= 9}">품질검사완료</c:if>
@@ -142,7 +142,7 @@
 	          </c:if>
 			 
 			  <div class="step-name">
-			  	<c:if test="${request.statusNo < 9}">배포단계</c:if>
+			  	<c:if test="${request.statusNo < 9}">배포</c:if>
 		        <c:if test="${request.statusNo == 9}">배포요청</c:if>
 		        <c:if test="${request.statusNo == 10}">배포중</c:if>
 		        <c:if test="${request.statusNo >= 11}">배포완료</c:if>
@@ -177,7 +177,7 @@
 		      </c:if>
 		      
 			  <div class="step-name">
-			  	<c:if test="${request.statusNo < 11}">최종승인단계</c:if>
+			  	<c:if test="${request.statusNo < 11}">최종승인</c:if>
 		        <c:if test="${request.statusNo == 11}">최종승인요청</c:if>
 		        <c:if test="${request.statusNo == 13}">완료</c:if>
 			  </div>
@@ -231,7 +231,7 @@
 				  </c:if>
 	           </c:if>
 			  <div class="step-name">
-			  	<c:if test="${request.statusNo < 2}">개발단계</c:if>
+			  	<c:if test="${request.statusNo < 2}">개발</c:if>
 			    <c:if test="${request.statusNo == 2}">개발요청</c:if>
 		    	<c:if test="${request.statusNo == 3}">개발재검토</c:if>
 		        <c:if test="${request.statusNo == 4}">개발중</c:if>
@@ -260,7 +260,7 @@
 			   </c:if>
 	          </c:if>
 			  <div class="step-name">
-			  	<c:if test="${request.statusNo < 5}">테스트단계</c:if>
+			  	<c:if test="${request.statusNo < 5}">테스트</c:if>
 		        <c:if test="${request.statusNo == 5}">테스트요청</c:if>
 		        <c:if test="${request.statusNo == 6}">테스트중</c:if>
 		        <c:if test="${request.statusNo >= 7}">테스트완료</c:if>
@@ -288,7 +288,7 @@
 		       </c:if>
 			
 			  <div class="step-name">
-			  	<c:if test="${request.statusNo < 9}">배포단계</c:if>
+			  	<c:if test="${request.statusNo < 9}">배포</c:if>
 		        <c:if test="${request.statusNo == 9}">배포요청</c:if>
 		        <c:if test="${request.statusNo == 10}">배포중</c:if>
 		        <c:if test="${request.statusNo >= 11}">배포완료</c:if>
@@ -322,7 +322,7 @@
 				  </c:if>
 		      </c:if>
 			  <div class="step-name">
-			  	<c:if test="${request.statusNo < 11}">최종승인단계</c:if>
+			  	<c:if test="${request.statusNo < 11}">최종승인</c:if>
 		        <c:if test="${request.statusNo == 11}">최종승인요청</c:if>
 		        <c:if test="${request.statusNo == 13}">완료</c:if>
 			  </div>
@@ -350,7 +350,7 @@
 				</a>
 	        </c:if>
 			
-			<div class="step-name">접수 완료</div>
+			<div class="step-name">접수완료</div>
 		</div>
 		<div class="stepper-item completed">
 			<a class="step-counter btn" href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">
