@@ -210,6 +210,11 @@ margin: 0 0 1rem 0;
 					<c:if test="${request.statusNo == 3}">재검토</c:if>
 					<c:if test="${request.statusNo >= 5}">개발완료</c:if>
 				</span>
+				<c:if test="${request.statusNo == 4}">
+					<c:if test="${request.devProgress > 0}">
+						<div class="percent">${request.devProgress}%</div>
+					</c:if>
+				</c:if>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 7}">is_complete</c:if>
 				<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>" >
@@ -283,6 +288,11 @@ margin: 0 0 1rem 0;
 					<c:if test="${request.statusNo == 3}">재검토</c:if>
 					<c:if test="${request.statusNo >= 5}">개발완료</c:if>
 				</span>
+				<c:if test="${request.statusNo == 4}">
+					<c:if test="${request.devProgress > 0}">
+						<div class="percent">${request.devProgress}%</div>
+					</c:if>
+				</c:if>
 			</li>
 			<li class="<c:if test="${request.statusNo >= 7}">is_complete</c:if>
 				<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>">
