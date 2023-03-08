@@ -399,12 +399,12 @@ public class RequestController {
 		model.addAttribute("request", request);
 		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("systemList", systemList);
-		// 요청 상태가 반려일 때 상태 변경 정보(반려 사유)
-		if(request.getStatusNo()==12) {
-			model.addAttribute("rejectHistory", pMService.getStatusHistory(rno, "reject"));
-		}
-		// 사용자 확인 여부 변경(확인)
-		Member member=(Member) session.getAttribute("member");		
+		model.addAttribute("testRejectExist", commonService.isThereTestReject(rno));
+		// 사용자 확인 여부 변경
+		Member member=(Member) session.getAttribute("member");
+		log.info("check: "+request.getUsrCheck());
+		log.info("mtype: "+member.getMtype());
+		log.info("client: "+(request.getClient().equals(member.getMid())));
 		if(request.getUsrCheck()==1 && member.getMtype().equals("user") && request.getClient().equals(member.getMid())) {
 			commonService.check("user", request.getRno());
 		}
