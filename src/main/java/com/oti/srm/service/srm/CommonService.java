@@ -393,14 +393,18 @@ public class CommonService implements ICommonService {
 		return  commonDao.selectPmRequestProcessList(status, rpPager);
 	}
 
+	
+	// 서비스 변경 사항 확인
 	@Override
 	public int check(String mtype, int rno) {	
-		return  commonDao.updateCheck(mtype, rno);
+		return commonDao.updateCheck(mtype, rno);
 	}
-	
-	
 
-	
+	// 서비스 변경 사항 미확인
+	@Override
+	public int notCheck(String mtype, int rno) {
+		return commonDao.updateNotCheck(mtype, rno);
+	}
 
 	
 	

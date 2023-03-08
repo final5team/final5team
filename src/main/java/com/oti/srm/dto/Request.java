@@ -54,6 +54,8 @@ public class Request {
 	private String rorgan; 
 	private String remail;
 	
-	
+	// 신규 알림 확인
+	private int usrCheck;
+	private int pmCheck;
 	
 }
