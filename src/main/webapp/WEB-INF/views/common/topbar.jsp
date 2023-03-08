@@ -43,10 +43,10 @@
 						<h6 class="dropdown-header">
 							신규 내역 알림
 						</h6>	
-						<if test="${newAlertList==null}">
+						<c:if test="${newAlertList[0]==null}">
 							<div class="m-3">신규 내역이 없습니다.</div>
-						</if>				
-						<c:forEach var="newAlert" items="${newAlertList}">
+						</c:if>										
+						<c:forEach var="newAlert" items="${newAlertList}">							
 							<a class="dropdown-item d-flex align-items-center" href="#">
 								<div class="mr-3">
 									<div>

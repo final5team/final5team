@@ -623,7 +623,7 @@
 				DIS_CHECK=1 and DISTRIBUTOR=#{mid} and r.RNO = p.RNO
 			</if>
 		</where>
-		order by r.RNO	
+		order by r.RNO desc	
 
 	</select>
 		
