@@ -35,6 +35,7 @@ public class SelectPM {
 	private String pm;
 	private String userTester;
 	private String distributor;
+	private int devProgress;
 	
 	
 

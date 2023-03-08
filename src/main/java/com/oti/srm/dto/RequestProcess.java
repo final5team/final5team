@@ -37,4 +37,10 @@ public class RequestProcess {
 	private String reqTitle;
 	private String mname;
 	private String statusName;
+	
+	private int pmCheck;
+	private int devCheck;
+	private int tesCheck;
+	private int uttCheck;
+	private int disCheck;	
 }

@@ -165,7 +165,7 @@
 	                	 					 ${index.count}차 내역  <i class="far fa-bookmark success"></i>
 	                	 				</h3>
 	                	 			</div>   	 	
-	                	 			<form method="post" action="<c:url value='/updatehistory'/>" enctype="multipart/form-data">
+	                	 			<form method="post" action="<c:url value='/updatehistory'/>" enctype="multipart/form-data" id="updateForm">
 	                	 				<div class="card-body">
 	                	 					<div>
 	                	 						<div class="row mb-2">
@@ -260,7 +260,7 @@
 	                	 								
 	                	 						<c:if test="${request.statusNo == 5 && requestProcess.developer == member.mid && index.last}">
 	                	 							<div class="d-flex justify-content-end">
-	                	 								<button type="submit" class="btn btn-primary btn-sm mx-3">수정</button>	
+	                	 								<button onclick="update()" class="btn btn-primary btn-sm mx-3">수정</button>	
 	                	 							</div>
 	                	 						</c:if>	
 	                	 					</div>
@@ -586,9 +586,11 @@
 		
 		//기존에 있던 파일 객체
 	    var existfiles = $('.existfiles');
-	    fileCount = existfiles.length;
 	    
-	    if(fileCount + filesArr.length > totalCount ){
+    	console.log("fileCount: "+ fileCount);	
+    	console.log("filesArr.length: "+filesArr.length);
+    	console.log("existfiles.length: "+existfiles.length);
+	    if(fileCount + filesArr.length > totalCount - existfiles.length ){
 	    	$('#completeModal').modal();
 	    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
 	      return;
@@ -612,6 +614,7 @@
 	      
 	      reader.readAsDataURL(f);
 	    });
+	 	
 	}
 	/***************** 올린 파일 삭제 *****************/
 	$('.deletefileButton').click(function(){
@@ -628,13 +631,29 @@
 			},
 			success: function(result){
 				deleteDiv.remove();
-				fileCount --;
 			}
 		});
 		
 		
 	});
-	
+	/****** update() '수정'버튼 클릭 ******/
+	function update(){
+		//선택된 파일 지우기
+		var fileInput = $('#fileInputUpdate')[0];
+		var fileBuffer = new DataTransfer();
+		fileInput.files = fileBuffer.files;
+		
+		//배열의 항목으로 채우기
+		fileBuffer = new DataTransfer();
+		for(var i = 0; i < content_files.length; i ++){
+			if(!content_files[i].is_delete){
+				fileBuffer.items.add(content_files[i]);
+			} 
+		}
+		fileInput.files = fileBuffer.files;
+		
+		$('#updateForm').submit();
+	}
 	</script>
 </body>
 
