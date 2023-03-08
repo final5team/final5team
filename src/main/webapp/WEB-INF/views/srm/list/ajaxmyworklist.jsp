@@ -111,9 +111,6 @@ $(document).ready(function() {
 	console.log("ajax 이후 변수값", state, th_first_id);
 	
 	
-	
-	
-	
 	console.log('ajax로 불러온 페이지');
 		
 	//rno로 정렬하기
