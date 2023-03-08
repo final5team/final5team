@@ -5,7 +5,7 @@
 
 
 
-<c:if test="${request.statusName != '반려'}">
+<c:if test="${request.statusNo != '12'}">
 
 	<c:if test="${requestProcess.reqType == null || requestProcess.reqType == '정규'}">
 		<div class="stepper-wrapper">
@@ -164,7 +164,7 @@
 		</div>
 	</c:if>
 </c:if>	
-<c:if test="${request.statusName == '반려'}">
+<c:if test="${request.statusNo == '12'}">
 	<div class="stepper-wrapper">
 		<div class="stepper-item completed">
 			<a class="step-counter btn"  href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">

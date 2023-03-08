@@ -242,61 +242,6 @@
                 	 		<%@ include file="/WEB-INF/views/srm/restatus/stepperprogress.jsp" %>
                 	 	</div>	<!-- 여기에 단계 상태 이력 넣기 /-->
                 	 	
-                	 	<section><!-- 게시글 상세보기 start -->
-							<div class="card border-top-dark sameheight-item">
-								<div class="card-block"> <!-- card-block  -->
-									<div class="card-title-block">
-	                	 				<h3 class="title">
-		                	 				요청번호 No. ${request.rno}
-	                	 				</h3>
-	                	 			</div>
-	                	 			<div class="card-body">
-										<div class="row mt-3">
-											<div class="col-3 label">요청자</div>
-											<div class="col-2">${request.clientName}</div>
-											<div class="col-3 label">소속 기관</div>
-											<div class="col-2">${request.organ}</div>
-										</div>
-										<hr/>
-										<div class="row">
-											<div class="col-3 label">요청일</div>
-											<div class="col-2"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd"/></div>
-											<div class="col-3 label">완료 희망일 </div>
-											<div class="col-2"><fmt:formatDate value="${request.reqExpectDate}" pattern="yyyy-MM-dd"/></div>
-										</div>
-										<hr/>
-										<div class="row">
-											<div class="col-3 label">시스템</div>
-											<div class="col-8">${request.systemName}</div>
-										</div>
-										<hr/>
-										<div class="row">
-											<div class="col-3 label">제목</div>
-											<div class="col-8">${request.reqTitle}</div>
-										</div>
-										<hr/>
-										<div class="row">
-											<div class="col-3 label">내용</div>
-											<textarea class="col-7 form-control boxed mr-5" rows="3" readonly>${request.reqContent}</textarea>
-										</div>
-										<hr/>
-										<div class="row">
-											<div class="col-3 label">요청 첨부파일</div>
-											<div class="col-7">
-												<c:forEach var="statusHistoryFile" items="${request.files}">
-													<div>
-														<span>${statusHistoryFile.fileName}</span>
-														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-															<i class="fas fa-cloud-download-alt"></i>
-														</a>
-													</div>
-												</c:forEach>
-											</div>
-										</div>										
-	                	 			</div>
-								</div> <!-- card-block / -->
-							</div>				
-						</section><!-- 게시글 상세보기 end -->
 						<!-- 접수 -->
 						<c:if test="${member.mtype == 'pm' && request.statusNo == 1}">
 							<div id="receiptdiv"> 						            
