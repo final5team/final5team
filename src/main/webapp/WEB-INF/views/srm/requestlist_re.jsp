@@ -110,25 +110,54 @@
 
 									<c:if test="${listFilter.statusValue != null}">
 										<select class="custom-select_re" id="statusNo" name="statusNo">
-											<option value="${listFilter.statusNo}" selected>${listFilter.statusValue}</option>
 											<option value="0">전체</option>
+											<c:if test="${listFilter.statusNo == 1}">
+												<option value="1" selected>접수</option>
+											</c:if>
 											<c:if test="${listFilter.statusNo != 1}">
 												<option value="1">접수</option>
 											</c:if>
-											<c:if test="${listFilter.statusNo != 2 && listFilter.statusNo != 3 && listFilter.statusNo != 4}">
+											<c:if test="${listFilter.statusNo >= 2 && listFilter.statusNo <= 4}">
+												<option value="2" selected>개발</option>
+											</c:if>	
+											<c:if test="${listFilter.statusNo < 2 && listFilter.statusNo > 4}">
 												<option value="2">개발</option>
 											</c:if>
-											<c:if test="${listFilter.statusNo != 5 && listFilter.statusNo != 6 && listFilter.statusNo != 7}">
+											
+											
+											<c:if test="${listFilter.statusNo >= 5 && listFilter.statusNo <= 7}">
+												<option value="5" selected>테스트</option>
+											</c:if>
+											<c:if test="${listFilter.statusNo < 5 && listFilter.statusNo > 7}">
 												<option value="5">테스트</option>
+											</c:if>
+											
+											
+											<c:if test="${listFilter.statusNo == 8}">
+												<option value="8" selected>품질테스트</option>
 											</c:if>
 											<c:if test="${listFilter.statusNo != 8}">
 												<option value="8">품질테스트</option>
 											</c:if>
+											
+											
+											<c:if test="${listFilter.statusNo == 10}">
+												<option value="10" selected>배포</option>
+											</c:if>
 											<c:if test="${listFilter.statusNo != 10}">
 												<option value="10">배포</option>
 											</c:if>
-											<c:if test="${listFilter.statusNo != 11 && listFilter.statusNo != 13}">
+											
+											
+											<c:if test="${listFilter.statusNo >= 11 && listFilter.statusNo <= 13}">
+												<option value="11" selected>완료</option>
+											</c:if>
+											<c:if test="${listFilter.statusNo < 11 && listFilter.statusNo > 13}">
 												<option value="11">완료</option>
+											</c:if>
+											
+											<c:if test="${listFilter.statusNo == 12}">
+												<option value="12" selected>반려</option>
 											</c:if>
 											<c:if test="${listFilter.statusNo != 12}">
 												<option value="12">반려</option>
@@ -482,6 +511,9 @@
 			// 내 요청 목록 호출 
 		} else {
 			//filter 초기화
+			let statusNo = document.querySelector('#statusNo')
+			console.log(statusNo);
+			console.log(typeof statusNo);
 			$('#req_type option:eq(0)').prop("selected", true);
 			$('#statusNo option:eq(0)').prop("selected", true);
 			$('#sno option:eq(0)').prop('selected', true);
