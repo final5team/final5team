@@ -47,7 +47,7 @@
 							<%@ include file="/WEB-INF/views/srm/request/userstepperprogress.jsp" %>
 						</div>
 						<!-- 여기에 단계 상태 이력 넣기 /-->
-						<c:if test="${request.statusNo == 1 }">
+						<c:if test="${request.statusNo == 1 && request.rname == member.mname}">
 						<section> <!-- 개발내역 입력폼 start -->
 							<div class="card border-top-dark mb-3">
 								<div class="card-block js">
@@ -152,9 +152,9 @@
 							</div>
 						</section> <!-- 개발내역 입력폼 end -->
 						</c:if>
-						<c:if test="${request.statusNo != 1 }">
-						<section> <!-- 접수되었을 때 -->
-							<div class="card border-top-dark mb-3">
+						<c:if test="${request.statusNo != 1}">
+						<section><!-- 게시글 상세보기 start -->
+							<div class="card border-top-dark sameheight-item">
 								<div class="card-block"> <!-- card-block  -->
 									<div class="card-title-block">
 	                	 				<h3 class="title">
@@ -163,63 +163,65 @@
 	                	 			</div>
 	                	 			<div class="card-body">
 										<div class="row mt-3">
-											<div class="col-3 label jh">요청자</div>
-											<div class="col-2">${request.clientName}</div>
-											<div class="col-3 label jh">소속 기관</div>
-											<div class="col-2">${request.organ}</div>
+											<div class="col-3 label">요청자</div>
+											<div class="col-2">${request.rname}</div>
+											<div class="col-3 label">소속 기관</div>
+											<div class="col-2">${request.rorgan}</div>
 										</div>
 										<hr/>
 										<div class="row">
-											<div class="col-3 label jh">요청일</div>
+											<div class="col-3 label">직급</div>
+											<div class="col-2">${request.rposition}</div>
+											<div class="col-3 label">전화번호</div>
+											<div class="col-2">${request.rphone}</div>
+										</div>
+										<hr/>
+										<div class="row">
+											<div class="col-3 label">이메일</div>
+											<div class="col-8">${request.remail}</div>
+										</div>
+										<hr/>
+										<div class="row">
+											<div class="col-3 label">요청일</div>
 											<div class="col-2"><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd"/></div>
-											<div class="col-3 label jh">완료 희망일 </div>
+											<div class="col-3 label">완료 희망일 </div>
 											<div class="col-2"><fmt:formatDate value="${request.reqExpectDate}" pattern="yyyy-MM-dd"/></div>
 										</div>
 										<hr/>
 										<div class="row">
-											<div class="col-3 label jh">시스템</div>
+											<div class="col-3 label">시스템</div>
 											<div class="col-8">${request.systemName}</div>
 										</div>
 										<hr/>
 										<div class="row">
-											<div class="col-3 label jh">제목</div>
+											<div class="col-3 label">제목</div>
 											<div class="col-8">${request.reqTitle}</div>
 										</div>
 										<hr/>
 										<div class="row">
-											<div class="col-3 label jh">내용</div>
+											<div class="col-3 label">내용</div>
 											<textarea class="col-7 form-control boxed mr-5" rows="3" readonly>${request.reqContent}</textarea>
 										</div>
 										<hr/>
 										<div class="row">
-											<div class="col-3 label jh">요청 첨부파일</div>
+											<div class="col-3 label">요청 첨부파일</div>
 											<div class="col-7">
-												<c:if test="${request.files != null}">
-													<c:forEach var="statusHistoryFile" items="${request.files}">
-														<div>
-															<span>${statusHistoryFile.fileName}</span>
-															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-																<i class="fas fa-cloud-download-alt"></i>
-															</a>
-														</div>
-													</c:forEach>
-												</c:if>
+												<c:forEach var="statusHistoryFile" items="${request.fileList}">
+													<div>
+														<span>${statusHistoryFile.fileName}</span>
+														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+															<i class="fas fa-cloud-download-alt"></i>
+														</a>
+													</div>
+												</c:forEach>
 											</div>
-										</div>
-										<div class="d-flex justify-content-end">
-											<c:if test="${request.statusNo==1 && member.mtype =='pm'}">
-												<div class="d-flex justify-content-end">
-													<button class="btn btn-primary btn-lg mt-3 ml-3" type="button" id="receiptbtn">접수</button>
-													<button class="btn btn-danger btn-lg mt-3 ml-3" type="button" id="rejectbtn">반려</button>
-												</div>
-											</c:if>
-										</div>
+										</div>										
 	                	 			</div>
 								</div> <!-- card-block / -->
-							</div>
-						</section>
+							</div>				
+						</section><!-- 게시글 상세보기 end -->
 						</c:if>
-						<c:if test="${request.statusNo == 12}">
+						<c:if test="${request.statusNo == 12 && request.rname == member.mname}">
 						<section><!-- 접수결과 반려 start -->
 						  <div class="card border-top-danger my-3">
 		                       <div class="card-block">
@@ -258,7 +260,7 @@
 		                     </div>
 						</section><!-- 접수결과 반려 end -->
 						</c:if>
-						<c:if test="${request.statusNo != 1 && request.statusNo != 12 }">
+						<%-- <c:if test="${request.statusNo != 1 && request.statusNo != 12 && request.rname == member.mname}">
 						<section> <!-- 접수결과 승인 start -->
 							<div class="card border-top-primary my-3">
 								<div class="card-block">
@@ -300,7 +302,7 @@
 								</div>
 							</div>
 						</section> <!-- 접수결과 승인 start -->
-						</c:if>
+						</c:if> --%>
 						
 					</div><!-- id=main div / -->
 				</div>

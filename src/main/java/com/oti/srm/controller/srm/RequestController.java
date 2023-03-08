@@ -316,7 +316,7 @@ public class RequestController {
 		
 	//담당 요청 목록 이동 페이지
 	@GetMapping("/requestlist")
-	public String requestList(Model model, HttpSession session) {
+	public String requestList(@RequestParam(defaultValue="0") int statusNo, Model model, HttpSession session) {
 		List<System> systemList = userRegisterService.getSystemList();
 		// 유저 정보 전달
 		Member member = (Member) session.getAttribute("member");
@@ -326,7 +326,7 @@ public class RequestController {
 		listFilter.setDateFirst("");
 		listFilter.setDateLast("");
 		listFilter.setSno(0);
-		listFilter.setStatusNo(0);
+		listFilter.setStatusNo(statusNo);
 		listFilter.setPageNo(1);
 		ListFilter returnList = requestService.dateFilterList(listFilter);
 		int totalRows = requestService.getMyWorkRows(listFilter, member);
