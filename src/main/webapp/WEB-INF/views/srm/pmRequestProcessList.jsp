@@ -17,7 +17,11 @@
 			<tbody >
 				<c:forEach var="requestProcess" items="${requestProcessList}" varStatus="i">
 				<tr style="text-align: center;">
-					<td>${i.count}</td>
+					<td>${i.count}  
+						<c:if test="${requestProcess.pmCheck == 1}">
+							<i class="fas fa-bell text-success" style="position: absolute; left: 25px"></i>
+						</c:if>
+					</td>
 					<c:if test="${requestProcess.reqType != null}">
 						<td <c:if test="${requestProcess.reqType == '긴급'}"> class="text-danger"</c:if>>
 							${requestProcess.reqType}

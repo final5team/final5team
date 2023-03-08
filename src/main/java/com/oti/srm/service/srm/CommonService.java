@@ -392,6 +392,11 @@ public class CommonService implements ICommonService {
 	public List<RequestProcess> getPmRequestProcessList(String status, Pager rpPager) {
 		return  commonDao.selectPmRequestProcessList(status, rpPager);
 	}
+
+	@Override
+	public int check(String mtype, int rno) {	
+		return  commonDao.updateCheck(mtype, rno);
+	}
 	
 	
 

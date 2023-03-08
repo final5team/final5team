@@ -510,6 +510,7 @@
 			r.req_date as "reqDate",
 		 	rp.all_expect_date as "allExpectDate",
 		 	st.status_name as "statusName", 
+		 	r.pm_check as "pmCheck",
 		 	r.rno as "rno"
 		from requests r, request_process rp, systems s, status st 
 		<where> 
@@ -555,6 +556,19 @@
 			 </if>
 		</where>
 	</select>
+	
+	<update id="updateCheck" parameterType="map">
+		update REQUESTS
+		<set>
+			<if test="mtype == 'user'">USER_CHECK=0</if>
+			<if test="mtype == 'pm'">PM_CHECK=0</if>
+			<if test="mtype == 'developer'"></if>
+			<if test="mtype == 'tester'"></if>
+			<if test="mtype == 'usertester'"></if>
+			<if test="mtype == 'distributor'"></if>
+		</set> 	
+		where RNO= #{rno}	
+	</update>
 		
 	
 </mapper>
