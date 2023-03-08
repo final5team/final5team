@@ -131,7 +131,7 @@
 											
 											<div class="d-flex justify-content-end">
 												<c:if test="${member.mid == requestProcess.tester && request.statusNo == 6}">
-												<button class="btn btn-warning btn-md mx-3 " formaction="${pageContext.request.contextPath}/tempstore" >임시저장</button>
+												<button class="btn btn-warning btn-md mx-3 " onclick="tempStore()" >임시저장</button>
 												<button class="btn btn-primary btn-md " id="testButton" onclick="testdone()">테스트 완료</button>
 												</c:if>
 											</div>
@@ -690,7 +690,26 @@
 		 $('#updateForm').submit();
 	}
 	
-	
+	/******* 임시저장 *******/
+	function tempStore(){
+		var form = $('#writeform').serialize();
+		console.log(form);
+		$.ajax({
+			type: "POST",
+			url: "${pageContext.request.contextPath}/tempstore",
+			data: form,
+			dataType: "json",
+			success : function(result){
+				console.log(result.result);
+				$('#completeContent').text('저장되었습니다.');
+				$('#completeModal').modal();
+				/* const timerId1 = window.setTimeout(reload, 1500);
+				function reload(){
+					location.reload();
+				}  */
+			}
+		});
+	}
 	</script>
 </body>
 

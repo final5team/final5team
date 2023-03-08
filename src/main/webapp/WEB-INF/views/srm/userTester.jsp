@@ -78,7 +78,7 @@
 												</div>
 											</div>
 	                	 				</form>
-										<form role="form" id="writeform" method="POST" enctype="multipart/form-data">
+										<form role="form" id="writeform" method="POST" enctype="multipart/form-data" action="${pageContext.request.contextPath}/testdone">
 											<input type="hidden" name="rno" value="${request.rno}">
 											<!-- 임시 저장 글 status_no -->
 											<input type="hidden" name="nextStatus" value="17"/>
@@ -102,7 +102,7 @@
 											</div>
 											<c:if test="${request.statusNo == 8}">
 												<div class="d-flex justify-content-end">
-													<button class="btn btn-warning btn-md mx-3"  formaction="${pageContext.request.contextPath}/tempstore">임시 저장</button>
+													<button class="btn btn-warning btn-md mx-3"  onclick="tempStore()">임시 저장</button>
 													<button class="btn btn-primary btn-md " onclick="userTestDone()">유저테스트 완료</button>
 												</div>
 											</c:if>
@@ -576,6 +576,27 @@
 		
 		$('#updateForm').submit();
 	}
+	/******* 임시저장 *******/
+	function tempStore(){
+		var form = $('#writeform').serialize();
+		console.log(form);
+		$.ajax({
+			type: "POST",
+			url: "${pageContext.request.contextPath}/tempstore",
+			data: form,
+			dataType: "json",
+			success : function(result){
+				console.log(result.result);
+				$('#completeContent').text('저장되었습니다.');
+				$('#completeModal').modal();
+				/* const timerId1 = window.setTimeout(reload, 1500);
+				function reload(){
+					location.reload();
+				}  */
+			}
+		});
+	}
+	
 	</script>
 </body>
 
