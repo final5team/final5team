@@ -3,12 +3,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<div style="height: 305px;">
 		<table class="table tasks-block table-striped table-hover"  >
-			<thead style="background-color: #3A4651;" class="text-white">
+			<thead class="text-white">
 				<tr style="text-align: center;">
 					<th>번호</th>
 					<th>요청유형</th>
 					<th>제목</th>
-					<th>우선순위</th>
+					<th>중요도</th>
 					<th>요청일</th>
 					<th>완료예정일</th>
 					<th>담당자</th>
