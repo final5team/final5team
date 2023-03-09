@@ -20,7 +20,12 @@
 						<c:if test="${request.usrCheck == 1}">
 							<strong class="text-danger">N</strong>
 						</c:if>
-						<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
+						<c:if test="${request.statusNo == 1}">
+							<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
+						</c:if>
+						<c:if test="${request.statusNo == 12 || request.statusNo == 13}">
+							<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">
+						</c:if>
 							${request.reqTitle}
 						</a>
 					</td>

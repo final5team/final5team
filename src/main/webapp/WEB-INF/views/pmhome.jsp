@@ -197,10 +197,10 @@
 															<c:if test="${requestProcess.statusName eq '유저테스트중' || requestProcess.statusName eq '유저테스트완료'}">
 																<a href="${pageContext.request.contextPath}/usertestdetail?rno=${requestProcess.rno}">${requestProcess.reqTitle}</a>
 															</c:if>
-															<c:if test="${requestProcess.statusName eq '배포중' || requestProcess.statusName eq '배포완료'}">
+															<c:if test="${requestProcess.statusName eq '배포중'}">
 																<a href="${pageContext.request.contextPath}/distributedetail?rno=${requestProcess.rno}">${requestProcess.reqTitle}</a>
 															</c:if>
-															<c:if test="${requestProcess.statusName eq '완료' || requestProcess.statusName eq '반려'}">
+															<c:if test="${requestProcess.statusName eq '배포완료' || requestProcess.statusName eq '완료' || requestProcess.statusName eq '반려'}">
 																<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${requestProcess.rno}">${requestProcess.reqTitle}</a>
 															</c:if>
 														</td>

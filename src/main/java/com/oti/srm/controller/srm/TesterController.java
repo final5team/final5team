@@ -76,6 +76,9 @@ public class TesterController {
 		if(request.getTesCheck()==1 && member.getMtype().equals("tester") && requestProcess.getTester().equals(member.getMid())) {
 			commonService.check("tester", request.getRno());
 		}
+		// 신규 내역 알림 갱신
+		session.setAttribute("newAlertList", commonService.getNewAlertList(member));
+				
 		return "srm/testerdetail";
 	}
 
