@@ -248,8 +248,16 @@ public class PMController {
 	@GetMapping("/workinginfo")
 	@ResponseBody
 	public List<WorkingInfo> workinginfo(String mid, HttpSession session, Model model) {
+		log.info("실행");
 		Member member = new Member();
 		member.setMid(mid);
-		return pMService.getWorkingInfo(memberService.getMember(member));
+		member.setPassword("1234");
+		Member me = memberService.getMember(member);
+		List<WorkingInfo> workingInfoList =  pMService.getWorkingInfo(me);
+		for(WorkingInfo wif : workingInfoList) {
+			log.info("rno : " + wif.getRno());
+			wif.setMtype(me.getMtype());
+		}
+		return workingInfoList;
 	}
 }
