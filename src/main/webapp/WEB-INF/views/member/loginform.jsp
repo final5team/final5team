@@ -5,11 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<meta charset="UTF-8">
-<title>Login to start</title>
+	<meta charset="UTF-8">
+	<title>Login to start</title>
     <link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.css" rel="stylesheet">
-	<%@ include file="/WEB-INF/views/common/head.jsp"%></head>
+	<%@ include file="/WEB-INF/views/common/head.jsp"%>
+</head>
 <body>
 	<div class="auth">
 		<div class="auth-container">
@@ -32,9 +32,9 @@
 							<input type="password" class="form-control underlined" name="password" id="password" value="1234" placeholder="Your password" required>
 						</div>
 						<div class="form-group">
-							<label for="remember">
-								<input class="checkbox" id="remember" type="checkbox">
-								<span>Remember me</span>
+						<input class="checkbox" id=pwd type="checkbox" onclick="showPwd()">
+							<label for="pwd">								
+								<span>Password Check</span>
 							</label>
 						</div>
 						<c:if test="${loginResult != null}">
@@ -56,5 +56,15 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		function showPwd() {
+		  var x = document.getElementById("password");
+		  if (x.type === "password") {
+		    x.type = "text";
+		  } else {
+		    x.type = "password";
+		  }
+		}
+	</script>
 </body>
 </html>
