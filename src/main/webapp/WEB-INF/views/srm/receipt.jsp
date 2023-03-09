@@ -30,6 +30,10 @@
    		background-color: #85ce36;
    		color: white;
    	}
+   	.workerlabel{
+   		width: 260px;
+   	}
+   	
     </style>
     
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
@@ -83,88 +87,85 @@
 												<button class="navBtn mt-3" type="button" id="rejectbtn">반려</button>
 											</div>
 										</div>									
-										<div class="card-body">
+										<div class="card-body" >
 											<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data" onsubmit="return validate()">
 												<div class="row form-group">
-													<div class="col-3 label">
+													<div class="col-2 text-right font-weight-bold">
 														<label>*요청 유형</label>
 													</div>
-													<div class="col-2">
-														<select class="dropdown-toggle" style="width: 175px;" data-toggle="dropdown" name="reqType" id="reqType" onchange="rtype()" required>															
-															<option value="" class="text-center">요청 유형</option>
-															<option value="정규" class="text-center">정규</option>
-														    <option value="긴급" class="text-center">긴급</option>																																																						
-														</select>																								
-													</div>
-													<div class="col-3 label">
+													<select class="dropdown-toggle col-3 " data-toggle="dropdown" name="reqType" id="reqType" onchange="rtype()" required>															
+														<option value="" class="text-center">요청 유형</option>
+														<option value="정규" class="text-center">정규</option>
+													    <option value="긴급" class="text-center">긴급</option>																																																						
+													</select>																								
+													<div class="col-2 text-right font-weight-bold">
 														<label >*중요도</label>
 													</div>
-													<div class="col-2">
-														<select class="dropdown-toggle" style="width: 175px;" data-toggle="dropdown" name="priority" required>															
-															<option value="" class="text-center">중요도</option>
-															<option value="상" class="text-center">상 (★★★)</option>
-															<option value="중" class="text-center">중 (★★)</option>
-															<option value="하" class="text-center">하 (★)</option>															    																																																						
-														</select>												
-													</div>												
+													<select class="dropdown-toggle col-3" data-toggle="dropdown" name="priority" required>															
+														<option value="" class="text-center">중요도</option>
+														<option value="상" class="text-center">상 (★★★)</option>
+														<option value="중" class="text-center">중 (★★)</option>
+														<option value="하" class="text-center">하 (★)</option>															    																																																						
+													</select>												
 												</div>
-												<div class="row">
-													<div class="col-3 label">*완료예정일</div>
-													<div class="col-7 row mb-2" style="margin-left: 0.5px">
-														<input type="date" class="form-control boxed" name="allExpectDate" id="allExpectDate" pattern="\d{4}-\d{2}-\d{2}" style="width: 250px; padding: 0;" required>
-														<span class="validity m-2"></span>
-													</div>	
-												</div>
+												
 													
 												<div class="row mb-2">
-													<label class="label col-3">*개발 담당자 선택</label>
-													<select class="dropdown-toggle col-7 ml-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer" required>
-														<option value="">개발 담당자 선택 | 현재담당건수 </option>		
+													<label class=" col-2 text-right font-weight-bold">*개발 담당자</label>
+													<select class="dropdown-toggle col-3"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer" required>
+														<option value="">개발 담당자 | 현재담당건수 </option>		
 														<c:forEach var="staff" items="${devStaffList}">
 															<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 														</c:forEach>															
 													</select>
-												</div>
-												<div class="row mb-2">
-													<label class="label col-3">*테스트 담당자 선택</label>
-													<select class="dropdown-toggle col-7 ml-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester" requried>
-														<option value="">테스트 담당자 선택 | 현재담당건수 </option>	
+													<label class=" col-2 text-right font-weight-bold">*테스트 담당자</label>
+													<select class="dropdown-toggle col-3 " style="width:300px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester" requried>
+														<option value="">테스트 담당자 | 현재담당건수 </option>	
 														<c:forEach var="staff" items="${tesStaffList}">
 															<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 														</c:forEach>
 													</select>
 												</div>
-												<div class="row mb-2" id="utester">
-													<label class="label col-3">*품질 검토 담당자 선택</label>
-													<select class="dropdown-toggle col-7 ml-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
-														<option value="">품질 검토 담당자 선택 | 현재담당건수 </option>	
+												<div class="row mb-2 text-right font-weight-bold" id="utester">
+													<label class=" col-2 ">*품질 담당자</label>
+													<select class="dropdown-toggle col-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
+														<option value="">품질 담당자 | 현재담당건수 </option>	
 														<c:forEach var="staff" items="${uteStaffList}">
 															<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 														</c:forEach>
 													</select>
-												</div>
-												<div class="row mb-2">
-													<label class="label col-3">*배포 담당자 선택</label>
-													<select class="dropdown-toggle col-7 ml-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor" required>
-														<option value="">배포 담당자 선택 | 현재담당건수 </option>	
+													<label class=" col-2 text-right font-weight-bold">*배포 담당자</label>
+													<select class="dropdown-toggle col-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor" requried>
+														<option value="">배포 담당자 | 현재담당건수 </option>	
 														<c:forEach var="staff" items="${disStaffList}">
 															<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
 														</c:forEach>
 													</select>
+													<%--<label class="label col-2">*배포 담당자</label>
+													<select class="dropdown-toggle workerlable" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor" required>
+														<option value="">배포 담당자 선택 | 현재담당건수 </option>	
+														<c:forEach var="staff" items="${disStaffList}">
+															<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+														</c:forEach>
+													</select>--%>
 												</div>
-											
 												<div class="row mb-2">
-													<div class="label col-3">의견 내용</div>
-													<textarea class="form-control boxed col-7 pmcontent ml-2" id="reply" name="reply" style="padding: 0px" maxlength="300"></textarea>													
+													<div class="col-2 text-right font-weight-bold">*완료예정일</div>
+													<input class="col-3 p-0" type="date" name="allExpectDate" id="allExpectDate" pattern="\d{4}-\d{2}-\d{2}" required>
+													<span class="validity"></span>
+												</div>
+												<div class="row mb-2">
+													<div class=" col-2 text-right font-weight-bold">의견 내용</div>
+													<textarea class="form-control boxed col-7 pmcontent ml-2" name="reply" style="padding: 0px" maxlength="300"></textarea>													
 												</div>	
-												<div class="filebox d-flex mb-3">
-													<div class="label label-write" id="fileLable">
+												<div class="filebox row mb-3">
+													<div class="col-2 text-right font-weight-bold" id="fileLable">
 														<div>첨부파일</div>
 														<div class="btn btn-sm btn-info" id="btn-upload">파일 추가</div>
 														<input type="file" name="files" id="fileInput" multiple style="display: none;">
 													</div>
 													
-													<div class="border flex-grow-1" id="file-list">
+													<div class="border col-8" id="file-list">
 				  									
 				  									</div>	
 												</div>																																											
@@ -217,18 +218,18 @@
 												</div>
 											</div>		
 											<div class="card-body">
-												<div class="form-group d-flex">
-													<label class="label">반려 사유</label>
-													<textarea class="form-control boxed pmcontent" name="reply" style="width: 65%; margin: auto;" maxlength="300"></textarea>
+												<div class="form-group row">
+													<label class="col-2 text-right font-weight-bold">반려 사유</label>
+													<textarea class="form-control boxed pmcontent" name="reply"maxlength="300"></textarea>
 												</div>											
-												<div class="filebox d-flex mb-3">
-													<div class="label label-write" id="fileLable">
-														<div>첨부파일</div>
-														<div class="btn btn-sm btn-info" id="btn-upload2">파일 추가</div>
+												<div class="filebox row mb-3 ">
+													<div class="col-2 font-weight-bold text-right" id="fileLable">
+														<div >첨부파일</div>
+														<div class="btn btn-sm btn-info " id="btn-upload2">파일 추가</div>
 														<input type="file" name="files" id="fileInput2" multiple style="display: none;">
 													</div>
 													
-													<div class="border flex-grow-1" id="file-list2">
+													<div class="border col-8" id="file-list2">
 				  									
 				  									</div>	
 												</div>												
@@ -294,9 +295,12 @@
 											</div>	
 											<hr/>
 											<div class="row">
-												<c:if test="${requestProcess.reqType eq '정규'}">
 													<div class="col-3 label">품질검토 담당자</div>
+												<c:if test="${requestProcess.reqType eq '정규'}">
 													<div class="col-2">${requestProcess.userTester}</div>
+												</c:if>
+												<c:if test="${requestProcess.reqType eq '긴급'}">
+													<div class="col-2">-</div>
 												</c:if>
 												<div class="col-3 label">배포 담당자</div>
 												<div class="col-2">${requestProcess.distributor}</div>
@@ -375,9 +379,12 @@
 											</div>	
 											<hr/>
 											<div class="row">
-												<c:if test="${requestProcess.reqType eq '정규'}">
 													<div class="col-3 label">품질검토 담당자</div>
+												<c:if test="${requestProcess.reqType eq '정규'}">
 													<div class="col-2">${requestProcess.userTester}</div>
+												</c:if>
+												<c:if test="${requestProcess.reqType eq '긴급'}">
+													<div class="col-2">-</div>
 												</c:if>
 												<div class="col-3 label">배포 담당자</div>
 												<div class="col-2">${requestProcess.distributor}</div>
@@ -516,7 +523,7 @@
 																<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
 																<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
 															</div>
-															<div class="border flex-grow-1 border-success col-8" id="file-list-update"></div>	
+															<div class="border col-8 border-success" id="file-list-update"></div>	
 														</div>	
 													</c:forEach>
 												<div class="d-flex justify-content-end">						
@@ -643,7 +650,7 @@
 			// 요청 유형이 긴급일 때 품질 검토 담당자 선택하지 않기
 			if(reqType == '긴급'){
 				// 품질 검토 담당자 선택 불가
-				$("#utester").hide();
+				$("#userTester").attr('disabled',true);
 				// 품질 검토 담당자 값 null
 				$("#userTester").val("");
 				// 품질 검토 담당자 미입력 가능
@@ -652,7 +659,7 @@
 			// 요청 유형이 정규일 때 품질 검토 담당자 선택하기
 			if(reqType == '정규'){
 				// 품질 검토 담당자 선택 가능
-				$("#utester").show();
+				$("#userTester").attr('disabled',false);
 				// 품질 검토 담당자 필수 입력
 				$("#userTester").attr("required", "required")
 			}			
@@ -717,7 +724,8 @@
 		    
 		    // 파일 개수 확인 및 제한
 		    if (fileCount + filesArr.length > totalCount) {
-		      alert('파일은 최대 '+totalCount+'개까지 업로드 할 수 있습니다.');
+		    	$('#completeModal').modal();
+		    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
 		      return;
 		    } else {
 		    	 fileCount = fileCount + filesArr.length;
@@ -750,7 +758,8 @@
 		    
 		    // 파일 개수 확인 및 제한
 		    if (fileCount2 + filesArr.length > totalCount) {
-		      alert('파일은 최대 '+totalCount+'개까지 업로드 할 수 있습니다.');
+		    	$('#completeModal').modal();
+		    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
 		      return;
 		    } else {
 		    	 fileCount2 = fileCount2 + filesArr.length;
