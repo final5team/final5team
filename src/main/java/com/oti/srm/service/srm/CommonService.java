@@ -109,6 +109,8 @@ public class CommonService implements ICommonService {
 			if (sh.getNextStatus() == 2) {
 				if(sh.getReply()== null) {
 					sh.setReply("내용이 없습니다.");
+				} else {
+					sh.setReply(sh.getReply().replaceAll("\\<.*?>", ""));
 				}
 				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
 				pmToAllHistories.add(sh);
