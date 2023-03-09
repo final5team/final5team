@@ -401,14 +401,7 @@ public class RequestController {
 		model.addAttribute("requestProcess", requestProcess);
 		model.addAttribute("systemList", systemList);
 		model.addAttribute("testRejectExist", commonService.isThereTestReject(rno));
-		// 사용자 확인 여부 변경
-		Member member=(Member) session.getAttribute("member");
-		log.info("check: "+request.getUsrCheck());
-		log.info("mtype: "+member.getMtype());
-		log.info("client: "+(request.getClient().equals(member.getMid())));
-		if(request.getUsrCheck()==1 && member.getMtype().equals("user") && request.getClient().equals(member.getMid())) {
-			commonService.check("user", request.getRno());
-		}
+		
 		return "srm/request/requestdetail";
 	}
 	

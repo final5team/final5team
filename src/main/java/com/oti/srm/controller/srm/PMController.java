@@ -216,11 +216,18 @@ public class PMController {
 				
 		// 세션에 저장된 현재 로그인 사용자 정보 구하기
 		Member member = (Member) session.getAttribute("member");
-		// 확인 여부 
+		// PM 확인 여부 
 		if(request.getPmCheck()==1 && member.getMtype().equals("pm") && request.getStatusNo()==11) {
 			// PM 확인 여부 변경
 			commonService.check("pm", request.getRno());
-		}				
+		}
+		// 사용자 확인 여부 변경	
+		log.info("check: "+request.getUsrCheck());
+		log.info("u: "+member.getMtype().equals("user"));
+		log.info("c: "+request.getClient());
+		if(request.getUsrCheck()==1 && member.getMtype().equals("user") && request.getClient().equals(member.getMid())) {
+			commonService.check("user", request.getRno());
+		}
 		// 신규 내역 알림 갱신
 		session.setAttribute("newAlertList", commonService.getNewAlertList(member));	
 		
