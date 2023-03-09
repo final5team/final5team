@@ -36,6 +36,7 @@ public class RequestProcess {
 	private Date reqDate;
 	private String reqTitle;
 	private String mname;
+	private String systemName;
 	private String statusName;
 	
 	// 서비스 변경 여부 (신규 알림) 확인

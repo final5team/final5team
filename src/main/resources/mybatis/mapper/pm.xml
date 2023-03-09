@@ -33,32 +33,38 @@
 	</insert>
 	
 	<select id="selectWorkingInfo" parameterType="com.oti.srm.dto.Member" resultType="com.oti.srm.dto.WorkingInfo">
-		select 
-			r.rno as "rno",
-			sh.change_date as "startDate",
-			usertest_expect_date as "endExpectDate"
-		from requests r, request_process rp, status_histories sh
-		<where> r.rno = rp.rno 
-			and r.rno = sh.rno
+		select r.rno as "rno", 
+			   req_type as "reqType",
+			   priority as "priority",
+		(select max(change_date)from status_histories where rno = r.rno and 
+		<if test="mtype == 'developer'">next_status = 4</if>
+		<if test="mtype == 'tester'">next_status = 6</if>
+		<if test="mtype == 'usertester'">next_status = 8</if>
+		<if test="mtype == 'distributor'">next_status = 10</if>
+		) 	as "startDate", 
+		<if test="mtype == 'developer'">dev_expect_date</if>
+		<if test="mtype == 'tester'">test_expect_date</if>
+		<if test="mtype == 'usertester'">usertest_expect_date</if>
+		<if test="mtype == 'distributor'">dist_expect_date</if>	
+			as "endExpectDate"
+		from requests r, request_process rp
+		<where> 
+			r.rno = rp.rno 
 			<if test="mtype == 'developer'">
-				and user_tester = #{mid}
-				and status_no = 4
-				and next_status = 4
-			</if>
+					and developer = #{mid}
+					and status_no = 4
+				</if>
 			<if test="mtype == 'tester'">
 				and tester = #{mid}
 				and status_no = 6
-				and next_status = 6
 			</if>
 			<if test="mtype == 'usertester'">
 				and user_tester = #{mid}
 				and status_no = 8
-				and next_status = 8
 			</if>
 			<if test="mtype == 'distributor'">
-				and user_tester = #{mid}
+				and distributor = #{mid}
 				and status_no = 10
-				and next_status = 10
 			</if>
 		</where>
 	</select>
