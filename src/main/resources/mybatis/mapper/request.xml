@@ -169,9 +169,11 @@
 		select j.RNO, j.REQ_DATE as "reqDate" , j.REQ_TITLE as "reqTitle", j.REQ_CONTENT as "reqContent", 
 		 		j.CLIENT, j.SNO, j.REQ_EXPECT_DATE as "reqExpectDate", j.STATUS_NO as "statusNo",
 		                j.REQ_TYPE as "reqType", j.DEVELOPER, j.TESTER, j.DISTRIBUTOR, j.PM, j.USER_TESTER as "userTester",
-		                 j.SYSTEM_NAME as "systemName", j.DEV_PROGRESS as "devProgress"
+		                 j.SYSTEM_NAME as "systemName", j.DEV_PROGRESS as "devProgress",
+		                 j.PM_CHECK as "pmCheck", j.DEV_CHECK as "devCheck", j.TES_CHECK as "tesCheck", j.UTT_CHECK as "uttCheck", j.DIS_CHECK as "disCheck"
 		            from (
-		            select r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT, r.CLIENT, r.SNO, r.REQ_EXPECT_DATE, r.STATUS_NO,
+		            select r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT, r.CLIENT, r.SNO, r.REQ_EXPECT_DATE, r.STATUS_NO, 
+		            		r.PM_CHECK, r.DEV_CHECK, r.TES_CHECK, r.UTT_CHECK, r.DIS_CHECK,
 		                    rp.REQ_TYPE, rp.DEVELOPER, rp.TESTER, rp.DISTRIBUTOR, rp.PM, rp.USER_TESTER, s.SYSTEM_NAME, rp.DEV_PROGRESS
 		            from requests r left outer join request_process rp
 		            on r.RNO = rp.RNO
@@ -262,8 +264,7 @@
 			</if>
 		</where>
 		<if test ='listFilter.columnName == null'>
-				order by r.req_date desc
-			
+				order by r.req_date desc			
 		</if>
 		<if test ='listFilter.columnName != null'>
 			<if test ='listFilter.columnName == "th_rno"'>
@@ -394,9 +395,9 @@
 		<![CDATA[
 			select RNO, REQ_DATE as "reqDate", REQ_TITLE as "reqTitle", REQ_CONTENT as "reqContent"
 					, CLIENT, SNO, REQ_EXPECT_DATE as "reqExpectDate" , STATUS_NO as "statusNo", t.req_type as "reqType",
-					t.SYSTEM_NAME as "systemName"
+					t.SYSTEM_NAME as "systemName", USR_CHECK as "usrCheck"
 			from(
-			    select r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT,
+			    select r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT, r.USR_CHECK,
                     r.CLIENT, r.SNO, r.REQ_EXPECT_DATE , r.STATUS_NO, rp.req_type ,  s.SYSTEM_NAME
 			    from requests r left join request_process rp
                 on r.rno = rp.rno

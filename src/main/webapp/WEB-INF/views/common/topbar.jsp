@@ -69,7 +69,7 @@
 							>
 								<div class="mr-3">																					
 									<c:if test="${newAlert.statusNo == 1}">									
-										<span class="badge badge-warning">접수중</span>
+										<span class="badge badge-warning m-1">접수중</span>
 									</c:if>										
 									<c:if test="${newAlert.statusNo == 2}">
 										<span class="badge badge-warning">접수완료</span>
