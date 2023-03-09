@@ -306,9 +306,6 @@
 						<c:if test="${member.mtype != 'user'}">
 							<button class="btn btn-dark btn-sm ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
 						</c:if>
-						
-						
-						
 					</div><!-- id=main div / -->
 				</div>
 				<!-- 여기에 내용 담기 end -->

@@ -368,6 +368,7 @@ textarea:focus::placeholder {
 													</div>
 												</div>
 											</article>
+											
 											<article class="fileTitle">
 												<h6>파일첨부</h6>
 											</article>
@@ -380,6 +381,7 @@ textarea:focus::placeholder {
 													</div>
 												</div>
 											</article>
+											
 											<article class="submit-button">
 												<button class="btn btn-dark btn-sm" type="submit">작성</button>
 											</article>
