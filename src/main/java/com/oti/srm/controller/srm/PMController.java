@@ -57,6 +57,7 @@ public class PMController {
 		// 요청정보
 		Request request = commonService.getRequest(rno);
 		model.addAttribute("request", request);
+		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
 		// 요청 상태가 접수중일 때 담당자 정보
 		// 개발자 정보
 		model.addAttribute("devStaffList", pMService.getStaffBySno(request.getSno(), "developer"));
@@ -128,11 +129,8 @@ public class PMController {
 				statusHistory.setFileList(fileList);
 			}
 			// 접수 완료
-			int result = pMService.receipt(statusHistory, requestProcess);
-			// 접수 성공
-			if (result == 1) {
-				return "redirect:/customer/requestlist";
-			}
+			pMService.receipt(statusHistory, requestProcess);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
