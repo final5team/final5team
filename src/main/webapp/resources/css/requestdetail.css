@@ -3,14 +3,14 @@ a {
 }
 
 .card-block.js {
-	height: 800px;
+	height: 900px;
 }
 
 .card-body .label.js {
 	position: absolute;
 	width: 110px;
 	left: 2%;
-	top: 15%;
+	top: 6%;
 	overflow: hidden;
 	text-align: center;
 	margin-bottom: 24px;
@@ -28,7 +28,7 @@ a {
 	width: 250px;
 	height: 200px;
 	left: 18%;
-	top: 14.5%;
+	top: 5.5%;
 	overflow: hidden;
 	text-align: start;
 }
@@ -37,7 +37,7 @@ a {
 	position: absolute;
 	width: 110px;
 	left: 57%;
-	top: 15%;
+	top: 6%;
 	overflow: hidden;
 	text-align: center;
 	margin-bottom: 24px;
@@ -48,7 +48,7 @@ a {
 	width: 250px;
 	height: 200px;
 	left: 70%;
-	top: 14.5%;
+	top: 5.5%;
 	overflow: hidden;
 	text-align: start;
 }
@@ -75,7 +75,7 @@ a {
 	position: absolute;
 	width: 50px;
 	left: 8%;
-	top: 36.5%;
+	top: 24.5%;
 	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
@@ -89,7 +89,7 @@ a {
 	position: absolute;
 	width: 800px;
 	left: 18%;
-	top: 36.5%;
+	top: 24.5%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -104,7 +104,7 @@ a {
 	position: absolute;
 	width: 300px;
 	left: 8%;
-	top: 42%;
+	top: 29.5%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -114,7 +114,7 @@ a {
 	position: absolute;
 	width: 800px;
 	left: 18%;
-	top: 42%;
+	top: 29.5%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -132,7 +132,7 @@ a {
 	position: absolute;
 	width: 110px;
 	left: 4%;
-	top: 75%;
+	top: 82%;
 	overflow: hidden;
 	text-align: center;
 	font-size: 15px;
@@ -142,13 +142,28 @@ a {
 .card-body .fileBody {
 	position: absolute;
 	width: 700px;
-	left: 18%;
-	top: 75%;
+	top: 59%;
 	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
 }
+.default_file{
+	margin-left : 150px;
+	width : 500px;
+	height :inherit;
+	
+}
+
+.card-body .label-write_adjust{
+	width : inherit;
+	height : inherit;
+	position : absolute;
+	left : 5.7%;
+	top : 65%;
+}
+
+
 
 .card-body .submit-button {
 	position: absolute;
@@ -223,7 +238,7 @@ textarea:focus::placeholder {
 	position: absolute;
 	width: 590px;
 	left: 18%;
-	height: 200px;
+	height: inherit;
 	top: 63%;
 	overflow: hidden;
 	text-align: start;

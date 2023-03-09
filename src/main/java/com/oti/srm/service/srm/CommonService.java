@@ -394,6 +394,7 @@ public class CommonService implements ICommonService {
 	}
 
 	/**
+	 * @author: KIM JI YOUNG
 	 * 신규 알림(서비스 변경 사항 확인)
 	 */
 	
@@ -412,10 +413,6 @@ public class CommonService implements ICommonService {
 	// 신규 내역 알림
 	@Override
 	public List<Request> getNewAlertList(Member member) {
-		List<Request> list = commonDao.selectNewAlertList(member);
-		for(Request r: list) {
-			log.info(r.getRno());
-		}
 		return commonDao.selectNewAlertList(member);
 	}
 

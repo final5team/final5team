@@ -62,16 +62,19 @@ public class PMController {
 		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
 		model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));
 		model.addAttribute("testRejectExist", commonService.isThereTestReject(rno));
-		// 확인 여부
-		if (request.getPmCheck() == 1) {
+		// 세션에 저장된 현재 로그인 사용자 정보 구하기
+		Member member = (Member) session.getAttribute("member");
+		// 확인 여부 
+		if(request.getPmCheck()==1 && member.getMtype().equals("pm") && request.getStatusNo()==1) {
 			// PM 확인 여부 변경
 			commonService.check("pm", request.getRno());
-		}
+		}		
 		// 요청 상태가 반려일 때 상태 변경 정보(반려 사유)
-		if (request.getStatusNo() == 12) {
+		if(request.getStatusNo()==12) {
 			model.addAttribute("rejectHistory", pMService.getStatusHistory(rno, "reject"));
-		}
-
+		}		
+		// 신규 내역 알림 갱신
+		session.setAttribute("newAlertList", commonService.getNewAlertList(member));	
 		return "srm/receipt";
 	}
 
@@ -141,10 +144,21 @@ public class PMController {
 	@GetMapping("/completedetail")
 	public String completeDetail(int rno, HttpSession session, Model model) {
 		// 서비스 요청 정보
-		model.addAttribute("request", commonService.getRequest(rno));
+		Request request=commonService.getRequest(rno);
+		model.addAttribute("request", request);	
 		// 요청 처리 정보
 		model.addAttribute("reqProcess", commonService.getRequestProcess(rno));
 
+		// 세션에 저장된 현재 로그인 사용자 정보 구하기
+		Member member = (Member) session.getAttribute("member");
+		// 확인 여부 
+		if(request.getPmCheck()==1 && member.getMtype().equals("pm") && request.getStatusNo()==11) {
+			// PM 확인 여부 변경
+			commonService.check("pm", request.getRno());
+		}				
+		// 신규 내역 알림 갱신
+		session.setAttribute("newAlertList", commonService.getNewAlertList(member));	
+		
 		return "srm/complete";
 	}
 
@@ -186,12 +200,12 @@ public class PMController {
 	public String endDetail(int rno, HttpSession session, Model model) {
 		// 서비스 요청 정보
 		Request request = commonService.getRequest(rno);
-		model.addAttribute("request", request);
+		model.addAttribute("request", request);	
 		// 요청 처리 정보
 		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
 		// 요청 처리 내역
 		// 요청 상태가 반려일 때 상태 변경 정보(반려 사유)
-		if (request.getStatusNo() == 12) {
+		if(request.getStatusNo()==12) {
 			model.addAttribute("rejectHistory", pMService.getStatusHistory(rno, "reject"));
 		}
 		model.addAttribute("devStatusHistory", pMService.getStatusHistory(rno, "developer"));
@@ -199,7 +213,24 @@ public class PMController {
 		model.addAttribute("uteStatusHistory", pMService.getStatusHistory(rno, "usertester"));
 		model.addAttribute("disStatusHistory", pMService.getStatusHistory(rno, "distributor"));
 		model.addAttribute("testRejectExist", commonService.isThereTestReject(rno));
-
+				
+		// 세션에 저장된 현재 로그인 사용자 정보 구하기
+		Member member = (Member) session.getAttribute("member");
+		// PM 확인 여부 
+		if(request.getPmCheck()==1 && member.getMtype().equals("pm") && request.getStatusNo()==11) {
+			// PM 확인 여부 변경
+			commonService.check("pm", request.getRno());
+		}
+		// 사용자 확인 여부 변경	
+		log.info("check: "+request.getUsrCheck());
+		log.info("u: "+member.getMtype().equals("user"));
+		log.info("c: "+request.getClient());
+		if(request.getUsrCheck()==1 && member.getMtype().equals("user") && request.getClient().equals(member.getMid())) {
+			commonService.check("user", request.getRno());
+		}
+		// 신규 내역 알림 갱신
+		session.setAttribute("newAlertList", commonService.getNewAlertList(member));	
+		
 		return "srm/end";
 	}
 
