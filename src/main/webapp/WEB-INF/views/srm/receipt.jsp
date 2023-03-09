@@ -34,183 +34,7 @@
     
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
     
-    <script>	      
-		$(document).ready(function(){
-			// 반려 입력 항목 숨기기
-		   $("#rejectdiv").hide();	
-			// 접수 완료 후 요청 처리 계획 확인 시 품질 검토 담당자 표시 여부 
-		   rtype();
-
-			// 반려 입력 항목 열고 접수 입력 항목 숨기기
-		   $("#rejectbtn").click(function(){
-			  $("#receiptdiv").hide();
-			  $("#rejectdiv").show();
-		   });
-			
-			// 현재 날짜 구하기
-			var now = new Date();
-			// 완료 예정일에 현재 날짜 이후 날짜만 선택 가능하게 만들기(최소값)
-		   document.getElementById("allExpectDate").min
-		   = now.toISOString().slice(0, 10);		
-			
-			// 완료 예정일에 현재 날짜 1년 이내 날짜만 선택 가능하게 만들기(최대값)
-		   document.getElementById("allExpectDate").max
-		   = new Date(now.setFullYear(now.getFullYear() + 1)).toISOString().slice(0, 10);
-			
-		});
-		
-		// 접수 입력 항목 열고 반려 입력 항목 숨기기
-		function receiptbtn(){
-			 $("#rejectdiv").hide();
-		     $("#receiptdiv").show();
-		}		
-						
-		// 요청 유형에 따른 품질 검토 담당자 선택 여부
-		function rtype(){
-			var reqType = $("#reqType").val();
-			// 요청 유형이 긴급일 때 품질 검토 담당자 선택하지 않기
-			if(reqType == '긴급'){
-				// 품질 검토 담당자 선택 불가
-				$("#utester").hide();
-				// 품질 검토 담당자 값 null
-				$("#userTester").val("");
-				// 품질 검토 담당자 미입력 가능
-				$("#userTester").removeAttr("required");
-			}
-			// 요청 유형이 정규일 때 품질 검토 담당자 선택하기
-			if(reqType == '정규'){
-				// 품질 검토 담당자 선택 가능
-				$("#utester").show();
-				// 품질 검토 담당자 필수 입력
-				$("#userTester").attr("required", "required")
-			}			
-		}		
-	 	
-	 	// 의견 내용 유효성 검사
-	    function validate() {
-	 		// 유효한 입력 내용
-			var result = true;			
-			// 의견 내용 길이 구하기
-			var content=tinymce.activeEditor.getContent().length;
-			// 의견 내용 길이가 300자 이상일 경우 제출 불가
-			if(content > 300){
-				// 300자 이하 입력 경고 창 
-				$("#cautionModal").modal();			
-				// 제출 불가
-				result = false;
-			}
-			// 유효성 검사 결과 반환
-			return result;
-		}
-	 	
-	    /****** 업로드된 파일 리스트 출력하기 *****/
-		$(document).ready(function(){
-			// input file 파일 첨부시 fileCheck 함수 실행		
-			$("#fileInput").on("change", fileCheck);
-			$("#fileInput2").on("change", fileCheck2);
-		});
-		
-		/* '파일추가' 버튼 누를 때마다 파일input 실행 */
-		$(function () {
-			// 접수 시 첨부 파일 추가
-		    $('#btn-upload').click(function (e) {
-		        e.preventDefault();
-		        $('#fileInput').click();
-		    });
-			// 반려 시 첨부 파일 추가
-		    $('#btn-upload2').click(function (e) {
-		        e.preventDefault();
-		        $('#fileInput2').click();
-		    });
-		})
-		
-		// 파일 현재 필드 숫자 totalCount랑 비교값
-		// 접수 파일 개수
-		var fileCount = 0;
-		// 반려 파일 개수
-		var fileCount2 = 0;
-		// 해당 숫자를 수정하여 전체 업로드 갯수를 정한다.
-		var totalCount = 5;
-		// 파일 고유넘버
-		var fileNum = 0;
-		// 첨부파일 배열
-		var content_files = new Array();
-
-		function fileCheck(e) {
-		    var files = e.target.files;
-		    
-		    // 파일 배열 담기
-		    var filesArr = Array.prototype.slice.call(files);
-		    
-		    // 파일 개수 확인 및 제한
-		    if (fileCount + filesArr.length > totalCount) {
-		      alert('파일은 최대 '+totalCount+'개까지 업로드 할 수 있습니다.');
-		      return;
-		    } else {
-		    	 fileCount = fileCount + filesArr.length;
-		    }
-		    
-		    // 각각의 파일 배열담기 및 기타
-		    filesArr.forEach(function (f) {
-		      var reader = new FileReader();
-		      
-		      reader.onload = function (e) {
-			        content_files.push(f);
-			        $('#file-list').append(
-			       		'<div id="file' + fileNum + '">'
-			       		+ '<font style="font-size:15px">' + f.name + '</font>'  
-			       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
-			       		+ '<div/>'
-					);
-			        fileNum ++;
-		      };
-		      
-		      reader.readAsDataURL(f);
-		    });
-		  }
-		
-		function fileCheck2(e) {
-		    var files = e.target.files;
-		    
-		    // 파일 배열 담기
-		    var filesArr = Array.prototype.slice.call(files);
-		    
-		    // 파일 개수 확인 및 제한
-		    if (fileCount2 + filesArr.length > totalCount) {
-		      alert('파일은 최대 '+totalCount+'개까지 업로드 할 수 있습니다.');
-		      return;
-		    } else {
-		    	 fileCount2 = fileCount2 + filesArr.length;
-		    }
-		    
-		    // 각각의 파일 배열담기 및 기타
-		    filesArr.forEach(function (f) {
-		      var reader = new FileReader();
-		      
-		      reader.onload = function (e) {
-			        content_files.push(f);
-			        $('#file-list2').append(
-			       		'<div id="file' + fileNum + '">'
-			       		+ '<font style="font-size:15px">' + f.name + '</font>'  
-			       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
-			       		+ '<div/>'
-					);
-			        fileNum ++;
-		      };
-		      
-		      reader.readAsDataURL(f);
-		    });
-		  }
-
-		// 파일 부분 삭제 함수
-		function fileDelete(fileId){
-		    var fileNum = fileId.replace("file", "");
-		    content_files[fileNum].is_delete = true;
-		    
-			$('#' + fileId).remove();
-			fileCount --;
-		}
-	</script>
+   
 </head>
 
 <body id="page-top">
@@ -594,7 +418,7 @@
 			                	 				</h3>
 			                	 			</div>
 											<div class="card-body">
-												<form method="post" action="<c:url value='/updatehistory'/>" enctype="multipart/form-data">
+												<form method="post" action="<c:url value='/updatehistory'/>" enctype="multipart/form-data" id="updateForm">
 													<div class="row form-group">
 														<div class="col-3 label">
 															<label>*요청 유형</label>
@@ -672,22 +496,31 @@
 															<textarea class="col-7" name="reply" maxlength="300">${statusHistory.reply}</textarea>
 														</div>
 														<hr/>
-														<div class="row">
-															<div class="col-3 label">검토 첨부파일</div>
-															<div class="col-7">
-																<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+														<div class="row mt-3">
+		                	 							    <div class="col-2 label">기존 첨부파일</div>
+				                	 						<div class="col-8">
+			                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 																	<div>
 																		<span>${statusHistoryFile.fileName}</span>
-																		<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-																			<i class="fas fa-cloud-download-alt"></i>
+																		<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																			<i class="fas fa-cloud-download-alt text-info"></i>
 																		</a>
+																		<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a>
+																		<input type="hidden" name = "fno" value="${statusHistoryFile.fno}">
 																	</div>
 																</c:forEach>
+				                	 						</div>
+			                	 						</div>
+			                	 						<div class="filebox row mb-3">
+															<div class="col-2 label label-write" id="fileLable">
+																<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
+																<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
 															</div>
+															<div class="border flex-grow-1 border-success col-8" id="file-list-update"></div>	
 														</div>	
-														</c:forEach>
+													</c:forEach>
 												<div class="d-flex justify-content-end">						
-													<button class="btn btn-primary btn-md mt-3 ml-3" type="submit">수정</button>										
+													<button class="btn btn-primary btn-md mt-3 ml-3" type="button" onclick="update()">수정</button>										
 												</div>
 												<input type="hidden" name="rno" value="${request.rno}">
 											</form>											
@@ -757,7 +590,289 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+    <div class="modal fade" id="completeModal" aria-hidden="true" aria-labelledby="successOfDueDate">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Check</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" style="display: flex; justify-content: center;">
+					<p id="completeContent"></p>
+				</div>
+				<div class="modal-footer" style="justify-content: center;">
+                    <a class="btn btn-primary" data-dismiss="modal" type="button">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+ <script>	      
+		$(document).ready(function(){
+			// 반려 입력 항목 숨기기
+		   $("#rejectdiv").hide();	
+			// 접수 완료 후 요청 처리 계획 확인 시 품질 검토 담당자 표시 여부 
+		   rtype();
 
+			// 반려 입력 항목 열고 접수 입력 항목 숨기기
+		   $("#rejectbtn").click(function(){
+			  $("#receiptdiv").hide();
+			  $("#rejectdiv").show();
+		   });
+			
+			// 현재 날짜 구하기
+			var now = new Date();
+			// 완료 예정일에 현재 날짜 이후 날짜만 선택 가능하게 만들기(최소값)
+		   document.getElementById("allExpectDate").min
+		   = now.toISOString().slice(0, 10);		
+			
+			// 완료 예정일에 현재 날짜 1년 이내 날짜만 선택 가능하게 만들기(최대값)
+		   document.getElementById("allExpectDate").max
+		   = new Date(now.setFullYear(now.getFullYear() + 1)).toISOString().slice(0, 10);
+			
+		});
+		
+		// 접수 입력 항목 열고 반려 입력 항목 숨기기
+		function receiptbtn(){
+			 $("#rejectdiv").hide();
+		     $("#receiptdiv").show();
+		}		
+						
+		// 요청 유형에 따른 품질 검토 담당자 선택 여부
+		function rtype(){
+			var reqType = $("#reqType").val();
+			// 요청 유형이 긴급일 때 품질 검토 담당자 선택하지 않기
+			if(reqType == '긴급'){
+				// 품질 검토 담당자 선택 불가
+				$("#utester").hide();
+				// 품질 검토 담당자 값 null
+				$("#userTester").val("");
+				// 품질 검토 담당자 미입력 가능
+				$("#userTester").removeAttr("required");
+			}
+			// 요청 유형이 정규일 때 품질 검토 담당자 선택하기
+			if(reqType == '정규'){
+				// 품질 검토 담당자 선택 가능
+				$("#utester").show();
+				// 품질 검토 담당자 필수 입력
+				$("#userTester").attr("required", "required")
+			}			
+		}		
+	 	
+	 	// 의견 내용 유효성 검사
+	    function validate() {
+	 		// 유효한 입력 내용
+			var result = true;			
+			// 의견 내용 길이 구하기
+			var content=tinymce.activeEditor.getContent().length;
+			// 의견 내용 길이가 300자 이상일 경우 제출 불가
+			if(content > 300){
+				// 300자 이하 입력 경고 창 
+				$("#cautionModal").modal();			
+				// 제출 불가
+				result = false;
+			}
+			// 유효성 검사 결과 반환
+			return result;
+		}
+	 	
+	    /****** 업로드된 파일 리스트 출력하기 *****/
+		$(document).ready(function(){
+			// input file 파일 첨부시 fileCheck 함수 실행		
+			$("#fileInput").on("change", fileCheck);
+			$("#fileInput2").on("change", fileCheck2);
+			$("#fileInputUpdate").on("change", fileUpdate);
+		});
+		
+		/* '파일추가' 버튼 누를 때마다 파일input 실행 */
+		$(function () {
+			// 접수 시 첨부 파일 추가
+		    $('#btn-upload').click(function (e) {
+		        e.preventDefault();
+		        $('#fileInput').click();
+		    });
+			// 반려 시 첨부 파일 추가
+		    $('#btn-upload2').click(function (e) {
+		        e.preventDefault();
+		        $('#fileInput2').click();
+		    });
+		})
+		
+		// 파일 현재 필드 숫자 totalCount랑 비교값
+		// 접수 파일 개수
+		var fileCount = 0;
+		// 반려 파일 개수
+		var fileCount2 = 0;
+		// 해당 숫자를 수정하여 전체 업로드 갯수를 정한다.
+		var totalCount = 5;
+		// 파일 고유넘버
+		var fileNum = 0;
+		// 첨부파일 배열
+		var content_files = new Array();
+
+		function fileCheck(e) {
+		    var files = e.target.files;
+		    
+		    // 파일 배열 담기
+		    var filesArr = Array.prototype.slice.call(files);
+		    
+		    // 파일 개수 확인 및 제한
+		    if (fileCount + filesArr.length > totalCount) {
+		      alert('파일은 최대 '+totalCount+'개까지 업로드 할 수 있습니다.');
+		      return;
+		    } else {
+		    	 fileCount = fileCount + filesArr.length;
+		    }
+		    
+		    // 각각의 파일 배열담기 및 기타
+		    filesArr.forEach(function (f) {
+		      var reader = new FileReader();
+		      
+		      reader.onload = function (e) {
+			        content_files.push(f);
+			        $('#file-list').append(
+			       		'<div id="file' + fileNum + '">'
+			       		+ '<font style="font-size:15px">' + f.name + '</font>'  
+			       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
+			       		+ '<div/>'
+					);
+			        fileNum ++;
+		      };
+		      
+		      reader.readAsDataURL(f);
+		    });
+		  }
+		
+		function fileCheck2(e) {
+		    var files = e.target.files;
+		    
+		    // 파일 배열 담기
+		    var filesArr = Array.prototype.slice.call(files);
+		    
+		    // 파일 개수 확인 및 제한
+		    if (fileCount2 + filesArr.length > totalCount) {
+		      alert('파일은 최대 '+totalCount+'개까지 업로드 할 수 있습니다.');
+		      return;
+		    } else {
+		    	 fileCount2 = fileCount2 + filesArr.length;
+		    }
+		    
+		    // 각각의 파일 배열담기 및 기타
+		    filesArr.forEach(function (f) {
+		      var reader = new FileReader();
+		      
+		      reader.onload = function (e) {
+			        content_files.push(f);
+			        $('#file-list2').append(
+			       		'<div id="file' + fileNum + '">'
+			       		+ '<font style="font-size:15px">' + f.name + '</font>'  
+			       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
+			       		+ '<div/>'
+					);
+			        fileNum ++;
+		      };
+		      
+		      reader.readAsDataURL(f);
+		    });
+		  }
+
+		// 파일 부분 삭제 함수
+		function fileDelete(fileId){
+		    var fileNum = fileId.replace("file", "");
+		    content_files[fileNum].is_delete = true;
+		    
+			$('#' + fileId).remove();
+			fileCount --;
+		}
+		
+		/********* 파일 수정 *********/
+		
+		/* '파일수정' 버튼 누를 때마다 파일input 실행 */
+		$(function () {
+		    $('#btn-upload-update').click(function (e) {
+		        e.preventDefault();
+		        $('#fileInputUpdate').click();
+		    });
+		})
+		function fileUpdate (e){
+			console.log("fileUpdate");
+			//파일 객체 갖고오기
+			var files = e.target.files;
+			
+			// 파일 배열 담기
+		    var filesArr = Array.prototype.slice.call(files);
+			
+			//기존에 있던 파일 객체
+		    var existfiles = $('.existfiles');
+		    
+	    	console.log("fileCount: "+ fileCount);	
+	    	console.log("filesArr.length: "+filesArr.length);
+	    	console.log("existfiles.length: "+existfiles.length);
+		    if(fileCount + filesArr.length > totalCount - existfiles.length ){
+		    	$('#completeModal').modal();
+		    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
+		      return;
+		    }else {
+		    	 fileCount = fileCount + filesArr.length;
+		    }
+		 	// 각각의 파일 배열담기 및 기타
+		    filesArr.forEach(function (f) {
+		      var reader = new FileReader();
+		      
+		      reader.onload = function (e) {
+			        content_files.push(f);
+			        $('#file-list-update').append(
+			       		'<div id="file' + fileNum + '">'
+			       		+ '<font style="font-size:15px">' + f.name + '</font>'  
+			       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
+			       		+ '<div/>'
+					);
+			        fileNum ++;
+		      };
+		      
+		      reader.readAsDataURL(f);
+		    });
+		 	
+		}
+		/***************** 올린 파일 삭제 *****************/
+		$('.deletefileButton').click(function(){
+			console.log("delete실행");
+			var deleteDiv = $(this).parent();
+			var fno = $(this).next().val();
+			let distinguish = 1;
+			
+			$.ajax({
+				type:"POST",
+				url:"${pageContext.request.contextPath}/noticefiledelete?fno=" + fno,
+				dataType: "json",
+				data: {
+					distinguish : distinguish
+				},
+				success: function(result){
+					deleteDiv.remove();
+				}
+			});
+			
+			
+		});
+		/****** update() '수정'버튼 클릭 ******/
+		function update(){
+			//선택된 파일 지우기
+			var fileInput = $('#fileInputUpdate')[0];
+			var fileBuffer = new DataTransfer();
+			fileInput.files = fileBuffer.files;
+			
+			//배열의 항목으로 채우기
+			fileBuffer = new DataTransfer();
+			for(var i = 0; i < content_files.length; i ++){
+				if(!content_files[i].is_delete){
+					fileBuffer.items.add(content_files[i]);
+				} 
+			}
+			fileInput.files = fileBuffer.files;
+			
+			$('#updateForm').submit();
+		}
+	</script>
 
 </body>
 
