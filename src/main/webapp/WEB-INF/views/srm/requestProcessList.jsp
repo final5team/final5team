@@ -3,7 +3,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	<div style="height: 305px;">
 		<table class="table tasks-block table-striped table-hover"  >
-			<thead class="text-white">
+			<thead <c:if test="${searchStatus=='대기'}"> style="background-color: #85CE36;" </c:if>
+					<c:if test="${searchStatus=='재검토'}"> style="background-color: #FE974B;"</c:if>
+					<c:if test="${searchStatus=='진행중'}"> style="background-color: #4BCF99;"</c:if>
+					<c:if test="${searchStatus=='완료'}"> style="background-color: #76D4F5;"</c:if>
+					style="background-color: #3A4651;"
+			class="text-white">
 				<tr style="text-align: center;">
 					<th>번호</th>
 					<th>요청유형</th>
@@ -98,30 +103,35 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<c:if test="${requestProcessList[0].reqTitle == null}">
+			<div class="d-flex justify-content-center font-weight-bold">
+				내용이 없습니다.
+			</div>
+		</c:if>
 	</div>
 	<div>
 		<div class="pager default mt-2">
 			<div class="pagingButtonSet d-flex justify-content-center">
-				<a onclick="requestProcessList(1, '${searchStatus}')" type="button" class="btn btn-muted shadow">처음</a>
+				<a onclick="requestProcessList(1, '${searchStatus}')" type="button" class="btn btn-muted btn-sm shadow">처음</a>
 				<c:if test="${rpPager.groupNo > 1}">
-					<a onclick="requestProcessList(${rpPager.startPageNo-1}, '${searchStatus}')" class="btn btn-muted shadow">이전</a>
+					<a onclick="requestProcessList(${rpPager.startPageNo-1}, '${searchStatus}')" class="btn btn-muted btn-sm shadow">이전</a>
 
 				</c:if>
 
 				<c:forEach var="i" begin="${rpPager.startPageNo}" end="${rpPager.endPageNo}">
 					<c:if test="${rpPager.pageNo != i}">
-						<a onclick="requestProcessList(${i}, '${searchStatus}')" type="button" class="btn btn-white shadow">${i}</a>
+						<a onclick="requestProcessList(${i}, '${searchStatus}')" type="button" class="btn btn-white btn-sm shadow">${i}</a>
 					</c:if>
 					<c:if test="${rpPager.pageNo == i}">
-						<a onclick="requestProcessList(${i}, '${searchStatus}')" type="button" class="btn btn-dark shadow">${i}</a>
+						<a onclick="requestProcessList(${i}, '${searchStatus}')" type="button" class="btn btn-dark btn-sm shadow">${i}</a>
 					</c:if>
 				</c:forEach>
 
 				<c:if test="${rpPager.groupNo < rpPager.totalGroupNo }">
-					<a onclick="requestProcessList(${rpPager.endPageNo+1}, '${searchStatus}')" type="button" class="btn btn-muted shadow">다음</a>
+					<a onclick="requestProcessList(${rpPager.endPageNo+1}, '${searchStatus}')" type="button" class="btn btn-muted btn-sm shadow">다음</a>
 
 				</c:if>
-				<a onclick="requestProcessList(${rpPager.totalPageNo}, '${searchStatus}')" type="button" class="btn btn-muted shadow">맨끝</a>
+				<a onclick="requestProcessList(${rpPager.totalPageNo}, '${searchStatus}')" type="button" class="btn btn-muted btn-sm shadow">맨끝</a>
 			</div>
 		</div>
 	</div>	

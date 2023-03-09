@@ -126,6 +126,11 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<c:if test="${requestProcessList[0].reqTitle == null}">
+			<div class="d-flex justify-content-center font-weight-bold">
+				내용이 없습니다.
+			</div>
+		</c:if>
 	</div>
 	<div>
 		<div class="pager default mt-3">

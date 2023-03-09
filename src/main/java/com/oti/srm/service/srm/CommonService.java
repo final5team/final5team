@@ -45,6 +45,8 @@ public class CommonService implements ICommonService {
 				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
 				if(sh.getReply()== null) {
 					sh.setReply("내용이 없습니다.");
+				} else {
+					sh.setReply(sh.getReply().replaceAll("\\<.*?>", ""));
 				}
 				if(sh.getDistSource()== null) {
 					sh.setDistSource("내용이 없습니다.");
@@ -69,6 +71,8 @@ public class CommonService implements ICommonService {
 			if (sh.getNextStatus() == 9) {
 				if(sh.getReply()== null) {
 					sh.setReply("내용이 없습니다.");
+				} else {
+					sh.setReply(sh.getReply().replaceAll("\\<.*?>", ""));
 				}
 				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
 				UserTesterToDistributorHistories.add(sh);
@@ -89,6 +93,8 @@ public class CommonService implements ICommonService {
 			if (sh.getNextStatus() == 11) {
 				if(sh.getReply()== null) {
 					sh.setReply("내용이 없습니다.");
+				} else {
+					sh.setReply(sh.getReply().replaceAll("\\<.*?>", ""));
 				}
 				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
 				distributorToPmHistories.add(sh);
@@ -195,6 +201,8 @@ public class CommonService implements ICommonService {
 				tester.setFileList(commonDao.selectStatusHistoryFiles(tester.getHno()));
 				if(tester.getReply()==null) {
 					tester.setReply("내용이 없습니다.");
+				}else {
+					tester.setReply(tester.getReply().replaceAll("\\<.*?>", ""));
 				}
 				testerToDevHistories.add(tester);
 			}
