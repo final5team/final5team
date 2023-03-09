@@ -11,7 +11,8 @@
 	<script src="${pageContext.request.contextPath}/resources/vendor/tinymce/tinymce.min.js"></script>    
 	<script src="${pageContext.request.contextPath}/resources/js/tinymceinit.js"></script>    
 	<script src="${pageContext.request.contextPath}/resources/vendor/tinymce/themes/silver/theme.min.js"></script>
-	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js"></script>
 	<style>
 	span::after {
 	  padding-left: 5px;
@@ -112,33 +113,33 @@
 													
 												<div class="row mb-2">
 													<label class=" col-2 text-right font-weight-bold">*개발 담당자</label>
-													<select class="dropdown-toggle col-3"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer" required>
+													<select class="dropdown-toggle col-3 calendarOpen"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer" required>
 														<option value="">개발 담당자 | 현재담당건수 </option>		
 														<c:forEach var="staff" items="${devStaffList}">
-															<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+															<option value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																												
 														</c:forEach>															
 													</select>
 													<label class=" col-2 text-right font-weight-bold">*테스트 담당자</label>
-													<select class="dropdown-toggle col-3 " style="width:300px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester" requried>
+													<select class="dropdown-toggle col-3 calendarOpen" style="width:300px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester" requried>
 														<option value="">테스트 담당자 | 현재담당건수 </option>	
 														<c:forEach var="staff" items="${tesStaffList}">
-															<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+															<option value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																													
 														</c:forEach>
 													</select>
 												</div>
 												<div class="row mb-2 text-right font-weight-bold" id="utester">
 													<label class=" col-2 ">*품질 담당자</label>
-													<select class="dropdown-toggle col-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
+													<select class="dropdown-toggle col-3 calendarOpen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
 														<option value="">품질 담당자 | 현재담당건수 </option>	
 														<c:forEach var="staff" items="${uteStaffList}">
-															<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+															<option value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																													
 														</c:forEach>
 													</select>
 													<label class=" col-2 text-right font-weight-bold">*배포 담당자</label>
-													<select class="dropdown-toggle col-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor" requried>
+													<select class="dropdown-toggle col-3 calendarOpen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor" requried>
 														<option value="">배포 담당자 | 현재담당건수 </option>	
 														<c:forEach var="staff" items="${disStaffList}">
-															<option value="${staff.mid}">${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+															<option value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																												
 														</c:forEach>
 													</select>
 													<%--<label class="label col-2">*배포 담당자</label>
@@ -467,7 +468,7 @@
 														<select class="dropdown-toggle col-7 ml-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer" required>
 															<option value="">개발 담당자 선택 | 현재담당건수 </option>		
 															<c:forEach var="staff" items="${devStaffList}">
-																<option value="${staff.mid}" <c:if test="${staff.mid == requestProcess.developer}">selected</c:if>>${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+																<option value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																													
 															</c:forEach>															
 														</select>
 													</div>
@@ -476,7 +477,7 @@
 														<select class="dropdown-toggle col-7 ml-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester" requried>
 															<option value="">테스트 담당자 선택 | 현재담당건수 </option>	
 															<c:forEach var="staff" items="${tesStaffList}">
-																<option value="${staff.mid}" <c:if test="${staff.mid == requestProcess.tester}">selected</c:if>>${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+																<option value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																												
 															</c:forEach>
 														</select>
 													</div>
@@ -486,7 +487,7 @@
 														<select class="dropdown-toggle col-7 ml-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
 															<option value="">품질 검토 담당자 선택 | 현재담당건수 </option>	
 															<c:forEach var="staff" items="${uteStaffList}">
-																<option value="${staff.mid}" <c:if test="${staff.mid == requestProcess.userTester}">selected</c:if>>${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+																<option value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																													
 															</c:forEach>
 														</select>
 													</div>
@@ -496,7 +497,7 @@
 														<select class="dropdown-toggle col-7 ml-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor" required>
 															<option value="">배포 담당자 선택 | 현재담당건수 </option>	
 															<c:forEach var="staff" items="${disStaffList}">
-																<option value="${staff.mid}" <c:if test="${staff.mid == requestProcess.distributor}">selected</c:if>>${staff.mname} | 현재담당건수(${staff.quota})</option>																												
+																<option value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																												
 															</c:forEach>
 														</select>
 													</div>
@@ -618,6 +619,26 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- Calendar Modal -->
+	<div class="modal fade" id="calendarModal" aria-hidden="true" aria-labelledby="successOfDueDate">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Check</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" style="display: flex; justify-content: center;">
+					<div id="calendar">
+					</div>
+				</div>
+				<div class="modal-footer" style="justify-content: center;">
+                    <a class="btn btn-primary" data-dismiss="modal" type="button">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
  <script>	      
 		$(document).ready(function(){
 			// 반려 입력 항목 숨기기
@@ -886,6 +907,90 @@
 			
 			$('#updateForm').submit();
 		}
+		
+		/****** 달력 모달 open ******/
+		$('.calendarOpen').change(function(){
+			$('#calendarModal').modal();
+			var mid = $(this).val();
+			console.log(mid);
+
+			var calendarEl = document.getElementById('calendar');   
+		    var calendar = new FullCalendar.Calendar(calendarEl, {
+		        height: 600,
+		        width : 600,
+		        events: function(info, successCallback, failureCallback) {
+		        	$.ajax({
+		                url: '${pageContext.request.contextPath}/pm/workinginfo',
+		                type:"GET",
+		                data: { mid : mid },
+		                dataType: 'json',
+		                success: function(result) {
+		                    var events = [];
+		                    if(result!=null){                       
+		                        $.each(result, function(index, workingInfo) {
+		                         var startdate=moment(workingInfo.startdate).format('YYYY-MM-DD');
+		                         var endExpectDate=moment(workingInfo.endExpectDate).format('YYYY-MM-DD');
+		                         var rno = workingInfo.rno;
+		                         var reqType = workingInfo.reqType;
+		                         var priority = workingInfo.priority;
+		                         var mtype = workingInfo.mtype;
+		                         // realmname (분야) 분야별로 color 설정
+		                         if (mtype == "developer"){
+		                        	 events.push({
+		                        		 	title: "NO. " + rno + " |요청유형 : " + reqType + " |우선순위 : " + priority,
+		                                    start: startdate,
+		                                    end: endExpectDate,
+		                                      url: "${pageContext.request.contextPath}/developerdetail?rno=" + rno,
+		                                      color:"#6937a1"                                                   
+		                                 }); //.push()
+		                         }
+		                                                             
+		                         else if (mtype == "tester"){
+		                        	 events.push({
+		                        			 title: "NO. " + rno + " |요청유형 : " + reqType + " |우선순위 : " + priority,
+		                                    start: startdate,
+		                                    end: endExpectDate,
+		                                       url: "${pageContext.request.contextPath}/testerdetail?rno=" + rno,
+		                                       color:"#6937a1"                                                   
+		                                 }); //.push()
+		                         }
+		                         
+		                         else if (mtype == "usertester"){
+		                        	 events.push({
+		                        		 title: "NO. " + rno + " |요청유형 : " + reqType + " |우선순위 : " + priority,
+		                                    start: startdate,
+		                                    end: endExpectDate,
+		                                       url: "${pageContext.request.contextPath}/usertestdetail?rno=" + rno,
+		                                       color:"#6937a1"                                                   
+		                                 }); //.push()
+		                         }
+		                         
+		                         else if (mtype == "distributor"){
+		                        	 events.push({
+		                        			 title: "NO. " + rno + " |요청유형 : " + reqType + " |우선순위 : " + priority,
+		                                    start: startdate,
+		                                    end: endExpectDate,
+		                                       url: "${pageContext.request.contextPath}/distributedetail?rno=" + rno,
+		                                       color:"#6937a1"                                                   
+		                                 }); 
+		                        	 }  
+		                        }); 
+		                        console.log(events); 
+		                        
+		                    }  
+		                    successCallback(events);
+		                }                       
+		         }); 
+	        	}
+		   });//new FullCalendar end
+		 
+		   calendar.render();
+		   calendar.updateSize();
+		});
+		
+	
+	
+	
 	</script>
 
 </body>
