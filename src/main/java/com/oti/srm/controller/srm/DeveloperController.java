@@ -196,11 +196,13 @@ public class DeveloperController {
 			List<StatusHistoryFile> fileList = new ArrayList<StatusHistoryFile>();
 			try {
 				for(MultipartFile file : files) {
-					StatusHistoryFile shfile = new StatusHistoryFile();
-					shfile.setFileData(file.getBytes());
-					shfile.setFileName(file.getOriginalFilename());
-					shfile.setFileType(file.getContentType());
-					fileList.add(shfile);
+					if (!file.isEmpty()) {
+						StatusHistoryFile shfile = new StatusHistoryFile();
+						shfile.setFileData(file.getBytes());
+						shfile.setFileName(file.getOriginalFilename());
+						shfile.setFileType(file.getContentType());
+						fileList.add(shfile);
+					}
 				}
 				sh.setFileList(fileList);
 			} catch (IOException e) {
