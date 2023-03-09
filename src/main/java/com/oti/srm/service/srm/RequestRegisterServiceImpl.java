@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +15,7 @@ import com.oti.srm.dto.ListFilter;
 import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
+import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.SelectPM;
 import com.oti.srm.dto.StatusHistory;
 import com.oti.srm.dto.StatusHistoryFile;
@@ -84,13 +84,39 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	public int updateRequest(Request request) {
 		try {
 			//요청 내용 수정
+			log.info(request.toString());
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String formattedDate = dateFormat.format(request.getReqExpectDate());
+			java.sql.Date sqlDate = java.sql.Date.valueOf(formattedDate);
+			request.setReqDate(sqlDate);
+			
 			int rows = requestDao.updateRequest(request);
+			log.info("수정 service");
 		} catch (Exception e) {
 			log.error(e.toString());
 			return REQUEST_FAIL;
 		}
 		return REQUEST_SUCCESS;
 	}
+	
+	// 요청 수정시 파일 추가
+	@Override
+	public int updateRequestFile(String rno, List<StatusHistoryFile> fileList) {
+		
+		log.info(Integer.parseInt(rno));
+		int hno = requestDao.selectStatusHistory(Integer.parseInt(rno));
+		log.info(hno);
+		
+		// 파일 첨부하기
+		if (fileList != null) {
+			for (StatusHistoryFile file : fileList) {
+				file.setHno(hno);
+				commonDao.insertStatusHistoryFile(file);
+			}
+		}
+		return 0;
+	}
+
 	
 	
 
@@ -285,11 +311,11 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		if(listFilter.getSno() == 1) {
 			listFilter.setSystemName("가족관계정보");
 		} else if(listFilter.getSno() == 2) {
-			listFilter.setSystemName("등본관리");
+			listFilter.setSystemName("쇼핑몰");
 		} else if(listFilter.getSno() == 3) {
-			listFilter.setSystemName("3번시스템");
+			listFilter.setSystemName("학사관리");
 		} else if(listFilter.getSno() == 4) {
-			listFilter.setSystemName("4번시스템");
+			listFilter.setSystemName("서비스요청");
 		}
 		
 		return listFilter;
@@ -304,6 +330,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	public List<SelectPM> getMainToWorkerList(StatusNoFilter statusNoFilter, Member member, Pager pager) {
 		return requestDao.selectMainToWorkerList(statusNoFilter.getStatusNo(), member, pager);
 	}
+
 
 
 

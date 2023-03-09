@@ -1,5 +1,6 @@
 package com.oti.srm.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import lombok.ToString;
 
 @Data
 @ToString(exclude= {"files","fileList"})
-public class Request {
+public class Request implements Serializable{
 	private int rno;
 	private int sno;
 	private String priority;
@@ -25,7 +26,7 @@ public class Request {
 	private @DateTimeFormat(pattern = "yyyy-MM-dd")Date reqExpectDate;
 	private List<StatusHistoryFile> files;
 	private String organ;
-
+	
 	// d-day 완료일
 	private Date allExpectDate;
 	// 검색 필요 정보

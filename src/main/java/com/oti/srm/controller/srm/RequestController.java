@@ -1,8 +1,10 @@
 package com.oti.srm.controller.srm;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -407,17 +409,14 @@ public class RequestController {
 	
 	//요청 수정하기
 	@PostMapping("/requestupdate")
-	public String requestUpdate(Request request, HttpSession session, Model model) {
+	@ResponseBody
+	public int requestUpdate(@RequestBody Request request, HttpSession session, Model model) {
 		
 		Member member = (Member) session.getAttribute("member");
 		request.setClient(member.getMid());
-
 		int result = requestService.updateRequest(request);
-		if (result == IRequestRegisterService.REQUEST_SUCCESS) {
-			return "redirect:requestdetail?rno=" + request.getRno();
-		} else {
-			return "redirect:requestdetail?rno=" + request.getRno();
-		}
+		
+		return result;
 	}
 	
 	//요청 글 파일 다운로드
@@ -435,6 +434,30 @@ public class RequestController {
 		return new ResponseEntity<byte[]>(file.getFileData(), headers, HttpStatus.OK);
 	}
 	
+	//요청 수정시, 파일 업로드
+	@PostMapping("/requestfileupload")
+	@ResponseBody
+	public int uploadFile(@RequestParam HashMap<Object, Object> param, @RequestParam("files")MultipartFile[] files) throws IOException {
+		String rno = (String) param.get("rno");
+		log.info(rno);
+		log.info(files.toString());
+		List<StatusHistoryFile> fileList = new ArrayList<>();
+		if(files != null) {
+			for(MultipartFile file : files) {
+				if(!file.isEmpty()) {
+					StatusHistoryFile shf = new StatusHistoryFile();
+					shf.setFileData(file.getBytes());
+					shf.setFileName(file.getOriginalFilename());
+					shf.setFileType(file.getContentType());
+					fileList.add(shf);
+				}
+			}
+		}
+		int result = requestService.updateRequestFile(rno, fileList);
+		
+		
+		return 1;
+	}
 	
 
 	

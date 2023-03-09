@@ -228,11 +228,8 @@ public class PMController {
 			// PM 확인 여부 변경
 			commonService.check("pm", request.getRno());
 		}
-		// 사용자 확인 여부 변경	
-		log.info("check: "+request.getUsrCheck());
-		log.info("u: "+member.getMtype().equals("user"));
-		log.info("c: "+request.getClient());
-		if(request.getUsrCheck()==1 && member.getMtype().equals("user") && request.getClient().equals(member.getMid())) {
+		// 사용자 확인 여부 변경			
+		if(request.getUsrCheck()==1 && request.getClient().equals(member.getMid())) {
 			commonService.check("user", request.getRno());
 		}
 		// 신규 내역 알림 갱신
@@ -251,8 +248,7 @@ public class PMController {
 		log.info("실행");
 		Member member = new Member();
 		member.setMid(mid);
-		member.setPassword("1234");
-		Member me = memberService.getMember(member);
+		Member me = memberService.getNoPasswordMember(member);
 		List<WorkingInfo> workingInfoList =  pMService.getWorkingInfo(me);
 		for(WorkingInfo wif : workingInfoList) {
 			log.info("rno : " + wif.getRno());

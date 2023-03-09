@@ -19,10 +19,13 @@ public interface IRequestRegisterService {
 	}
 	public static final int REQUEST_SUCCESS = 1;
 	public static final int REQUEST_FAIL = 0;
-	
+	//요청 작성
 	public int writeRequest(Request request, List<StatusHistoryFile> fileList);
+	//요청 수정 (내용만)
 	public int updateRequest(Request request);
-
+	//요청 파일 변경
+	public int updateRequestFile(String rno, List<StatusHistoryFile> fileList);
+	
 	public List<Request> getRequestList(Request request, Pager pager);
 
 	public int getPresentStep(int rno);

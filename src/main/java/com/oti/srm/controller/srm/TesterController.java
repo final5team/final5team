@@ -47,6 +47,7 @@ public class TesterController {
 		log.info("실행");
 
 		Request request = commonService.getRequest(rno);
+		log.info("request.getRno() : " + request.getRno());
 		RequestProcess requestProcess = commonService.getRequestProcess(rno);
 		List<StatusHistory> devToTester = commonService.getDevToTesterHistories(rno);
 		List<StatusHistory> testerToDev = commonService.getTesterToDevHistories(rno);
