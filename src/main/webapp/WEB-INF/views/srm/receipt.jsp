@@ -247,6 +247,7 @@
 									<!-- 요청 접수 card end-->									
 								</form>
 							</div>
+							
 						</c:if>
 						<!-- 요청 처리 계획 start-->
 						<c:if test="${member.mtype !='user' && member.mtype != 'pm' && request.statusNo != 12}">
