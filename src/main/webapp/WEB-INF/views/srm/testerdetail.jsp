@@ -373,7 +373,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<i class="fa fa-exclamation-circle mr-2" aria-hidden="true" style="font-size: 25px; color: red;"></i>
-					<h5>Alart</h5>
+					<h5>Alert</h5>
 					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
@@ -727,6 +727,10 @@
 				console.log(result.result);
 				$('#completeContent').text('저장되었습니다.');
 				$('#completeModal').modal();
+				const timerId1 = window.setTimeout(reload, 1500);
+				function reload(){
+					location.reload();
+				} 
 			}
 		}); 
 	}

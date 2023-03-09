@@ -92,26 +92,26 @@
                		 			</div>	
 								<div class="pager default mt-2">
 									<div class="pagingButtonSet d-flex justify-content-center">
-										<a href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=1" class="btn btn-muted shadow">처음</a>
+										<a href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=1" class="btn btn-muted btn-sm shadow">처음</a>
 										<c:if test="${pager.groupNo > 1}">
-											<a href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${pager.startPageNo-1}" class="btn btn-muted shadow">이전</a>
+											<a href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${pager.startPageNo-1}" class="btn btn-muted btn-sm shadow">이전</a>
 						
 										</c:if>
 						
 										<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
 											<c:if test="${pager.pageNo != i}">
-												<a href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${i}" type="button" class="btn btn-white shadow">${i}</a>
+												<a href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${i}" type="button" class="btn btn-white btn-sm shadow">${i}</a>
 											</c:if>
 											<c:if test="${pager.pageNo == i}">
-												<a href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${i}" type="button" class="btn btn-dark shadow">${i}</a>
+												<a href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${i}" type="button" class="btn btn-dark btn-sm shadow">${i}</a>
 											</c:if>
 										</c:forEach>
 						
 										<c:if test="${pager.groupNo < pager.totalGroupNo }">
-											<a href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${pager.endPageNo+1}" type="button" class="btn btn-muted shadow">다음</a>
+											<a href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${pager.endPageNo+1}" type="button" class="btn btn-muted btn-sm shadow">다음</a>
 						
 										</c:if>
-										<a href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${pager.totalPageNo}" type="button" class="btn btn-muted shadow">맨끝</a>
+										<a href="${pageContext.request.contextPath}/noticelist?searchType=${searchType}&searchWord=${searchWord}&pageNo=${pager.totalPageNo}" type="button" class="btn btn-muted btn-sm shadow">맨끝</a>
 									</div>
 								</div>	
                		 		</div>

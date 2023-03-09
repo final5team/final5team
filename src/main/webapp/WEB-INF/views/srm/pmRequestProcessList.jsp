@@ -2,18 +2,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-	<div style="height: 305px;">
+	<div style="height: 297px;">
 		<table class="table tasks-block table-striped table-hover"  >
-			<thead style="background-color: #3A4651;" class="text-white">
+			<thead <c:if test="${searchStatus=='접수대기'}"> style="background-color: #85CE36;" </c:if>
+					<c:if test="${searchStatus=='승인대기'}"> style="background-color: #FE974B;"</c:if>
+					<c:if test="${searchStatus=='진행중'}"> style="background-color: #4BCF99;"</c:if>
+					<c:if test="${searchStatus=='완료및반려'}"> style="background-color: #76D4F5;"</c:if>
+					<c:if test="${searchStatus=='전체'}"> style="background-color: #3A4651;"</c:if>
+			class="text-white">
 				<tr style="text-align: center;">
 					<th>요청번호</th>
 					<th>시스템</th>
 					<th>요청유형</th>
 					<th>제목</th>
-					<th>우선순위</th>
+					<th>중요도</th>
 					<th>요청일</th>
 					<th>완료예정일</th>
-					<th>진행상황</th>
+					<th style="width: 97px;">진행상황</th>
 				</tr>
 			</thead>
 			<tbody >
@@ -125,26 +130,26 @@
 	<div>
 		<div class="pager default mt-3">
 			<div class="pagingButtonSet d-flex justify-content-center">
-				<a onclick="pmRequestProcessList(1, '${searchStatus}')" type="button" class="btn btn-muted shadow">처음</a>
+				<a onclick="pmRequestProcessList(1, '${searchStatus}')" type="button" class="btn btn-muted btn-sm shadow">처음</a>
 				<c:if test="${rpPager.groupNo > 1}">
-					<a onclick="pmRequestProcessList(${rpPager.startPageNo-1}, '${searchStatus}')" class="btn btn-muted shadow">이전</a>
+					<a onclick="pmRequestProcessList(${rpPager.startPageNo-1}, '${searchStatus}')" class="btn btn-muted btn-sm shadow">이전</a>
 
 				</c:if>
 
 				<c:forEach var="i" begin="${rpPager.startPageNo}" end="${rpPager.endPageNo}">
 					<c:if test="${rpPager.pageNo != i}">
-						<a onclick="pmRequestProcessList(${i}, '${searchStatus}')" type="button" class="btn btn-white shadow">${i}</a>
+						<a onclick="pmRequestProcessList(${i}, '${searchStatus}')" type="button" class="btn btn-white btn-sm shadow">${i}</a>
 					</c:if>
 					<c:if test="${rpPager.pageNo == i}">
-						<a onclick="pmRequestProcessList(${i}, '${searchStatus}')" type="button" class="btn btn-dark shadow">${i}</a>
+						<a onclick="pmRequestProcessList(${i}, '${searchStatus}')" type="button" class="btn btn-dark btn-sm shadow">${i}</a>
 					</c:if>
 				</c:forEach>
 
 				<c:if test="${rpPager.groupNo < rpPager.totalGroupNo }">
-					<a onclick="pmRequestProcessList(${rpPager.endPageNo+1}, '${searchStatus}')" type="button" class="btn btn-muted shadow">다음</a>
+					<a onclick="pmRequestProcessList(${rpPager.endPageNo+1}, '${searchStatus}')" type="button" class="btn btn-muted btn-sm shadow">다음</a>
 
 				</c:if>
-				<a onclick="pmRequestProcessList(${rpPager.totalPageNo}, '${searchStatus}')" type="button" class="btn btn-muted shadow">맨끝</a>
+				<a onclick="pmRequestProcessList(${rpPager.totalPageNo}, '${searchStatus}')" type="button" class="btn btn-muted btn-sm shadow">맨끝</a>
 			</div>
 		</div>
 	</div>	
