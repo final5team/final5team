@@ -1,12 +1,12 @@
 package com.oti.srm.dto;
 
 import java.util.Date;
+import java.util.Map;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
-import lombok.ToString;
 
 @Data
 public class Member {
@@ -36,7 +36,7 @@ public class Member {
 	private MultipartFile mfile;
 	
 	//담당 건수
-	private int quota;
+	private Map<String, Integer> quota;
 	
 	//비밀번호 오류
 	private String passConfirm;

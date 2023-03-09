@@ -119,12 +119,9 @@
 															<textarea id="reqContent" cols="30" name="reqContent" placeholder="내용">${request.reqContent}</textarea>
 														</div>
 													</article>
-		 
-		 
 													<article class="fileBody">
-														<div class="row mt-3">
-			                	 							<div class="col-2 label">첨부파일</div>
-				                	 						<div class="col-8">
+			                	 							<div class="label" style="text-align:start;">첨부파일</div>
+			                	 							<div class="default_file">
 			                	 								<c:forEach var="file" items="${request.fileList}">
 																<div>
 																	<span>${file.fileName}</span>
@@ -135,17 +132,15 @@
 																	<input type="hidden" name = "fno" value="${file.fno}">
 																</div>
 																</c:forEach>
-				                	 						</div>
-			                	 						</div>
-			                	 						<div class="filebox row mb-3">
-															<div class="col-2 label label-write" id="fileLable">
-																<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
-																<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
+																<div class="border flex-grow-1 border-success write_adjust" id="file-list-update"></div>
 															</div>
-															<div class="border flex-grow-1 border-success col-8" id="file-list-update"></div>	
-														</div>
 													</article>
-													
+														<div class="label-write_adjust" id="fileLable">
+															<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
+															<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
+														</div>
+															
+														
 													<article class="submit-button">
 													<!-- 승인이 아닌경우 수정 가능하도록 변경 c:if 사용 -->
 														<button class="btn btn-dark btn-sm" type="submit">수정</button>
@@ -306,9 +301,6 @@
 						<c:if test="${member.mtype != 'user'}">
 							<button class="btn btn-dark btn-sm ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
 						</c:if>
-						
-						
-						
 					</div><!-- id=main div / -->
 				</div>
 				<!-- 여기에 내용 담기 end -->

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.oti.srm.dto.Member;
 import com.oti.srm.dto.RequestProcess;
+import com.oti.srm.dto.WorkingInfo;
 
 /**
  * @author KIM JI YOUNG
@@ -22,6 +23,8 @@ public interface IPMDao {
 	public int selectQuota(@Param("mid")String mid, @Param("mtype")String mtype);
 
 	public int insertRequestProcess(RequestProcess requestProcess);
+
+	public List<WorkingInfo> selectWorkingInfo(Member member);
 	
 	
 	

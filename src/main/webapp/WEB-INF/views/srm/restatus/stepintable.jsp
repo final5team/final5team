@@ -278,8 +278,8 @@ margin: 0 0 1rem 0;
 						<span>
 							<c:if test="${request.statusNo < 7}">품질테스트</c:if>
 							<c:if test="${request.statusNo == 7}">품질테스트대기</c:if>
-							<c:if test="${request.statusNo == 8}">유저테스트중</c:if>
-							<c:if test="${request.statusNo >= 9}">유저테스트완료</c:if>
+							<c:if test="${request.statusNo == 8}">품질테스트중</c:if>
+							<c:if test="${request.statusNo >= 9}">품질테스트완료</c:if>
 						</span>
 					</a>
 				</c:if>	
