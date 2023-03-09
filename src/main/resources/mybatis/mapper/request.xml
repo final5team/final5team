@@ -544,10 +544,10 @@
 		resultType="com.oti.srm.dto.SelectPM">
 		<![CDATA[
 			select RNO, REQ_DATE as "reqDate", REQ_TITLE as "reqTitle", REQ_CONTENT as "reqContent"
-					, CLIENT, SNO, REQ_EXPECT_DATE as "reqExpectDate" , STATUS_NO as "statusNo", t.req_type as "reqType",
+					, CLIENT, SNO, REQ_EXPECT_DATE as "reqExpectDate" , STATUS_NO as "statusNo", t.req_type as "reqType", USR_CHECK as "usrCheck",
 					t.SYSTEM_NAME as "systemName"
 			from(
-			    select r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT,
+			    select r.RNO, r.REQ_DATE, r.REQ_TITLE, r.REQ_CONTENT, r.USR_CHECK,
                     r.CLIENT, r.SNO, r.REQ_EXPECT_DATE , r.STATUS_NO, rp.req_type ,  s.SYSTEM_NAME
 			    from requests r left join request_process rp
                 on r.rno = rp.rno

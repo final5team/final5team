@@ -188,9 +188,10 @@ public class DeveloperController {
 	}
 
 	@PostMapping("updatehistory")
-	public String updateHistory(RequestProcess rp, StatusHistory sh, HttpSession session, Model model, MultipartFile[] files) {
+	public String updateHistory(@RequestParam("rno") String rno, RequestProcess rp, StatusHistory sh, HttpSession session, Model model, MultipartFile[] files) {
 		log.info("updateHistory");
-		
+		rp.setRno(Integer.parseInt(rno));
+		sh.setRno(Integer.parseInt(rno));
 		Member member = (Member) session.getAttribute("member");
 		
 		//MultipartFile[] 타입 파일 StatusHistoryFile 객체에 아서 서비스 전달
@@ -211,6 +212,8 @@ public class DeveloperController {
 				e.printStackTrace();
 			}
 		}
+		log.info(rp.getRno());
+		log.info(sh.getRno());
 		commonService.updateHistory(rp, sh, member);
 		
 		if (member.getMtype().equals("developer")) {		

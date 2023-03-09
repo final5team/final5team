@@ -910,14 +910,15 @@
 		
 		/****** 달력 모달 open ******/
 		$('.calendarOpen').change(function(){
-			$('#calendarModal').modal();
 			var mid = $(this).val();
+			if(mid == ""){
+				return;
+			}
 			console.log(mid);
 
 			var calendarEl = document.getElementById('calendar');   
 		    var calendar = new FullCalendar.Calendar(calendarEl, {
 		        height: 600,
-		        width : 600,
 		        events: function(info, successCallback, failureCallback) {
 		        	$.ajax({
 		                url: '${pageContext.request.contextPath}/pm/workinginfo',
@@ -985,6 +986,7 @@
 		   });//new FullCalendar end
 		 
 		   calendar.render();
+		   $('#calendarModal').modal();
 		   calendar.updateSize();
 		});
 		
