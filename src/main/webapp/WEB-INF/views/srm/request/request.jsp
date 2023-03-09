@@ -461,35 +461,7 @@ textarea:focus::placeholder {
 				$('#counterTitle').html("(30 / 30)");
 			}
 		});
-		//파일 추가 버튼 클릭시 파일 input
-		$(function (){
-			let inputLabel = document.querySelector('#btn-upload');
-			console.log(inputLabel);
-			
-			inputLabel.addEventListener('click', function(event) => {
-				console.log('클릭 실행');			
-				
-			});
-		});
 		
-		
-		
-		/****** 업로드된 파일 리스트 출력하기 *****/
-		$(document).ready(function()
-			// input file 파일 첨부시 fileCheck 함수 실행
-		{
-			$("#fileInput").on("change", fileCheck);
-			$("#fileInputUpdate").on("change", fileUpdate);
-		});
-		
-		/* '파일추가' 버튼 누를 때마다 파일input 실행 */
-		$(function () {
-		    $('#btn-upload').click(function (e) {
-		        e.preventDefault();
-		        console.log('파일 추가 선택');
-		        $('#fileInput').click();
-		    });
-		})
 		
 		// 파일 현재 필드 숫자 totalCount랑 비교값
 		var fileCount = 0;
@@ -499,6 +471,40 @@ textarea:focus::placeholder {
 		var fileNum = 0;
 		// 첨부파일 배열
 		var content_files = new Array();
+		//파일 추가 버튼 클릭시 파일 input
+		let inputLabel = document.querySelector('#btn-upload');
+		inputLabel.addEventListener('click', function(e){
+			
+		});
+		$(document).ready(function() {
+			$("#mfile").on('change', fileCheck);
+		});	
+		
+		//업로드 파일 리스트 출력하기
+// 		$(document).ready(function() {
+// 			$("#fileInput").on('change', fileCheck);
+			
+// 		});
+		
+		
+		/****** 업로드된 파일 리스트 출력하기 *****/
+// 		$(document).ready(function()
+// 			// input file 파일 첨부시 fileCheck 함수 실행
+// 		{
+// 			$("#fileInput").on("change", fileCheck);
+// 			$("#fileInputUpdate").on("change", fileUpdate);
+// 		});
+		
+// 		/* '파일추가' 버튼 누를 때마다 파일input 실행 */
+// 		$(function () {
+// 		    $('#btn-upload').click(function (e) {
+// 		        e.preventDefault();
+// 		        console.log('파일 추가 선택');
+// 		        $('#fileInput').click();
+// 		    });
+// 		})
+		
+
 
 		function fileCheck(e) {
 		    var files = e.target.files;
@@ -516,22 +522,23 @@ textarea:focus::placeholder {
 		    }
 		    
 		    // 각각의 파일 배열담기 및 기타
-		    filesArr.forEach(function (f) {
-		      var reader = new FileReader();
+// 		    filesArr.forEach(function (f) {
+// 		      var reader = new FileReader();
+// 		      console.log('파일 배열에 담기');
+// 		      reader.onload = function (e) {
+// 			        content_files.push(f);
+// 			        console.log('append 작업');
+// 			        $('#exist_file').append(
+// 			       		'<div id="file' + fileNum + '">'
+// 			       		+ '<font style="font-size:15px">' + f.name + '</font>'  
+// 			       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
+// 			       		+ '<div/>'
+// 					);
+// 			        fileNum ++;
+// 		      };
 		      
-		      reader.onload = function (e) {
-			        content_files.push(f);
-			        $('#file-list').append(
-			       		'<div id="file' + fileNum + '">'
-			       		+ '<font style="font-size:15px">' + f.name + '</font>'  
-			       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
-			       		+ '<div/>'
-					);
-			        fileNum ++;
-		      };
-		      
-		      reader.readAsDataURL(f);
-		    });
+// 		      reader.readAsDataURL(f);
+//		    });
 		  }
 
 		// 파일 부분 삭제 함수
