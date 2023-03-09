@@ -276,7 +276,24 @@
 											</c:if>
 										</c:if>
 									</c:if>
-									<td class="reqTitle" style="max-width: 190px; min-width : 190px; white-space: nowrap; overflow: hidden;">${request.reqTitle}</td>
+									<td class="reqTitle" style="max-width: 190px; min-width : 190px; white-space: nowrap; overflow: hidden;">
+										<c:if test="${member.mtype == 'developer' && request.devCheck == 1 && request.developer == member.mid}">
+											<strong class="text-danger">N</strong>																
+										</c:if>
+										<c:if test="${member.mtype == 'tester' && request.tesCheck == 1 && request.tester == member.mid}">
+											<strong class="text-danger">N</strong>																
+										</c:if>
+										<c:if test="${member.mtype == 'usertester' && request.uttCheck == 1 && request.userTester == member.mid}">
+											<strong class="text-danger">N</strong>																
+										</c:if>
+										<c:if test="${member.mtype == 'distributor' && request.disCheck == 1  && request.distributor == member.mid}">
+											<strong class="text-danger">N</strong>																
+										</c:if>
+										<c:if test="${member.mtype == 'pm' && request.pmCheck == 1}">
+											<strong class="text-danger">N</strong>																
+										</c:if>									
+										${request.reqTitle}
+									</td>
 									<td class="reqDate" style="max-width: 87px; min-width : 87px; white-space: nowrap; overflow: hidden;">
 										<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
 									</td>
