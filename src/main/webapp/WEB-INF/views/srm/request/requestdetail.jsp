@@ -428,11 +428,7 @@
 		    	
 			}
 		});
-		
-		
 	};
-	
-	
 	
 	$(document).ready(function(){
 		$('#fileInputUpdate-adjust').on('change', uploadCheck);
