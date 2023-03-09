@@ -3,7 +3,9 @@ package com.oti.srm.controller.srm;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.oti.srm.dto.Member;
@@ -105,16 +108,18 @@ public class DeveloperController {
 
 	/**
 	 * @author : 장현
-	 * @param rp      rno 와 devProgress를 담은 객체
+	 * @param rp rno 와 devProgress를 담은 객체
 	 * @param session
 	 * @return developerdetail로 리턴
 	 */
 	@PostMapping("/updatedevprogress")
-	public String updateDevProgress(RequestProcess rp, HttpSession session) {
-
+	@ResponseBody
+	public Map<String,String> updateDevProgress(RequestProcess rp, HttpSession session) {
+		log.info("실행");
 		commonService.updateDevProgress(rp);
-
-		return "redirect:/developerdetail?rno=" + rp.getRno();
+		Map<String,String> map = new HashMap<>();
+		map.put("result", "성공");
+		return map;
 	}
 
 	/**
@@ -158,7 +163,8 @@ public class DeveloperController {
 	}
 
 	@PostMapping("/tempstore")
-	public String tempStore(StatusHistory statusHistory, HttpSession session, Model model) {
+	@ResponseBody
+	public Map<String,String> tempStore(StatusHistory statusHistory, HttpSession session, Model model) {
 		log.info("실행");
 		log.info("rno : " + statusHistory.getRno());
 		log.info("nextStatus : " + statusHistory.getNextStatus());
@@ -173,15 +179,10 @@ public class DeveloperController {
 			// update
 			commonService.updateStatusHistory(statusHistory);
 		}
-		if (member.getMtype().equals("developer")) {
-			return "redirect:/developerdetail?rno=" + statusHistory.getRno();
-		} else if (member.getMtype().equals("tester")) {
-			return "redirect:/testerdetail?rno=" + statusHistory.getRno();
-		} else if (member.getMtype().equals("usertester")) {
-			return "redirect:/usertestdetail?rno=" + statusHistory.getRno();
-		} else {
-			return "redirect:/distributedetail?rno=" + statusHistory.getRno();
-		}
+		Map<String,String> map = new HashMap<>();
+		map.put("result", "success");
+		
+		return map;
 	}
 
 	@PostMapping("updatehistory")
