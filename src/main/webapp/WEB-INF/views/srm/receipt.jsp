@@ -171,7 +171,9 @@
 												<div class="d-flex justify-content-end">	
 													<input type="hidden" name="rno" value="${request.rno}">					
 													<button class="btn btn-primary btn-md mt-3 ml-3" type="submit" value=2 name="nextStatus">접수 완료</button>
-													<a class="btn btn-secondary btn-md mt-3 ml-3" onclick="location.reload()">취소</a>												
+													<a class="btn btn-secondary btn-md mt-3 ml-3" 
+													<c:if test="${sessionScope.member.mtype != 'user'}">onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'"</c:if>
+													<c:if test="${sessionScope.member.mtype == 'user'}">onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'"</c:if>>취소</a>												
 												</div>
 											</form>											
 										</div><!-- card-body -->
@@ -235,7 +237,9 @@
 												<div class="d-flex justify-content-end">	
 													<input type="hidden" name="rno" value="${request.rno}">								
 													<button class="btn btn-danger btn-md mt-3 ml-3" type="submit" value=12 name="nextStatus">반려 완료</button>												
-													<a class="btn btn-secondary btn-md mt-3 ml-3" onclick="location.reload()">취소</a>									
+													<a class="btn btn-secondary btn-md mt-3 ml-3" 
+													<c:if test="${sessionScope.member.mtype != 'user'}">onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'"</c:if>
+													<c:if test="${sessionScope.member.mtype == 'user'}">onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'"</c:if>>취소</a>									
 												</div>
 											</div>
 										</div>
@@ -243,6 +247,7 @@
 									<!-- 요청 접수 card end-->									
 								</form>
 							</div>
+							
 						</c:if>
 						<!-- 요청 처리 계획 start-->
 						<c:if test="${member.mtype !='user' && member.mtype != 'pm' && request.statusNo != 12}">
