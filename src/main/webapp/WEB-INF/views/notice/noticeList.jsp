@@ -119,9 +119,10 @@
 	                </div>
                 </div>
                 <!-- 여기에 내용 담기 end -->
-
+ 
             </div>
             <!-- End of Main Content -->
+
 
             <!-- Footer -->
             <%@ include file="/WEB-INF/views/common/footer.jsp" %>
