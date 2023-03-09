@@ -228,11 +228,8 @@ public class PMController {
 			// PM 확인 여부 변경
 			commonService.check("pm", request.getRno());
 		}
-		// 사용자 확인 여부 변경	
-		log.info("check: "+request.getUsrCheck());
-		log.info("u: "+member.getMtype().equals("user"));
-		log.info("c: "+request.getClient());
-		if(request.getUsrCheck()==1 && member.getMtype().equals("user") && request.getClient().equals(member.getMid())) {
+		// 사용자 확인 여부 변경			
+		if(request.getUsrCheck()==1 && request.getClient().equals(member.getMid())) {
 			commonService.check("user", request.getRno());
 		}
 		// 신규 내역 알림 갱신

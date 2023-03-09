@@ -57,8 +57,9 @@
 													요청 내역 조회 <i class="fas fa-edit"></i>
 												</h3>
 											</div>
+											
 											<div class="card-body">
-												<form method="post" action="${pageContext.request.contextPath}/customer/requestupdate" >
+												<form method="post" action="${pageContext.request.contextPath}/customer/requestupdate" enctype="multipart/form-data">
 													<article class="label js item">
 														<h6>작성자</h6>
 														<h6>전화번호</h6>
@@ -67,13 +68,13 @@
 													</article>
 													<article class="inputData">
 														<div class="item">
-															<input type="text" class="form-control form-control-user" id="clientName" name="clientName" placeholder="${request.rname}" value="${request.rname}" readonly>
+															<input type="text" class="form-control form-control-user" placeholder="${request.rname}" value="${request.rname}" readonly>
 														</div>
 														<div class="item">
-															<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="${request.rphone}" value="${request.rphone}" readonly>
+															<input type="text" class="form-control form-control-user"  placeholder="${request.rphone}" value="${request.rphone}" readonly>
 														</div>
 														<div class="item">
-															<input type="text" class="form-control form-control-user" id="position" name="position" placeholder="${request.rposition}" value="${request.rposition}" readonly>
+															<input type="text" class="form-control form-control-user"  placeholder="${request.rposition}" value="${request.rposition}" readonly>
 														</div>
 														
 														<div class="item">
@@ -94,13 +95,15 @@
 													</article>
 													<article class="inputData2">
 														<div class="item">
-															<input type="text" class="form-control form-control-user" id="organ" name="organ" placeholder="${request.rorgan}" value="${request.rorgan}" readonly>
+															<input type="text" class="form-control form-control-user"  placeholder="${request.rorgan}" value="${request.rorgan}" readonly>
 														</div>
 														<div class="item">
-															<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="${request.remail}" value="${request.remail}" readonly>
+															<input type="text" class="form-control form-control-user"  placeholder="${request.remail}" value="${request.remail}" readonly>
 														</div>
 														<div class="item">
+														
 															<input type="date" class="form-control form-control-user" id="reqExpectDate" name="reqExpectDate" value="<fmt:formatDate value="${request.reqExpectDate}" pattern="yyyy-MM-dd" />">
+														
 														</div>
 													</article>
 													<article class="titleLabel">
@@ -126,24 +129,24 @@
 																<div>
 																	<span>${file.fileName}</span>
 																	<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${file.fno}" role="button">
-																		<i class="fas fa-cloud-download-alt text-info"></i>
+																		<i class="fas fa-cloud-download-alt text-info" style="cursor:pointer;"></i>
 																	</a>
-																	<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a>
+																	<a class="deletefileButton"><i class="fas fa-times ml-1" style="cursor:pointer;"></i></a>
 																	<input type="hidden" name = "fno" value="${file.fno}">
 																</div>
 																</c:forEach>
-																<div class="border flex-grow-1 border-success write_adjust" id="file-list-update"></div>
+																<div class="border flex-grow-1 border-success write_adjust" id="file-list-update_adjust" style="min-height:50px; width : 720px; " ></div>
 															</div>
 													</article>
-														<div class="label-write_adjust" id="fileLable">
-															<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
-															<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
+													
+														<div class="label-write_adjust" id="fileLable" >
+															<div class="btn btn-sm btn-info" id="btn-upload-update-adjust" onclick="fileajax()">파일 수정</div>
+															<input type="file" name="filesInput" id="fileInputUpdate-adjust" multiple style="display: none;">
 														</div>
 															
 														
 													<article class="submit-button">
-													<!-- 승인이 아닌경우 수정 가능하도록 변경 c:if 사용 -->
-														<button class="btn btn-dark btn-sm" type="submit">수정</button>
+														<button class="btn btn-dark btn-sm" type="button" onclick="updateRequest()">수정</button>
 														
 													</article>
 													<article class="return-button">
@@ -340,8 +343,97 @@
 			</div>
 		</div>
 	</div>
-	<!-- 글자수 입력 확인 /-->
 	<script>
+	// 요청 수정 ajax
+	function updateRequest(){
+		
+		let rno = document.querySelector('#rno').value;
+		let snoValue = document.querySelector('#sno');
+		let sno = snoValue.options[snoValue.selectedIndex].value;
+		let reqExpectDate = document.querySelector('#reqExpectDate').value;
+		let reqTitle = document.querySelector('#reqTitle').value;
+		let reqContent = tinymce.activeEditor.getContent();
+		
+		data = {rno : rno , sno : sno, reqExpectDate : reqExpectDate, reqTitle, reqContent};	
+		
+			$.ajax({
+				url : "requestupdate",
+				method : "post",
+				data : JSON.stringify(data),
+				contentType: "application/json; charset=UTF-8",
+				success : function (data){
+					location.reload();
+				}
+				
+			});
+		
+		};
+		
+	
+	// 파일 추가 ajax
+	function fileajax(){
+		let filesInput = document.querySelector('#fileInputUpdate-adjust');
+		filesInput.click();
+	};
+	
+	function uploadCheck(){
+		let filesInput = document.querySelector('#fileInputUpdate-adjust');
+		console.log(filesInput.files);
+		
+		let filesArr = Array.prototype.slice.call(filesInput.files);
+		//기존 파일 개수 + 새로 올린 개수 확인해야함
+		
+		fileCount = fileCount + filesArr.length;
+		filesArr.forEach(function (f) {
+		      var reader = new FileReader();
+		      reader.onload = function (e) {
+			        content_files.push(f);
+			        $('#file-list-update_adjust').append(
+			       		'<div id="file' + fileNum + '">'
+			       		+ '<font style="font-size:15px">' + f.name + '</font>'  
+			       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success" style="cursor:pointer;"></i></a>' 
+			       		+ '<div/>'
+					);
+			        fileNum ++;
+		      };
+		      reader.readAsDataURL(f);
+		});
+		
+		console.log(filesArr);
+		
+		let formData = new FormData();
+		for(var i =0; i< filesArr.length; i++) {
+			console.log(i);
+			formData.append('files', filesArr[i]);
+		}
+		
+		$.ajax({
+			url : "requestfileupload",
+			type : 'POST',
+			data : formData,
+			processData : false,
+			contentType : false,
+			success : function(response){
+				console.log(response);
+				
+			}
+			
+		
+			
+		});
+		
+		
+	};
+	
+	
+	
+	$(document).ready(function(){
+		$('#fileInputUpdate-adjust').on('change', uploadCheck);
+	})
+	
+	
+	
+	
 	/****** 업로드된 파일 리스트 출력하기 *****/
 	$(document).ready(function()
 		// input file 파일 첨부시 fileCheck 함수 실행
@@ -355,6 +447,7 @@
 	    $('#btn-upload').click(function (e) {
 	        e.preventDefault();
 	        $('#fileInput').click();
+	        
 	    });
 	})
 	
@@ -391,7 +484,7 @@
 		        $('#file-list').append(
 		       		'<div id="file' + fileNum + '">'
 		       		+ '<font style="font-size:15px">' + f.name + '</font>'  
-		       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
+		       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success" style="cursor:pointer;"></i></a>' 
 		       		+ '<div/>'
 				);
 		        fileNum ++;
@@ -400,7 +493,7 @@
 	      reader.readAsDataURL(f);
 	    });
 	  }
-
+	
 	// 파일 부분 삭제 함수
 	function fileDelete(fileId){
 	    var fileNum = fileId.replace("file", "");

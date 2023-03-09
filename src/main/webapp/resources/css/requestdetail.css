@@ -10,7 +10,7 @@ a {
 	position: absolute;
 	width: 110px;
 	left: 2%;
-	top: 6%;
+	top: 8%;
 	overflow: hidden;
 	text-align: center;
 	margin-bottom: 24px;
@@ -28,7 +28,7 @@ a {
 	width: 250px;
 	height: 200px;
 	left: 18%;
-	top: 5.5%;
+	top: 7.5%;
 	overflow: hidden;
 	text-align: start;
 }
@@ -37,7 +37,7 @@ a {
 	position: absolute;
 	width: 110px;
 	left: 57%;
-	top: 6%;
+	top: 8%;
 	overflow: hidden;
 	text-align: center;
 	margin-bottom: 24px;
@@ -48,7 +48,7 @@ a {
 	width: 250px;
 	height: 200px;
 	left: 70%;
-	top: 5.5%;
+	top: 7.5%;
 	overflow: hidden;
 	text-align: start;
 }
@@ -75,7 +75,7 @@ a {
 	position: absolute;
 	width: 50px;
 	left: 8%;
-	top: 24.5%;
+	top: 26.5%;
 	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
@@ -89,7 +89,7 @@ a {
 	position: absolute;
 	width: 800px;
 	left: 18%;
-	top: 24.5%;
+	top: 26.5%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -104,7 +104,7 @@ a {
 	position: absolute;
 	width: 300px;
 	left: 8%;
-	top: 29.5%;
+	top: 31.5%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -114,7 +114,7 @@ a {
 	position: absolute;
 	width: 800px;
 	left: 18%;
-	top: 29.5%;
+	top: 31.5%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -132,7 +132,7 @@ a {
 	position: absolute;
 	width: 110px;
 	left: 4%;
-	top: 82%;
+	top: 84%;
 	overflow: hidden;
 	text-align: center;
 	font-size: 15px;
@@ -141,16 +141,17 @@ a {
 
 .card-body .fileBody {
 	position: absolute;
-	width: 700px;
-	top: 59%;
+	width: 720px;
+	top: 63%;
 	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
+	overflow : visible;
 }
 .default_file{
-	margin-left : 150px;
-	width : 500px;
+	margin-left : 130px;
+	width : 800px;
 	height :inherit;
 	
 }
@@ -159,8 +160,8 @@ a {
 	width : inherit;
 	height : inherit;
 	position : absolute;
-	left : 5.7%;
-	top : 65%;
+	left : 5.2%;
+	top : 67%;
 }
 
 
@@ -170,7 +171,7 @@ a {
 	width: 80px;
 	height: 50px;
 	left: 50%;
-	top: 90%;
+	top: 85%;
 }
 
 .card-body .return-button {
@@ -178,7 +179,7 @@ a {
 	width: 80px;
 	height: 50px;
 	left: 55%;
-	top: 90%;
+	top: 85%;
 }
 
 .card-body .item .select-group select {

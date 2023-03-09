@@ -400,12 +400,12 @@ margin: 0 0 1rem 0;
 			
 			<!-- 단계 : 배포  -->	
 			<li class="<c:if test="${request.statusNo >= 11}">is_complete</c:if>
-						<c:if test="${request.statusNo >= 9 && request.statusNo <= 10}">is_active</c:if>" 
-				<c:if test="${request.statusNo >= 9}">
+						<c:if test="${request.statusNo >= 7 && request.statusNo <= 10}">is_active</c:if>" 
+				<c:if test="${request.statusNo >= 7}">
 					onclick="distribute(${request.rno})" style="cursor: pointer;"
 				</c:if>	
 					>
-				<c:if test ="${request.statusNo >= 9}">	
+				<c:if test ="${request.statusNo >= 7}">	
 					<a href="${pageContext.request.contextPath}/distributedetail?rno=${request.rno}">
 						<span>
 							<c:if test="${request.statusNo < 9}">배포</c:if>
@@ -418,7 +418,7 @@ margin: 0 0 1rem 0;
 			</li>
 			
 			<!-- 단계 : 최종 승인  -->	
-			<li class="<c:if test="${request.statusNo >= 13}">is_complete</c:if>
+			<li class="<c:if test="${request.statusNo >= 11}">is_complete</c:if>
 				<c:if test="${request.statusNo == 11}">is_active</c:if>" 
 				<c:if test ="${request.statusNo >= 11}">
 				onclick="enddetail(${request.rno})" style="cursor: pointer;"

@@ -41,31 +41,66 @@
 					<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 						aria-labelledby="alertsDropdown">
 						<h6 class="dropdown-header">
-							신규 내역 알림
-						</h6>	
+							신규 내역 알림	
+							<button type="button" class="close text-white" data-dismiss="modal" style="font-size:15px;" onclick="closeAlert()">&times;</button>						
+						</h6>							
 						<c:if test="${newAlertList[0]==null}">
 							<div class="m-3">신규 내역이 없습니다.</div>
 						</c:if>										
-						<c:forEach var="newAlert" items="${newAlertList}">	
-							<a class="dropdown-item d-flex align-items-center" 
-							<c:if test="${newAlert.statusNo == 1}">
-							href="<c:url value='/pm/receiptdetail?rno=${newAlert.rno}'/>"
-							</c:if>
-							<c:if test="${member.mtype == 'developer'}">
-							href="<c:url value='/developerdetail?rno=${newAlert.rno}'/>"
-							</c:if>
-							<c:if test="${member.mtype == 'tester'}">
-							href="<c:url value='/testerdetail?rno=${newAlert.rno}'/>"
-							</c:if>
-							<c:if test="${member.mtype == 'usertester'}">
-							href="<c:url value='/usertestdetail?rno=${newAlert.rno}'/>"
-							</c:if>
-							<c:if test="${member.mtype == 'distributor'}">
-							href="<c:url value='/distributedetail?rno=${newAlert.rno}'/>"
-							</c:if>
-							<c:if test="${newAlert.statusNo >= 11}">
-							href="<c:url value='/pm/enddetail?rno=${newAlert.rno}'/>"
-							</c:if>
+						<c:forEach var="newAlert" items="${newAlertList}" varStatus="status">													
+							<c:if test="${status.index==3}">
+								<div class="dropdown-item small text-gray-500" id="morebtn" style="padding-left: 140px;" onclick="viewMore()">더보기</div>
+								<div id="more">	
+								
+								<script>
+									$(document).ready(function(){
+										// 알림 더보기 항목 숨기기
+										$("#more").hide();							  
+								  	 });
+									// 알림 더보기
+									function viewMore(){
+										// 신규 내역 알림 드롭다운 사라지지 않게 하기
+										const dropdown = document.querySelector('.dropdown-list');
+										  dropdown.style.display = 'block';
+										// 알림 추가 항목 보이기
+										 $("#more").show();
+										 // 더보기 버튼 숨기기
+										 $("#morebtn").hide();
+									}
+									// 알림 사라지게 하기
+									function closeAlert(){
+										// 신규 내역 알림 드롭다운 사라지게 하기
+										const dropdown = document.querySelector('.dropdown-list');
+										dropdown.style.display = '';
+									}
+									// 알림 줄이기
+									function viewLess(){
+										// 알림 추가 항목 숨기기
+										 $("#more").hide();
+										 // 더보기 버튼 보이기
+										 $("#morebtn").show();
+									}
+								</script>																
+							</c:if>						
+							<a class="dropdown-item d-flex align-items-center"
+								<c:if test="${newAlert.statusNo == 1}">
+								href="<c:url value='/pm/receiptdetail?rno=${newAlert.rno}'/>"
+								</c:if>
+								<c:if test="${member.mtype == 'developer'}">
+								href="<c:url value='/developerdetail?rno=${newAlert.rno}'/>"
+								</c:if>
+								<c:if test="${member.mtype == 'tester'}">
+								href="<c:url value='/testerdetail?rno=${newAlert.rno}'/>"
+								</c:if>
+								<c:if test="${member.mtype == 'usertester'}">
+								href="<c:url value='/usertestdetail?rno=${newAlert.rno}'/>"
+								</c:if>
+								<c:if test="${member.mtype == 'distributor'}">
+								href="<c:url value='/distributedetail?rno=${newAlert.rno}'/>"
+								</c:if>
+								<c:if test="${newAlert.statusNo >= 11}">
+								href="<c:url value='/pm/enddetail?rno=${newAlert.rno}'/>"
+								</c:if>
 							>
 								<div class="mr-3">																					
 									<c:if test="${newAlert.statusNo == 1}">									
@@ -96,11 +131,16 @@
 										<span class="badge badge-dark">완료</span>
 									</c:if>																							
 								</div>
-								<div>
+								<div style="width: 210px">
 									<div class="small text-gray-500"><fmt:formatDate value="${newAlert.reqDate}" pattern="yyyy-MM-dd"/></div>
 									<span class="font-weight-bold">${newAlert.reqTitle}</span>
 								</div>
 							</a>
+							
+							<c:if test="${status.index>=3 && status.last}">
+								<div class="dropdown-item small text-gray-500" id="morebtn" style="padding-left: 140px;" onclick="viewLess()">줄이기</div>
+								</div>																	
+							</c:if>							
 						</c:forEach>
 					</div>
 				</li>

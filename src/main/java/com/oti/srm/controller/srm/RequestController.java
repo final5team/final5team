@@ -407,17 +407,14 @@ public class RequestController {
 	
 	//요청 수정하기
 	@PostMapping("/requestupdate")
-	public String requestUpdate(Request request, HttpSession session, Model model) {
+	@ResponseBody
+	public int requestUpdate(@RequestBody Request request, HttpSession session, Model model) {
 		
 		Member member = (Member) session.getAttribute("member");
 		request.setClient(member.getMid());
-
 		int result = requestService.updateRequest(request);
-		if (result == IRequestRegisterService.REQUEST_SUCCESS) {
-			return "redirect:requestdetail?rno=" + request.getRno();
-		} else {
-			return "redirect:requestdetail?rno=" + request.getRno();
-		}
+		
+		return result;
 	}
 	
 	//요청 글 파일 다운로드
@@ -435,6 +432,15 @@ public class RequestController {
 		return new ResponseEntity<byte[]>(file.getFileData(), headers, HttpStatus.OK);
 	}
 	
+	//요청 수정시, 파일 업로드
+	@PostMapping("/requestfileupload")
+	@ResponseBody
+	public int uploadFile(@RequestParam("files")MultipartFile[] files) {
+		
+		log.info(files.toString());
+		
+		return 1;
+	}
 	
 
 	
