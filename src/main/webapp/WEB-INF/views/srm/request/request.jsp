@@ -519,7 +519,7 @@ textarea:focus::placeholder {
 			        $('#exist_file').append(
 			       		'<div id="file' + fileNum + '">'
 			       		+ '<font style="font-size:15px">' + f.name + '</font>'  
-			       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
+			       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success" style="cursor:pointer;"></i></a>' 
 			       		+ '<div/>'
 					);
 			        fileNum ++;

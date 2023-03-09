@@ -407,17 +407,14 @@ public class RequestController {
 	
 	//요청 수정하기
 	@PostMapping("/requestupdate")
-	public String requestUpdate(Request request, HttpSession session, Model model) {
+	@ResponseBody
+	public int requestUpdate(@RequestBody Request request, HttpSession session, Model model) {
 		
 		Member member = (Member) session.getAttribute("member");
 		request.setClient(member.getMid());
-
 		int result = requestService.updateRequest(request);
-		if (result == IRequestRegisterService.REQUEST_SUCCESS) {
-			return "redirect:requestdetail?rno=" + request.getRno();
-		} else {
-			return "redirect:requestdetail?rno=" + request.getRno();
-		}
+		
+		return result;
 	}
 	
 	//요청 글 파일 다운로드

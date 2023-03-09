@@ -18,7 +18,7 @@
 		update requests
 		    set REQ_TITLE = #{reqTitle}, 
 		        REQ_CONTENT = #{reqContent}, 
-		        REQ_EXPECT_DATE = #{reqExpectDate}, 
+		        REQ_EXPECT_DATE = #{reqExpectDate},
 		        SNO = #{sno}
     	where rno = #{rno}
 	</update>

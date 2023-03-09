@@ -84,7 +84,14 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	public int updateRequest(Request request) {
 		try {
 			//요청 내용 수정
+			log.info(request.toString());
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String formattedDate = dateFormat.format(request.getReqExpectDate());
+			java.sql.Date sqlDate = java.sql.Date.valueOf(formattedDate);
+			request.setReqDate(sqlDate);
+			
 			int rows = requestDao.updateRequest(request);
+			log.info("수정 service");
 		} catch (Exception e) {
 			log.error(e.toString());
 			return REQUEST_FAIL;
@@ -285,11 +292,11 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		if(listFilter.getSno() == 1) {
 			listFilter.setSystemName("가족관계정보");
 		} else if(listFilter.getSno() == 2) {
-			listFilter.setSystemName("등본관리");
+			listFilter.setSystemName("쇼핑몰");
 		} else if(listFilter.getSno() == 3) {
-			listFilter.setSystemName("3번시스템");
+			listFilter.setSystemName("학사관리");
 		} else if(listFilter.getSno() == 4) {
-			listFilter.setSystemName("4번시스템");
+			listFilter.setSystemName("서비스요청");
 		}
 		
 		return listFilter;
