@@ -97,7 +97,7 @@
 										<h6><i class="fas fa-star-of-life"></i> 초기 비밀번호는 000 입니다.</h6>
 									</div>
 									<div class="card-body">
-										<form method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data">
+										<form method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data" onsubmit="return openModal()">
 											<section class="section2">
 												<article class="photo">
 													<img id="preview" src="${pageContext.request.contextPath}/resources/img/default-image.gif" 
@@ -229,25 +229,8 @@
 								</div>
 							</div>
 						</section>
-						<!-- 개발내역 입력폼 end -->
-<!-- 						<div class="modal fade" id="updatemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" -->
-<!-- 					        aria-hidden="true"> -->
-<!-- 					        <div class="modal-dialog" role="document"> -->
-<!-- 					            <div class="modal-content"> -->
-<!-- 					                <div class="modal-header"> -->
-<!-- 					                    <h5 class="modal-title" id="exampleModalLabel">회원정보 수정</h5> -->
-<!-- 					                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"> -->
-<!-- 					                        <span aria-hidden="true">×</span> -->
-<!-- 					                    </button> -->
-<!-- 					                </div> -->
-<!-- 					                <div class="modal-body">정말 수정하시겠습니까?</div> -->
-<!-- 					                <div class="modal-footer"> -->
-<!-- 					                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button> -->
-<%-- 					                    <a class="btn btn-primary" href="${pageContext.request.contextPath}/logout">Logout</a> --%>
-<!-- 					                </div> -->
-<!-- 					            </div> -->
-<!-- 					        </div> -->
-<!-- 					    </div> -->
+						
+						
 					</div>
 					<!-- id=main div / -->
 				</div>
@@ -263,6 +246,26 @@
 			<!-- End of Content Wrapper -->
 		</div>
 		<!-- End of Page Wrapper -->
+		<div class="modal fade" id="countCheck" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5>
+							주의 <i class="fas fa-exclamation-triangle"></i>
+						</h5>
+						<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body" style="display: flex; justify-content: center;">
+						<p id="countContent"></p>
+					</div>
+					<div class="modal-footer" style="justify-content: center;">
+						<a class="btn btn-primary" data-dismiss="modal" type="button" id="modal-button">확인</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
 	</div>
 	<!-- Scroll to Top Button-->
 	<a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
@@ -324,6 +327,22 @@
 		}
 		
 	}
+	function openModal(){
+		$('#countCheck').modal();
+    	$('#countContent').html('유저 등록 완료');
+    	
+    	let modalButton = document.querySelector('#modal-button');
+    	
+    	modalButton.addEventListener('click', function(){
+			console.log('모달 실행');
+			return true;
+    	});
+		
+	}
+	
+	
+	
+	
 	
 	
 	</script>

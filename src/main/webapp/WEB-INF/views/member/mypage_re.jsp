@@ -96,7 +96,7 @@
 										</h3>
 									</div>
 									<div class="card-body">
-										<form method="post" action="${pageContext.request.contextPath}/customer/mypageupdate" enctype="multipart/form-data">
+										<form onsubmit="return openModal()" method="post" action="${pageContext.request.contextPath}/customer/mypageupdate" enctype="multipart/form-data" >
 											<section class="section2">
 												<article class="photo">
 													<img id="preview" src="${pageContext.request.contextPath}/customer/mypage/${returnMember.mid}"
@@ -257,6 +257,24 @@
 			</div>
 			<!-- End of Content Wrapper -->
 		</div>
+		<div class="modal fade" id="countCheck" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5>
+							주의 <i class="fas fa-exclamation-triangle"></i>
+						</h5>
+						<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body" style="display: flex; justify-content: center;">
+						<p id="countContent"></p>
+					</div>
+					<div class="modal-footer" style="justify-content: center;">
+						<a class="btn btn-primary" data-dismiss="modal" type="button" id="modal-button">확인</a>
+					</div>
+				</div>
+			</div>
+		</div>
 		<!-- End of Page Wrapper -->
 	</div>
 	<!-- Scroll to Top Button-->
@@ -284,6 +302,30 @@
 			inputtag.innerHTML = fileList;
 		}
 	});
+	
+	function openModal(){
+		$('#countCheck').modal();
+    	$('#countContent').html('정보 수정 완료');
+    	
+    	let modalButton = document.querySelector('#modal-button');
+    	let click = 'n';
+    	
+    	modalButton.addEventListener('click', function(){
+    		click = 'y';
+    	});
+    	
+    	
+    	if(click === 'y'){
+	    	console.log('y');
+	    	console.log(click === 'y');
+	    	return true;
+	    } else if(click === 'n'){
+	    	console.log('n');
+	    	return false;
+	    }
+    	
+	}
+	
 	</script>
 	
 	
