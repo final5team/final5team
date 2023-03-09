@@ -1,5 +1,6 @@
 package com.oti.srm.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import lombok.ToString;
 
 @Data
 @ToString(exclude= {"files","fileList"})
-public class Request {
+public class Request implements Serializable{
 	private int rno;
 	private int sno;
 	private String priority;

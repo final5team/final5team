@@ -168,7 +168,7 @@
 	                	 				</h3>
 	                	 				</c:if>
 	                	 			</div>
-	                	 			<form method="post" action="<c:url value='/updatehistory'/>" id="updateForm" enctype="multipart/form-data">
+	                	 			
 	                	 			<div class="card-body">
                 	 					<div>
                 	 						<div class="row">
@@ -202,34 +202,39 @@
                 	 							<c:if test="${index.last}">
                 	 								<c:if test="${statusHistory.nextStatus == 7}">
                 	 										<c:if test="${request.statusNo == 7}">
-                	 											<div class="row mt-3">
-                	 												<input type="hidden" name="rno" value="${request.rno}"/>
-			                	 									<input type="hidden" name="hno" value="${statusHistory.hno}"/>
-						                	 						<div class="col-2 label">내용</div>
-						                	 						<textarea name="reply" class="col-8 form-control boxed" rows="2">${statusHistory.reply}</textarea>
-					                	 						</div>
-					                	 						<div class="row mt-3">
-						                	 						<span class="col-2 label">첨부파일</span>
-						                	 						<div>
-					                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-																		<div>
-																			<span>${statusHistoryFile.fileName}</span>
-																			<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-																				<i class="fas fa-cloud-download-alt text-info"></i>
-																			</a>
-																			<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a>
-																			<input type="hidden" name = "fno" value="${statusHistoryFile.fno}">
-																		</div>
-																		</c:forEach>
+                	 											<form method="post" action="<c:url value='/updatehistory'/>" id="updateForm1" enctype="multipart/form-data">
+								                	 				<input type="hidden" id="rnorno" name="rno" value="${request.rno}"/>
+									                	 			<input type="hidden" name="hno" value="${statusHistory.hno}"/>
+	                	 											<div class="row mt-3">
+							                	 						<div class="col-2 label">내용</div>
+							                	 						<textarea name="reply" class="col-8 form-control boxed" rows="2">${statusHistory.reply}</textarea>
 						                	 						</div>
-					                	 						</div>
-					                	 						<div class="filebox row mb-3">
-																	<div class="col-2 label label-write" id="fileLable">
-																		<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
-																		<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
+						                	 						<div class="row mt-3">
+							                	 						<span class="col-2 label">첨부파일</span>
+							                	 						<div>
+						                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+																			<div>
+																				<span>${statusHistoryFile.fileName}</span>
+																				<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																					<i class="fas fa-cloud-download-alt text-info"></i>
+																				</a>
+																				<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a>
+																				<input type="hidden" name = "fno" value="${statusHistoryFile.fno}">
+																			</div>
+																			</c:forEach>
+							                	 						</div>
+						                	 						</div>
+						                	 						<div class="filebox row mb-3">
+																		<div class="col-2 label label-write" id="fileLable">
+																			<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
+																			<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
+																		</div>
+																		<div class="border flex-grow-1 border-success col-8" id="file-list-update"></div>	
 																	</div>
-																	<div class="border flex-grow-1 border-success col-8" id="file-list-update"></div>	
-																</div>
+																	<div class="d-flex justify-content-end">
+					                	 								<button onclick="update('updateForm1')" class="btn btn-primary btn-sm mx-3" type="button">수정</button>	
+					                	 							</div>
+																</form>
                 	 										</c:if>
                 	 										<c:if test="${request.statusNo != 7}">
                 	 											<div class="row mt-3">
@@ -253,34 +258,39 @@
                 	 								</c:if>
                 	 								<c:if test="${statusHistory.nextStatus == 3}">
                 	 									<c:if test="${request.statusNo == 3}">
-	                	 									<div class="row mt-3">
-		                	 									<input type="hidden" name="rno" value="${request.rno}"/>
-		                	 									<input type="hidden" name="hno" value="${statusHistory.hno}"/>
-					                	 						<div class="col-2 label">내용</div>
-					                	 						<textarea name="reply" class="col-8 form-control boxed" rows="2">${statusHistory.reply}</textarea>
-	               	 										</div>
-	               	 										<div class="row mt-3">
-					                	 						<span class="col-2 label" >첨부파일</span>
-					                	 						<div>
-				                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-																	<div>
-																		<span>${statusHistoryFile.fileName}</span>
-																		<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-																			<i class="fas fa-cloud-download-alt text-info"></i>
-																		</a>
-																		<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a>
-																		<input type="hidden" name = "fno" value="${statusHistoryFile.fno}">
-																	</div>
-																	</c:forEach>
+                	 										<form method="post" action="<c:url value='/updatehistory'/>" id="updateForm2" enctype="multipart/form-data">
+							                	 				<input type="hidden" id="rnorno" name="rno" value="${request.rno}"/>
+								                	 			<input type="hidden" name="hno" value="${statusHistory.hno}"/>
+		                	 									<div class="row mt-3">
+						                	 						<div class="col-2 label">내용</div>
+						                	 						<textarea name="reply" class="col-8 form-control boxed" rows="2">${statusHistory.reply}</textarea>
+		               	 										</div>
+		               	 										<div class="row mt-3">
+						                	 						<span class="col-2 label" >첨부파일</span>
+						                	 						<div>
+					                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+																		<div>
+																			<span>${statusHistoryFile.fileName}</span>
+																			<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																				<i class="fas fa-cloud-download-alt text-info"></i>
+																			</a>
+																			<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a>
+																			<input type="hidden" name = "fno" value="${statusHistoryFile.fno}">
+																		</div>
+																		</c:forEach>
+						                	 						</div>
 					                	 						</div>
-				                	 						</div>
-				                	 						<div class="filebox row mb-3">
-																<div class="col-2 label label-write" id="fileLable">
-																	<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
-																	<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
+					                	 						<div class="filebox row mb-3">
+																	<div class="col-2 label label-write" id="fileLable">
+																		<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
+																		<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
+																	</div>
+																	<div class="border flex-grow-1 border-success col-8" id="file-list-update"></div>	
 																</div>
-																<div class="border flex-grow-1 border-success col-8" id="file-list-update"></div>	
-															</div>
+																<div class="d-flex justify-content-end">
+				                	 								<button onclick="update('updateForm2')" class="btn btn-primary btn-sm mx-3" type="button">수정</button>	
+				                	 							</div>
+															</form>
                	 										</c:if>
                	 										<c:if test="${request.statusNo != 3}">
                	 											<div class="row mt-3">
@@ -316,16 +326,8 @@
 		                	 						</div>
                 	 							</c:if>
                 	 						</c:if>
-                	 						
-                	 						<c:if test="${(request.statusNo == 3 && requestProcess.tester == member.mid && index.last && statusHistory.nextStatus == 3)
-                	 						|| (request.statusNo == 7 && requestProcess.tester == member.mid && index.last && statusHistory.nextStatus == 7)}">
-                	 							<div class="d-flex justify-content-end">
-                	 								<button onclick="update(${request.statusNo})" class="btn btn-primary btn-sm mx-3" type="button">수정</button>	
-                	 							</div>
-                	 						</c:if>	
                 	 					</div>
                 	 				</div>
-                	 				</form>
 	                	 		</div>
 	                	 	</div> <!-- foreach한다면 여기부터 end -->
 	                	 	</c:forEach>
@@ -684,7 +686,7 @@
 		
 	});
 	/****** update() '수정'버튼 클릭 ******/
-	function update(){
+	function update(formId){
 		//선택된 파일 지우기
 		var fileInput = $('#fileInputUpdate')[0];
 		var fileBuffer = new DataTransfer();
@@ -699,7 +701,8 @@
 		}
 		fileInput.files = fileBuffer.files;
 		console.log("fileInput.files" + fileInput.files.length);
-		 $('#updateForm').submit();
+		console.log($('#rnorno').val());
+		$('#' + formId).submit();
 	}
 	
 	/******* 임시저장 *******/
