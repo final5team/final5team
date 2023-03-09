@@ -362,11 +362,11 @@ margin: 0 0 1rem 0;
 		<!-- 단계 : 배포  -->
 			<li class="<c:if test="${request.statusNo >= 11}">is_complete</c:if>
 				<c:if test="${request.statusNo >= 7 && request.statusNo <= 10}">is_active</c:if>" 
-				<c:if test="${request.statusNo >= 9}">
+				<c:if test="${request.statusNo >= 7}">
 					onclick="distribute(${request.rno})" style="cursor: pointer;"
 				</c:if>	
 					>
-				<c:if test ="${request.statusNo >= 9}">		
+				<c:if test ="${request.statusNo >= 7}">		
 					<span>
 						<c:if test="${request.statusNo < 7}">배포</c:if>
 						<c:if test="${request.statusNo == 7}">배포대기</c:if>
