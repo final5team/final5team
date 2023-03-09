@@ -68,7 +68,7 @@
 													<c:if test="${(request.statusNo == 7 && requestProcess.reqType == '긴급') || 
                 	 									(request.statusNo == 9 && requestProcess.reqType == '정규')}">
 														<input type="date" class="date-form control" name="expectDate" id="distExpectDate">
-														<div class="btn btn-sm btn-primary" onclick="checkDate()">작업 시작</div>
+														<div class="btn btn-sm btn-primary" onclick="checkDate()">배포 시작</div>
 													</c:if>
 
 													<c:if test="${request.statusNo == 10}">
@@ -148,9 +148,9 @@
 		                	 						<span class="col-3"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></span>
 	                	 						</div>
 	                	 						<c:if test="${requestProcess.distributor != member.mid}">
-	                	 							<div class="row">
+	                	 							<div class="row mt-3">
 	                	 								<span class="col-2 label">배포 내용</span>
-		                	 							<textarea rows="2" class="form-control boxed mr-5" readonly>${statusHistory.reply}</textarea>
+		                	 							<textarea rows="2" class="form-control boxed col-8" readonly>${statusHistory.reply}</textarea>
 	                	 							</div>
 	                	 							<div class="row mt-3">
 			                	 						<span class="col-2 label">첨부파일</span>

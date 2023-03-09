@@ -13,13 +13,15 @@ tinymce.init({
 	template_mdate_format: '%m/%d/%Y : %H:%M',
 	save_enablewhendirty: false,
 	object_resizing : false,
-	forced_root_block : ""
+	forced_root_block : "",
+	resize:false
 });
 
 tinymce.init({
 	language: 'ko_KR',
 	selector: 'textarea.pmcontent',
 	height: '70mm',
+	width:'165mm',
 	theme: 'silver',
 	menubar: false,
 	plugins: [
@@ -31,7 +33,9 @@ tinymce.init({
 	template_mdate_format: '%m/%d/%Y : %H:%M',
 	save_enablewhendirty: false,
 	object_resizing : false,
-	forced_root_block : ""
+	forced_root_block : "",
+	resize:false
+
 });
 
 tinymce.init({
@@ -49,7 +53,8 @@ tinymce.init({
 	template_mdate_format: '%m/%d/%Y : %H:%M',
 	save_enablewhendirty: false,
 	object_resizing : false,
-	forced_root_block : ""
+	forced_root_block : "",
+	resize:false
 });
 
 tinymce.init({
@@ -68,5 +73,6 @@ tinymce.init({
 	template_mdate_format: '%m/%d/%Y : %H:%M',
 	save_enablewhendirty: false,
 	object_resizing : false,
-	forced_root_block : ""
+	forced_root_block : "",
+	resize:false
 });
