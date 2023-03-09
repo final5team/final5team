@@ -22,7 +22,12 @@
 		        SNO = #{sno}
     	where rno = #{rno}
 	</update>
-
+	
+	<select id="selectStatusHistory" parameterType="int" resultType="int">
+		select hno
+			from status_histories
+			where rno = #{rno} and next_status =1
+	</select>
 
 
 	<select id="getRequestList" resultType="com.oti.srm.dto.Request">

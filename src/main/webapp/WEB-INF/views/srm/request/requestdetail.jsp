@@ -338,7 +338,7 @@
 					<p id="countContent"></p>
 				</div>
 				<div class="modal-footer" style="justify-content: center;">
-					<a class="btn btn-primary" data-dismiss="modal" type="button">확인</a>
+					<a class="btn btn-primary" data-dismiss="modal" type="button" id="modal-button">확인</a>
 				</div>
 			</div>
 		</div>
@@ -402,30 +402,33 @@
 		console.log(filesArr);
 		
 		let formData = new FormData();
+		
+		let rno = document.querySelector('#rno').value;
 		for(var i =0; i< filesArr.length; i++) {
 			console.log(i);
 			formData.append('files', filesArr[i]);
 		}
+		formData.append('rno', rno);
 		
 		$.ajax({
 			url : "requestfileupload",
 			type : 'POST',
 			data : formData,
+			cache : false,
 			processData : false,
 			contentType : false,
 			success : function(response){
-				console.log(response);
-				
+				$('#countCheck').modal();
+		    	$('#countContent').html('파일 업로드 완료');
+		    	let modalButton = document.querySelector('#modal-button');
+		    	
+		    	modalButton.addEventListener('click', function(){
+		    		location.reload();
+		    	});
+		    	
 			}
-			
-		
-			
 		});
-		
-		
 	};
-	
-	
 	
 	$(document).ready(function(){
 		$('#fileInputUpdate-adjust').on('change', uploadCheck);

@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +15,7 @@ import com.oti.srm.dto.ListFilter;
 import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
+import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.SelectPM;
 import com.oti.srm.dto.StatusHistory;
 import com.oti.srm.dto.StatusHistoryFile;
@@ -98,6 +98,25 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		}
 		return REQUEST_SUCCESS;
 	}
+	
+	// 요청 수정시 파일 추가
+	@Override
+	public int updateRequestFile(String rno, List<StatusHistoryFile> fileList) {
+		
+		log.info(Integer.parseInt(rno));
+		int hno = requestDao.selectStatusHistory(Integer.parseInt(rno));
+		log.info(hno);
+		
+		// 파일 첨부하기
+		if (fileList != null) {
+			for (StatusHistoryFile file : fileList) {
+				file.setHno(hno);
+				commonDao.insertStatusHistoryFile(file);
+			}
+		}
+		return 0;
+	}
+
 	
 	
 
@@ -311,6 +330,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	public List<SelectPM> getMainToWorkerList(StatusNoFilter statusNoFilter, Member member, Pager pager) {
 		return requestDao.selectMainToWorkerList(statusNoFilter.getStatusNo(), member, pager);
 	}
+
 
 
 

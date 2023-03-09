@@ -19,7 +19,8 @@ public interface IRequestDao {
 	public int insertRequest(Request request);
 	// 요청 수정 
 	public int updateRequest(Request request);
-	
+	// status History Hno 찾기
+	public int selectStatusHistory(int rno);
 	
 	public List<Request> getRequestList();
 	public int getPresentStep(int rno);
