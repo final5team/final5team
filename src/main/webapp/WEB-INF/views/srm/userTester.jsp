@@ -78,7 +78,7 @@
 												</div>
 											</div>
 	                	 				</form>
-										<form role="form" id="writeform" method="POST" enctype="multipart/form-data" action="${pageContext.request.contextPath}/testdone">
+										<form role="form" id="writeform" method="POST" enctype="multipart/form-data">
 											<input type="hidden" name="rno" value="${request.rno}">
 											<!-- 임시 저장 글 status_no -->
 											<input type="hidden" name="nextStatus" value="17"/>
@@ -102,8 +102,8 @@
 											</div>
 											<c:if test="${request.statusNo == 8}">
 												<div class="d-flex justify-content-end">
-													<button class="btn btn-warning btn-md mx-3"  onclick="tempStore(${request.rno},17)">임시 저장</button>
-													<button class="btn btn-primary btn-md " onclick="userTestDone()">유저테스트 완료</button>
+													<button class="btn btn-warning btn-md mx-3"  onclick="tempStore(${request.rno},17)" type="button">임시 저장</button>
+													<button class="btn btn-primary btn-md " onclick="userTestDone()" type="button">유저테스트 완료</button>
 												</div>
 											</c:if>
 										</form>				

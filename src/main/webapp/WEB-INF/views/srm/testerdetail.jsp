@@ -104,7 +104,7 @@
 											</div>
 										</form>												
 										<form role="form" id="writeform" method="POST" enctype="multipart/form-data">
-											<input type="hidden" name="nextStatus" value="15">
+											<input type="hidden" name="nextStatus" value="15" id="nextStatus">
 											<input type="hidden" name="rno" value="${request.rno}" id="rno">
 											<div class="form-group d-flex">
 												<div class="label label-write" id="replylabel">내용 작성 </div>
@@ -113,15 +113,12 @@
 													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply">${tempNormal.reply}</textarea>
 													<input type="hidden" id="tempNormal" value="${tempNormal.reply}">
 													<input type="hidden" id="tempReexam" value="${tempReexam.reply}">
-													<div class="d-flex justify-content-end">
-														<small class=" mr-5" id="counter">(0 / 300)</small>
-													</div>
 												</div>
 											</div>
 											
 											<div class="filebox d-flex mb-3">
-												<div class="label label-write" id="fileLable">
-													<div>첨부파일</div>
+												<div class="label label-write">
+													<div id="fileLabel">첨부파일</div>
 													<div class="btn btn-sm btn-info" id="btn-upload">파일 추가</div>
 													<input type="file" name="files" id="fileInput" multiple style="display: none;">
 												</div>
@@ -131,7 +128,7 @@
 											
 											<div class="d-flex justify-content-end">
 												<c:if test="${member.mid == requestProcess.tester && request.statusNo == 6}">
-												<button class="btn btn-warning btn-md mx-3 " onclick="tempStore()" >임시저장</button>
+												<button class="btn btn-warning btn-md mx-3 " onclick="tempStore(${request.rno})" type="button" >임시저장</button>
 												<button class="btn btn-primary btn-md " id="testButton" onclick="testdone()">테스트 완료</button>
 												</c:if>
 											</div>
@@ -691,24 +688,29 @@
 	}
 	
 	/******* 임시저장 *******/
-	function tempStore(){
-		var form = $('#writeform').serialize();
-		console.log(form);
-		$.ajax({
+	function tempStore(rno){
+		var reply = tinymce.activeEditor.getContent();
+		var nextStatus = $('#nextStatus').val();
+		console.log("rno : " + rno);
+		console.log("reply : " + reply);
+		console.log("nextStatus : " + nextStatus);
+		
+		
+		 $.ajax({
 			type: "POST",
 			url: "${pageContext.request.contextPath}/tempstore",
-			data: form,
+			data: {
+				rno : rno,
+				reply : reply,
+				nextStatus : nextStatus
+			},
 			dataType: "json",
 			success : function(result){
 				console.log(result.result);
 				$('#completeContent').text('저장되었습니다.');
 				$('#completeModal').modal();
-				/* const timerId1 = window.setTimeout(reload, 1500);
-				function reload(){
-					location.reload();
-				}  */
 			}
-		});
+		}); 
 	}
 	</script>
 </body>
