@@ -46,38 +46,52 @@
 						<c:if test="${newAlertList[0]==null}">
 							<div class="m-3">신규 내역이 없습니다.</div>
 						</c:if>										
-						<c:forEach var="newAlert" items="${newAlertList}">							
-							<a class="dropdown-item d-flex align-items-center" href="#">
-								<div class="mr-3">
-									<div>
-										<c:if test="${newAlert.statusNo == 1}">
+						<c:forEach var="newAlert" items="${newAlertList}">																					
+								<c:if test="${newAlert.statusNo == 1}">
+									<a class="dropdown-item d-flex align-items-center" href="<c:url value='/pm/receiptdetail?rno=${newAlert.rno}'/>">
+										<div class="mr-3">	
 											<span class="badge badge-warning">접수중</span>
-										</c:if>										
-										<c:if test="${newAlert.statusNo == 2}">
+								</c:if>										
+								<c:if test="${newAlert.statusNo == 2}">
+									<a class="dropdown-item d-flex align-items-center" href="<c:url value='/developerdetail?rno=${newAlert.rno}'/>">
+										<div class="mr-3">	
 											<span class="badge badge-warning">접수완료</span>
-										</c:if>
-										<c:if test="${newAlert.statusNo == 3}">
+								</c:if>
+								<c:if test="${newAlert.statusNo == 3}">
+									<a class="dropdown-item d-flex align-items-center" href="<c:url value='/developerdetail?rno=${newAlert.rno}'/>">
+										<div class="mr-3">	
 											<span class="badge badge-danger">개발재검토</span>
-										</c:if>
-										<c:if test="${newAlert.statusNo == 5}">
+								</c:if>
+								<c:if test="${newAlert.statusNo == 5}">
+									<a class="dropdown-item d-flex align-items-center" href="<c:url value='/testerdetail?rno=${newAlert.rno}'/>">
+										<div class="mr-3">	
 											<span class="badge badge-primary">개발완료</span>
-										</c:if>
-										<c:if test="${newAlert.statusNo == 7}">
+								</c:if>
+								<c:if test="${newAlert.statusNo == 7}">
+									<a class="dropdown-item d-flex align-items-center" href="<c:url value='/usertestdetail?rno=${newAlert.rno}'/>">
+										<div class="mr-3">	
 											<span class="badge badge-success">테스트완료</span>
-										</c:if>
-										<c:if test="${newAlert.statusNo == 9}">
+								</c:if>
+								<c:if test="${newAlert.statusNo == 9}">
+									<a class="dropdown-item d-flex align-items-center" href="<c:url value='/distributedetail?rno=${newAlert.rno}'/>">
+										<div class="mr-3">	
 											<span class="badge badge-info">품질검토완료</span>
-										</c:if>
-										<c:if test="${newAlert.statusNo == 11}">
+								</c:if>
+								<c:if test="${newAlert.statusNo == 11}">
+									<a class="dropdown-item d-flex align-items-center" href="<c:url value='/pm/enddetail?rno=${newAlert.rno}'/>">
+										<div class="mr-3">	
 											<span class="badge badge-secondary">배포완료</span>
-										</c:if>
-										<c:if test="${newAlert.statusNo == 12}">
+								</c:if>
+								<c:if test="${newAlert.statusNo == 12}">
+									<a class="dropdown-item d-flex align-items-center" href="<c:url value='/pm/enddetail?rno=${newAlert.rno}'/>">
+										<div class="mr-3">	
 											<span class="badge badge-danger">반려</span>
-										</c:if>
-										<c:if test="${newAlert.statusNo == 13}">
+								</c:if>
+								<c:if test="${newAlert.statusNo == 13}">
+									<a class="dropdown-item d-flex align-items-center" href="<c:url value='/pm/enddetail?rno=${newAlert.rno}'/>">
+										<div class="mr-3">	
 											<span class="badge badge-dark">완료</span>
-										</c:if>														
-									</div>
+								</c:if>																							
 								</div>
 								<div>
 									<div class="small text-gray-500"><fmt:formatDate value="${newAlert.reqDate}" pattern="yyyy-MM-dd"/></div>
@@ -96,7 +110,6 @@
 				</li>
 				</c:if>
 				
-
 				<div class="topbar-divider d-none d-sm-block"></div>
 
 				<!-- Nav Item - User Information -->

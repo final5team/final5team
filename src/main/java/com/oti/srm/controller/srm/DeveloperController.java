@@ -75,6 +75,8 @@ public class DeveloperController {
 		if(request.getDevCheck()==1 && member.getMtype().equals("developer") && requestProcess.getDeveloper().equals(member.getMid())) {
 			commonService.check("developer", request.getRno());
 		}
+		// 신규 내역 알림 갱신
+		session.setAttribute("newAlertList", commonService.getNewAlertList(member));
 
 		return "srm/developerdetail";
 	}
