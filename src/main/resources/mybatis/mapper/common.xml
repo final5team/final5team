@@ -520,6 +520,7 @@
 			rp.priority as "priority", 
 			r.req_date as "reqDate",
 		 	rp.all_expect_date as "allExpectDate",
+		 	system_name as "systemName",
 		 	st.status_name as "statusName", 
 		 	r.pm_check as "pmCheck",
 		 	r.rno as "rno"

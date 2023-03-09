@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 	<div style="height: 305px;">
 		<table class="table tasks-block table-striped table-hover"  >
 			<thead style="background-color: #3A4651;" class="text-white">
 				<tr style="text-align: center;">
-					<th>번호</th>
+					<th>요청번호</th>
+					<th>시스템</th>
 					<th>요청유형</th>
 					<th>제목</th>
 					<th>우선순위</th>
@@ -17,7 +19,8 @@
 			<tbody >
 				<c:forEach var="requestProcess" items="${requestProcessList}" varStatus="i">
 				<tr style="text-align: center;">
-					<td>${i.count}</td>
+					<td>${requestProcess.rno}</td>
+					<td>${requestProcess.systemName}</td>
 					<c:if test="${requestProcess.reqType != null}">
 						<td <c:if test="${requestProcess.reqType == '긴급'}"> class="text-danger"</c:if>>
 							${requestProcess.reqType}

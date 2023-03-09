@@ -28,6 +28,14 @@ public class SelectPM {
 	private Date reqExpectDate;
 	private String organ;
 	
+	// 서비스 변경 여부 (신규 알림) 확인
+	private int pmCheck;
+	private int devCheck;
+	private int tesCheck;
+	private int uttCheck;
+	private int disCheck;
+	private int usrCheck;
+	
 //	request_Process 항목
 	private String reqType;
 	private String developer;
