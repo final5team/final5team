@@ -221,7 +221,7 @@ textarea:focus::placeholder {
 	left: 15%;
 	z-index: 2;
 	display: inline-block;
-	height: 80px;
+	height: 120px;
 	width: 495px;
 	vertical-align: middle;
 	border: 1px solid #d1d3e2;
@@ -254,7 +254,7 @@ textarea:focus::placeholder {
 
 .file-item {
 	width: 400px;
-	height: 100px;
+	height: 190px;
 	top: 20%;
 	border-radius: 5px;
 	z-index : 5;
@@ -435,6 +435,23 @@ textarea:focus::placeholder {
 		</div>
 	</div>
 	<!-- 글자수 입력 확인 /-->
+	<!-- 파일 체크 모달 -->
+	<div class="modal fade" id="completeModal" aria-hidden="true" aria-labelledby="successOfDueDate">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>Check</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" style="display: flex; justify-content: center;">
+					<p id="completeContent"></p>
+				</div>
+				<div class="modal-footer" style="justify-content: center;">
+                    <a class="btn btn-primary" data-dismiss="modal" type="button">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	
 	
@@ -471,121 +488,33 @@ textarea:focus::placeholder {
 		var fileNum = 0;
 		// 첨부파일 배열
 		var content_files = new Array();
+		
 		//파일 추가 버튼 클릭시 파일 input
 		let inputLabel = document.querySelector('#btn-upload');
 		inputLabel.addEventListener('click', function(e){
 			
 		});
-		$(document).ready(function() {
-			$("#mfile").on('change', fileCheck);
-		});	
-		
-		//업로드 파일 리스트 출력하기
-// 		$(document).ready(function() {
-// 			$("#fileInput").on('change', fileCheck);
-			
-// 		});
-		
-		
-		/****** 업로드된 파일 리스트 출력하기 *****/
-// 		$(document).ready(function()
-// 			// input file 파일 첨부시 fileCheck 함수 실행
-// 		{
-// 			$("#fileInput").on("change", fileCheck);
-// 			$("#fileInputUpdate").on("change", fileUpdate);
-// 		});
-		
-// 		/* '파일추가' 버튼 누를 때마다 파일input 실행 */
-// 		$(function () {
-// 		    $('#btn-upload').click(function (e) {
-// 		        e.preventDefault();
-// 		        console.log('파일 추가 선택');
-// 		        $('#fileInput').click();
-// 		    });
-// 		})
-		
-
-
-		function fileCheck(e) {
-		    var files = e.target.files;
-		    
-		    // 파일 배열 담기
-		    var filesArr = Array.prototype.slice.call(files);
-		    
-		    // 파일 개수 확인 및 제한
-		    if (fileCount + filesArr.length > totalCount) {
+		//업로드된 파일 출력하기
+		$("#mfile").on('change', function(){
+		let mfile = document.querySelector('#mfile');
+			console.log(mfile.files);			
+			let filesArr = Array.prototype.slice.call(mfile.files);
+			if (fileCount + filesArr.length > totalCount) {
 		    	$('#completeModal').modal();
 		    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
 		      return;
 		    } else {
 		    	 fileCount = fileCount + filesArr.length;
 		    }
-		    
-		    // 각각의 파일 배열담기 및 기타
-// 		    filesArr.forEach(function (f) {
-// 		      var reader = new FileReader();
-// 		      console.log('파일 배열에 담기');
-// 		      reader.onload = function (e) {
-// 			        content_files.push(f);
-// 			        console.log('append 작업');
-// 			        $('#exist_file').append(
-// 			       		'<div id="file' + fileNum + '">'
-// 			       		+ '<font style="font-size:15px">' + f.name + '</font>'  
-// 			       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
-// 			       		+ '<div/>'
-// 					);
-// 			        fileNum ++;
-// 		      };
-		      
-// 		      reader.readAsDataURL(f);
-//		    });
-		  }
-
-		// 파일 부분 삭제 함수
-		function fileDelete(fileId){
-		    var fileNum = fileId.replace("file", "");
-		    content_files[fileNum].is_delete = true;
-		    
-			$('#' + fileId).remove();
-			fileCount --;
-		}
-		/********* 파일 수정 *********/
-		
-		/* '파일수정' 버튼 누를 때마다 파일input 실행 */
-		$(function () {
-		    $('#btn-upload-update').click(function (e) {
-		        e.preventDefault();
-		        $('#fileInputUpdate').click();
-		    });
-		})
-		function fileUpdate (e){
-			console.log("fileUpdate");
-			//파일 객체 갖고오기
-			var files = e.target.files;
-			
-			// 파일 배열 담기
-		    var filesArr = Array.prototype.slice.call(files);
-			
-			//기존에 있던 파일 객체
-		    var existfiles = $('.existfiles');
-		    
-	    	console.log("fileCount: "+ fileCount);	
-	    	console.log("filesArr.length: "+filesArr.length);
-	    	console.log("existfiles.length: "+existfiles.length);
-		    if(fileCount + filesArr.length > totalCount - existfiles.length ){
-		    	$('#completeModal').modal();
-		    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
-		      return;
-		    }else {
-		    	 fileCount = fileCount + filesArr.length;
-		    }
-		 	// 각각의 파일 배열담기 및 기타
+			//기존 태그 내용 삭제
+			let exist_file_html = document.querySelector('#exist_file');
+			exist_file_html.innerText = '';
+			// 각각의 파일 배열담기 및 기타
 		    filesArr.forEach(function (f) {
 		      var reader = new FileReader();
-		      
 		      reader.onload = function (e) {
 			        content_files.push(f);
-			        $('#file-list-update').append(
+			        $('#exist_file').append(
 			       		'<div id="file' + fileNum + '">'
 			       		+ '<font style="font-size:15px">' + f.name + '</font>'  
 			       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
@@ -593,55 +522,16 @@ textarea:focus::placeholder {
 					);
 			        fileNum ++;
 		      };
-		      
 		      reader.readAsDataURL(f);
 		    });
-		 	
-		}
-		/***************** 올린 파일 삭제 *****************/
-		$('.deletefileButton').click(function(){
-			var deleteDiv = $(this).parent();
-			var fno = $(this).next().val();
-			let distinguish = 1;
-			
-			$.ajax({
-				type:"POST",
-				url:"${pageContext.request.contextPath}/noticefiledelete?fno=" + fno,
-				dataType: "json",
-				data: {
-					distinguish : distinguish
-				},
-				success: function(result){
-					deleteDiv.remove();
-				}
-			});
-			
-			
 		});
-		/****** update() '수정'버튼 클릭 ******/
-		function update(){
-			//선택된 파일 지우기
-			var fileInput = $('#fileInputUpdate')[0];
-			var fileBuffer = new DataTransfer();
-			fileInput.files = fileBuffer.files;
-			
-			//배열의 항목으로 채우기
-			fileBuffer = new DataTransfer();
-			for(var i = 0; i < content_files.length; i ++){
-				if(!content_files[i].is_delete){
-					fileBuffer.items.add(content_files[i]);
-				} 
-			}
-			fileInput.files = fileBuffer.files;
-			
-			$('#updateForm').submit();
+		// 파일 부분 삭제 함수
+		function fileDelete(fileId){
+		    var fileNum = fileId.replace("file", "");
+		    content_files[fileNum].is_delete = true;
+			$('#' + fileId).remove();
+			fileCount --;
 		}
-		
-		
-		
-		
-		
-		
 	</script>
 </body>
 
