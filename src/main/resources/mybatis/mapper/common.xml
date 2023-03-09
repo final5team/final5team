@@ -596,7 +596,7 @@
 			REQ_TITLE as "reqTitle",
 			REQ_DATE as "reqDate",
 			STATUS_NO as "statusNo",
-			RNO as "rno"				
+			r.RNO as "rno"				
 		from REQUESTS r 
 		<if test="mtype != 'user'">
 			<if test="mtype != 'pm'">
@@ -623,7 +623,7 @@
 				DIS_CHECK=1 and DISTRIBUTOR=#{mid} and r.RNO = p.RNO
 			</if>
 		</where>
-			
+		order by r.RNO desc	
 
 	</select>
 		
