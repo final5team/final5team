@@ -471,7 +471,6 @@ textarea:focus::placeholder {
 		$('#reqTitle').keyup(function(e) {
 			let content = $(this).val();
 			$('#counterTitle').html("(" + content.length + " / 30)");
-			console.log(content.length);
 			
 			if (content.length > 30) {
 				$('#countCheck').modal();

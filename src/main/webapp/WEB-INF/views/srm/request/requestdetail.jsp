@@ -135,12 +135,13 @@
 																	<input type="hidden" name = "fno" value="${file.fno}">
 																</div>
 																</c:forEach>
-																<div class="border flex-grow-1 border-success write_adjust" id="file-list-update" style="min-height:50px; width : 720px; " ></div>
+																<div class="border flex-grow-1 border-success write_adjust" id="file-list-update_adjust" style="min-height:50px; width : 720px; " ></div>
 															</div>
 													</article>
+													
 														<div class="label-write_adjust" id="fileLable" >
-															<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
-															<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
+															<div class="btn btn-sm btn-info" id="btn-upload-update-adjust" onclick="fileAjax()">파일 수정</div>
+															<input type="file" name="filesInput" id="fileInputUpdate-adjust" multiple style="display: none;">
 														</div>
 															
 														
@@ -361,13 +362,22 @@
 				data : JSON.stringify(data),
 				contentType: "application/json; charset=UTF-8",
 				success : function (data){
-					console.log(data);
 					location.reload();
 				}
 				
 			});
 		
 		};
+	// 파일 추가 ajax
+	function fileAjax(){
+			
+		let filesInput = document.querySelector('#filesInput');
+			console.log(filesInput);
+			filesInput.onclick();
+		
+		
+		
+	}
 	
 	
 	
@@ -386,6 +396,7 @@
 	    $('#btn-upload').click(function (e) {
 	        e.preventDefault();
 	        $('#fileInput').click();
+	        
 	    });
 	})
 	
