@@ -46,52 +46,55 @@
 						<c:if test="${newAlertList[0]==null}">
 							<div class="m-3">신규 내역이 없습니다.</div>
 						</c:if>										
-						<c:forEach var="newAlert" items="${newAlertList}">																					
-								<c:if test="${newAlert.statusNo == 1}">
-									<a class="dropdown-item d-flex align-items-center" href="<c:url value='/pm/receiptdetail?rno=${newAlert.rno}'/>">
-										<div class="mr-3">	
-											<span class="badge badge-warning">접수중</span>
-								</c:if>										
-								<c:if test="${newAlert.statusNo == 2}">
-									<a class="dropdown-item d-flex align-items-center" href="<c:url value='/developerdetail?rno=${newAlert.rno}'/>">
-										<div class="mr-3">	
-											<span class="badge badge-warning">접수완료</span>
-								</c:if>
-								<c:if test="${newAlert.statusNo == 3}">
-									<a class="dropdown-item d-flex align-items-center" href="<c:url value='/developerdetail?rno=${newAlert.rno}'/>">
-										<div class="mr-3">	
-											<span class="badge badge-danger">개발재검토</span>
-								</c:if>
-								<c:if test="${newAlert.statusNo == 5}">
-									<a class="dropdown-item d-flex align-items-center" href="<c:url value='/testerdetail?rno=${newAlert.rno}'/>">
-										<div class="mr-3">	
-											<span class="badge badge-primary">개발완료</span>
-								</c:if>
-								<c:if test="${newAlert.statusNo == 7}">
-									<a class="dropdown-item d-flex align-items-center" href="<c:url value='/usertestdetail?rno=${newAlert.rno}'/>">
-										<div class="mr-3">	
-											<span class="badge badge-success">테스트완료</span>
-								</c:if>
-								<c:if test="${newAlert.statusNo == 9}">
-									<a class="dropdown-item d-flex align-items-center" href="<c:url value='/distributedetail?rno=${newAlert.rno}'/>">
-										<div class="mr-3">	
-											<span class="badge badge-info">품질검토완료</span>
-								</c:if>
-								<c:if test="${newAlert.statusNo == 11}">
-									<a class="dropdown-item d-flex align-items-center" href="<c:url value='/pm/enddetail?rno=${newAlert.rno}'/>">
-										<div class="mr-3">	
-											<span class="badge badge-secondary">배포완료</span>
-								</c:if>
-								<c:if test="${newAlert.statusNo == 12}">
-									<a class="dropdown-item d-flex align-items-center" href="<c:url value='/pm/enddetail?rno=${newAlert.rno}'/>">
-										<div class="mr-3">	
-											<span class="badge badge-danger">반려</span>
-								</c:if>
-								<c:if test="${newAlert.statusNo == 13}">
-									<a class="dropdown-item d-flex align-items-center" href="<c:url value='/pm/enddetail?rno=${newAlert.rno}'/>">
-										<div class="mr-3">	
-											<span class="badge badge-dark">완료</span>
-								</c:if>																							
+						<c:forEach var="newAlert" items="${newAlertList}">	
+							<a class="dropdown-item d-flex align-items-center" 
+							<c:if test="${newAlert.statusNo == 1}">
+							href="<c:url value='/pm/receiptdetail?rno=${newAlert.rno}'/>"
+							</c:if>
+							<c:if test="${member.mtype == 'developer'}">
+							href="<c:url value='/developerdetail?rno=${newAlert.rno}'/>"
+							</c:if>
+							<c:if test="${member.mtype == 'tester'}">
+							href="<c:url value='/testerdetail?rno=${newAlert.rno}'/>"
+							</c:if>
+							<c:if test="${member.mtype == 'usertester'}">
+							href="<c:url value='/usertestdetail?rno=${newAlert.rno}'/>"
+							</c:if>
+							<c:if test="${member.mtype == 'distributor'}">
+							href="<c:url value='/distributedetail?rno=${newAlert.rno}'/>"
+							</c:if>
+							<c:if test="${newAlert.statusNo >= 11}">
+							href="<c:url value='/pm/enddetail?rno=${newAlert.rno}'/>"
+							</c:if>
+							>
+								<div class="mr-3">																					
+									<c:if test="${newAlert.statusNo == 1}">									
+										<span class="badge badge-warning">접수중</span>
+									</c:if>										
+									<c:if test="${newAlert.statusNo == 2}">
+										<span class="badge badge-warning">접수완료</span>
+									</c:if>
+									<c:if test="${newAlert.statusNo == 3}">									
+										<span class="badge badge-danger">개발재검토</span>
+									</c:if>
+									<c:if test="${newAlert.statusNo == 5}">								
+										<span class="badge badge-primary">개발완료</span>
+									</c:if>
+									<c:if test="${newAlert.statusNo == 7}">									
+										<span class="badge badge-success">테스트완료</span>
+									</c:if>
+									<c:if test="${newAlert.statusNo == 9}">						
+										<span class="badge badge-info">품질검토완료</span>
+									</c:if>
+									<c:if test="${newAlert.statusNo == 11}">									
+										<span class="badge badge-secondary">배포완료</span>
+									</c:if>
+									<c:if test="${newAlert.statusNo == 12}">									
+										<span class="badge badge-danger">반려</span>
+									</c:if>
+									<c:if test="${newAlert.statusNo == 13}">									
+										<span class="badge badge-dark">완료</span>
+									</c:if>																							
 								</div>
 								<div>
 									<div class="small text-gray-500"><fmt:formatDate value="${newAlert.reqDate}" pattern="yyyy-MM-dd"/></div>
