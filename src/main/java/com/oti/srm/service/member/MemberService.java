@@ -22,7 +22,7 @@ public class MemberService implements IMemberService {
 
 		PasswordEncoder pe = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		Member returnMember = memberDao.getMember(member);
-
+		
 		boolean checkPass = pe.matches(member.getPassword(), returnMember.getPassword());
 		if (checkPass == false) {
 			member.setPassConfirm("N");
@@ -32,6 +32,12 @@ public class MemberService implements IMemberService {
 		}
 
 	}
+	
+	@Override
+	public Member getNoPasswordMember(Member member) {
+        return memberDao.getMember(member);
+	}
+	
 
 	// 유저 아이디 중복 확인
 	@Override

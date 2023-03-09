@@ -251,8 +251,7 @@ public class PMController {
 		log.info("실행");
 		Member member = new Member();
 		member.setMid(mid);
-		member.setPassword("1234");
-		Member me = memberService.getMember(member);
+		Member me = memberService.getNoPasswordMember(member);
 		List<WorkingInfo> workingInfoList =  pMService.getWorkingInfo(me);
 		for(WorkingInfo wif : workingInfoList) {
 			log.info("rno : " + wif.getRno());
