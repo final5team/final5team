@@ -225,7 +225,8 @@
 			req_date as "reqDate",
 			req_title as "reqTitle",
 			status_name as "statusName",
-			all_expect_date as "allExpectDate"			
+			all_expect_date as "allExpectDate",
+			r.PM_CHECK as "pmCheck"			
 		from requests r, request_process rp, status s, systems sy
 		where r.rno = rp.rno 
 		and r.status_no = s.status_no
