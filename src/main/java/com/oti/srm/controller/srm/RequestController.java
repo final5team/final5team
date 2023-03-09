@@ -432,6 +432,15 @@ public class RequestController {
 		return new ResponseEntity<byte[]>(file.getFileData(), headers, HttpStatus.OK);
 	}
 	
+	//요청 수정시, 파일 업로드
+	@PostMapping("/requestfileupload")
+	@ResponseBody
+	public int uploadFile(@RequestParam("files")MultipartFile[] files) {
+		
+		log.info(files.toString());
+		
+		return 1;
+	}
 	
 
 	

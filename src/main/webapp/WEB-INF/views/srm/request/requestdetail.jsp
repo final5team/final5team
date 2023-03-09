@@ -140,7 +140,7 @@
 													</article>
 													
 														<div class="label-write_adjust" id="fileLable" >
-															<div class="btn btn-sm btn-info" id="btn-upload-update-adjust" onclick="fileAjax()">파일 수정</div>
+															<div class="btn btn-sm btn-info" id="btn-upload-update-adjust" onclick="fileajax()">파일 수정</div>
 															<input type="file" name="filesInput" id="fileInputUpdate-adjust" multiple style="display: none;">
 														</div>
 															
@@ -368,17 +368,67 @@
 			});
 		
 		};
-	// 파일 추가 ajax
-	function fileAjax(){
-			
-		let filesInput = document.querySelector('#filesInput');
-			console.log(filesInput);
-			filesInput.onclick();
 		
-		
-		
-	}
 	
+	// 파일 추가 ajax
+	function fileajax(){
+		let filesInput = document.querySelector('#fileInputUpdate-adjust');
+		filesInput.click();
+	};
+	
+	function uploadCheck(){
+		let filesInput = document.querySelector('#fileInputUpdate-adjust');
+		console.log(filesInput.files);
+		
+		let filesArr = Array.prototype.slice.call(filesInput.files);
+		//기존 파일 개수 + 새로 올린 개수 확인해야함
+		
+		fileCount = fileCount + filesArr.length;
+		filesArr.forEach(function (f) {
+		      var reader = new FileReader();
+		      reader.onload = function (e) {
+			        content_files.push(f);
+			        $('#file-list-update_adjust').append(
+			       		'<div id="file' + fileNum + '">'
+			       		+ '<font style="font-size:15px">' + f.name + '</font>'  
+			       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success" style="cursor:pointer;"></i></a>' 
+			       		+ '<div/>'
+					);
+			        fileNum ++;
+		      };
+		      reader.readAsDataURL(f);
+		});
+		
+		console.log(filesArr);
+		
+		let formData = new FormData();
+		for(var i =0; i< filesArr.length; i++) {
+			console.log(i);
+			formData.append('files', filesArr[i]);
+		}
+		
+		$.ajax({
+			url : "requestfileupload",
+			type : 'POST',
+			data : formData,
+			processData : false,
+			contentType : false,
+			success : function(response){
+				console.log(response);
+				
+			}
+			
+			
+		});
+		
+		
+	};
+	
+	
+	
+	$(document).ready(function(){
+		$('#fileInputUpdate-adjust').on('change', uploadCheck);
+	})
 	
 	
 	
