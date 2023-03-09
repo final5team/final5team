@@ -2,6 +2,7 @@ package com.oti.srm.controller.srm;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.oti.srm.dto.Member;
@@ -18,6 +20,9 @@ import com.oti.srm.dto.Request;
 import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.StatusHistory;
 import com.oti.srm.dto.StatusHistoryFile;
+import com.oti.srm.dto.WorkingInfo;
+import com.oti.srm.service.member.IMemberService;
+import com.oti.srm.service.member.MemberService;
 import com.oti.srm.service.srm.ICommonService;
 import com.oti.srm.service.srm.IPMService;
 
@@ -35,6 +40,8 @@ public class PMController {
 	ICommonService commonService;
 	@Autowired
 	IPMService pMService;
+	@Autowired
+	IMemberService memberService;
 
 	/**
 	 * 
@@ -239,18 +246,10 @@ public class PMController {
 
 	// 완료 처리하기
 	@GetMapping("/workinginfo")
-	public String workinginfo(StatusHistory statusHistory, HttpSession session, Model model) {
-		// 작성자 입력
-		Member me = (Member) session.getAttribute("member");
-		statusHistory.setWriter(me.getMid());
-
-		// 최종 완료 처리
-		statusHistory.setNextStatus(13);
-		// PM 처리 완료(완료 승인)
-		commonService.endWork(statusHistory, me.getMtype());
-		// 서비스 변경 여부(사용자 미확인)
-		commonService.notCheck("user", statusHistory.getRno());
-
-		return "redirect:/pm/enddetail?rno=" + statusHistory.getRno();
+	@ResponseBody
+	public List<WorkingInfo> workinginfo(String mid, HttpSession session, Model model) {
+		Member member = new Member();
+		member.setMid(mid);
+		return pMService.getWorkingInfo(memberService.getMember(member));
 	}
 }
