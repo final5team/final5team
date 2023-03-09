@@ -130,7 +130,7 @@
 										
 										<c:if test="${request.statusNo == 4}">
 										<div class="d-flex justify-content-end">
-										<button class="btn btn-warning btn-md mx-3" onclick="tempStore()">임시 저장</button>
+										<button class="btn btn-warning btn-md mx-3" onclick="tempStore(${request.rno},14)">임시 저장</button>
 										<c:if test="${requestProcess.devProgress == 100}">
 										<button class="btn btn-primary btn-md " onclick="devEnd()">개발 완료</button>
 										</c:if>
@@ -424,9 +424,32 @@
 		$('#writeform').submit();
 	}
 	/* 임시저장 버튼 클릭시 form 데이터 전달 */
-	function tempStore(){
-		$('#writeform').attr('action', '${pageContext.request.contextPath}/tempstore');
-		$('#writeform').submit();
+	function tempStore(rno,nextStatus){
+		var reply = tinymce.activeEditor.getContent();
+		var rno = rno;
+		var nextStatus = nextStatus;
+		var distSource = $('#distSource').val();
+		
+		$.ajax({
+			type: "POST",
+			url: "${pageContext.request.contextPath}/tempstore",
+			data: {
+				rno : rno,
+				nextStatus : nextStatus,
+				distSource : distSource,
+				reply : reply
+			},
+			dataType: "json",
+			success : function(result){
+				console.log(result.result);
+				$('#completeContent').text('저장되었습니다.');
+				$('#completeModal').modal();
+				/* const timerId1 = window.setTimeout(reload, 1500);
+				function reload(){
+					location.reload();
+				}  */
+			}
+		});
 	}
 	
 	function getDevContent(index){
@@ -485,8 +508,24 @@
 			let intDevProgress = parseInt(devProgress);
 			
 			if (intDevProgress >=0 && intDevProgress <= 100){
-				$('#progressForm').submit();
-				return;
+				
+				var form = $('#progressForm').serialize();
+				console.log(form);
+				$.ajax({
+					type: "POST",
+					url: "${pageContext.request.contextPath}/updatedevprogress",
+					data: form,
+					dataType: "json",
+					success : function(result){
+						console.log(result.result);
+						$('#completeContent').text('입력되었습니다.');
+						$('#completeModal').modal();
+						const timerId1 = window.setTimeout(reload, 1500);
+						function reload(){
+							location.reload();
+						} 
+					}
+				});
 				
 			} else{
 				$('#completeContent').text('');
