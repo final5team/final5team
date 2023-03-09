@@ -102,8 +102,8 @@
 											</div>
 											<c:if test="${request.statusNo == 8}">
 												<div class="d-flex justify-content-end">
-													<button class="btn btn-warning btn-md mx-3"  formaction="${pageContext.request.contextPath}/tempstore">임시 저장</button>
-													<button class="btn btn-primary btn-md " onclick="userTestDone()">유저테스트 완료</button>
+													<button class="btn btn-warning btn-md mx-3"  onclick="tempStore(${request.rno},17)" type="button">임시 저장</button>
+													<button class="btn btn-primary btn-md " onclick="userTestDone()" type="button">유저테스트 완료</button>
 												</div>
 											</c:if>
 										</form>				
@@ -576,6 +576,32 @@
 		
 		$('#updateForm').submit();
 	}
+	/******* 임시저장 *******/
+	function tempStore(rno,nextStatus){
+		var reply = tinymce.activeEditor.getContent();
+		var rno = rno;
+		var nextStatus = nextStatus;
+		$.ajax({
+			type: "POST",
+			url: "${pageContext.request.contextPath}/tempstore",
+			data: {
+				reply:reply,
+				rno:rno,
+				nextStatus:nextStatus
+			},
+			dataType: "json",
+			success : function(result){
+				console.log(result.result);
+				$('#completeContent').text('저장되었습니다.');
+				$('#completeModal').modal();
+				/* const timerId1 = window.setTimeout(reload, 1500);
+				function reload(){
+					location.reload();
+				}  */
+			}
+		});
+	}
+	
 	</script>
 </body>
 
