@@ -158,20 +158,20 @@
 	                	 		<div class="card-block">
 	                	 			<div class="card-block-title mb-0">
 	                	 				<c:if test="${statusHistory.nextStatus == 3}">
-	                	 				<h3 class="title text-success">
-	                	 					 ${index.count}차 재검토 내역  <i class="far fa-bookmark "></i>
+	                	 				<h3 class="title">
+	                	 					 ${index.count}차 재검토 내역  <i class="far fa-bookmark text-warning "></i>
 	                	 				</h3>
 	                	 				</c:if>
 	                	 				<c:if test="${statusHistory.nextStatus == 7}">
-	                	 				<h3 class="title text-primary">
-	                	 					 ${index.count}차 승인 내역  <i class="far fa-bookmark "></i>
+	                	 				<h3 class="title ">
+	                	 					 승인 내역  <i class="far fa-bookmark success"></i>
 	                	 				</h3>
 	                	 				</c:if>
 	                	 			</div>
 	                	 			<form method="post" action="<c:url value='/updatehistory'/>" id="updateForm" enctype="multipart/form-data">
 	                	 			<div class="card-body">
                 	 					<div>
-                	 						<div class="row mb-2">
+                	 						<div class="row">
 	                	 						<div class="col-2 label">작성자</div>
 	                	 						<div class="col-3">${statusHistory.writer}</div>
 	                	 						<div class="col-2 label">테스트 완료일</div>
@@ -181,6 +181,21 @@
 	                	 						<div class="row mt-3">
 		                	 						<div class="col-2 label">내용</div>
 		                	 						<textarea class="col-8 form-control boxed" rows="2"  readonly>${statusHistory.reply}</textarea>
+	                	 						</div>
+	                	 						<div class="row mt-3">
+		                	 						<span class="col-2 label">첨부파일</span>
+		                	 						<div>
+	                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+														<div>
+															<span>${statusHistoryFile.fileName}</span>
+															<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																<i class="fas fa-cloud-download-alt text-info"></i>
+															</a>
+															<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a>
+															<input type="hidden" name = "fno" value="${statusHistoryFile.fno}">
+														</div>
+														</c:forEach>
+		                	 						</div>
 	                	 						</div>
                 	 						</c:if>
                 	 						<c:if test="${member.mid == requestProcess.tester}">

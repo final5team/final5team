@@ -168,14 +168,14 @@
 	                	 			<form method="post" action="<c:url value='/updatehistory'/>" enctype="multipart/form-data" id="updateForm">
 	                	 				<div class="card-body">
 	                	 					<div>
-	                	 						<div class="row mb-2">
+	                	 						<div class="row">
 		                	 						<div class="col-2 label">작성자</div>
 		                	 						<div class="col-3 ">${statusHistory.writer}</div>
 		                	 						<div class="col-2 label">개발 완료일</div>
 		                	 						<div class="col-3 "><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
 	                	 						</div>
 	                	 						<c:if test="${member.mid != requestProcess.developer}">
-		                	 						<div class="row">
+		                	 						<div class="row mt-3">
 		                	 							<div class="col-2 label" >개발내용</div>
 		                	 							<textarea class="col-8 form-control boxed" rows="2" readonly>${statusHistory.reply}</textarea>
 		                	 						</div>
