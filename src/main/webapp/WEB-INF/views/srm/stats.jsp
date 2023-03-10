@@ -746,9 +746,9 @@
 											<input type="number" class="text-center" id="selectYear" style="width: 60px;">
 											<select class="text-center" name="selectQuarter" id="selectQuarter" style="width: 90px; height: 28px;">
 											    <option value="1" id="1">1 분기</option>
-											    <option value="2" id="2">2 분기</option>
-											    <option value="3" id="3">3 분기</option>
-											    <option value="4" id="4">4 분기</option>
+											    <option value="4" id="2">2 분기</option>
+											    <option value="7" id="3">3 분기</option>
+											    <option value="10" id="4">4 분기</option>
 											  </select>
 											  <button class="btn btn-sm" style="border-color: grey; position: relative; bottom:2px;" onclick="searchCurve()">선택</button>
 										</div>
