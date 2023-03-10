@@ -120,7 +120,7 @@
 													</article>
 													<article class="bodyInput">
 														<div class="item">
-															<textarea class="replyWrite" cols="30" placeholder="내용">${request.reqContent}</textarea>
+															<textarea class="replyWrite">${request.reqContent}</textarea>
 														</div>
 													</article>
 													<article class="fileBody">
@@ -136,7 +136,7 @@
 																	<input type="hidden" name = "fno" value="${file.fno}">
 																</div>
 																</c:forEach>
-																<div class="border flex-grow-1 border-success write_adjust" id="file-list-update_adjust" style="min-height:50px; width : 720px; " ></div>
+																<div class="border flex-grow-1 write_adjust" id="file-list-update_adjust" style="min-height:50px; width : 720px; " ></div>
 															</div>
 													</article>
 													
@@ -210,12 +210,7 @@
 												<hr/>
 												<div class="row">
 													<div class="col-3 label">내용</div>
-													<%-- <textarea class="col-7 replyRead">${request.reqContent}</textarea> --%>
-													<div class="col-8 border scroll-parent" >
-														<div class="scroll-div">
-															${statusHistory.reply}
-														</div>
-													</div>
+													<div class="col-8 border p-2 scroller">${statusHistory.reply}</div>
 												</div>
 												<hr/>
 												<div class="row">
@@ -285,11 +280,7 @@
 										<hr/>
 										<div class="row">
 											<div class="col-3 label">내용</div>
-											<%-- <textarea class="col-7 form-control boxed mr-5" rows="3" readonly>${request.reqContent}</textarea> --%>
-											<%-- <div class="col-8 border">${request.reqContent}</div> --%>
-											<div class="col-8 border" >
-												${request.reqContent}
-											</div>
+											<div class="col-8 border p-2 scroller" >${request.reqContent}</div>
 										</div>
 										<hr/>
 										<div class="row">

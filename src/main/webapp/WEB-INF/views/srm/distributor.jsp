@@ -68,7 +68,7 @@
 													<c:if test="${(request.statusNo == 7 && requestProcess.reqType == '긴급') || 
                 	 									(request.statusNo == 9 && requestProcess.reqType == '정규')}">
 														<input type="date" class="date-form control" name="expectDate" id="distExpectDate">
-														<div class="btn btn-sm btn-primary" onclick="checkDate()">배포 시작</div>
+														<div class="btn btn-md btn-warning" onclick="checkDate()">배포 시작</div>
 													</c:if>
 
 													<c:if test="${request.statusNo == 10}">
@@ -86,10 +86,7 @@
 											<div class="form-group d-flex">
 												<div class="label label-write">배포 내용</div>
 												<div class="flex-grow-1">
-													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply">${distributorTemp.reply}</textarea>
-													<div class="d-flex justify-content-end">
-														<small class=" mr-5" id="counter">(0 / 300)</small>
-													</div>
+													<textarea name="reply" id="reply">${distributorTemp.reply}</textarea>
 												</div>
 											</div>
 											
@@ -100,7 +97,7 @@
 													<input type="file" name="files" id="fileInput" multiple style="display: none;">
 												</div>
 												
-												<div class="border flex-grow-1 border-success" id="file-list">
+												<div class="border flex-grow-1 border" id="file-list">
 			  									
 			  									</div>	
 											</div>
@@ -142,7 +139,7 @@
 	                	 						<c:if test="${requestProcess.distributor != member.mid}">
 	                	 							<div class="row mt-3">
 	                	 								<span class="col-2 label">배포 내용</span>
-		                	 							<textarea rows="2" class="form-control boxed col-8" readonly>${statusHistory.reply}</textarea>
+		                	 							<div class="col-8 border scoller p-2">${statusHistory.reply}</div>
 	                	 							</div>
 	                	 							<div class="row mt-3">
 			                	 						<span class="col-2 label">첨부파일</span>
@@ -160,11 +157,11 @@
                 	 							</c:if>
                	 								<c:if test="${requestProcess.distributor == member.mid}">
                	 									<c:if test="${request.statusNo == 11}">
-               	 										<div class="row">
+               	 										<div class="row mt-3">
 	                	 									<input type="hidden" name="rno" value="${request.rno}"/>
 		                	 								<input type="hidden" name="hno" value="${statusHistory.hno}"/>
 	                	 									<span class="col-2 label">배포 내용</span>
-		                	 								<textarea rows="2" class="form-control boxed mr-5" name="reply">${statusHistory.reply}</textarea>
+		                	 								<textarea class="col-8 replyWrite" name="reply">${statusHistory.reply}</textarea>
                	 										</div>
                	 										<div class="row mt-3">
 				                	 						<span class="col-2 label" >첨부파일</span>
@@ -186,12 +183,12 @@
 																<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
 																<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
 															</div>
-															<div class="border flex-grow-1 border-success col-8" id="file-list-update"></div>	
+															<div class="border flex-grow-1 border col-8" id="file-list-update"></div>	
 														</div>
                 	 								</c:if>
                 	 								<c:if test="${request.statusNo != 11}">
                 	 									<span class="col-2 label">배포 내용</span>
-	                	 								<textarea rows="2" class="form-control boxed mr-5" readonly>${statusHistory.reply}</textarea>
+	                	 								<div rows="2" class="border scroller p-2" >${statusHistory.reply}</div>
                 	 									<div class="row mt-3">
 				                	 						<span class="col-2 label" style="text-align :left; width: 10%;">첨부파일</span>
 				                	 						<div>
@@ -383,6 +380,22 @@
 	{
 		$("#fileInput").on("change", fileCheck);
 		$("#fileInputUpdate").on("change", fileUpdate);
+		
+		/****** window로딩 시, 개발시작 버튼 눌렀는지 확인하고, 작성칸 readonly 만들어주기 *****/
+		var distExpectDate = $('#distExpectDate').val();
+		if(distExpectDate == ''){
+			tinymce.get("reply").setMode('readonly');
+			$('#btn-upload').hide();
+			$('#writeform').mousedown(function(){
+				$('#noInputDate').text('테스트 시작을 눌러야 입력 가능합니다.');
+			});
+		} else{
+			tinymce.get("reply").setMode('design');
+			$('#btn-upload').show();
+			$('#writeform').off( "mousedown");
+			$('#noInputDate').text('');
+		}
+		
 	});
 	
 	/* '파일추가' 버튼 누를 때마다 파일input 실행 */

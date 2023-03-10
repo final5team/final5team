@@ -362,7 +362,7 @@ textarea:focus::placeholder {
 											</article>
 											<article class="bodyInput">
 												<div class="item">
-													<textarea id="reqContent" class="replyWrite" name="reqContent" placeholder="내용"></textarea>
+													<textarea id="requestreply" name="reqContent" placeholder="내용"></textarea>
 												</div>
 											</article>
 											

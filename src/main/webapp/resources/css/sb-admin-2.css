@@ -11352,26 +11352,6 @@ body::-webkit-scrollbar-thumb:window-inactive {
   background: #85CE36; }
   
 
-/*  .filebox label {
- 	color: #85CE36;
-    border-color: #85CE36;
-    display: inline-block;
-    padding: 10px 20px;
-    vertical-align: middle;
-    cursor: pointer;
-    height: 40px;
-    border-radius: 0;
-    margin-bottom: 5px;
-    line-height: 1.2;
-}
-.filebox input[type="file"] {
-	position: absolute;
-    width: 0;
-    height: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 0;
-} */
 
 /* 버튼 커스터 마이징 */
 .btn-gradient{
@@ -11445,32 +11425,22 @@ white-space: nowrap;
 -webkit-box-orient: vertical;
 	
 }
-.scroll-parent{
-	max-height: 350px;
-}
-
-.scroll-div {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    margin: 0;
-    margin-right: -5px;
- }
  
  /* Let's get this party started */
-.scroll-div::-webkit-scrollbar {
+.scroller::-webkit-scrollbar {
   width: 7px;
   height: 7px; }
 
 /* Track */
-.scroll-div::-webkit-scrollbar-track {
+.scroller::-webkit-scrollbar-track {
   border-radius: 0; }
 
 /* Handle */
-.scroll-div::-webkit-scrollbar-thumb {
+.scroller::-webkit-scrollbar-thumb {
   border-radius: 0;
   background: #3A4651; }
 
-.scroll-div::-webkit-scrollbar-thumb:window-inactive {
+.scroller::-webkit-scrollbar-thumb:window-inactive {
   background: #3A4651; }
   
   /************** 체크박스 *******************/
@@ -11601,3 +11571,30 @@ input[type="radio"]:checked + label:after {
  	color: #d7dde4;
  }
  
+.scroller {
+	overflow:auto;
+	max-height: 350px;
+}
+.btn.btn-warning-outline {
+    color: #fe974b;
+    border-color: #fe974b;
+}
+    .btn.btn-warning-outline:hover {
+      color: #212529;
+      background-color: #fe974b;
+      border-color: #fe974b; }
+    .btn.btn-warning-outline:focus, .btn.btn-warning-outline.focus {
+      -webkit-box-shadow: 0 0 0 0.2rem rgba(254, 151, 75, 0.5);
+              box-shadow: 0 0 0 0.2rem rgba(254, 151, 75, 0.5); }
+    .btn.btn-warning-outline.disabled, .btn.btn-warning-outline:disabled {
+      color: #fe974b;
+      background-color: transparent; }
+    .btn.btn-warning-outline:not(:disabled):not(.disabled):active, .btn.btn-warning-outline:not(:disabled):not(.disabled).active,
+    .show > .btn.btn-warning-outline.dropdown-toggle {
+      color: #212529;
+      background-color: #fe974b;
+      border-color: #fe974b; }
+      .btn.btn-warning-outline:not(:disabled):not(.disabled):active:focus, .btn.btn-warning-outline:not(:disabled):not(.disabled).active:focus,
+      .show > .btn.btn-warning-outline.dropdown-toggle:focus {
+        -webkit-box-shadow: 0 0 0 0.2rem rgba(254, 151, 75, 0.5);
+                box-shadow: 0 0 0 0.2rem rgba(254, 151, 75, 0.5); }
