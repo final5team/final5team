@@ -37,26 +37,32 @@
 								<span>Password Check</span>
 							</label>
 						</div>
-						<c:if test="${loginResult != null}">
-							<div class="text-warning">${loginResult}</div>
-						</c:if>
-						<div class="form-group">
-							<button type="submit" class="btn btn-block btn-primary">Login</button>
-						</div>
-						<div class="form-group">
-							<p class="text-muted text-center">Do not have an account? <a href="#">Sign Up</a></p>
-						</div>
+						<div id="loginInfo" class="text-warning">${loginResult}</div>
 					</form>
+					<div>
+						<button type="button" class="btn btn-block btn-primary" onclick="login()">Login</button>
+					</div>
 				</div>
 			</div>
-			<div class="text-center">
-				<a href="${pageContext.request.contextPath}" class="btn btn-sm" style="border-color:#d7dde4; background-color: #fff;">
-					<i class="fa fa-arrow-left"></i> Back to dashboard
-				</a>
-			</div>
+
 		</div>
 	</div>
 	<script>
+		function login(){
+			var id = $('#mid').val();
+			var password = $('#password').val();
+			if(id == "" || id == null){
+				console.log('id없음');
+				$('#loginInfo').text('아이디를 입력하세요.');
+				return;
+			}
+			if(password == "" || password == null){
+				console.log('password없음');
+				$('#loginInfo').text('비밀번호를 입력하세요.');
+				return;
+			}
+			$('#login-form').submit();
+		}
 		function showPwd() {
 		  var x = document.getElementById("password");
 		  if (x.type === "password") {
