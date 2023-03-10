@@ -72,7 +72,7 @@
                 	 	</div>	<!-- 여기에 단계 상태 이력 넣기 /-->
 						
 						<section>	<!-- 테스터의 재검토 요청 글 작성 start-->
-							<c:if test="${member.mid == requestProcess.tester && (request.statusNo == 6 || request.statusNo == 5)}">
+							<c:if test="${member.mid == requestProcess.tester && request.statusNo == 6 && member.mid == requestProcess.tester}">
 							<div class="card border-top-dark my-3" id="reDevelopRequestWrite">
 								<div class="card-block">
 									<div class="d-flex">
@@ -154,7 +154,7 @@
 	                	 	</div>
 	                	 	<c:forEach var="statusHistory" varStatus="index" items="${testerToDev}">
 	                	 	<div <c:if test="${statusHistory.nextStatus == 3}">class="card border-top-success my-3"</c:if>
-	                	 	<c:if test="${statusHistory.nextStatus == 7}">class="card border-top-primary my-3"</c:if>> <!-- foreach한다면 여기부터 end -->
+	                	 	<c:if test="${statusHistory.nextStatus == 7}">class="card border-top-dark my-3"</c:if>> <!-- foreach한다면 여기부터 end -->
 	                	 		<div class="card-block">
 	                	 			<div class="card-block-title mb-0">
 	                	 				<c:if test="${statusHistory.nextStatus == 3}">

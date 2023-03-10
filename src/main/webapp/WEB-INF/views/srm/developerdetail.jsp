@@ -144,7 +144,7 @@
                 	 	</section><!-- 개발내역 입력폼 end -->
                 	 	</c:if>
                 	 	
-                	 	<c:if test="${devToTester != null}">
+                	 	<c:if test="${devToTester[0].reply != null && member.mid == requestProcess.developer && request.statusNo == 4}">
                	 		<div class="d-flex justify-content-center mt-4"> <!-- 히스토리 버튼 start -->
                	 			<div class="btn btn-primary-outline history-button" onclick="openHistories()">
                	 				개발 내역 보기  <i class="fas fa-history"></i>
@@ -158,7 +158,7 @@
 	                	 		<h3 class="title">개발 내역</h3>
 	                	 	</div>
 	                	 	<c:forEach var="statusHistory" varStatus="index" items="${devToTester}">
-                	 		<div class="card border-top-primary my-3"> <!-- foreach한다면 여기부터 start -->
+                	 		<div class="card border-top-dark my-3"> <!-- foreach한다면 여기부터 start -->
                 	 			<div class="card-block">
 	                	 			<div class="card-block-title mb-0">
 	                	 				<h3 class="title">

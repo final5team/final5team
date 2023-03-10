@@ -116,14 +116,6 @@
                 	 		</div>
                 	 	</section><!-- 배포내역 입력폼 end -->
                 	 	</c:if>
-                	 	
-                	 	<c:if test="${distributorToPmHistories != null}">
-               	 		<div class="d-flex justify-content-center mt-4"> <!-- 히스토리 버튼 start -->
-               	 			<div class="btn btn-primary-outline history-button" onclick="openHistories()">
-               	 				배포 내역 보기  <i class="fas fa-history"></i>
-               	 			</div>
-               	 		</div> <!-- 히스토리 버튼 end -->
-                	 	</c:if>
                	 		
                	 		<!-- 배포 내역 start-->
                 	 	<section id="histories" > 
@@ -131,7 +123,7 @@
 	                	 		<h3 class="title">배포 내역</h3>
 	                	 	</div>
 	                	 	<c:forEach var="statusHistory" varStatus="index" items="${distributorToPmHistories}">
-                	 		<div class="card border-top-primary my-3"> <!-- foreach한다면 여기부터 start -->
+                	 		<div class="card border-top-dark my-3"> <!-- foreach한다면 여기부터 start -->
                 	 			<div class="card-block">
 	                	 			<div class="card-block-title mb-0">
 	                	 				<h3 class="title">
