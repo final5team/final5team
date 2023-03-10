@@ -554,6 +554,7 @@
 								</div>
 							</c:if>
 						<!-- 요청 처리 계획 end-->
+						
 						<!-- 반려 처리 정보 start -->
 						<c:if test="${request.statusNo==12}">
 							<div class="card border-top-danger mt-3 mb-1">
