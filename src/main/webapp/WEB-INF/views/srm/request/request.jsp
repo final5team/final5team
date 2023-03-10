@@ -374,10 +374,10 @@ textarea:focus::placeholder {
 											</article>
 											<article class="fileBody">
 												<div class="file-item">
-													<div class="upload_name" id="exist_file" >첨부파일</div>
+													<div class="upload_name" id="exist_file" ></div>
 													<div class="filebox">
 														<input multiple="multiple" type="file" id="mfile" name="mfile[]"/>
-														<label for="mfile" id="btn-upload">파일찾기</label> 
+														<label style="background-color : #2c9faf;" for="mfile" id="btn-upload">파일찾기</label> 
 													</div>
 												</div>
 											</article>
@@ -504,12 +504,12 @@ textarea:focus::placeholder {
 		    	$('#completeModal').modal();
 		    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
 		      return;
+		    	
 		    } else {
 		    	 fileCount = fileCount + filesArr.length;
 		    }
-			//기존 태그 내용 삭제
-			let exist_file_html = document.querySelector('#exist_file');
-			exist_file_html.innerText = '';
+			
+			
 			// 각각의 파일 배열담기 및 기타
 		    filesArr.forEach(function (f) {
 		      var reader = new FileReader();
