@@ -18,16 +18,18 @@
 					<td>${request.rno}</td>
 					<td class="tableContent">
 						<c:if test="${request.usrCheck == 1}">
-							<strong class="text-danger">N</strong>
+							<strong class="text-danger">New</strong>
 						</c:if>
-						<c:if test="${request.statusNo == 1}">
+						<c:if test="${request.statusNo != 12 &&  request.statusNo != 13}">
 							<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
+								${request.reqTitle}
+							</a>
 						</c:if>
 						<c:if test="${request.statusNo == 12 || request.statusNo == 13}">
 							<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">
+								${request.reqTitle}
+							</a>
 						</c:if>
-							${request.reqTitle}
-						</a>
 					</td>
 					<td>${request.systemName}</td>
 					<td><fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd"/></td>
@@ -47,6 +49,7 @@
 		</tbody>
 	</table>
 </div>
+
 <div class="pager default mt-1">
 	<div class="pagingButtonSet d-flex justify-content-center">
 		<a onclick="userRequestList('${searchStatus}', 1)" type="button" class="btn btn-muted shadow">처음</a>

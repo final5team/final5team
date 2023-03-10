@@ -42,7 +42,7 @@
 			</c:if>
 			<td class="reqTitle" style="max-width: 190px; min-width : 190px; white-space: nowrap; overflow: hidden;">
 				<c:if test="${request.usrCheck == 1}">
-					<strong class="text-danger">N</strong>
+					<strong class="text-danger">New</strong>
 				</c:if>	
 				${request.reqTitle}
 			</td>
