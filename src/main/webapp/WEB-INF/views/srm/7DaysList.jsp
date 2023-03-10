@@ -67,8 +67,11 @@
 						<c:if test="${dayRequest.statusName eq '테스트중' || dayRequest.statusName eq '테스트완료' }">
 							<span class="badge badge-success">${dayRequest.statusName}</span>
 						</c:if>
-						<c:if test="${dayRequest.statusName eq '유저테스트중' || dayRequest.statusName eq '유저테스트완료' }">
-							<span class="badge badge-info">${dayRequest.statusName}</span>
+						<c:if test="${dayRequest.statusName eq '유저테스트중'}">
+							<span class="badge badge-info">품질검사중</span>
+						</c:if>
+						<c:if test="${dayRequest.statusName eq '유저테스트완료'}">
+							<span class="badge badge-info">품질검사완료</span>
 						</c:if>
 						<c:if test="${dayRequest.statusName eq '배포중' || dayRequest.statusName eq '배포완료' }">
 							<span class="badge badge-secondary">${dayRequest.statusName}</span>
