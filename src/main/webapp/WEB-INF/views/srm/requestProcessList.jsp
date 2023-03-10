@@ -74,10 +74,22 @@
 					</td>
 					<td><fmt:formatDate value="${requestProcess.reqDate}" pattern="yyyy-MM-dd"/></td>
 					<td>
-						<c:if test="${member.mtype == 'developer'}"><fmt:formatDate value="${requestProcess.devExpectDate}" pattern="yyyy-MM-dd"/></c:if>
-						<c:if test="${member.mtype == 'tester'}"><fmt:formatDate value="${requestProcess.testExpectDate}" pattern="yyyy-MM-dd"/></c:if>
-						<c:if test="${member.mtype == 'usertester'}"><fmt:formatDate value="${requestProcess.userTestExpectDate}" pattern="yyyy-MM-dd"/></c:if>
-						<c:if test="${member.mtype == 'distributor'}"><fmt:formatDate value="${requestProcess.distExpectDate}" pattern="yyyy-MM-dd"/></c:if>
+						<c:if test="${member.mtype == 'developer'}">
+							<c:if test="${requestProcess.devExpectDate != null}"><fmt:formatDate value="${requestProcess.devExpectDate}" pattern="yyyy-MM-dd"/></c:if>
+							<c:if test="${requestProcess.devExpectDate == null}">미정</c:if>
+						</c:if>
+						<c:if test="${member.mtype == 'tester'}">
+							<c:if test="${requestProcess.testExpectDate != null}"><fmt:formatDate value="${requestProcess.testExpectDate}" pattern="yyyy-MM-dd"/></c:if>
+							<c:if test="${requestProcess.testExpectDate == null}">미정</c:if>
+						</c:if>
+						<c:if test="${member.mtype == 'usertester'}">
+							<c:if test="${requestProcess.userTestExpectDate != null}"><fmt:formatDate value="${requestProcess.userTestExpectDate}" pattern="yyyy-MM-dd"/></c:if>
+							<c:if test="${requestProcess.userTestExpectDate == null}">미정</c:if>
+						</c:if>
+						<c:if test="${member.mtype == 'distributor'}">
+							<c:if test="${requestProcess.distExpectDate != null}"><fmt:formatDate value="${requestProcess.distExpectDate}" pattern="yyyy-MM-dd"/></c:if>
+							<c:if test="${requestProcess.distExpectDate == null}">미정</c:if>
+						</c:if>
 					</td>
 					<td>${requestProcess.mname}</td>
 					<td>
