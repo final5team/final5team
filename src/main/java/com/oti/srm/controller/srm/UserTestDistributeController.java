@@ -159,6 +159,7 @@ public class UserTestDistributeController {
 			// 서비스 변경 여부(PM 미확인  상태 변경)
 			commonService.notCheck("pm", statusHistory.getRno());
 			
+			
 			return "redirect:/distributedetail?rno=" + statusHistory.getRno();
 		}
 	}
