@@ -136,6 +136,7 @@ public class RequestController {
 		//유저 정보 수정
 		int result = userRegisterService.updateUserInfo(member);
 		
+		log.info("수정 완료" + result);
 		
 		return "member/mypage_re";
 	}
