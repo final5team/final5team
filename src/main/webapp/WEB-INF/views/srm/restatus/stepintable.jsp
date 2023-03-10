@@ -199,6 +199,7 @@ margin: 0 0 1rem 0;
 
 
 <ol class="progress_bar">
+<!-- 담당 업무 조회 단계 표시 -->
 	<c:if test="${request.statusNo != 12}">
 		<c:if test="${request.reqType == null || request.reqType == '정규'}">
 		
