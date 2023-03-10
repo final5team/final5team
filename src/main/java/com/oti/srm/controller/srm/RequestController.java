@@ -116,6 +116,8 @@ public class RequestController {
 		returnMember.setAddr1(address[1]);
 		returnMember.setAddr2(address[2]);
 		
+		log.info(Sessionmember.getGender());
+		
 		//시스템
 		List<System> systemList = userRegisterService.getSystemList();
 		model.addAttribute("systemList", systemList);

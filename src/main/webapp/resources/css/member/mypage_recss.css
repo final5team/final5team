@@ -157,7 +157,7 @@ a {
 	position : absolute;
 	width: 120px;
 	height: 150px;
-	left: 60%;
+	left: 56%;
 	top: 70%;
 }
 
@@ -178,9 +178,9 @@ a {
 
 .filebox label {
 	position: absolute;
-	width : 50px;
+	width : 70px;
 	height : 30px;
-	left: 0%;
+	left: 30%;
 	top : 80%;
 	color: #fff;
 	vertical-align: middle;

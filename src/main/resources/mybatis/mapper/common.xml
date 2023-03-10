@@ -320,7 +320,10 @@
 			rp.req_type as "reqType", 
 			rp.priority as "priority", 
 			r.req_date as "reqDate",
-		 	rp.all_expect_date as "allExpectDate",
+		 	rp.dev_expect_date as "devExpectDate",
+		 	rp.test_expect_date as "testExpectDate",
+		 	rp.usertest_expect_date as "userTestExpectDate",
+		 	rp.dist_expect_date as "distExpectDate",
 		 	m.mname as "mname", 
 		 	st.status_name as "statusName", 
 		 	r.rno as "rno",
@@ -368,7 +371,11 @@
 			</if>
 			<if test="status == '재검토'"> and r.status_no <![CDATA[=]]> 3</if>
 		</where>
-		order by r.req_date 
+		order by 
+			<if test="member.mtype == 'developer'">dev_expect_date</if>
+			<if test="member.mtype == 'tester'">test_expect_date</if>
+			<if test="member.mtype == 'usertester'">usertest_expect_date</if>
+			<if test="member.mtype == 'distributor'">dist_expect_date</if>
 		OFFSET (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS
 		FETCH NEXT #{pager.rowsPerPage} ROWS ONLY
 	</select>
@@ -429,7 +436,6 @@
 				and status_no = 12
 			</if>
 		</where>
-		order by r.req_date desc
 	</select>
 	
 	<select id="selectUserRequestList" parameterType="map" resultType="com.oti.srm.dto.Request">
@@ -543,7 +549,7 @@
 			 	and r.status_no in (12, 13)
 			 </if>
 		</where>
-		order by r.req_date 
+		order by all_expect_date
 		OFFSET (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS
 		FETCH NEXT #{pager.rowsPerPage} ROWS ONLY
 	</select>

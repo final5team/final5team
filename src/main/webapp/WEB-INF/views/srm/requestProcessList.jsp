@@ -73,7 +73,24 @@
 						</c:if>
 					</td>
 					<td><fmt:formatDate value="${requestProcess.reqDate}" pattern="yyyy-MM-dd"/></td>
-					<td><fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/></td>
+					<td>
+						<c:if test="${member.mtype == 'developer'}">
+							<c:if test="${requestProcess.devExpectDate != null}"><fmt:formatDate value="${requestProcess.devExpectDate}" pattern="yyyy-MM-dd"/></c:if>
+							<c:if test="${requestProcess.devExpectDate == null}">미정</c:if>
+						</c:if>
+						<c:if test="${member.mtype == 'tester'}">
+							<c:if test="${requestProcess.testExpectDate != null}"><fmt:formatDate value="${requestProcess.testExpectDate}" pattern="yyyy-MM-dd"/></c:if>
+							<c:if test="${requestProcess.testExpectDate == null}">미정</c:if>
+						</c:if>
+						<c:if test="${member.mtype == 'usertester'}">
+							<c:if test="${requestProcess.userTestExpectDate != null}"><fmt:formatDate value="${requestProcess.userTestExpectDate}" pattern="yyyy-MM-dd"/></c:if>
+							<c:if test="${requestProcess.userTestExpectDate == null}">미정</c:if>
+						</c:if>
+						<c:if test="${member.mtype == 'distributor'}">
+							<c:if test="${requestProcess.distExpectDate != null}"><fmt:formatDate value="${requestProcess.distExpectDate}" pattern="yyyy-MM-dd"/></c:if>
+							<c:if test="${requestProcess.distExpectDate == null}">미정</c:if>
+						</c:if>
+					</td>
 					<td>${requestProcess.mname}</td>
 					<td>
 						<c:if test="${requestProcess.statusName eq '접수중' || requestProcess.statusName eq '접수완료' }">
@@ -88,8 +105,11 @@
 						<c:if test="${requestProcess.statusName eq '테스트중' || requestProcess.statusName eq '테스트완료' }">
 							<span class="badge badge-success">${requestProcess.statusName}</span>
 						</c:if>
-						<c:if test="${requestProcess.statusName eq '유저테스트중' || requestProcess.statusName eq '유저테스트완료' }">
-							<span class="badge badge-info">${requestProcess.statusName}</span>
+						<c:if test="${requestProcess.statusName eq '유저테스트중'}">
+							<span class="badge badge-info">품질검사중</span>
+						</c:if>
+						<c:if test="${requestProcess.statusName eq '유저테스트완료'}">
+							<span class="badge badge-info">품질검사완료</span>
 						</c:if>
 						<c:if test="${requestProcess.statusName eq '배포중' || requestProcess.statusName eq '배포완료' }">
 							<span class="badge badge-secondary">${requestProcess.statusName}</span>
