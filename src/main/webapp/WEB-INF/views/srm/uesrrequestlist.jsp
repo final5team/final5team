@@ -106,6 +106,7 @@
 							<h4>내 요청 목록</h4>
 						</article>
 						<table class="member" id="table_content">
+							<c:if test="${requestList.size() > 0}">
 							<tr>
 								<th>No.</th>
 								<th>시스템</th>
@@ -156,31 +157,43 @@
 									</td>
 								</tr>
 							</c:forEach>
+							</c:if>
+							<c:if test="${requestList.size() == 0}">
+								<div id="noResult"> 해당되는 내용이 없습니다. </div>
+							</c:if>
+							
 						</table>
-						<div class="pager default">
-							<div class="pagingButtonSet d-flex justify-content-center">
-								<a onclick="pageChange(1)" type="button" class="btn btn-muted shadow">처음</a>
-								<c:if test="${pager.groupNo > 1}">
-									<a onclick="pageChange(${pager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
-
-								</c:if>
-
-								<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
-									<c:if test="${pager.pageNo != i}">
-										<a onclick="pageChange(${i})" type="button" class="btn btn-white shadow">${i}</a>
+						<c:if test="${pager.totalRows > 6}">
+							<div class="pager default">
+								<div class="pagingButtonSet d-flex justify-content-center">
+									<a onclick="pageChange(1)" type="button" class="btn btn-muted shadow">처음</a>
+									<c:if test="${pager.groupNo > 1}">
+										<a onclick="pageChange(${pager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
+	
 									</c:if>
-									<c:if test="${pager.pageNo == i}">
-										<a onclick="pageChange(${i})" type="button" class="btn btn-dark shadow">${i}</a>
+	
+									<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
+										<c:if test="${pager.pageNo != i}">
+											<a onclick="pageChange(${i})" type="button" class="btn btn-white shadow">${i}</a>
+										</c:if>
+										<c:if test="${pager.pageNo == i}">
+											<a onclick="pageChange(${i})" type="button" class="btn btn-dark shadow">${i}</a>
+										</c:if>
+									</c:forEach>
+	
+									<c:if test="${pager.groupNo < pager.totalGroupNo }">
+										<a onclick="pageChange(${pager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
+	
 									</c:if>
-								</c:forEach>
-
-								<c:if test="${pager.groupNo < pager.totalGroupNo }">
-									<a onclick="pageChange(${pager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
-
-								</c:if>
-								<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
+									<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
+								</div>
 							</div>
-						</div>
+						</c:if>
+						<c:if test="${pager.totalRows == 0}">
+								<div class="pager default">
+								</div>
+						</c:if>
+						
 						<div class="loading">
 							<span></span>
 						    <span></span>

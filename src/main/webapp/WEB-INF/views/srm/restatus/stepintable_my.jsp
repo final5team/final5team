@@ -169,7 +169,7 @@ margin: 0 0 1rem 0;
 	// 5. 품질 테스트 단계
 	function quality(i){
 		let rno = i;
-		location.href ="${pageContext.request.contextPath}/testerdetail?rno="+rno;
+		location.href ="${pageContext.request.contextPath}/usertestdetail?rno="+rno;
 	}
 	// 6. 배포단계
 	function distribute(i){
@@ -321,7 +321,7 @@ margin: 0 0 1rem 0;
 		
 		<c:if test="${request.reqType == '긴급'}">
 		<!-- 단계 : 등록  -->	
-			<li class="is_complete" onclick="request(${request.rno})" style="cursor: pointer;">
+			<li class="is_complete" onclick="register(${request.rno})" style="cursor: pointer;">
 				<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 					<span>등록</span>
 				</a>
@@ -431,7 +431,7 @@ margin: 0 0 1rem 0;
 	</c:if>
 	
 	<c:if test="${request.statusNo == 12}">
-		<li class="is_reject_first is_reject" style="cursor: pointer;">
+		<li class="is_reject_first is_reject" onclick="register(${request.rno})" style="cursor: pointer;">
 			<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
 				<span>
 					등록

@@ -4,6 +4,7 @@
 
 <!DOCTYPE html>
 <table>
+<c:if test="${requestList.size() > 0}">
 	<tr>
 		<th class="ex ">No.</th>
 		<th class="ex ">시스템</th>
@@ -59,7 +60,13 @@
 			</td>
 		</tr>
 	</c:forEach>
+</c:if>
+	<c:if test="${requestList.size() == 0}">
+		<div id="noResult"> 해당되는 내용이 없습니다. </div>
+	</c:if>
+	
 </table>
+<c:if test="${pager.totalRows > 6}">
 <div class="pager">
 	<div class="pagingButtonSet d-flex justify-content-center">
 		<a onclick="pageChange(1)" type="button" class="btn btn-muted shadow">처음</a>
@@ -84,4 +91,8 @@
 		<a onclick="pageChange(${pager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
 	</div>
 </div>
-
+</c:if>
+<c:if test="${pager.totalRows == 0}">
+	<div class="pager default">
+	</div>
+</c:if>
