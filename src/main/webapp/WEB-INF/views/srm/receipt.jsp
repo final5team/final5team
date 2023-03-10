@@ -34,6 +34,9 @@
    	.workerlabel{
    		width: 260px;
    	}
+   	.fc-event-title.fc-sticky{
+    	white-space: normal;
+	}
    	
     </style>
     
@@ -245,7 +248,7 @@
 							
 						</c:if>
 						<!-- 요청 처리 계획 start-->
-						<c:if test="${member.mtype !='user' && member.mtype != 'pm' && request.statusNo != 12}">
+						<c:if test="${member.mtype != 'pm' && request.statusNo != 12 && request.statusNo != 1}">
 								<div class="card border-top-dark my-3">
 									<div class="card-block"> <!-- card-block -->
 										<div class="card-title-block">
@@ -327,6 +330,20 @@
 											</c:forEach>
 										</div>
 									</div> <!-- card-block -->						
+								</div>
+							</c:if>
+							<c:if test="${member.mtype != 'pm' && request.statusNo == 1}">
+								<div class="card border-top-dark my-3">
+									<div class="card-block"> <!-- card-block -->
+										<div class="card-title-block">
+			               	 				<h3 class="title">
+			                	 				요청 처리 계획 <i class="far fa-calendar-check"></i>
+			               	 				</h3>
+			               	 			</div>
+										<div class="card-body">
+											<h3 class="font-weight-bold">아직 접수되지 않았습니다.</h3>
+										</div>
+									</div>
 								</div>
 							</c:if>
 							<c:if test="${member.mtype == 'pm' && request.statusNo > 2 && request.statusNo != 12}">
@@ -923,7 +940,7 @@
 		                    if(result!=null){                       
 		                        $.each(result, function(index, workingInfo) {
 		                         var startdate=moment(workingInfo.startdate).format('YYYY-MM-DD');
-		                         var endExpectDate=moment(workingInfo.endExpectDate).format('YYYY-MM-DD');
+		                         var endExpectDate=moment(workingInfo.endExpectDate + 60*60*24*1000).format('YYYY-MM-DD');
 		                         var rno = workingInfo.rno;
 		                         var reqType = workingInfo.reqType;
 		                         var priority = workingInfo.priority;
@@ -933,7 +950,7 @@
 	                        	 events.push({
 	                        		 	title: "NO. " + rno + " |요청유형 : " + reqType + " |우선순위 : " + priority,
 	                                    start: startdate,
-	                                    end: endExpectDate,                                                
+	                                    end: endExpectDate                                           
 	                                }); //.push()
 	                                                    
 		                        
@@ -944,8 +961,7 @@
 		                    successCallback(events);
 		                }                       
 		         }); 
-	        	},
-        	 	displayEventTime: false;
+	        	}
 		   });//new FullCalendar end
 		 
 		   calendar.render();
