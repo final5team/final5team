@@ -114,12 +114,12 @@
 												</article>
 												
 												<article class="label item">
-													<h6>사용자 구분</h6>
-													<h6>아이디</h6>
-													<h6>이름</h6>
-													<h6>이메일</h6>
-													<h6>생년월일</h6>
-													<h6>우편번호</h6>
+													<h6>*사용자 구분</h6>
+													<h6>*아이디</h6>
+													<h6>*이름</h6>
+													<h6>*이메일</h6>
+													<h6>*생년월일</h6>
+													<h6>*우편번호</h6>
 												</article>
 
 
@@ -150,10 +150,10 @@
 
 												<article class="label_two item">
 													<h6 id="system" style="visibility : hidden;">시스템</h6>
-													<h6>성별</h6>
-													<h6>직급</h6>
-													<h6>소속 회사</h6>
-													<h6>휴대폰 번호</h6>
+													<h6>*성별</h6>
+													<h6>*직급</h6>
+													<h6>*소속 회사</h6>
+													<h6>*휴대폰 번호</h6>
 												</article>
 
 											
@@ -309,9 +309,7 @@
 		const idPattern = /^(?=.*\d)(?=.*[a-z]).{6,15}$/;
 		let idTest = idPattern.test(id);
 		if(!idTest){
-			openModal('id');
 			$('#idconfirm').html('아이디 형식을 확인해주세요.');
-			
 		} else {
 			data = {mid : id};	
 			$.ajax ({
