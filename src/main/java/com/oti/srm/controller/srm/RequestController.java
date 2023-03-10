@@ -308,6 +308,7 @@ public class RequestController {
 			Pager pager = new Pager(7, 5, totalRows, listFilter.getPageNo());
 			List<SelectPM> requestList = requestService.getWorkerRequestList(listFilter, pager, member);
 			
+			
 			// 시스템 리스트 전달
 			model.addAttribute("systemList", systemList);
 			// 목록 리스트와 페이지 return
@@ -355,7 +356,6 @@ public class RequestController {
 		List<System> systemList = userRegisterService.getSystemList();
 		ListFilter returnList = requestService.dateFilterList(listFilter);
 		
-		log.info(listFilter.toString());
 		if(listFilter.getColumnName() == "" || listFilter.getSortState() == "") {
 			listFilter.setColumnName(null);
 			listFilter.setSortState(null);
@@ -366,6 +366,8 @@ public class RequestController {
 		int totalRows = requestService.getMyWorkRows(listFilter, member);
 		Pager pager = new Pager(7, 5, totalRows, listFilter.getPageNo());
 		List<SelectPM> requestList = requestService.getMyWorkList(listFilter, pager, member);
+		
+		log.info(pager.getTotalRows());
 		// 시스템 리스트 전달
 		model.addAttribute("systemList", systemList);
 		// 목록 리스트와 페이지 return
@@ -373,8 +375,6 @@ public class RequestController {
 		model.addAttribute("pager", pager);
 		// filter 전달, 정렬 상태 전달
 		model.addAttribute("listFilter", returnList);
-		
-		
 		
 		
 		return "srm/list/ajaxmyworklist";
