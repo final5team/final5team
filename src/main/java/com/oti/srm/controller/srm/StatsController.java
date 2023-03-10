@@ -121,19 +121,15 @@ public class StatsController {
 	}
 	
 	// 
-	@RequestMapping(value="/curve/{date}", method = RequestMethod.GET)
-	public String getCurveSystem(HttpSession session, Model model, @PathVariable String date) {
+	@RequestMapping(value="/curve/{year}/{quarter}", method = RequestMethod.GET)
+	public String getCurveSystem(HttpSession session, Model model, @PathVariable int year, @PathVariable int quarter) {
 		// 서비스 요청 추이
 		// 시스템 정보 구하기
-		model.addAttribute("systemList", userRegisterService.getSystemList());
-		// 조건에 맞는 연도 구하기
-		String year= date.substring(0, 4);
-		// 조건에 맞는 월 구하기
-		int month= Integer.parseInt(date.substring(5, 7));
+		model.addAttribute("systemList", userRegisterService.getSystemList());		
 		// 월별 서비스 요청 건수 구하기
-		model.addAttribute("SRChange", statsService.getSRChange(year, month));	
-		// 해당 날짜(월) 반환하기
-		model.addAttribute("SRChangeMonth", month);	
+		//model.addAttribute("SRChange", statsService.getSRChange(year, quarter));	
+		// 해당 분기 반환하기
+		model.addAttribute("SRChangeMonth", quarter);	
 		
 		return "srm/curve";
 	}

@@ -7,13 +7,14 @@
     <%@ include file="/WEB-INF/views/common/head.jsp" %>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      // 시스템별 서비스 요청 비중 구하기
+      // 시스템별 서비스 요청 비율 구하기
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
     	// 시스템별 서비스 요청 값 설정  
         var data = google.visualization.arrayToDataTable([
-          ['System', 'Number'],
+        	//시스템이름, 요청값
+          ['System', 'Number'],							
           ['${systemSlice[0].systemName}',     ${systemSlice[0].sno}],
           ['${systemSlice[1].systemName}',     ${systemSlice[1].sno}],
           ['${systemSlice[2].systemName}',     ${systemSlice[2].sno}],
@@ -22,7 +23,7 @@
 		
     	// 그래프 옵션
         var options = {
-          title: '전체 서비스 요청 중 시스템별 비중'   // 그래프 제목
+          title: '전체 서비스 요청 중 시스템별 비율'   // 그래프 제목
         };
         
 		//그래프 그리기
@@ -35,6 +36,7 @@
       function drawdonutChart() {
     	  // 완료율 그래프 값 설정
           var data = google.visualization.arrayToDataTable([
+        	  // 항목 이름, 비율
             ['Label', 	'Rate'],
             ['완료',     ${comRate}],
             ['',   		${100-comRate}]
@@ -42,8 +44,8 @@
 			
     	  // 그래프 옵션
           var options = {
-            title: '전체 완료율',   // 그래프 제목
-            pieHole: 0.4,		// 그래프 중앙 빈 부분 크기 설정
+            title: '전체 완료율',   			// 그래프 제목
+            pieHole: 0.4,					// 그래프 중앙 빈 부분 크기 설정
 
             tooltip: { trigger: 'none' },   // 도움말 제거   
             legend: 'none',					// 범례 여부(표시 안 함)
@@ -59,6 +61,7 @@
           
           // 지연율 그래프 값 설정
           var data2 = google.visualization.arrayToDataTable([
+        	  // 항목 이름, 비율
             ['Label', 	'Rate'],
             ['지연',     ${delRate}],
             ['',   		${100-delRate}]
@@ -66,8 +69,8 @@
           
           // 그래프 옵션
           var options2 = {
-            title: '전체 지연율',   // 그래프 제목
-            pieHole: 0.4,		// 그래프 중앙 빈 부분 크기 설정
+            title: '전체 지연율',  				// 그래프 제목
+            pieHole: 0.4,					// 그래프 중앙 빈 부분 크기 설정
 
             tooltip: { trigger: 'none' },   // 도움말 제거   
             legend: 'none',					// 범례 여부(표시 안 함)
@@ -82,11 +85,12 @@
           chart2.draw(data2, options2);
         }      		 
       
-      	  // 서비스 요청 처리 현황 비중 막대 그래프 그리기
+      	  // 서비스 요청 처리 현황 비율 막대 그래프 그리기
 	      google.charts.load('current', {'packages':['bar']});
 	      google.charts.setOnLoadCallback(drawBarChart);
 	
 	      function drawBarChart() {
+	    	  // 각 단계 이름과 비율
 	    	  var data = google.visualization.arrayToDataTable([
 	    	        ['', '접수중', '개발중', '테스트중', '유저테스트중',
 	    	         '배포중', '완료' ],
@@ -98,24 +102,29 @@
 	    	  var options = {	    	   		
 	    	        height: 100,					// 그래프 높이
 	    	        hAxis: {	 					// 그래프 가로축  설정	        	  
-	    	        	  textStyle: {				// 그래프 글자 색
+	    	        	  textStyle: {				// 그래프 글자 색(흰색)
 		    	        	    color: 'white'
 		    	          },
 	    	        	  format: 'percent',		// 그래프 비중 출력 형식(퍼센테이지)
-	    	        	  baselineColor: 'white',	// 그래프 기본 축 색
-	    	        	  gridlines: {				// 그래프 눈금 색
+	    	        	  baselineColor: 'white',	// 그래프 기본 축 색(흰색)
+	    	        	  gridlines: {				// 그래프 눈금 색(흰색)
 		    	        	    color: 'white'
 	    	        	  }
 	    	        	},
 	    	        legend: {position: 'none' },	// 범례 여부(표시 안 함)
 	    	        bar: { groupWidth: '100%' },	// 막대 그룹 너비(그룹 사이에 공백 없음)
 	    	        bars: 'horizontal',				// 그래프 표시 형식(가로 막대)
-	    	        isStacked: true					// 그래프 표시 형식(누적 여부: 누적 표시)
+	    	        isStacked: true,				// 그래프 표시 형식(누적 여부: 누적 표시)
+	    	        enableInteractivity: false		// 상호작용 불가
 
 	    	      };
 	
 	    	// 그래프 그리기
-	        var chart = new google.charts.Bar(document.getElementById('barchart_material'));	
+	        var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+	    	// 차트 선택 불가하게 하기
+	        google.visualization.events.addListener(chart, 'select', function () {
+	            chart.setSelection([]);
+	          });
 	        chart.draw(data, google.charts.Bar.convertOptions(options));
 	      }
 	      
@@ -125,7 +134,9 @@
 	      function drawLineChart() {
 	    	  // 월별 값 설정
 	        var data = google.visualization.arrayToDataTable([
+	        	// 해당 월 이름과 시스템 이름
 	          ['월', '${systemList[0].systemName}', '${systemList[1].systemName}', '${systemList[2].systemName}', '${systemList[3].systemName}'],
+	          	// 해당 월과 시스템별 수치
 	          ['${SRChangeMonth}월',  ${SRChange[0][0]}, ${SRChange[1][0]},  ${SRChange[2][0]},  ${SRChange[3][0]}],
 	          ['${SRChangeMonth+1}월',  ${SRChange[0][1]}, ${SRChange[1][1]},  ${SRChange[2][1]},  ${SRChange[3][1]}],
 	          ['${SRChangeMonth+2}월',  ${SRChange[0][2]}, ${SRChange[1][2]},  ${SRChange[2][2]},  ${SRChange[3][2]}]	         
@@ -133,17 +144,53 @@
 
 	    	// 그래프 옵션
 	        var options = {
-	          title: '분기별 서비스 요청 추이',  			//그래프 제목
-	          curveType: 'function',  				//그래프 선 설정(부드러운 선)
-	          legend: { position: 'bottom' }   		//범례 위치 (하단 위치)
+	          title: '분기별 서비스 요청 추이',  			// 그래프 제목
+	          curveType: 'function',  				// 그래프 선 설정(부드러운 선)
+	          legend: { position: 'bottom' },   	// 범례 위치 설정(하단 위치)
+	          focusTarget: 'category',				// 마우스 오버에 포커스를 받는 항목의 유형(모든 카테고리 표시)
+	          pointsVisible: false					// 차트 포인트 표시(미표시)
+
 	        };
 	        
 			// 그래프 그리기
 	        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+			// 차트 선택 불가하게 하기
+	        google.visualization.events.addListener(chart, 'select', function () {
+	            chart.setSelection([]);
+	          });
 	        chart.draw(data, options);
 	      }
     </script>
     <script>
+    // 서비스 요청 추이 그래프에 현재 연도 기본값으로 설정
+    $(document).ready(function(){												
+		// 현재 날짜 구하기
+		var now = new Date();
+		// 현재 연도 기본값으로 설정
+	   document.getElementById("selectYear").defaultValue
+	   = now.toISOString().slice(0, 4);	
+	   
+		// 현재 분기 기본값으로 설정
+		// 현재 날짜가 1~3월일 때
+		if(now.toISOString().slice(5, 7) < 4){
+			// 1분기 기본값으로 설정
+			document.getElementById("1").selected = "true";
+			// 현재 날짜가 4~6월일 때
+		} else if(now.toISOString().slice(5, 7) < 7){
+			// 2분기 기본값으로 설정
+			document.getElementById("2").selected = "true";
+			// 현재 날짜가 7~9월일 때
+		} else if(now.toISOString().slice(5, 7) < 10){
+			// 3분기 기본값으로 설정
+			document.getElementById("3").selected = "true";
+			// 현재 날짜가 10~12월일 때
+		} else{
+			// 4분기 기본값으로 설정
+			document.getElementById("4").selected = "true";
+		}		
+		
+	});		   
+    
     // 시스템별 완료율 보여주기
     function searchComSys(){
     	$.ajax({
@@ -172,7 +219,7 @@
     function searchCurve(){
     	$.ajax({
 			type: "GET", 							// 요청방식: GET
-			url:"${pageContext.request.contextPath}/stats/curve/"+$("#curveMonth").val(),		//URL+선택한 날짜(월)
+			url:"${pageContext.request.contextPath}/stats/curve/"+$("#selectYear").val()+"/"+$("#selectQuarter").val(),		//URL+선택한 날짜(월)
 			dataType:"html", 						// 데이터 타입: html
 			success : function(result){
 				$('#curveReq').html(result);		// 분기별 서비스 요청 추이 그래프와 수치 	재출력	
@@ -695,8 +742,15 @@
 											</h3>
 										</div>
 										<div class="col text-right">
-											<label> 시작 날짜 : </label>
-											<input type="month" id="curveMonth" step=3 onchange="searchCurve()">
+											<label> 분기 : </label>
+											<input type="number" class="text-center" id="selectYear" style="width: 60px;">
+											<select class="text-center" name="selectQuarter" id="selectQuarter" style="width: 90px; height: 28px;">
+											    <option value="1" id="1">1 분기</option>
+											    <option value="2" id="2">2 분기</option>
+											    <option value="3" id="3">3 분기</option>
+											    <option value="4" id="4">4 분기</option>
+											  </select>
+											  <button class="btn btn-sm" style="border-color: grey; position: relative; bottom:2px;" onclick="searchCurve()">선택</button>
 										</div>
 									</div>
 							        <div class="tab-content tabs-bordered">
