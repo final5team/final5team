@@ -170,7 +170,8 @@
 	                	 						<c:if test="${member.mid != requestProcess.developer}">
 		                	 						<div class="row mt-3">
 		                	 							<div class="col-2 label" >개발내용</div>
-		                	 							<textarea class="col-8 form-control boxed replyRead" rows="2" readonly>${statusHistory.reply}</textarea>
+		                	 							<%-- <textarea class="col-8 form-control boxed replyRead" rows="2" readonly>${statusHistory.reply}</textarea> --%>
+		                	 							<div class="col-8 border">${statusHistory.reply}</div>
 		                	 						</div>
 		                	 						<div class="row mt-3">
 			                	 						<div class="col-2 label">배포소스(url)</div>

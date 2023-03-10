@@ -94,7 +94,7 @@
 												<div class="flex-grow-1">
 													<c:if test="${request.statusNo == 5}">
 													<input type="date" class="date-form control" id="testExpectDate" name="testExpectDate" >
-													<div class="btn btn-sm btn-primary"  onclick="checkDate()" id="testStartButton">테스트 시작</div>
+													<div class="btn btn-md btn-warning"  onclick="checkDate()" id="testStartButton">테스트 시작</div>
 													</c:if>
 													<c:if test="${request.statusNo == 6}">
 													<input type="date" class="date-form control" id="testExpectDate" value="<fmt:formatDate value='${requestProcess.testExpectDate}' pattern='yyyy-MM-dd'/>" readonly>
@@ -110,7 +110,7 @@
 												<div class="label label-write" id="replylabel">내용 작성 </div>
 												<!-- <textarea rows="3" class="form-control boxed flex-grow-1" name="reply"></textarea> -->
 												<div class="flex-grow-1">
-													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply">${tempNormal.reply}</textarea>
+													<textarea rows="3" class="form-control boxed flex-grow-1 replyWrite" name="reply" id="reply">${tempNormal.reply}</textarea>
 													<input type="hidden" id="tempNormal" value="${tempNormal.reply}">
 													<input type="hidden" id="tempReexam" value="${tempReexam.reply}">
 												</div>
@@ -139,15 +139,6 @@
 							</c:if>
 						</section>   <!-- 테스터의 재검토 요청 글 작성  end-->
 						
-						<c:if test="${testerToDev != null}">
-						<div class="d-flex justify-content-center mt-4"> <!-- 히스토리 버튼 start -->
-               	 			<div class="btn btn-primary-outline history-button" onclick="openHistories()">
-               	 				테스트 내역 보기  <i class="fas fa-history"></i>
-               	 			</div>
-               	 		</div> <!-- 히스토리 버튼 end -->
-						</c:if>
-						
-						
 						<section id="histories"><!-- 재검토 내역 start -->
 							<div class="title-block">
 	                	 		<h3 class="title">테스트 내역</h3>
@@ -159,7 +150,7 @@
 	                	 			<div class="card-block-title mb-0">
 	                	 				<c:if test="${statusHistory.nextStatus == 3}">
 	                	 				<h3 class="title">
-	                	 					 ${index.count}차 재검토 내역  <i class="far fa-bookmark text-warning "></i>
+	                	 					 ${index.count}차 재검토 내역  <i class="far fa-bookmark text-danger "></i>
 	                	 				</h3>
 	                	 				</c:if>
 	                	 				<c:if test="${statusHistory.nextStatus == 7}">
@@ -180,7 +171,8 @@
                 	 						<c:if test="${member.mid != requestProcess.tester}">
 	                	 						<div class="row mt-3">
 		                	 						<div class="col-2 label">내용</div>
-		                	 						<textarea class="col-8 form-control boxed" rows="2"  readonly>${statusHistory.reply}</textarea>
+		                	 						<%-- <textarea class="col-8">${statusHistory.reply}</textarea> --%>
+		                	 						<div class="col-8 border">${statusHistory.reply}</div>
 	                	 						</div>
 	                	 						<div class="row mt-3">
 		                	 						<span class="col-2 label">첨부파일</span>
@@ -207,7 +199,7 @@
 									                	 			<input type="hidden" name="hno" value="${statusHistory.hno}"/>
 	                	 											<div class="row mt-3">
 							                	 						<div class="col-2 label">내용</div>
-							                	 						<textarea name="reply" class="col-8 form-control boxed" rows="2">${statusHistory.reply}</textarea>
+							                	 						<textarea name="reply" class="col-8 replyWrite">${statusHistory.reply}</textarea>
 						                	 						</div>
 						                	 						<div class="row mt-3">
 							                	 						<span class="col-2 label">첨부파일</span>
@@ -239,7 +231,8 @@
                 	 										<c:if test="${request.statusNo != 7}">
                 	 											<div class="row mt-3">
 						                	 						<div class="col-2 label">내용</div>
-						                	 						<textarea class="col-8 form-control boxed" rows="2"  readonly>${statusHistory.reply}</textarea>
+						                	 						<%-- <textarea class="col-8 replyRead" >${statusHistory.reply}</textarea> --%>
+						                	 						<div class="col-8 border">${statusHistory.reply}</div>
 					                	 						</div>
 					                	 						<div class="row mt-3">
 						                	 						<div class="col-2 label">첨부파일</div>
@@ -263,7 +256,7 @@
 								                	 			<input type="hidden" name="hno" value="${statusHistory.hno}"/>
 		                	 									<div class="row mt-3">
 						                	 						<div class="col-2 label">내용</div>
-						                	 						<textarea name="reply" class="col-8 form-control boxed" rows="2">${statusHistory.reply}</textarea>
+						                	 						<textarea name="reply" class="col-8 replyWrite" rows="2">${statusHistory.reply}</textarea>
 		               	 										</div>
 		               	 										<div class="row mt-3">
 						                	 						<span class="col-2 label" >첨부파일</span>
@@ -295,7 +288,8 @@
                	 										<c:if test="${request.statusNo != 3}">
                	 											<div class="row mt-3">
 					                	 						<div class="col-2 label">내용</div>
-					                	 						<textarea class="col-8 form-control boxed" rows="2"  readonly>${statusHistory.reply}</textarea>
+					                	 						<%-- <textarea class="col-8 replyRead">${statusHistory.reply}</textarea> --%>
+					                	 						<div class="col-8 border">${statusHistory.reply}</div>
 				                	 						</div>
 				                	 						<div class="row mt-3">
 					                	 						<div class="col-2 label">첨부파일</div>
@@ -315,14 +309,14 @@
                 	 								<c:if test="${statusHistory.nextStatus != 7 && statusHistory.nextStatus != 3}">
                 	 									<div class="row mt-3">
 				                	 						<div class="col-2 label">내용</div>
-				                	 						<textarea class="col-8 form-control boxed" rows="2"  readonly>${statusHistory.reply}</textarea>
+				                	 						<textarea class="col-8  replyRead">${statusHistory.reply}</textarea>
 			                	 						</div>
                 	 								</c:if>
                 	 							</c:if>
                 	 							<c:if test="${!index.last}">
                 	 								<div class="row mt-3">
 			                	 						<div class="col-2 label">내용</div>
-			                	 						<textarea class="col-8 form-control boxed" rows="2"  readonly>${statusHistory.reply}</textarea>
+			                	 						<textarea class="col-8 replyRead ">${statusHistory.reply}</textarea>
 		                	 						</div>
                 	 							</c:if>
                 	 						</c:if>
