@@ -50,7 +50,12 @@
 				<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
 			</td>
 			<td class="step_td">
-				<%@ include file="/WEB-INF/views/srm/restatus/stepintable_my.jsp"%>
+				<c:if test="${sessionScope.member.mtype != 'user'}">
+					<%@ include file="/WEB-INF/views/srm/restatus/stepintable_my.jsp"%>
+				</c:if>
+				<c:if test="${sessionScope.member.mtype == 'user'}">
+					<%@ include file="/WEB-INF/views/srm/restatus/stepintable_user.jsp"%>				
+				</c:if>
 			</td>
 		</tr>
 	</c:forEach>

@@ -121,7 +121,7 @@
 													<article class="bodyInput">
 														<div class="item">
 															<%-- <textarea id="reqContent" cols="30" name="reqContent" placeholder="내용">${request.reqContent}</textarea> --%>
-															<textarea  cols="30" placeholder="내용">${request.reqContent}</textarea>
+															<textarea id="textArea" cols="30" placeholder="내용">${request.reqContent}</textarea>
 														</div>
 													</article>
 													<article class="fileBody">
@@ -152,7 +152,9 @@
 														
 													</article>
 													<article class="return-button">
-														<button class="btn btn-dark btn-sm" type="button" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">취소</button>
+													
+															<button class="btn btn-dark btn-sm" type="button" onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'">취소</button>
+														
 													</article>
 													<input type="hidden" value="${request.rno}" id="rno" name ="rno">
 												</form> 

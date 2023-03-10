@@ -187,6 +187,7 @@ margin: 0 0 1rem 0;
 	
 </script>
 <ol class="progress_bar">
+<!-- 목록 : 유저 단계 출력 -->
 	<c:if test="${request.statusNo != 12}">
 		<c:if test="${request.reqType == null || request.reqType == '정규'}">
 		<!-- 단계 : 등록  -->
@@ -196,7 +197,7 @@ margin: 0 0 1rem 0;
 			
 		<!-- 단계 : 접수  -->
 			<li class="<c:if test="${request.statusNo >= 2}">is_complete</c:if>
-						 <c:if test="${request.statusNo == 1}">is_active</c:if>" onclick="receipt(${request.rno})" style="cursor: pointer;">
+						 <c:if test="${request.statusNo == 1}">is_active</c:if>" onclick="receipt(${request.rno})" >
 					<span>
 						<c:if test="${request.statusNo == 1}">접수</c:if>
 						<c:if test="${request.statusNo >= 2}">접수완료</c:if>
@@ -206,7 +207,7 @@ margin: 0 0 1rem 0;
 			<li class="<c:if test="${request.statusNo >= 5}">is_complete</c:if>
 						<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>" 
 				<c:if test="${request.statusNo >= 2}">
-					onclick="developer(${request.rno})" style="cursor: pointer;"
+					onclick="developer(${request.rno})" 
 				</c:if>	
 					>
 			<c:if test="${request.statusNo >= 2}">			
@@ -229,7 +230,7 @@ margin: 0 0 1rem 0;
 			<li class="<c:if test="${request.statusNo >= 7}">is_complete</c:if>
 				<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>" 
 				<c:if test="${request.statusNo >= 5}">
-					onclick="test(${request.rno})" style="cursor: pointer;"
+					onclick="test(${request.rno})" 
 				</c:if>
 					>
 			<c:if test="${request.statusNo >= 5}">		
@@ -246,7 +247,7 @@ margin: 0 0 1rem 0;
 			<li class="<c:if test="${request.statusNo >= 9}">is_complete</c:if>
 				<c:if test="${request.statusNo >= 7 && request.statusNo <= 8}">is_active</c:if>"
 				<c:if test ="${request.statusNo >= 7}"> 
-					onclick="quality(${request.rno})" style="cursor: pointer;"
+					onclick="quality(${request.rno})" 
 				</c:if>	
 					>
 				<c:if test ="${request.statusNo >= 7}">	
@@ -263,7 +264,7 @@ margin: 0 0 1rem 0;
 			<li class="<c:if test="${request.statusNo >= 11}">is_complete</c:if>
 				<c:if test="${request.statusNo >= 9 && request.statusNo <= 10}">is_active</c:if>" 
 				<c:if test="${request.statusNo >= 9}">
-					onclick="distribute(${request.rno})" style="cursor: pointer;"
+					onclick="distribute(${request.rno})"
 				</c:if>	
 					>
 				<c:if test ="${request.statusNo >= 9}">	
@@ -313,7 +314,7 @@ margin: 0 0 1rem 0;
 			
 		<!-- 단계 : 접수  -->	
 			<li class="<c:if test="${request.statusNo >= 2}">is_complete</c:if>
-						<c:if test="${request.statusNo == 1}">is_active</c:if>" onclick="receipt(${request.rno})" style="cursor: pointer;">
+						<c:if test="${request.statusNo == 1}">is_active</c:if>" onclick="receipt(${request.rno})" >
 					<span>
 						<c:if test="${request.statusNo == 1}">접수</c:if>
 						<c:if test="${request.statusNo >= 2}">접수완료</c:if>
@@ -323,7 +324,7 @@ margin: 0 0 1rem 0;
 			<li class="<c:if test="${request.statusNo >= 5}">is_complete</c:if>
 				<c:if test="${request.statusNo >= 2 && request.statusNo <= 4}">is_active</c:if>" 
 				<c:if test="${request.statusNo >= 2}">
-						onclick="developer(${request.rno})" style="cursor: pointer;"
+						onclick="developer(${request.rno})" 
 				</c:if>
 					>
 				<c:if test="${request.statusNo >= 2}">	
@@ -346,7 +347,7 @@ margin: 0 0 1rem 0;
 			<li class="<c:if test="${request.statusNo >= 7}">is_complete</c:if>
 				<c:if test="${request.statusNo >= 5 && request.statusNo <= 6}">is_active</c:if>"
 				<c:if test="${request.statusNo >= 5}">
-					onclick="test(${request.rno})" style="cursor: pointer;"
+					onclick="test(${request.rno})" 
 				</c:if>
 					>
 				<c:if test="${request.statusNo >= 5}">
@@ -363,7 +364,7 @@ margin: 0 0 1rem 0;
 			<li class="<c:if test="${request.statusNo >= 11}">is_complete</c:if>
 				<c:if test="${request.statusNo >= 7 && request.statusNo <= 10}">is_active</c:if>" 
 				<c:if test="${request.statusNo >= 7}">
-					onclick="distribute(${request.rno})" style="cursor: pointer;"
+					onclick="distribute(${request.rno})" 
 				</c:if>	
 					>
 				<c:if test ="${request.statusNo >= 7}">		

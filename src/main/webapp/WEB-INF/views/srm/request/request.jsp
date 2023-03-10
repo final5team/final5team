@@ -386,7 +386,7 @@ textarea:focus::placeholder {
 												<button class="btn btn-dark btn-sm" type="submit">작성</button>
 											</article>
 											<article class="return-button">
-												<button class="btn btn-dark btn-sm" onclick="javascript:history.go(-1)">취소</button>
+												<button class="btn btn-dark btn-sm" type="button" onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'">취소</button>
 											</article>
 										</form>
 									</div>

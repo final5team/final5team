@@ -186,6 +186,7 @@ margin: 0 0 1rem 0;
 	
 </script>
 <ol class="progress_bar">
+<!-- 담당자들요청 리스트 -->
 	<c:if test="${request.statusNo != 12}">
 		<c:if test="${request.reqType == null || request.reqType == '정규'}">
 		<!-- 단계 : 등록  -->
