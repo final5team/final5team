@@ -122,6 +122,7 @@
 													<h6>우편번호</h6>
 												</article>
 
+
 												<article class="data_one">
 													<select class="custom-select" id="mtype" name="mtype" onchange="changeUserType()">
 														<option value="user" selected>시스템 사용자(고객)</option>
