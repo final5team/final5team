@@ -944,7 +944,8 @@
 		                    successCallback(events);
 		                }                       
 		         }); 
-	        	}
+	        	},
+        	 	displayEventTime: false;
 		   });//new FullCalendar end
 		 
 		   calendar.render();

@@ -43,22 +43,20 @@ public class CommonService implements ICommonService {
 			// 개발자 -> 테스터 단계 이력만 담기
 			if (sh.getNextStatus() == 5) {
 				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
-				if(sh.getReply()== null) {
+				if (sh.getReply() == null) {
 					sh.setReply("내용이 없습니다.");
-				} else {
-					sh.setReply(sh.getReply().replaceAll("\\<.*?>", ""));
-				}
-				if(sh.getDistSource()== null) {
+				} 
+				if (sh.getDistSource() == null) {
 					sh.setDistSource("내용이 없습니다.");
 				}
-					
+
 				devToTesterHistories.add(sh);
 			}
 		}
 
 		return devToTesterHistories;
 	}
-	
+
 	@Override
 	@Transactional
 	public List<StatusHistory> getUserTesterToDistributorHistories(int rno) {
@@ -69,7 +67,7 @@ public class CommonService implements ICommonService {
 		for (StatusHistory sh : requestHistories) {
 			// 테스터 -> 배포자 단계 이력만 담기
 			if (sh.getNextStatus() == 9) {
-				if(sh.getReply()== null) {
+				if (sh.getReply() == null) {
 					sh.setReply("내용이 없습니다.");
 				} else {
 					sh.setReply(sh.getReply().replaceAll("\\<.*?>", ""));
@@ -81,7 +79,7 @@ public class CommonService implements ICommonService {
 
 		return UserTesterToDistributorHistories;
 	}
-	
+
 	@Override
 	public List<StatusHistory> getDistributorToPmHistories(int rno) {
 		List<StatusHistory> requestHistories = commonDao.selectRequestHistories(rno);
@@ -91,7 +89,7 @@ public class CommonService implements ICommonService {
 		for (StatusHistory sh : requestHistories) {
 			// 배포자 -> pm 단계 이력만 담기
 			if (sh.getNextStatus() == 11) {
-				if(sh.getReply()== null) {
+				if (sh.getReply() == null) {
 					sh.setReply("내용이 없습니다.");
 				} else {
 					sh.setReply(sh.getReply().replaceAll("\\<.*?>", ""));
@@ -103,7 +101,7 @@ public class CommonService implements ICommonService {
 
 		return distributorToPmHistories;
 	}
-	
+
 	@Override
 	public List<StatusHistory> getPmToAllHistories(int rno) {
 		List<StatusHistory> requestHistories = commonDao.selectRequestHistories(rno);
@@ -113,7 +111,7 @@ public class CommonService implements ICommonService {
 		for (StatusHistory sh : requestHistories) {
 			// pm -> all 이력만 담기
 			if (sh.getNextStatus() == 2) {
-				if(sh.getReply()== null) {
+				if (sh.getReply() == null) {
 					sh.setReply("내용이 없습니다.");
 				} else {
 					sh.setReply(sh.getReply().replaceAll("\\<.*?>", ""));
@@ -125,7 +123,6 @@ public class CommonService implements ICommonService {
 
 		return pmToAllHistories;
 	}
-
 
 	// 요청정보 조회(+해당 요청에 첨부된 파일들까지)
 	@Override
@@ -163,31 +160,66 @@ public class CommonService implements ICommonService {
 	 * status_histories 테이블 => 단계 변경 이력 추가
 	 */
 	@Override
-	@Transactional	
+	@Transactional
 	public void endWork(StatusHistory statusHistory, String mtype) {
 		commonDao.updateRequestStatus(statusHistory.getRno(), statusHistory.getNextStatus());
 		commonDao.updateCompDate(statusHistory.getRno(), mtype);
 		commonDao.insertStatusHistory(statusHistory);
-		if(statusHistory.getFileList() != null && statusHistory.getFileList().size()>0) {
-			for(StatusHistoryFile file :statusHistory.getFileList()) {
+		if (statusHistory.getFileList() != null && statusHistory.getFileList().size() > 0) {
+			for (StatusHistoryFile file : statusHistory.getFileList()) {
 				file.setHno(statusHistory.getHno());
 				commonDao.insertStatusHistoryFile(file);
 			}
 		}
+		// 각 단계 담당자 업무 완료 시 그 사람의 해당 요청건 임시저장글 null처리
+		StatusHistory tempHistoryChange = new StatusHistory();
+		tempHistoryChange.setRno(statusHistory.getRno());
+		tempHistoryChange.setWriter(statusHistory.getWriter());
+		tempHistoryChange.setReply(null);
+		tempHistoryChange.setDistSource(null);
+		if (mtype.equals("developer")) {
+			tempHistoryChange.setNextStatus(14);
+			commonDao.updateStatusHistory(tempHistoryChange);
+		}
+		else if (mtype.equals("tester")) {
+			tempHistoryChange.setNextStatus(15);
+			commonDao.updateStatusHistory(tempHistoryChange);
+			tempHistoryChange.setNextStatus(16);
+			commonDao.updateStatusHistory(tempHistoryChange);
+		}
+		else if (mtype.equals("usertester")) {
+			tempHistoryChange.setNextStatus(17);
+			commonDao.updateStatusHistory(tempHistoryChange);
+		}
+		else if (mtype.equals("distributor")) {
+			tempHistoryChange.setNextStatus(18);
+			commonDao.updateStatusHistory(tempHistoryChange);
+		}
+		
 	}
-	
+
 	@Override
 	@Transactional
 	public void reWork(StatusHistory statusHistory, String mtype) {
 		commonDao.updateRequestStatus(statusHistory.getRno(), statusHistory.getNextStatus());
 		commonDao.updateResetDate(statusHistory.getRno());
 		commonDao.insertStatusHistory(statusHistory);
-		if(statusHistory.getFileList() != null && statusHistory.getFileList().size()>0) {
-			for(StatusHistoryFile file :statusHistory.getFileList()) {
+		if (statusHistory.getFileList() != null && statusHistory.getFileList().size() > 0) {
+			for (StatusHistoryFile file : statusHistory.getFileList()) {
 				file.setHno(statusHistory.getHno());
 				commonDao.insertStatusHistoryFile(file);
 			}
 		}
+		// 재검토 시 테스터의 해당 요청건 임시저장글(재검토 임시글/승인 임시글) null처리
+		StatusHistory tempHistoryChange = new StatusHistory();
+		tempHistoryChange.setRno(statusHistory.getRno());
+		tempHistoryChange.setWriter(statusHistory.getWriter());
+		tempHistoryChange.setReply(null);
+		tempHistoryChange.setDistSource(null);
+		tempHistoryChange.setNextStatus(15);
+		commonDao.updateStatusHistory(tempHistoryChange);
+		tempHistoryChange.setNextStatus(16);
+		commonDao.updateStatusHistory(tempHistoryChange);
 	}
 
 //	(테스터 -> 개발자) 재검토 요청에 대한 단계 변경 이력
@@ -199,9 +231,9 @@ public class CommonService implements ICommonService {
 		for (StatusHistory tester : allHistories) {
 			if (tester.getNextStatus() == 3 || tester.getNextStatus() == 7) {
 				tester.setFileList(commonDao.selectStatusHistoryFiles(tester.getHno()));
-				if(tester.getReply()==null) {
+				if (tester.getReply() == null) {
 					tester.setReply("내용이 없습니다.");
-				}else {
+				} else {
 					tester.setReply(tester.getReply().replaceAll("\\<.*?>", ""));
 				}
 				testerToDevHistories.add(tester);
@@ -217,16 +249,16 @@ public class CommonService implements ICommonService {
 
 	}
 
-	/* 작성자: 장현
-	 * 접수예정일 받는 메소드
+	/*
+	 * 작성자: 장현 접수예정일 받는 메소드
 	 */
 	@Override
 	public Date getReceiptDoneDate(int rno) {
 		List<StatusHistory> requestHistories = commonDao.selectRequestHistories(rno);
 		StatusHistory receiptDoneDate = new StatusHistory();
-		
-		for(StatusHistory sh : requestHistories ) {
-			if(sh.getNextStatus() == 2) {
+
+		for (StatusHistory sh : requestHistories) {
+			if (sh.getNextStatus() == 2) {
 				receiptDoneDate = sh;
 				break;
 			}
@@ -234,46 +266,46 @@ public class CommonService implements ICommonService {
 		return receiptDoneDate.getChangeDate();
 	}
 
-	/* 작성자: 장현
-	 * 최신 요청 개수, 진행중인 요청 개수, 진행 완료 개수, 개발자일 경우 재검토, pm일 경우 반려건 개수 출력
+	/*
+	 * 작성자: 장현 최신 요청 개수, 진행중인 요청 개수, 진행 완료 개수, 개발자일 경우 재검토, pm일 경우 반려건 개수 출력
 	 */
 	@Override
 	@Transactional
-	public HashMap<String, Integer> getWorkingStatus(Member member) {	
+	public HashMap<String, Integer> getWorkingStatus(Member member) {
 		HashMap<String, Integer> map = new HashMap<>();
-		// 각 status별 초기값 세팅 
-		for(int i = 1; i <= 13; i++) {
+		// 각 status별 초기값 세팅
+		for (int i = 1; i <= 13; i++) {
 			map.put(i + "", 0);
 		}
 		List<Status> statusList = commonDao.selectMyWorkStatus(member);
-		for(Status status : statusList) {
+		for (Status status : statusList) {
 			map.put(status.getStatusNo() + "", status.getCount());
 		}
 		return map;
 	}
-	
-	/* 작성자: 장현
-	 * 진행중인 요청건, 완료된 요청건 개수 구하기
+
+	/*
+	 * 작성자: 장현 진행중인 요청건, 완료된 요청건 개수 구하기
 	 */
 	@Override
 	public HashMap<String, Integer> getUserRequestStatusCount(Member member) {
 		HashMap<String, Integer> map = new HashMap<>();
-		// 각 status별 초기값 세팅 
-		for(int i = 1; i <= 13; i++) {
+		// 각 status별 초기값 세팅
+		for (int i = 1; i <= 13; i++) {
 			map.put(i + "", 0);
 		}
 		List<Status> statusList = commonDao.selectMyRequestStatus(member);
-		for(Status status : statusList) {
+		for (Status status : statusList) {
 			map.put(status.getStatusNo() + "", status.getCount());
 		}
 		return map;
 	}
-	
+
 	@Override
 	public int getListOf7daysLeftCount(Member member) {
 		return commonDao.selectListOf7daysLeftCount(member);
 	}
-	
+
 	@Override
 	public List<Request> getListOf7daysLeft(Member member, Pager dPager) {
 		return commonDao.selectListOf7daysLeft(member, dPager);
@@ -285,31 +317,29 @@ public class CommonService implements ICommonService {
 		Map<String, Object> map = new HashMap<>();
 		int allMyRequests = commonDao.selectAllMyRequests(member);
 		int delayRequests = commonDao.selectDelayRequests(member);
-		//지연율 넣기
+		// 지연율 넣기
 		double delayRate = 0;
 		double normalRate = 100;
-		
-		if(allMyRequests != 0) {
-			delayRate = delayRequests/allMyRequests * 100;
+
+		if (allMyRequests != 0) {
+			delayRate = delayRequests / allMyRequests * 100;
 			normalRate = 100 - delayRate;
-		} 
+		}
 		map.put("allMyRequests", allMyRequests);
 		map.put("delayRequests", delayRequests);
 		map.put("delayRate", delayRate);
 		map.put("normalRate", normalRate);
-		
-		
+
 		return map;
 	}
 
-	/* 작성자: 장현
-	 * 파일 다운로드
+	/*
+	 * 작성자: 장현 파일 다운로드
 	 */
 	@Override
 	public StatusHistoryFile getFile(int fno) {
 		return commonDao.selectFile(fno);
 	}
-
 
 	@Override
 	public List<RequestProcess> getRequestProcessList(Member member, String checkbox, String status, Pager pager) {
@@ -319,7 +349,7 @@ public class CommonService implements ICommonService {
 
 	@Override
 	public int getRequestProcessRows(Member member, String checkbox, String status) {
-		return commonDao.selectRequestProcessRows(member,checkbox, status);
+		return commonDao.selectRequestProcessRows(member, checkbox, status);
 	}
 
 	@Override
@@ -340,41 +370,41 @@ public class CommonService implements ICommonService {
 	@Override
 	public void writeStatusHistory(StatusHistory statusHistory) {
 		commonDao.insertStatusHistory(statusHistory);
-		
+
 	}
 
 	@Override
 	public void updateStatusHistory(StatusHistory statusHistory) {
 		commonDao.updateStatusHistory(statusHistory);
-		
+
 	}
 
 	@Override
 	public void updateDevProgress(RequestProcess rp) {
 		commonDao.updateDevProgress(rp);
-		
+
 	}
 
 	@Override
 	@Transactional
 	public void updateHistory(RequestProcess rp, StatusHistory sh, Member member) {
-		if(member.getMtype().equals("pm")) {
+		if (member.getMtype().equals("pm")) {
 			commonDao.updateRequestProcess(rp);
 			commonDao.updateRealStatusHistory(sh);
-			if(sh.getFileList() != null) {
+			if (sh.getFileList() != null) {
 				List<StatusHistoryFile> fileList = sh.getFileList();
-				for(StatusHistoryFile file : fileList) {
+				for (StatusHistoryFile file : fileList) {
 					file.setHno(sh.getHno());
 					commonDao.insertStatusHistoryFile(file);
 				}
 			}
-			
-		}else {
+
+		} else {
 			commonDao.updateRealStatusHistory(sh);
 
-			if(sh.getFileList() != null) {
+			if (sh.getFileList() != null) {
 				List<StatusHistoryFile> fileList = sh.getFileList();
-				for(StatusHistoryFile file : fileList) {
+				for (StatusHistoryFile file : fileList) {
 					file.setHno(sh.getHno());
 					commonDao.insertStatusHistoryFile(file);
 				}
@@ -385,8 +415,8 @@ public class CommonService implements ICommonService {
 	@Override
 	public int isThereTestReject(int rno) {
 		List<StatusHistory> histories = commonDao.selectRequestHistories(rno);
-		for(StatusHistory sh : histories) {
-			if(sh.getNextStatus() == 3) {
+		for (StatusHistory sh : histories) {
+			if (sh.getNextStatus() == 3) {
 				return 1;
 			}
 		}
@@ -400,17 +430,16 @@ public class CommonService implements ICommonService {
 
 	@Override
 	public List<RequestProcess> getPmRequestProcessList(String status, Pager rpPager) {
-		return  commonDao.selectPmRequestProcessList(status, rpPager);
+		return commonDao.selectPmRequestProcessList(status, rpPager);
 	}
 
 	/**
-	 * @author: KIM JI YOUNG
-	 * 신규 알림(서비스 변경 사항 확인)
+	 * @author: KIM JI YOUNG 신규 알림(서비스 변경 사항 확인)
 	 */
-	
+
 	// 서비스 변경 사항 확인
 	@Override
-	public int check(String mtype, int rno) {	
+	public int check(String mtype, int rno) {
 		return commonDao.updateCheck(mtype, rno);
 	}
 
@@ -426,6 +455,4 @@ public class CommonService implements ICommonService {
 		return commonDao.selectNewAlertList(member);
 	}
 
-	
-	
 }

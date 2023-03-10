@@ -72,7 +72,7 @@
                 	 	</div>	<!-- 여기에 단계 상태 이력 넣기 /-->
 						
 						<section>	<!-- 테스터의 재검토 요청 글 작성 start-->
-							<c:if test="${member.mid == requestProcess.tester && request.statusNo == 6 && member.mid == requestProcess.tester}">
+							<c:if test="${member.mid == requestProcess.tester && (request.statusNo == 6 || request.statusNo == 5)}">
 							<div class="card border-top-dark my-3" id="reDevelopRequestWrite">
 								<div class="card-block">
 									<div class="d-flex">
