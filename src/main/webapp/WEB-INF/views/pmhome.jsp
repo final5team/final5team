@@ -63,7 +63,7 @@
 	                        </a>
 	                        
 	                        <a class="uppermain mb-4" href="#" onclick="pmRequestProcessList(1, '승인대기')">
-	                            <div class="card border-left-primary shadow h-100 py-2">
+	                            <div class="card border-left-warning shadow h-100 py-2">
 	                                <div class="card-body">
 	                                    <div class="row no-gutters align-items-center">
 	                                        <div class="col mr-2">
@@ -140,25 +140,26 @@
 							<!-- pm 업무 리스트 start -->
 							<div class="col-12 my-4">
 								<div class="card tasks border-left-dark shadow" style="height: 420.896px;">
-									<div class="card-header d-flex">
-			                			<h5 class="title ml-3 mr-auto" id="devTitle">
-			                				<span id="title">PM 업무 리스트</span>		
+									<div class="card-header">
+			                			<h5 class="title ml-3 d-flex" id="devTitle">
+			                				<span id="title" class="mr-auto">PM 업무 리스트</span>
+			                				<div class="btn btn-sm btn-dark" onclick="window.location.reload()">전체보기</div>	
 			                			</h5>
 									</div>
-									<div class="card-block pt-2" style="height: 350px;" id="requestProcessListContainer">
+									<div class="card-block" style="height: 350px;" id="requestProcessListContainer">
 										<!-- 리스트 start -->
-										<div style="height: 305px;">
+										<div style="height: 297px;">
 											<table class="table tasks-block table-striped table-hover"  >
-												<thead style="background-color: #3A4651;" class="text-white">
+												<thead style="background-color: #3A4651;" class="text-white" id="table-head-color">
 													<tr style="text-align: center;">
 														<th>요청번호</th>
-														<th>시스템</th>
+														<th >시스템</th>
 														<th>요청유형</th>
 														<th>제목</th>
-														<th>우선순위</th>
+														<th>중요도</th>
 														<th>요청일</th>
 														<th>완료예정일</th>
-														<th>진행상황</th>
+														<th style="width: 97px;">진행상황</th>
 													</tr>
 												</thead>
 												<tbody >
@@ -267,30 +268,35 @@
 													</c:forEach>
 												</tbody>
 											</table>
+											<c:if test="${requestProcessList[0].reqTitle == null}">
+												<div class="d-flex justify-content-center font-weight-bold">
+													내용이 없습니다.
+												</div>
+											</c:if>
 										</div>
 										<div>
 											<div class="pager default mt-3">
 												<div class="pagingButtonSet d-flex justify-content-center">
-													<a onclick="pmRequestProcessList(1, '${searchStatus}')" type="button" class="btn btn-muted shadow">처음</a>
+													<a onclick="pmRequestProcessList(1, '${searchStatus}')" type="button" class="btn btn-muted btn-sm shadow">처음</a>
 													<c:if test="${rpPager.groupNo > 1}">
-														<a onclick="pmRequestProcessList(${rpPager.startPageNo-1}, '${searchStatus}')" class="btn btn-muted shadow">이전</a>
+														<a onclick="pmRequestProcessList(${rpPager.startPageNo-1}, '${searchStatus}')" class="btn btn-muted btn-sm shadow">이전</a>
 					
 													</c:if>
 					
 													<c:forEach var="i" begin="${rpPager.startPageNo}" end="${rpPager.endPageNo}">
 														<c:if test="${rpPager.pageNo != i}">
-															<a onclick="pmRequestProcessList(${i}, '${searchStatus}')" type="button" class="btn btn-white shadow">${i}</a>
+															<a onclick="pmRequestProcessList(${i}, '${searchStatus}')" type="button" class="btn btn-white btn-sm shadow">${i}</a>
 														</c:if>
 														<c:if test="${rpPager.pageNo == i}">
-															<a onclick="pmRequestProcessList(${i}, '${searchStatus}')" type="button" class="btn btn-dark shadow">${i}</a>
+															<a onclick="pmRequestProcessList(${i}, '${searchStatus}')" type="button" class="btn btn-dark btn-sm shadow">${i}</a>
 														</c:if>
 													</c:forEach>
 					
 													<c:if test="${rpPager.groupNo < rpPager.totalGroupNo }">
-														<a onclick="pmRequestProcessList(${rpPager.endPageNo+1}, '${searchStatus}')" type="button" class="btn btn-muted shadow">다음</a>
+														<a onclick="pmRequestProcessList(${rpPager.endPageNo+1}, '${searchStatus}')" type="button" class="btn btn-muted btn-sm shadow">다음</a>
 					
 													</c:if>
-													<a onclick="pmRequestProcessList(${rpPager.totalPageNo}, '${searchStatus}')" type="button" class="btn btn-muted shadow">맨끝</a>
+													<a onclick="pmRequestProcessList(${rpPager.totalPageNo}, '${searchStatus}')" type="button" class="btn btn-muted btn-sm shadow">맨끝</a>
 												</div>
 											</div>
 										</div>	
@@ -308,7 +314,7 @@
 									</div>
 									<div class="card-block" style="height: 350px;" id ="sevenDaysListListContainer">
 										<!-- 개발리스트start -->
-										<div style="height: 288px;">
+										<div style="height: 297px;">
 											<table class="table  table-striped" id="devList" >
 												<thead style="background-color: #3A4651;" class="text-white">
 													<tr style="text-align: center;">
@@ -316,7 +322,7 @@
 														<th>시스템</th>
 														<th>요청유형</th>
 														<th>제목</th>
-														<th>우선순위</th>
+														<th>중요도</th>
 														<th>진행상황</th>
 														<th>완료예정일</th>
 													</tr>
@@ -328,6 +334,9 @@
 															<td>${dayRequest.systemName}</td>
 															<td>${dayRequest.reqType}</td>
 															<td class="tableContent">
+																<c:if test="${dayRequest.pmCheck == 1}">
+																	<strong class="text-danger">N</strong>																
+																</c:if>
 																<c:if test="${dayRequest.statusName eq '접수중' || dayRequest.statusName eq '접수완료'}">
 																	<a href="${pageContext.request.contextPath}/pm/receiptdetail?rno=${dayRequest.rno}">${dayRequest.reqTitle}</a>
 																</c:if>
@@ -386,29 +395,36 @@
 													</c:forEach>		
 												</tbody>
 											</table>
+											<c:if test="${requestProcessList[0].reqTitle == null}">
+												<div class="d-flex justify-content-center font-weight-bold">
+													내용이 없습니다.
+												</div>
+											</c:if>
 										</div>
-										<div class="pager default mt-4">
-											<div class="pagingButtonSet d-flex justify-content-center">
-												<a onclick="sevenDaysList(1)" type="button" class="btn btn-muted shadow">처음</a>
-												<c:if test="${dPager.groupNo > 1}">
-													<a onclick="sevenDaysList(${dPager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
-				
-												</c:if>
-				
-												<c:forEach var="i" begin="${dPager.startPageNo}" end="${dPager.endPageNo}">
-													<c:if test="${dPager.pageNo != i}">
-														<a onclick="sevenDaysList(${i})" type="button" class="btn btn-white shadow">${i}</a>
+										<div>
+											<div class="pager default mt-3">
+												<div class="pagingButtonSet d-flex justify-content-center">
+													<a onclick="sevenDaysList(1)" type="button" class="btn btn-muted btn-sm shadow">처음</a>
+													<c:if test="${dPager.groupNo > 1}">
+														<a onclick="sevenDaysList(${dPager.startPageNo-1})" class="btn btn-muted btn-sm shadow">이전</a>
+					
 													</c:if>
-													<c:if test="${dPager.pageNo == i}">
-														<a onclick="sevenDaysList(${i})" type="button" class="btn btn-dark shadow">${i}</a>
+					
+													<c:forEach var="i" begin="${dPager.startPageNo}" end="${dPager.endPageNo}">
+														<c:if test="${dPager.pageNo != i}">
+															<a onclick="sevenDaysList(${i})" type="button" class="btn btn-white btn-sm shadow">${i}</a>
+														</c:if>
+														<c:if test="${dPager.pageNo == i}">
+															<a onclick="sevenDaysList(${i})" type="button" class="btn btn-dark btn-sm shadow">${i}</a>
+														</c:if>
+													</c:forEach>
+					
+													<c:if test="${dPager.groupNo < dPager.totalGroupNo }">
+														<a onclick="sevenDaysList(${dPager.endPageNo+1})" type="button" class="btn btn-muted btn-sm shadow">다음</a>
+					
 													</c:if>
-												</c:forEach>
-				
-												<c:if test="${dPager.groupNo < dPager.totalGroupNo }">
-													<a onclick="sevenDaysList(${dPager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
-				
-												</c:if>
-												<a onclick="sevenDaysList(${dPager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
+													<a onclick="sevenDaysList(${dPager.totalPageNo})" type="button" class="btn btn-muted btn-sm shadow">맨끝</a>
+												</div>
 											</div>
 										</div>
 										<!-- 개발리스트 end -->
@@ -449,29 +465,34 @@
 													</c:forEach>				
 												</tbody>
 											</table>
+											<c:if test="${requestProcessList[0].reqTitle == null}">
+												<div class="d-flex justify-content-center font-weight-bold">
+													내용이 없습니다.
+												</div>
+											</c:if>
 										</div>
 										<div class="pager default mt-4">
 											<div class="pagingButtonSet d-flex justify-content-center">
-												<a onclick="mainNoticeList(1)" type="button" class="btn btn-muted shadow">처음</a>
+												<a onclick="mainNoticeList(1)" type="button" class="btn btn-muted btn-sm shadow">처음</a>
 												<c:if test="${nPager.groupNo > 1}">
-													<a onclick="mainNoticeList(${nPager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
+													<a onclick="mainNoticeList(${nPager.startPageNo-1})" class="btn btn-muted btn-sm shadow">이전</a>
 				
 												</c:if>
 				
 												<c:forEach var="i" begin="${nPager.startPageNo}" end="${nPager.endPageNo}">
 													<c:if test="${nPager.pageNo != i}">
-														<a onclick="mainNoticeList(${i})" type="button" class="btn btn-white shadow">${i}</a>
+														<a onclick="mainNoticeList(${i})" type="button" class="btn btn-white btn-sm shadow">${i}</a>
 													</c:if>
 													<c:if test="${nPager.pageNo == i}">
-														<a onclick="mainNoticeList(${i})" type="button" class="btn btn-dark shadow">${i}</a>
+														<a onclick="mainNoticeList(${i})" type="button" class="btn btn-dark btn-sm shadow">${i}</a>
 													</c:if>
 												</c:forEach>
 				
 												<c:if test="${nPager.groupNo < nPager.totalGroupNo }">
-													<a onclick="mainNoticeList(${nPager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
+													<a onclick="mainNoticeList(${nPager.endPageNo+1})" type="button" class="btn btn-muted btn-sm shadow">다음</a>
 				
 												</c:if>
-												<a onclick="mainNoticeList(${nPager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
+												<a onclick="mainNoticeList(${nPager.totalPageNo})" type="button" class="btn btn-muted btn-sm shadow">맨끝</a>
 											</div>
 										</div>
 									</div>
@@ -529,7 +550,6 @@
 				dataType:"html", 
 				success : function(result){
 					$('#requestProcessListContainer').html(result);
-					console.log("success");
 				}
 			})
 		} 

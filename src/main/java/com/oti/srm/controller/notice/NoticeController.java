@@ -193,5 +193,9 @@ public class NoticeController {
 		return new ResponseEntity<byte[]>(noticeFile.getFileData(), headers, HttpStatus.OK);
 	}
 	
-
+	@GetMapping("/new")
+	public String getCalendar() {
+		return "notice/new";
+	}
+	
 }

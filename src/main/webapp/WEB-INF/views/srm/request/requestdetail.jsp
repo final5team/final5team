@@ -8,6 +8,7 @@
 <script src="${pageContext.request.contextPath}/resources/vendor/tinymce/tinymce.min.js"></script>    
 <script src="${pageContext.request.contextPath}/resources/js/tinymceinit.js"></script>    
 <script src="${pageContext.request.contextPath}/resources/vendor/tinymce/themes/silver/theme.min.js"></script>
+<script>tinymce.init({forced_root_block : "",selector:'textarea'});</script>
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
 <link href="${pageContext.request.contextPath}/resources/css/stepperprogress.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/requestdetail.css" rel="stylesheet">
@@ -119,7 +120,8 @@
 													</article>
 													<article class="bodyInput">
 														<div class="item">
-															<textarea id="reqContent" cols="30" name="reqContent" placeholder="내용">${request.reqContent}</textarea>
+															<%-- <textarea id="reqContent" cols="30" name="reqContent" placeholder="내용">${request.reqContent}</textarea> --%>
+															<textarea  cols="30" placeholder="내용">${request.reqContent}</textarea>
 														</div>
 													</article>
 													<article class="fileBody">

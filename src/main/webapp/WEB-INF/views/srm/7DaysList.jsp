@@ -21,6 +21,9 @@
 					<td>${dayRequest.systemName}</td>
 					<td>${dayRequest.reqType}</td>
 					<td class="tableContent">
+						<c:if test="${dayRequest.pmCheck == 1}">
+							<strong class="text-danger">N</strong>																
+						</c:if>
 						<c:if test="${dayRequest.statusName eq '접수중' || dayRequest.statusName eq '접수완료'}">
 							<a href="${pageContext.request.contextPath}/pm/receiptdetail?rno=${dayRequest.rno}">${dayRequest.reqTitle}</a>
 						</c:if>
@@ -82,25 +85,25 @@
 </div>
 <div class="pager default mt-4">
 	<div class="pagingButtonSet d-flex justify-content-center">
-		<a onclick="sevenDaysList(1)" type="button" class="btn btn-muted shadow">처음</a>
+		<a onclick="sevenDaysList(1)" type="button" class="btn btn-muted btn-sm shadow">처음</a>
 		<c:if test="${dPager.groupNo > 1}">
-			<a onclick="sevenDaysList(${dPager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
+			<a onclick="sevenDaysList(${dPager.startPageNo-1})" class="btn btn-muted btn-sm shadow">이전</a>
 
 		</c:if>
 
 		<c:forEach var="i" begin="${dPager.startPageNo}" end="${dPager.endPageNo}">
 			<c:if test="${dPager.pageNo != i}">
-				<a onclick="sevenDaysList(${i})" type="button" class="btn btn-white shadow">${i}</a>
+				<a onclick="sevenDaysList(${i})" type="button" class="btn btn-white btn-sm shadow">${i}</a>
 			</c:if>
 			<c:if test="${dPager.pageNo == i}">
-				<a onclick="sevenDaysList(${i})" type="button" class="btn btn-dark shadow">${i}</a>
+				<a onclick="sevenDaysList(${i})" type="button" class="btn btn-dark btn-sm shadow">${i}</a>
 			</c:if>
 		</c:forEach>
 
 		<c:if test="${dPager.groupNo < dPager.totalGroupNo }">
-			<a onclick="sevenDaysList(${dPager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
+			<a onclick="sevenDaysList(${dPager.endPageNo+1})" type="button" class="btn btn-muted btn-sm shadow">다음</a>
 
 		</c:if>
-		<a onclick="sevenDaysList(${dPager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
+		<a onclick="sevenDaysList(${dPager.totalPageNo})" type="button" class="btn btn-muted btn-sm shadow">맨끝</a>
 	</div>
 </div>
