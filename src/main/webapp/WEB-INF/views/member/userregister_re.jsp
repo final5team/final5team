@@ -140,7 +140,7 @@
 															<input type="text" class="form-control form-control-user" id="mname" name="mname" placeholder="이름" maxlength='4' required>
 														</div>
 														<div class="item">
-															<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="이메일" required>
+															<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="이메일" maxlength='33' required>
 														</div>
 														<div class="item">
 															<input type="date" id="birth" name="birth" class="form-control form-control-user" required>
@@ -199,19 +199,19 @@
 													</div>
 													
 													<div class="item" style="margin-top: 10px;">
-														<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="핸드폰" required>
+														<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="핸드폰" maxlength='13' required>
 													</div>
 												</article>
 												 
 												<article class="address-input">
 													<div class="item address1">
-														<input type="text" class="form-control form-control-user" id="postcode" name="postcode" placeholder="우편번호" readonly>
+														<input type="text" class="form-control form-control-user" id="postcode" name="postcode" maxlength='5' placeholder="우편번호" readonly>
 													</div>
 													<div class="item address2">
-														<input type="text" class="form-control form-control-user" id="addr1" name="addr1" placeholder="도로명 주소" readonly>
+														<input type="text" class="form-control form-control-user" id="addr1" name="addr1" maxlength='35' placeholder="도로명 주소" readonly>
 													</div>
 													<div class="item address3">
-														<input type="text" id="addr2" name="addr2" class="form-control form-control-user"  placeholder="상세 주소" required>
+														<input type="text" id="addr2" name="addr2" class="form-control form-control-user"  maxlength='25' placeholder="상세 주소" required>
 													</div>
 													<div class="item address-button">
 														<button type="button" class="btn btn-dark btn-sm" id="address" name="address" onclick="findAddress()">우편번호</button>
@@ -302,6 +302,7 @@
 			inputtag.innerHTML = fileList;
 		}
 	});
+	
 	// 아이디 중복 체크 ajax
 	function checkId(){
 		let id = $('#mid').val();
@@ -309,6 +310,7 @@
 		const idPattern = /^(?=.*\d)(?=.*[a-z]).{6,15}$/;
 		let idTest = idPattern.test(id);
 		if(!idTest){
+			$('#idconfirm').css('color', 'red');
 			$('#idconfirm').html('아이디 형식을 확인해주세요.');
 		} else {
 			data = {mid : id};	

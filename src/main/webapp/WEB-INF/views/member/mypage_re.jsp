@@ -136,13 +136,13 @@
 													</select>
 													<div class="data">
 														<div class="item">
-															<input type="text" class="form-control form-control-user" id="mid" name="mid" placeholder="아이디" value="${returnMember.mid}">
+															<input type="text" class="form-control form-control-user" id="mid" name="mid" maxlength='15' placeholder="아이디" value="${returnMember.mid}">
 														</div>
 														<div class="item">
-															<input type="text" class="form-control form-control-user" id="mname" name="mname" placeholder="이름" value="${returnMember.mname}">
+															<input type="text" class="form-control form-control-user" id="mname" name="mname" maxlength='4' placeholder="이름" value="${returnMember.mname}">
 														</div>
 														<div class="item">
-															<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="이메일" value="${returnMember.email}">
+															<input type="text" class="form-control form-control-user" id="email" name="email" maxlength='33' placeholder="이메일" value="${returnMember.email}">
 														</div>
 														<div class="item">
 															<input type="date" id="birth" name="birth" class="form-control form-control-user"
@@ -213,19 +213,19 @@
 													</div>
 													
 													<div class="item" style="margin-top: 10px;">
-														<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="핸드폰" value="${returnMember.phone}">
+														<input type="text" class="form-control form-control-user" id="phone" name="phone" maxlength='13' placeholder="핸드폰" value="${returnMember.phone}">
 													</div>
 												</article>
 												 
 												<article class="address-input">
 													<div class="item address1">
-														<input type="text" class="form-control form-control-user" id="postcode" name="postcode" placeholder="우편번호" value="${returnMember.postcode}">
+														<input type="text" class="form-control form-control-user" id="postcode" name="postcode" maxlength='5' placeholder="우편번호" value="${returnMember.postcode}">
 													</div>
 													<div class="item address2">
-														<input type="text" class="form-control form-control-user" id="addr1" name="addr1" placeholder="도로명 주소" value="${returnMember.addr1}">
+														<input type="text" class="form-control form-control-user" id="addr1" name="addr1" maxlength='35' placeholder="도로명 주소" value="${returnMember.addr1}">
 													</div>
 													<div class="item address3">
-														<input type="text" id="addr2" name="addr2" class="form-control form-control-user"  placeholder="상세 주소" value="${returnMember.addr2}">
+														<input type="text" id="addr2" name="addr2" class="form-control form-control-user"  maxlength='25' placeholder="상세 주소" value="${returnMember.addr2}">
 													</div>
 													<div class="item address-button">
 														<button type="button" class="btn btn-dark btn-sm" id="address" name="address" onclick="findAddress()">우편번호</button>
