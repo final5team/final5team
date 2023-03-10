@@ -66,11 +66,11 @@
 													
 													<c:if test="${request.statusNo ==2 || request.statusNo ==3}">
 													<input type="date" class="date-form control" name="devExpectDate" id="devExpectDate">
-													<div class="btn btn-sm btn-primary" onclick="checkDate()">개발 시작</div>
+													<div class="btn btn-md btn-warning" onclick="checkDate()">개발 시작</div>
 													</c:if>
 
 													<c:if test="${request.statusNo == 4}">
-													<input type="date" class="date-form control" name="devExpectDate" value="<fmt:formatDate value='${requestProcess.devExpectDate}' pattern='yyyy-MM-dd'/>" readonly>
+													<input class="date-form control" name="devExpectDate" id="afterDevExpectDate" value="<fmt:formatDate value='${requestProcess.devExpectDate}' pattern='yyyy-MM-dd'/>" readonly>
 													</c:if>
 													<small id="noInputDate" style="color : red;"></small>
 													
@@ -130,11 +130,9 @@
 										
 										<c:if test="${request.statusNo == 4}">
 										<div class="d-flex justify-content-end">
+										<button class="btn btn-dark btn-md" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">취소</button>
 										<button class="btn btn-warning btn-md mx-3" onclick="tempStore(${request.rno},14)">임시 저장</button>
-										<c:if test="${requestProcess.devProgress == 100}">
 										<button class="btn btn-primary btn-md " onclick="devEnd()">개발 완료</button>
-										</c:if>
-
 										</div>
 										</c:if>
 										
@@ -144,14 +142,6 @@
                 	 	</section><!-- 개발내역 입력폼 end -->
                 	 	</c:if>
                 	 	
-                	 	<c:if test="${devToTester[0].reply != null && member.mid == requestProcess.developer && request.statusNo == 4}">
-               	 		<div class="d-flex justify-content-center mt-4"> <!-- 히스토리 버튼 start -->
-               	 			<div class="btn btn-primary-outline history-button" onclick="openHistories()">
-               	 				개발 내역 보기  <i class="fas fa-history"></i>
-               	 			</div>
-               	 		</div> <!-- 히스토리 버튼 end -->
-                	 	</c:if>
-               	 		
                	 		
                 	 	<section id="histories" > <!-- 개발히스토리 start-->
                 	 		<div class="title-block">
@@ -284,7 +274,6 @@
                 	 		</c:if>
                 	 		
                 	 	</section> <!-- 개발히스토리end -->
-                	 	<button class="btn btn-dark btn-sm ml-5 mb-3" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
 					 </div> <!-- id=main div / -->
                 </div>
                 <!-- 여기에 내용 담기 end -->
@@ -543,6 +532,19 @@
 	{
 		$("#fileInput").on("change", fileCheck);
 		$("#fileInputUpdate").on("change", fileUpdate);
+		
+		
+		/****** window로딩 시, 개발시작 버튼 눌렀는지 확인하고, 작성칸 readonly 만들어주기 *****/
+		var afterDevExpectDate = $('#afterDevExpectDate').val();
+		if(afterDevExpectDate == null){
+			tinymce.get("reply").setMode('readonly');
+			$('#distSource').attr('disabled',true);
+			$('#btn-upload').hide();
+		} else{
+			tinymce.get("reply").setMode('design');
+			$('#distSource').attr('disabled',false);
+			$('#btn-upload').show();
+		}
 	});
 	
 	/* '파일추가' 버튼 누를 때마다 파일input 실행 */
