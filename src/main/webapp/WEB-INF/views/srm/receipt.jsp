@@ -583,6 +583,7 @@
 								</div>										
 							</div>
 						</c:if>
+						<!-- 반려 처리 정보 end-->
 						<!-- Calendar Card -->
 						<div id="calendarCard" class="card border-top-dark my-3" style="display:none;">
 							<div class="card-block"> <!-- card-block -->
@@ -598,7 +599,7 @@
 							</div>
 						</div>
 						
-						<!-- 반려 처리 정보 end-->
+						
 						<c:if test="${sessionScope.member.mtype != 'user'}">
 							<button class="btn btn-dark btn-sm ml-5 m-3" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
 						</c:if>

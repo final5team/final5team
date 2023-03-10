@@ -9,6 +9,7 @@
     <link href="${pageContext.request.contextPath}/resources/css/stepperprogress.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <style>
+    
     #completeInfo {
    	 	background-image: url('${pageContext.request.contextPath}/resources/img/completed.png'); 
 		background-repeat: no-repeat;
@@ -120,7 +121,7 @@
 						<!-- 접수 완료 end -->
 						<!-- 접수 반려 start -->
 						<c:if test="${request.statusNo == 12}">
-						<div class="card border-top-danger mt-3 mb-1">
+							<div class="card border-top-danger mt-3 mb-1">
 								<h3 class="title m-3">						
 									반려 처리 내역 <i class="ml-1 fas fa-external-link-alt"></i>
 								</h3>
