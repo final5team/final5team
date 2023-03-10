@@ -108,9 +108,8 @@
 											<input type="hidden" name="rno" value="${request.rno}" id="rno">
 											<div class="form-group d-flex">
 												<div class="label label-write" id="replylabel">내용 작성 </div>
-												<!-- <textarea rows="3" class="form-control boxed flex-grow-1" name="reply"></textarea> -->
-												<div class="flex-grow-1">
-													<textarea rows="3" class="form-control boxed flex-grow-1 replyWrite" name="reply" id="reply">${tempNormal.reply}</textarea>
+												<div class="flex-grow-1" >
+													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply">${tempNormal.reply}</textarea>
 													<input type="hidden" id="tempNormal" value="${tempNormal.reply}">
 													<input type="hidden" id="tempReexam" value="${tempReexam.reply}">
 												</div>
@@ -123,7 +122,7 @@
 													<input type="file" name="files" id="fileInput" multiple style="display: none;">
 												</div>
 												
-												<div class="border flex-grow-1 border-success" id="file-list"></div>	
+												<div class="border flex-grow-1 border" id="file-list"></div>	
 											</div>
 											
 											<div class="d-flex justify-content-end">
@@ -171,8 +170,7 @@
                 	 						<c:if test="${member.mid != requestProcess.tester}">
 	                	 						<div class="row mt-3">
 		                	 						<div class="col-2 label">내용</div>
-		                	 						<%-- <textarea class="col-8">${statusHistory.reply}</textarea> --%>
-		                	 						<div class="col-8 border">${statusHistory.reply}</div>
+		                	 						<div class="col-8 border scroller p-2">${statusHistory.reply}</div>
 	                	 						</div>
 	                	 						<div class="row mt-3">
 		                	 						<span class="col-2 label">첨부파일</span>
@@ -221,7 +219,7 @@
 																			<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
 																			<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
 																		</div>
-																		<div class="border flex-grow-1 border-success col-8" id="file-list-update"></div>	
+																		<div class="border flex-grow-1 border col-8" id="file-list-update"></div>	
 																	</div>
 																	<div class="d-flex justify-content-end">
 					                	 								<button onclick="update('updateForm1')" class="btn btn-primary btn-sm mx-3" type="button">수정</button>	
@@ -232,7 +230,7 @@
                 	 											<div class="row mt-3">
 						                	 						<div class="col-2 label">내용</div>
 						                	 						<%-- <textarea class="col-8 replyRead" >${statusHistory.reply}</textarea> --%>
-						                	 						<div class="col-8 border">${statusHistory.reply}</div>
+						                	 						<div class="col-8 border scroller p-2">${statusHistory.reply}</div>
 					                	 						</div>
 					                	 						<div class="row mt-3">
 						                	 						<div class="col-2 label">첨부파일</div>
@@ -278,7 +276,7 @@
 																		<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
 																		<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
 																	</div>
-																	<div class="border flex-grow-1 border-success col-8" id="file-list-update"></div>	
+																	<div class="border flex-grow-1 border col-8" id="file-list-update"></div>	
 																</div>
 																<div class="d-flex justify-content-end">
 				                	 								<button onclick="update('updateForm2')" class="btn btn-primary btn-sm mx-3" type="button">수정</button>	
@@ -289,7 +287,7 @@
                	 											<div class="row mt-3">
 					                	 						<div class="col-2 label">내용</div>
 					                	 						<%-- <textarea class="col-8 replyRead">${statusHistory.reply}</textarea> --%>
-					                	 						<div class="col-8 border">${statusHistory.reply}</div>
+					                	 						<div class="col-8 border scroller p-2">${statusHistory.reply}</div>
 				                	 						</div>
 				                	 						<div class="row mt-3">
 					                	 						<div class="col-2 label">첨부파일</div>
@@ -469,8 +467,6 @@
 		$('#normal').addClass('active');
 		$('#reexam').removeClass('active');
 		$('#replylabel').text('내용작성');
-		$('#replylabel').removeClass('text-danger');
-		$('#fileLabel').removeClass('text-danger');
 		/* 버튼 바꿔주기 */
 		$('#testButton').text('테스트 완료');
 		$('#testButton').attr('formaction', '${pageContext.request.contextPath}/testdone');
@@ -485,8 +481,6 @@
 		$('#reexam').addClass('active');
 		$('#normal').removeClass('active');
 		$('#replylabel').text('재검토사유');
-		$('#replylabel').addClass('text-danger');
-		$('#fileLabel').addClass('text-danger');
 		/* 버튼 바꾸기 */
 		$('#testButton').attr('formaction', '${pageContext.request.contextPath}/askreexam');
 		$('#testButton').text('재검토 요청');
@@ -533,6 +527,24 @@
 	{
 		$("#fileInput").on("change", fileCheck);
 		$("#fileInputUpdate").on("change", fileUpdate);
+		
+		/****** window로딩 시, 개발시작 버튼 눌렀는지 확인하고, 작성칸 readonly 만들어주기 *****/
+		var testExpectDate = $('#testExpectDate').val();
+		if(testExpectDate == ''){
+			tinymce.get("reply").setMode('readonly');
+			$('#distSource').attr('disabled',true);
+			$('#btn-upload').hide();
+			$('#writeform').mousedown(function(){
+				$('#noInputDate').text('테스트 시작을 눌러야 입력 가능합니다.');
+			});
+		} else{
+			tinymce.get("reply").setMode('design');
+			$('#distSource').attr('disabled',false);
+			$('#btn-upload').show();
+			$('#writeform').off( "mousedown");
+			$('#noInputDate').text('');
+		}
+		
 	});
 	
 	/* '파일추가' 버튼 누를 때마다 파일input 실행 */

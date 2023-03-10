@@ -86,7 +86,7 @@
 											<div class="form-group d-flex">
 												<div class="label label-write">개발 사항</div>
 												<div class="flex-grow-1">
-													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply">${devTemp.reply}</textarea>
+													<textarea name="reply" id="reply">${devTemp.reply}</textarea>
 												</div>
 											</div>
 											<div class="form-group d-flex">
@@ -106,7 +106,7 @@
 													<input type="file" name="files" id="fileInput" multiple style="display: none;">
 												</div>
 												
-												<div class="border flex-grow-1 border-success" id="file-list">
+												<div class="border flex-grow-1 border" id="file-list">
 			  									
 			  									</div>	
 											</div>
@@ -170,8 +170,7 @@
 	                	 						<c:if test="${member.mid != requestProcess.developer}">
 		                	 						<div class="row mt-3">
 		                	 							<div class="col-2 label" >개발내용</div>
-		                	 							<%-- <textarea class="col-8 form-control boxed replyRead" rows="2" readonly>${statusHistory.reply}</textarea> --%>
-		                	 							<div class="col-8 border">${statusHistory.reply}</div>
+		                	 							<div class="col-8 border p-2 scroller">${statusHistory.reply}</div>
 		                	 						</div>
 		                	 						<div class="row mt-3">
 			                	 						<div class="col-2 label">배포소스(url)</div>
@@ -195,11 +194,11 @@
 	                	 								<c:if test="${!index.last || request.statusNo != 5}">
 	                	 									<div class="row">
 				                	 							<div class="col-2 label" >개발내용</div>
-				                	 							<textarea class="col-8 form-control boxed replyRead" rows="2" id="replyRead">${statusHistory.reply}</textarea>
+				                	 							<div class="col-8 border p-2 scroller">${statusHistory.reply}</div>
 				                	 						</div>
 				                	 						<div class="row mt-3">
 					                	 						<div class="col-2 label">배포소스(url)</div>
-					                	 						<input class="col-8 form-control boxed mr-5" style=" height: 20px;" value="${statusHistory.distSource}" readonly>
+					                	 						<input class="col-8 form-control boxed mr-5" style=" height: 20px;" value="${statusHistory.distSource}">
 				                	 						</div>
 				                	 						<div class="row mt-3">
 					                	 						<div class="col-2 label devRead">첨부파일</div>
@@ -221,7 +220,7 @@
 			                	 							<input type="hidden" name="hno" value="${statusHistory.hno}"/>
 				                	 						<div class="row">
 					                	 						<div class="col-2 label" >개발내용</div>
-					                	 						<textarea name="reply"class="col-8 form-control boxed" id="replyUpdate">${statusHistory.reply}</textarea>
+					                	 						<textarea name="reply"class="col-8 replyWrite">${statusHistory.reply}</textarea>
 				                	 						</div>
 				                	 						<div class="row mt-3">
 					                	 						<div class="col-2 label">배포소스(url)</div>
@@ -229,7 +228,7 @@
 				                	 						</div>
 				                	 						<div class="row mt-3">
 				                	 							<div class="col-2 label">첨부파일</div>
-					                	 						<div class="col-8">
+					                	 						<div class="col-8 p-2">
 				                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 																	<div>
 																		<span>${statusHistoryFile.fileName}</span>
@@ -247,7 +246,7 @@
 																	<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
 																	<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
 																</div>
-																<div class="border flex-grow-1 border-success col-8" id="file-list-update"></div>	
+																<div class="border flex-grow-1 col-8" id="file-list-update"></div>	
 															</div>
 			                	 						</c:if>
 	                	 						</c:if>
@@ -383,7 +382,7 @@
 		}
 		 else{
 			$('#pContent').text('');
-			$('#pContent').text('입력하시겠습니까?. 확인을 누르시면 수정이 불가능합니다.');
+			$('#pContent').text('입력하시겠습니까? 완료 예정일은 수정이 불가능합니다.');
 			$('#alartDateTooMuch').modal('show');
 		}
 		
@@ -531,11 +530,11 @@
 		/****** window로딩 시, 개발시작 버튼 눌렀는지 확인하고, 작성칸 readonly 만들어주기 *****/
 		var afterDevExpectDate = $('#afterDevExpectDate').val();
 		if(afterDevExpectDate == null){
-			/* tinymce.get("reply").setMode('readonly'); */
+			tinymce.get("reply").setMode('readonly');
 			$('#distSource').attr('disabled',true);
 			$('#btn-upload').hide();
 		} else{
-			/* tinymce.get("reply").setMode('design'); */
+			tinymce.get("reply").setMode('design');
 			$('#distSource').attr('disabled',false);
 			$('#btn-upload').show();
 		}

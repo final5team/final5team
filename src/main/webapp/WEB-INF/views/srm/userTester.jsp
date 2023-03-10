@@ -68,7 +68,7 @@
 												<div class="flex-grow-1">
 													<c:if test="${request.statusNo == 7}">
 														<input type="date" class="date-form control" name="expectDate" id="userTestExpectDate">
-														<div class="btn btn-sm btn-primary" onclick="checkDate()">작업 시작</div>
+														<div class="btn btn-md btn-warning" onclick="checkDate()">품질 테스트 시작</div>
 													</c:if>
 
 													<c:if test="${request.statusNo == 8}">
@@ -86,9 +86,6 @@
 												<div class="label label-write">품질 검토 사항</div>
 												<div class="flex-grow-1">
 													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply">${userTesterTemp.reply}</textarea>
-													<div class="d-flex justify-content-end">
-														<small class=" mr-5" id="counter">(0 / 300)</small>
-													</div>
 												</div>
 											</div>
 											
@@ -98,7 +95,7 @@
 													<div class="btn btn-sm btn-info" id="btn-upload">파일 추가</div>
 													<input type="file" name="files" id="fileInput" multiple style="display: none;">
 												</div>
-												<div class="border flex-grow-1 border-success" id="file-list"></div>	
+												<div class="border flex-grow-1" id="file-list"></div>	
 											</div>
 											<c:if test="${request.statusNo == 8}">
 												<div class="d-flex justify-content-end">
@@ -131,15 +128,15 @@
 	                	 				<div class="card-body">
 	                	 					<div>
 	                	 						<div class="row">
-		                	 						<span class="col-2 label">작성자</span>
-		                	 						<span class="col-3 p-2">${statusHistory.writer}</span>
-		                	 						<span class="col-2 label">품질검토 완료일</span>
-		                	 						<span class="col-3 p-2"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></span>
+		                	 						<div class="col-2 label">작성자</div>
+		                	 						<div class="col-3">${statusHistory.writer}</div>
+		                	 						<div class="col-2 label">품질검토 완료일</div>
+		                	 						<div class="col-3"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
 	                	 						</div>
                 	 							<c:if test="${requestProcess.userTester != member.mid}">
-		                	 						<div class="row">
+		                	 						<div class="row mt-3">
 	                	 								<span class="col-2 label">검토 내용</span>
-		                	 							<textarea rows="2" class="form-control boxed mr-5" readonly>${statusHistory.reply}</textarea>
+		                	 							<div class="col-8 border scroller p-2" >${statusHistory.reply}</div>
 		                	 						</div>
 		                	 						<div class="row mt-3">
 			                	 						<span class="col-2 label">첨부파일</span>
@@ -158,11 +155,11 @@
                 	 							
                	 								<c:if test="${requestProcess.userTester == member.mid}">
                	 									<c:if test="${request.statusNo == 9}">
-	              	 									<div class="row">
+	              	 									<div class="row mt-3">
 	                	 									<input type="hidden" name="rno" value="${request.rno}"/>
 		                	 								<input type="hidden" name="hno" value="${statusHistory.hno}"/>
 	                	 									<span class="col-2 label" >검토 내용</span>
-		                	 								<textarea rows="2" class="form-control boxed mr-5" name="reply">${statusHistory.reply}</textarea>
+		                	 								<textarea  class="replyWrite" name="reply">${statusHistory.reply}</textarea>
     	          	 									</div>
     	          	 									<div class="row mt-3">
 				                	 						<span class="col-2 label" >첨부파일</span>
@@ -184,13 +181,13 @@
 																<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
 																<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
 															</div>
-															<div class="border flex-grow-1 border-success col-8" id="file-list-update"></div>	
+															<div class="border flex-grow-1 col-8" id="file-list-update"></div>	
 														</div>
                 	 								</c:if>
                 	 								<c:if test="${request.statusNo != 9}">
                 	 									<div class="row">
 	                	 									<span class="col-2 label">검토 내용</span>
-		                	 								<textarea rows="2" class="form-control boxed mr-5" readonly>${statusHistory.reply}</textarea>
+		                	 								<div rows="2" class="border scroller p-2">${statusHistory.reply}</div>
                 	 									</div>
                 	 									<div class="row mt-3">
 				                	 						<span class="col-2 label" style="text-align :left; width: 10%;">첨부파일</span>
@@ -402,6 +399,23 @@
 	{
 		$("#fileInput").on("change", fileCheck);
 		$("#fileInputUpdate").on("change", fileUpdate);
+		
+		/****** window로딩 시, 개발시작 버튼 눌렀는지 확인하고, 작성칸 readonly 만들어주기 *****/
+		var userTestExpectDate = $('#userTestExpectDate').val();
+		if(userTestExpectDate == ''){
+			tinymce.get("reply").setMode('readonly');
+			$('#distSource').attr('disabled',true);
+			$('#btn-upload').hide();
+			$('#writeform').mousedown(function(){
+				$('#noInputDate').text('테스트 시작을 눌러야 입력 가능합니다.');
+			});
+		} else{
+			tinymce.get("reply").setMode('design');
+			$('#distSource').attr('disabled',false);
+			$('#btn-upload').show();
+			$('#writeform').off( "mousedown");
+			$('#noInputDate').text('');
+		}
 	});
 	
 	/* '파일추가' 버튼 누를 때마다 파일input 실행 */
