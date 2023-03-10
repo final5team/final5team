@@ -152,7 +152,9 @@
 														
 													</article>
 													<article class="return-button">
-														<button class="btn btn-dark btn-sm" type="button" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">취소</button>
+													
+															<button class="btn btn-dark btn-sm" type="button" onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'">취소</button>
+														
 													</article>
 													<input type="hidden" value="${request.rno}" id="rno" name ="rno">
 												</form> 
