@@ -22,7 +22,10 @@ public class MemberService implements IMemberService {
 
 		PasswordEncoder pe = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		Member returnMember = memberDao.getMember(member);
-		
+		if(returnMember == null) {
+			member.setPassConfirm("T");
+			return member;
+		}
 		boolean checkPass = pe.matches(member.getPassword(), returnMember.getPassword());
 		if (checkPass == false) {
 			member.setPassConfirm("N");

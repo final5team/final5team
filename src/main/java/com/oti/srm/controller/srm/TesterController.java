@@ -122,7 +122,11 @@ public class TesterController {
 		statusHistory.setWriter(member.getMid());
 		statusHistory.setNextStatus(3);
 		List<StatusHistoryFile> sFiles = new ArrayList<StatusHistoryFile>();
-
+		//재검토 시 해당 요청의 개발 진척율 0으로 초기화 
+		RequestProcess rp = new RequestProcess();
+		rp.setRno(statusHistory.getRno());
+		rp.setDevProgress(0);
+		commonService.updateDevProgress(rp);
 		try {
 			if (files != null) {
 				for (MultipartFile file : files) {
