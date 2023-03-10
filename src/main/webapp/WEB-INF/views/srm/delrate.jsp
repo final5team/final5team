@@ -11,6 +11,7 @@
       function drawdonutChart() {
     	  // 지연율 그래프 값 설정
           var data2 = google.visualization.arrayToDataTable([
+        	// 항목 이름, 비율
             ['Label', 	'Rate'],
             ['지연',     ${delRate}],
             ['',   		${100-delRate}]
@@ -18,8 +19,8 @@
           
           // 그래프 옵션
           var options2 = {
-            title: '시스템별 지연율',   // 그래프 제목
-            pieHole: 0.4,		// 그래프 중앙 빈 부분 크기 설정
+            title: '시스템별 지연율',   			// 그래프 제목
+            pieHole: 0.4,					// 그래프 중앙 빈 부분 크기 설정
 
             tooltip: { trigger: 'none' },   // 도움말 제거   
             legend: 'none',					// 범례 여부(표시 안 함)
