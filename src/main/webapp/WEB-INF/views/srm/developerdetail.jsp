@@ -17,6 +17,9 @@
     padding: 0px 140px;
     margin: 15px 0px;
     }
+    .tox-statusbar__branding {
+    display: none;
+	}
     </style>
 </head>
 
@@ -167,7 +170,7 @@
 	                	 						<c:if test="${member.mid != requestProcess.developer}">
 		                	 						<div class="row mt-3">
 		                	 							<div class="col-2 label" >개발내용</div>
-		                	 							<textarea class="col-8 form-control boxed" rows="2" readonly>${statusHistory.reply}</textarea>
+		                	 							<textarea class="col-8 form-control boxed replyRead" rows="2" readonly>${statusHistory.reply}</textarea>
 		                	 						</div>
 		                	 						<div class="row mt-3">
 			                	 						<div class="col-2 label">배포소스(url)</div>
@@ -191,14 +194,14 @@
 	                	 								<c:if test="${!index.last || request.statusNo != 5}">
 	                	 									<div class="row">
 				                	 							<div class="col-2 label" >개발내용</div>
-				                	 							<textarea class="col-8 form-control boxed" rows="2" readonly>${statusHistory.reply}</textarea>
+				                	 							<textarea class="col-8 form-control boxed replyRead" rows="2" id="replyRead">${statusHistory.reply}</textarea>
 				                	 						</div>
 				                	 						<div class="row mt-3">
 					                	 						<div class="col-2 label">배포소스(url)</div>
 					                	 						<input class="col-8 form-control boxed mr-5" style=" height: 20px;" value="${statusHistory.distSource}" readonly>
 				                	 						</div>
 				                	 						<div class="row mt-3">
-					                	 						<div class="col-2 label">첨부파일</div>
+					                	 						<div class="col-2 label devRead">첨부파일</div>
 					                	 						<div class="col-8">
 				                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 																	<div>
@@ -212,12 +215,12 @@
 				                	 						</div>
 	                	 								</c:if>
 			                	 				
-			                	 						<c:if test="${index.last && request.statusNo == 5}">
+			                	 						<c:if test="${index.last && request.statusNo == 5}"> <!-- 수정가능할 때 -->
 			                	 							<input type="hidden" name="rno" value="${request.rno}"/>
 			                	 							<input type="hidden" name="hno" value="${statusHistory.hno}"/>
 				                	 						<div class="row">
 					                	 						<div class="col-2 label" >개발내용</div>
-					                	 						<textarea name="reply"class="col-8 form-control boxed" rows="2">${statusHistory.reply}</textarea>
+					                	 						<textarea name="reply"class="col-8 form-control boxed" id="replyUpdate">${statusHistory.reply}</textarea>
 				                	 						</div>
 				                	 						<div class="row mt-3">
 					                	 						<div class="col-2 label">배포소스(url)</div>
@@ -458,16 +461,6 @@
 	}
 	
 	/* 글자수 세기 */
-   	$('#reply').keyup(function (e){
-   		let content = $(this).val();
-   		$('#counter').html("("+content.length+" / 300)");
- 		if(content.length > 300){
- 			$('#countCheck').modal();
- 			$('#countContent').html("최대 300자까지 입니다.");
- 			$(this).val(content.substring(0,300));
- 			$('#counter').html("(300 / 300)");
- 		}
-   	});
    	$('#distSource').keyup(function (e){
    		let content = $(this).val();
    		$('#counterSource').html("("+content.length+" / 100)");
@@ -537,14 +530,15 @@
 		/****** window로딩 시, 개발시작 버튼 눌렀는지 확인하고, 작성칸 readonly 만들어주기 *****/
 		var afterDevExpectDate = $('#afterDevExpectDate').val();
 		if(afterDevExpectDate == null){
-			tinymce.get("reply").setMode('readonly');
+			/* tinymce.get("reply").setMode('readonly'); */
 			$('#distSource').attr('disabled',true);
 			$('#btn-upload').hide();
 		} else{
-			tinymce.get("reply").setMode('design');
+			/* tinymce.get("reply").setMode('design'); */
 			$('#distSource').attr('disabled',false);
 			$('#btn-upload').show();
 		}
+		
 	});
 	
 	/* '파일추가' 버튼 누를 때마다 파일input 실행 */
