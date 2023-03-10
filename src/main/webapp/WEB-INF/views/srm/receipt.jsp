@@ -554,6 +554,7 @@
 								</div>
 							</c:if>
 						<!-- 요청 처리 계획 end-->
+						
 						<!-- 반려 처리 정보 start -->
 						<c:if test="${request.statusNo==12}">
 							<div class="card border-top-danger mt-3 mb-1">
@@ -583,6 +584,7 @@
 								</div>										
 							</div>
 						</c:if>
+						<!-- 반려 처리 정보 end-->
 						<!-- Calendar Card -->
 						<div id="calendarCard" class="card border-top-dark my-3" style="display:none;">
 							<div class="card-block"> <!-- card-block -->
@@ -598,7 +600,7 @@
 							</div>
 						</div>
 						
-						<!-- 반려 처리 정보 end-->
+						
 						<c:if test="${sessionScope.member.mtype != 'user'}">
 							<button class="btn btn-dark btn-sm ml-5 m-3" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
 						</c:if>
