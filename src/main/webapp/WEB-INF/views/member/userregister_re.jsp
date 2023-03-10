@@ -127,7 +127,7 @@
 														<option value="user" selected>시스템 사용자(고객)</option>
 														<option value="pm">PM</option>
 														<option value="developer">개발자</option>
-														<option value="distributer">배포담당자</option>
+														<option value="distributor">배포담당자</option>
 														<option value="tester">테스터</option>
 														<option value="user_tester">품질테스터</option>
 													</select>
