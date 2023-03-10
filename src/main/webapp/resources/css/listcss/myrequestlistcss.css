@@ -414,6 +414,14 @@ input:checked + .slider:before {
   }
 }
 
-
+ #noResult{
+  position : absolute;
+  width : 1050px;
+	height : 300px;
+  text-align : center;
+  align-item : center;
+  font-size : 20px;
+  
+  }
 
 </style>

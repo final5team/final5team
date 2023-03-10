@@ -4,6 +4,7 @@
 
 <!DOCTYPE html>
 <table>
+<c:if test="${requestList.size() > 0}">
 	<tr>
 		<th class="ex th_first <c:if test="${listFilter.columnName == 'th_rno' && listFilter.sortState == 'desc'}">th_first_desc</c:if>
 					<c:if test="${listFilter.columnName == 'th_rno' && listFilter.sortState == 'asc'}">th_first_asc</c:if>
@@ -27,89 +28,101 @@
 		<th class="ex">단계</th>
 
 	</tr>
-
-	<c:forEach var="request" items="${requestList}">
-		<tr>
-			<td class="rno" style="max-width: 40px; min-width: 40px; white-space: nowrap; overflow: hidden;">${request.rno}</td>
-			<td class="client" style="max-width: 95px; min-width: 95px; white-space: nowrap; overflow: hidden;">${request.systemName}</td>
-			<c:if test="${request.statusNo == 1}">
-				<td class="sysType">
-					<span class="badge badge-warning">대기</span>
-				</td>
-			</c:if>
-			<c:if test="${request.statusNo == 12}">
-				<td class="sysType">
-					<span class="badge badge-warning">반려</span>
-				</td>
-			</c:if>
-			<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
+	
+		<c:forEach var="request" items="${requestList}">
+			<tr>
+				<td class="rno" style="max-width: 40px; min-width: 40px; white-space: nowrap; overflow: hidden;">${request.rno}</td>
+				<td class="client" style="max-width: 95px; min-width: 95px; white-space: nowrap; overflow: hidden;">${request.systemName}</td>
+				<c:if test="${request.statusNo == 1}">
+					<td class="sysType">
+						<span class="badge badge-warning">대기</span>
+					</td>
+				</c:if>
+				<c:if test="${request.statusNo == 12}">
+					<td class="sysType">
+						<span class="badge badge-warning">반려</span>
+					</td>
+				</c:if>
 				<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
-					<c:if test="${request.reqType eq '정규'}">
-						<td class="sysType">
-							<span class="badge badge-primary">${request.reqType}</span>
-						</td>
+					<c:if test="${request.statusNo != 1 && request.statusNo != 12}">
+						<c:if test="${request.reqType eq '정규'}">
+							<td class="sysType">
+								<span class="badge badge-primary">${request.reqType}</span>
+							</td>
+						</c:if>
+						<c:if test="${request.reqType eq '긴급'}">
+							<td class="sysType">
+								<span class="badge badge-danger">${request.reqType}</span>
+							</td>
+						</c:if>
 					</c:if>
-					<c:if test="${request.reqType eq '긴급'}">
-						<td class="sysType">
-							<span class="badge badge-danger">${request.reqType}</span>
-						</td>
+				</c:if>
+				
+				<td class="reqTitle" style="max-width: 190px; min-width: 190px; white-space: nowrap; overflow: hidden;">
+					<c:if test="${member.mtype == 'developer' && request.devCheck == 1 && request.developer == member.mid}">
+						<strong class="text-danger">New</strong>																
 					</c:if>
-				</c:if>
-			</c:if>
-			<td class="reqTitle" style="max-width: 190px; min-width: 190px; white-space: nowrap; overflow: hidden;">
-				<c:if test="${member.mtype == 'developer' && request.devCheck == 1 && request.developer == member.mid}">
-					<strong class="text-danger">New</strong>																
-				</c:if>
-				<c:if test="${member.mtype == 'tester' && request.tesCheck == 1 && request.tester == member.mid}">
-					<strong class="text-danger">New</strong>																
-				</c:if>
-				<c:if test="${member.mtype == 'usertester' && request.uttCheck == 1 && request.userTester == member.mid}">
-					<strong class="text-danger">New</strong>																
-				</c:if>
-				<c:if test="${member.mtype == 'distributor' && request.disCheck == 1  && request.distributor == member.mid}">
-					<strong class="text-danger">New</strong>																
-				</c:if>
-				<c:if test="${member.mtype == 'pm' && request.pmCheck == 1}">
-					<strong class="text-danger">New</strong>																
-				</c:if>												
-				${request.reqTitle}
-			</td>
-			<td class="reqDate" style="max-width: 87px; min-width: 87px; white-space: nowrap; overflow: hidden;">
-				<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
-			</td>
-			<td class="step_td">
-				<%@ include file="/WEB-INF/views/srm/restatus/stepintable.jsp"%>
-			</td>
-		</tr>
-	</c:forEach>
-</table>
-
-
-<div class="pager">
-	<div class="pagingButtonSet d-flex justify-content-center">
-		<a onclick="pageChange(1, '${listFilter.sortState}', '${listFilter.columnName}')" type="button" class="btn btn-muted shadow">처음</a>
-		<c:if test="${pager.groupNo > 1}">
-			<a onclick="pageChange(${pager.startPageNo-1}, '${listFilter.sortState}', '${listFilter.columnName}')" class="btn btn-muted shadow">이전</a>
-
-		</c:if>
-
-		<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
-			<c:if test="${pager.pageNo != i}">
-				<a onclick="pageChange(${i}, '${listFilter.sortState}', '${listFilter.columnName}')" type="button" class="btn btn-white shadow">${i}</a>
-			</c:if>
-			<c:if test="${pager.pageNo == i}">
-				<a onclick="pageChange(${i}, '${listFilter.sortState}', '${listFilter.columnName}')" type="button" class="btn btn-dark shadow">${i}</a>
-			</c:if>
+					<c:if test="${member.mtype == 'tester' && request.tesCheck == 1 && request.tester == member.mid}">
+						<strong class="text-danger">New</strong>																
+					</c:if>
+					<c:if test="${member.mtype == 'usertester' && request.uttCheck == 1 && request.userTester == member.mid}">
+						<strong class="text-danger">New</strong>																
+					</c:if>
+					<c:if test="${member.mtype == 'distributor' && request.disCheck == 1  && request.distributor == member.mid}">
+						<strong class="text-danger">New</strong>																
+					</c:if>
+					<c:if test="${member.mtype == 'pm' && request.pmCheck == 1}">
+						<strong class="text-danger">New</strong>																
+					</c:if>												
+					${request.reqTitle}
+				</td>
+				<td class="reqDate" style="max-width: 87px; min-width: 87px; white-space: nowrap; overflow: hidden;">
+					<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
+				</td>
+				<td class="step_td">
+					<%@ include file="/WEB-INF/views/srm/restatus/stepintable.jsp"%>
+				</td>
+			</tr>
 		</c:forEach>
-
-		<c:if test="${pager.groupNo < pager.totalGroupNo }">
-			<a onclick="pageChange(${pager.endPageNo+1}, '${listFilter.sortState}', '${listFilter.columnName}')" type="button" class="btn btn-muted shadow">다음</a>
-
-		</c:if>
-		<a onclick="pageChange(${pager.totalPageNo}, '${listFilter.sortState}', '${listFilter.columnName}')" type="button" class="btn btn-muted shadow">맨끝</a>
+	</c:if>
+	
+	
+	<c:if test="${requestList.size() == 0}">
+		<div id="noResult"> 해당되는 내용이 없습니다. </div>
+	</c:if>
+</table>
+<c:if test="${pager.totalRows > 6}">
+	<div class="pager">
+		<div class="pagingButtonSet d-flex justify-content-center">
+			<a onclick="pageChange(1, '${listFilter.sortState}', '${listFilter.columnName}')" type="button" class="btn btn-muted shadow">처음</a>
+			<c:if test="${pager.groupNo > 1}">
+				<a onclick="pageChange(${pager.startPageNo-1}, '${listFilter.sortState}', '${listFilter.columnName}')" class="btn btn-muted shadow">이전</a>
+	
+			</c:if>
+	
+			<c:forEach var="i" begin="${pager.startPageNo}" end="${pager.endPageNo}">
+				<c:if test="${pager.pageNo != i}">
+					<a onclick="pageChange(${i}, '${listFilter.sortState}', '${listFilter.columnName}')" type="button" class="btn btn-white shadow">${i}</a>
+				</c:if>
+				<c:if test="${pager.pageNo == i}">
+					<a onclick="pageChange(${i}, '${listFilter.sortState}', '${listFilter.columnName}')" type="button" class="btn btn-dark shadow">${i}</a>
+				</c:if>
+			</c:forEach>
+	
+			<c:if test="${pager.groupNo < pager.totalGroupNo }">
+				<a onclick="pageChange(${pager.endPageNo+1}, '${listFilter.sortState}', '${listFilter.columnName}')" type="button" class="btn btn-muted shadow">다음</a>
+	
+			</c:if>
+			<a onclick="pageChange(${pager.totalPageNo}, '${listFilter.sortState}', '${listFilter.columnName}')" type="button" class="btn btn-muted shadow">맨끝</a>
+		</div>
 	</div>
-</div>
+</c:if>
 
+<c:if test="${pager.totalRows == 0}">
+	<div class="pager default">
+	</div>
+</c:if>
+	
 <input type="hidden" id="state" value="${listFilter.sortState}">
 <input type="hidden" id="th_first_id" value="${listFilter.columnName}">
 <script>
