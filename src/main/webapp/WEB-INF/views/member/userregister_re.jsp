@@ -43,7 +43,6 @@
 	function changeUserType() {
 		var typeSelect = document.getElementById("mtype");
 		var selectValue = typeSelect.options[typeSelect.selectedIndex].value;
-		console.log(selectValue);
 		if (selectValue !== 'pm' && selectValue !== 'user') {
 			$("#sno").css("visibility", "visible");
 			$("#system").css("visibility", "visible");
@@ -97,7 +96,7 @@
 										<h6><i class="fas fa-star-of-life"></i> 초기 비밀번호는 000 입니다.</h6>
 									</div>
 									<div class="card-body">
-										<form method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data" onsubmit="return openModal()">
+										<form method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data" onsubmit="return check()">
 											<section class="section2">
 												<article class="photo">
 													<img id="preview" src="${pageContext.request.contextPath}/resources/img/default-image.gif" 
@@ -134,16 +133,16 @@
 													</select>
 													<div class="data">
 														<div class="item">
-															<input type="text" class="form-control form-control-user" id="mid" name="mid" onfocusout="checkId()" maxlength='15' placeholder="아이디" required>
+															<input type="text" class="form-control form-control-user" id="mid" name="mid" onfocusout="checkId()" maxlength='15' placeholder="아이디" >
 														</div>
 														<div class="item">
-															<input type="text" class="form-control form-control-user" id="mname" name="mname" placeholder="이름" maxlength='4' required>
+															<input type="text" class="form-control form-control-user" id="mname" name="mname" placeholder="이름" maxlength='4' >
 														</div>
 														<div class="item">
-															<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="이메일" maxlength='33' required>
+															<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="이메일" maxlength='33' >
 														</div>
 														<div class="item">
-															<input type="date" id="birth" name="birth" class="form-control form-control-user" required>
+															<input type="date" id="birth" name="birth" class="form-control form-control-user" >
 														</div>
 													</div>
 												</article>
@@ -168,7 +167,7 @@
 													</div>
 													<div class="item">
 														<div class="input-group">
-															<select class="custom-select" id="gender" name="gender" required>
+															<select class="custom-select" id="gender" name="gender" >
 																<option value="1">남</option>
 																<option value="2">여</option>
 															</select>
@@ -177,7 +176,7 @@
 													
 													<div class="item">
 														<div class="input-group">
-															<select class="custom-select" id="position" name="position" required>
+															<select class="custom-select" id="position" name="position" >
 																<option selected>직급 선택</option>
 																<option value="사원">사원</option>
 																<option value="대리">대리</option>
@@ -189,7 +188,7 @@
 													
 													<div class="item">
 														<div class="input-group">
-															<select class="custom-select" id="organ" name="organ" required>
+															<select class="custom-select" id="organ" name="organ" >
 																<option selected>소속 기관 선택</option>
 																<option value="오티아이">오티아이</option>
 																<option value="쇼핑몰">쇼핑몰</option>
@@ -199,7 +198,7 @@
 													</div>
 													
 													<div class="item" style="margin-top: 10px;">
-														<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="핸드폰" maxlength='13' required>
+														<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="핸드폰" maxlength='13' >
 													</div>
 												</article>
 												 
@@ -211,7 +210,7 @@
 														<input type="text" class="form-control form-control-user" id="addr1" name="addr1" maxlength='35' placeholder="도로명 주소" readonly>
 													</div>
 													<div class="item address3">
-														<input type="text" id="addr2" name="addr2" class="form-control form-control-user"  maxlength='25' placeholder="상세 주소" required>
+														<input type="text" id="addr2" name="addr2" class="form-control form-control-user"  maxlength='25' placeholder="상세 주소" >
 													</div>
 													<div class="item address-button">
 														<button type="button" class="btn btn-dark btn-sm" id="address" name="address" onclick="findAddress()">우편번호</button>
@@ -303,12 +302,14 @@
 		}
 	});
 	
+
 	// 아이디 중복 체크 ajax
+	let idTest = '';
 	function checkId(){
 		let id = $('#mid').val();
 		//알파벳 소문자, 숫자를 혼용해서 6자 이상 15자 이하
 		const idPattern = /^(?=.*\d)(?=.*[a-z]).{6,15}$/;
-		let idTest = idPattern.test(id);
+		idTest = idPattern.test(id);
 		if(!idTest){
 			$('#idconfirm').css('color', 'red');
 			$('#idconfirm').html('아이디 형식을 확인해주세요.');
@@ -320,32 +321,88 @@
 				data : JSON.stringify(id),
 				contentType: "application/json; charset=UTF-8",
 				success : function(result){
-					console.log('전송 성공');
-					console.log(result);
 					if(result ==0){
 						$('#idconfirm').html('사용 가능한 아이디입니다.');
 						$('#idconfirm').css('color', 'blue');
+						idTest = 'true';
 						/* $('#mid').css('border', '1px solid #ced4da'); */
 					} else {
 						$('#idconfirm').html('중복된 아이디입니다.');
 						$('#idconfirm').css('color', 'red');
-						
+						idTest = 'false';
 					}
 				}
 			});
 		}
 		
 	}
-	function openModal(text){
-		$('#countCheck').modal();
+	// 이름 유효성 검사
+	let nameCheck = '';
+	function checkName(mname){
+		let length = mname.length;
+		console.log(length);
+		if(length <= 2){
+			nameCheck = 'false';
+		} else {
+			nameCheck = 'true';
+		}
+		return nameCheck;
+	}
+	
+	
+	function check(){
+		
+		let mtype = document.querySelector('#mtype');
+		let mtypeValue = mtype.options[mtype.selectedIndex].value;	
+		
+		let mid = document.querySelector('#mid').value;
+		
+		let mname = document.querySelector('#mname').value;
+		
+		let email = document.querySelector('#email').value;
+		
+		let birth = document.querySelector('#birth').value;
+		
+		nameCheck = checkName(mname);
+		console.log(nameCheck);
+		
+		if(mtypeValue == '' || mtypeValue == null){
+			$('#countCheck').modal();
+			$('#countContent').html('유저 타입을 확인하세요');
+		} else if (mid == '' || mid == null ){
+			$('#countCheck').modal();
+			$('#countContent').html('아이디를 입력하세요');
+		} else if(idTest != 'true' ) {
+			$('#countCheck').modal();
+			$('#countContent').html('아이디 형식을 확인하세요');
+		} 
+ 		else if(mname == '' || mname == null){
+ 			$('#countCheck').modal();
+ 			$('#countContent').html('이름을 입력하세요');
+ 		} else if (nameCheck == '' || nameCheck != 'true'){
+ 			$('#countCheck').modal();
+ 			$('#countContent').html('이름을 정확히 입력하세요');
+ 		}
+		
+		
+		
+		//let ReqType = filterReqType.options[filterReqType.selectedIndex].text;
+		//let sno = filterSno.options[filterSno.selectedIndex].value
+		
+// 		$('#countCheck').modal();
     	/* $('#countContent').html('유저 등록 완료'); */
-    	if(text == 'id'){
-    		$('#countContent').html('알파벳 소문자, 숫자를 혼용해서 6자 이상 15자 이하로 입력하세요');
-    	}     	
-    	let modalButton = document.querySelector('#modal-button');
-    	modalButton.addEventListener('click', function(){
-			return true;
-    	});
+    	
+//     	if(text == 'id'){
+//     		$('#countContent').html('알파벳 소문자, 숫자를 혼용해서 6자 이상 15자 이하로 입력하세요');
+//     	}    
+    	
+    	
+//     	let modalButton = document.querySelector('#modal-button');
+//     	modalButton.addEventListener('click', function(){
+// 			return true;
+//     	});
+    	
+    	return false;
 		
 	}
 	
