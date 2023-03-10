@@ -103,10 +103,10 @@
 														onerror = "this.src='${pageContext.request.contextPath}/resources/img/default-image.gif'"/>
 													<article class="fileBody">
 														<div class="file-item">
-															<div class="upload_name" id="exist_file" style="width : 110px; white-space: nowrap; overflow: hidden;" >FileName</div>
+															<div class="upload_name" id="exist_file" style="display : none;" >FileName</div>
 															<div class="filebox">
 																<input type="file" id="mfile" name="mfile" accept="image/*" onchange="readURL(this);"/>
-																<label for="mfile">이미지</label> 
+																<label for="mfile">사진 등록</label> 
 															</div>
 														</div>
 													</article>
@@ -126,12 +126,12 @@
 													<select class="custom-select" id="mtype" name="mtype" onchange="changeUserType()">
 														<option value="${returnMember.mtype}" selected>${returnMember.mtype}</option>
 														<c:if test="${sessionScope.member.mtype == 'pm'}">
-															<option value="user">USER</option>
+															<option value="user">시스템 사용자(고객)</option>
 															<option value="pm">PM</option>
-															<option value="developer">DEVELOPER</option>
-															<option value="distributer">DISTRIBUTOR</option>
-															<option value="tester">TESTER</option>
-															<option value="user_tester">QUALITY</option>
+															<option value="developer">개발자</option>
+															<option value="distributer">배포담당자</option>
+															<option value="tester">테스터</option>
+															<option value="user_tester">품질테스터</option>
 														</c:if>
 													</select>
 													<div class="data">
@@ -174,11 +174,12 @@
 													</div>
 													<div class="item">
 														<div class="input-group">
-															<select class="custom-select" id="gender" name="gender" >
-																<option value="1">${returnMember.gender}</option>
-																<c:if test="${sessionScope.member.mtype == 'pm'}">
-																	<option value="1">남</option>
-																	<option value="2">여</option>
+															<select class="custom-select" id="gender" name="gender" >	
+																<c:if test="${returnMember.gender == '1'}">
+																	<option value="1" selected>남</option>
+																</c:if>
+																<c:if test="${returnMember.gender == '2'} ">
+																<option value="2" selected>여</option>
 																</c:if>
 															</select>
 														</div>
@@ -231,10 +232,18 @@
 													</div>
 												</article>
 												<article class="submit-button">
-													<button class="btn btn-dark btn-sm" type="submit">정보 수정</button>
+													<button class="btn btn-dark btn-sm" type="submit">저장</button>
 												</article>
 												<article class="return-button">
-													<button class="btn btn-dark btn-sm" type="submit">취소</button>
+													<c:if test="${sessionScope.member.mtype == 'user'}">
+														<button class="btn btn-dark btn-sm" type="button" onclick="location.href='${pageContext.request.contextPath}/userhome'">취소</button>
+													</c:if>
+													<c:if test="${sessionScope.member.mtype == 'pm'}">
+														<button class="btn btn-dark btn-sm" type="button" onclick="location.href='${pageContext.request.contextPath}/pmhome'">취소</button>
+													</c:if>
+													<c:if test="${sessionScope.member.mtype != 'pm' && sessionScope.member.mtype != 'user'}">
+														<button class="btn btn-dark btn-sm" type="button" onclick="location.href='${pageContext.request.contextPath}/'">취소</button>
+													</c:if>
 												</article>
 											</section>
 											
