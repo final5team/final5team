@@ -22,7 +22,7 @@
 					<td>${dayRequest.reqType}</td>
 					<td class="tableContent">
 						<c:if test="${dayRequest.pmCheck == 1}">
-							<strong class="text-danger">N</strong>																
+							<strong class="text-danger">New</strong>																
 						</c:if>
 						<c:if test="${dayRequest.statusName eq '접수중' || dayRequest.statusName eq '접수완료'}">
 							<a href="${pageContext.request.contextPath}/pm/receiptdetail?rno=${dayRequest.rno}">${dayRequest.reqTitle}</a>

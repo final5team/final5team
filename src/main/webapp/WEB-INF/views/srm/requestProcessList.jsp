@@ -31,7 +31,7 @@
 						<c:if test="${member.mtype == 'developer'}">
 							<a href="${pageContext.request.contextPath}/developerdetail?rno=${requestProcess.rno}">
 								<c:if test="${requestProcess.devCheck == 1 && requestProcess.developer == member.mid}">
-									<strong class="text-danger">N</strong>																
+									<strong class="text-danger">New</strong>																
 								</c:if>
 								${requestProcess.reqTitle}
 							</a>
@@ -39,7 +39,7 @@
 						<c:if test="${member.mtype == 'tester'}">
 							<a href="${pageContext.request.contextPath}/testerdetail?rno=${requestProcess.rno}">
 								<c:if test="${requestProcess.tesCheck == 1 && requestProcess.tester == member.mid}">
-									<strong class="text-danger">N</strong>																
+									<strong class="text-danger">New</strong>																
 								</c:if>
 								${requestProcess.reqTitle}
 							</a>
@@ -47,7 +47,7 @@
 						<c:if test="${member.mtype == 'usertester'}">
 							<a href="${pageContext.request.contextPath}/usertestdetail?rno=${requestProcess.rno}">
 								<c:if test="${requestProcess.uttCheck == 1 && requestProcess.userTester == member.mid}">
-									<strong class="text-danger">N</strong>																
+									<strong class="text-danger">New</strong>																
 								</c:if>
 								${requestProcess.reqTitle}
 							</a>
@@ -55,7 +55,7 @@
 						<c:if test="${member.mtype == 'distributor'}">
 							<a href="${pageContext.request.contextPath}/distributedetail?rno=${requestProcess.rno}">
 								<c:if test="${requestProcess.disCheck == 1  && requestProcess.distributor == member.mid}">
-									<strong class="text-danger">N</strong>																
+									<strong class="text-danger">New</strong>																
 								</c:if>
 								${requestProcess.reqTitle}
 							</a>

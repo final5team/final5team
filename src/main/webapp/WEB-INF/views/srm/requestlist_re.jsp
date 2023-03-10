@@ -278,19 +278,19 @@
 									</c:if>
 									<td class="reqTitle" style="max-width: 190px; min-width : 190px; white-space: nowrap; overflow: hidden;">
 										<c:if test="${member.mtype == 'developer' && request.devCheck == 1 && request.developer == member.mid}">
-											<strong class="text-danger">N</strong>																
+											<strong class="text-danger">New</strong>																
 										</c:if>
 										<c:if test="${member.mtype == 'tester' && request.tesCheck == 1 && request.tester == member.mid}">
-											<strong class="text-danger">N</strong>																
+											<strong class="text-danger">New</strong>																
 										</c:if>
 										<c:if test="${member.mtype == 'usertester' && request.uttCheck == 1 && request.userTester == member.mid}">
-											<strong class="text-danger">N</strong>																
+											<strong class="text-danger">New</strong>																
 										</c:if>
 										<c:if test="${member.mtype == 'distributor' && request.disCheck == 1  && request.distributor == member.mid}">
-											<strong class="text-danger">N</strong>																
+											<strong class="text-danger">New</strong>																
 										</c:if>
 										<c:if test="${member.mtype == 'pm' && request.pmCheck == 1}">
-											<strong class="text-danger">N</strong>																
+											<strong class="text-danger">New</strong>																
 										</c:if>									
 										${request.reqTitle}
 									</td>
