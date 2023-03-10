@@ -73,7 +73,12 @@
 						</c:if>
 					</td>
 					<td><fmt:formatDate value="${requestProcess.reqDate}" pattern="yyyy-MM-dd"/></td>
-					<td><fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/></td>
+					<td>
+						<c:if test="${member.mtype == 'developer'}"><fmt:formatDate value="${requestProcess.devExpectDate}" pattern="yyyy-MM-dd"/></c:if>
+						<c:if test="${member.mtype == 'tester'}"><fmt:formatDate value="${requestProcess.testExpectDate}" pattern="yyyy-MM-dd"/></c:if>
+						<c:if test="${member.mtype == 'usertester'}"><fmt:formatDate value="${requestProcess.userTestExpectDate}" pattern="yyyy-MM-dd"/></c:if>
+						<c:if test="${member.mtype == 'distributor'}"><fmt:formatDate value="${requestProcess.distExpectDate}" pattern="yyyy-MM-dd"/></c:if>
+					</td>
 					<td>${requestProcess.mname}</td>
 					<td>
 						<c:if test="${requestProcess.statusName eq '접수중' || requestProcess.statusName eq '접수완료' }">
