@@ -104,10 +104,10 @@
 														onerror = "this.src='${pageContext.request.contextPath}/resources/img/default-image.gif'"/>
 													<article class="fileBody">
 														<div class="file-item">
-															<div class="upload_name" id="exist_file" style="width : 110px; white-space: nowrap; overflow: hidden;" >FileName</div>
+															<div class="upload_name" id="exist_file" style="display:none" >FileName</div>
 															<div class="filebox">
 																<input type="file" id="mfile" name="mfile" accept="image/*" onchange="readURL(this);"/>
-																<label for="mfile">이미지</label> 
+																<label for="mfile">사진 등록</label> 
 															</div>
 														</div>
 													</article>
@@ -124,12 +124,12 @@
 
 												<article class="data_one">
 													<select class="custom-select" id="mtype" name="mtype" onchange="changeUserType()">
-														<option value="user" selected>USER</option>
+														<option value="user" selected>시스템 사용자(고객)</option>
 														<option value="pm">PM</option>
-														<option value="developer">DEVELOPER</option>
-														<option value="distributer">DISTRIBUTOR</option>
-														<option value="tester">TESTER</option>
-														<option value="user_tester">QUALITY</option>
+														<option value="developer">개발자</option>
+														<option value="distributer">배포담당자</option>
+														<option value="tester">테스터</option>
+														<option value="user_tester">품질테스터</option>
 													</select>
 													<div class="data">
 														<div class="item">
@@ -217,10 +217,19 @@
 													</div>
 												</article>
 												<article class="submit-button">
-													<button class="btn btn-dark btn-sm" type="submit">회원 등록</button>
+													<button class="btn btn-dark btn-sm" type="submit">등록</button>
 												</article>
 												<article class="return-button">
-													<button class="btn btn-dark btn-sm" type="submit">취소</button>
+													<c:if test="${sessionScope.member.mtype == 'user'}">
+														<button class="btn btn-dark btn-sm" type="button" onclick="location.href='${pageContext.request.contextPath}/userhome'">취소</button>
+													</c:if>
+													<c:if test="${sessionScope.member.mtype == 'pm'}">
+														<button class="btn btn-dark btn-sm" type="button" onclick="location.href='${pageContext.request.contextPath}/pmhome'">취소</button>
+													</c:if>
+													<c:if test="${sessionScope.member.mtype != 'pm' && sessionScope.member.mtype != 'user'}">
+														<button class="btn btn-dark btn-sm" type="button" onclick="location.href='${pageContext.request.contextPath}/'">취소</button>
+													</c:if>
+													
 												</article>
 											</section>
 											<span id="idconfirm"></span>
@@ -302,7 +311,6 @@
 			alert("아이디는 알파벳 대소문자, 숫자를 혼용해서 6자 이상 10자 이하 입니다.");
 			$('#mid').css('border', '2px solid red');
 			$('#idconfirm').html('아이디 형식을 확인해주세요.');
-			$('#idconfirm').css('color', 'red');
 		} else {
 			data = {mid : id};	
 			$.ajax ({
