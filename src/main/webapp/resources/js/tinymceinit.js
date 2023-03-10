@@ -78,7 +78,7 @@ tinymce.init({
 });
 tinymce.init({
 	language: 'ko_KR',
-	selector: '#reply',
+	selector: '.replyWrite',
 	height: '70mm',
 	width: '190mm',
 	theme: 'silver',

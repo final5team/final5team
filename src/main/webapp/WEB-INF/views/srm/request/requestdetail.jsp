@@ -120,8 +120,7 @@
 													</article>
 													<article class="bodyInput">
 														<div class="item">
-															<%-- <textarea id="reqContent" cols="30" name="reqContent" placeholder="내용">${request.reqContent}</textarea> --%>
-															<textarea id="textArea" cols="30" placeholder="내용">${request.reqContent}</textarea>
+															<textarea class="replyWrite" cols="30" placeholder="내용">${request.reqContent}</textarea>
 														</div>
 													</article>
 													<article class="fileBody">
@@ -211,7 +210,12 @@
 												<hr/>
 												<div class="row">
 													<div class="col-3 label">내용</div>
-													<textarea class="col-7 form-control boxed mr-5" rows="3" readonly>${request.reqContent}</textarea>
+													<%-- <textarea class="col-7 replyRead">${request.reqContent}</textarea> --%>
+													<div class="col-8 border scroll-parent" >
+														<div class="scroll-div">
+															${statusHistory.reply}
+														</div>
+													</div>
 												</div>
 												<hr/>
 												<div class="row">
@@ -281,7 +285,11 @@
 										<hr/>
 										<div class="row">
 											<div class="col-3 label">내용</div>
-											<textarea class="col-7 form-control boxed mr-5" rows="3" readonly>${request.reqContent}</textarea>
+											<%-- <textarea class="col-7 form-control boxed mr-5" rows="3" readonly>${request.reqContent}</textarea> --%>
+											<%-- <div class="col-8 border">${request.reqContent}</div> --%>
+											<div class="col-8 border" >
+												${request.reqContent}
+											</div>
 										</div>
 										<hr/>
 										<div class="row">
