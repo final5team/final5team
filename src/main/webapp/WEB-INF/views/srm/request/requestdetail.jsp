@@ -121,7 +121,7 @@
 													<article class="bodyInput">
 														<div class="item">
 															<%-- <textarea id="reqContent" cols="30" name="reqContent" placeholder="내용">${request.reqContent}</textarea> --%>
-															<textarea  cols="30" placeholder="내용">${request.reqContent}</textarea>
+															<textarea id="textArea" cols="30" placeholder="내용">${request.reqContent}</textarea>
 														</div>
 													</article>
 													<article class="fileBody">
