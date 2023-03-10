@@ -42,7 +42,7 @@
 			</c:if>
 			<td class="reqTitle" style="max-width: 190px; min-width : 190px; white-space: nowrap; overflow: hidden;">
 				<c:if test="${request.usrCheck == 1}">
-					<strong class="text-danger">N</strong>
+					<strong class="text-danger">New</strong>
 				</c:if>	
 				${request.reqTitle}
 			</td>
@@ -50,7 +50,12 @@
 				<fmt:formatDate value="${request.reqDate}" pattern="yyyy-MM-dd" />
 			</td>
 			<td class="step_td">
-				<%@ include file="/WEB-INF/views/srm/restatus/stepintable_my.jsp"%>
+				<c:if test="${sessionScope.member.mtype != 'user'}">
+					<%@ include file="/WEB-INF/views/srm/restatus/stepintable_my.jsp"%>
+				</c:if>
+				<c:if test="${sessionScope.member.mtype == 'user'}">
+					<%@ include file="/WEB-INF/views/srm/restatus/stepintable_user.jsp"%>				
+				</c:if>
 			</td>
 		</tr>
 	</c:forEach>

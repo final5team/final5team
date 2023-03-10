@@ -929,45 +929,14 @@
 		                         var priority = workingInfo.priority;
 		                         var mtype = workingInfo.mtype;
 		                         // realmname (분야) 분야별로 color 설정
-		                         if (mtype == "developer"){
-		                        	 events.push({
-		                        		 	title: "NO. " + rno + " |요청유형 : " + reqType + " |우선순위 : " + priority,
-		                                    start: startdate,
-		                                    end: endExpectDate,
-		                                      url: "${pageContext.request.contextPath}/developerdetail?rno=" + rno,
-		                                      color:"#6937a1"                                                   
-		                                 }); //.push()
-		                         }
-		                                                             
-		                         else if (mtype == "tester"){
-		                        	 events.push({
-		                        			 title: "NO. " + rno + " |요청유형 : " + reqType + " |우선순위 : " + priority,
-		                                    start: startdate,
-		                                    end: endExpectDate,
-		                                       url: "${pageContext.request.contextPath}/testerdetail?rno=" + rno,
-		                                       color:"#6937a1"                                                   
-		                                 }); //.push()
-		                         }
-		                         
-		                         else if (mtype == "usertester"){
-		                        	 events.push({
-		                        		 title: "NO. " + rno + " |요청유형 : " + reqType + " |우선순위 : " + priority,
-		                                    start: startdate,
-		                                    end: endExpectDate,
-		                                       url: "${pageContext.request.contextPath}/usertestdetail?rno=" + rno,
-		                                       color:"#6937a1"                                                   
-		                                 }); //.push()
-		                         }
-		                         
-		                         else if (mtype == "distributor"){
-		                        	 events.push({
-		                        			 title: "NO. " + rno + " |요청유형 : " + reqType + " |우선순위 : " + priority,
-		                                    start: startdate,
-		                                    end: endExpectDate,
-		                                       url: "${pageContext.request.contextPath}/distributedetail?rno=" + rno,
-		                                       color:"#6937a1"                                                   
-		                                 }); 
-		                        	 }  
+
+	                        	 events.push({
+	                        		 	title: "NO. " + rno + " |요청유형 : " + reqType + " |우선순위 : " + priority,
+	                                    start: startdate,
+	                                    end: endExpectDate,                                                
+	                                }); //.push()
+	                                                    
+		                        
 		                        }); 
 		                        console.log(events); 
 		                        
