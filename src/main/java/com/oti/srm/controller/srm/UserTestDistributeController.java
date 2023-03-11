@@ -146,7 +146,7 @@ public class UserTestDistributeController {
 		statusHistory.setFileList(sFiles);
 		if (me.getMtype().equals("usertester")) {
 			statusHistory.setNextStatus(9);
-			commonService.endWork(statusHistory, me.getMtype());
+			commonService.endWork(statusHistory, me);
 			
 			// 서비스 변경 여부(배포자 미확인  상태 변경)
 			commonService.notCheck("distributor", statusHistory.getRno());
@@ -154,7 +154,7 @@ public class UserTestDistributeController {
 			return "redirect:/usertestdetail?rno=" + statusHistory.getRno();
 		} else {
 			statusHistory.setNextStatus(11);
-			commonService.endWork(statusHistory, me.getMtype());
+			commonService.endWork(statusHistory, me);
 			
 			// 서비스 변경 여부(PM 미확인  상태 변경)
 			commonService.notCheck("pm", statusHistory.getRno());

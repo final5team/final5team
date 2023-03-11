@@ -35,7 +35,6 @@ public class DeveloperController {
 	@Autowired
 	ICommonService commonService;
 
-	
 	/**
 	 * @author : 장현
 	 * @param model view에 전달할 객체 주입
@@ -47,7 +46,7 @@ public class DeveloperController {
 		log.info("실행");
 
 		// 요청내용 출력 -장현
-		Request request = commonService.getRequest(rno);		
+		Request request = commonService.getRequest(rno);
 		// 요청 프로세스 출력 -장현
 		RequestProcess requestProcess = commonService.getRequestProcess(rno);
 		// 개발자가 테스터로 넘길시 작성했던 내용 출력 -장현
@@ -73,9 +72,10 @@ public class DeveloperController {
 		model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));
 		model.addAttribute("devTemp", devTemp);
 		model.addAttribute("testRejectExist", commonService.isThereTestReject(rno));
-		
-		// 개발 담당자 확인 여부 변경(확인)	
-		if(request.getDevCheck()==1 && member.getMtype().equals("developer") && requestProcess.getDeveloper().equals(member.getMid())) {
+
+		// 개발 담당자 확인 여부 변경(확인)
+		if (request.getDevCheck() == 1 && member.getMtype().equals("developer")
+				&& requestProcess.getDeveloper().equals(member.getMid())) {
 			commonService.check("developer", request.getRno());
 		}
 		// 신규 내역 알림 갱신
@@ -110,16 +110,16 @@ public class DeveloperController {
 
 	/**
 	 * @author : 장현
-	 * @param rp rno 와 devProgress를 담은 객체
+	 * @param rp      rno 와 devProgress를 담은 객체
 	 * @param session
 	 * @return developerdetail로 리턴
 	 */
 	@PostMapping("/updatedevprogress")
 	@ResponseBody
-	public Map<String,String> updateDevProgress(RequestProcess rp, HttpSession session) {
+	public Map<String, String> updateDevProgress(RequestProcess rp, HttpSession session) {
 		log.info("실행");
 		commonService.updateDevProgress(rp);
-		Map<String,String> map = new HashMap<>();
+		Map<String, String> map = new HashMap<>();
 		map.put("result", "성공");
 		return map;
 	}
@@ -156,24 +156,57 @@ public class DeveloperController {
 			e.printStackTrace();
 		}
 		statusHistory.setFileList(sFiles);
-		commonService.endWork(statusHistory, member.getMtype());
-		
-		// 서비스 변경 여부(테스터 미확인  상태 변경)
+		commonService.endWork(statusHistory, member);
+
+		// 서비스 변경 여부(테스터 미확인 상태 변경)
 		commonService.notCheck("tester", statusHistory.getRno());
-		
+
 		return "redirect:/developerdetail?rno=" + statusHistory.getRno();
 	}
 
 	@PostMapping("/tempstore")
 	@ResponseBody
-	public Map<String,String> tempStore(StatusHistory statusHistory, HttpSession session, Model model) {
+	public Map<String,String> tempStore(int rno, StatusHistory statusHistory,RequestProcess rp, HttpSession session, Model model, @RequestParam MultipartFile[] files) {
 		log.info("실행");
 		log.info("rno : " + statusHistory.getRno());
 		log.info("nextStatus : " + statusHistory.getNextStatus());
+		
+		//rno 세팅
+		statusHistory.setRno(rno);
+		rp.setRno(rno);
+		
+		//파일 세팅
+		List<StatusHistoryFile> sFiles = new ArrayList<>();
+		try {
+			if (files != null) {
+				for (MultipartFile file : files) {
+					if (!file.isEmpty()) {
+						StatusHistoryFile statusHistoryFile = new StatusHistoryFile();
+						statusHistoryFile.setFileName(file.getOriginalFilename());
+						statusHistoryFile.setFileType(file.getContentType());
+						statusHistoryFile.setFileData(file.getBytes());
+						sFiles.add(statusHistoryFile);
+					}
+				}
+
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		statusHistory.setFileList(sFiles);
+		
+		
 		Member member = (Member) session.getAttribute("member");
 		statusHistory.setWriter(member.getMid());
+		
 		// 기존 임시 저장글이 있는지 확인
 		StatusHistory tempStatusHistory = commonService.getTempStatusHistory(member, statusHistory);
+		
+		//진척률 업데이트
+		if(member.getMtype().equals("developer")) {
+			commonService.updateDevProgress(rp);
+		}
+		
 		if (tempStatusHistory == null) {
 			// insert
 			commonService.writeStatusHistory(statusHistory);
@@ -181,12 +214,13 @@ public class DeveloperController {
 			// update
 			commonService.updateStatusHistory(statusHistory);
 		}
-		Map<String,String> map = new HashMap<>();
+		Map<String, String> map = new HashMap<>();
 		map.put("result", "success");
-		
+
 		return map;
 	}
 
+	// PM 요청 처리 계획 수정 
 	@PostMapping("updatehistory")
 	public String updateHistory(@RequestParam("rno") String rno, RequestProcess rp, StatusHistory sh, HttpSession session, Model model, MultipartFile[] files) {
 		log.info("updateHistory");
@@ -212,24 +246,28 @@ public class DeveloperController {
 				e.printStackTrace();
 			}
 		}
-		log.info(rp.getRno());
-		log.info(sh.getRno());
 		commonService.updateHistory(rp, sh, member);
+		return "redirect:/receiptdetail?rno=" + rp.getRno();
 		
-		if (member.getMtype().equals("developer")) {		
-			return "redirect:/developerdetail?rno=" + rp.getRno();
-		}
-		else if (member.getMtype().equals("tester")) {
-			return "redirect:/testerdetail?rno=" + rp.getRno();
-		}
-		else if (member.getMtype().equals("usertester")) {
-			return "redirect:/usertestdetail?rno=" + rp.getRno();
-		}
-		else if (member.getMtype().equals("distributor")) {
-			return "redirect:/distributedetail?rno=" + rp.getRno();
-		}
-		else {
-			return "redirect:/pm/receiptdetail?rno=" + sh.getRno();
+	}
+
+	// developer,tester,usertester,distributor 단계 롤백(수정)
+	@PostMapping("rollbackstep")
+	public String rollBackStep(int hno, HttpSession session, Model model) {
+		log.info("실행");
+		Member member = (Member) session.getAttribute("member");
+		StatusHistory mySh = commonService.getStatusHistory(hno);
+		int rno = mySh.getRno();
+		commonService.rollBackStep(member, hno);
+		log.info(mySh);
+		if (member.getMtype().equals("developer")) {
+			return "redirect:/developerdetail?rno=" + rno;
+		} else if (member.getMtype().equals("tester")) {
+			return "redirect:/testerdetail?rno=" + rno;
+		} else if (member.getMtype().equals("usertester")) {
+			return "redirect:/usertestdetail?rno=" + rno;
+		} else {
+			return "redirect:/distributedetail?rno=" + rno;
 		}
 	}
 
