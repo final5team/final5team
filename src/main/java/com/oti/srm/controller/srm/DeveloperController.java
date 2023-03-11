@@ -35,6 +35,7 @@ public class DeveloperController {
 	@Autowired
 	ICommonService commonService;
 
+	
 	/**
 	 * @author : 장현
 	 * @param model view에 전달할 객체 주입
@@ -46,7 +47,7 @@ public class DeveloperController {
 		log.info("실행");
 
 		// 요청내용 출력 -장현
-		Request request = commonService.getRequest(rno);
+		Request request = commonService.getRequest(rno);		
 		// 요청 프로세스 출력 -장현
 		RequestProcess requestProcess = commonService.getRequestProcess(rno);
 		// 개발자가 테스터로 넘길시 작성했던 내용 출력 -장현
@@ -110,16 +111,16 @@ public class DeveloperController {
 
 	/**
 	 * @author : 장현
-	 * @param rp      rno 와 devProgress를 담은 객체
+	 * @param rp rno 와 devProgress를 담은 객체
 	 * @param session
 	 * @return developerdetail로 리턴
 	 */
 	@PostMapping("/updatedevprogress")
 	@ResponseBody
-	public Map<String, String> updateDevProgress(RequestProcess rp, HttpSession session) {
+	public Map<String,String> updateDevProgress(RequestProcess rp, HttpSession session) {
 		log.info("실행");
 		commonService.updateDevProgress(rp);
-		Map<String, String> map = new HashMap<>();
+		Map<String,String> map = new HashMap<>();
 		map.put("result", "성공");
 		return map;
 	}
@@ -166,7 +167,8 @@ public class DeveloperController {
 
 	@PostMapping("/tempstore")
 	@ResponseBody
-	public Map<String,String> tempStore(int rno, StatusHistory statusHistory,RequestProcess rp, HttpSession session, Model model, @RequestParam MultipartFile[] files) {
+	public Map<String,String> tempStore(int rno, StatusHistory statusHistory,RequestProcess rp, HttpSession session, Model model,
+			@RequestParam("files")MultipartFile[] files) {
 		log.info("실행");
 		log.info("rno : " + statusHistory.getRno());
 		log.info("nextStatus : " + statusHistory.getNextStatus());
@@ -212,15 +214,23 @@ public class DeveloperController {
 			commonService.writeStatusHistory(statusHistory);
 		} else {
 			// update
+			statusHistory.setHno(tempStatusHistory.getHno());
 			commonService.updateStatusHistory(statusHistory);
 		}
-		Map<String, String> map = new HashMap<>();
-		map.put("result", "success");
+		
+		// 임시저장한 정보 가져오기
+		StatusHistory tempSh = new StatusHistory();
+		tempSh.setRno(rno);
+		tempSh.setNextStatus(14);
 
+		StatusHistory devTemp = commonService.getTempStatusHistory(member, tempSh);
+		model.addAttribute("devTemp", devTemp);
+		
+		Map<String,String> map = new HashMap<>();
+		map.put("result", "success");
 		return map;
 	}
 
-	// PM 요청 처리 계획 수정 
 	@PostMapping("updatehistory")
 	public String updateHistory(@RequestParam("rno") String rno, RequestProcess rp, StatusHistory sh, HttpSession session, Model model, MultipartFile[] files) {
 		log.info("updateHistory");

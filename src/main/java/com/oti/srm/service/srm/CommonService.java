@@ -45,7 +45,7 @@ public class CommonService implements ICommonService {
 				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
 				if (sh.getReply() == null) {
 					sh.setReply("내용이 없습니다.");
-				}
+				} 
 				if (sh.getDistSource() == null) {
 					sh.setDistSource("내용이 없습니다.");
 				}
@@ -69,7 +69,7 @@ public class CommonService implements ICommonService {
 			if (sh.getNextStatus() == 9) {
 				if (sh.getReply() == null) {
 					sh.setReply("내용이 없습니다.");
-				}
+				} 
 				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
 				UserTesterToDistributorHistories.add(sh);
 			}
@@ -89,7 +89,7 @@ public class CommonService implements ICommonService {
 			if (sh.getNextStatus() == 11) {
 				if (sh.getReply() == null) {
 					sh.setReply("내용이 없습니다.");
-				}
+				} 
 				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
 				distributorToPmHistories.add(sh);
 			}
@@ -109,7 +109,7 @@ public class CommonService implements ICommonService {
 			if (sh.getNextStatus() == 2) {
 				if (sh.getReply() == null) {
 					sh.setReply("내용이 없습니다.");
-				}
+				} 
 				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
 				pmToAllHistories.add(sh);
 			}
@@ -391,6 +391,7 @@ public class CommonService implements ICommonService {
 	}
 
 	@Override
+	@Transactional
 	public void writeStatusHistory(StatusHistory statusHistory) {
 		commonDao.insertStatusHistory(statusHistory);
 
@@ -405,9 +406,10 @@ public class CommonService implements ICommonService {
 	}
 
 	@Override
+	@Transactional
 	public void updateStatusHistory(StatusHistory statusHistory) {
 		commonDao.updateStatusHistory(statusHistory);
-
+		
 		if (statusHistory.getFileList() != null) {
 			List<StatusHistoryFile> fileList = statusHistory.getFileList();
 			for (StatusHistoryFile file : fileList) {
