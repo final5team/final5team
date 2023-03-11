@@ -114,7 +114,7 @@
 													<input type="hidden" id="tempReexam" value="${tempReexam.reply}">
 												</div>
 											</div>
-							
+											
 											<div class="filebox d-flex mb-3">
 												<div class="label label-write">
 													<div id="fileLabel">첨부파일</div>
