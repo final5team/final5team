@@ -10,48 +10,7 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
-	function findAddress() {
-		new daum.Postcode({
-			oncomplete : function(data) {
-				var addr1 = data.roadAddress; // 도로명 주소
-				var addr3 = ''; // 상세 주소
-
-				// 우편번호와 주소 정보 넣기
-				document.getElementById("postcode").value = data.zonecode;
-				document.getElementById("addr1").value = data.roadAddress;
-
-				if (addr1 !== '') {
-					document.getElementById("addr1").value = addr1;
-				} else {
-					document.getElementById("addr3").value = '';
-				}
-			}
-		}).open();
-	}
-	function readURL(input) {
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
-			reader.onload = function(e) {
-				document.getElementById('preview').src = e.target.result;
-			};
-			reader.readAsDataURL(input.files[0]);
-		} else {
-			document.getElementById('preview').src = "";
-		}
-	}
-
-	function changeUserType() {
-		var typeSelect = document.getElementById("mtype");
-		var selectValue = typeSelect.options[typeSelect.selectedIndex].value;
-		if (selectValue !== 'pm' && selectValue !== 'user') {
-			$("#sno").css("visibility", "visible");
-			$("#system").css("visibility", "visible");
-
-		} else {
-			$("#sno").css("visibility", "hidden");
-			$("#system").css("visibility", "hidden");
-		}
-	}
+	
 	
 	
 	
@@ -281,6 +240,51 @@
 	</a>
 	<script>
 	
+	function findAddress() {
+		new daum.Postcode({
+			oncomplete : function(data) {
+				var addr1 = data.roadAddress; // 도로명 주소
+				var addr3 = ''; // 상세 주소
+
+				// 우편번호와 주소 정보 넣기
+				document.getElementById("postcode").value = data.zonecode;
+				document.getElementById("addr1").value = data.roadAddress;
+
+				if (addr1 !== '') {
+					document.getElementById("addr1").value = addr1;
+				} else {
+					document.getElementById("addr3").value = '';
+				}
+			}
+		}).open();
+	}
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				document.getElementById('preview').src = e.target.result;
+			};
+			reader.readAsDataURL(input.files[0]);
+		} else {
+			document.getElementById('preview').src = "";
+		}
+	}
+
+	let selectValue = '';
+	function changeUserType() {
+		var typeSelect = document.getElementById("mtype");
+		selectValue = typeSelect.options[typeSelect.selectedIndex].value;
+		if (selectValue !== 'pm' && selectValue !== 'user') {
+			$("#sno").css("visibility", "visible");
+			$("#system").css("visibility", "visible");
+			console.log(selectValue);
+		} else {
+			$("#sno").css("visibility", "hidden");
+			$("#system").css("visibility", "hidden");
+			console.log(selectValue);
+		}
+	}
+	
 	//이미지 검증
 	mfile.addEventListener('change', function() {
 		//파일 업로드 제약 자바스크립트
@@ -365,6 +369,7 @@
 		
 		nameCheck = checkName(mname);
 		console.log(nameCheck);
+		console.log(selectValue);
 		
 		if(mtypeValue == '' || mtypeValue == null){
 			$('#countCheck').modal();
@@ -375,14 +380,13 @@
 		} else if(idTest != 'true' ) {
 			$('#countCheck').modal();
 			$('#countContent').html('아이디 형식을 확인하세요');
-		} 
- 		else if(mname == '' || mname == null){
+		} else if(mname == '' || mname == null){
  			$('#countCheck').modal();
  			$('#countContent').html('이름을 입력하세요');
  		} else if (nameCheck == '' || nameCheck != 'true'){
  			$('#countCheck').modal();
  			$('#countContent').html('이름을 정확히 입력하세요');
- 		}
+ 		} 
 		
 		
 		
