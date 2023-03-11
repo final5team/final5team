@@ -53,9 +53,6 @@ public class UserTestDistributeController {
 		model.addAttribute("userTesterTemp", commonService.getTempStatusHistory(member, sh));
 		model.addAttribute("testRejectExist", commonService.isThereTestReject(rno));
 		
-		log.info("check: "+request.getUttCheck());
-		log.info("mtype: "+member.getMtype());
-		log.info("ut: "+requestProcess.getUserTester().equals(member.getMid()));
 		// 품질 검토 담당자 확인 여부 변경(확인)	
 		if(request.getUttCheck()==1 && member.getMtype().equals("usertester") && requestProcess.getUserTester().equals(member.getMid())) {
 			commonService.check("usertester", request.getRno());
