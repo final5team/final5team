@@ -6,7 +6,7 @@
 <div class="row mt-3">
 	<div class="col-2 label">첨부파일</div>
 	<div class="col-8 p-2">
-		<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+		<c:forEach var="statusHistoryFile" items="${devTemp.fileList}">
 			<div>
 				<span>${statusHistoryFile.fileName}</span> 
 				<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button"> <i class="fas fa-cloud-download-alt text-info"></i></a>

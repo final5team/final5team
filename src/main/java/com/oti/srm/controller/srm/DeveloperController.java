@@ -166,7 +166,8 @@ public class DeveloperController {
 	}
 
 	@PostMapping("/tempstore")
-	public String tempStore(int rno, StatusHistory statusHistory,RequestProcess rp, HttpSession session, Model model,
+	@ResponseBody
+	public Map<String,String> tempStore(int rno, StatusHistory statusHistory,RequestProcess rp, HttpSession session, Model model,
 			@RequestParam("files")MultipartFile[] files) {
 		log.info("실행");
 		log.info("rno : " + statusHistory.getRno());
@@ -216,10 +217,18 @@ public class DeveloperController {
 			statusHistory.setHno(tempStatusHistory.getHno());
 			commonService.updateStatusHistory(statusHistory);
 		}
+		
+		// 임시저장한 정보 가져오기
+		StatusHistory tempSh = new StatusHistory();
+		tempSh.setRno(rno);
+		tempSh.setNextStatus(14);
+
+		StatusHistory devTemp = commonService.getTempStatusHistory(member, tempSh);
+		model.addAttribute("devTemp", devTemp);
+		
 		Map<String,String> map = new HashMap<>();
 		map.put("result", "success");
-		
-		return "srm/tempstorefragments";
+		return map;
 	}
 
 	@PostMapping("updatehistory")

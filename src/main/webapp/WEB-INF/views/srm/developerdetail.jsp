@@ -463,7 +463,10 @@
 					console.log(result.result);
 					$('#completeContent').text('저장되었습니다.');
 					$('#completeModal').modal();
-					$('#filebox').html(result);
+					const timerId1 = window.setTimeout(reload, 1500);
+					function reload(){
+						location.reload();
+					} 
 				}
 			});
 		} 
