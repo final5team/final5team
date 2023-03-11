@@ -91,4 +91,8 @@ public interface ICommonService {
 	// 신규 내역 알림
 	public List<Request> getNewAlertList(Member dbMember);
 
+	public void rollBackStep(Member member, int hno);
+	
+	public StatusHistory getStatusHistory(int hno);
+
 }

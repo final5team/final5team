@@ -19,7 +19,9 @@ import com.oti.srm.dto.StatusHistoryFile;
 // 단계 상세 페이지 단계 처리 관련 dao 메소드 
 public interface ICommonDao {
 
-
+	// 단계 이력 조회
+	public StatusHistory selectStatusHistory(int hno);
+	
 	// 요청의 단계 이력(status_histories 테이블) 모두 조회
 	public List<StatusHistory> selectRequestHistories(int rno);
 
@@ -113,4 +115,10 @@ public interface ICommonDao {
 	public int updateNotCheck(@Param("mtype")String mtype, @Param("rno")int rno);
 	// 서비스 변경 알림
 	public List<Request> selectNewAlertList(Member member);
+	
+	// 단계 변경 이력 삭제 
+	public int deleteStatusHistory(int hno);
+	public int deleteStautsHistoryFiles(int hno);
+
+	public int updateCompDateNull(@Param("member") Member member, @Param("rp") RequestProcess rp);
 }
