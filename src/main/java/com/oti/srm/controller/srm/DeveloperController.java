@@ -166,14 +166,47 @@ public class DeveloperController {
 
 	@PostMapping("/tempstore")
 	@ResponseBody
-	public Map<String, String> tempStore(StatusHistory statusHistory, HttpSession session, Model model) {
+	public Map<String,String> tempStore(int rno, StatusHistory statusHistory,RequestProcess rp, HttpSession session, Model model, @RequestParam MultipartFile[] files) {
 		log.info("실행");
 		log.info("rno : " + statusHistory.getRno());
 		log.info("nextStatus : " + statusHistory.getNextStatus());
+		
+		//rno 세팅
+		statusHistory.setRno(rno);
+		rp.setRno(rno);
+		
+		//파일 세팅
+		List<StatusHistoryFile> sFiles = new ArrayList<>();
+		try {
+			if (files != null) {
+				for (MultipartFile file : files) {
+					if (!file.isEmpty()) {
+						StatusHistoryFile statusHistoryFile = new StatusHistoryFile();
+						statusHistoryFile.setFileName(file.getOriginalFilename());
+						statusHistoryFile.setFileType(file.getContentType());
+						statusHistoryFile.setFileData(file.getBytes());
+						sFiles.add(statusHistoryFile);
+					}
+				}
+
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		statusHistory.setFileList(sFiles);
+		
+		
 		Member member = (Member) session.getAttribute("member");
 		statusHistory.setWriter(member.getMid());
+		
 		// 기존 임시 저장글이 있는지 확인
 		StatusHistory tempStatusHistory = commonService.getTempStatusHistory(member, statusHistory);
+		
+		//진척률 업데이트
+		if(member.getMtype().equals("developer")) {
+			commonService.updateDevProgress(rp);
+		}
+		
 		if (tempStatusHistory == null) {
 			// insert
 			commonService.writeStatusHistory(statusHistory);
@@ -188,18 +221,17 @@ public class DeveloperController {
 	}
 
 	@PostMapping("updatehistory")
-	public String updateHistory(@RequestParam("rno") String rno, RequestProcess rp, StatusHistory sh,
-			HttpSession session, Model model, MultipartFile[] files) {
+	public String updateHistory(@RequestParam("rno") String rno, RequestProcess rp, StatusHistory sh, HttpSession session, Model model, MultipartFile[] files) {
 		log.info("updateHistory");
 		rp.setRno(Integer.parseInt(rno));
 		sh.setRno(Integer.parseInt(rno));
 		Member member = (Member) session.getAttribute("member");
-
-		// MultipartFile[] 타입 파일 StatusHistoryFile 객체에 아서 서비스 전달
-		if (files != null) {
+		
+		//MultipartFile[] 타입 파일 StatusHistoryFile 객체에 아서 서비스 전달
+		if(files != null) {
 			List<StatusHistoryFile> fileList = new ArrayList<StatusHistoryFile>();
 			try {
-				for (MultipartFile file : files) {
+				for(MultipartFile file : files) {
 					if (!file.isEmpty()) {
 						StatusHistoryFile shfile = new StatusHistoryFile();
 						shfile.setFileData(file.getBytes());
@@ -216,17 +248,18 @@ public class DeveloperController {
 		log.info(rp.getRno());
 		log.info(sh.getRno());
 		commonService.updateHistory(rp, sh, member);
-
-		if (member.getMtype().equals("developer")) {
+		
+		if (member.getMtype().equals("developer")) {		
 			return "redirect:/developerdetail?rno=" + rp.getRno();
-		} else if (member.getMtype().equals("tester")) {
+		}
+		else if (member.getMtype().equals("tester")) {
 			return "redirect:/testerdetail?rno=" + rp.getRno();
-		} else if (member.getMtype().equals("usertester")) {
+		}
+		else if (member.getMtype().equals("usertester")) {
 			return "redirect:/usertestdetail?rno=" + rp.getRno();
-		} else if (member.getMtype().equals("distributor")) {
+		}
+		else if (member.getMtype().equals("distributor")) {
 			return "redirect:/distributedetail?rno=" + rp.getRno();
-		} else {
-			return "redirect:/pm/receiptdetail?rno=" + sh.getRno();
 		}
 	}
 
