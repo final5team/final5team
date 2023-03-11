@@ -101,7 +101,8 @@
 														<option value="" class="text-center">요청 유형</option>
 														<option value="정규" class="text-center">정규</option>
 													    <option value="긴급" class="text-center">긴급</option>																																																						
-													</select>																								
+													</select>	
+													<small id="noInputRtype" style="color : red; position: absolute;"></small>																							
 													<div class="col-2 text-right font-weight-bold">
 														<label >*중요도</label>
 													</div>
@@ -110,7 +111,8 @@
 														<option value="상" class="text-center">상 (★★★)</option>
 														<option value="중" class="text-center">중 (★★)</option>
 														<option value="하" class="text-center">하 (★)</option>															    																																																						
-													</select>												
+													</select>
+													<small id="noInputPriority" style="color : red; position: absolute; right:5%"></small>														
 												</div>
 												
 													
@@ -122,6 +124,7 @@
 															<option id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																												
 														</c:forEach>															
 													</select>
+													<small id="noInputDev" style="color : red; position: absolute;"></small>		
 													<label class=" col-2 text-right font-weight-bold">*테스트 담당자</label>
 													<select class="dropdown-toggle col-3 calendarOpen" style="width:300px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester" requried>
 														<option value="">테스트 담당자 | 현재담당건수 </option>	
@@ -129,6 +132,7 @@
 															<option id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																													
 														</c:forEach>
 													</select>
+													<small id="noInputTes" style="color : red; position: absolute; right:5%"></small>		
 												</div>
 												<div class="row mb-2 text-right font-weight-bold" id="utester">
 													<label class=" col-2 ">*품질 담당자</label>
@@ -138,6 +142,7 @@
 															<option id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																													
 														</c:forEach>
 													</select>
+													<small id="noInputUtt" style="color : red; position: absolute;"></small>		
 													<label class=" col-2 text-right font-weight-bold">*배포 담당자</label>
 													<select class="dropdown-toggle col-3 calendarOpen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor" requried>
 														<option value="">배포 담당자 | 현재담당건수 </option>	
@@ -145,12 +150,14 @@
 															<option id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																												
 														</c:forEach>
 													</select>
+													<small id="noInputDis" style="color : red; position: absolute; right:5%"></small>		
 												</div>
 												<div class="row mb-2">
 													<div class="col-2 text-right font-weight-bold">*완료예정일</div>
-													<input class="col-3 p-0" type="date" name="allExpectDate" id="allExpectDate" pattern="\d{4}-\d{2}-\d{2}" required>
+													<input class="col-3 text-center p-0" type="date" name="allExpectDate" id="allExpectDate" pattern="\d{4}-\d{2}-\d{2}" required>
 													<span class="validity"></span>
 												</div>
+												<small id="noInputExd" style="color : red; position: absolute;"></small>		
 												<div class="row mb-2">
 													<div class=" col-2 text-right font-weight-bold">의견 내용</div>
 													<textarea class="form-control boxed col-7 pmcontent ml-2" name="reply" style="padding: 0px" maxlength="300"></textarea>													
@@ -208,7 +215,7 @@
 											<div class="d-flex">
 												<div class="card-title-block">
 				                	 				<h3 class="title">
-				                	 					반려 사유 작성<i class="ml-1 fas fa-external-link-alt"></i>
+				                	 					요청 반려 사유 작성<i class="ml-1 fas fa-external-link-alt"></i>
 			                	 					</h3>
 				                	 			</div>
 				                	 			<div class="d-flex justify-content-end" style="margin-left: auto; margin-right: 30px;">
@@ -559,7 +566,7 @@
 						<c:if test="${request.statusNo==12}">
 							<div class="card border-top-danger mt-3 mb-1">
 								<h3 class="title m-3">						
-									반려 처리 내역 <i class="ml-1 fas fa-external-link-alt"></i>
+									요청 반려 처리 <i class="ml-1 fas fa-external-link-alt"></i>
 								</h3>
 								<div class="card-body">									
 									<div class="form-group row">
@@ -594,19 +601,10 @@
 	               	 				</h3>
 	               	 			</div>
 								<div class="card-body">
-									<div id="calendar">
-									</div>
+									<div id="calendar"></div>
 								</div>
 							</div>
 						</div>
-						
-						
-						<c:if test="${sessionScope.member.mtype != 'user'}">
-							<button class="btn btn-dark btn-sm ml-5 m-3" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
-						</c:if>
-						<c:if test="${sessionScope.member.mtype == 'user'}">
-							<button class="btn btn-dark btn-sm ml-5 m-3" onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'">목록</button>
-						</c:if>
 					<!-- 게시글 상세보기 end -->
 					</div>
                 </div>
@@ -645,9 +643,7 @@
 			</div>
 		</div>
 	</div>
-	
-	
-	
+			
  <script>	      
 		$(document).ready(function(){
 			// 반려 입력 항목 숨기기
@@ -894,8 +890,7 @@
 				success: function(result){
 					deleteDiv.remove();
 				}
-			});
-			
+			});			
 			
 		});
 		/****** update() '수정'버튼 클릭 ******/
@@ -969,10 +964,7 @@
 		   calendar.render();
 		   calendar.updateSize();
 		});
-		
-	
-	
-	
+			
 	</script>
 
 </body>
