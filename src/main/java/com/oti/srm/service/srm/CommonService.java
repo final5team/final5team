@@ -360,6 +360,7 @@ public class CommonService implements ICommonService {
 	}
 
 	@Override
+	@Transactional
 	public void writeStatusHistory(StatusHistory statusHistory) {
 		commonDao.insertStatusHistory(statusHistory);
 		
@@ -374,8 +375,11 @@ public class CommonService implements ICommonService {
 	}
 
 	@Override
+	@Transactional
 	public void updateStatusHistory(StatusHistory statusHistory) {
+		log.info("실행");
 		commonDao.updateStatusHistory(statusHistory);
+		log.info("statusHistory.getHno(): "+ statusHistory.getHno());
 		
 		if (statusHistory.getFileList() != null) {
 			List<StatusHistoryFile> fileList = statusHistory.getFileList();

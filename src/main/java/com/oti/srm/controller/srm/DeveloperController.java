@@ -141,6 +141,7 @@ public class DeveloperController {
 		List<StatusHistoryFile> sFiles = new ArrayList<>();
 		try {
 			if (files != null) {
+				log.info("files를 인식하긴 함");
 				for (MultipartFile file : files) {
 					if (!file.isEmpty()) {
 						StatusHistoryFile statusHistoryFile = new StatusHistoryFile();
@@ -165,8 +166,8 @@ public class DeveloperController {
 	}
 
 	@PostMapping("/tempstore")
-	@ResponseBody
-	public Map<String,String> tempStore(int rno, StatusHistory statusHistory,RequestProcess rp, HttpSession session, Model model, @RequestParam MultipartFile[] files) {
+	public String tempStore(int rno, StatusHistory statusHistory,RequestProcess rp, HttpSession session, Model model,
+			@RequestParam("files")MultipartFile[] files) {
 		log.info("실행");
 		log.info("rno : " + statusHistory.getRno());
 		log.info("nextStatus : " + statusHistory.getNextStatus());
@@ -212,12 +213,13 @@ public class DeveloperController {
 			commonService.writeStatusHistory(statusHistory);
 		} else {
 			// update
+			statusHistory.setHno(tempStatusHistory.getHno());
 			commonService.updateStatusHistory(statusHistory);
 		}
 		Map<String,String> map = new HashMap<>();
 		map.put("result", "success");
 		
-		return map;
+		return "srm/tempstorefragments";
 	}
 
 	@PostMapping("updatehistory")
