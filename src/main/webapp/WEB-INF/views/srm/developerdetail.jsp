@@ -98,7 +98,19 @@
 													</div>
 												</div>
 											</div>
-											
+											<div class="d-flex">
+												<div class="label label-write">진척률</div>
+												<div class="flex-grow-1 d-flex">
+													<input type="hidden" value="${request.rno}" name="rno">
+													<input type="text" class="form-control boxed" style="width: 100px; height: 20px;" value="${requestProcess.devProgress}" name="devProgress" id="devProgress">
+													<span>%</span>
+												</div>
+											</div>
+											<div class="progress-group">
+												<div class="progress">
+													<div class="progress-bar bg-success" style="width:${requestProcess.devProgress}%"></div>
+												</div>
+											</div>
 											<div class="filebox d-flex mb-3">
 												<div class="label label-write" id="fileLable">
 													<div>첨부파일</div>
@@ -111,25 +123,6 @@
 			  									</div>	
 											</div>
 										</form>
-										<c:if test="${request.statusNo == 4}">
-										<form id="progressForm" action="${pageContext.request.contextPath}/updatedevprogress" method="POST">
-											<div class="d-flex">
-												<div class="label label-write">진척률</div>
-												<div class="flex-grow-1 d-flex">
-													<input type="hidden" value="${request.rno}" name="rno">
-													<input type="text" class="form-control boxed" style="width: 100px; height: 20px;" value="${requestProcess.devProgress}" name="devProgress" id="devProgress">
-													<span>%</span>
-													<span class="btn btn-sm btn-primary ml-2" onclick="updateProgress()">확인</span>
-													
-												</div>
-											</div>
-											<div class="progress-group">
-												<div class="progress">
-													<div class="progress-bar bg-success" style="width:${requestProcess.devProgress}%"></div>
-												</div>
-											</div>
-										</form>
-										</c:if>
 										
 										<c:if test="${request.statusNo == 4}">
 										<div class="d-flex justify-content-end">
@@ -421,15 +414,38 @@
 		var rno = rno;
 		var nextStatus = nextStatus;
 		var distSource = $('#distSource').val();
+		var devProgress = $('#devProgress').val();
+		
+		//선택된 파일 지우기
+		var fileInput = $('#fileInput')[0];
+		var fileBuffer = new DataTransfer();
+		fileInput.files = fileBuffer.files;
+		
+		//배열의 항목으로 채우기
+		fileBuffer = new DataTransfer();
+		for(var i = 0; i < content_files.length; i ++){
+			if(!content_files[i].is_delete){
+				fileBuffer.items.add(content_files[i]);
+			} 
+		}
+		fileInput.files = fileBuffer.files;
+		
+		//Form 안에 넣기
+		var formData = new FormData(fileInput);
 		
 		$.ajax({
 			type: "POST",
+			enctype: "multipart/form-data",
 			url: "${pageContext.request.contextPath}/tempstore",
+			contentType:false,
+			processData: false,
 			data: {
 				rno : rno,
 				nextStatus : nextStatus,
 				distSource : distSource,
-				reply : reply
+				reply : reply,
+				devProgress: devProgress,
+				files: formData
 			},
 			dataType: "json",
 			success : function(result){
@@ -472,7 +488,7 @@
    		}
    	});
    	
-	/* devProgress업데이트 */
+	/* devProgress업데이트  숫자 유효성 체크할 때 유용*/
  	function updateProgress(){
 		
 		let devProgress = $('#devProgress').val();
@@ -533,10 +549,15 @@
 			tinymce.get("reply").setMode('readonly');
 			$('#distSource').attr('disabled',true);
 			$('#btn-upload').hide();
+			$('#writeform').mousedown(function(){
+				$('#noInputDate').text('개발 시작을 눌러야 입력 가능합니다.');
+			});
 		} else{
 			tinymce.get("reply").setMode('design');
 			$('#distSource').attr('disabled',false);
 			$('#btn-upload').show();
+			$('#writeform').off( "mousedown");
+			$('#noInputDate').text('');
 		}
 		
 	});

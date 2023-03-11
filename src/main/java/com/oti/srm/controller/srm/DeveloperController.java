@@ -166,14 +166,47 @@ public class DeveloperController {
 
 	@PostMapping("/tempstore")
 	@ResponseBody
-	public Map<String,String> tempStore(StatusHistory statusHistory, HttpSession session, Model model) {
+	public Map<String,String> tempStore(int rno, StatusHistory statusHistory,RequestProcess rp, HttpSession session, Model model, @RequestParam MultipartFile[] files) {
 		log.info("실행");
 		log.info("rno : " + statusHistory.getRno());
 		log.info("nextStatus : " + statusHistory.getNextStatus());
+		
+		//rno 세팅
+		statusHistory.setRno(rno);
+		rp.setRno(rno);
+		
+		//파일 세팅
+		List<StatusHistoryFile> sFiles = new ArrayList<>();
+		try {
+			if (files != null) {
+				for (MultipartFile file : files) {
+					if (!file.isEmpty()) {
+						StatusHistoryFile statusHistoryFile = new StatusHistoryFile();
+						statusHistoryFile.setFileName(file.getOriginalFilename());
+						statusHistoryFile.setFileType(file.getContentType());
+						statusHistoryFile.setFileData(file.getBytes());
+						sFiles.add(statusHistoryFile);
+					}
+				}
+
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		statusHistory.setFileList(sFiles);
+		
+		
 		Member member = (Member) session.getAttribute("member");
 		statusHistory.setWriter(member.getMid());
+		
 		// 기존 임시 저장글이 있는지 확인
 		StatusHistory tempStatusHistory = commonService.getTempStatusHistory(member, statusHistory);
+		
+		//진척률 업데이트
+		if(member.getMtype().equals("developer")) {
+			commonService.updateDevProgress(rp);
+		}
+		
 		if (tempStatusHistory == null) {
 			// insert
 			commonService.writeStatusHistory(statusHistory);
