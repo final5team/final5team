@@ -156,7 +156,7 @@ public class DeveloperController {
 			e.printStackTrace();
 		}
 		statusHistory.setFileList(sFiles);
-		commonService.endWork(statusHistory, member.getMtype());
+		commonService.endWork(statusHistory, member);
 
 		// 서비스 변경 여부(테스터 미확인 상태 변경)
 		commonService.notCheck("tester", statusHistory.getRno());
@@ -260,6 +260,9 @@ public class DeveloperController {
 		}
 		else if (member.getMtype().equals("distributor")) {
 			return "redirect:/distributedetail?rno=" + rp.getRno();
+		}
+		else {
+			return "redirect:/receiptdetail?rno=" + rp.getRno();
 		}
 	}
 

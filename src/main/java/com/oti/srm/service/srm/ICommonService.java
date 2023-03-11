@@ -24,9 +24,9 @@ public interface ICommonService {
 
 	public void startWork(StatusHistory statusHistory, Date expectDate, String mtype);
 
-	public void endWork(StatusHistory statusHistory, String mtype);
+	public void endWork(StatusHistory statusHistory, Member member);
 	
-	public void reWork(StatusHistory statusHistory, String mtype);
+	public void reWork(StatusHistory statusHistory, Member member);
 	
 	public List<StatusHistory> getTesterToDevHistories(int rno);
 	
