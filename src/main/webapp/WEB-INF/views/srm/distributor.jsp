@@ -89,7 +89,19 @@
 													<textarea name="reply" id="reply">${distributorTemp.reply}</textarea>
 												</div>
 											</div>
-											
+											<div class="row mt-3">
+	                	 						<span class="col-2 label">기존 첨부파일</span>
+	                	 						<div>
+                	 								<c:forEach var="statusHistoryFile" items="${distributorTemp.fileList}">
+													<div>
+														<span>${statusHistoryFile.fileName}</span>
+														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+															<i class="fas fa-cloud-download-alt text-info"></i>
+														</a>
+													</div>
+													</c:forEach>
+	                	 						</div>
+                	 						</div>
 											<div class="filebox d-flex mb-3">
 												<div class="label label-write" id="fileLable">
 													<div>첨부파일</div>
