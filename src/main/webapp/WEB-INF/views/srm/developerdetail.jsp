@@ -14,7 +14,7 @@
     
     <style>
     .progress-group{
-    padding: 0px 140px;
+    padding: 0px 0px 0px 140px;
     margin: 15px 0px;
     }
     .tox-statusbar__branding {
@@ -73,7 +73,7 @@
 													</c:if>
 
 													<c:if test="${request.statusNo == 4}">
-													<input class="date-form control" name="devExpectDate" id="afterDevExpectDate" value="<fmt:formatDate value='${requestProcess.devExpectDate}' pattern='yyyy-MM-dd'/>" readonly>
+													<input class="date-form control" id="afterDevExpectDate" value="<fmt:formatDate value='${requestProcess.devExpectDate}' pattern='yyyy-MM-dd'/>" readonly>
 													</c:if>
 													<small id="noInputDate" style="color : red;"></small>
 													
@@ -94,7 +94,7 @@
 												<div class="flex-grow-1">
 													<input class="form-control boxed" name="distSource" id="distSource" style="height: 20px;" value="${devTemp.distSource}">
 													<div class="d-flex justify-content-end">
-														<small class=" mr-5" id="counterSource">(0 / 100)</small>
+														<small class=" mr-5 text-right" id="counterSource">(0 / 100)</small>
 													</div>
 												</div>
 											</div>
@@ -111,16 +111,9 @@
 												</div>
 											</div>
 											<div id="filebox">
-												<div class="row mb-3">
-													<div class="label col-2" id="fileLable">첨부파일</div>
-													<div class="border col-8 border" id="file-list"></div>	
-												</div>
-												<div class="row mb-3 mt-1">
-													<div class="col-2 label ">
-														<div class="btn btn-sm btn-info" id="btn-upload">파일 추가</div>
-														<input type="file" name="files" id="fileInput" multiple style="display: none;">
-													</div>
-													<div class="col-8 p-2">
+												<div class="d-flex">
+													<div class="label label-write" id="fileLable">첨부파일</div>
+													<div class="flex-grow-1 p-2">
 														<c:forEach var="statusHistoryFile" items="${devTemp.fileList}">
 															<div>
 																<span>${statusHistoryFile.fileName}</span> 
@@ -130,6 +123,13 @@
 															</div>
 														</c:forEach>
 													</div>
+												</div>
+												<div class="d-flex mb-3 mt-1">
+													<div class="label-write label ">
+														<div class="btn btn-sm btn-info" id="btn-upload">파일 추가</div>
+														<input type="file" name="files" id="fileInput" multiple style="display: none;">
+													</div>
+													<div class="border flex-grow-1 border" id="file-list"></div>	
 												</div>
 											</div>
 										</form>
@@ -239,7 +239,6 @@
 																			<i class="fas fa-cloud-download-alt text-info"></i>
 																		</a>
 																		<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a>
-																		<input type="hidden" name = "fno" value="${statusHistoryFile.fno}">
 																	</div>
 																	</c:forEach>
 					                	 						</div>
@@ -402,21 +401,35 @@
 	function devEnd(){
 		$('#writeform').attr('action', '${pageContext.request.contextPath}/devdone');
 		
-		//선택된 파일 지우기
-		var fileInput = $('#fileInput')[0];
-		var fileBuffer = new DataTransfer();
-		fileInput.files = fileBuffer.files;
+		//진척률 100% 인지 검사하기
+		let devProgress = $('#devProgress').val();
 		
-		//배열의 항목으로 채우기
-		fileBuffer = new DataTransfer();
-		for(var i = 0; i < content_files.length; i ++){
-			if(!content_files[i].is_delete){
-				fileBuffer.items.add(content_files[i]);
-			} 
+		//숫자에 대한 유효성 검사하기
+		let result = updateProgress (devProgress);
+		//result 가 true 면 0과 100 사이의 숫자라는 의미 -> 100일 때만 실행시키기
+		if(result){
+			if( devProgress == 100) {
+				//선택된 파일 지우기
+				var fileInput = $('#fileInput')[0];
+				var fileBuffer = new DataTransfer();
+				fileInput.files = fileBuffer.files;
+				
+				//배열의 항목으로 채우기
+				fileBuffer = new DataTransfer();
+				for(var i = 0; i < content_files.length; i ++){
+					if(!content_files[i].is_delete){
+						fileBuffer.items.add(content_files[i]);
+					} 
+				}
+				fileInput.files = fileBuffer.files;
+				
+				$('#writeform').submit();
+			} else{
+				$('#completeContent').text('진척률 100% 일때 개발 완료가 가능합니다.');
+				$('#completeModal').modal();
+			}
 		}
-		fileInput.files = fileBuffer.files;
 		
-		$('#writeform').submit();
 	}
 	
 	
@@ -583,8 +596,11 @@
 	    // 파일 배열 담기
 	    var filesArr = Array.prototype.slice.call(files);
 	    
+		  //기존에 있던 파일 객체
+	    var existfiles = $('.existfiles');
+	    
 	    // 파일 개수 확인 및 제한
-	    if (fileCount + filesArr.length > totalCount) {
+	    if (fileCount + filesArr.length > totalCount - existfiles.length) {
 	    	$('#completeModal').modal();
 	    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
 	      return;
@@ -618,6 +634,7 @@
 	    
 		$('#' + fileId).remove();
 		fileCount --;
+		console.log("fileDelete-fileCount: " + fileCount);
 	}
 	/********* 파일 수정 *********/
 	
