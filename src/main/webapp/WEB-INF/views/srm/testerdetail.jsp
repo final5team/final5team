@@ -114,10 +114,36 @@
 													<input type="hidden" id="tempReexam" value="${tempReexam.reply}">
 												</div>
 											</div>
-											
+									
+											<div class="row mt-3" id="tempNormalFile">
+	                	 						<span class="col-2 label">기존 첨부파일</span>
+	                	 						<div>
+                	 								<c:forEach var="statusHistoryFile" items="${tempNormal.fileList}">
+													<div>
+														<span>${statusHistoryFile.fileName}</span>
+														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+															<i class="fas fa-cloud-download-alt text-info"></i>
+														</a>
+													</div>
+													</c:forEach>
+	                	 						</div>
+                	 						</div>
+               	 							<div class="row mt-3" style="display:none;" id="tempReexamFile">
+	                	 						<span class="col-2 label">기존 첨부파일</span>
+	                	 						<div>
+                	 								<c:forEach var="statusHistoryFile" items="${tempReexam.fileList}">
+													<div>
+														<span>${statusHistoryFile.fileName}</span>
+														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+															<i class="fas fa-cloud-download-alt text-info"></i>
+														</a>
+													</div>
+													</c:forEach>
+	                	 						</div>
+                	 						</div>
 											<div class="filebox d-flex mb-3">
 												<div class="label label-write">
-													<div id="fileLabel">첨부파일</div>
+													<div id="fileLabel">파일 추가</div>
 													<div class="btn btn-sm btn-info" id="btn-upload">파일 추가</div>
 													<input type="file" name="files" id="fileInput" multiple style="display: none;">
 												</div>
@@ -342,6 +368,8 @@
 	/* 정상 & 재검토 버튼 눌렀을 시 */
 	function turnNormal(){
 		$('input[name="nextStatus"]').val("15");
+		$('#tempNormalFile').show();
+		$('#tempReexamFile').hide();
 		$('#normal').addClass('active');
 		$('#reexam').removeClass('active');
 		$('#replylabel').text('내용작성');
@@ -351,11 +379,12 @@
 		/* textarea 값 바꿔주기 */
 		var content = $('#tempNormal').val();
 		tinymce.get('reply').setContent(content);
-
 		
 	}
 	function turnReexam(){
 		$('input[name="nextStatus"]').val("16");
+		$('#tempNormalFile').hide();
+		$('#tempReexamFile').show();
 		$('#reexam').addClass('active');
 		$('#normal').removeClass('active');
 		$('#replylabel').text('재검토사유');
