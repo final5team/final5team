@@ -380,8 +380,14 @@ public class CommonService implements ICommonService {
 	}
 
 	@Override
+	@Transactional
 	public StatusHistory getTempStatusHistory(Member member, StatusHistory statusHistory) {
-		return commonDao.selectTempStatusHistory(member, statusHistory);
+		StatusHistory temp = new StatusHistory();
+		temp = commonDao.selectTempStatusHistory(member, statusHistory);
+		if (temp != null) {
+			temp.setFileList(commonDao.selectStatusHistoryFiles(temp.getHno()));
+		}
+		return temp;
 	}
 
 	@Override
@@ -421,28 +427,16 @@ public class CommonService implements ICommonService {
 	@Override
 	@Transactional
 	public void updateHistory(RequestProcess rp, StatusHistory sh, Member member) {
-		if (member.getMtype().equals("pm")) {
-			commonDao.updateRequestProcess(rp);
-			commonDao.updateRealStatusHistory(sh);
-			if (sh.getFileList() != null) {
-				List<StatusHistoryFile> fileList = sh.getFileList();
-				for (StatusHistoryFile file : fileList) {
-					file.setHno(sh.getHno());
-					commonDao.insertStatusHistoryFile(file);
-				}
-			}
-
-		} else {
-			commonDao.updateRealStatusHistory(sh);
-
-			if (sh.getFileList() != null) {
-				List<StatusHistoryFile> fileList = sh.getFileList();
-				for (StatusHistoryFile file : fileList) {
-					file.setHno(sh.getHno());
-					commonDao.insertStatusHistoryFile(file);
-				}
+		commonDao.updateRequestProcess(rp);
+		commonDao.updateRealStatusHistory(sh);
+		if (sh.getFileList() != null) {
+			List<StatusHistoryFile> fileList = sh.getFileList();
+			for (StatusHistoryFile file : fileList) {
+				file.setHno(sh.getHno());
+				commonDao.insertStatusHistoryFile(file);
 			}
 		}
+
 	}
 
 	@Override

@@ -185,7 +185,7 @@ public class PMController {
 		// 최종 완료 처리
 		statusHistory.setNextStatus(13);
 		// PM 처리 완료(완료 승인)
-		commonService.endWork(statusHistory, me.getMtype());
+		commonService.endWork(statusHistory, me);
 		// 서비스 변경 여부(사용자 미확인)
 		commonService.notCheck("user", statusHistory.getRno());
 
