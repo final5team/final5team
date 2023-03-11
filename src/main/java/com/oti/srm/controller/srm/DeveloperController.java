@@ -156,7 +156,7 @@ public class DeveloperController {
 			e.printStackTrace();
 		}
 		statusHistory.setFileList(sFiles);
-		commonService.endWork(statusHistory, member.getMtype());
+		commonService.endWork(statusHistory, member);
 
 		// 서비스 변경 여부(테스터 미확인 상태 변경)
 		commonService.notCheck("tester", statusHistory.getRno());
@@ -220,6 +220,7 @@ public class DeveloperController {
 		return map;
 	}
 
+	// PM 요청 처리 계획 수정 
 	@PostMapping("updatehistory")
 	public String updateHistory(@RequestParam("rno") String rno, RequestProcess rp, StatusHistory sh, HttpSession session, Model model, MultipartFile[] files) {
 		log.info("updateHistory");
@@ -245,38 +246,28 @@ public class DeveloperController {
 				e.printStackTrace();
 			}
 		}
-		log.info(rp.getRno());
-		log.info(sh.getRno());
 		commonService.updateHistory(rp, sh, member);
+		return "redirect:/receiptdetail?rno=" + rp.getRno();
 		
-		if (member.getMtype().equals("developer")) {		
-			return "redirect:/developerdetail?rno=" + rp.getRno();
-		}
-		else if (member.getMtype().equals("tester")) {
-			return "redirect:/testerdetail?rno=" + rp.getRno();
-		}
-		else if (member.getMtype().equals("usertester")) {
-			return "redirect:/usertestdetail?rno=" + rp.getRno();
-		}
-		else if (member.getMtype().equals("distributor")) {
-			return "redirect:/distributedetail?rno=" + rp.getRno();
-		}
 	}
 
-	@PostMapping("rollbackStep")
+	// developer,tester,usertester,distributor 단계 롤백(수정)
+	@PostMapping("rollbackstep")
 	public String rollBackStep(int hno, HttpSession session, Model model) {
 		log.info("실행");
 		Member member = (Member) session.getAttribute("member");
-		commonService.rollBackStep(member, hno);
 		StatusHistory mySh = commonService.getStatusHistory(hno);
+		int rno = mySh.getRno();
+		commonService.rollBackStep(member, hno);
+		log.info(mySh);
 		if (member.getMtype().equals("developer")) {
-			return "redirect:/developerdetail?rno=" + mySh.getRno();
+			return "redirect:/developerdetail?rno=" + rno;
 		} else if (member.getMtype().equals("tester")) {
-			return "redirect:/testerdetail?rno=" + mySh.getRno();
+			return "redirect:/testerdetail?rno=" + rno;
 		} else if (member.getMtype().equals("usertester")) {
-			return "redirect:/usertestdetail?rno=" + mySh.getRno();
+			return "redirect:/usertestdetail?rno=" + rno;
 		} else {
-			return "redirect:/distributedetail?rno=" + mySh.getRno();
+			return "redirect:/distributedetail?rno=" + rno;
 		}
 	}
 

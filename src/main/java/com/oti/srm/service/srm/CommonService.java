@@ -155,9 +155,9 @@ public class CommonService implements ICommonService {
 	 */
 	@Override
 	@Transactional
-	public void endWork(StatusHistory statusHistory, String mtype) {
+	public void endWork(StatusHistory statusHistory, Member member) {
 		commonDao.updateRequestStatus(statusHistory.getRno(), statusHistory.getNextStatus());
-		commonDao.updateCompDate(statusHistory.getRno(), mtype);
+		commonDao.updateCompDate(statusHistory.getRno(), member.getMtype());
 		commonDao.insertStatusHistory(statusHistory);
 		if (statusHistory.getFileList() != null && statusHistory.getFileList().size() > 0) {
 			for (StatusHistoryFile file : statusHistory.getFileList()) {
@@ -165,33 +165,53 @@ public class CommonService implements ICommonService {
 				commonDao.insertStatusHistoryFile(file);
 			}
 		}
-		// 각 단계 담당자 업무 완료 시 그 사람의 해당 요청건 임시저장글 null처리
+		// 각 단계 담당자 업무 완료 시 그 사람의 해당 요청건 임시저장글 null처리 + 임시파일 삭제
 		StatusHistory tempHistoryChange = new StatusHistory();
 		tempHistoryChange.setRno(statusHistory.getRno());
 		tempHistoryChange.setWriter(statusHistory.getWriter());
 		tempHistoryChange.setReply(null);
 		tempHistoryChange.setDistSource(null);
-		if (mtype.equals("developer")) {
+		if (member.getMtype().equals("developer")) {
 			tempHistoryChange.setNextStatus(14);
-			commonDao.updateStatusHistory(tempHistoryChange);
-		} else if (mtype.equals("tester")) {
+			StatusHistory temp = commonDao.selectTempStatusHistory(member, tempHistoryChange);
+			if (temp != null) {
+				commonDao.updateStatusHistory(tempHistoryChange);
+				commonDao.deleteStautsHistoryFiles(temp.getHno());
+			}
+		} else if (member.getMtype().equals("tester")) {
 			tempHistoryChange.setNextStatus(15);
-			commonDao.updateStatusHistory(tempHistoryChange);
+			StatusHistory temp = commonDao.selectTempStatusHistory(member, tempHistoryChange);
+			if (temp != null) {
+				commonDao.updateStatusHistory(tempHistoryChange);
+				commonDao.deleteStautsHistoryFiles(temp.getHno());
+			}
 			tempHistoryChange.setNextStatus(16);
-			commonDao.updateStatusHistory(tempHistoryChange);
-		} else if (mtype.equals("usertester")) {
+			temp = commonDao.selectTempStatusHistory(member, tempHistoryChange);
+			if (temp != null) {
+				commonDao.updateStatusHistory(tempHistoryChange);
+				commonDao.deleteStautsHistoryFiles(temp.getHno());
+			}
+		} else if (member.getMtype().equals("usertester")) {
 			tempHistoryChange.setNextStatus(17);
-			commonDao.updateStatusHistory(tempHistoryChange);
-		} else if (mtype.equals("distributor")) {
+			StatusHistory temp = commonDao.selectTempStatusHistory(member, tempHistoryChange);
+			if (temp != null) {
+				commonDao.updateStatusHistory(tempHistoryChange);
+				commonDao.deleteStautsHistoryFiles(temp.getHno());
+			}
+		} else if (member.getMtype().equals("distributor")) {
 			tempHistoryChange.setNextStatus(18);
-			commonDao.updateStatusHistory(tempHistoryChange);
+			StatusHistory temp = commonDao.selectTempStatusHistory(member, tempHistoryChange);
+			if (temp != null) {
+				commonDao.updateStatusHistory(tempHistoryChange);
+				commonDao.deleteStautsHistoryFiles(temp.getHno());
+			}
 		}
 
 	}
 
 	@Override
 	@Transactional
-	public void reWork(StatusHistory statusHistory, String mtype) {
+	public void reWork(StatusHistory statusHistory, Member member) {
 		commonDao.updateRequestStatus(statusHistory.getRno(), statusHistory.getNextStatus());
 		commonDao.updateResetDate(statusHistory.getRno());
 		commonDao.insertStatusHistory(statusHistory);
@@ -208,9 +228,17 @@ public class CommonService implements ICommonService {
 		tempHistoryChange.setReply(null);
 		tempHistoryChange.setDistSource(null);
 		tempHistoryChange.setNextStatus(15);
-		commonDao.updateStatusHistory(tempHistoryChange);
+		StatusHistory temp = commonDao.selectTempStatusHistory(member, tempHistoryChange);
+		if (temp != null) {
+			commonDao.updateStatusHistory(tempHistoryChange);
+			commonDao.deleteStautsHistoryFiles(temp.getHno());
+		}
 		tempHistoryChange.setNextStatus(16);
-		commonDao.updateStatusHistory(tempHistoryChange);
+		temp = commonDao.selectTempStatusHistory(member, tempHistoryChange);
+		if (temp != null) {
+			commonDao.updateStatusHistory(tempHistoryChange);
+			commonDao.deleteStautsHistoryFiles(temp.getHno());
+		}
 	}
 
 //	(테스터 -> 개발자) 재검토 요청에 대한 단계 변경 이력
@@ -352,14 +380,20 @@ public class CommonService implements ICommonService {
 	}
 
 	@Override
+	@Transactional
 	public StatusHistory getTempStatusHistory(Member member, StatusHistory statusHistory) {
-		return commonDao.selectTempStatusHistory(member, statusHistory);
+		StatusHistory temp = new StatusHistory();
+		temp = commonDao.selectTempStatusHistory(member, statusHistory);
+		if (temp != null) {
+			temp.setFileList(commonDao.selectStatusHistoryFiles(temp.getHno()));
+		}
+		return temp;
 	}
 
 	@Override
 	public void writeStatusHistory(StatusHistory statusHistory) {
 		commonDao.insertStatusHistory(statusHistory);
-		
+
 		if (statusHistory.getFileList() != null) {
 			List<StatusHistoryFile> fileList = statusHistory.getFileList();
 			for (StatusHistoryFile file : fileList) {
@@ -373,7 +407,7 @@ public class CommonService implements ICommonService {
 	@Override
 	public void updateStatusHistory(StatusHistory statusHistory) {
 		commonDao.updateStatusHistory(statusHistory);
-		
+
 		if (statusHistory.getFileList() != null) {
 			List<StatusHistoryFile> fileList = statusHistory.getFileList();
 			for (StatusHistoryFile file : fileList) {
@@ -393,28 +427,16 @@ public class CommonService implements ICommonService {
 	@Override
 	@Transactional
 	public void updateHistory(RequestProcess rp, StatusHistory sh, Member member) {
-		if (member.getMtype().equals("pm")) {
-			commonDao.updateRequestProcess(rp);
-			commonDao.updateRealStatusHistory(sh);
-			if (sh.getFileList() != null) {
-				List<StatusHistoryFile> fileList = sh.getFileList();
-				for (StatusHistoryFile file : fileList) {
-					file.setHno(sh.getHno());
-					commonDao.insertStatusHistoryFile(file);
-				}
-			}
-
-		} else {
-			commonDao.updateRealStatusHistory(sh);
-
-			if (sh.getFileList() != null) {
-				List<StatusHistoryFile> fileList = sh.getFileList();
-				for (StatusHistoryFile file : fileList) {
-					file.setHno(sh.getHno());
-					commonDao.insertStatusHistoryFile(file);
-				}
+		commonDao.updateRequestProcess(rp);
+		commonDao.updateRealStatusHistory(sh);
+		if (sh.getFileList() != null) {
+			List<StatusHistoryFile> fileList = sh.getFileList();
+			for (StatusHistoryFile file : fileList) {
+				file.setHno(sh.getHno());
+				commonDao.insertStatusHistoryFile(file);
 			}
 		}
+
 	}
 
 	@Override
@@ -463,13 +485,10 @@ public class CommonService implements ICommonService {
 
 	@Override
 	public void rollBackStep(Member member, int hno) {
-		// 1. 해당 요청건에 해당 담당자가 작성한 임시글이 있는지 확인한다.(tester의 경우 현재 상태가 재검토인지 테스트 완료인지 확인 추가
-		// 필요)
-		// 2. 있다면 해당 hno의 내용과 파일을 임시글에 옮기고 파일도 등록한다.
-
+		// 해당 단계 가장 최근 완료 히스토리
+		StatusHistory mySh = commonDao.selectStatusHistory(hno);
+		List<StatusHistoryFile> shFileList = commonDao.selectStatusHistoryFiles(hno);
 		if (member.getMtype().equals("developer")) {
-			// 해당 단계 가장 최근 완료 히스토리
-			StatusHistory mySh = commonDao.selectStatusHistory(hno);
 			// 1. 해당 요청건에 해당 담당자가 작성한 임시글이 있는지 확인한다.
 			StatusHistory searchParam = new StatusHistory();
 			searchParam.setRno(mySh.getRno());
@@ -486,12 +505,20 @@ public class CommonService implements ICommonService {
 				newTempSh.setNextStatus(14);
 				newTempSh.setWriter(member.getMid());
 				commonDao.insertStatusHistory(newTempSh);
+				for (StatusHistoryFile file : shFileList) {
+					file.setHno(newTempSh.getHno());
+					commonDao.insertStatusHistoryFile(file);
+				}
 			} else {
 				// 2. 있다면 해당 hno의 내용과 파일을 임시글에 옮기고 파일도 등록한다.
 				// update
 				tempSh.setDistSource(mySh.getDistSource());
 				tempSh.setReply(mySh.getReply());
 				commonDao.updateRealStatusHistory(tempSh);
+				for (StatusHistoryFile file : shFileList) {
+					file.setHno(tempSh.getHno());
+					commonDao.insertStatusHistoryFile(file);
+				}
 			}
 			// 3. 해당 hno의 statusHistory와 statusHistoryFile들을 지운다.
 			commonDao.deleteStautsHistoryFiles(mySh.getHno());
@@ -503,16 +530,13 @@ public class CommonService implements ICommonService {
 			rp.setRno(mySh.getRno());
 			commonDao.updateCompDateNull(member, rp);
 		} else if (member.getMtype().equals("tester")) {
-			// 해당 단계 가장 최근 완료 히스토리
-			StatusHistory mySh = commonDao.selectStatusHistory(hno);
 			// 1. 해당 요청건에 해당 담당자가 작성한 임시글이 있는지 확인한다.
 			StatusHistory searchParam = new StatusHistory();
 			searchParam.setRno(mySh.getRno());
 			searchParam.setWriter(member.getMid());
-			if(mySh.getNextStatus()== 3) {
+			if (mySh.getNextStatus() == 3) {
 				searchParam.setNextStatus(16);
-			}
-			else if(mySh.getNextStatus()== 7) {
+			} else if (mySh.getNextStatus() == 7) {
 				searchParam.setNextStatus(15);
 			}
 			StatusHistory tempSh = commonDao.selectTempStatusHistory(member, searchParam);
@@ -523,20 +547,27 @@ public class CommonService implements ICommonService {
 				newTempSh.setRno(mySh.getRno());
 				newTempSh.setReply(mySh.getReply());
 				newTempSh.setDistSource(mySh.getDistSource());
-				if(mySh.getNextStatus()== 3) {
+				if (mySh.getNextStatus() == 3) {
 					newTempSh.setNextStatus(16);
-				}
-				else if(mySh.getNextStatus()== 7) {
+				} else if (mySh.getNextStatus() == 7) {
 					newTempSh.setNextStatus(15);
 				}
 				newTempSh.setWriter(member.getMid());
 				commonDao.insertStatusHistory(newTempSh);
+				for (StatusHistoryFile file : shFileList) {
+					file.setHno(newTempSh.getHno());
+					commonDao.insertStatusHistoryFile(file);
+				}
 			} else {
 				// 2. 있다면 해당 hno의 내용과 파일을 임시글에 옮기고 파일도 등록한다.
 				// update
 				tempSh.setDistSource(mySh.getDistSource());
 				tempSh.setReply(mySh.getReply());
 				commonDao.updateRealStatusHistory(tempSh);
+				for (StatusHistoryFile file : shFileList) {
+					file.setHno(tempSh.getHno());
+					commonDao.insertStatusHistoryFile(file);
+				}
 			}
 			// 3. 해당 hno의 statusHistory와 statusHistoryFile들을 지운다.
 			commonDao.deleteStautsHistoryFiles(mySh.getHno());
@@ -548,8 +579,6 @@ public class CommonService implements ICommonService {
 			rp.setRno(mySh.getRno());
 			commonDao.updateCompDateNull(member, rp);
 		} else if (member.getMtype().equals("usertester")) {
-			// 해당 단계 가장 최근 완료 히스토리
-			StatusHistory mySh = commonDao.selectStatusHistory(hno);
 			// 1. 해당 요청건에 해당 담당자가 작성한 임시글이 있는지 확인한다.
 			StatusHistory searchParam = new StatusHistory();
 			searchParam.setRno(mySh.getRno());
@@ -566,12 +595,20 @@ public class CommonService implements ICommonService {
 				newTempSh.setNextStatus(17);
 				newTempSh.setWriter(member.getMid());
 				commonDao.insertStatusHistory(newTempSh);
+				for (StatusHistoryFile file : shFileList) {
+					file.setHno(newTempSh.getHno());
+					commonDao.insertStatusHistoryFile(file);
+				}
 			} else {
 				// 2. 있다면 해당 hno의 내용과 파일을 임시글에 옮기고 파일도 등록한다.
 				// update
 				tempSh.setDistSource(mySh.getDistSource());
 				tempSh.setReply(mySh.getReply());
 				commonDao.updateRealStatusHistory(tempSh);
+				for (StatusHistoryFile file : shFileList) {
+					file.setHno(tempSh.getHno());
+					commonDao.insertStatusHistoryFile(file);
+				}
 			}
 			// 3. 해당 hno의 statusHistory와 statusHistoryFile들을 지운다.
 			commonDao.deleteStautsHistoryFiles(mySh.getHno());
@@ -583,8 +620,6 @@ public class CommonService implements ICommonService {
 			rp.setRno(mySh.getRno());
 			commonDao.updateCompDateNull(member, rp);
 		} else if (member.getMtype().equals("distributor")) {
-			// 해당 단계 가장 최근 완료 히스토리
-			StatusHistory mySh = commonDao.selectStatusHistory(hno);
 			// 1. 해당 요청건에 해당 담당자가 작성한 임시글이 있는지 확인한다.
 			StatusHistory searchParam = new StatusHistory();
 			searchParam.setRno(mySh.getRno());
@@ -601,12 +636,20 @@ public class CommonService implements ICommonService {
 				newTempSh.setNextStatus(18);
 				newTempSh.setWriter(member.getMid());
 				commonDao.insertStatusHistory(newTempSh);
+				for (StatusHistoryFile file : shFileList) {
+					file.setHno(newTempSh.getHno());
+					commonDao.insertStatusHistoryFile(file);
+				}
 			} else {
 				// 2. 있다면 해당 hno의 내용과 파일을 임시글에 옮기고 파일도 등록한다.
 				// update
 				tempSh.setDistSource(mySh.getDistSource());
 				tempSh.setReply(mySh.getReply());
 				commonDao.updateRealStatusHistory(tempSh);
+				for (StatusHistoryFile file : shFileList) {
+					file.setHno(tempSh.getHno());
+					commonDao.insertStatusHistoryFile(file);
+				}
 			}
 			// 3. 해당 hno의 statusHistory와 statusHistoryFile들을 지운다.
 			commonDao.deleteStautsHistoryFiles(mySh.getHno());

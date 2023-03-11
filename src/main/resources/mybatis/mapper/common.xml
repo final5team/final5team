@@ -2,13 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.oti.srm.dao.srm.ICommonDao">
 	
-	<select id="selectStatusHistory" parameterType="int">
+	<select id="selectStatusHistory" parameterType="int" resultType="com.oti.srm.dto.StatusHistory">
 		select 
 			hno as "hno",
 	        change_date as "changeDate",
-	        sh.rno as "rno",
+	        rno as "rno",
 	        next_status as "nextStatus",
-	        status_name as "statusName",
 	        reply as "reply",
 	        dist_source as "distSource",
 	        writer as "writer"
@@ -156,8 +155,7 @@
 	<update id="updateResetDate" parameterType="int">
 		update request_process 
 			set dev_comp_date = null,
-				dev_expect_date = null,
-				test_expect_date = null
+				dev_expect_date = null
 		where rno = #{rno} 
 	</update>
 	
@@ -528,10 +526,10 @@
 	<update id="updateCompDateNull" parameterType="map">
 		update request_process
 		set 
-			<if test="member.mtype == 'developer'">dev_expect_date = null</if>
-			<if test="member.mtype == 'tester'">test_expect_date = null</if>
-			<if test="member.mtype == 'usertester'">usertest_expect_date = null</if>
-			<if test="member.mtype == 'distributor'">dist_expect_date = null</if>
+			<if test="member.mtype == 'developer'">dev_comp_date = null</if>
+			<if test="member.mtype == 'tester'">test_comp_date = null</if>
+			<if test="member.mtype == 'usertester'">usertest_comp_date = null</if>
+			<if test="member.mtype == 'distributor'">dist_comp_date = null</if>
 		where rno = #{rp.rno}
 	</update>
 	
