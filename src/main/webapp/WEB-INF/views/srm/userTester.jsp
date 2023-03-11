@@ -88,10 +88,22 @@
 													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply">${userTesterTemp.reply}</textarea>
 												</div>
 											</div>
-											
+											<div class="row mt-3">
+	                	 						<span class="col-2 label">기존 첨부파일</span>
+	                	 						<div>
+                	 								<c:forEach var="statusHistoryFile" items="${userTesterTemp.fileList}">
+													<div>
+														<span>${statusHistoryFile.fileName}</span>
+														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+															<i class="fas fa-cloud-download-alt text-info"></i>
+														</a>
+													</div>
+													</c:forEach>
+	                	 						</div>
+                	 						</div>
 											<div class="filebox d-flex mb-3">
 												<div class="label label-write" id="fileLable">
-													<div>첨부파일</div>
+													<div>파일 추가</div>
 													<div class="btn btn-sm btn-info" id="btn-upload">파일 추가</div>
 													<input type="file" name="files" id="fileInput" multiple style="display: none;">
 												</div>
@@ -123,113 +135,55 @@
 	                	 				<h3 class="title">
 	                	 					테스트 내역  <i class="far fa-bookmark success"></i>
 	                	 				</h3>
+	                	 				<c:if test="${requestProcess.userTester == member.mid && request.statusNo == 9}">
+			                	 			<form method="post" action="${pageContext.request.contextPath}/rollbackstep">
+			                	 				<input type="hidden" name="hno" value="${statusHistory.hno}"/>
+			                	 				<button type="submit" class="btn btn-primary btn-sm">ROLLBACK</button>
+			                	 			</form>
+			                	 		</c:if>
 	                	 			</div>
-	                	 			<form method="post" action="<c:url value='/updatehistory'/>" enctype="multipart/form-data">
-	                	 				<div class="card-body">
-	                	 					<div>
-	                	 						<div class="row">
-		                	 						<div class="col-2 label">작성자</div>
-		                	 						<div class="col-3">${statusHistory.writer}</div>
-		                	 						<div class="col-2 label">품질검토 완료일</div>
-		                	 						<div class="col-3"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
+	                	 			<div class="card-body">
+                	 					<div>
+                	 						<div class="row">
+	                	 						<div class="col-2 label">작성자</div>
+	                	 						<div class="col-3">${statusHistory.writer}</div>
+	                	 						<div class="col-2 label">품질검토 완료일</div>
+	                	 						<div class="col-3"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
+                	 						</div>
+                	 						<div class="row mt-3">
+               	 								<span class="col-2 label">검토 내용</span>
+                	 							<div class="col-8 border scroller p-2" >${statusHistory.reply}</div>
+                	 						</div>
+                	 						<div class="row mt-3">
+	                	 						<span class="col-2 label">첨부파일</span>
+	                	 						<div>
+                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+													<div>
+														<span>${statusHistoryFile.fileName}</span>
+														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+															<i class="fas fa-cloud-download-alt text-info"></i>
+														</a>
+													</div>
+													</c:forEach>
 	                	 						</div>
-                	 							<c:if test="${requestProcess.userTester != member.mid}">
-		                	 						<div class="row mt-3">
-	                	 								<span class="col-2 label">검토 내용</span>
-		                	 							<div class="col-8 border scroller p-2" >${statusHistory.reply}</div>
-		                	 						</div>
-		                	 						<div class="row mt-3">
-			                	 						<span class="col-2 label">첨부파일</span>
-			                	 						<div>
-		                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-															<div>
-																<span>${statusHistoryFile.fileName}</span>
-																<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-																	<i class="fas fa-cloud-download-alt text-info"></i>
-																</a>
-															</div>
-															</c:forEach>
-			                	 						</div>
-		                	 						</div>
-                	 							</c:if>
-                	 							
-               	 								<c:if test="${requestProcess.userTester == member.mid}">
-               	 									<c:if test="${request.statusNo == 9}">
-	              	 									<div class="row mt-3">
-	                	 									<input type="hidden" name="rno" value="${request.rno}"/>
-		                	 								<input type="hidden" name="hno" value="${statusHistory.hno}"/>
-	                	 									<span class="col-2 label" >검토 내용</span>
-		                	 								<textarea  class="replyWrite" name="reply">${statusHistory.reply}</textarea>
-    	          	 									</div>
-    	          	 									<div class="row mt-3">
-				                	 						<span class="col-2 label" >첨부파일</span>
-				                	 						<div>
-			                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-																<div>
-																	<span>${statusHistoryFile.fileName}</span>
-																	<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-																		<i class="fas fa-cloud-download-alt text-info"></i>
-																	</a>
-																	<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a>
-																	<input type="hidden" name = "fno" value="${statusHistoryFile.fno}">
-																</div>
-																</c:forEach>
-				                	 						</div>
-			                	 						</div>
-			                	 						<div class="filebox row mb-3">
-															<div class="col-2 label label-write" id="fileLable">
-																<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
-																<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
-															</div>
-															<div class="border flex-grow-1 col-8" id="file-list-update"></div>	
-														</div>
-                	 								</c:if>
-                	 								<c:if test="${request.statusNo != 9}">
-                	 									<div class="row">
-	                	 									<span class="col-2 label">검토 내용</span>
-		                	 								<div rows="2" class="border scroller p-2">${statusHistory.reply}</div>
-                	 									</div>
-                	 									<div class="row mt-3">
-				                	 						<span class="col-2 label" style="text-align :left; width: 10%;">첨부파일</span>
-				                	 						<div>
-			                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-																<div>
-																	<span>${statusHistoryFile.fileName}</span>
-																	<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-																		<i class="fas fa-cloud-download-alt text-info"></i>
-																	</a>
-																</div>
-																</c:forEach>
-				                	 						</div>
-			                	 						</div>
-                	 								</c:if>
-                	 							</c:if>
-	                	 						
-	                	 						<c:if test="${request.statusNo == 9 && requestProcess.userTester == member.mid}">
-	                	 							<div class="d-flex justify-content-end">
-		                	 							<button onclick="update()" class="btn btn-primary btn-sm mx-3">수정</button>	
-	                	 							</div>
-	                	 						</c:if>	
-	                	 					</div>
-	                	 				</div>
-                	 				</form>
+                	 						</div>
+               	 						</div>
+             	 					</div>
                 	 			</div>
-                	 		
-                	 		</div><!-- foreach한다면 여기부터 end -->
+                	 		</div>
                 	 		</c:forEach>
                 	 		
                 	 		<c:if test="${userTesterToDistributorHistories[0].reply == null}">
-                	 		<div class="card border-top-primary my-3"> <!-- status_history내역없을때 start -->
-                	 			<div class="card-block">
-	                	 			<div class="card-block-title mb-0 d-flex justify-content-center">
-	                	 				<h3 class="title text-gray-400">
-	                	 					내역이 없습니다. 
-	                	 				</h3>
+	                	 		<div class="card border-top-primary my-3"> <!-- status_history내역없을때 start -->
+	                	 			<div class="card-block">
+		                	 			<div class="card-block-title mb-0 d-flex justify-content-center">
+		                	 				<h3 class="title text-gray-400">
+		                	 					내역이 없습니다. 
+		                	 				</h3>
+		                	 			</div>
 	                	 			</div>
-                	 			</div>
-                	 		</div><!-- status_history내역없을때 end -->
-                	 		</c:if>
-                	 		
+	                	 		</div><!-- status_history내역없을때 end -->
+                	 		</c:if>           	 		
                 	 	</section> 
                 	 	<!-- 품질 검토 내역 end-->
                 	 	<button class="btn btn-dark btn-sm ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>

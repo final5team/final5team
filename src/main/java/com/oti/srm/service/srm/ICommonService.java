@@ -24,9 +24,9 @@ public interface ICommonService {
 
 	public void startWork(StatusHistory statusHistory, Date expectDate, String mtype);
 
-	public void endWork(StatusHistory statusHistory, String mtype);
+	public void endWork(StatusHistory statusHistory, Member member);
 	
-	public void reWork(StatusHistory statusHistory, String mtype);
+	public void reWork(StatusHistory statusHistory, Member member);
 	
 	public List<StatusHistory> getTesterToDevHistories(int rno);
 	
@@ -90,5 +90,9 @@ public interface ICommonService {
 	public int notCheck(String mtype, int rno);
 	// 신규 내역 알림
 	public List<Request> getNewAlertList(Member dbMember);
+
+	public void rollBackStep(Member member, int hno);
+	
+	public StatusHistory getStatusHistory(int hno);
 
 }

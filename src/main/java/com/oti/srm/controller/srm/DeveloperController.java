@@ -73,9 +73,10 @@ public class DeveloperController {
 		model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));
 		model.addAttribute("devTemp", devTemp);
 		model.addAttribute("testRejectExist", commonService.isThereTestReject(rno));
-		
-		// 개발 담당자 확인 여부 변경(확인)	
-		if(request.getDevCheck()==1 && member.getMtype().equals("developer") && requestProcess.getDeveloper().equals(member.getMid())) {
+
+		// 개발 담당자 확인 여부 변경(확인)
+		if (request.getDevCheck() == 1 && member.getMtype().equals("developer")
+				&& requestProcess.getDeveloper().equals(member.getMid())) {
 			commonService.check("developer", request.getRno());
 		}
 		// 신규 내역 알림 갱신
@@ -141,7 +142,6 @@ public class DeveloperController {
 		List<StatusHistoryFile> sFiles = new ArrayList<>();
 		try {
 			if (files != null) {
-				log.info("files를 인식하긴 함");
 				for (MultipartFile file : files) {
 					if (!file.isEmpty()) {
 						StatusHistoryFile statusHistoryFile = new StatusHistoryFile();
@@ -157,11 +157,11 @@ public class DeveloperController {
 			e.printStackTrace();
 		}
 		statusHistory.setFileList(sFiles);
-		commonService.endWork(statusHistory, member.getMtype());
-		
-		// 서비스 변경 여부(테스터 미확인  상태 변경)
+		commonService.endWork(statusHistory, member);
+
+		// 서비스 변경 여부(테스터 미확인 상태 변경)
 		commonService.notCheck("tester", statusHistory.getRno());
-		
+
 		return "redirect:/developerdetail?rno=" + statusHistory.getRno();
 	}
 
@@ -247,24 +247,28 @@ public class DeveloperController {
 				e.printStackTrace();
 			}
 		}
-		log.info(rp.getRno());
-		log.info(sh.getRno());
 		commonService.updateHistory(rp, sh, member);
+		return "redirect:/receiptdetail?rno=" + rp.getRno();
 		
-		if (member.getMtype().equals("developer")) {		
-			return "redirect:/developerdetail?rno=" + rp.getRno();
-		}
-		else if (member.getMtype().equals("tester")) {
-			return "redirect:/testerdetail?rno=" + rp.getRno();
-		}
-		else if (member.getMtype().equals("usertester")) {
-			return "redirect:/usertestdetail?rno=" + rp.getRno();
-		}
-		else if (member.getMtype().equals("distributor")) {
-			return "redirect:/distributedetail?rno=" + rp.getRno();
-		}
-		else {
-			return "redirect:/pm/receiptdetail?rno=" + sh.getRno();
+	}
+
+	// developer,tester,usertester,distributor 단계 롤백(수정)
+	@PostMapping("rollbackstep")
+	public String rollBackStep(int hno, HttpSession session, Model model) {
+		log.info("실행");
+		Member member = (Member) session.getAttribute("member");
+		StatusHistory mySh = commonService.getStatusHistory(hno);
+		int rno = mySh.getRno();
+		commonService.rollBackStep(member, hno);
+		log.info(mySh);
+		if (member.getMtype().equals("developer")) {
+			return "redirect:/developerdetail?rno=" + rno;
+		} else if (member.getMtype().equals("tester")) {
+			return "redirect:/testerdetail?rno=" + rno;
+		} else if (member.getMtype().equals("usertester")) {
+			return "redirect:/usertestdetail?rno=" + rno;
+		} else {
+			return "redirect:/distributedetail?rno=" + rno;
 		}
 	}
 

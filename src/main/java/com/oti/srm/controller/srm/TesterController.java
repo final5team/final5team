@@ -143,7 +143,7 @@ public class TesterController {
 			e.printStackTrace();
 		}
 		statusHistory.setFileList(sFiles);
-		commonService.reWork(statusHistory, member.getMtype());
+		commonService.reWork(statusHistory, member);
 		
 		// 서비스 변경 여부(개발자 미확인  상태 변경)
 		commonService.notCheck("developer", statusHistory.getRno());
@@ -182,7 +182,7 @@ public class TesterController {
 			e.printStackTrace();
 		}
 		statusHistory.setFileList(sFiles);
-		commonService.endWork(statusHistory, member.getMtype());
+		commonService.endWork(statusHistory, member);
 		
 		// 서비스 변경 여부(담당자 미확인  상태 변경)
 		// 서비스 유형 확인
