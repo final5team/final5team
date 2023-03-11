@@ -362,12 +362,28 @@ public class CommonService implements ICommonService {
 	@Override
 	public void writeStatusHistory(StatusHistory statusHistory) {
 		commonDao.insertStatusHistory(statusHistory);
+		
+		if (statusHistory.getFileList() != null) {
+			List<StatusHistoryFile> fileList = statusHistory.getFileList();
+			for (StatusHistoryFile file : fileList) {
+				file.setHno(statusHistory.getHno());
+				commonDao.insertStatusHistoryFile(file);
+			}
+		}
 
 	}
 
 	@Override
 	public void updateStatusHistory(StatusHistory statusHistory) {
 		commonDao.updateStatusHistory(statusHistory);
+		
+		if (statusHistory.getFileList() != null) {
+			List<StatusHistoryFile> fileList = statusHistory.getFileList();
+			for (StatusHistoryFile file : fileList) {
+				file.setHno(statusHistory.getHno());
+				commonDao.insertStatusHistoryFile(file);
+			}
+		}
 
 	}
 
