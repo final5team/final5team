@@ -75,30 +75,30 @@ public class RequestController {
 		log.info("유저 등록");
 		log.info(member.toString());
 		
-//		try {
-//			if (mfile != null && !mfile.isEmpty()) {
-//				member.setFileName(mfile.getOriginalFilename());
-//				member.setSavedDate(new Date());
-//				member.setFileType(mfile.getContentType());
-//				member.setFileData(mfile.getBytes());
-//
-//				int result = userRegisterService.register(member);
-//				if (result == IUserRegisterService.REGISTER_FAIL) {
-//					return "redirect:/";
-//				} else {
-//					result = IUserRegisterService.REGISTER_SUCCESS;
-//					return "redirect:/";
-//				}
-//			} else {
-//				int result = userRegisterService.register(member);
-//				return "redirect:/";
-//			}
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			model.addAttribute("registerResult", "FAIL");s
+		try {
+			if (mfile != null && !mfile.isEmpty()) {
+				member.setFileName(mfile.getOriginalFilename());
+				member.setSavedDate(new Date());
+				member.setFileType(mfile.getContentType());
+				member.setFileData(mfile.getBytes());
+
+				int result = userRegisterService.register(member);
+				if (result == IUserRegisterService.REGISTER_FAIL) {
+					return "redirect:/";
+				} else {
+					result = IUserRegisterService.REGISTER_SUCCESS;
+					return "redirect:/";
+				}
+			} else {
+				int result = userRegisterService.register(member);
+				return "redirect:/";
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("registerResult", "FAIL");
 			return "redirect:/customer/register";
-//		}
+		}
 	}
 
 	/**

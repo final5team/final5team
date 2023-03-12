@@ -81,10 +81,14 @@
 														<div class="item">
 															<div class="select-group">
 																<select class="custom-select" id="sno" name="sno" required>
+																
 																	<option selected value="${request.sno}">${request.systemName}</option>
 																	<c:forEach var="system" items="${systemList}">
-																		<option value="${system.sno}">${system.systemName}</option>
+																		<c:if test="${request.sno != system.sno}">
+																			<option value="${system.sno}">${system.systemName}</option>
+																		</c:if>
 																	</c:forEach>
+																	
 																</select>
 															</div>
 														</div>
