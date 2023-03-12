@@ -160,12 +160,6 @@
 	                	 				<h3 class="title">
 	                	 					 ${index.count}차 내역  <i class="far fa-bookmark success"></i>
 	                	 				</h3>
-	                	 				<c:if test="${requestProcess.developer == member.mid && request.statusNo == 5 && index.last}">
-			                	 			<form method="post" action="${pageContext.request.contextPath}/rollbackstep">
-			                	 				<input type="hidden" name="hno" value="${statusHistory.hno}"/>
-			                	 				<button type="submit" class="btn btn-primary btn-sm">ROLLBACK</button>
-			                	 			</form>
-			                	 		</c:if>
 	                	 			</div>   	 	
                 	 				<div class="card-body">
                 	 					<div>
@@ -177,7 +171,7 @@
                 	 						</div>
                 	 						<div class="row mt-3">
                 	 							<div class="col-2 label" >개발내용</div>
-                	 							<div class="col-8 border p-2 scroller">${statusHistory.reply}</div>
+                	 							<div class="col-8 border p-2 scroller" style="min-height: 100px;">${statusHistory.reply}</div>
                 	 						</div>
                 	 						<div class="row mt-3">
 	                	 						<div class="col-2 label">배포소스(url)</div>
@@ -196,6 +190,12 @@
 													</c:forEach>
 	                	 						</div>
                 	 						</div>
+                	 						<c:if test="${requestProcess.developer == member.mid && request.statusNo == 5 && index.last}">
+				                	 			<form method="post" action="${pageContext.request.contextPath}/rollbackstep" class="d-flex justify-content-end">
+				                	 				<input type="hidden" name="hno" value="${statusHistory.hno}"/>
+				                	 				<button type="submit" class="btn btn-primary btn-md">수정</button>
+				                	 			</form>
+				                	 		</c:if>
                 	 					</div>
                 	 				</div>
                 	 			</div>

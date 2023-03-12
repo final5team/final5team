@@ -89,22 +89,23 @@
 													<textarea name="reply" id="reply">${distributorTemp.reply}</textarea>
 												</div>
 											</div>
-											<div class="row mt-3">
-	                	 						<span class="col-2 label">기존 첨부파일</span>
-	                	 						<div>
+											<div class="d-flex mt-3">
+	                	 						<div class="label-write label">첨부파일</div>
+	                	 						<div class="flex-grow-1">
                 	 								<c:forEach var="statusHistoryFile" items="${distributorTemp.fileList}">
 													<div>
 														<span>${statusHistoryFile.fileName}</span>
-														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+														<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
 															<i class="fas fa-cloud-download-alt text-info"></i>
 														</a>
+														<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a> 
+														<input type="hidden" name="fno" value="${statusHistoryFile.fno}">
 													</div>
 													</c:forEach>
 	                	 						</div>
                 	 						</div>
 											<div class="filebox d-flex mb-3">
 												<div class="label label-write" id="fileLable">
-													<div>첨부파일</div>
 													<div class="btn btn-sm btn-info" id="btn-upload">파일 추가</div>
 													<input type="file" name="files" id="fileInput" multiple style="display: none;">
 												</div>
@@ -138,12 +139,6 @@
 		                	 				<h3 class="title">
 		                	 					배포 내역  <i class="far fa-bookmark success"></i>
 		                	 				</h3>
-		                	 				<c:if test="${requestProcess.distributor == member.mid && request.statusNo == 11}">
-				                	 			<form method="post" action="${pageContext.request.contextPath}/rollbackstep">
-				                	 				<input type="hidden" name="hno" value="${statusHistory.hno}"/>
-				                	 				<button type="submit" class="btn btn-primary btn-sm">ROLLBACK</button>
-				                	 			</form>
-				                	 		</c:if>
 		                	 			</div>
 		                	 			<div class="card-body">
 	                	 					<div>
@@ -155,7 +150,7 @@
 	                	 						</div>
 	                	 						<div class="row mt-3">
 	               	 								<span class="col-2 label">배포 내용</span>
-	                	 							<div class="col-8 border scoller p-2">${statusHistory.reply}</div>
+	                	 							<div class="col-8 border scoller p-2" style="min-height: 100px;">${statusHistory.reply}</div>
 	               	 							</div>
 	               	 							<div class="row mt-3">
 		                	 						<span class="col-2 label">첨부파일</span>
@@ -170,6 +165,12 @@
 														</c:forEach>
 		                	 						</div>
 	                	 						</div>
+	                	 						<c:if test="${requestProcess.distributor == member.mid && request.statusNo == 11}">
+					                	 			<form method="post" action="${pageContext.request.contextPath}/rollbackstep" class="d-flex justify-content-end">
+					                	 				<input type="hidden" name="hno" value="${statusHistory.hno}"/>
+					                	 				<button type="submit" class="btn btn-primary btn-md">수정</button>
+					                	 			</form>
+					                	 		</c:if>
 	                	 					</div>
 	                	 				</div>	 			
 	                	 			</div>	
@@ -378,8 +379,11 @@
 	    // 파일 배열 담기
 	    var filesArr = Array.prototype.slice.call(files);
 	    
+	    //기존에 있던 파일 객체
+	    var existfiles = $('.existfiles');
+	    
 	    // 파일 개수 확인 및 제한
-	    if (fileCount + filesArr.length > totalCount) {
+	    if (fileCount + filesArr.length > totalCount - existfiles.length) {
 	    	console.log("모달아 왜 안뜨냐");
 	    	$('#completeModal').modal();
 	    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
@@ -434,52 +438,7 @@
 		fileInput.files = fileBuffer.files;
 		$('#writeform').submit();
 	}
-/********* 파일 수정 *********/
-	
-	/* '파일수정' 버튼 누를 때마다 파일input 실행 */
-	$(function () {
-	    $('#btn-upload-update').click(function (e) {
-	        e.preventDefault();
-	        $('#fileInputUpdate').click();
-	    });
-	})
-	function fileUpdate (e){
-		console.log("fileUpdate");
-		//파일 객체 갖고오기
-		var files = e.target.files;
-		
-		// 파일 배열 담기
-	    var filesArr = Array.prototype.slice.call(files);
-		
-		//기존에 있던 파일 객체
-	    var existfiles = $('.existfiles');
-	    
-	    if(fileCount + filesArr.length > totalCount -existfiles.length ){
-	    	$('#completeModal').modal();
-	    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
-	      return;
-	    }else {
-	    	 fileCount = fileCount + filesArr.length;
-	    }
-	 	// 각각의 파일 배열담기 및 기타
-	    filesArr.forEach(function (f) {
-	      var reader = new FileReader();
-	      
-	      reader.onload = function (e) {
-		        content_files.push(f);
-		        $('#file-list-update').append(
-		       		'<div id="file' + fileNum + '">'
-		       		+ '<font style="font-size:15px">' + f.name + '</font>'  
-		       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
-		       		+ '<div/>'
-				);
-		        fileNum ++;
-	      };
-	      
-	      reader.readAsDataURL(f);
-	    });
-	}
-	
+
 	/***************** 올린 파일 삭제 *****************/
 	$('.deletefileButton').click(function(){
 		var deleteDiv = $(this).parent();
@@ -523,17 +482,36 @@
 		var reply = tinymce.activeEditor.getContent();
 		var rno = rno;
 		var nextStatus = nextStatus;
-		console.log('nextStatus: ' + nextStatus);
-		console.log('rno: ' + rno);
-		console.log('reply: ' + reply);
+		
+		/* input.files에 존재하는 파일들 넣어주기 */
+		//선택된 파일 지우기
+		var fileInput = $('#fileInput')[0];
+		var fileBuffer = new DataTransfer();
+		fileInput.files = fileBuffer.files;
+		
+		//배열의 항목으로 채우기
+		fileBuffer = new DataTransfer();
+		for(var i = 0; i < content_files.length; i ++){
+			if(!content_files[i].is_delete){
+				fileBuffer.items.add(content_files[i]);
+			} 
+		}
+		fileInput.files = fileBuffer.files;
+		
+		//FormData 객체 안에 form태그 넣어주기
+		var form = $('#writeform')[0];
+		var formData = new FormData(form);
+		
+		 formData.set("reply", reply);
+		
+		
 		  $.ajax({
 			type: "POST",
+			enctype: "multipart/form-data",
 			url: "${pageContext.request.contextPath}/tempstore",
-			data: {
-				reply:reply,
-				rno:rno,
-				nextStatus:nextStatus
-			},
+			data:formData,
+			contentType:false,
+			processData: false,
 			dataType: "json",
 			success : function(result){
 				console.log(result.result);
