@@ -171,7 +171,7 @@
                 	 						</div>
                 	 						<div class="row mt-3">
                 	 							<div class="col-2 label" >개발내용</div>
-                	 							<div class="col-8 border p-2 scroller">${statusHistory.reply}</div>
+                	 							<div class="col-8 border p-2 scroller" style="min-height: 100px;">${statusHistory.reply}</div>
                 	 						</div>
                 	 						<div class="row mt-3">
 	                	 						<div class="col-2 label">배포소스(url)</div>

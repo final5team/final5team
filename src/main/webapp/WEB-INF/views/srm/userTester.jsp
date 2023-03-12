@@ -153,7 +153,7 @@
                 	 						</div>
                 	 						<div class="row mt-3">
                	 								<span class="col-2 label">검토 내용</span>
-                	 							<div class="col-8 border scroller p-2" >${statusHistory.reply}</div>
+                	 							<div class="col-8 border scroller p-2" style="min-height: 100px;">${statusHistory.reply}</div>
                 	 						</div>
                 	 						<div class="row mt-3">
 	                	 						<span class="col-2 label">첨부파일</span>
