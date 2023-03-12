@@ -335,7 +335,7 @@
 	}
 	
 	/******* reply 글자수 유효성 검사 *******/
-	function checkReplyLength(){
+	function checkReplyLength(data){
 		//글자
 		var reply = tinymce.activeEditor.getContent();
 		/* var reply = reply; */
@@ -344,12 +344,11 @@
 			console.log("내용 없음");
 			$('#completeContent').text('내용을 입력해주세요.');
 			$('#completeModal').modal();
+			return false;
 		} else{
 			//2.태그가 있는 경우(글자 있음)
 			//태그들 제거해서 순수 글자수 빼오기
 			var realReply = reply.replace(/<[^>]*>?/g, '');
-			/* //int 형태로 변환
-			let intReply = parseInt(realReply.length); */
 			
 			//순수 글자수가 300이 넘는지 확인
 			if(realReply.length>300){
@@ -357,12 +356,11 @@
 				console.log("300자 초과");
 				$('#completeContent').text('300자를 초과하였습니다.');
 				$('#completeModal').modal();
-				
+				return false;
 			} else{
 				//2. 글자수 0보다 크며 300안일 경우(정상)
-				$('#completeContent').text('정상입력하였습니다.');
-				$('#completeModal').modal();
 				console.log("정상");
+				return true;
 			}
 			
 		}
@@ -377,35 +375,41 @@
 		let devProgress = $('#devProgress').val();
 		
 		//reply에 대한 글자수 유효성 검사
-		/* var result2 = checkReplyLength(reply); */
-		
-		//숫자에 대한 유효성 검사하기
-		let result = updateProgress (devProgress);
-		//result 가 true 면 0과 100 사이의 숫자라는 의미 -> 100일 때만 실행시키기
-		if(result){
-			if( devProgress == 100) {
-				
-				//선택된 파일 지우기
-				var fileInput = $('#fileInput')[0];
-				var fileBuffer = new DataTransfer();
-				fileInput.files = fileBuffer.files;
-				
-				//배열의 항목으로 채우기
-				fileBuffer = new DataTransfer();
-				for(var i = 0; i < content_files.length; i ++){
-					if(!content_files[i].is_delete){
-						fileBuffer.items.add(content_files[i]);
-					} 
+		var result2 = checkReplyLength(reply);
+		console.log(result2);
+		if(result2){
+			console.log("여기까지 result2 나옴22");
+			//숫자에 대한 유효성 검사하기
+			let result = updateProgress (devProgress);
+			//result 가 true 면 0과 100 사이의 숫자라는 의미 -> 100일 때만 실행시키기
+			if(result){
+				if( devProgress == 100) {
+					
+					//선택된 파일 지우기
+					var fileInput = $('#fileInput')[0];
+					var fileBuffer = new DataTransfer();
+					fileInput.files = fileBuffer.files;
+					
+					//배열의 항목으로 채우기
+					fileBuffer = new DataTransfer();
+					for(var i = 0; i < content_files.length; i ++){
+						if(!content_files[i].is_delete){
+							fileBuffer.items.add(content_files[i]);
+						} 
+					}
+					fileInput.files = fileBuffer.files;
+					$('#completeContent').text('개발 완료 하시겠습니까?');
+					$('#completeModal').modal();
+					$('#writeform').submit();
+					
+				} else{
+					$('#completeContent').text('진척률 100% 일때 개발 완료가 가능합니다.');
+					$('#completeModal').modal();
 				}
-				fileInput.files = fileBuffer.files;
-				
-				$('#writeform').submit();
-				
-			} else{
-				$('#completeContent').text('진척률 100% 일때 개발 완료가 가능합니다.');
-				$('#completeModal').modal();
 			}
 		}
+		
+		
 		
 	}
 	
