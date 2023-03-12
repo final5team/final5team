@@ -138,7 +138,7 @@
 										<div class="d-flex justify-content-end">
 										<button class="btn btn-dark btn-md" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">취소</button>
 										<button class="btn btn-warning btn-md mx-3" onclick="tempStore(${request.rno},14)">임시 저장</button>
-										<button class="btn btn-primary btn-md " onclick="devEnd()">개발 완료</button>
+										<button class="btn btn-primary btn-md " onclick="checkReplyLength()">개발 완료</button>
 										</div>
 										</c:if>
 										
@@ -335,31 +335,36 @@
 	}
 	
 	/******* reply 글자수 유효성 검사 *******/
-	function checkReplyLength(reply){
+	function checkReplyLength(){
 		//글자
-		var reply = reply;
+		var reply = tinymce.activeEditor.getContent();
+		/* var reply = reply; */
 		//1.태그가 없는 경우(글자 없음)
 		if(reply.length == 0){
 			console.log("내용 없음");
 			$('#completeContent').text('내용을 입력해주세요.');
 			$('#completeModal').modal();
-			return false;
-		}
-		//2.태그가 있는 경우(글자 있음)
-		//태그들 제거해서 순수 글자수 빼오기
-		var realReply = reply.replace(/<[^>]*>?/g, '');
-		//int 형태로 변환
-		let intReply = parseInt(realReply);
-		
-		//순수 글자수가 300이 넘는지 확인
-		if(intReply>300){
-		//1. 글자수 300이 넘을 경우
-			console.log("300자 초과");
-			tinymce.activeEditor.setContent(realReply.substring(0,300));
-			return false;
 		} else{
-			//2. 글자수 0보다 크며 300안일 경우(정상)
-			return true;
+			//2.태그가 있는 경우(글자 있음)
+			//태그들 제거해서 순수 글자수 빼오기
+			var realReply = reply.replace(/<[^>]*>?/g, '');
+			/* //int 형태로 변환
+			let intReply = parseInt(realReply.length); */
+			
+			//순수 글자수가 300이 넘는지 확인
+			if(realReply.length>300){
+			//1. 글자수 300이 넘을 경우
+				console.log("300자 초과");
+				$('#completeContent').text('300자를 초과하였습니다.');
+				$('#completeModal').modal();
+				
+			} else{
+				//2. 글자수 0보다 크며 300안일 경우(정상)
+				$('#completeContent').text('정상입력하였습니다.');
+				$('#completeModal').modal();
+				console.log("정상");
+			}
+			
 		}
 	}
 	
