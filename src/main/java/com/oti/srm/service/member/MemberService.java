@@ -45,8 +45,8 @@ public class MemberService implements IMemberService {
 	// 유저 아이디 중복 확인
 	@Override
 	public int checkId(String mid) {
-
-		return memberDao.selectMid(mid);
+		int result = memberDao.selectMid(mid);
+		return result;
 	}
 
 }

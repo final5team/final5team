@@ -59,9 +59,27 @@ public class UserRegisterServiceImpl implements IUserRegisterService {
 		//핸드폰 번호 암호화 처리
 		String phone = AesUtil.encrypt(member.getPhone());
 		member.setPhone(phone);
-		
+		log.info("수정 확인");
 		int rows = memberDao.updateUserInfo(member);
 		return rows;
 	}
+	//비밀번호 동일한지 확인
+	@Override
+	public boolean passwordConfirm(String password, Member sessionMember) {
+		PasswordEncoder pe = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		//신규 비밀번호 암호화 처리
+		boolean matches = pe.matches(password, sessionMember.getPassword());
+		if(matches) {
+			log.info(matches);
+			log.info("동일 비밀번호");
+		}else {
+			log.info(matches);
+			log.info("다른 비밀번호");
+		}
+		
+		return matches;
+	}
+	
+	
 	
 }

@@ -161,7 +161,6 @@
 		select count(*)
 		from members
 		where mid = #{mid}
-	
 	</select>
 	
 	

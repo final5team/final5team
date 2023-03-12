@@ -216,7 +216,7 @@
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5>
+						<h5 id="notice">
 							주의 <i class="fas fa-exclamation-triangle"></i>
 						</h5>
 						<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
@@ -320,10 +320,10 @@
 			$.ajax ({
 				url : "/srm/idconfrim",
 				method : "post",
-				data : JSON.stringify(id),
+				data : JSON.stringify(data),
 				contentType: "application/json; charset=UTF-8",
 				success : function(result){
-					if(result ==0){
+					if(result == '0'){
 						$('#idconfirm').html('사용 가능한 아이디입니다.');
 						$('#idconfirm').css('color', 'blue');
 						idTest = 'true';
@@ -422,12 +422,11 @@
 		
 		let addResult = addCheck(postcode, addr1, addr2);
 		
-		if(addResult != 'true'){
+		if(mtypeValue == null){
 			$('#countCheck').modal();
-			$('#countContent').html('주소를 입력하세요');
+			$('#countContent').html('유저 타입을 확인하세요');
 			return false;
 		}
-		
 		if(mtypeValue != 'user' && mtypeValue != 'pm'){
 			if(snoValue == "0"){
 				$('#countCheck').modal();
@@ -435,11 +434,6 @@
 				return false;
 			}
 		} 
-		if(mtypeValue == null){
-			$('#countCheck').modal();
-			$('#countContent').html('유저 타입을 확인하세요');
-			return false;
-		}
 		if (mid == '' || mid == null ){
 			$('#countCheck').modal();
 			$('#countContent').html('아이디를 입력하세요');
@@ -489,23 +483,21 @@
  			$('#countContent').html('핸드폰 번호를 확인하세요');
  			return false;
 		}
+		if(addResult != 'true'){
+			$('#countCheck').modal();
+			$('#countContent').html('주소를 입력하세요');
+			return false;
+		}
+		let click = false;
 		
- 		$('#countCheck').modal();
-    	$('#countContent').html('유저 등록 완료');
-		
-    	let modalButton = document.querySelector('#modal-button');
-		
-    	modalButton.addEventListener('click', function(){
-			return true;
-    	});
-		
+		if(openModal()){
+			if(click){
+				return true;
+			} else {
+				return false;
+			}
+		}
 	}
-	
-	
-	
-	
-	
-	
 	
 	</script>
 	
