@@ -101,7 +101,6 @@
 											<div class="d-flex">
 												<div class="label label-write">진척률</div>
 												<div class="flex-grow-1 d-flex">
-													<input type="hidden" value="${request.rno}" name="rno">
 													<input type="text" class="form-control boxed" style="width: 100px; height: 20px;" value="${requestProcess.devProgress}" name="devProgress" id="devProgress">
 													<span>%</span>
 												</div>
@@ -111,16 +110,27 @@
 													<div class="progress-bar bg-success" style="width:${requestProcess.devProgress}%"></div>
 												</div>
 											</div>
-											<div class="filebox d-flex mb-3">
-												<div class="label label-write" id="fileLable">
-													<div>첨부파일</div>
-													<div class="btn btn-sm btn-info" id="btn-upload">파일 추가</div>
-													<input type="file" name="files" id="fileInput" multiple style="display: none;">
+											<div id="filebox">
+												<div class="row mb-3">
+													<div class="label col-2" id="fileLable">첨부파일</div>
+													<div class="border col-8 border" id="file-list"></div>	
 												</div>
-												
-												<div class="border flex-grow-1 border" id="file-list">
-			  									
-			  									</div>	
+												<div class="row mb-3 mt-1">
+													<div class="col-2 label ">
+														<div class="btn btn-sm btn-info" id="btn-upload">파일 추가</div>
+														<input type="file" name="files" id="fileInput" multiple style="display: none;">
+													</div>
+													<div class="col-8 p-2">
+														<c:forEach var="statusHistoryFile" items="${devTemp.fileList}">
+															<div>
+																<span>${statusHistoryFile.fileName}</span> 
+																<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button"> <i class="fas fa-cloud-download-alt text-info"></i></a>
+																<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a> 
+																<input type="hidden" name="fno" value="${statusHistoryFile.fno}">
+															</div>
+														</c:forEach>
+													</div>
+												</div>
 											</div>
 										</form>
 										
@@ -234,8 +244,8 @@
 																	</c:forEach>
 					                	 						</div>
 				                	 						</div>
-				                	 						<div class="filebox row mb-3">
-																<div class="col-2 label label-write" id="fileLable">
+				                	 						<div class="row mb-3 mt-1">
+																<div class="col-2 label label-write">
 																	<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
 																	<input type="file" name="files" id="fileInputUpdate" multiple style="display: none;">
 																</div>
@@ -408,56 +418,60 @@
 		
 		$('#writeform').submit();
 	}
-	/* 임시저장 버튼 클릭시 form 데이터 전달 */
+	
+	
+	/****** 임시저장 버튼 클릭시 form 데이터 전달 ******/
 	function tempStore(rno,nextStatus){
 		var reply = tinymce.activeEditor.getContent();
-		var rno = rno;
-		var nextStatus = nextStatus;
 		var distSource = $('#distSource').val();
 		var devProgress = $('#devProgress').val();
 		
-		//선택된 파일 지우기
-		var fileInput = $('#fileInput')[0];
-		var fileBuffer = new DataTransfer();
-		fileInput.files = fileBuffer.files;
+		//devProgress 유효성 검사
+		var result = updateProgress(devProgress);
 		
-		//배열의 항목으로 채우기
-		fileBuffer = new DataTransfer();
-		for(var i = 0; i < content_files.length; i ++){
-			if(!content_files[i].is_delete){
-				fileBuffer.items.add(content_files[i]);
-			} 
-		}
-		fileInput.files = fileBuffer.files;
-		
-		//Form 안에 넣기
-		var formData = new FormData(fileInput);
-		
-		$.ajax({
-			type: "POST",
-			enctype: "multipart/form-data",
-			url: "${pageContext.request.contextPath}/tempstore",
-			contentType:false,
-			processData: false,
-			data: {
-				rno : rno,
-				nextStatus : nextStatus,
-				distSource : distSource,
-				reply : reply,
-				devProgress: devProgress,
-				files: formData
-			},
-			dataType: "json",
-			success : function(result){
-				console.log(result.result);
-				$('#completeContent').text('저장되었습니다.');
-				$('#completeModal').modal();
-				const timerId1 = window.setTimeout(reload, 1500);
-				function reload(){
-					location.reload();
-				}
+		if(result){
+			console.log(result);
+			
+			/* input.files에 존재하는 파일들 넣어주기 */
+			//선택된 파일 지우기
+			var fileInput = $('#fileInput')[0];
+			var fileBuffer = new DataTransfer();
+			fileInput.files = fileBuffer.files;
+			
+			//배열의 항목으로 채우기
+			fileBuffer = new DataTransfer();
+			for(var i = 0; i < content_files.length; i ++){
+				if(!content_files[i].is_delete){
+					fileBuffer.items.add(content_files[i]);
+				} 
 			}
-		});
+			fileInput.files = fileBuffer.files;
+			
+			var form = $('#writeform')[0];
+			var formData = new FormData(form);
+			
+			 formData.set("reply", reply);
+			
+			$.ajax({
+				type: "POST",
+				enctype: "multipart/form-data",
+				url: "${pageContext.request.contextPath}/tempstore",
+				contentType:false,
+				processData: false,
+				data:formData,
+				success : function(result){
+					console.log(result.result);
+					$('#completeContent').text('저장되었습니다.');
+					$('#completeModal').modal();
+					const timerId1 = window.setTimeout(reload, 1500);
+					function reload(){
+						location.reload();
+					} 
+				}
+			});
+		} 
+		
+		
 	}
 	
 	function getDevContent(index){
@@ -489,9 +503,9 @@
    	});
    	
 	/* devProgress업데이트  숫자 유효성 체크할 때 유용*/
- 	function updateProgress(){
+ 	function updateProgress(data){
 		
-		let devProgress = $('#devProgress').val();
+		let devProgress = data;
 		
 		let check = /^[0-9]+$/; 
 		/* 숫자만 입력했는지 확인하는 유효성 체크 */
@@ -501,34 +515,18 @@
 			$('#completeModal').modal();
 			$('#devProgress').val("");
 			
+			return false;
 		} else{
 			/* String 타입에서 int타입으로 변환 */
 			let intDevProgress = parseInt(devProgress);
 			
 			if (intDevProgress >=0 && intDevProgress <= 100){
-				
-				var form = $('#progressForm').serialize();
-				console.log(form);
-				$.ajax({
-					type: "POST",
-					url: "${pageContext.request.contextPath}/updatedevprogress",
-					data: form,
-					dataType: "json",
-					success : function(result){
-						console.log(result.result);
-						$('#completeContent').text('입력되었습니다.');
-						$('#completeModal').modal();
-						const timerId1 = window.setTimeout(reload, 1500);
-						function reload(){
-							location.reload();
-						} 
-					}
-				});
-				
+				return true;
 			} else{
 				$('#completeContent').text('');
 				$('#completeContent').text('0~100사이의 숫자만 입력 가능합니다.');
 				$('#completeModal').modal();
+				return false;
 			}
 			
 		}
@@ -545,7 +543,7 @@
 		
 		/****** window로딩 시, 개발시작 버튼 눌렀는지 확인하고, 작성칸 readonly 만들어주기 *****/
 		var afterDevExpectDate = $('#afterDevExpectDate').val();
-		if(afterDevExpectDate == null){
+		if(afterDevExpectDate == ''){
 			tinymce.get("reply").setMode('readonly');
 			$('#distSource').attr('disabled',true);
 			$('#btn-upload').hide();
