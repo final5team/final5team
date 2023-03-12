@@ -488,6 +488,7 @@
 																<option <c:if test="${requestProcess.developer == staff.mid}">selected</c:if> id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																													
 															</c:forEach>															
 														</select>
+														
 													</div>
 													<div class="row mb-2">
 														<label class="label col-3">*테스트 담당자 선택</label>
@@ -911,10 +912,9 @@
 			
 			$('#updateForm').submit();
 		}
-		
+
 		/****** 달력 모달 open ******/
-		$('.calendarOpen').change(function(){
-			var mid = $(this).val();
+		function openCalendar(mid){
 			if(mid == ""){
 				return;
 			}
@@ -963,7 +963,7 @@
 		 
 		   calendar.render();
 		   calendar.updateSize();
-		});
+		}
 			
 	</script>
 

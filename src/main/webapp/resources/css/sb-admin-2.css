@@ -11598,3 +11598,6 @@ input[type="radio"]:checked + label:after {
       .show > .btn.btn-warning-outline.dropdown-toggle:focus {
         -webkit-box-shadow: 0 0 0 0.2rem rgba(254, 151, 75, 0.5);
                 box-shadow: 0 0 0 0.2rem rgba(254, 151, 75, 0.5); }
+.deletefileButton{
+	cursor: pointer;
+}
