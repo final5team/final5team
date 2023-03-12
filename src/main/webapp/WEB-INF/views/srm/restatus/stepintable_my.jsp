@@ -440,7 +440,7 @@ margin: 0 0 1rem 0;
 		</li>
 		<li class="is_reject" style="cursor: pointer;" onclick="receipt(${request.rno})"><span>접수</span></li>
 		<li class="is_reject" style="cursor: pointer;" onclick="enddetail(${request.rno})" >
-			<a href="${pageContext.request.contextPath}/customer/requestdetail?rno=${request.rno}">
+			<a href="${pageContext.request.contextPath}/pm/enddetail?rno=${request.rno}">
 				<span class="has-changes">반려</span>
 			</a>
 		</li>
