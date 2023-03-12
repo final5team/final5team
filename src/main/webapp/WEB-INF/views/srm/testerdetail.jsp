@@ -109,36 +109,42 @@
 											<div class="form-group d-flex">
 												<div class="label label-write" id="replylabel">내용 작성 </div>
 												<div class="flex-grow-1" >
-													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply">${tempNormal.reply}</textarea>
+													<textarea class="form-control boxed flex-grow-1" name="reply" id="reply">${tempNormal.reply}</textarea>
 													<input type="hidden" id="tempNormal" value="${tempNormal.reply}">
 													<input type="hidden" id="tempReexam" value="${tempReexam.reply}">
 												</div>
 											</div>
-									
-											<div class="row mt-3" id="tempNormalFile">
-	                	 						<span class="col-2 label">기존 첨부파일</span>
-	                	 						<div>
-                	 								<c:forEach var="statusHistoryFile" items="${tempNormal.fileList}">
-													<div>
-														<span>${statusHistoryFile.fileName}</span>
-														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-															<i class="fas fa-cloud-download-alt text-info"></i>
-														</a>
-													</div>
-													</c:forEach>
+											<div id="tempNormalFile">
+												<div class="d-flex mt-3" >
+		                	 						<div class="label-write label">첨부파일</div>
+		                	 						<div>
+	                	 								<c:forEach var="statusHistoryFile" items="${tempNormal.fileList}">
+														<div class="flex-grow-1">
+															<span>${statusHistoryFile.fileName}</span>
+															<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																<i class="fas fa-cloud-download-alt text-info"></i>
+															</a>
+															<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a> 
+															<input type="hidden" name="fno" value="${statusHistoryFile.fno}">
+														</div>
+														</c:forEach>
+		                	 						</div>
 	                	 						</div>
-                	 						</div>
-               	 							<div class="row mt-3" style="display:none;" id="tempReexamFile">
-	                	 						<span class="col-2 label">기존 첨부파일</span>
-	                	 						<div>
-                	 								<c:forEach var="statusHistoryFile" items="${tempReexam.fileList}">
-													<div>
-														<span>${statusHistoryFile.fileName}</span>
-														<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-															<i class="fas fa-cloud-download-alt text-info"></i>
-														</a>
-													</div>
-													</c:forEach>
+											</div>
+                	 						<div id="tempReexamFile" style="display: none;">
+	               	 							<div class="d-flex mt-3">
+		                	 						<div class="label-write label">첨부파일</div>
+		                	 						<div class="flex-grow-1">
+	                	 								<c:forEach var="statusHistoryFile" items="${tempReexam.fileList}">
+														<div>
+															<span>${statusHistoryFile.fileName}</span>
+															<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																<i class="fas fa-cloud-download-alt text-info"></i>
+															</a>
+															<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a> 
+														</div>
+														</c:forEach>
+		                	 						</div>
 	                	 						</div>
                 	 						</div>
 											<div class="filebox d-flex mb-3">
@@ -153,8 +159,10 @@
 											
 											<div class="d-flex justify-content-end">
 												<c:if test="${member.mid == requestProcess.tester && request.statusNo == 6}">
-												<button class="btn btn-warning btn-md mx-3 " onclick="tempStore(${request.rno})" type="button" >임시저장</button>
-												<button class="btn btn-primary btn-md " id="testButton" onclick="testdone()">테스트 완료</button>
+												<button class="btn btn-warning btn-md " onclick="tempStore(${request.rno})" type="button" >임시저장</button>
+												<button class="btn btn-primary btn-md mx-3" id="testButton" onclick="testdone()">테스트 완료</button>
+												<!-- <button class="btn btn-dark btn-md " type="button" onclick="location.href='{pageContext.request.contextPath}/customer/requestlist'">취소</button> -->
+												<button class="btn btn-dark btn-md " type="button">취소</button>
 												</c:if>
 											</div>
 										</form>
@@ -477,8 +485,11 @@
 	    // 파일 배열 담기
 	    var filesArr = Array.prototype.slice.call(files);
 	    
+	    //기존에 있던 파일 객체
+	    var existfiles = $('.existfiles');
+	    
 	    // 파일 개수 확인 및 제한
-	    if (fileCount + filesArr.length > totalCount) {
+	    if (fileCount + filesArr.length > totalCount - existfiles.length) {
 	    	$('#completeDueDate').modal();
 	    	$('.modal-body>p').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
 	      return;
@@ -595,11 +606,9 @@
 				deleteDiv.remove();
 			}
 		});
-		
-		
 	});
 	/****** update() '수정'버튼 클릭 ******/
-	function update(formId){
+	/* function update(formId){
 		//선택된 파일 지우기
 		var fileInput = $('#fileInputUpdate')[0];
 		var fileBuffer = new DataTransfer();
@@ -616,26 +625,44 @@
 		console.log("fileInput.files" + fileInput.files.length);
 		console.log($('#rnorno').val());
 		$('#' + formId).submit();
-	}
+	} */
 	
 	/******* 임시저장 *******/
 	function tempStore(rno){
 		var reply = tinymce.activeEditor.getContent();
 		var nextStatus = $('#nextStatus').val();
 		console.log("rno : " + rno);
-		console.log("reply : " + reply);
-		console.log("nextStatus : " + nextStatus);
+		console.log("tempStore");
+		
+		/* input.files에 존재하는 파일들 넣어주기 */
+		//선택된 파일 지우기
+		var fileInput = $('#fileInput')[0];
+		var fileBuffer = new DataTransfer();
+		fileInput.files = fileBuffer.files;
+		
+		//배열의 항목으로 채우기
+		fileBuffer = new DataTransfer();
+		for(var i = 0; i < content_files.length; i ++){
+			if(!content_files[i].is_delete){
+				fileBuffer.items.add(content_files[i]);
+			} 
+		}
+		fileInput.files = fileBuffer.files;
+		
+		//FormData 객체 안에 form태그 넣어주기
+		var form = $('#writeform')[0];
+		var formData = new FormData(form);
+		
+		 formData.set("reply", reply);
 		
 		
 		 $.ajax({
 			type: "POST",
+			enctype: "multipart/form-data",
 			url: "${pageContext.request.contextPath}/tempstore",
-			data: {
-				rno : rno,
-				reply : reply,
-				nextStatus : nextStatus
-			},
-			dataType: "json",
+			contentType:false,
+			processData: false,
+			data:formData,
 			success : function(result){
 				console.log(result.result);
 				$('#completeContent').text('저장되었습니다.');
