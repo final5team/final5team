@@ -88,7 +88,7 @@
 														<option value="developer">개발자</option>
 														<option value="distributor">배포담당자</option>
 														<option value="tester">테스터</option>
-														<option value="user_tester">품질테스터</option>
+														<option value="usertester">품질테스터</option>
 													</select>
 													<div class="data">
 														<div class="item">
@@ -136,7 +136,7 @@
 													<div class="item">
 														<div class="input-group">
 															<select class="custom-select" id="position" name="position" >
-																<option selected>직급 선택</option>
+																<option selected value="0">직급 선택</option>
 																<option value="사원">사원</option>
 																<option value="대리">대리</option>
 																<option value="과장">과장</option>
@@ -148,7 +148,7 @@
 													<div class="item">
 														<div class="input-group">
 															<select class="custom-select" id="organ" name="organ" >
-																<option selected>소속 기관 선택</option>
+																<option selected value="0">소속 기관 선택</option>
 																<option value="오티아이">오티아이</option>
 																<option value="쇼핑몰">쇼핑몰</option>
 																<option value="학사관리">학사관리</option>
@@ -311,8 +311,8 @@
 	let idTest = '';
 	function checkId(){
 		let id = $('#mid').val();
-		//알파벳 소문자, 숫자를 혼용해서 6자 이상 15자 이하
-		const idPattern = /^(?=.*\d)(?=.*[a-z]).{6,15}$/;
+		//알파벳 6자 이상 15자 이하
+		const idPattern = /^[a-zA-Z0-9]{6,15}$/;
 		idTest = idPattern.test(id);
 		if(!idTest){
 			$('#idconfirm').css('color', 'red');
@@ -341,18 +341,51 @@
 		
 	}
 	// 이름 유효성 검사
-	let nameCheck = '';
 	function checkName(mname){
-		let length = mname.length;
-		console.log(length);
-		if(length <= 2){
-			nameCheck = 'false';
+		const namePattern = /^[가-힣]{3,4}$/;
+		let result = namePattern.test(mname);
+		if(!result){
+			result = 'false';
 		} else {
-			nameCheck = 'true';
+			result = 'true';
 		}
-		return nameCheck;
+		return result;
+	}
+	//이메일 유효성 검사
+	function checkEmail(email){
+		const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+		let result = emailPattern.test(email);
+		if(!result){
+			result = 'false';
+		} else {
+			result = 'true';
+		}
+		return result;
 	}
 	
+	//핸드폰 번호 유효성 검사
+	function checkPhone(phone){
+		const phoneNumberPattern = /^\d{3}-\d{3,4}-\d{4}$/;
+		let result = phoneNumberPattern.test(phone);
+		if(!result){
+			result = 'false';
+		} else {
+			result = 'true';
+		}
+		return result;
+	}
+	
+	// 주소 입력 확인
+	function addCheck(postcode, addr1, addr2){
+		console.log(postcode, addr1, addr2);
+		console.log(addr2);
+		let result = 'false';
+		if( (postcode != '' && postcode != null) && (addr1 != '' && addr1 != null) && (addr2 != '' && addr2 != null)){
+			result = 'true';
+		} 
+		
+		return result;
+	}
 	
 	function check(){
 		
@@ -367,46 +400,106 @@
 		
 		let birth = document.querySelector('#birth').value;
 		
-		nameCheck = checkName(mname);
-		console.log(nameCheck);
-		console.log(selectValue);
+		let gender = document.querySelector('#gender');
+		let genderValue = gender.options[gender.selectedIndex].value;
+		let nameResult = checkName(mname);
+		let emailResult = checkEmail(email);
 		
-		if(mtypeValue == '' || mtypeValue == null){
+		let sno = document.querySelector('#sno');
+		let snoValue = sno.options[sno.selectedIndex].value;
+		
+		let position = document.querySelector('#position');
+		let positionValue = position.options[position.selectedIndex].value;
+		
+		let organ = document.querySelector('#organ');
+		let organValue = organ.options[organ.selectedIndex].value;
+		
+		let phone = document.querySelector('#phone').value;
+		
+		let phoneResult = checkPhone(phone);
+		
+		let postcode = document.querySelector('#postcode').value;
+		let addr1 = document.querySelector('#addr1').value;
+		let addr2 = document.querySelector('#addr2').value;
+		
+		let addResult = addCheck(postcode, addr1, addr2);
+		
+		if(addResult != 'true'){
+			$('#countCheck').modal();
+			$('#countContent').html('주소를 입력하세요');
+			return false;
+		}
+		
+		if(mtypeValue != 'user' && mtypeValue != 'pm'){
+			if(snoValue == "0"){
+				$('#countCheck').modal();
+				$('#countContent').html('시스템을 선택하세요');
+				return false;
+			}
+		} 
+		if(mtypeValue == null){
 			$('#countCheck').modal();
 			$('#countContent').html('유저 타입을 확인하세요');
-		} else if (mid == '' || mid == null ){
+			return false;
+		}
+		if (mid == '' || mid == null ){
 			$('#countCheck').modal();
 			$('#countContent').html('아이디를 입력하세요');
-		} else if(idTest != 'true' ) {
+			return false;
+		} 
+		if(idTest != 'true' ) {
 			$('#countCheck').modal();
 			$('#countContent').html('아이디 형식을 확인하세요');
-		} else if(mname == '' || mname == null){
+			return false;
+		} 
+		if(mname == '' || mname == null){
  			$('#countCheck').modal();
  			$('#countContent').html('이름을 입력하세요');
- 		} else if (nameCheck == '' || nameCheck != 'true'){
+ 			return false;
+ 		} 
+		if (nameResult != 'true'){
  			$('#countCheck').modal();
  			$('#countContent').html('이름을 정확히 입력하세요');
+ 			return false;
  		} 
+		if(emailResult != 'true'){
+ 			$('#countCheck').modal();
+ 			$('#countContent').html('이메일 형식을 확인하세요');
+ 			return false;
+ 		} 
+		if(birth == ''){
+ 			$('#countCheck').modal();
+ 			$('#countContent').html('생년월일을 입력하세요');
+ 			return false;
+ 		} 
+		if(positionValue == '0'){
+ 			$('#countCheck').modal();
+ 			$('#countContent').html('직급을 선택하세요');
+ 			return false;
+ 		}
+		if(organValue == '0'){
+			$('#countCheck').modal();
+ 			$('#countContent').html('소속 기관을 선택하세요');
+ 			return false;
+		}
+		if(phone == '' || phone == null){
+			$('#countCheck').modal();
+ 			$('#countContent').html('핸드폰 번호를 입력하세요');
+ 			return false;
+		} else if (phoneResult != 'true'){
+			$('#countCheck').modal();
+ 			$('#countContent').html('핸드폰 번호를 확인하세요');
+ 			return false;
+		}
 		
+ 		$('#countCheck').modal();
+    	$('#countContent').html('유저 등록 완료');
 		
+    	let modalButton = document.querySelector('#modal-button');
 		
-		//let ReqType = filterReqType.options[filterReqType.selectedIndex].text;
-		//let sno = filterSno.options[filterSno.selectedIndex].value
-		
-// 		$('#countCheck').modal();
-    	/* $('#countContent').html('유저 등록 완료'); */
-    	
-//     	if(text == 'id'){
-//     		$('#countContent').html('알파벳 소문자, 숫자를 혼용해서 6자 이상 15자 이하로 입력하세요');
-//     	}    
-    	
-    	
-//     	let modalButton = document.querySelector('#modal-button');
-//     	modalButton.addEventListener('click', function(){
-// 			return true;
-//     	});
-    	
-    	return false;
+    	modalButton.addEventListener('click', function(){
+			return true;
+    	});
 		
 	}
 	
