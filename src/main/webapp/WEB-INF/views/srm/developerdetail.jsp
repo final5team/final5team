@@ -68,7 +68,7 @@
 												<div class="flex-grow-1">
 													
 													<c:if test="${request.statusNo ==2 || request.statusNo ==3}">
-													<input type="date" class="date-form control" name="devExpectDate" id="devExpectDate">
+													<input type="date" class="date-form control" name="devExpectDate" id="devExpectDate" value="<fmt:formatDate value='${requestProcess.devExpectDate}' pattern='yyyy-MM-dd'/>">
 													<div class="btn btn-md btn-warning" onclick="checkDate()">개발 시작</div>
 													</c:if>
 
@@ -397,10 +397,40 @@
 		$('#completeDueDate').modal('show');
 	}
 	
+	/******* reply 글자수 유효성 검사 *******/
+	function checkReplyLength(reply){
+		//글자
+		var reply = reply;
+		//1.태그가 없는 경우(글자 없음)
+		if(reply.length == 0){
+			console.log("내용 없음");
+			$('#completeContent').text('내용을 입력해주세요.');
+			$('#completeModal').modal();
+			return false;
+		}
+		//2.태그가 있는 경우(글자 있음)
+		//태그들 제거해서 순수 글자수 빼오기
+		var realReply = reply.replace(/<[^>]*>?/g, '');
+		//int 형태로 변환
+		let intReply = parseInt(realReply);
+		
+		//순수 글자수가 300이 넘는지 확인
+		if(intReply>300){
+		//1. 글자수 300이 넘을 경우
+			console.log("300자 초과");
+			tinymce.activeEditor.setContent(realReply.substring(0,300));
+			return false;
+		} else{
+			//2. 글자수 0보다 크며 300안일 경우(정상)
+			return true;
+		}
+	}
+	
+	
 	/* 개발 완료 버튼 클릭시 form데이터 전달 */
 	function devEnd(){
 		$('#writeform').attr('action', '${pageContext.request.contextPath}/devdone');
-		
+		var reply = tinymce.activeEditor.getContent();
 		//진척률 100% 인지 검사하기
 		let devProgress = $('#devProgress').val();
 		
@@ -409,21 +439,28 @@
 		//result 가 true 면 0과 100 사이의 숫자라는 의미 -> 100일 때만 실행시키기
 		if(result){
 			if( devProgress == 100) {
-				//선택된 파일 지우기
-				var fileInput = $('#fileInput')[0];
-				var fileBuffer = new DataTransfer();
-				fileInput.files = fileBuffer.files;
-				
-				//배열의 항목으로 채우기
-				fileBuffer = new DataTransfer();
-				for(var i = 0; i < content_files.length; i ++){
-					if(!content_files[i].is_delete){
-						fileBuffer.items.add(content_files[i]);
-					} 
+				//reply에 대한 글자수 유효성 검사
+				var result2 = checkReplyLength(reply);
+				if(result2){
+					//선택된 파일 지우기
+					var fileInput = $('#fileInput')[0];
+					var fileBuffer = new DataTransfer();
+					fileInput.files = fileBuffer.files;
+					
+					//배열의 항목으로 채우기
+					fileBuffer = new DataTransfer();
+					for(var i = 0; i < content_files.length; i ++){
+						if(!content_files[i].is_delete){
+							fileBuffer.items.add(content_files[i]);
+						} 
+					}
+					fileInput.files = fileBuffer.files;
+					
+					$('#writeform').submit();
+				} else{
+					$('#completeContent').text('300자를 초과하였습니다.');
+					$('#completeModal').modal();
 				}
-				fileInput.files = fileBuffer.files;
-				
-				$('#writeform').submit();
 			} else{
 				$('#completeContent').text('진척률 100% 일때 개발 완료가 가능합니다.');
 				$('#completeModal').modal();
@@ -440,10 +477,10 @@
 		var devProgress = $('#devProgress').val();
 		
 		//devProgress 유효성 검사
-		var result = updateProgress(devProgress);
+		var result1 = updateProgress(devProgress);
 		
-		if(result){
-			console.log(result);
+		if(result1){
+			console.log(result1);
 			
 			/* input.files에 존재하는 파일들 넣어주기 */
 			//선택된 파일 지우기
@@ -555,8 +592,8 @@
 		
 		
 		/****** window로딩 시, 개발시작 버튼 눌렀는지 확인하고, 작성칸 readonly 만들어주기 *****/
-		var afterDevExpectDate = $('#afterDevExpectDate').val();
-		if(afterDevExpectDate == ''){
+		var devExpectDate = $('#devExpectDate').val();
+		if(devExpectDate == ""){
 			tinymce.get("reply").setMode('readonly');
 			$('#distSource').attr('disabled',true);
 			$('#btn-upload').hide();
