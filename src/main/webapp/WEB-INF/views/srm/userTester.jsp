@@ -136,12 +136,6 @@
 	                	 				<h3 class="title">
 	                	 					테스트 내역  <i class="far fa-bookmark success"></i>
 	                	 				</h3>
-	                	 				<c:if test="${requestProcess.userTester == member.mid && request.statusNo == 9}">
-			                	 			<form method="post" action="${pageContext.request.contextPath}/rollbackstep">
-			                	 				<input type="hidden" name="hno" value="${statusHistory.hno}"/>
-			                	 				<button type="submit" class="btn btn-primary btn-sm">ROLLBACK</button>
-			                	 			</form>
-			                	 		</c:if>
 	                	 			</div>
 	                	 			<div class="card-body">
                 	 					<div>
