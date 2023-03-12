@@ -110,8 +110,6 @@
 												<div class="label label-write" id="replylabel">내용 작성 </div>
 												<div class="flex-grow-1" >
 													<textarea class="form-control boxed flex-grow-1" name="reply" id="reply">${tempNormal.reply}</textarea>
-													<input type="hidden" id="tempNormal" value="${tempNormal.reply}">
-													<input type="hidden" id="tempReexam" value="${tempReexam.reply}">
 												</div>
 											</div>
 											<div id="tempNormalFile">
@@ -131,25 +129,9 @@
 		                	 						</div>
 	                	 						</div>
 											</div>
-                	 						<div id="tempReexamFile" style="display: none;">
-	               	 							<div class="d-flex mt-3">
-		                	 						<div class="label-write label">첨부파일</div>
-		                	 						<div class="flex-grow-1">
-	                	 								<c:forEach var="statusHistoryFile" items="${tempReexam.fileList}">
-														<div>
-															<span>${statusHistoryFile.fileName}</span>
-															<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-																<i class="fas fa-cloud-download-alt text-info"></i>
-															</a>
-															<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a> 
-														</div>
-														</c:forEach>
-		                	 						</div>
-	                	 						</div>
-                	 						</div>
+               
 											<div class="filebox d-flex mb-3">
 												<div class="label label-write">
-													<div id="fileLabel">파일 추가</div>
 													<div class="btn btn-sm btn-info" id="btn-upload">파일 추가</div>
 													<input type="file" name="files" id="fileInput" multiple style="display: none;">
 												</div>
@@ -193,13 +175,7 @@
 			                	 					 승인 내역  <i class="far fa-bookmark success"></i>
 			                	 				</h3>
 		                	 				</c:if>
-		                	 				<c:if test="${requestProcess.tester == member.mid && index.last
-		                	 				&& (request.statusNo == 7 || request.statusNo == 3)}">
-				                	 			<form method="post" action="${pageContext.request.contextPath}/rollbackstep">
-				                	 				<input type="hidden" name="hno" value="${statusHistory.hno}"/>
-				                	 				<button type="submit" class="btn btn-primary btn-sm">ROLLBACK</button>
-				                	 			</form>
-				                	 		</c:if>
+		                	 				
 		                	 			</div>
 		                	 			<div class="card-body">
 	                	 					<div>
@@ -228,6 +204,13 @@
 														</c:forEach>
 		                	 						</div>
 	                	 						</div>
+	                	 						<c:if test="${requestProcess.tester == member.mid && index.last
+			                	 				&& (request.statusNo == 7 || request.statusNo == 3)}">
+					                	 			<form method="post" action="${pageContext.request.contextPath}/rollbackstep" class="d-flex justify-content-end">
+					                	 				<input type="hidden" name="hno" value="${statusHistory.hno}"/>
+					                	 				<button type="submit" class="btn btn-primary btn-md">수정</button>
+					                	 			</form>
+					                	 		</c:if>
 	                	 					</div>
 	                	 				</div>
 		                	 		</div>
@@ -375,33 +358,21 @@
 	
 	/* 정상 & 재검토 버튼 눌렀을 시 */
 	function turnNormal(){
-		$('input[name="nextStatus"]').val("15");
-		$('#tempNormalFile').show();
-		$('#tempReexamFile').hide();
 		$('#normal').addClass('active');
 		$('#reexam').removeClass('active');
 		$('#replylabel').text('내용작성');
 		/* 버튼 바꿔주기 */
 		$('#testButton').text('테스트 완료');
 		$('#testButton').attr('formaction', '${pageContext.request.contextPath}/testdone');
-		/* textarea 값 바꿔주기 */
-		var content = $('#tempNormal').val();
-		tinymce.get('reply').setContent(content);
 		
 	}
 	function turnReexam(){
-		$('input[name="nextStatus"]').val("16");
-		$('#tempNormalFile').hide();
-		$('#tempReexamFile').show();
 		$('#reexam').addClass('active');
 		$('#normal').removeClass('active');
 		$('#replylabel').text('재검토사유');
 		/* 버튼 바꾸기 */
 		$('#testButton').attr('formaction', '${pageContext.request.contextPath}/askreexam');
 		$('#testButton').text('재검토 요청');
-		/* textarea 값 바꿔주기 */
-		var content = $('#tempReexam').val();
-		tinymce.get('reply').setContent(content);
 		
 	}
 	
