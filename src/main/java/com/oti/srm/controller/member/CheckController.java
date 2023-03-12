@@ -1,5 +1,7 @@
 package com.oti.srm.controller.member;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oti.srm.dto.Member;
 import com.oti.srm.service.member.IMemberService;
+import com.oti.srm.service.member.IUserRegisterService;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -20,6 +23,8 @@ public class CheckController {
 	
 	@Autowired
 	IMemberService memberService;
+	@Autowired
+	IUserRegisterService userRegisterService;
 	
 	//아이디 확인 ajax
 	@PostMapping("/idconfrim")
@@ -34,5 +39,22 @@ public class CheckController {
 		
 		return result;
 	}
+	
+	//비밀번호 check
+	@PostMapping("/passwordConfirm")
+	@ResponseBody
+	public boolean passwordConfirm(@RequestBody String password, HttpSession session) throws JsonMappingException, JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		Member newMember = objectMapper.readValue(password, Member.class);
+		Member sessionMember = (Member) session.getAttribute("member");
+		
+		log.info(newMember.getPassword());
+		
+		boolean result = userRegisterService.passwordConfirm(newMember.getPassword(), sessionMember);
+		
+		return result;
+	}
+	
+	
 	
 }

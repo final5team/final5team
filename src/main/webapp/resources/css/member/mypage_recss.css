@@ -207,7 +207,14 @@ a {
 	border-radius: 5px;
 	z-index : 5;
 }
-
+#idconfirm{
+	position : absolute;
+	left : 50%;
+	top : 22%;
+	font-size : 10px;
+	
+	
+}
 
 
 

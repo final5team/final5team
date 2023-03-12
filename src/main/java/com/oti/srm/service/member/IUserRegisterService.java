@@ -20,6 +20,7 @@ public interface IUserRegisterService {
 	public Member getUserInfo(String mid);
 	// 유저 정보 수정
 	public int updateUserInfo(Member member);
-	
+	// 비밀번호 확인
+	public boolean passwordConfirm(String password, Member member);
 	
 }

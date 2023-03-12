@@ -488,30 +488,16 @@
 			$('#countContent').html('주소를 입력하세요');
 			return false;
 		}
+		let click = false;
 		
-		$('#countCheck').modal();
-		$('#countContent').html('유저 등록 완료');
-		$('#notice').html('');
-		$('#notice').html('완료');
-    	
-		let modalButton = document.querySelector('#modal-button');
-    	let click = 'n';
-    	
-    	modalButton.addEventListener('click', function(){
-    		click = 'y';
-    	});
-    	
-    	if(click == 'y'){
-	    	console.log('y');
-	    	console.log(click == 'y');
-	    	return true;
-	    } else if(click == 'n'){
-	    	console.log('n');
-	    	return false;
-	    }
+		if(openModal()){
+			if(click){
+				return true;
+			} else {
+				return false;
+			}
+		}
 	}
-	
-	
 	
 	</script>
 	
