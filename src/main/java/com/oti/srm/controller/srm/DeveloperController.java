@@ -257,7 +257,7 @@ public class DeveloperController {
 			}
 		}
 		commonService.updateHistory(rp, sh, member);
-		return "redirect:/receiptdetail?rno=" + rp.getRno();
+		return "redirect:/pm/receiptdetail?rno=" + rp.getRno();
 		
 	}
 
