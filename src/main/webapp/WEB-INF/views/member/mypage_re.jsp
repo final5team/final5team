@@ -149,7 +149,7 @@
 																value="<fmt:formatDate value="${returnMember.birth}" pattern="yyyy-MM-dd" />">
 														</div>
 														<div class="item">
-															<input type="password" class="form-control form-control-user" id="password" name="password" placeholder="비밀번호" required>
+															<input type="password" class="form-control form-control-user" id="password" name="password" maxlength='13' placeholder="비밀번호" required>
 														</div>
 													</div>
 												</article>
