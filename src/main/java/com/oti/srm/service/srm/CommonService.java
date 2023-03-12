@@ -244,13 +244,13 @@ public class CommonService implements ICommonService {
 				commonDao.insertStatusHistoryFile(file);
 			}
 		}
-		// 재검토 시 테스터의 해당 요청건 임시저장글(재검토 임시글) null처리
+		// 재검토 시 테스터의 해당 요청건 임시저장글(재검토 임시글 + 승인 임시글) null처리
 		StatusHistory tempHistoryChange = new StatusHistory();
 		tempHistoryChange.setRno(statusHistory.getRno());
 		tempHistoryChange.setWriter(statusHistory.getWriter());
 		tempHistoryChange.setReply(null);
 		tempHistoryChange.setDistSource(null);
-		tempHistoryChange.setNextStatus(16);
+		tempHistoryChange.setNextStatus(15);
 		StatusHistory temp = commonDao.selectTempStatusHistory(member, tempHistoryChange);
 		List<StatusHistoryFile> tempFiles = commonDao.selectStatusHistoryFiles(temp.getHno());
 		if (temp != null) {
@@ -561,11 +561,7 @@ public class CommonService implements ICommonService {
 			StatusHistory searchParam = new StatusHistory();
 			searchParam.setRno(mySh.getRno());
 			searchParam.setWriter(member.getMid());
-			if (mySh.getNextStatus() == 3) {
-				searchParam.setNextStatus(16);
-			} else if (mySh.getNextStatus() == 7) {
-				searchParam.setNextStatus(15);
-			}
+			searchParam.setNextStatus(15);
 			StatusHistory tempSh = commonDao.selectTempStatusHistory(member, searchParam);
 			if (tempSh == null) {
 				// insert
@@ -574,11 +570,7 @@ public class CommonService implements ICommonService {
 				newTempSh.setRno(mySh.getRno());
 				newTempSh.setReply(mySh.getReply());
 				newTempSh.setDistSource(mySh.getDistSource());
-				if (mySh.getNextStatus() == 3) {
-					newTempSh.setNextStatus(16);
-				} else if (mySh.getNextStatus() == 7) {
-					newTempSh.setNextStatus(15);
-				}
+				newTempSh.setNextStatus(15);
 				newTempSh.setWriter(member.getMid());
 				commonDao.insertStatusHistory(newTempSh);
 				for (StatusHistoryFile file : shFileList) {
