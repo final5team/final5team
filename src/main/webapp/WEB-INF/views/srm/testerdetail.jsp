@@ -94,7 +94,7 @@
 												<div class="label label-write">*완료예정일</div>
 												<div class="flex-grow-1">
 													<c:if test="${request.statusNo == 5}">
-													<input type="date" class="date-form control" id="testExpectDate" name="testExpectDate" >
+													<input type="date" class="date-form control" id="testExpectDate" name="testExpectDate" value="<fmt:formatDate value='${requestProcess.testExpectDate}' pattern='yyyy-MM-dd'/>" >
 													<div class="btn btn-md btn-warning"  onclick="checkDate()" id="testStartButton">테스트 시작</div>
 													</c:if>
 													<c:if test="${request.statusNo == 6}">
@@ -140,15 +140,15 @@
 												<div class="border flex-grow-1 border" id="file-list"></div>	
 											</div>
 											
-											<div class="d-flex justify-content-end">
-												<c:if test="${member.mid == requestProcess.tester && request.statusNo == 6}">
-												<button class="btn btn-warning btn-md " onclick="tempStore(${request.rno})" type="button" >임시저장</button>
-												<button class="btn btn-primary btn-md mx-3" id="testButton" onclick="testdone()">테스트 완료</button>
-												<!-- <button class="btn btn-dark btn-md " type="button" onclick="location.href='{pageContext.request.contextPath}/customer/requestlist'">취소</button> -->
-												<button class="btn btn-dark btn-md " type="button">취소</button>
-												</c:if>
-											</div>
 										</form>
+										<div class="d-flex justify-content-end">
+											<c:if test="${member.mid == requestProcess.tester && request.statusNo == 6}">
+											<button class="btn btn-warning btn-md " onclick="tempStore(${request.rno})" type='button' >임시저장</button>
+											<button class="btn btn-primary btn-md mx-3" id="testButton" onclick="testdone()" type='button'>테스트 완료</button>
+											<!-- <button class="btn btn-dark btn-md " type="button" onclick="location.href='{pageContext.request.contextPath}/customer/requestlist'">취소</button> -->
+											<button class="btn btn-dark btn-md " type="button">취소</button>
+											</c:if>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -293,6 +293,7 @@
 		</div>
 	</div>
 	<!-- 데이트 입력 확인 /-->
+	<!-- 확인창 전용 모달 -->
 	<div class="modal fade" id="completeModal" aria-hidden="true" aria-labelledby="successOfDueDate">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
@@ -309,6 +310,31 @@
 			</div>
 		</div>
 	</div>
+	<!-- 확인창 전용 모달 -->
+	
+	<!-- 테스트완료 입력 확인 -->
+	<div class="modal fade" id="devCheckModal" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>
+						Check
+					</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" style="display: flex; justify-content: center;">
+					<p id="devCheckModalContent"></p>
+				</div>
+				<div class="modal-footer" style="justify-content: center;">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <a class="btn btn-primary" data-dismiss="modal" onclick="testdone()" type="button">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 테스트완료 입력 확인 /-->
+	
+	
 	<script>
 	
 	function checkDate(){
@@ -413,7 +439,6 @@
 		// input file 파일 첨부시 fileCheck 함수 실행
 	{
 		$("#fileInput").on("change", fileCheck);
-		$("#fileInputUpdate").on("change", fileUpdate);
 		
 		/****** window로딩 시, 개발시작 버튼 눌렀는지 확인하고, 작성칸 readonly 만들어주기 *****/
 		var testExpectDate = $('#testExpectDate').val();
@@ -527,6 +552,12 @@
 			}
 			
 		}
+	}
+	//개발 완료 버튼 클릭시 모달 팝업
+	function checkDevEnd(){
+		console.log("모달 까지 띄울 준비");
+		/* $('#devCheckModalContent').text('개발 완료 하시겠습니까?');
+		$('#devCheckModal').modal(); */
 	}
 	
 	/* 테스트 완료 버튼 누를 시 */

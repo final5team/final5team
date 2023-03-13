@@ -89,6 +89,7 @@
 												<div class="flex-grow-1">
 													<textarea name="reply" id="reply">${devTemp.reply}</textarea>
 												</div>
+											</div>
 											<div class="form-group d-flex">
 												<div class="label label-write">*배포소스</div>
 												<div class="flex-grow-1">
@@ -138,7 +139,7 @@
 										<div class="d-flex justify-content-end">
 										<button class="btn btn-dark btn-md" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">취소</button>
 										<button class="btn btn-warning btn-md mx-3" onclick="tempStore(${request.rno},14)">임시 저장</button>
-										<button class="btn btn-primary btn-md " onclick="checkModal()">개발 완료</button>
+										<button class="btn btn-primary btn-md " onclick="checkDevEnd()">개발 완료</button>
 										</div>
 										</c:if>
 										
@@ -298,6 +299,27 @@
 		</div>
 	</div>
 	<!-- 글자수 입력 확인 /-->
+	<!-- 개발완료 입력 확인 -->
+	<div class="modal fade" id="devCheckModal" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>
+						Check
+					</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" style="display: flex; justify-content: center;">
+					<p id="devCheckModalContent"></p>
+				</div>
+				<div class="modal-footer" style="justify-content: center;">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <a class="btn btn-primary" data-dismiss="modal" onclick="devEnd()" type="button">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 개발완료 입력 확인 /-->
 	<script>
 
 	function checkDate(){
@@ -375,6 +397,12 @@
 			return true;
 		}
 	}
+	//개발 완료 버튼 클릭시 모달 팝업
+	function checkDevEnd(){
+		$('#devCheckModalContent').text('개발 완료 하시겠습니까?');
+		$('#devCheckModal').modal();
+	}
+	
 	
 	/* 개발 완료 버튼 클릭시 form데이터 전달 */
 	function devEnd(){
@@ -413,8 +441,6 @@
 						} 
 					}
 					fileInput.files = fileBuffer.files;
-					$('#completeContent').text('개발 완료 하시겠습니까?');
-					$('#completeModal').modal();
 					$('#writeform').submit();
 					
 				} else{
@@ -423,9 +449,6 @@
 				}
 			}
 		}
-		
-		
-		
 	}
 	
 	
