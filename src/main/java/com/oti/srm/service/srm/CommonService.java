@@ -556,6 +556,8 @@ public class CommonService implements ICommonService {
 			RequestProcess rp = new RequestProcess();
 			rp.setRno(mySh.getRno());
 			commonDao.updateCompDateNull(member, rp);
+			rp.setDevProgress(0);
+			commonDao.updateDevProgress(rp);
 		} else if (member.getMtype().equals("tester")) {
 			// 1. 해당 요청건에 해당 담당자가 작성한 임시글이 있는지 확인한다.
 			StatusHistory searchParam = new StatusHistory();
