@@ -552,6 +552,7 @@ textarea:focus::placeholder {
 		      reader.readAsDataURL(f);
 		    });
 		});
+		
 		// 파일 부분 삭제 함수
 		function fileDelete(fileId){
 		    var fileNum = fileId.replace("file", "");
