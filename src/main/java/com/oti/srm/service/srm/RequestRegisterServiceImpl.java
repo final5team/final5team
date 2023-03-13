@@ -81,7 +81,8 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	
 	//요청 수정
 	@Override
-	public int updateRequest(Request request) {
+	@Transactional
+	public int updateRequest(Request request, List<StatusHistoryFile> sFiles) {
 		try {
 			//요청 내용 수정
 			log.info(request.toString());
@@ -89,8 +90,13 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 			String formattedDate = dateFormat.format(request.getReqExpectDate());
 			java.sql.Date sqlDate = java.sql.Date.valueOf(formattedDate);
 			request.setReqDate(sqlDate);
-			
-			int rows = requestDao.updateRequest(request);
+			requestDao.updateRequest(request);
+			if (sFiles != null && sFiles.size() > 0) {
+				for (StatusHistoryFile file : sFiles) {
+					file.setHno(requestDao.selectRequestDetail(request.getRno()).getHno());
+					commonDao.insertStatusHistoryFile(file);
+				}
+			}
 			log.info("수정 service");
 		} catch (Exception e) {
 			log.error(e.toString());

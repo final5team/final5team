@@ -117,7 +117,7 @@ branding: false
 
 tinymce.init({
 	language: 'ko_KR',
-	selector: '#requestreply',
+	selector: '#reqContent',
 	width: '190mm',
 	height: '70mm',
 	theme: 'silver',

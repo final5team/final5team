@@ -22,7 +22,7 @@ public interface IRequestRegisterService {
 	//요청 작성
 	public int writeRequest(Request request, List<StatusHistoryFile> fileList);
 	//요청 수정 (내용만)
-	public int updateRequest(Request request);
+	public int updateRequest(Request request, List<StatusHistoryFile> sFiles);
 	//요청 파일 변경
 	public int updateRequestFile(String rno, List<StatusHistoryFile> fileList);
 	
