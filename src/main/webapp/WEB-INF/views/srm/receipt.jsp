@@ -74,10 +74,9 @@
                 	 		<%@ include file="/WEB-INF/views/srm/restatus/stepperprogress.jsp" %>
                 	 	</div>	<!-- 여기에 단계 상태 이력 넣기 /-->
                 	 	
-						<!-- 접수 -->
+						<!-- 요청 처리 계획 작성 폼 START -->
 						<c:if test="${member.mtype == 'pm' && request.statusNo == 1}">
 							<div id="receiptdiv"> 						            
-								<!-- 요청 접수 card start-->
 								<div class="card border-top-dark mt-3 mb-3">
 									<div class="card-block">
 										<div class="d-flex">
@@ -91,7 +90,7 @@
 												<button class="navBtn mt-3" type="button" id="rejectbtn">반려</button>
 											</div>
 										</div>									
-										<div class="card-body" >
+										<div class="card-body">
 											<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data" onsubmit="return validate()" novalidate>
 												<div class="row form-group">
 													<div class="col-2 text-right font-weight-bold">
@@ -178,7 +177,7 @@
 													<button class="btn btn-primary btn-md mt-3 ml-3" type="submit" value=2 name="nextStatus">접수 완료</button>
 													<a class="btn btn-secondary btn-md mt-3 ml-3" type="button"onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">취소</a>												
 												</div>
-											</form>											
+											</form>									
 										</div><!-- card-body -->
 									</div><!-- card-block -->										
 								</div>
@@ -245,198 +244,13 @@
 												</div>
 											</div>
 										</div>
-									</div>
-									<!-- 요청 접수 card end-->									
+									</div>								
 								</form>
-							</div>
-							
-						</c:if>
-						<!-- 요청 처리 계획 start-->
-						<c:if test="${member.mtype != 'pm' && request.statusNo != 12 && request.statusNo != 1}">
-								<div class="card border-top-dark my-3">
-									<div class="card-block"> <!-- card-block -->
-										<div class="card-title-block">
-			               	 				<h3 class="title">
-			                	 				요청 처리 계획 <i class="far fa-calendar-check"></i>
-			               	 				</h3>
-			               	 			</div>
-										<div class="card-body">
-											<div class="row mt-3">
-												<div class="col-3 label">요청 유형</div>
-												<div class="col-2">
-													<c:if test="${requestProcess.reqType eq '정규'}">
-														<div>정규<i class="far fa-registered text-secondary"></i></div>
-													</c:if>
-													<c:if test="${requestProcess.reqType eq '긴급'}">
-														<div>긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
-													</c:if>
-												</div>
-												<div class="col-3 label">중요도</div>
-												<div class="col-2">
-													<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
-														<span class="fa fa-star checked" style="color: orange;"></span>
-													</c:if>
-													<c:if test="${requestProcess.priority eq '중' || requestProcess.priority eq '상'}">
-														<span class="fa fa-star checked" style="color: orange;"></span>
-													</c:if>
-													<c:if test="${requestProcess.priority eq '상'}">
-														<span class="fa fa-star checked" style="color: orange;"></span>
-													</c:if>
-												</div>
-											</div>
-											<hr/>
-			
-											<div class="row">
-												<div class="col-3 label">요청 완료 예정일</div>
-												<div class="col-7">
-													<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>
-												</div>
-											</div>
-											<hr/>
-											<div class="row">
-												<div class="col-3 label">개발 담당자</div>
-												<div class="col-2">${requestProcess.developer}</div>
-												<div class="col-3 label">테스트 담당자</div>
-												<div class="col-2">${requestProcess.tester}</div>
-											</div>	
-											<hr/>
-											<div class="row">
-													<div class="col-3 label">품질검토 담당자</div>
-												<c:if test="${requestProcess.reqType eq '정규'}">
-													<div class="col-2">${requestProcess.userTester}</div>
-												</c:if>
-												<c:if test="${requestProcess.reqType eq '긴급'}">
-													<div class="col-2">-</div>
-												</c:if>
-												<div class="col-3 label">배포 담당자</div>
-												<div class="col-2">${requestProcess.distributor}</div>
-											</div>	
-											<hr/>
-											<c:forEach var="statusHistory" items="${pmToAllHistories}">
-											<div class="row">
-												<div class="col-3 label">검토 의견</div>
-												<div class="col-7 border" style="min-height:100px;">${statusHistory.reply}</div>
-											</div>
-											<hr/>
-											<div class="row">
-												<div class="col-3 label">검토 첨부파일</div>
-												<div class="col-7">
-													<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-														<div>
-															<span>${statusHistoryFile.fileName}</span>
-															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-																<i class="fas fa-cloud-download-alt"></i>
-															</a>
-														</div>
-													</c:forEach>
-												</div>
-											</div>	
-											</c:forEach>
-										</div>
-									</div> <!-- card-block -->						
-								</div>
+							</div>							
 							</c:if>
-							<c:if test="${member.mtype != 'pm' && request.statusNo == 1}">
-								<div class="card border-top-dark my-3">
-									<div class="card-block"> <!-- card-block -->
-										<div class="card-title-block">
-			               	 				<h3 class="title">
-			                	 				요청 처리 계획 <i class="far fa-calendar-check"></i>
-			               	 				</h3>
-			               	 			</div>
-										<div class="card-body">
-											<h3 class="font-weight-bold">아직 접수되지 않았습니다.</h3>
-										</div>
-									</div>
-								</div>
-							</c:if>
-							<c:if test="${member.mtype == 'pm' && request.statusNo > 2 && request.statusNo != 12}">
-								<div class="card border-top-dark my-3">
-									<div class="card-block"> <!-- card-block -->
-										<div class="card-title-block">
-			               	 				<h3 class="title">
-			                	 				요청 처리 계획 <i class="far fa-calendar-check"></i>
-			               	 				</h3>
-			               	 			</div>
-										<div class="card-body">
-											<div class="row mt-3">
-												<div class="col-3 label">요청 유형</div>
-												<div class="col-2">
-													<c:if test="${requestProcess.reqType eq '정규'}">
-														<div>정규<i class="far fa-registered text-secondary"></i></div>
-													</c:if>
-													<c:if test="${requestProcess.reqType eq '긴급'}">
-														<div>긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
-													</c:if>
-												</div>
-												<div class="col-3 label">중요도</div>
-												<div class="col-2">
-													<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
-														<span class="fa fa-star checked" style="color: orange;"></span>
-													</c:if>
-													<c:if test="${requestProcess.priority eq '중' || requestProcess.priority eq '상'}">
-														<span class="fa fa-star checked" style="color: orange;"></span>
-													</c:if>
-													<c:if test="${requestProcess.priority eq '상'}">
-														<span class="fa fa-star checked" style="color: orange;"></span>
-													</c:if>
-												</div>
-											</div>
-											<hr/>
-			
-											<div class="row">
-												<div class="col-3 label">요청 완료 예정일</div>
-												<div class="col-7">
-													<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>
-												</div>
-											</div>
-											<hr/>
-											<div class="row">
-												<div class="col-3 label">개발 담당자</div>
-												<div class="col-2">${requestProcess.developer}</div>
-												<div class="col-3 label">테스트 담당자</div>
-												<div class="col-2">${requestProcess.tester}</div>
-											</div>	
-											<hr/>
-											<div class="row">
-													<div class="col-3 label">품질검토 담당자</div>
-												<c:if test="${requestProcess.reqType eq '정규'}">
-													<div class="col-2">${requestProcess.userTester}</div>
-												</c:if>
-												<c:if test="${requestProcess.reqType eq '긴급'}">
-													<div class="col-2">-</div>
-												</c:if>
-												<div class="col-3 label">배포 담당자</div>
-												<div class="col-2">${requestProcess.distributor}</div>
-											</div>	
-											<hr/>
-											<c:forEach var="statusHistory" items="${pmToAllHistories}">
-												<div class="row">
-													<div class="col-3 label">검토 의견</div>
-													<div class="col-7 border" style="min-height:100px;">${statusHistory.reply}</div>
-												</div>
-												<hr/>
-												<div class="row">
-													<div class="col-3 label">검토 첨부파일</div>
-													<div class="col-7">
-														<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-															<div>
-																<span>${statusHistoryFile.fileName}</span>
-																<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-																	<i class="fas fa-cloud-download-alt"></i>
-																</a>
-															</div>
-														</c:forEach>
-													</div>
-												</div>	
-											</c:forEach>
-										</div>
-									</div> <!-- card-block -->						
-								</div>
-							</c:if>
-							<c:if test="${member.mtype == 'pm' && request.statusNo == 2}">
-								<div id="receiptdiv2"> 						            
-									<!-- 요청 접수 card start-->
+							<!-- 요청 처리 계획 작성 폼 END -->
+							<!-- 요청 처리 계획 수정 폼 END -->
+							<div id="receiptUpdateForm" style="display:none;"> 						            
 									<div class="card border-top-primary mt-3 mb-3">
 										<div class="card-block">
 											<div class="card-title-block">
@@ -445,7 +259,7 @@
 			                	 				</h3>
 			                	 			</div>
 											<div class="card-body">
-												<form method="post" action="<c:url value='/updatehistory'/>" enctype="multipart/form-data" id="updateForm" onsubmit="return validate()">
+												<form method="post" action="<c:url value='/pm/updatehistory'/>" enctype="multipart/form-data" id="updateForm" onsubmit="return validate()">
 													<div class="row form-group">
 														<div class="col-2 text-right font-weight-bold">
 															<label>*요청 유형</label>
@@ -543,14 +357,119 @@
 														</div>	
 													</c:forEach>																																											
 													<div class="d-flex justify-content-end">						
-														<button class="btn btn-primary btn-md mt-3 ml-3" type="button" onclick="update()">수정</button>										
+														<button class="btn btn-primary btn-md mt-3 ml-3" type="button" onclick="update()">완료</button>
+														<button class="btn btn-primary btn-md mt-3 ml-3" type="button" onclick="hideUpdateForm()">취소</button>										
 													</div>
 												<input type="hidden" name="rno" value="${request.rno}">
 											</form>											
 										</div><!-- card-body -->
 									</div><!-- card-block -->										
+								</div>							
+							</div>
+							<!-- 요청 처리 계획 수정 폼 END -->
+
+							<!-- 요청 처리 계획 start-->
+							<c:if test="${member.mtype != 'pm' && request.statusNo == 1}">
+								<div class="card border-top-dark my-3">
+									<div class="card-block"> <!-- card-block -->
+										<div class="card-title-block">
+			               	 				<h3 class="title">
+			                	 				요청 처리 계획 <i class="far fa-calendar-check"></i>
+			               	 				</h3>
+			               	 			</div>
+										<div class="card-body">
+											<h3 class="font-weight-bold">아직 접수되지 않았습니다.</h3>
+										</div>
+									</div>
 								</div>
-								<!-- 요청 접수 card end-->								
+							</c:if>
+							<c:if test="${(member.mtype == 'pm' && request.statusNo >= 2 && request.statusNo != 12) || (member.mtype != 'pm')}">
+								<div class="card border-top-dark my-3" id="receiptDetailForm">
+									<div class="card-block"> <!-- card-block -->
+										<div class="card-title-block">
+			               	 				<h3 class="title">
+			                	 				요청 처리 계획 <i class="far fa-calendar-check"></i>
+			               	 				</h3>
+			               	 			</div>
+										<div class="card-body">
+											<div class="row mt-3">
+												<div class="col-3 label">요청 유형</div>
+												<div class="col-2">
+													<c:if test="${requestProcess.reqType eq '정규'}">
+														<div>정규<i class="far fa-registered text-secondary"></i></div>
+													</c:if>
+													<c:if test="${requestProcess.reqType eq '긴급'}">
+														<div>긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
+													</c:if>
+												</div>
+												<div class="col-3 label">중요도</div>
+												<div class="col-2">
+													<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
+														<span class="fa fa-star checked" style="color: orange;"></span>
+													</c:if>
+													<c:if test="${requestProcess.priority eq '중' || requestProcess.priority eq '상'}">
+														<span class="fa fa-star checked" style="color: orange;"></span>
+													</c:if>
+													<c:if test="${requestProcess.priority eq '상'}">
+														<span class="fa fa-star checked" style="color: orange;"></span>
+													</c:if>
+												</div>
+											</div>
+											<hr/>
+			
+											<div class="row">
+												<div class="col-3 label">요청 완료 예정일</div>
+												<div class="col-7">
+													<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>
+												</div>
+											</div>
+											<hr/>
+											<div class="row">
+												<div class="col-3 label">개발 담당자</div>
+												<div class="col-2">${requestProcess.developer}</div>
+												<div class="col-3 label">테스트 담당자</div>
+												<div class="col-2">${requestProcess.tester}</div>
+											</div>	
+											<hr/>
+											<div class="row">
+													<div class="col-3 label">품질검토 담당자</div>
+												<c:if test="${requestProcess.reqType eq '정규'}">
+													<div class="col-2">${requestProcess.userTester}</div>
+												</c:if>
+												<c:if test="${requestProcess.reqType eq '긴급'}">
+													<div class="col-2">-</div>
+												</c:if>
+												<div class="col-3 label">배포 담당자</div>
+												<div class="col-2">${requestProcess.distributor}</div>
+											</div>	
+											<hr/>
+											<c:forEach var="statusHistory" items="${pmToAllHistories}">
+												<div class="row">
+													<div class="col-3 label">검토 의견</div>
+													<div class="col-7 border" style="min-height:100px;">${statusHistory.reply}</div>
+												</div>
+												<hr/>
+												<div class="row">
+													<div class="col-3 label">검토 첨부파일</div>
+													<div class="col-7">
+														<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+															<div>
+																<span>${statusHistoryFile.fileName}</span>
+																<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																	<i class="fas fa-cloud-download-alt"></i>
+																</a>
+															</div>
+														</c:forEach>
+													</div>
+												</div>	
+											</c:forEach>
+											<c:if test="${request.statusNo == 2 && member.mtype == 'pm'}">
+												<div class="d-flex justify-content-end">
+													<button type="button" onclick="showUpdateForm()" class="btn btn-md btn-primary">수정</button>		
+												</div>
+											</c:if>
+										</div>
+									</div> <!-- card-block -->						
 								</div>
 							</c:if>
 						<!-- 요청 처리 계획 end-->
@@ -1115,6 +1034,15 @@
 		   calendar.updateSize();
 
 		});
+		
+		function showUpdateForm(){
+			$('#receiptUpdateForm').show();
+			$('#receiptDetailForm').hide();
+		}
+		function hideUpdateForm(){
+			$('#receiptUpdateForm').hide();
+			$('#receiptDetailForm').show();
+		}
 			
 	</script>
 
