@@ -112,7 +112,7 @@
 														<option value="중" class="text-center">중 (★★)</option>
 														<option value="하" class="text-center">하 (★)</option>															    																																																						
 													</select>
-													<small id="noInputPriority" style="color : red; position: absolute; right:5%"></small>														
+													<small id="noInputPriority" style="color : red; position: absolute; right:5%;"></small>														
 												</div>
 												
 													
@@ -126,13 +126,13 @@
 													</select>
 													<small id="noInputDev" style="color : red; position: absolute;"></small>		
 													<label class=" col-2 text-right font-weight-bold">*테스트 담당자</label>
-													<select class="dropdown-toggle col-3 calendarOpen" style="width:300px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester" requried>
+													<select class="dropdown-toggle col-3 calendarOpen" style="width:300px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester" id="tester" requried>
 														<option value="">테스트 담당자 | 현재담당건수 </option>	
 														<c:forEach var="staff" items="${tesStaffList}">
 															<option id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																													
 														</c:forEach>
 													</select>
-													<small id="noInputTes" style="color : red; position: absolute; right:5%"></small>		
+													<small id="noInputTes" style="color : red; position: absolute; right:5%;"></small>		
 												</div>
 												<div class="row mb-2 text-right font-weight-bold" id="utester">
 													<label class=" col-2 ">*품질 담당자</label>
@@ -141,10 +141,9 @@
 														<c:forEach var="staff" items="${uteStaffList}">
 															<option id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																													
 														</c:forEach>
-													</select>
-													<small id="noInputUtt" style="color : red; position: absolute;"></small>		
+													</select>	
 													<label class=" col-2 text-right font-weight-bold">*배포 담당자</label>
-													<select class="dropdown-toggle col-3 calendarOpen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor" requried>
+													<select class="dropdown-toggle col-3 calendarOpen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor" id="distributor" requried>
 														<option value="">배포 담당자 | 현재담당건수 </option>	
 														<c:forEach var="staff" items="${disStaffList}">
 															<option id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																												
@@ -608,7 +607,7 @@
 						</div>
 					<!-- 게시글 상세보기 end -->
 					</div>
-                </div>
+                </div><button onclick="validate()">test</button>
                 <!-- 여기에 내용 담기 end -->
 
             </div>
@@ -706,11 +705,28 @@
 			var content=tinymce.activeEditor.getContent().length;
 			// 의견 내용 길이가 300자 이상일 경우 제출 불가
 			if(content > 300){
-				// 300자 이하 입력 경고 창 
+				 //300자 이하 입력 경고 창 
 				$("#cautionModal").modal();			
 				// 제출 불가
 				result = false;
 			}
+			if(document.querySelector('#developer')==null){
+				
+			}
+			if(document.querySelector('#tester')==null){
+				
+			}
+			if(document.querySelector('#userTester')==null && $("#reqType").val()== '긴급'){
+	
+			}
+			if(document.querySelector('#distributor')==null){
+				
+			}
+			if(document.querySelector('#allExpectDate')==null){
+				
+			}
+
+
 			// 유효성 검사 결과 반환
 			return result;
 		}
