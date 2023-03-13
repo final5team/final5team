@@ -92,7 +92,7 @@
 											</div>
 										</div>									
 										<div class="card-body" >
-											<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data" onsubmit="return validate()">
+											<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data" onsubmit="return validate()" novalidate>
 												<div class="row form-group">
 													<div class="col-2 text-right font-weight-bold">
 														<label>*요청 유형</label>
@@ -142,6 +142,7 @@
 															<option id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																													
 														</c:forEach>
 													</select>	
+													<small id="noInputUtt" style="color : red; position: absolute;"></small>
 													<label class=" col-2 text-right font-weight-bold">*배포 담당자</label>
 													<select class="dropdown-toggle col-3 calendarOpen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor" id="distributor" requried>
 														<option value="">배포 담당자 | 현재담당건수 </option>	
@@ -207,7 +208,7 @@
 						
 							<!-- 반려 -->
 							<div id="rejectdiv"> 						            
-								<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data" onsubmit="return validate()">
+								<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data" onsubmit="return validateRej()">
 									<!-- 요청 접수 card start-->
 									<div class="card border-top-dark mt-3 mb-1">
 										<div class="card-block">
@@ -447,7 +448,7 @@
 			                	 				</h3>
 			                	 			</div>
 											<div class="card-body">
-												<form method="post" action="<c:url value='/updatehistory'/>" enctype="multipart/form-data" id="updateForm">
+												<form method="post" action="<c:url value='/updatehistory'/>" enctype="multipart/form-data" id="updateForm" onsubmit="return validate()" novalidate>
 													<div class="row form-group">
 														<div class="col-3 label">
 															<label>*요청 유형</label>
@@ -695,7 +696,21 @@
 				// 품질 검토 담당자 필수 입력
 				$("#userTester").attr("required", "required")
 			}			
-		}		
+		}	
+		// 반려 사유 유효성 검사
+		function validateRej(){
+			// 유효한 입력 내용
+			var result = true;			
+			// 의견 내용 길이 구하기
+			var content=tinymce.activeEditor.getContent().length;
+			// 의견 내용 길이가 300자 이상일 경우 제출 불가
+			if(content > 300){
+				 //300자 이하 입력 경고 창 
+				$("#cautionModal").modal();			
+				// 제출 불가
+				result = false;
+			}
+		}
 	 	
 	 	// 의견 내용 유효성 검사
 	    function validate() {
@@ -710,23 +725,42 @@
 				// 제출 불가
 				result = false;
 			}
+			// 요청 유형 미입력 시
+			if(document.querySelector('#reqType')==null){
+				$('#noInputRtype').text("요청 유형 입력");
+				result = false;
+			}
+			// 중요도 미입력 시
+			if(document.querySelector('#priority')==null){
+				$('#noInputPriority').text("중요도 입력");
+				result = false;
+			}
+			// 개발 담당자 미입력 시
 			if(document.querySelector('#developer')==null){
-				
+				$('#noInputDev').text("담당자 입력");
+				result = false;
 			}
+			// 테스트 담당자 미입력 시
 			if(document.querySelector('#tester')==null){
-				
+				$('#noInputTes').text("담당자 입력");
+				result = false;
 			}
-			if(document.querySelector('#userTester')==null && $("#reqType").val()== '긴급'){
-	
+			// 요청 유형 정규이면서 품질 검토 담당자 미입력 시
+			if(document.querySelector('#userTester')==null && $("#reqType").val()== '정규'){
+				$('#noInputUtt').text("담당자 입력");
+				result = false;
 			}
+			// 배포 담당자 미입력 시
 			if(document.querySelector('#distributor')==null){
-				
+				$('#noInputDis').text("담당자 입력");
+				result = false;
 			}
+			// 완료 예정일 미입력 시
 			if(document.querySelector('#allExpectDate')==null){
-				
+				$('#noInputExd').text("예정일 입력");
+				result = false;
 			}
-
-
+			
 			// 유효성 검사 결과 반환
 			return result;
 		}
