@@ -40,7 +40,7 @@
 					<!-- Dropdown - Alerts -->
 					<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 						aria-labelledby="alertsDropdown">
-						<h6 class="dropdown-header">
+						<h6 class="dropdown-header" style="background-color: #75add1; border: 1px solid #75add1 ">
 							신규 내역 알림	
 							<button type="button" class="close text-white" data-dismiss="modal" style="font-size:15px;" onclick="closeAlert()">&times;</button>						
 						</h6>							
