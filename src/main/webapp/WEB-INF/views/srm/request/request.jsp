@@ -564,6 +564,7 @@ textarea:focus::placeholder {
 		function checkForm(){
 			
 			
+			
 		}
 		
 		
