@@ -55,16 +55,17 @@
                 	 	<section> <!-- 개발내역 입력폼 start -->
                 	 		<div class="card border-top-dark">
                 	 			<div class="card-block">
-	                	 			<div class="card-title-block">
+	                	 			<div class="card-title-block d-flex">
 	                	 				<h3 class="title">
 		                	 				개발 내역 작성 <i class="fas fa-edit"></i>
 	                	 				</h3>
+	                	 				<small class="ml-3">*는 필수 입력 사항입니다.</small>
 	                	 			</div>
 	                	 			<div class="card-body">
 	                	 				<form id="dueDateForm" action="${pageContext.request.contextPath}/devinprogress" method="POST" >
 											<input type="hidden" name="rno" value="${request.rno}">
 											<div class="form-group d-flex">
-												<div class="label label-write">완료예정일</div>
+												<div class="label label-write">*완료예정일</div>
 												<div class="flex-grow-1">
 													
 													<c:if test="${request.statusNo ==2 || request.statusNo ==3}">
@@ -84,12 +85,12 @@
 											<input type="hidden" name="rno" value="${request.rno}">
 											<input type="hidden" name ="nextStatus" value="14">
 											<div class="form-group d-flex">
-												<div class="label label-write">개발 사항</div>
+												<div class="label label-write">*개발 사항</div>
 												<div class="flex-grow-1">
 													<textarea name="reply" id="reply">${devTemp.reply}</textarea>
 												</div>
 											<div class="form-group d-flex">
-												<div class="label label-write">배포소스(url)</div>
+												<div class="label label-write">*배포소스</div>
 												<div class="flex-grow-1">
 													<input class="form-control boxed" name="distSource" id="distSource" style="height: 20px;" value="${devTemp.distSource}">
 													<div class="d-flex justify-content-end">
@@ -98,7 +99,7 @@
 												</div>
 											</div>
 											<div class="d-flex">
-												<div class="label label-write">진척률</div>
+												<div class="label label-write">*진척률</div>
 												<div class="flex-grow-1 d-flex">
 													<input type="text" class="form-control boxed" style="width: 100px; height: 20px;" value="${requestProcess.devProgress}" name="devProgress" id="devProgress">
 													<span>%</span>
@@ -137,7 +138,7 @@
 										<div class="d-flex justify-content-end">
 										<button class="btn btn-dark btn-md" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">취소</button>
 										<button class="btn btn-warning btn-md mx-3" onclick="tempStore(${request.rno},14)">임시 저장</button>
-										<button class="btn btn-primary btn-md " onclick="devEnd()">개발 완료</button>
+										<button class="btn btn-primary btn-md " onclick="checkModal()">개발 완료</button>
 										</div>
 										</c:if>
 										
@@ -334,72 +335,96 @@
 	}
 	
 	/******* reply 글자수 유효성 검사 *******/
-	function checkReplyLength(reply){
+	function checkReplyLength(){
 		//글자
-		var reply = reply;
+		var reply = tinymce.activeEditor.getContent();
+		/* var reply = reply; */
 		//1.태그가 없는 경우(글자 없음)
 		if(reply.length == 0){
 			console.log("내용 없음");
 			$('#completeContent').text('내용을 입력해주세요.');
 			$('#completeModal').modal();
 			return false;
+		} else{
+			//2.태그가 있는 경우(글자 있음)
+			//태그들 제거해서 순수 글자수 빼오기
+			var realReply = reply.replace(/<[^>]*>?/g, '');
+			
+			//순수 글자수가 300이 넘는지 확인
+			if(realReply.length>300){
+			//1. 글자수 300이 넘을 경우
+				console.log("300자 초과");
+				$('#completeContent').text('300자를 초과하였습니다.');
+				$('#completeModal').modal();
+				return false;
+			} else{
+				//2. 글자수 0보다 크며 300안일 경우(정상)
+				console.log("정상");
+				return true;
+			}
+			
 		}
-		//2.태그가 있는 경우(글자 있음)
-		//태그들 제거해서 순수 글자수 빼오기
-		var realReply = reply.replace(/<[^>]*>?/g, '');
-		//int 형태로 변환
-		let intReply = parseInt(realReply);
-		
-		//순수 글자수가 300이 넘는지 확인
-		if(intReply>300){
-		//1. 글자수 300이 넘을 경우
-			console.log("300자 초과");
-			tinymce.activeEditor.setContent(realReply.substring(0,300));
+	}
+	function checkDistSource(){
+		var dist = $('#distSource').val();
+		if(dist.length == 0){
+			$('#completeContent').text('배포소스 내용을 입력해주세요.');
+			$('#completeModal').modal();
 			return false;
 		} else{
-			//2. 글자수 0보다 크며 300안일 경우(정상)
 			return true;
 		}
 	}
 	
-	
 	/* 개발 완료 버튼 클릭시 form데이터 전달 */
 	function devEnd(){
 		$('#writeform').attr('action', '${pageContext.request.contextPath}/devdone');
-		var reply = tinymce.activeEditor.getContent();
+		
 		//진척률 100% 인지 검사하기
 		let devProgress = $('#devProgress').val();
 		
-		//reply에 대한 글자수 유효성 검사
-		/* var result2 = checkReplyLength(reply); */
+		//배포소스 입력했는지 확인
+		var distResult = checkDistSource();
+		console.log("distResult: "+distResult);
 		
-		//숫자에 대한 유효성 검사하기
-		let result = updateProgress (devProgress);
-		//result 가 true 면 0과 100 사이의 숫자라는 의미 -> 100일 때만 실행시키기
-		if(result){
-			if( devProgress == 100) {
-				
-				//선택된 파일 지우기
-				var fileInput = $('#fileInput')[0];
-				var fileBuffer = new DataTransfer();
-				fileInput.files = fileBuffer.files;
-				
-				//배열의 항목으로 채우기
-				fileBuffer = new DataTransfer();
-				for(var i = 0; i < content_files.length; i ++){
-					if(!content_files[i].is_delete){
-						fileBuffer.items.add(content_files[i]);
-					} 
+		//reply에 대한 글자수 유효성 검사
+		var result2 = checkReplyLength();
+		
+		
+		console.log("result2: "+result2);
+		if(result2 && distResult){
+			console.log("여기까지 result2 나옴22");
+			//숫자에 대한 유효성 검사하기
+			let result = updateProgress (devProgress);
+			//result 가 true 면 0과 100 사이의 숫자라는 의미 -> 100일 때만 실행시키기
+			if(result){
+				if( devProgress == 100) {
+					
+					//선택된 파일 지우기
+					var fileInput = $('#fileInput')[0];
+					var fileBuffer = new DataTransfer();
+					fileInput.files = fileBuffer.files;
+					
+					//배열의 항목으로 채우기
+					fileBuffer = new DataTransfer();
+					for(var i = 0; i < content_files.length; i ++){
+						if(!content_files[i].is_delete){
+							fileBuffer.items.add(content_files[i]);
+						} 
+					}
+					fileInput.files = fileBuffer.files;
+					$('#completeContent').text('개발 완료 하시겠습니까?');
+					$('#completeModal').modal();
+					$('#writeform').submit();
+					
+				} else{
+					$('#completeContent').text('진척률 100% 일때 개발 완료가 가능합니다.');
+					$('#completeModal').modal();
 				}
-				fileInput.files = fileBuffer.files;
-				
-				$('#writeform').submit();
-				
-			} else{
-				$('#completeContent').text('진척률 100% 일때 개발 완료가 가능합니다.');
-				$('#completeModal').modal();
 			}
 		}
+		
+		
 		
 	}
 	
@@ -522,7 +547,6 @@
 		// input file 파일 첨부시 fileCheck 함수 실행
 	{
 		$("#fileInput").on("change", fileCheck);
-		$("#fileInputUpdate").on("change", fileUpdate);
 		
 		
 		/****** window로딩 시, 개발시작 버튼 눌렀는지 확인하고, 작성칸 readonly 만들어주기 *****/

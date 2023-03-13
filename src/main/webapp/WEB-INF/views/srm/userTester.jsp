@@ -55,16 +55,17 @@
                 	 	<section> <!-- 품질검토 내역 입력폼 start -->
                 	 		<div class="card border-top-dark">
                 	 			<div class="card-block">
-	                	 			<div class="card-title-block">
+	                	 			<div class="card-title-block d-flex">
 	                	 				<h3 class="title">
 		                	 				품질 검토 내역 작성 <i class="fas fa-edit"></i>
 	                	 				</h3>
+	                	 				<small class="ml-3">*는 필수 입력 사항입니다.</small>
 	                	 			</div>
 	                	 			<div class="card-body">
 	                	 				<form id="dueDateForm" action="${pageContext.request.contextPath}/startwork" method="POST" >
 											<input type="hidden" name="rno" value="${request.rno}">
 											<div class="form-group d-flex">
-												<div class="label label-write">완료예정일</div>
+												<div class="label label-write">*완료예정일</div>
 												<div class="flex-grow-1">
 													<c:if test="${request.statusNo == 7}">
 														<input type="date" class="date-form control" name="expectDate" id="userTestExpectDate">
@@ -83,7 +84,7 @@
 											<!-- 임시 저장 글 status_no -->
 											<input type="hidden" name="nextStatus" value="17"/>
 											<div class="form-group d-flex">
-												<div class="label label-write">품질 검토 사항</div>
+												<div class="label label-write">*품질 검토 사항</div>
 												<div class="flex-grow-1">
 													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply">${userTesterTemp.reply}</textarea>
 												</div>
@@ -136,12 +137,6 @@
 	                	 				<h3 class="title">
 	                	 					테스트 내역  <i class="far fa-bookmark success"></i>
 	                	 				</h3>
-	                	 				<c:if test="${requestProcess.userTester == member.mid && request.statusNo == 9}">
-			                	 			<form method="post" action="${pageContext.request.contextPath}/rollbackstep">
-			                	 				<input type="hidden" name="hno" value="${statusHistory.hno}"/>
-			                	 				<button type="submit" class="btn btn-primary btn-sm">ROLLBACK</button>
-			                	 			</form>
-			                	 		</c:if>
 	                	 			</div>
 	                	 			<div class="card-body">
                 	 					<div>

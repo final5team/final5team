@@ -76,10 +76,11 @@
 							<div class="card border-top-dark my-3" id="reDevelopRequestWrite">
 								<div class="card-block">
 									<div class="d-flex">
-										<div class="card-title-block">
+										<div class="card-title-block d-flex">
 		                	 				<h3 class="title">
 			                	 				테스트 내역 작성 <i class="fas fa-edit"></i>
 		                	 				</h3>
+		                	 				<small class="ml-3">*는 필수 입력 사항입니다.</small>
 		                	 			</div>
 		                	 			<ul class=" navUl">
 		                	 				<li class="navBtn active" id="normal"><a class="btn" onclick="turnNormal()">정상</a></li>
@@ -90,7 +91,7 @@
 										<form id="dueDateForm" action="${pageContext.request.contextPath}/testinprogress"  method="POST">
 											<input type="hidden" name="rno" value="${request.rno}" id="rno">
 											<div class="form-group d-flex" id="expectDateForm"> 
-												<div class="label label-write">완료예정일</div>
+												<div class="label label-write">*완료예정일</div>
 												<div class="flex-grow-1">
 													<c:if test="${request.statusNo == 5}">
 													<input type="date" class="date-form control" id="testExpectDate" name="testExpectDate" >
@@ -107,7 +108,7 @@
 											<input type="hidden" name="nextStatus" value="15" id="nextStatus">
 											<input type="hidden" name="rno" value="${request.rno}" id="rno">
 											<div class="form-group d-flex">
-												<div class="label label-write" id="replylabel">내용 작성 </div>
+												<div class="label label-write" id="replylabel">*내용 작성 </div>
 												<div class="flex-grow-1" >
 													<textarea class="form-control boxed flex-grow-1" name="reply" id="reply">${tempNormal.reply}</textarea>
 												</div>
@@ -495,70 +496,68 @@
 		$('#' + fileId).remove();
 		fileCount --;
 	}
+	
+	/******* reply 글자수 유효성 검사 *******/
+	function checkReplyLength(){
+		//글자
+		var reply = tinymce.activeEditor.getContent();
+		/* var reply = reply; */
+		//1.태그가 없는 경우(글자 없음)
+		if(reply.length == 0){
+			console.log("내용 없음");
+			$('#completeContent').text('내용을 입력해주세요.');
+			$('#completeModal').modal();
+			return false;
+		} else{
+			//2.태그가 있는 경우(글자 있음)
+			//태그들 제거해서 순수 글자수 빼오기
+			var realReply = reply.replace(/<[^>]*>?/g, '');
+			
+			//순수 글자수가 300이 넘는지 확인
+			if(realReply.length>300){
+			//1. 글자수 300이 넘을 경우
+				console.log("300자 초과");
+				$('#completeContent').text('300자를 초과하였습니다.');
+				$('#completeModal').modal();
+				return false;
+			} else{
+				//2. 글자수 0보다 크며 300안일 경우(정상)
+				console.log("정상");
+				return true;
+			}
+			
+		}
+	}
+	
 	/* 테스트 완료 버튼 누를 시 */
 	function testdone(){
 		$('#writeform').attr('action','${pageContext.request.contextPath}/testdone');
 		
-		//input안에 파일 지우기
-		var fileInput = $('#fileInput')[0];
-		var fileBuffer = new DataTransfer();
-		fileInput.files = fileBuffer.files;
+		//reply에 대한 글자수 유효성 검사
+		var result = checkReplyLength();
+		console.log("result: "+result);
 		
-		//input 안에 파일 채우기
-		fileBuffer = new DataTransfer();
-		for(var i = 0; i <content_files.length; i ++){
-			if(!content_files[i].is_delete){
-				fileBuffer.items.add(content_files[i]);
+		if(result){
+			//input안에 파일 지우기
+			var fileInput = $('#fileInput')[0];
+			var fileBuffer = new DataTransfer();
+			fileInput.files = fileBuffer.files;
+			
+			//input 안에 파일 채우기
+			fileBuffer = new DataTransfer();
+			for(var i = 0; i <content_files.length; i ++){
+				if(!content_files[i].is_delete){
+					fileBuffer.items.add(content_files[i]);
+				}
 			}
+			fileInput.files = fileBuffer.files;
+			$('#writeform').submit();
+			
 		}
-		fileInput.files = fileBuffer.files;
-		$('#writeform').submit();
-	}
-/********* 파일 수정 *********/
-	
-	/* '파일수정' 버튼 누를 때마다 파일input 실행 */
-	$(function () {
-	    $('#btn-upload-update').click(function (e) {
-	        e.preventDefault();
-	        $('#fileInputUpdate').click();
-	    });
-	})
-	function fileUpdate (e){
-		console.log("fileUpdate");
-		//파일 객체 갖고오기
-		var files = e.target.files;
 		
-		// 파일 배열 담기
-	    var filesArr = Array.prototype.slice.call(files);
 		
-		//기존에 있던 파일 객체
-	    var existfiles = $('.existfiles');
-	    
-	    if(fileCount + filesArr.length > totalCount - existfiles.length ){
-	    	$('#completeModal').modal();
-	    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
-	      return;
-	    }else {
-	    	 fileCount = fileCount + filesArr.length;
-	    }
-	 	// 각각의 파일 배열담기 및 기타
-	    filesArr.forEach(function (f) {
-	      var reader = new FileReader();
-	      
-	      reader.onload = function (e) {
-		        content_files.push(f);
-		        $('#file-list-update').append(
-		       		'<div id="file' + fileNum + '">'
-		       		+ '<font style="font-size:15px">' + f.name + '</font>'  
-		       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
-		       		+ '<div/>'
-				);
-		        fileNum ++;
-	      };
-	      
-	      reader.readAsDataURL(f);
-	    });
 	}
+
 	
 	/***************** 올린 파일 삭제 *****************/
 	$('.deletefileButton').click(function(){
@@ -578,25 +577,7 @@
 			}
 		});
 	});
-	/****** update() '수정'버튼 클릭 ******/
-	/* function update(formId){
-		//선택된 파일 지우기
-		var fileInput = $('#fileInputUpdate')[0];
-		var fileBuffer = new DataTransfer();
-		fileInput.files = fileBuffer.files;
-		
-		//배열의 항목으로 채우기
-		fileBuffer = new DataTransfer();
-		for(var i = 0; i < content_files.length; i ++){
-			if(!content_files[i].is_delete){
-				fileBuffer.items.add(content_files[i]);
-			} 
-		}
-		fileInput.files = fileBuffer.files;
-		console.log("fileInput.files" + fileInput.files.length);
-		console.log($('#rnorno').val());
-		$('#' + formId).submit();
-	} */
+
 	
 	/******* 임시저장 *******/
 	function tempStore(rno){
