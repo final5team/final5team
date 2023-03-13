@@ -574,6 +574,7 @@
 	}
 
 	
+	
 	/***************** 올린 파일 삭제 *****************/
 	$('.deletefileButton').click(function(){
 		var deleteDiv = $(this).parent();
