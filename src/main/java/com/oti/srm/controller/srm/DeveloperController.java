@@ -231,36 +231,6 @@ public class DeveloperController {
 		return map;
 	}
 
-	@PostMapping("updatehistory")
-	public String updateHistory(@RequestParam("rno") String rno, RequestProcess rp, StatusHistory sh, HttpSession session, Model model, MultipartFile[] files) {
-		log.info("updateHistory");
-		rp.setRno(Integer.parseInt(rno));
-		sh.setRno(Integer.parseInt(rno));
-		Member member = (Member) session.getAttribute("member");
-		
-		//MultipartFile[] 타입 파일 StatusHistoryFile 객체에 아서 서비스 전달
-		if(files != null) {
-			List<StatusHistoryFile> fileList = new ArrayList<StatusHistoryFile>();
-			try {
-				for(MultipartFile file : files) {
-					if (!file.isEmpty()) {
-						StatusHistoryFile shfile = new StatusHistoryFile();
-						shfile.setFileData(file.getBytes());
-						shfile.setFileName(file.getOriginalFilename());
-						shfile.setFileType(file.getContentType());
-						fileList.add(shfile);
-					}
-				}
-				sh.setFileList(fileList);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		commonService.updateHistory(rp, sh, member);
-		return "redirect:/pm/receiptdetail?rno=" + rp.getRno();
-		
-	}
-
 	// developer,tester,usertester,distributor 단계 롤백(수정)
 	@PostMapping("rollbackstep")
 	public String rollBackStep(int hno, HttpSession session, Model model) {

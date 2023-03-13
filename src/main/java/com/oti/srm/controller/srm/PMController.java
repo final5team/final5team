@@ -1,5 +1,6 @@
 package com.oti.srm.controller.srm;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -236,22 +239,75 @@ public class PMController {
 		return "srm/end";
 	}
 
-	// 화면에서 입력한 날짜 컨트롤러의 Date 매개변수에 넣기
-	// @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expectDate
-
-	// 완료 처리하기
+	/**
+	 * 
+	 * @author: KIM JI YOUNG
+	 * @param mid
+	 * @param session
+	 * @param model
+	 * @return
+	 */
+	// 담당자 정보 얻기
 	@GetMapping("/workinginfo")
 	@ResponseBody
 	public List<WorkingInfo> workinginfo(String mid, HttpSession session, Model model) {
-		log.info("실행");
+		// Member 객체 생성하기
 		Member member = new Member();
+		// mid 설정하기
 		member.setMid(mid);
+		// Member 정보 얻기
 		Member me = memberService.getNoPasswordMember(member);
+		// 담당자 정보 얻기
 		List<WorkingInfo> workingInfoList =  pMService.getWorkingInfo(me);
 		for(WorkingInfo wif : workingInfoList) {
-			log.info("rno : " + wif.getRno());
 			wif.setMtype(me.getMtype());
 		}
+		
 		return workingInfoList;
 	}
+	
+	/**
+	 * 
+	 * @author: KIM JI YOUNG
+	 * @param rno
+	 * @param rp
+	 * @param sh
+	 * @param session
+	 * @param model
+	 * @param files
+	 * @return
+	 */
+	// 접수 수정하기
+	@PostMapping("/updatehistory")
+	public String updateHistory(@RequestParam("rno") String rno, RequestProcess rp, StatusHistory sh, HttpSession session, Model model, MultipartFile[] files) {
+		rp.setRno(Integer.parseInt(rno));
+		sh.setRno(Integer.parseInt(rno));
+		Member member = (Member) session.getAttribute("member");
+		
+		//MultipartFile[] 타입 파일 StatusHistoryFile 객체에 담아서 서비스 전달
+		if(files != null) {
+			// 첨부파일 저장할 List 객체 생성
+			List<StatusHistoryFile> fileList = new ArrayList<StatusHistoryFile>();
+			try {
+				for(MultipartFile file : files) {
+					// 첨부파일 값이 존재할 때
+					if (!file.isEmpty()) {
+						// 상태 이력 파일 DTO에 저장
+						StatusHistoryFile shfile = new StatusHistoryFile();
+						shfile.setFileData(file.getBytes());
+						shfile.setFileName(file.getOriginalFilename());
+						shfile.setFileType(file.getContentType());
+						fileList.add(shfile);
+					}
+				}
+				sh.setFileList(fileList);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		commonService.updateHistory(rp, sh, member);
+		return "redirect:/pm/receiptdetail?rno=" + rp.getRno();
+		
+	}
+
 }
