@@ -89,7 +89,6 @@
 												<div class="flex-grow-1">
 													<textarea name="reply" id="reply">${devTemp.reply}</textarea>
 												</div>
-											</div>
 											<div class="form-group d-flex">
 												<div class="label label-write">*배포소스</div>
 												<div class="flex-grow-1">
