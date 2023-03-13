@@ -104,7 +104,7 @@
 												</div>
 											</div>
 										</form>												
-										<form role="form" id="writeform" method="POST" enctype="multipart/form-data">
+										<form role="form" action="${pageContext.request.contextPath}/testdone" id="writeform" method="POST" enctype="multipart/form-data">
 											<input type="hidden" name="nextStatus" value="15" id="nextStatus">
 											<input type="hidden" name="rno" value="${request.rno}" id="rno">
 											<div class="form-group d-flex">
@@ -387,18 +387,18 @@
 	function turnNormal(){
 		$('#normal').addClass('active');
 		$('#reexam').removeClass('active');
-		$('#replylabel').text('내용작성');
+		$('#replylabel').text('*내용작성');
 		/* 버튼 바꿔주기 */
 		$('#testButton').text('테스트 완료');
-		$('#testButton').attr('formaction', '${pageContext.request.contextPath}/testdone');
+		$('#writeform').attr('action', '${pageContext.request.contextPath}/testdone');
 		
 	}
 	function turnReexam(){
 		$('#reexam').addClass('active');
 		$('#normal').removeClass('active');
-		$('#replylabel').text('재검토사유');
+		$('#replylabel').text('*재검토사유');
 		/* 버튼 바꾸기 */
-		$('#testButton').attr('formaction', '${pageContext.request.contextPath}/askreexam');
+		$('#writeform').attr('action', '${pageContext.request.contextPath}/askreexam');
 		$('#testButton').text('재검토 요청');
 		
 	}
@@ -419,20 +419,6 @@
  		}
    	});
 	
-	/* form 제출 시 글자수 체크 */
-	$('#testButton').click(function(){
-		let content = $('#reply').val();
-		if(content.length > 300){
- 			$('#countCheck').modal();
- 			$('#countContent').html("최대 300자까지 입니다.");
- 			$(this).val(content.substring(0,300));
- 			$('#counter').html("(300 / 300)");
- 		} else{
- 			$('#writeform').submit();
- 		}
-		
-		
-	});
 	
 	/****** 업로드된 파일 리스트 출력하기 *****/
 	$(document).ready(function()
@@ -562,8 +548,6 @@
 	
 	/* 테스트 완료 버튼 누를 시 */
 	function testdone(){
-		$('#writeform').attr('action','${pageContext.request.contextPath}/testdone');
-		
 		//reply에 대한 글자수 유효성 검사
 		var result = checkReplyLength();
 		console.log("result: "+result);
@@ -582,13 +566,14 @@
 				}
 			}
 			fileInput.files = fileBuffer.files;
-			$('#writeform').submit();
+		    $('#writeform').submit(); 
 			
 		}
 		
 		
 	}
 
+	
 	
 	/***************** 올린 파일 삭제 *****************/
 	$('.deletefileButton').click(function(){
