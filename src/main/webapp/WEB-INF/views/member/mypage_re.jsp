@@ -127,7 +127,7 @@
 																<c:if test="${returnMember.gender == '1'}">
 																	<option value="1" selected>남</option>
 																</c:if>
-																<c:if test="${returnMember.gender == '2'} ">
+																<c:if test="${returnMember.gender == '2'}">
 																	<option value="2" selected>여</option>
 																</c:if>
 															</select>
