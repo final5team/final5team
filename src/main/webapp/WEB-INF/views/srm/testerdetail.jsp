@@ -196,11 +196,9 @@
 	                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 														<div>
 															<span>${statusHistoryFile.fileName}</span>
-															<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
 																<i class="fas fa-cloud-download-alt text-info"></i>
 															</a>
-															<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a>
-															<input type="hidden" name = "fno" value="${statusHistoryFile.fno}">
 														</div>
 														</c:forEach>
 		                	 						</div>
