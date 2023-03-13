@@ -29,7 +29,7 @@
 				<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body" style="display: flex; justify-content: center;">
-				<p id="countContent"></p>
+				<p id="content"></p>
 			</div>
 			<div class="modal-footer" style="justify-content: center;">
 				<a class="btn btn-primary" data-dismiss="modal" type="button" id="modal-button">확인</a>
@@ -235,7 +235,7 @@
 											</article>
 											
 											<div class="label-write_adjust" id="fileLable" >
-												<div class="btn btn-sm btn-info" id="btn-upload-update">파일 수정</div>
+												<div class="btn btn-sm btn-info" id="btn-upload-update" style="margin-left:5px;">파일 수정</div>
 												<input type="file" name="mulfiles" id="fileInputUpdate" multiple style="display: none;">
 											</div>
 													
