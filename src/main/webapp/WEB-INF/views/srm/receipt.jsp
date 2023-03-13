@@ -654,6 +654,7 @@
 
 			// 반려 입력 항목 열고 접수 입력 항목 숨기기
 		   $("#rejectbtn").click(function(){
+			   $('#calendarCard').hide();
 			  $("#receiptdiv").hide();
 			  $("#rejectdiv").show();
 		   });
@@ -914,11 +915,13 @@
 		}
 
 		/****** 달력 모달 open ******/
-		function openCalendar(mid){
+		$('.calendarOpen').change(function(){
+			const selectedOption = this.options[this.selectedIndex];
+			console.log(selectedOption);
+			var mid = $(selectedOption).val();
 			if(mid == ""){
 				return;
 			}
-			const selectedOption = this.options[this.selectedIndex];
 			$('#operator').text($(selectedOption).attr("id") + "님의 업무 진행 스케쥴");
 			$('#calendarCard').show();
 			console.log(mid);
@@ -963,7 +966,8 @@
 		 
 		   calendar.render();
 		   calendar.updateSize();
-		}
+
+		});
 			
 	</script>
 
