@@ -55,16 +55,17 @@
                 	 	<section> <!-- 개발내역 입력폼 start -->
                 	 		<div class="card border-top-dark">
                 	 			<div class="card-block">
-	                	 			<div class="card-title-block">
+	                	 			<div class="card-title-block d-flex">
 	                	 				<h3 class="title">
 		                	 				개발 내역 작성 <i class="fas fa-edit"></i>
 	                	 				</h3>
+	                	 				<small class="ml-3">*는 필수 입력 사항입니다.</small>
 	                	 			</div>
 	                	 			<div class="card-body">
 	                	 				<form id="dueDateForm" action="${pageContext.request.contextPath}/devinprogress" method="POST" >
 											<input type="hidden" name="rno" value="${request.rno}">
 											<div class="form-group d-flex">
-												<div class="label label-write">완료예정일</div>
+												<div class="label label-write">*완료예정일</div>
 												<div class="flex-grow-1">
 													
 													<c:if test="${request.statusNo ==2 || request.statusNo ==3}">
@@ -84,13 +85,13 @@
 											<input type="hidden" name="rno" value="${request.rno}">
 											<input type="hidden" name ="nextStatus" value="14">
 											<div class="form-group d-flex">
-												<div class="label label-write">개발 사항</div>
+												<div class="label label-write">*개발 사항</div>
 												<div class="flex-grow-1">
 													<textarea name="reply" id="reply">${devTemp.reply}</textarea>
 												</div>
 											</div>
 											<div class="form-group d-flex">
-												<div class="label label-write">배포소스(url)</div>
+												<div class="label label-write">*배포소스</div>
 												<div class="flex-grow-1">
 													<input class="form-control boxed" name="distSource" id="distSource" style="height: 20px;" value="${devTemp.distSource}">
 													<div class="d-flex justify-content-end">
@@ -99,7 +100,7 @@
 												</div>
 											</div>
 											<div class="d-flex">
-												<div class="label label-write">진척률</div>
+												<div class="label label-write">*진척률</div>
 												<div class="flex-grow-1 d-flex">
 													<input type="text" class="form-control boxed" style="width: 100px; height: 20px;" value="${requestProcess.devProgress}" name="devProgress" id="devProgress">
 													<span>%</span>
@@ -138,7 +139,7 @@
 										<div class="d-flex justify-content-end">
 										<button class="btn btn-dark btn-md" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">취소</button>
 										<button class="btn btn-warning btn-md mx-3" onclick="tempStore(${request.rno},14)">임시 저장</button>
-										<button class="btn btn-primary btn-md " onclick="checkReplyLength()">개발 완료</button>
+										<button class="btn btn-primary btn-md " onclick="checkModal()">개발 완료</button>
 										</div>
 										</c:if>
 										
@@ -335,7 +336,7 @@
 	}
 	
 	/******* reply 글자수 유효성 검사 *******/
-	function checkReplyLength(data){
+	function checkReplyLength(){
 		//글자
 		var reply = tinymce.activeEditor.getContent();
 		/* var reply = reply; */
@@ -365,19 +366,34 @@
 			
 		}
 	}
-	
+	function checkDistSource(){
+		var dist = $('#distSource').val();
+		if(dist.length == 0){
+			$('#completeContent').text('배포소스 내용을 입력해주세요.');
+			$('#completeModal').modal();
+			return false;
+		} else{
+			return true;
+		}
+	}
 	
 	/* 개발 완료 버튼 클릭시 form데이터 전달 */
 	function devEnd(){
 		$('#writeform').attr('action', '${pageContext.request.contextPath}/devdone');
-		var reply = tinymce.activeEditor.getContent();
+		
 		//진척률 100% 인지 검사하기
 		let devProgress = $('#devProgress').val();
 		
+		//배포소스 입력했는지 확인
+		var distResult = checkDistSource();
+		console.log("distResult: "+distResult);
+		
 		//reply에 대한 글자수 유효성 검사
-		var result2 = checkReplyLength(reply);
-		console.log(result2);
-		if(result2){
+		var result2 = checkReplyLength();
+		
+		
+		console.log("result2: "+result2);
+		if(result2 && distResult){
 			console.log("여기까지 result2 나옴22");
 			//숫자에 대한 유효성 검사하기
 			let result = updateProgress (devProgress);
@@ -532,7 +548,6 @@
 		// input file 파일 첨부시 fileCheck 함수 실행
 	{
 		$("#fileInput").on("change", fileCheck);
-		$("#fileInputUpdate").on("change", fileUpdate);
 		
 		
 		/****** window로딩 시, 개발시작 버튼 눌렀는지 확인하고, 작성칸 readonly 만들어주기 *****/

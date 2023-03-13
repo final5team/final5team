@@ -136,20 +136,21 @@
 	                	 		<div class="card border-top-dark my-3"> <!-- foreach한다면 여기부터 start -->
 	                	 			<div class="card-block">
 		                	 			<div class="card-block-title mb-0">
-		                	 				<h3 class="title">
+		                	 				<h3 class="title d-flex">
 		                	 					배포 내역  <i class="far fa-bookmark success"></i>
 		                	 				</h3>
+		                	 				<small class="ml-3">*는 필수 입력 사항입니다.</small>
 		                	 			</div>
 		                	 			<div class="card-body">
 	                	 					<div>
 	                	 						<div class="row">
 		                	 						<span class="col-2 label">작성자</span>
 		                	 						<span class="col-3">${statusHistory.writer}</span>
-		                	 						<span class="col-2 label">배포 완료일</span>
+		                	 						<span class="col-2 label">*배포 완료일</span>
 		                	 						<span class="col-3"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></span>
 	                	 						</div>
 	                	 						<div class="row mt-3">
-	               	 								<span class="col-2 label">배포 내용</span>
+	               	 								<span class="col-2 label">*배포 내용</span>
 	                	 							<div class="col-8 border scoller p-2" style="min-height: 100px;">${statusHistory.reply}</div>
 	               	 							</div>
 	               	 							<div class="row mt-3">
