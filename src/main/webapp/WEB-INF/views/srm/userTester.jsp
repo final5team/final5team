@@ -55,16 +55,17 @@
                 	 	<section> <!-- 품질검토 내역 입력폼 start -->
                 	 		<div class="card border-top-dark">
                 	 			<div class="card-block">
-	                	 			<div class="card-title-block">
+	                	 			<div class="card-title-block d-flex">
 	                	 				<h3 class="title">
 		                	 				품질 검토 내역 작성 <i class="fas fa-edit"></i>
 	                	 				</h3>
+	                	 				<small class="ml-3">*는 필수 입력 사항입니다.</small>
 	                	 			</div>
 	                	 			<div class="card-body">
 	                	 				<form id="dueDateForm" action="${pageContext.request.contextPath}/startwork" method="POST" >
 											<input type="hidden" name="rno" value="${request.rno}">
 											<div class="form-group d-flex">
-												<div class="label label-write">완료예정일</div>
+												<div class="label label-write">*완료예정일</div>
 												<div class="flex-grow-1">
 													<c:if test="${request.statusNo == 7}">
 														<input type="date" class="date-form control" name="expectDate" id="userTestExpectDate">
@@ -83,7 +84,7 @@
 											<!-- 임시 저장 글 status_no -->
 											<input type="hidden" name="nextStatus" value="17"/>
 											<div class="form-group d-flex">
-												<div class="label label-write">품질 검토 사항</div>
+												<div class="label label-write">*품질 검토 사항</div>
 												<div class="flex-grow-1">
 													<textarea rows="3" class="form-control boxed flex-grow-1" name="reply" id="reply">${userTesterTemp.reply}</textarea>
 												</div>
@@ -136,12 +137,6 @@
 	                	 				<h3 class="title">
 	                	 					테스트 내역  <i class="far fa-bookmark success"></i>
 	                	 				</h3>
-	                	 				<c:if test="${requestProcess.userTester == member.mid && request.statusNo == 9}">
-			                	 			<form method="post" action="${pageContext.request.contextPath}/rollbackstep">
-			                	 				<input type="hidden" name="hno" value="${statusHistory.hno}"/>
-			                	 				<button type="submit" class="btn btn-primary btn-sm">ROLLBACK</button>
-			                	 			</form>
-			                	 		</c:if>
 	                	 			</div>
 	                	 			<div class="card-body">
                 	 					<div>
@@ -359,7 +354,6 @@
 		// input file 파일 첨부시 fileCheck 함수 실행
 	{
 		$("#fileInput").on("change", fileCheck);
-		$("#fileInputUpdate").on("change", fileUpdate);
 		
 		/****** window로딩 시, 개발시작 버튼 눌렀는지 확인하고, 작성칸 readonly 만들어주기 *****/
 		var userTestExpectDate = $('#userTestExpectDate').val();
@@ -441,25 +435,64 @@
 		$('#' + fileId).remove();
 		fileCount --;
 	}
+	
+	/******* reply 글자수 유효성 검사 *******/
+	function checkReplyLength(){
+		//글자
+		var reply = tinymce.activeEditor.getContent();
+		/* var reply = reply; */
+		//1.태그가 없는 경우(글자 없음)
+		if(reply.length == 0){
+			console.log("내용 없음");
+			$('#completeContent').text('내용을 입력해주세요.');
+			$('#completeModal').modal();
+			return false;
+		} else{
+			//2.태그가 있는 경우(글자 있음)
+			//태그들 제거해서 순수 글자수 빼오기
+			var realReply = reply.replace(/<[^>]*>?/g, '');
+			
+			//순수 글자수가 300이 넘는지 확인
+			if(realReply.length>300){
+			//1. 글자수 300이 넘을 경우
+				console.log("300자 초과");
+				$('#completeContent').text('300자를 초과하였습니다.');
+				$('#completeModal').modal();
+				return false;
+			} else{
+				//2. 글자수 0보다 크며 300안일 경우(정상)
+				console.log("정상");
+				return true;
+			}
+			
+		}
+	}
+	
 	/* '유저테스트완료' 버튼 입력시 form데이터 전달 */
 	function userTestDone(){
 		$('#writeform').attr('action','${pageContext.request.contextPath}/endwork');
 		
-		//input에 담긴 파일 제거
-		var fileInput = $('#fileInput')[0];
-		var fileBuffer = new DataTransfer();
-		fileInput.files = fileBuffer.files;
+		//reply에 대한 글자수 유효성 검사
+		var result = checkReplyLength();
 		
-		//conten_file 에 담긴 파일 input에 담기
-		fileBuffer = new DataTransfer();
-		for(var i = 0; i<content_files.length; i ++){
-			if(!content_files[i].is_delete){
-				fileBuffer.items.add(content_files[i]);
+		if(result){
+			//input에 담긴 파일 제거
+			var fileInput = $('#fileInput')[0];
+			var fileBuffer = new DataTransfer();
+			fileInput.files = fileBuffer.files;
+			
+			//conten_file 에 담긴 파일 input에 담기
+			fileBuffer = new DataTransfer();
+			for(var i = 0; i<content_files.length; i ++){
+				if(!content_files[i].is_delete){
+					fileBuffer.items.add(content_files[i]);
+				}
 			}
+			fileInput.files = fileBuffer.files;
+			
+			$('#writeform').submit();
 		}
-		fileInput.files = fileBuffer.files;
 		
-		$('#writeform').submit();
 	}
 	
 

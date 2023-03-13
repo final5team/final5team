@@ -136,20 +136,21 @@
 	                	 		<div class="card border-top-dark my-3"> <!-- foreach한다면 여기부터 start -->
 	                	 			<div class="card-block">
 		                	 			<div class="card-block-title mb-0">
-		                	 				<h3 class="title">
+		                	 				<h3 class="title d-flex">
 		                	 					배포 내역  <i class="far fa-bookmark success"></i>
 		                	 				</h3>
+		                	 				<small class="ml-3">*는 필수 입력 사항입니다.</small>
 		                	 			</div>
 		                	 			<div class="card-body">
 	                	 					<div>
 	                	 						<div class="row">
 		                	 						<span class="col-2 label">작성자</span>
 		                	 						<span class="col-3">${statusHistory.writer}</span>
-		                	 						<span class="col-2 label">배포 완료일</span>
+		                	 						<span class="col-2 label">*배포 완료일</span>
 		                	 						<span class="col-3"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></span>
 	                	 						</div>
 	                	 						<div class="row mt-3">
-	               	 								<span class="col-2 label">배포 내용</span>
+	               	 								<span class="col-2 label">*배포 내용</span>
 	                	 							<div class="col-8 border scoller p-2" style="min-height: 100px;">${statusHistory.reply}</div>
 	               	 							</div>
 	               	 							<div class="row mt-3">
@@ -337,7 +338,6 @@
 		// input file 파일 첨부시 fileCheck 함수 실행
 	{
 		$("#fileInput").on("change", fileCheck);
-		$("#fileInputUpdate").on("change", fileUpdate);
 		
 		/****** window로딩 시, 개발시작 버튼 눌렀는지 확인하고, 작성칸 readonly 만들어주기 *****/
 		var distExpectDate = $('#distExpectDate').val();
@@ -419,24 +419,63 @@
 		$('#' + fileId).remove();
 		fileCount --;
 	}
+	
+	/******* reply 글자수 유효성 검사 *******/
+	function checkReplyLength(){
+		//글자
+		var reply = tinymce.activeEditor.getContent();
+		/* var reply = reply; */
+		//1.태그가 없는 경우(글자 없음)
+		if(reply.length == 0){
+			console.log("내용 없음");
+			$('#completeContent').text('내용을 입력해주세요.');
+			$('#completeModal').modal();
+			return false;
+		} else{
+			//2.태그가 있는 경우(글자 있음)
+			//태그들 제거해서 순수 글자수 빼오기
+			var realReply = reply.replace(/<[^>]*>?/g, '');
+			
+			//순수 글자수가 300이 넘는지 확인
+			if(realReply.length>300){
+			//1. 글자수 300이 넘을 경우
+				console.log("300자 초과");
+				$('#completeContent').text('300자를 초과하였습니다.');
+				$('#completeModal').modal();
+				return false;
+			} else{
+				//2. 글자수 0보다 크며 300안일 경우(정상)
+				console.log("정상");
+				return true;
+			}
+			
+		}
+	}
+	
 	/* '배포완료'버튼 입력시 */
 	function endDistribute(){
 		$('#writeform').attr('action','${pageContext.request.contextPath}/endwork');
 		
-		//input에 담긴 파일 제거
-		var fileInput = $('#fileInput')[0];
-		var fileBuffer = new DataTransfer();
-		fileInput.files = fileBuffer.files;
+		//reply에 대한 글자수 유효성 검사
+		var result = checkReplyLength();
 		
-		//conten_file 에 담긴 파일 input에 담기
-		fileBuffer = new DataTransfer();
-		for(var i = 0; i<content_files.length; i ++){
-			if(!content_files[i].is_delete){
-				fileBuffer.items.add(content_files[i]);
+		if(result){
+			//input에 담긴 파일 제거
+			var fileInput = $('#fileInput')[0];
+			var fileBuffer = new DataTransfer();
+			fileInput.files = fileBuffer.files;
+			
+			//conten_file 에 담긴 파일 input에 담기
+			fileBuffer = new DataTransfer();
+			for(var i = 0; i<content_files.length; i ++){
+				if(!content_files[i].is_delete){
+					fileBuffer.items.add(content_files[i]);
+				}
 			}
+			fileInput.files = fileBuffer.files;
+			$('#writeform').submit();
 		}
-		fileInput.files = fileBuffer.files;
-		$('#writeform').submit();
+		
 	}
 
 	/***************** 올린 파일 삭제 *****************/

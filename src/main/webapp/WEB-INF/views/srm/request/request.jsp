@@ -267,6 +267,26 @@ textarea:focus::placeholder {
 
 
 </style>
+<!-- 체크 모달 -->
+<div class="modal fade" id="checkModal" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5>
+					주의 <i class="fas fa-exclamation-triangle"></i>
+				</h5>
+				<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" style="display: flex; justify-content: center;">
+				<p id="content"></p>
+			</div>
+			<div class="modal-footer" style="justify-content: center;">
+				<a class="btn btn-primary" data-dismiss="modal" type="button">확인</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 체크 모달 /-->
 <body id="page-top">
 	<!-- Page Wrapper -->
 	<div id="wrapper">
@@ -308,12 +328,13 @@ textarea:focus::placeholder {
 										</h3>
 									</div>
 									<div class="card-body">
-										<form method="post" action="${pageContext.request.contextPath}/customer/request" enctype="multipart/form-data">
+										<form method="post" id="writeform" action="${pageContext.request.contextPath}/customer/request" enctype="multipart/form-data">
 											<article class="label item">
 												<h6>작성자</h6>
 												<h6>전화번호</h6>
 												<h6>직급</h6>
 												<h6>시스템</h6>
+												<small id="noInputSno" style="color : red; position: absolute; left:35%; bottom:1%"></small>
 											</article>
 											<article class="inputData">
 												<div class="item">
@@ -327,8 +348,8 @@ textarea:focus::placeholder {
 												</div>
 												<div class="item">
 													<div class="select-group">
-														<select class="custom-select" id="sno" name="sno" required>
-															<option selected value="0">전체</option>
+														<select class="custom-select" id="sno" name="sno">
+															<option selected value="">시스템 선택</option>
 															<c:forEach var="system" items="${systemList}">
 																<option value="${system.sno}">${system.systemName}</option>
 															</c:forEach>
@@ -340,6 +361,7 @@ textarea:focus::placeholder {
 												<h6>소속기관</h6>
 												<h6>이메일</h6>
 												<h6>완료 희망 일자</h6>
+												<small id="noInputReqExpectDate" style="color : red;  position: absolute; left:10%; top:85%"></small>
 											</article>
 											<article class="inputData2">
 												<div class="item">
@@ -349,15 +371,16 @@ textarea:focus::placeholder {
 													<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="${sessionScope.member.email}" value="${sessionScope.member.email}" readonly> 
 												</div>
 												<div class="item">
-													<input type="date" class="form-control form-control-user" id="reqExpectDate" name="reqExpectDate" required>
+													<input type="date" class="form-control form-control-user" id="reqExpectDate" name="reqExpectDate">
 												</div>
 											</article>
 											<article class="titleLabel">
 												<h6>제목</h6>
+												<small id="noInputReqTitle" style="color : red; position: absolute;  top:60%"></small>
 											</article>
 											<article class="titleInput">
 												<div class="item">
-													<input type="text" id="reqTitle" name="reqTitle" placeholder="제목" maxlength='30'required>
+													<input type="text" id="reqTitle" name="reqTitle" placeholder="제목" maxlength='30'>
 													<div class="titleConfirm">
 														<small class=" mr-5" style="font-size : 13px;" id="counterTitle">(0 / 30)</small>
 													</div>
@@ -365,19 +388,21 @@ textarea:focus::placeholder {
 											</article>
 											<article class="titleBody">
 												<h6>내용</h6>
+												<small id="noInputReqContent" style="color : red; position: absolute; bottom:5%"></small>
 											</article>
 											<article class="bodyInput">
 												<div class="item">
-													<textarea id="requestreply" name="reqContent" placeholder="내용" maxlength='300'></textarea>
+													<textarea id="reqContent" name="reqContent" placeholder="내용" maxlength='300'></textarea>
 												</div>
 											</article>
 											
 											<article class="fileTitle">
 												<h6>파일첨부</h6>
 											</article>
+											
 											<article class="fileBody">
 												<div class="file-item">
-													<div class="upload_name" id="exist_file" ></div>
+													<div class="upload_name" id="file-list" ></div>
 													<div class="filebox">
 														<input multiple="multiple" type="file" id="mfile" name="mfile[]"/>
 														<label style="background-color : #2c9faf;" for="mfile" id="btn-upload">파일찾기</label> 
@@ -386,7 +411,7 @@ textarea:focus::placeholder {
 											</article>
 											
 											<article class="submit-button">
-												<button class="btn btn-dark btn-sm" type="submit">작성</button>
+												<button class="btn btn-dark btn-sm" type="button" onclick="requestWrite()">작성</button>
 											</article>
 											<article class="return-button">
 												<button class="btn btn-dark btn-sm" type="button" onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'">취소</button>
@@ -420,49 +445,15 @@ textarea:focus::placeholder {
 	<!-- Scroll to Top Button-->
 	<a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
 	</a>
-	<!-- 글자수 입력 확인 -->
-	<div class="modal fade" id="countCheck" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5>
-						주의 <i class="fas fa-exclamation-triangle"></i>
-					</h5>
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body" style="display: flex; justify-content: center;">
-					<p id="countContent"></p>
-				</div>
-				<div class="modal-footer" style="justify-content: center;">
-					<a class="btn btn-primary" data-dismiss="modal" type="button">확인</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- 글자수 입력 확인 /-->
-	<!-- 파일 체크 모달 -->
-	<div class="modal fade" id="completeModal" aria-hidden="true" aria-labelledby="successOfDueDate">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5>Check</h5>
-					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body" style="display: flex; justify-content: center;">
-					<p id="completeContent"></p>
-				</div>
-				<div class="modal-footer" style="justify-content: center;">
-                    <a class="btn btn-primary" data-dismiss="modal" type="button">확인</a>
-				</div>
-			</div>
-		</div>
-	</div>
+	
+	
+	
 	
 	
 	
 	<script>
 		
-		let bodyLength = '';
+		/* let bodyLength = '';
 		function checkReplyLength(reply){
 			//글자
 			var reply = reply;
@@ -489,23 +480,115 @@ textarea:focus::placeholder {
 				//2. 글자수 0보다 크며 300안일 경우(정상)
 				return true;
 			}
+		} */
+		
+		/******* 글자수 유효성 검사 *******/
+		function checkReplyLength(){
+			//글자
+			var reply = tinymce.activeEditor.getContent();
+			/* var reply = reply; */
+			//1.태그가 없는 경우(글자 없음)
+			if(reply.length == 0){
+				console.log("내용 없음");
+				$('#content').text('내용을 입력해주세요.');
+				$('#checkModal').modal();
+				return false;
+			} else{
+				//2.태그가 있는 경우(글자 있음)
+				//태그들 제거해서 순수 글자수 빼오기
+				var realReply = reply.replace(/<[^>]*>?/g, '');
+				
+				//순수 글자수가 300이 넘는지 확인
+				if(realReply.length>300){
+				//1. 글자수 300이 넘을 경우
+					console.log("300자 초과");
+					$('#content').text('300자를 초과하였습니다.');
+					$('#checkModal').modal();
+					return false;
+				} else{
+					//2. 글자수 0보다 크며 300안일 경우(정상)
+					console.log("정상");
+					return true;
+				}
+				
+			}
 		}
 		
-		
+		/******* 제목 30자 이하 유효성 검사 *******/
 		let titleLength = '';
 		$('#reqTitle').keyup(function(e) {
 			let content = $(this).val();
-			console.log(content);
 			$('#counterTitle').html("(" + content.length + " / 30)");
 			
 			if (content.length > 30) {
-				$('#countCheck').modal();
-				$('#countContent').html("최대 30자까지 입니다.");
+				$('#content').html("최대 30자까지 입니다.");
+				$('#checkModal').modal();
 				$(this).val(content.substring(0, 30));
 				$('#counterTitle').html("(30 / 30)");
 			}
 		});
 		
+	 	function requestWrite() {
+	 		$('#noInputSno').text("");
+	 		$('#noInputReqExpectDate').text("");
+	 		$('#noInputReqTitle').text("");
+	 		$('#noInputReqContent').text("");
+	 		// 유효한 입력 내용
+			var result = true;			
+			// 의견 내용 길이가 300자 이상일 경우 제출 불가
+			if(!checkReplyLength()){
+				result = false;
+			}
+			var content=tinymce.activeEditor.getContent().length;
+			console.log(content);
+			// 작성내용 미입력 시 
+			if(content == 0){
+				$('#noInputReqContent').text("작성 내용 입력");
+				result = false;
+			}
+
+			if($('#sno').val()==""){
+				$('#noInputSno').text("시스템 선택");
+				result = false;
+			}
+
+			if($('#reqExpectDate').val()==""){
+				$('#noInputReqExpectDate').text("요청 희망일 입력");
+				result = false;
+			}
+
+
+			if($('#reqTitle').val()==""){
+				$('#noInputReqTitle').text("제목 입력");
+				result = false;
+			}	
+			if(result){
+				var fileInput = $('#mfile')[0];
+				var fileBuffer = new DataTransfer();
+				fileInput.files = fileBuffer.files;
+				
+				//input 안에 파일 채우기
+				fileBuffer = new DataTransfer();
+				for(var i = 0; i < content_files.length; i ++){
+					if(!content_files[i].is_delete){
+						fileBuffer.items.add(content_files[i]);
+					}
+				}
+				fileInput.files = fileBuffer.files;
+			    $('#writeform').submit(); 
+			}
+		}
+	
+		
+	 	/****** 업로드된 파일 리스트 출력하기 *****/
+		/* '파일추가' 버튼 누를 때마다 파일input 실행 */
+		$(function () {
+		    $('#btn-upload').click(function (e) {
+		        e.preventDefault();
+		        $('#mfile').click();
+		    });
+		    $("#mfile").on("change", fileCheck);
+		})
 		
 		// 파일 현재 필드 숫자 totalCount랑 비교값
 		var fileCount = 0;
@@ -515,43 +598,41 @@ textarea:focus::placeholder {
 		var fileNum = 0;
 		// 첨부파일 배열
 		var content_files = new Array();
-		
-		//파일 추가 버튼 클릭시 파일 input
-		let inputLabel = document.querySelector('#btn-upload');
-		inputLabel.addEventListener('click', function(e){
-			
-		});
-		//업로드된 파일 출력하기
-		$("#mfile").on('change', function(){
-		let mfile = document.querySelector('#mfile');
-			console.log(mfile.files);			
-			let filesArr = Array.prototype.slice.call(mfile.files);
-			if (fileCount + filesArr.length > totalCount) {
-		    	$('#completeModal').modal();
-		    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
+
+		function fileCheck(e) {
+		    var files = e.target.files;
+		    
+		    // 파일 배열 담기
+		    var filesArr = Array.prototype.slice.call(files);
+		    
+		    
+		    // 파일 개수 확인 및 제한
+		    if (fileCount + filesArr.length > totalCount) {
+		    	$('#checkModal').modal();
+		    	$('#content').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
 		      return;
-		    	
 		    } else {
 		    	 fileCount = fileCount + filesArr.length;
 		    }
-			
-			
-			// 각각의 파일 배열담기 및 기타
+		    
+		    // 각각의 파일 배열담기 및 기타
 		    filesArr.forEach(function (f) {
 		      var reader = new FileReader();
+		      
 		      reader.onload = function (e) {
 			        content_files.push(f);
-			        $('#exist_file').append(
+			        $('#file-list').append(
 			       		'<div id="file' + fileNum + '">'
 			       		+ '<font style="font-size:15px">' + f.name + '</font>'  
-			       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success" style="cursor:pointer;"></i></a>' 
+			       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
 			       		+ '<div/>'
 					);
 			        fileNum ++;
 		      };
+		      
 		      reader.readAsDataURL(f);
 		    });
-		});
+		  }
 		
 		// 파일 부분 삭제 함수
 		function fileDelete(fileId){
@@ -561,11 +642,6 @@ textarea:focus::placeholder {
 			fileCount --;
 		}
 		
-		function checkForm(){
-			
-			
-			
-		}
 		
 		
 		

@@ -120,7 +120,16 @@ public class StatsController {
 		return "srm/delrate";
 	}
 	
-	// 
+	/**
+	 * 
+	 * @author: KIM JI YOUNG
+	 * @param session
+	 * @param model
+	 * @param year
+	 * @param month
+	 * @return
+	 */
+	// Ajax로 분기별 서비스 요청 추이 구하기
 	@RequestMapping(value="/curve/{year}/{month}", method = RequestMethod.GET)
 	public String getCurveSystem(HttpSession session, Model model, @PathVariable String year, @PathVariable int month) {
 		// 서비스 요청 추이

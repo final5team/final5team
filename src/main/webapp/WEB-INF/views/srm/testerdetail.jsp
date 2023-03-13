@@ -76,10 +76,11 @@
 							<div class="card border-top-dark my-3" id="reDevelopRequestWrite">
 								<div class="card-block">
 									<div class="d-flex">
-										<div class="card-title-block">
+										<div class="card-title-block d-flex">
 		                	 				<h3 class="title">
 			                	 				테스트 내역 작성 <i class="fas fa-edit"></i>
 		                	 				</h3>
+		                	 				<small class="ml-3">*는 필수 입력 사항입니다.</small>
 		                	 			</div>
 		                	 			<ul class=" navUl">
 		                	 				<li class="navBtn active" id="normal"><a class="btn" onclick="turnNormal()">정상</a></li>
@@ -90,10 +91,10 @@
 										<form id="dueDateForm" action="${pageContext.request.contextPath}/testinprogress"  method="POST">
 											<input type="hidden" name="rno" value="${request.rno}" id="rno">
 											<div class="form-group d-flex" id="expectDateForm"> 
-												<div class="label label-write">완료예정일</div>
+												<div class="label label-write">*완료예정일</div>
 												<div class="flex-grow-1">
 													<c:if test="${request.statusNo == 5}">
-													<input type="date" class="date-form control" id="testExpectDate" name="testExpectDate" >
+													<input type="date" class="date-form control" id="testExpectDate" name="testExpectDate" value="<fmt:formatDate value='${requestProcess.testExpectDate}' pattern='yyyy-MM-dd'/>" >
 													<div class="btn btn-md btn-warning"  onclick="checkDate()" id="testStartButton">테스트 시작</div>
 													</c:if>
 													<c:if test="${request.statusNo == 6}">
@@ -103,11 +104,11 @@
 												</div>
 											</div>
 										</form>												
-										<form role="form" id="writeform" method="POST" enctype="multipart/form-data">
+										<form role="form" action="${pageContext.request.contextPath}/testdone" id="writeform" method="POST" enctype="multipart/form-data">
 											<input type="hidden" name="nextStatus" value="15" id="nextStatus">
 											<input type="hidden" name="rno" value="${request.rno}" id="rno">
 											<div class="form-group d-flex">
-												<div class="label label-write" id="replylabel">내용 작성 </div>
+												<div class="label label-write" id="replylabel">*내용 작성 </div>
 												<div class="flex-grow-1" >
 													<textarea class="form-control boxed flex-grow-1" name="reply" id="reply">${tempNormal.reply}</textarea>
 												</div>
@@ -139,15 +140,15 @@
 												<div class="border flex-grow-1 border" id="file-list"></div>	
 											</div>
 											
-											<div class="d-flex justify-content-end">
-												<c:if test="${member.mid == requestProcess.tester && request.statusNo == 6}">
-												<button class="btn btn-warning btn-md " onclick="tempStore(${request.rno})" type="button" >임시저장</button>
-												<button class="btn btn-primary btn-md mx-3" id="testButton" onclick="testdone()">테스트 완료</button>
-												<!-- <button class="btn btn-dark btn-md " type="button" onclick="location.href='{pageContext.request.contextPath}/customer/requestlist'">취소</button> -->
-												<button class="btn btn-dark btn-md " type="button">취소</button>
-												</c:if>
-											</div>
 										</form>
+										<div class="d-flex justify-content-end">
+											<c:if test="${member.mid == requestProcess.tester && request.statusNo == 6}">
+											<button class="btn btn-warning btn-md " onclick="tempStore(${request.rno})" type='button' >임시저장</button>
+											<button class="btn btn-primary btn-md mx-3" id="testButton" onclick="testdone()" type='button'>테스트 완료</button>
+											<!-- <button class="btn btn-dark btn-md " type="button" onclick="location.href='{pageContext.request.contextPath}/customer/requestlist'">취소</button> -->
+											<button class="btn btn-dark btn-md " type="button">취소</button>
+											</c:if>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -195,11 +196,9 @@
 	                	 								<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
 														<div>
 															<span>${statusHistoryFile.fileName}</span>
-															<a class="existfiles" href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+															<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
 																<i class="fas fa-cloud-download-alt text-info"></i>
 															</a>
-															<a class="deletefileButton"><i class="fas fa-times ml-1"></i></a>
-															<input type="hidden" name = "fno" value="${statusHistoryFile.fno}">
 														</div>
 														</c:forEach>
 		                	 						</div>
@@ -292,6 +291,7 @@
 		</div>
 	</div>
 	<!-- 데이트 입력 확인 /-->
+	<!-- 확인창 전용 모달 -->
 	<div class="modal fade" id="completeModal" aria-hidden="true" aria-labelledby="successOfDueDate">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
@@ -308,6 +308,31 @@
 			</div>
 		</div>
 	</div>
+	<!-- 확인창 전용 모달 -->
+	
+	<!-- 테스트완료 입력 확인 -->
+	<div class="modal fade" id="devCheckModal" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>
+						Check
+					</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" style="display: flex; justify-content: center;">
+					<p id="devCheckModalContent"></p>
+				</div>
+				<div class="modal-footer" style="justify-content: center;">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <a class="btn btn-primary" data-dismiss="modal" onclick="testdone()" type="button">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 테스트완료 입력 확인 /-->
+	
+	
 	<script>
 	
 	function checkDate(){
@@ -360,18 +385,18 @@
 	function turnNormal(){
 		$('#normal').addClass('active');
 		$('#reexam').removeClass('active');
-		$('#replylabel').text('내용작성');
+		$('#replylabel').text('*내용작성');
 		/* 버튼 바꿔주기 */
 		$('#testButton').text('테스트 완료');
-		$('#testButton').attr('formaction', '${pageContext.request.contextPath}/testdone');
+		$('#writeform').attr('action', '${pageContext.request.contextPath}/testdone');
 		
 	}
 	function turnReexam(){
 		$('#reexam').addClass('active');
 		$('#normal').removeClass('active');
-		$('#replylabel').text('재검토사유');
+		$('#replylabel').text('*재검토사유');
 		/* 버튼 바꾸기 */
-		$('#testButton').attr('formaction', '${pageContext.request.contextPath}/askreexam');
+		$('#writeform').attr('action', '${pageContext.request.contextPath}/askreexam');
 		$('#testButton').text('재검토 요청');
 		
 	}
@@ -392,27 +417,12 @@
  		}
    	});
 	
-	/* form 제출 시 글자수 체크 */
-	$('#testButton').click(function(){
-		let content = $('#reply').val();
-		if(content.length > 300){
- 			$('#countCheck').modal();
- 			$('#countContent').html("최대 300자까지 입니다.");
- 			$(this).val(content.substring(0,300));
- 			$('#counter').html("(300 / 300)");
- 		} else{
- 			$('#writeform').submit();
- 		}
-		
-		
-	});
 	
 	/****** 업로드된 파일 리스트 출력하기 *****/
 	$(document).ready(function()
 		// input file 파일 첨부시 fileCheck 함수 실행
 	{
 		$("#fileInput").on("change", fileCheck);
-		$("#fileInputUpdate").on("change", fileUpdate);
 		
 		/****** window로딩 시, 개발시작 버튼 눌렀는지 확인하고, 작성칸 readonly 만들어주기 *****/
 		var testExpectDate = $('#testExpectDate').val();
@@ -495,70 +505,73 @@
 		$('#' + fileId).remove();
 		fileCount --;
 	}
+	
+	/******* reply 글자수 유효성 검사 *******/
+	function checkReplyLength(){
+		//글자
+		var reply = tinymce.activeEditor.getContent();
+		/* var reply = reply; */
+		//1.태그가 없는 경우(글자 없음)
+		if(reply.length == 0){
+			console.log("내용 없음");
+			$('#completeContent').text('내용을 입력해주세요.');
+			$('#completeModal').modal();
+			return false;
+		} else{
+			//2.태그가 있는 경우(글자 있음)
+			//태그들 제거해서 순수 글자수 빼오기
+			var realReply = reply.replace(/<[^>]*>?/g, '');
+			
+			//순수 글자수가 300이 넘는지 확인
+			if(realReply.length>300){
+			//1. 글자수 300이 넘을 경우
+				console.log("300자 초과");
+				$('#completeContent').text('300자를 초과하였습니다.');
+				$('#completeModal').modal();
+				return false;
+			} else{
+				//2. 글자수 0보다 크며 300안일 경우(정상)
+				console.log("정상");
+				return true;
+			}
+			
+		}
+	}
+	//개발 완료 버튼 클릭시 모달 팝업
+	function checkDevEnd(){
+		console.log("모달 까지 띄울 준비");
+		/* $('#devCheckModalContent').text('개발 완료 하시겠습니까?');
+		$('#devCheckModal').modal(); */
+	}
+	
 	/* 테스트 완료 버튼 누를 시 */
 	function testdone(){
-		$('#writeform').attr('action','${pageContext.request.contextPath}/testdone');
+		//reply에 대한 글자수 유효성 검사
+		var result = checkReplyLength();
+		console.log("result: "+result);
 		
-		//input안에 파일 지우기
-		var fileInput = $('#fileInput')[0];
-		var fileBuffer = new DataTransfer();
-		fileInput.files = fileBuffer.files;
-		
-		//input 안에 파일 채우기
-		fileBuffer = new DataTransfer();
-		for(var i = 0; i <content_files.length; i ++){
-			if(!content_files[i].is_delete){
-				fileBuffer.items.add(content_files[i]);
+		if(result){
+			//input안에 파일 지우기
+			var fileInput = $('#fileInput')[0];
+			var fileBuffer = new DataTransfer();
+			fileInput.files = fileBuffer.files;
+			
+			//input 안에 파일 채우기
+			fileBuffer = new DataTransfer();
+			for(var i = 0; i <content_files.length; i ++){
+				if(!content_files[i].is_delete){
+					fileBuffer.items.add(content_files[i]);
+				}
 			}
+			fileInput.files = fileBuffer.files;
+		    $('#writeform').submit(); 
+			
 		}
-		fileInput.files = fileBuffer.files;
-		$('#writeform').submit();
+		
+		
 	}
-/********* 파일 수정 *********/
+
 	
-	/* '파일수정' 버튼 누를 때마다 파일input 실행 */
-	$(function () {
-	    $('#btn-upload-update').click(function (e) {
-	        e.preventDefault();
-	        $('#fileInputUpdate').click();
-	    });
-	})
-	function fileUpdate (e){
-		console.log("fileUpdate");
-		//파일 객체 갖고오기
-		var files = e.target.files;
-		
-		// 파일 배열 담기
-	    var filesArr = Array.prototype.slice.call(files);
-		
-		//기존에 있던 파일 객체
-	    var existfiles = $('.existfiles');
-	    
-	    if(fileCount + filesArr.length > totalCount - existfiles.length ){
-	    	$('#completeModal').modal();
-	    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
-	      return;
-	    }else {
-	    	 fileCount = fileCount + filesArr.length;
-	    }
-	 	// 각각의 파일 배열담기 및 기타
-	    filesArr.forEach(function (f) {
-	      var reader = new FileReader();
-	      
-	      reader.onload = function (e) {
-		        content_files.push(f);
-		        $('#file-list-update').append(
-		       		'<div id="file' + fileNum + '">'
-		       		+ '<font style="font-size:15px">' + f.name + '</font>'  
-		       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
-		       		+ '<div/>'
-				);
-		        fileNum ++;
-	      };
-	      
-	      reader.readAsDataURL(f);
-	    });
-	}
 	
 	/***************** 올린 파일 삭제 *****************/
 	$('.deletefileButton').click(function(){
@@ -578,25 +591,7 @@
 			}
 		});
 	});
-	/****** update() '수정'버튼 클릭 ******/
-	/* function update(formId){
-		//선택된 파일 지우기
-		var fileInput = $('#fileInputUpdate')[0];
-		var fileBuffer = new DataTransfer();
-		fileInput.files = fileBuffer.files;
-		
-		//배열의 항목으로 채우기
-		fileBuffer = new DataTransfer();
-		for(var i = 0; i < content_files.length; i ++){
-			if(!content_files[i].is_delete){
-				fileBuffer.items.add(content_files[i]);
-			} 
-		}
-		fileInput.files = fileBuffer.files;
-		console.log("fileInput.files" + fileInput.files.length);
-		console.log($('#rnorno').val());
-		$('#' + formId).submit();
-	} */
+
 	
 	/******* 임시저장 *******/
 	function tempStore(rno){

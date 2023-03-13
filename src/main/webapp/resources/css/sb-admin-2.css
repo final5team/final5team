@@ -11438,10 +11438,10 @@ white-space: nowrap;
 /* Handle */
 .scroller::-webkit-scrollbar-thumb {
   border-radius: 0;
-  background: #3A4651; }
+  background: #D7DDE4; }
 
 .scroller::-webkit-scrollbar-thumb:window-inactive {
-  background: #3A4651; }
+  background: #D7DDE4; }
   
   /************** 체크박스 *******************/
    input[type="checkbox"], input[type="radio"]{
@@ -11573,7 +11573,7 @@ input[type="radio"]:checked + label:after {
  
 .scroller {
 	overflow:auto;
-	max-height: 350px;
+	max-height: 250px;
 }
 .btn.btn-warning-outline {
     color: #fe974b;

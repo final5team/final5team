@@ -55,16 +55,17 @@
                 	 	<section> <!-- 개발내역 입력폼 start -->
                 	 		<div class="card border-top-dark">
                 	 			<div class="card-block">
-	                	 			<div class="card-title-block">
+	                	 			<div class="card-title-block d-flex">
 	                	 				<h3 class="title">
 		                	 				개발 내역 작성 <i class="fas fa-edit"></i>
 	                	 				</h3>
+	                	 				<small class="ml-3">*는 필수 입력 사항입니다.</small>
 	                	 			</div>
 	                	 			<div class="card-body">
 	                	 				<form id="dueDateForm" action="${pageContext.request.contextPath}/devinprogress" method="POST" >
 											<input type="hidden" name="rno" value="${request.rno}">
 											<div class="form-group d-flex">
-												<div class="label label-write">완료예정일</div>
+												<div class="label label-write">*완료예정일</div>
 												<div class="flex-grow-1">
 													
 													<c:if test="${request.statusNo ==2 || request.statusNo ==3}">
@@ -84,12 +85,13 @@
 											<input type="hidden" name="rno" value="${request.rno}">
 											<input type="hidden" name ="nextStatus" value="14">
 											<div class="form-group d-flex">
-												<div class="label label-write">개발 사항</div>
+												<div class="label label-write">*개발 사항</div>
 												<div class="flex-grow-1">
 													<textarea name="reply" id="reply">${devTemp.reply}</textarea>
 												</div>
+											</div>
 											<div class="form-group d-flex">
-												<div class="label label-write">배포소스(url)</div>
+												<div class="label label-write">*배포소스</div>
 												<div class="flex-grow-1">
 													<input class="form-control boxed" name="distSource" id="distSource" style="height: 20px;" value="${devTemp.distSource}">
 													<div class="d-flex justify-content-end">
@@ -98,7 +100,7 @@
 												</div>
 											</div>
 											<div class="d-flex">
-												<div class="label label-write">진척률</div>
+												<div class="label label-write">*진척률</div>
 												<div class="flex-grow-1 d-flex">
 													<input type="text" class="form-control boxed" style="width: 100px; height: 20px;" value="${requestProcess.devProgress}" name="devProgress" id="devProgress">
 													<span>%</span>
@@ -137,7 +139,7 @@
 										<div class="d-flex justify-content-end">
 										<button class="btn btn-dark btn-md" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">취소</button>
 										<button class="btn btn-warning btn-md mx-3" onclick="tempStore(${request.rno},14)">임시 저장</button>
-										<button class="btn btn-primary btn-md " onclick="devEnd()">개발 완료</button>
+										<button class="btn btn-primary btn-md " onclick="checkDevEnd()">개발 완료</button>
 										</div>
 										</c:if>
 										
@@ -297,6 +299,27 @@
 		</div>
 	</div>
 	<!-- 글자수 입력 확인 /-->
+	<!-- 개발완료 입력 확인 -->
+	<div class="modal fade" id="devCheckModal" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>
+						Check
+					</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" style="display: flex; justify-content: center;">
+					<p id="devCheckModalContent"></p>
+				</div>
+				<div class="modal-footer" style="justify-content: center;">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <a class="btn btn-primary" data-dismiss="modal" onclick="devEnd()" type="button">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 개발완료 입력 확인 /-->
 	<script>
 
 	function checkDate(){
@@ -334,73 +357,98 @@
 	}
 	
 	/******* reply 글자수 유효성 검사 *******/
-	function checkReplyLength(reply){
+	function checkReplyLength(){
 		//글자
-		var reply = reply;
+		var reply = tinymce.activeEditor.getContent();
+		/* var reply = reply; */
 		//1.태그가 없는 경우(글자 없음)
 		if(reply.length == 0){
 			console.log("내용 없음");
 			$('#completeContent').text('내용을 입력해주세요.');
 			$('#completeModal').modal();
 			return false;
+		} else{
+			//2.태그가 있는 경우(글자 있음)
+			//태그들 제거해서 순수 글자수 빼오기
+			var realReply = reply.replace(/<[^>]*>?/g, '');
+			
+			//순수 글자수가 300이 넘는지 확인
+			if(realReply.length>300){
+			//1. 글자수 300이 넘을 경우
+				console.log("300자 초과");
+				$('#completeContent').text('300자를 초과하였습니다.');
+				$('#completeModal').modal();
+				return false;
+			} else{
+				//2. 글자수 0보다 크며 300안일 경우(정상)
+				console.log("정상");
+				return true;
+			}
+			
 		}
-		//2.태그가 있는 경우(글자 있음)
-		//태그들 제거해서 순수 글자수 빼오기
-		var realReply = reply.replace(/<[^>]*>?/g, '');
-		//int 형태로 변환
-		let intReply = parseInt(realReply);
-		
-		//순수 글자수가 300이 넘는지 확인
-		if(intReply>300){
-		//1. 글자수 300이 넘을 경우
-			console.log("300자 초과");
-			tinymce.activeEditor.setContent(realReply.substring(0,300));
+	}
+	function checkDistSource(){
+		var dist = $('#distSource').val();
+		if(dist.length == 0){
+			$('#completeContent').text('배포소스 내용을 입력해주세요.');
+			$('#completeModal').modal();
 			return false;
 		} else{
-			//2. 글자수 0보다 크며 300안일 경우(정상)
 			return true;
 		}
+	}
+	//개발 완료 버튼 클릭시 모달 팝업
+	function checkDevEnd(){
+		$('#devCheckModalContent').text('개발 완료 하시겠습니까?');
+		$('#devCheckModal').modal();
 	}
 	
 	
 	/* 개발 완료 버튼 클릭시 form데이터 전달 */
 	function devEnd(){
 		$('#writeform').attr('action', '${pageContext.request.contextPath}/devdone');
-		var reply = tinymce.activeEditor.getContent();
+		
 		//진척률 100% 인지 검사하기
 		let devProgress = $('#devProgress').val();
 		
-		//reply에 대한 글자수 유효성 검사
-		/* var result2 = checkReplyLength(reply); */
+		//배포소스 입력했는지 확인
+		var distResult = checkDistSource();
+		console.log("distResult: "+distResult);
 		
-		//숫자에 대한 유효성 검사하기
-		let result = updateProgress (devProgress);
-		//result 가 true 면 0과 100 사이의 숫자라는 의미 -> 100일 때만 실행시키기
-		if(result){
-			if( devProgress == 100) {
-				
-				//선택된 파일 지우기
-				var fileInput = $('#fileInput')[0];
-				var fileBuffer = new DataTransfer();
-				fileInput.files = fileBuffer.files;
-				
-				//배열의 항목으로 채우기
-				fileBuffer = new DataTransfer();
-				for(var i = 0; i < content_files.length; i ++){
-					if(!content_files[i].is_delete){
-						fileBuffer.items.add(content_files[i]);
-					} 
+		//reply에 대한 글자수 유효성 검사
+		var result2 = checkReplyLength();
+		
+		
+		console.log("result2: "+result2);
+		if(result2 && distResult){
+			console.log("여기까지 result2 나옴22");
+			//숫자에 대한 유효성 검사하기
+			let result = updateProgress (devProgress);
+			//result 가 true 면 0과 100 사이의 숫자라는 의미 -> 100일 때만 실행시키기
+			if(result){
+				if( devProgress == 100) {
+					
+					//선택된 파일 지우기
+					var fileInput = $('#fileInput')[0];
+					var fileBuffer = new DataTransfer();
+					fileInput.files = fileBuffer.files;
+					
+					//배열의 항목으로 채우기
+					fileBuffer = new DataTransfer();
+					for(var i = 0; i < content_files.length; i ++){
+						if(!content_files[i].is_delete){
+							fileBuffer.items.add(content_files[i]);
+						} 
+					}
+					fileInput.files = fileBuffer.files;
+					$('#writeform').submit();
+					
+				} else{
+					$('#completeContent').text('진척률 100% 일때 개발 완료가 가능합니다.');
+					$('#completeModal').modal();
 				}
-				fileInput.files = fileBuffer.files;
-				
-				$('#writeform').submit();
-				
-			} else{
-				$('#completeContent').text('진척률 100% 일때 개발 완료가 가능합니다.');
-				$('#completeModal').modal();
 			}
 		}
-		
 	}
 	
 	
@@ -522,7 +570,6 @@
 		// input file 파일 첨부시 fileCheck 함수 실행
 	{
 		$("#fileInput").on("change", fileCheck);
-		$("#fileInputUpdate").on("change", fileUpdate);
 		
 		
 		/****** window로딩 시, 개발시작 버튼 눌렀는지 확인하고, 작성칸 readonly 만들어주기 *****/
@@ -607,55 +654,8 @@
 		fileCount --;
 		console.log("fileDelete-fileCount: " + fileCount);
 	}
-	/********* 파일 수정 *********/
+
 	
-	/* '파일수정' 버튼 누를 때마다 파일input 실행 */
-	$(function () {
-	    $('#btn-upload-update').click(function (e) {
-	        e.preventDefault();
-	        $('#fileInputUpdate').click();
-	    });
-	})
-	function fileUpdate (e){
-		console.log("fileUpdate");
-		//파일 객체 갖고오기
-		var files = e.target.files;
-		
-		// 파일 배열 담기
-	    var filesArr = Array.prototype.slice.call(files);
-		
-		//기존에 있던 파일 객체
-	    var existfiles = $('.existfiles');
-	    
-    	console.log("fileCount: "+ fileCount);	
-    	console.log("filesArr.length: "+filesArr.length);
-    	console.log("existfiles.length: "+existfiles.length);
-	    if(fileCount + filesArr.length > totalCount - existfiles.length ){
-	    	$('#completeModal').modal();
-	    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
-	      return;
-	    }else {
-	    	 fileCount = fileCount + filesArr.length;
-	    }
-	 	// 각각의 파일 배열담기 및 기타
-	    filesArr.forEach(function (f) {
-	      var reader = new FileReader();
-	      
-	      reader.onload = function (e) {
-		        content_files.push(f);
-		        $('#file-list-update').append(
-		       		'<div id="file' + fileNum + '">'
-		       		+ '<font style="font-size:15px">' + f.name + '</font>'  
-		       		+ '<a onclick ="fileDelete(\'file' + fileNum + '\')">'+'<i class="fas fa-times ml-1 text-success"></i></a>' 
-		       		+ '<div/>'
-				);
-		        fileNum ++;
-	      };
-	      
-	      reader.readAsDataURL(f);
-	    });
-	 	
-	}
 	/***************** 올린 파일 삭제 *****************/
 	$('.deletefileButton').click(function(){
 		var deleteDiv = $(this).parent();
@@ -676,24 +676,7 @@
 		
 		
 	});
-	/****** update() '수정'버튼 클릭 ******/
-	function update(){
-		//선택된 파일 지우기
-		var fileInput = $('#fileInputUpdate')[0];
-		var fileBuffer = new DataTransfer();
-		fileInput.files = fileBuffer.files;
-		
-		//배열의 항목으로 채우기
-		fileBuffer = new DataTransfer();
-		for(var i = 0; i < content_files.length; i ++){
-			if(!content_files[i].is_delete){
-				fileBuffer.items.add(content_files[i]);
-			} 
-		}
-		fileInput.files = fileBuffer.files;
-		
-		$('#updateForm').submit();
-	}
+	
 	</script>
 </body>
 

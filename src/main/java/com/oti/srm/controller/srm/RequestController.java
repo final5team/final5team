@@ -412,14 +412,29 @@ public class RequestController {
 	
 	//요청 수정하기
 	@PostMapping("/requestupdate")
-	@ResponseBody
-	public int requestUpdate(@RequestBody Request request, HttpSession session, Model model) {
+	public String requestUpdate(Request request, HttpSession session, Model model, MultipartFile[] mulfiles) {
 		
 		Member member = (Member) session.getAttribute("member");
 		request.setClient(member.getMid());
-		int result = requestService.updateRequest(request);
-		
-		return result;
+		List<StatusHistoryFile> sFiles = new ArrayList<StatusHistoryFile>();
+
+		try {
+			if (mulfiles != null) {
+				for (MultipartFile file : mulfiles) {
+					if (!file.isEmpty()) {
+						StatusHistoryFile shf = new StatusHistoryFile();
+						shf.setFileData(file.getBytes());
+						shf.setFileName(file.getOriginalFilename());
+						shf.setFileType(file.getContentType());
+						sFiles.add(shf);
+					}
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		requestService.updateRequest(request, sFiles);
+		return "redirect:/customer/requestdetail?rno=" + request.getRno();
 	}
 	
 	//요청 글 파일 다운로드

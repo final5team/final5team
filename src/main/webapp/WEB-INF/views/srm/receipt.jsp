@@ -92,75 +92,76 @@
 											</div>
 										</div>									
 										<div class="card-body" >
-											<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data" onsubmit="return validate()">
+											<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data" onsubmit="return validate()" novalidate>
 												<div class="row form-group">
 													<div class="col-2 text-right font-weight-bold">
 														<label>*요청 유형</label>
 													</div>
-													<select class="dropdown-toggle col-3 " data-toggle="dropdown" name="reqType" id="reqType" onchange="rtype()" required>															
+													<select class="dropdown-toggle col-3 reqType" name="reqType" onchange="rtype()" required>															
 														<option value="" class="text-center">요청 유형</option>
 														<option value="정규" class="text-center">정규</option>
 													    <option value="긴급" class="text-center">긴급</option>																																																						
 													</select>	
-													<small id="noInputRtype" style="color : red; position: absolute;"></small>																							
+													<small class="noInputRtype" style="color : red; position: absolute;"></small>																							
 													<div class="col-2 text-right font-weight-bold">
 														<label >*중요도</label>
 													</div>
-													<select class="dropdown-toggle col-3" data-toggle="dropdown" name="priority" required>															
+													<select class="dropdown-toggle col-3 priority" name="priority">															
 														<option value="" class="text-center">중요도</option>
 														<option value="상" class="text-center">상 (★★★)</option>
 														<option value="중" class="text-center">중 (★★)</option>
 														<option value="하" class="text-center">하 (★)</option>															    																																																						
 													</select>
-													<small id="noInputPriority" style="color : red; position: absolute; right:5%"></small>														
+													<small class="noInputPriority" style="color : red; position: absolute;right:5%; "></small>														
 												</div>
 												
 													
 												<div class="row mb-2">
 													<label class=" col-2 text-right font-weight-bold">*개발 담당자</label>
-													<select class="dropdown-toggle col-3 calendarOpen"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer" required>
-														<option value="">개발 담당자 | 현재담당건수 </option>		
+													<select class="dropdown-toggle col-3 calendarOpen developer" aria-haspopup="true" aria-expanded="false" name="developer">
+														<option value="">개발 담당자 선택 </option>		
 														<c:forEach var="staff" items="${devStaffList}">
 															<option id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																												
 														</c:forEach>															
 													</select>
-													<small id="noInputDev" style="color : red; position: absolute;"></small>		
+													<small class="noInputDev" style="color : red; position: absolute;"></small>		
 													<label class=" col-2 text-right font-weight-bold">*테스트 담당자</label>
-													<select class="dropdown-toggle col-3 calendarOpen" style="width:300px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester" requried>
-														<option value="">테스트 담당자 | 현재담당건수 </option>	
+													<select class="dropdown-toggle col-3 calendarOpen tester" style="width:300px;" aria-haspopup="true" aria-expanded="false" name="tester">
+														<option value="">테스트 담당자 선택 </option>	
 														<c:forEach var="staff" items="${tesStaffList}">
 															<option id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																													
 														</c:forEach>
 													</select>
-													<small id="noInputTes" style="color : red; position: absolute; right:5%"></small>		
+													<small class="noInputTes" style="color : red; position: absolute; right:5%"></small>		
 												</div>
 												<div class="row mb-2 text-right font-weight-bold" id="utester">
 													<label class=" col-2 ">*품질 담당자</label>
-													<select class="dropdown-toggle col-3 calendarOpen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
-														<option value="">품질 담당자 | 현재담당건수 </option>	
+													<select class="dropdown-toggle col-3 calendarOpen userTester"  aria-haspopup="true" aria-expanded="false" name="userTester" >
+														<option value="">품질 담당자 선택 </option>	
 														<c:forEach var="staff" items="${uteStaffList}">
 															<option id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																													
 														</c:forEach>
 													</select>
-													<small id="noInputUtt" style="color : red; position: absolute;"></small>		
+													<small class="noInputUtt" style="color : red; position: absolute;"></small>		
 													<label class=" col-2 text-right font-weight-bold">*배포 담당자</label>
-													<select class="dropdown-toggle col-3 calendarOpen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor" requried>
-														<option value="">배포 담당자 | 현재담당건수 </option>	
+													<select class="dropdown-toggle col-3 calendarOpen distributor" aria-haspopup="true" aria-expanded="false" name="distributor">
+														<option value="">배포 담당자 선택</option>	
 														<c:forEach var="staff" items="${disStaffList}">
 															<option id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																												
 														</c:forEach>
 													</select>
-													<small id="noInputDis" style="color : red; position: absolute; right:5%"></small>		
+													<small class="noInputDis" style="color : red; position: absolute; right:5%"></small>		
 												</div>
 												<div class="row mb-2">
 													<div class="col-2 text-right font-weight-bold">*완료예정일</div>
-													<input class="col-3 text-center p-0" type="date" name="allExpectDate" id="allExpectDate" pattern="\d{4}-\d{2}-\d{2}" required>
-													<span class="validity"></span>
+													<input class="col-3 text-center p-0 allExpectDate" type="date" name="allExpectDate" pattern="\d{4}-\d{2}-\d{2}" required>
+													<small class="noExpectDate" style="color : red; position: absolute; right:90.8%"></small>
 												</div>
-												<small id="noInputExd" style="color : red; position: absolute;"></small>		
+												<small id="noExpectDate" style="color : red; position: absolute;"></small>		
 												<div class="row mb-2">
-													<div class=" col-2 text-right font-weight-bold">의견 내용</div>
-													<textarea class="form-control boxed col-7 pmcontent ml-2" name="reply" style="padding: 0px" maxlength="300"></textarea>													
+													<div class=" col-2 text-right font-weight-bold">*검토 의견</div>
+													<textarea class="form-control boxed col-7 pmcontent ml-2 receiptWrite" name="reply" style="padding: 0px" maxlength="300"></textarea>													
+													<small class="noReceiptWrite" style="color : red; position: absolute; right:89.4%"></small>
 												</div>	
 												<div class="filebox row mb-3">
 													<div class="col-2 text-right font-weight-bold" id="fileLable">
@@ -170,15 +171,12 @@
 													</div>
 													
 													<div class="border col-8" id="file-list">
-				  									
 				  									</div>	
 												</div>																																											
 												<div class="d-flex justify-content-end">	
 													<input type="hidden" name="rno" value="${request.rno}">					
 													<button class="btn btn-primary btn-md mt-3 ml-3" type="submit" value=2 name="nextStatus">접수 완료</button>
-													<a class="btn btn-secondary btn-md mt-3 ml-3" type="button"
-													<c:if test="${sessionScope.member.mtype != 'user'}">onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'"</c:if>
-													<c:if test="${sessionScope.member.mtype == 'user'}">onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'"</c:if>>취소</a>												
+													<a class="btn btn-secondary btn-md mt-3 ml-3" type="button"onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">취소</a>												
 												</div>
 											</form>											
 										</div><!-- card-body -->
@@ -208,7 +206,7 @@
 						
 							<!-- 반려 -->
 							<div id="rejectdiv"> 						            
-								<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data" onsubmit="return validate()">
+								<form method="post" action="<c:url value='/pm/receipt'/>" enctype="multipart/form-data" onsubmit="return validateRej()">
 									<!-- 요청 접수 card start-->
 									<div class="card border-top-dark mt-3 mb-1">
 										<div class="card-block">
@@ -226,7 +224,8 @@
 											<div class="card-body">
 												<div class="form-group row">
 													<label class="col-2 text-right font-weight-bold">반려 사유</label>
-													<textarea class="form-control boxed pmcontent" name="reply"maxlength="300"></textarea>
+													<textarea class="form-control boxed pmcontent receiptWrite" name="reply" maxlength="300"></textarea>
+													<small class="noRejectWrite" style="color : red; position: absolute; right:89.4%"></small>
 												</div>											
 												<div class="filebox row mb-3 ">
 													<div class="col-2 font-weight-bold text-right" id="fileLable">
@@ -241,10 +240,8 @@
 												</div>												
 												<div class="d-flex justify-content-end">	
 													<input type="hidden" name="rno" value="${request.rno}">								
-													<button class="btn btn-danger btn-md mt-3 ml-3" type="submit" value=12 name="nextStatus">반려 완료</button>												
-													<a class="btn btn-secondary btn-md mt-3 ml-3" 
-													<c:if test="${sessionScope.member.mtype != 'user'}">onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'"</c:if>
-													<c:if test="${sessionScope.member.mtype == 'user'}">onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'"</c:if>>취소</a>									
+													<button class="btn btn-danger btn-md mt-3 ml-3" type="submit" value=12 name="nextStatus">반려</button>												
+													<a class="btn btn-secondary btn-md mt-3 ml-3" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">취소</a>								
 												</div>
 											</div>
 										</div>
@@ -448,83 +445,78 @@
 			                	 				</h3>
 			                	 			</div>
 											<div class="card-body">
-												<form method="post" action="<c:url value='/updatehistory'/>" enctype="multipart/form-data" id="updateForm">
+												<form method="post" action="<c:url value='/updatehistory'/>" enctype="multipart/form-data" id="updateForm" onsubmit="return validate()">
 													<div class="row form-group">
-														<div class="col-3 label">
+														<div class="col-2 text-right font-weight-bold">
 															<label>*요청 유형</label>
 														</div>
-														<div class="col-2">
-															<select class="dropdown-toggle" style="width: 175px;" data-toggle="dropdown" name="reqType" id="reqType" onchange="rtype()" required>															
-																<option value="" class="text-center">요청 유형</option>
-																<option value="정규" class="text-center" <c:if test="${requestProcess.reqType == '정규'}">selected</c:if>>정규</option>
-															    <option value="긴급" class="text-center" <c:if test="${requestProcess.reqType == '긴급'}">selected</c:if>>긴급</option>																																																						
-															</select>																								
-														</div>
-														<div class="col-3 label">
+														<select class="dropdown-toggle col-3 reqType" name="reqType" onchange="rtype()">															
+															<option value="" class="text-center">요청 유형</option>
+															<option value="정규" class="text-center" <c:if test="${requestProcess.reqType == '정규'}">selected</c:if>>정규</option>
+														    <option value="긴급" class="text-center" <c:if test="${requestProcess.reqType == '긴급'}">selected</c:if>>긴급</option>																																																						
+														</select>	
+														<small class="noInputRtype" style="color : red; position: absolute;"></small>																							
+														<div class="col-2 text-right font-weight-bold">
 															<label >*중요도</label>
 														</div>
-														<div class="col-2">
-															<select class="dropdown-toggle" style="width: 175px;" data-toggle="dropdown" name="priority" required>															
-																<option value="" class="text-center">중요도</option>
-																<option value="상" class="text-center" <c:if test="${requestProcess.priority == '상'}">selected</c:if>>상 (★★★)</option>
-																<option value="중" class="text-center" <c:if test="${requestProcess.priority == '중'}">selected</c:if>>중 (★★)</option>
-																<option value="하" class="text-center" <c:if test="${requestProcess.priority == '하'}">selected</c:if>>하 (★)</option>															    																																																						
-															</select>												
-														</div>												
+														<select class="dropdown-toggle col-3 priority" name="priority">															
+															<option value="" class="text-center">중요도</option>
+															<option value="상" class="text-center" <c:if test="${requestProcess.priority == '상'}">selected</c:if>>상 (★★★)</option>
+															<option value="중" class="text-center" <c:if test="${requestProcess.priority == '중'}">selected</c:if>>중 (★★)</option>
+															<option value="하" class="text-center" <c:if test="${requestProcess.priority == '하'}">selected</c:if>>하 (★)</option>															    																																																						
+														</select>
+														<small class="noInputPriority" style="color : red; position: absolute; right:5%"></small>														
 													</div>
-													<div class="row">
-														<div class="col-3 label">*완료예정일</div>
-														<div class="col-7 row">
-															<input type="date" class="form-control boxed ml-2 mb-2" name="allExpectDate" id="allExpectDate" required pattern="\d{4}-\d{2}-\d{2}" style="width: 250px; padding: 0;" value="<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>">
-															<span class="validity m-2"></span>
-														</div>	
-													</div>
-														
+												
+													
 													<div class="row mb-2">
-														<label class="label col-3">*개발 담당자 선택</label>
-														<select class="dropdown-toggle col-7 ml-2 calendarOpen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="developer" required>
-															<option value="">개발 담당자 선택 | 현재담당건수 </option>		
+														<label class=" col-2 text-right font-weight-bold">*개발 담당자</label>
+														<select class="dropdown-toggle col-3 calendarOpen developer" aria-haspopup="true" aria-expanded="false" name="developer">
+															<option value="">개발 담당자 선택</option>		
 															<c:forEach var="staff" items="${devStaffList}">
-																<option <c:if test="${requestProcess.developer == staff.mid}">selected</c:if> id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																													
+																<option <c:if test="${requestProcess.developer == staff.mid}">selected</c:if> id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																												
 															</c:forEach>															
 														</select>
-														
-													</div>
-													<div class="row mb-2">
-														<label class="label col-3">*테스트 담당자 선택</label>
-														<select class="dropdown-toggle col-7 ml-2 calendarOpen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="tester" requried>
-															<option value="">테스트 담당자 선택 | 현재담당건수 </option>	
+														<small class="noInputDev" style="color : red; position: absolute;"></small>		
+														<label class=" col-2 text-right font-weight-bold">*테스트 담당자</label>
+														<select class="dropdown-toggle col-3 calendarOpen tester" style="width:300px;" aria-haspopup="true" aria-expanded="false" name="tester">
+															<option value="">테스트 담당자 선택 </option>	
 															<c:forEach var="staff" items="${tesStaffList}">
-																<option <c:if test="${requestProcess.tester == staff.mid}">selected</c:if> id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																												
+																<option <c:if test="${requestProcess.tester == staff.mid}">selected</c:if> id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																													
 															</c:forEach>
 														</select>
+														<small class="noInputTes" style="color : red; position: absolute; right:5%"></small>		
 													</div>
-													
-													<div class="row mb-2" id="utester">
-														<label class="label col-3">*품질 검토 담당자 선택</label>
-														<select class="dropdown-toggle col-7 ml-2 calendarOpen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="userTester" id="userTester">
-															<option value="">품질 검토 담당자 선택 | 현재담당건수 </option>	
+													<div class="row mb-2 text-right font-weight-bold" id="utester">
+														<label class=" col-2 ">*품질 담당자</label>
+														<select class="dropdown-toggle col-3 calendarOpen userTester"  aria-haspopup="true" aria-expanded="false" name="userTester">
+															<option value="">품질 담당자 선택 </option>	
 															<c:forEach var="staff" items="${uteStaffList}">
 																<option <c:if test="${requestProcess.userTester == staff.mid}">selected</c:if> id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																													
 															</c:forEach>
 														</select>
-													</div>
-													
-													<div class="row mb-2">
-														<label class="label col-3">*배포 담당자 선택</label>
-														<select class="dropdown-toggle col-7 ml-2 calendarOpen" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="distributor" required>
-															<option value="">배포 담당자 선택 | 현재담당건수 </option>	
+														<small class="noInputUtt" style="color : red; position: absolute;"></small>		
+														<label class=" col-2 text-right font-weight-bold">*배포 담당자</label>
+														<select class="dropdown-toggle col-3 calendarOpen distributor" aria-haspopup="true" aria-expanded="false" name="distributor">
+															<option value="">배포 담당자 선택 </option>	
 															<c:forEach var="staff" items="${disStaffList}">
 																<option <c:if test="${requestProcess.distributor == staff.mid}">selected</c:if> id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																												
 															</c:forEach>
 														</select>
+														<small class="noInputDis" style="color : red; position: absolute; right:5%"></small>		
 													</div>
-												
+													<div class="row mb-2">
+														<div class="col-2 text-right font-weight-bold">*완료예정일</div>
+														<input class="col-3 text-center p-0 allExpectDate" type="date" name="allExpectDate" value="<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>">
+														<small class="noExpectDate" style="color : red; position: absolute; right:90.8%"></small>
+													</div>
+													<small id="noInputExd" style="color : red; position: absolute;"></small>		
 													<c:forEach var="statusHistory" items="${pmToAllHistories}">
 														<input type="hidden" name="hno" value="${statusHistory.hno}"/>
-															<div class="row">
-															<div class="col-3 label ml-2">검토 의견</div>
-															<textarea class="col-7" name="reply" maxlength="300">${statusHistory.reply}</textarea>
+														<div class="row mb-2">
+															<div class=" col-2 text-right font-weight-bold">*검토 의견</div>
+															<textarea class="form-control boxed col-7 pmcontent ml-2 receiptWrite" name="reply" style="padding: 0px" maxlength="300">${statusHistory.reply}</textarea>
+															<small class="noReceiptWrite" style="color : red; position: absolute; right:89.4%"></small>
 														</div>
 														<hr/>
 														<div class="row mt-3">
@@ -549,10 +541,10 @@
 															</div>
 															<div class="border col-8 border-success" id="file-list-update"></div>	
 														</div>	
-													</c:forEach>
-												<div class="d-flex justify-content-end">						
-													<button class="btn btn-primary btn-md mt-3 ml-3" type="button" onclick="update()">수정</button>										
-												</div>
+													</c:forEach>																																											
+													<div class="d-flex justify-content-end">						
+														<button class="btn btn-primary btn-md mt-3 ml-3" type="button" onclick="update()">수정</button>										
+													</div>
 												<input type="hidden" name="rno" value="${request.rno}">
 											</form>											
 										</div><!-- card-body -->
@@ -608,7 +600,6 @@
 						</div>
 					<!-- 게시글 상세보기 end -->
 					</div>
-                </div>
                 <!-- 여기에 내용 담기 end -->
 
             </div>
@@ -679,38 +670,139 @@
 						
 		// 요청 유형에 따른 품질 검토 담당자 선택 여부
 		function rtype(){
-			var reqType = $("#reqType").val();
+			var reqType = $(".reqType").val();
 			// 요청 유형이 긴급일 때 품질 검토 담당자 선택하지 않기
 			if(reqType == '긴급'){
 				// 품질 검토 담당자 선택 불가
-				$("#userTester").attr('disabled',true);
+				$(".userTester").attr('disabled',true);
 				// 품질 검토 담당자 값 null
-				$("#userTester").val("");
+				$(".userTester").val("");
 				// 품질 검토 담당자 미입력 가능
-				$("#userTester").removeAttr("required");
+				$(".userTester").removeAttr("required");
 			}
 			// 요청 유형이 정규일 때 품질 검토 담당자 선택하기
 			if(reqType == '정규'){
 				// 품질 검토 담당자 선택 가능
-				$("#userTester").attr('disabled',false);
+				$(".userTester").attr('disabled',false);
 				// 품질 검토 담당자 필수 입력
-				$("#userTester").attr("required", "required")
+				$(".userTester").attr("required", "required")
 			}			
-		}		
-	 	
-	 	// 의견 내용 유효성 검사
-	    function validate() {
-	 		// 유효한 입력 내용
-			var result = true;			
-			// 의견 내용 길이 구하기
-			var content=tinymce.activeEditor.getContent().length;
+		}	
+		
+		/******* reply 글자수 유효성 검사 *******/
+		function checkReplyLength(){
+			//글자
+			var reply = tinymce.activeEditor.getContent();
+			/* var reply = reply; */
+			//1.태그가 없는 경우(글자 없음)
+			if(reply.length == 0){
+				console.log("내용 없음");
+				$('#completeContent').text('내용을 입력해주세요.');
+				$('#completeModal').modal();
+				return false;
+			} else{
+				//2.태그가 있는 경우(글자 있음)
+				//태그들 제거해서 순수 글자수 빼오기
+				var realReply = reply.replace(/<[^>]*>?/g, '');
+				
+				//순수 글자수가 300이 넘는지 확인
+				if(realReply.length>300){
+				//1. 글자수 300이 넘을 경우
+					console.log("300자 초과");
+					$('#completeContent').text('300자를 초과하였습니다.');
+					$('#completeModal').modal();
+					return false;
+				} else{
+					//2. 글자수 0보다 크며 300안일 경우(정상)
+					console.log("정상");
+					return true;
+				}
+				
+			}
+		}
+		// 반려 유효성 검사
+		function validateRej(){	
+			// 유효한 입력 내용
+			var result = true;	
 			// 의견 내용 길이가 300자 이상일 경우 제출 불가
-			if(content > 300){
-				// 300자 이하 입력 경고 창 
+			if(!checkReplyLength){
+				 //300자 초과 입력 경고 창 
 				$("#cautionModal").modal();			
 				// 제출 불가
 				result = false;
 			}
+			var content=tinymce.activeEditor.getContent().length;
+			console.log(content);
+			// 반려 사유 미입력 시 
+			if(content == 0){
+				$('.noRejectWrite').text("검토 의견 입력");
+				result = false;
+			}
+			return result;
+		}
+	 	
+	 	// 접수, 수정 유효성 검사
+	    function validate() {
+	    	$('.noReceiptWrite').text("");
+	    	$('.noInputRtype').text("");
+	    	$('.noInputPriority').text("");
+	    	$('.noInputDev').text("");
+	    	$('.noInputTes').text("");
+	    	$('.noInputUtt').text("");
+	    	$('.noInputDis').text("");
+	    	$('.noExpectDate').text("");
+	 		// 유효한 입력 내용
+			var result = true;			
+			// 의견 내용 길이가 300자 이상일 경우 제출 불가
+			if(!checkReplyLength){
+				 //300자 초과 입력 경고 창 
+				$("#cautionModal").modal();			
+				// 제출 불가
+				result = false;
+			}
+			var content=tinymce.activeEditor.getContent().length;
+			console.log(content);
+			// 검토 의견 미입력 시 
+			if(content == 0){
+				$('.noReceiptWrite').text("검토 의견 입력");
+				result = false;
+			}
+			// 요청 유형 미입력 시
+			if($('.reqType').val()==""){
+				$('.noInputRtype').text("요청 유형 입력");
+				result = false;
+			}
+			// 중요도 미입력 시
+			if($('.priority').val()==""){
+				$('.noInputPriority').text("중요도 입력");
+				result = false;
+			}
+			// 개발 담당자 미입력 시
+			if($('.developer').val()==""){
+				$('.noInputDev').text("담당자 입력");
+				result = false;
+			}
+			// 테스트 담당자 미입력 시
+			if($('.tester').val()==""){
+				$('.noInputTes').text("담당자 입력");
+				result = false;
+			}
+			// 요청 유형 정규이면서 품질 검토 담당자 미입력 시
+			if($('.userTester').val()=="" && $(".reqType").val()!= '긴급'){
+				$('.noInputUtt').text("담당자 입력");
+				result = false;
+			}
+			// 배포 담당자 미입력 시
+			if($('.distributor').val()==""){
+				$('.noInputDis').text("담당자 입력");
+				result = false;
+			}
+			// 완료 예정일 미입력 시
+			if($('.allExpectDate').val()==""){
+				$('.noExpectDate').text("예정일 입력");
+				result = false;
+			}
+			
 			// 유효성 검사 결과 반환
 			return result;
 		}
@@ -916,6 +1008,61 @@
 
 		/****** 달력 모달 open ******/
 		$('.calendarOpen').change(function(){
+			const selectedOption = this.options[this.selectedIndex];
+			console.log(selectedOption);
+			var mid = $(selectedOption).val();
+			if(mid == ""){
+				return;
+			}
+			$('#operator').text($(selectedOption).attr("id") + "님의 업무 진행 스케쥴");
+			$('#calendarCard').show();
+			console.log(mid);
+
+			var calendarEl = document.getElementById('calendar');   
+		    var calendar = new FullCalendar.Calendar(calendarEl, {
+		        height: 600,
+		        events: function(info, successCallback, failureCallback) {
+		        	$.ajax({
+		                url: '${pageContext.request.contextPath}/pm/workinginfo',
+		                type:"GET",
+		                data: { mid : mid },
+		                dataType: 'json',
+		                success: function(result) {
+		                    var events = [];
+		                    if(result!=null){                       
+		                        $.each(result, function(index, workingInfo) {
+		                         var startdate=moment(workingInfo.startdate).format('YYYY-MM-DD');
+		                         var endExpectDate=moment(workingInfo.endExpectDate + 60*60*24*1000).format('YYYY-MM-DD');
+		                         var rno = workingInfo.rno;
+		                         var reqType = workingInfo.reqType;
+		                         var priority = workingInfo.priority;
+		                         var mtype = workingInfo.mtype;
+		                         // realmname (분야) 분야별로 color 설정
+
+	                        	 events.push({
+	                        		 	title: "NO. " + rno + " |요청유형 : " + reqType + " |우선순위 : " + priority,
+	                                    start: startdate,
+	                                    end: endExpectDate                                           
+	                                }); //.push()
+	                                                    
+		                        
+		                        }); 
+		                        console.log(events); 
+		                        
+		                    }  
+		                    successCallback(events);
+		                }                       
+		         }); 
+	        	}
+		   });//new FullCalendar end
+		 
+		   calendar.render();
+		   calendar.updateSize();
+
+		});
+		
+		/****** 달력 모달 open ******/
+		$('.calendarOpen').click(function(){
 			const selectedOption = this.options[this.selectedIndex];
 			console.log(selectedOption);
 			var mid = $(selectedOption).val();
