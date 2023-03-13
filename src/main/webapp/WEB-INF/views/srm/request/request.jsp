@@ -115,7 +115,7 @@ a {
 	position: absolute;
 	width: 300px;
 	left: 8%;
-	top: 42%;
+	top: 44%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -125,7 +125,7 @@ a {
 	position: absolute;
 	width: 800px;
 	left: 18%;
-	top: 42%;
+	top: 44%;
 	text-align: start;
 	font-size: 15px;
 	font: bold;
@@ -143,7 +143,7 @@ a {
 	position: absolute;
 	width: 110px;
 	left: 4%;
-	top: 75%;
+	top: 77%;
 	overflow: hidden;
 	text-align: center;
 	font-size: 15px;
@@ -154,7 +154,7 @@ a {
 	position: absolute;
 	width: 700px;
 	left: 18%;
-	top: 75%;
+	top: 77%;
 	overflow: hidden;
 	text-align: start;
 	font-size: 15px;
@@ -166,7 +166,7 @@ a {
 	width: 80px;
 	height: 50px;
 	left: 50%;
-	top: 90%;
+	top: 92%;
 }
 
 .card-body .return-button {
@@ -174,7 +174,7 @@ a {
 	width: 80px;
 	height: 50px;
 	left: 55%;
-	top: 90%;
+	top: 92%;
 }
 
 .card-body .item .select-group select {
@@ -259,6 +259,12 @@ textarea:focus::placeholder {
 	border-radius: 5px;
 	z-index : 5;
 }
+#counterContent{
+	position : absolute;
+	left : 81%;
+	
+}
+
 
 </style>
 <body id="page-top">
@@ -351,9 +357,9 @@ textarea:focus::placeholder {
 											</article>
 											<article class="titleInput">
 												<div class="item">
-													<input type="text" id="reqTitle" name="reqTitle" placeholder="제목" required>
+													<input type="text" id="reqTitle" name="reqTitle" placeholder="제목" maxlength='30'required>
 													<div class="titleConfirm">
-														<small class=" mr-5" id="counterTitle">(0 / 30)</small>
+														<small class=" mr-5" style="font-size : 13px;" id="counterTitle">(0 / 30)</small>
 													</div>
 												</div>
 											</article>
@@ -362,7 +368,7 @@ textarea:focus::placeholder {
 											</article>
 											<article class="bodyInput">
 												<div class="item">
-													<textarea id="requestreply" name="reqContent" placeholder="내용"></textarea>
+													<textarea id="requestreply" name="reqContent" placeholder="내용" maxlength='300'></textarea>
 												</div>
 											</article>
 											
@@ -455,18 +461,41 @@ textarea:focus::placeholder {
 	
 	
 	<script>
-		$('#reqContent').keyup(function(e) {
-			let content = $(this).val();
-			$('#counterContent').html("(" + content.length + " / 300)");
-			if (content.length > 100) {
+		
+		let bodyLength = '';
+		function checkReplyLength(reply){
+			//글자
+			var reply = reply;
+			//1.태그가 없는 경우(글자 없음)
+			if(reply.length == 0){
+				console.log("내용 없음");
+				$('#countContent').text('내용을 입력해주세요.');
 				$('#countCheck').modal();
-				$('#counterContent').html("최대 300자까지 입니다.");
-				$(this).val(content.substring(0, 300));
-				$('#counter').html("(300 / 300)");
+				return false;
 			}
-		});
+			//2.태그가 있는 경우(글자 있음)
+			//태그들 제거해서 순수 글자수 빼오기
+			var realReply = reply.replace(/<[^>]*>?/g, '');
+			//int 형태로 변환
+			let intReply = parseInt(realReply);
+			
+			//순수 글자수가 300이 넘는지 확인
+			if(intReply>300){
+			//1. 글자수 300이 넘을 경우
+				console.log("300자 초과");
+				tinymce.activeEditor.setContent(realReply.substring(0,300));
+				return false;
+			} else{
+				//2. 글자수 0보다 크며 300안일 경우(정상)
+				return true;
+			}
+		}
+		
+		
+		let titleLength = '';
 		$('#reqTitle').keyup(function(e) {
 			let content = $(this).val();
+			console.log(content);
 			$('#counterTitle').html("(" + content.length + " / 30)");
 			
 			if (content.length > 30) {
@@ -530,6 +559,14 @@ textarea:focus::placeholder {
 			$('#' + fileId).remove();
 			fileCount --;
 		}
+		
+		function checkForm(){
+			
+			
+		}
+		
+		
+		
 	</script>
 </body>
 
