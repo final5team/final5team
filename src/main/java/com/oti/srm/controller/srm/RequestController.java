@@ -396,6 +396,8 @@ public class RequestController {
 		List<SelectPM> requestList = requestService.getMyWorkList(listFilter, pager, member);
 		
 		log.info(pager.getTotalRows());
+		
+		log.info(listFilter.toString());
 		// 시스템 리스트 전달
 		model.addAttribute("systemList", systemList);
 		// 목록 리스트와 페이지 return

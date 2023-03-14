@@ -315,6 +315,7 @@
 // 		console.log("단계 : " + parseInt(statusNo));
 // 		console.log(typeof parseInt(statusNo));
 		
+		
 		data = {reqType : ReqType, dateFirst : dateFirst, dateLast : dateLast, sno : parseInt(sno), statusNo : parseInt(statusNo)}
 		$.ajax({
 			url : "myrequestlist",
