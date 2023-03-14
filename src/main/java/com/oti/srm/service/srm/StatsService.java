@@ -171,8 +171,10 @@ public class StatsService implements IStatsService {
 		map.put("품질검토", 0);
 		map.put("배포", 0);
 		map.put("완료", 0);
+		map.put("전체", 0);
 		List<Status> statList = statsDao.selectStageCount();
 		for (Status stat : statList) {
+			map.put("전체", map.get("전체") + stat.getCount());
 			if (stat.getStatusNo() == 1) {
 				map.put("접수", map.get("접수") + stat.getCount());
 			}

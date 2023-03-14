@@ -69,6 +69,7 @@ public class StatsController {
 		// 태스크별 서비스 요청 처리 현황
 		model.addAttribute("taskCount", statsService.getTaskCount());
 		
+		
 		// 셋째 줄
 		// 서비스 요청 추이
 		// 시스템 정보 구하기
