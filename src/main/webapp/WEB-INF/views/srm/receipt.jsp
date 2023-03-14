@@ -222,7 +222,7 @@
 											</div>		
 											<div class="card-body">
 												<div class="form-group row">
-													<label class="col-2 text-right font-weight-bold">반려 사유</label>
+													<label class="col-2 text-right font-weight-bold">*반려 사유</label>
 													<textarea class="form-control boxed pmcontent receiptWrite" name="reply" maxlength="300"></textarea>
 													<small class="noRejectWrite" style="color : red; position: absolute; right:89.4%"></small>
 												</div>											
