@@ -121,7 +121,7 @@ public class HomeController {
 		HashMap<String, Integer> userRequestStatusCount = commonService.getUserRequestStatusCount(member);
 		// 나의 요청 상황 리스트 
 		int requestListTotalRows = commonService.getUserRequestListCount(searchStatus, member);
-		Pager uPager = new Pager(6, 5, requestListTotalRows, myRequestPageNo);
+		Pager uPager = new Pager(7, 5, requestListTotalRows, myRequestPageNo);
 		List<Request> userRequestList = commonService.getUserRequestList(searchStatus, member, uPager);
 		//공지사항
 		String searchWord = "";
@@ -191,7 +191,7 @@ public class HomeController {
 		Member member = (Member) session.getAttribute("member");
 		// 나의 요청 상황 리스트 
 		int requestListTotalRows = commonService.getUserRequestListCount(searchStatus, member);
-		Pager uPager = new Pager(6, 5, requestListTotalRows, myRequestPageNo);
+		Pager uPager = new Pager(7, 5, requestListTotalRows, myRequestPageNo);
 		List<Request> userRequestList = commonService.getUserRequestList(searchStatus, member, uPager);
 		model.addAttribute("searchStatus", searchStatus);
 		model.addAttribute("uPager", uPager);

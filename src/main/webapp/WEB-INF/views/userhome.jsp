@@ -97,7 +97,7 @@
                 	<div id="main">
 	                	<!-- 상단부분start -->
 	                		<div class="row">
-	                			<div class="col-5 ml-3">
+	                			<div class="col-5" style="margin-left:8px">
 	                				<div class="card card-success shadow pd-2" style="height:140px;">
 	                					<div class="card-header" ></div>
                 						<div class="d-flex justify-content-center">
@@ -109,8 +109,8 @@
 	                				</div>
 	                			</div>
 	                			
-	                			<div class="col-3 mb-4">
-		                            <div class="card card-primary shadow pd-2" style="height:140px;">
+	                			<div class="col-2 mb-4">
+		                            <a href="#" onclick="userRequestList('진행중', 1)" class="card card-primary shadow pd-2" style="height:140px;">
 		                            	<div class="card-header"></div>
 		                                <div class="card-body">
 		                                    <div class="row no-gutters align-items-center">
@@ -139,11 +139,10 @@
 		                                        </div>
 		                                    </div>
 		                                </div>
-		                            </div>
+		                            </a>
 		                        </div>
-	                        
-	                			<div class="col-3 mb-4">
-		                            <div class="card card-warning shadow pd-2" style="height:140px;">
+	                			<div class="col-2 mb-4">
+		                            <a href="#" onclick="userRequestList('완료', 1)" class="card card-success shadow pd-2" style="height:140px;">
 		                                <div class="card-header"></div>
 		                                <div class="card-body">
 		                                    <div class="row no-gutters align-items-center">
@@ -151,7 +150,7 @@
 		                                            <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">
 		                                             	 완료</div>
 		                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-		                                            	<c:out value="${userRequestStatusCount['12'] + userRequestStatusCount['13']}"></c:out> 건
+		                                            	<c:out value="${userRequestStatusCount['13']}"></c:out> 건
 		                                            </div>
 		                                        </div>
 		                                        <div class="col-auto">
@@ -159,26 +158,41 @@
 		                                        </div>
 		                                    </div>
 		                                </div>
-		                            </div>
+		                            </a>
+		                        </div>
+		                        
+		                        <div class="col-2 mb-4">
+		                            <a href="#" onclick="userRequestList('반려', 1)" class="card card-warning shadow pd-2" style="height:140px;">
+		                                <div class="card-header"></div>
+		                                <div class="card-body">
+		                                    <div class="row no-gutters align-items-center">
+		                                        <div class="col mr-2">
+		                                            <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">
+		                                             	 반려</div>
+		                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+		                                            	<c:out value="${userRequestStatusCount['12']}"></c:out> 건
+		                                            </div>
+		                                        </div>
+		                                        <div class="col-auto">
+		                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </a>
 		                        </div>
 	                		</div>
 	                	<!-- 상단부분end -->
 	               		<!-- 하단부분 start -->
 							<div class="col-12" >
 								<div class="card border-left-info" style="height: 430.896px;">
-									<div class="card-header mb-2">
-										<h3 class="title">나의 요청 상황</h3>
-									</div>
-									<div class="topnav ml-4">
-										  <a id="one" class="active" onclick="userRequestList('전체', 1)">전체</a>
-										  <a id="two" onclick="userRequestList('진행중', 1)">진행중</a>
-										  <a id="three" onclick="userRequestList('완료', 1)">완료</a>
-										  <a id="four" onclick="userRequestList('반려', 1)">반려</a>
+									<div class="card-header mb-2 d-flex">
+										<h3 class="title mr-auto">나의 요청 목록</h3>
+										<div class="btn btn-sm btn-dark" onclick="window.location.reload()">전체보기</div>	
 									</div>
 									<div class="card-body py-0 " id="userRequestListContainer">
 										<div style="height: 280px;">
 											<table class="table table-hover usertable table-striped">
-												<thead>
+												<thead style="background-color: #3A4651;" class="text-white" id="table-head-color">
 													<tr>
 														<th>번호</th>
 														<th>제목</th>
@@ -224,7 +238,7 @@
 													</tbody>
 												</table>
 										</div>
-										<div class="pager default mt-1">
+										<div class="pager default" style="margin-top : 40px">
 											<div class="pagingButtonSet d-flex justify-content-center">
 												<a onclick="userRequestList('${searchStatus}', 1)" type="button" class="btn btn-muted shadow">처음</a>
 												<c:if test="${uPager.groupNo > 1}">
@@ -335,53 +349,24 @@
     
     <script>
     	function userRequestList(searchStatus, pageNo){
-    		if(searchStatus == '전체'){
-    			$('#one').css("background-color", "#98def7");
-    			$('#one').css("color", "white");
-    			$('#two').css("background-color", "white");
-    			$('#two').css("color", "#858796");
-    			$('#three').css("background-color", "white");
-    			$('#three').css("color", "#858796");
-    			$('#four').css("background-color", "white");
-    			$('#four').css("color", "#858796");
-	    	}
-    		else if(searchStatus == '진행중'){
-				$('#one').css("background-color", "white");
-				$('#one').css("color", "#858796");
-    			$('#two').css("background-color", "#98def7");
-    			$('#two').css("color", "white");
-    			$('#three').css("background-color", "white");
-				$('#three').css("color", "#858796");
-    			$('#four').css("background-color", "white");    			
-				$('#four').css("color", "#858796");
-			}
-    		else if(searchStatus == '완료'){
-				$('#one').css("background-color", "white");
-				$('#one').css("color", "#858796");
-    			$('#two').css("background-color", "white");
-    			$('#two').css("color", "#858796");
-    			$('#three').css("background-color", "#98def7");
-    			$('#three').css("color", "white");
-    			$('#four').css("background-color", "white");
-    			$('#four').css("color", "#858796");
-			}
-    		else if(searchStatus == '반려'){
-				$('#one').css("background-color", "white");
-				$('#one').css("color", "#858796");
-    			$('#two').css("background-color", "white");
-    			$('#two').css("color", "#858796");
-    			$('#three').css("background-color", "white");
-    			$('#three').css("color", "#858796");
-    			$('#four').css("background-color", "#98def7");
-    			$('#four').css("color", "white");
-			}
-    		
     		$.ajax({
     			type: "GET", //요청 메소드 방식
     			url:"${pageContext.request.contextPath}/userrequestlist?myRequestPageNo=" + pageNo + "&searchStatus=" + searchStatus,
     			dataType:"html", 
     			success : function(result){
     				$('#userRequestListContainer').html(result);
+    				if(searchStatus == '전체'){
+    	    			$('#table-head-color').css("background-color", "#3A4651");
+    	    		}
+    	    		else if(searchStatus == '진행중'){
+    	    			$('#table-head-color').css("background-color", "#85ce36");
+    	    		}
+    	    		else if(searchStatus == '완료'){
+    	    			$('#table-head-color').css("background-color", "#4bcf99");
+    	    		}
+    	    		else if(searchStatus == '반려'){
+    	    			$('#table-head-color').css("background-color", "#fe974b");
+    	    		}
     				console.log("success");
     			}
     		});
