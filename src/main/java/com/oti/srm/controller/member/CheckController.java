@@ -46,9 +46,11 @@ public class CheckController {
 	public boolean passwordConfirm(@RequestBody String password, HttpSession session) throws JsonMappingException, JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		Member newMember = objectMapper.readValue(password, Member.class);
-		Member sessionMember = (Member) session.getAttribute("member");
+		Member sessionMember = (Member)session.getAttribute("member");
+		
+		Member dbMember = userRegisterService.getUserInfo(sessionMember.getMid());
 		log.info(newMember.getPassword());
-		boolean result = userRegisterService.passwordConfirm(newMember.getPassword(), sessionMember);
+		boolean result = userRegisterService.passwordConfirm(newMember.getPassword(), dbMember);
 		
 		return result;
 	}
