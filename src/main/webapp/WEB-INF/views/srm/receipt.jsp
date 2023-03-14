@@ -426,21 +426,21 @@
 											<hr/>
 											<div class="row">
 												<div class="col-3 label">개발 담당자</div>
-												<div class="col-2">${requestProcess.developer}</div>
+												<div class="col-2">${mnameList.developer}</div>
 												<div class="col-3 label">테스트 담당자</div>
-												<div class="col-2">${requestProcess.tester}</div>
+												<div class="col-2">${mnameList.tester}</div>
 											</div>	
 											<hr/>
 											<div class="row">
 													<div class="col-3 label">품질검토 담당자</div>
 												<c:if test="${requestProcess.reqType eq '정규'}">
-													<div class="col-2">${requestProcess.userTester}</div>
+													<div class="col-2">${mnameList.userTester}</div>
 												</c:if>
 												<c:if test="${requestProcess.reqType eq '긴급'}">
 													<div class="col-2">-</div>
 												</c:if>
 												<div class="col-3 label">배포 담당자</div>
-												<div class="col-2">${requestProcess.distributor}</div>
+												<div class="col-2">${mnameList.distributor}</div>
 											</div>	
 											<hr/>
 											<c:forEach var="statusHistory" items="${pmToAllHistories}">

@@ -11,6 +11,7 @@ import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.RequestProcess;
+import com.oti.srm.dto.RequestProcessMname;
 import com.oti.srm.dto.Status;
 import com.oti.srm.dto.StatusHistory;
 import com.oti.srm.dto.StatusHistoryFile;
@@ -37,6 +38,9 @@ public interface ICommonDao {
 	// 요청처리정보(request_process 테이블) 조회
 	public RequestProcess selectRequestProcess(int rno);
 	
+	// 요청 담당자들 이름 조회
+	public RequestProcessMname selectRequestProcessMname(int rno);
+		
 	// 완료 예정일 기입
     public int updateExpectDate(@Param("rno") int rno, @Param("expectDate") Date expectDate, @Param("mtype") String mtype);
     
