@@ -386,7 +386,7 @@
 										                          <div class="row no-gutters align-items-center">
 										                               <div class="col mr-2">
 										                                    <div class="text-sm font-weight-bold text-primary text-uppercase mb-1">접수</div>
-										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[0]} 건</div>
+										                                    <div class="h5 mb-0 font-weight-bold text-gray-800">${stageCount['접수']} 건</div>
 										                               </div>
 										                               <div class="col-auto">
 										                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -402,7 +402,7 @@
 										                          <div class="row no-gutters align-items-center">
 										                              <div class="col mr-2">
 										                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">개발</div>
-										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[1]} 건</div>
+										                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stageCount['개발']} 건</div>
 										                              </div>
 										                          	  <div class="col-auto">
 										                                  <i class="fas fa-pen fa-2x text-gray-300"></i>
@@ -418,7 +418,7 @@
 										                             <div class="row no-gutters align-items-center">
 										                                  <div class="col mr-2">
 										                                      <div class="text-sm font-weight-bold text-info text-uppercase mb-1">테스트 </div>									                                   									                                                
-										                                      <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${allState[2]} 건</div>									                                                							                                                									                                          
+										                                      <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${stageCount['테스트']} 건</div>									                                                							                                                									                                          
 										                                  </div>
 										                                   <div class="col-auto">
 										                                       <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -434,7 +434,7 @@
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
 								                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">품질 검토</div>
-								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[3]} 건</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stageCount['품질검토']} 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
 								                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -450,7 +450,7 @@
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
 								                                            <div class="text-sm font-weight-bold text-danger text-uppercase mb-1">배포</div>
-								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[4]} 건</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stageCount['배포']} 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
 								                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -466,7 +466,7 @@
 								                                    <div class="row no-gutters align-items-center">
 								                                        <div class="col mr-2">
 								                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">완료</div>
-								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${allState[5]} 건</div>
+								                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stageCount['완료']} 건</div>
 								                                        </div>
 								                                        <div class="col-auto">
 								                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -497,7 +497,7 @@
 											                          <div class="row no-gutters align-items-center">
 											                              <div class="col mr-2">
 											                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">개발 대기</div>
-											                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][0]-stateTask[0][1]} 건 </div>
+											                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${taskCount['개발대기']} 건 </div>
 											                              </div>
 											                          	  <div class="col-auto">
 											                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -513,7 +513,7 @@
 									                                    <div class="row no-gutters align-items-center">
 									                                        <div class="col mr-2">
 									                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">개발 중</div>
-									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][1]} 건</div>
+									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${taskCount['개발중']} 건</div>
 									                                        </div>
 									                                        <div class="col-auto">
 									                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -529,7 +529,7 @@
 									                                    <div class="row no-gutters align-items-center">
 									                                        <div class="col mr-2">
 									                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">개발 완료</div>
-									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[0][2]} 건</div>
+									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${taskCount['개발완료']} 건</div>
 									                                        </div>
 									                                        <div class="col-auto">
 									                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -557,7 +557,7 @@
 											                          <div class="row no-gutters align-items-center">
 											                              <div class="col mr-2">
 											                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">테스트 대기</div>
-											                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][0]-stateTask[1][1]} 건</div>
+											                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${taskCount['테스트대기']} 건</div>
 											                              </div>
 											                          	  <div class="col-auto">
 											                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -573,7 +573,7 @@
 									                                    <div class="row no-gutters align-items-center">
 									                                        <div class="col mr-2">
 									                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">테스트 중</div>
-									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][1]} 건</div>
+									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${taskCount['테스트중']} 건</div>
 									                                        </div>
 									                                        <div class="col-auto">
 									                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -589,7 +589,7 @@
 									                                    <div class="row no-gutters align-items-center">
 									                                        <div class="col mr-2">
 									                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">테스트 완료</div>
-									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[1][2]} 건</div>
+									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${taskCount['테스트완료']} 건</div>
 									                                        </div>
 									                                        <div class="col-auto">
 									                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -616,7 +616,7 @@
 											                          <div class="row no-gutters align-items-center">
 											                              <div class="col mr-2">
 											                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">검토 대기</div>
-											                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][0]-stateTask[2][1]} 건</div>
+											                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${taskCount['품질검토대기']} 건</div>
 											                              </div>
 											                          	  <div class="col-auto">
 											                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -632,7 +632,7 @@
 									                                    <div class="row no-gutters align-items-center">
 									                                        <div class="col mr-2">
 									                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">검토 중</div>
-									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][1]} 건</div>
+									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${taskCount['품질검토중']} 건</div>
 									                                        </div>
 									                                        <div class="col-auto">
 									                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -648,7 +648,7 @@
 									                                    <div class="row no-gutters align-items-center">
 									                                        <div class="col mr-2">
 									                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">검토 완료</div>
-									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[2][2]} 건</div>
+									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${taskCount['품질검토완료']} 건</div>
 									                                        </div>
 									                                        <div class="col-auto">
 									                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -675,7 +675,7 @@
 											                          <div class="row no-gutters align-items-center">
 											                              <div class="col mr-2">
 											                                  <div class="text-sm font-weight-bold text-success text-uppercase mb-1">배포 대기</div>
-											                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][0]-stateTask[3][1]} 건</div>
+											                                  <div class="h5 mb-0 font-weight-bold text-gray-800">${taskCount['배포대기']} 건</div>
 											                              </div>
 											                          	  <div class="col-auto">
 											                                  <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -691,7 +691,7 @@
 									                                    <div class="row no-gutters align-items-center">
 									                                        <div class="col mr-2">
 									                                            <div class="text-sm font-weight-bold text-warning text-uppercase mb-1">배포 중</div>
-									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][1]} 건</div>
+									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${taskCount['배포중']} 건</div>
 									                                        </div>
 									                                        <div class="col-auto">
 									                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -707,7 +707,7 @@
 									                                    <div class="row no-gutters align-items-center">
 									                                        <div class="col mr-2">
 									                                            <div class="text-sm font-weight-bold text-secondary text-uppercase mb-1">배포 완료</div>
-									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${stateTask[3][2]} 건</div>
+									                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${taskCount['배포완료']} 건</div>
 									                                        </div>
 									                                        <div class="col-auto">
 									                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>

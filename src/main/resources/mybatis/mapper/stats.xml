@@ -146,4 +146,14 @@
 		]]>
 	</select>
 	
+	<select id="selectStageCount" resultType="com.oti.srm.dto.Status">
+		SELECT 
+			status_no as "statusNo"
+			, req_type as "reqType",
+			count(*) as "count"
+		FROM request_process rp, requests r 
+		WHERE rp.rno(+) = r.rno
+		GROUP BY status_no, req_type
+	</select>
+	
 </mapper>
