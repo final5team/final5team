@@ -186,7 +186,7 @@
 							<div class="col-12" >
 								<div class="card border-left-info" style="height: 430.896px;">
 									<div class="card-header mb-2 d-flex">
-										<h3 class="title mr-auto">나의 요청 목록</h3>
+										<h3 class="title mr-auto">나의 요청 리스트</h3>
 										<div class="btn btn-sm btn-dark" onclick="window.location.reload()">전체보기</div>	
 									</div>
 									<div class="card-body py-0 " id="userRequestListContainer">
