@@ -61,6 +61,7 @@ public class PMController {
 		Request request = commonService.getRequest(rno);
 		model.addAttribute("request", request);
 		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
+		model.addAttribute("mnameList", commonService.getRequestProcessMname(rno));
 		// 요청 상태가 접수중일 때 담당자 정보
 		// 개발자 정보
 		model.addAttribute("devStaffList", pMService.getStaffBySno(request.getSno(), "developer"));
@@ -211,6 +212,7 @@ public class PMController {
 		model.addAttribute("request", request);	
 		// 요청 처리 정보
 		model.addAttribute("requestProcess", commonService.getRequestProcess(rno));
+		model.addAttribute("mnameList", commonService.getRequestProcessMname(rno));
 		// 요청 처리 내역
 		// 요청 상태가 반려일 때 상태 변경 정보(반려 사유)
 		if(request.getStatusNo()==12) {

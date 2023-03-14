@@ -10,9 +10,11 @@
 	        next_status as "nextStatus",
 	        reply as "reply",
 	        dist_source as "distSource",
-	        writer as "writer"
-		from status_histories
-		where hno = #{hno}
+	        writer as "writer",
+	        mname as "writerName"
+		from status_histories, members m
+		where m.mid = writer 
+		and hno = #{hno} 
 	</select>
 	<select id="selectRequestHistories" parameterType="int" resultType="com.oti.srm.dto.StatusHistory">
 		select
@@ -23,9 +25,11 @@
 	        status_name as "statusName",
 	        reply as "reply",
 	        dist_source as "distSource",
-	        writer as "writer"
-		from status_histories sh, status s
+	        writer as "writer",
+	        mname as "writerName"
+		from status_histories sh, status s, members m
 		where sh.next_status = s.status_no 
+		and m.mid = writer
 		and sh.rno = #{rno}
 		order by change_date asc
 	</select>
@@ -91,6 +95,17 @@
 	    	user_tester as "userTester",
 	    	dev_progress as "devProgress"
 		from request_process
+		where rno = #{rno}
+	</select>
+	
+	<select id="selectRequestProcessMname" parameterType="int" resultType="com.oti.srm.dto.RequestProcessMname">
+		select 
+	    (select mname from members where mid = rp.developer) as "developer",
+	    (select mname from members where mid = rp.tester) as "tester",
+	    (select mname from members where mid = rp.user_tester) as "userTester",
+	    (select mname from members where mid = rp.distributor) as "distributor",
+	    (select mname from members where mid = rp.pm) as "pm"
+		from request_process rp
 		where rno = #{rno}
 	</select>
 	

@@ -9,6 +9,7 @@ import com.oti.srm.dto.Member;
 import com.oti.srm.dto.Pager;
 import com.oti.srm.dto.Request;
 import com.oti.srm.dto.RequestProcess;
+import com.oti.srm.dto.RequestProcessMname;
 import com.oti.srm.dto.StatusHistory;
 import com.oti.srm.dto.StatusHistoryFile;
 
@@ -94,5 +95,7 @@ public interface ICommonService {
 	public void rollBackStep(Member member, int hno);
 	
 	public StatusHistory getStatusHistory(int hno);
+
+	public RequestProcessMname getRequestProcessMname(int rno);
 
 }

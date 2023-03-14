@@ -77,33 +77,33 @@
 									   <tbody>
 										    <tr>
 										        <td>개발</td>
-										        <td>${requestProcess.developer}</td>
+										        <td>${mnameList.developer}</td>
 										        <td><fmt:formatDate value="${requestProcess.devExpectDate}" pattern="yyyy-MM-dd"/></td>
 										        <td><fmt:formatDate value="${requestProcess.devCompDate}" pattern="yyyy-MM-dd"/></td>
 										    </tr>
 										    <tr>
 										        <td>테스트</td>
-										        <td>${requestProcess.tester}</td>
+										        <td>${mnameList.tester}</td>
 										        <td><fmt:formatDate value="${requestProcess.testExpectDate}" pattern="yyyy-MM-dd"/></td>
 										        <td><fmt:formatDate value="${requestProcess.testCompDate}" pattern="yyyy-MM-dd"/></td>
 										    </tr>
 										    <c:if test="${requestProcess.reqType eq '정규'}">
 											     <tr>
 											        <td>유저 테스트</td>
-											        <td>${requestProcess.userTester}</td>
+											        <td>${mnameList.userTester}</td>
 											        <td><fmt:formatDate value="${requestProcess.userTestExpectDate}" pattern="yyyy-MM-dd"/></td>
 											        <td><fmt:formatDate value="${requestProcess.userTestCompDate}" pattern="yyyy-MM-dd"/></td>
 											     </tr>
 										    </c:if>
 										    <tr>
 										        <td>배포</td>
-										        <td>${requestProcess.distributor}</td>
+										        <td>${mnameList.distributor}</td>
 										        <td><fmt:formatDate value="${requestProcess.distExpectDate}" pattern="yyyy-MM-dd"/></td>
 										        <td><fmt:formatDate value="${requestProcess.distCompDate}" pattern="yyyy-MM-dd"/></td>
 										    </tr>
 										    <tr>
 										        <td>최종 승인</td>
-										        <td>${requestProcess.pm}</td>
+										        <td>${mnameList.pm}</td>
 										        <td><fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/></td>
 										        <td><fmt:formatDate value="${requestProcess.allCompDate}" pattern="yyyy-MM-dd"/></td>
 										    </tr>
