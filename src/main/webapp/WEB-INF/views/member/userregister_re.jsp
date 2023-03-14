@@ -8,12 +8,10 @@
 <%@ include file="/WEB-INF/views/common/head.jsp"%>
 <link href="${pageContext.request.contextPath}/resources/css/member/userregister_recss.css" rel="stylesheet">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<style>
+</style>
 
 <script>
-	
-	
-	
-	
 </script>
 
 </head>
@@ -88,18 +86,23 @@
 														<option value="tester">테스터</option>
 														<option value="usertester">품질테스터</option>
 													</select>
+														<small class="noTypeInput" style="color : red; position : absolute; top : -20%; left : 100%; z-index:5; width:60px;"></small>	
 													<div class="data">
 														<div class="item">
 															<input type="text" class="form-control form-control-user" id="mid" name="mid" onfocusout="checkId()" maxlength='15' placeholder="아이디" >
+															<small class="noIdInput" style="color : red; position : absolute; top : 5%; left : 100%; z-index:5; width:60px;"></small>	
 														</div>
 														<div class="item">
 															<input type="text" class="form-control form-control-user" id="mname" name="mname" placeholder="이름" maxlength='4' >
+															<small class="noNameInput" style="color : red; position : absolute; top : 29%; left : 100%; z-index:5; width:60px;"></small>	
 														</div>
 														<div class="item">
 															<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="이메일" maxlength='33' >
+															<small class="noEmailInput"  style="color : red; position : absolute; top : 55%; left : 100%; z-index:5; width:60px;"></small>	
 														</div>
 														<div class="item">
 															<input type="date" id="birth" name="birth" class="form-control form-control-user" >
+															<small class="noBirthInput"  style="color : red; position : absolute; top : 80%; left : 100%; z-index:5; width:60px;"></small>	
 														</div>
 													</div>
 												</article>
@@ -121,6 +124,7 @@
 																<option value="${system.sno}">${system.systemName}</option>
 															</c:forEach>
 														</select>
+														<small class="noSystemInput"  style="color : red; position : absolute; top : 20%; left : 100%; z-index:5; width:60px;"></small>	
 													</div>
 													<div class="item">
 														<div class="input-group">
@@ -128,6 +132,7 @@
 																<option value="1">남</option>
 																<option value="2">여</option>
 															</select>
+															<small class="noGenderInput"  style="color : red; position : absolute; top : 20%; left : 100%; z-index:5; width:60px;"></small>	
 														</div>
 													</div>
 													
@@ -140,6 +145,7 @@
 																<option value="과장">과장</option>
 																<option value="차장">차장</option>
 															</select>
+															<small class="noPositionInput"  style="color : red; position : absolute; top : 20%; left : 100%; z-index:5; width:60px;"></small>	
 														</div>
 													</div>
 													
@@ -151,11 +157,13 @@
 																<option value="쇼핑몰">쇼핑몰</option>
 																<option value="학사관리">학사관리</option>
 															</select>
+															<small class="noOrganInput"  style="color : red; position : absolute; top : 19%; left : 100%; z-index:5; width:60px;"></small>	
 														</div>
 													</div>
 													
 													<div class="item" style="margin-top: 10px;">
 														<input type="text" class="form-control form-control-user" id="phone" name="phone" placeholder="핸드폰" maxlength='13' >
+														<small class="noPhoneInput"  style="color : red; position : absolute; top : 97%; left : 100%; z-index:5; width:60px;"></small>	
 													</div>
 												</article>
 												 
@@ -168,6 +176,7 @@
 													</div>
 													<div class="item address3">
 														<input type="text" id="addr2" name="addr2" class="form-control form-control-user"  maxlength='25' placeholder="상세 주소" >
+														<small class="noAddressInput"  style="color : red; position : absolute; top : 28%; left : 90%; z-index:5; width:60px;"></small>	
 													</div>
 													<div class="item address-button">
 														<button type="button" class="btn btn-dark btn-sm" id="address" name="address" onclick="findAddress()">우편번호</button>
@@ -329,7 +338,9 @@
 						idTest = 'true';
 						/* $('#mid').css('border', '1px solid #ced4da'); */
 					} else {
-						$('#idconfirm').html('중복된 아이디입니다.');
+						$('#countCheck').modal();
+						$('#countContent').html('아이디 중복');
+						$('#idconfirm').html('아이디는 6~15자리 영숫자.');
 						$('#idconfirm').css('color', 'red');
 						idTest = 'false';
 					}
@@ -343,11 +354,11 @@
 		const namePattern = /^[가-힣]{3,4}$/;
 		let result = namePattern.test(mname);
 		if(!result){
-			result = 'false';
+			return false;
 		} else {
-			result = 'true';
+			return true;
 		}
-		return result;
+		
 	}
 	//이메일 유효성 검사
 	function checkEmail(email){
@@ -375,8 +386,6 @@
 	
 	// 주소 입력 확인
 	function addCheck(postcode, addr1, addr2){
-		console.log(postcode, addr1, addr2);
-		console.log(addr2);
 		let result = 'false';
 		if( (postcode != '' && postcode != null) && (addr1 != '' && addr1 != null) && (addr2 != '' && addr2 != null)){
 			result = 'true';
@@ -386,117 +395,97 @@
 	}
 	
 	function check(){
+		$('.noTypeInput').html('');
+		$('.noSystemInput').html('');
+		$('.noIdInput').html('');
+		$('.noNameInput').html('');
+		$('.noEmailInput').html('');
+		$('.noBirthInput').html('');
+		$('.noPositionInput').html('');
+		$('.noOrganInput').html('');
+		$('.noPhoneInput').html('');
+		$('.noAddressInput').html('');
 		
 		let mtype = document.querySelector('#mtype');
 		let mtypeValue = mtype.options[mtype.selectedIndex].value;	
-		
 		let mid = document.querySelector('#mid').value;
-		
 		let mname = document.querySelector('#mname').value;
-		
 		let email = document.querySelector('#email').value;
-		
 		let birth = document.querySelector('#birth').value;
-		
 		let gender = document.querySelector('#gender');
 		let genderValue = gender.options[gender.selectedIndex].value;
 		let nameResult = checkName(mname);
 		let emailResult = checkEmail(email);
-		
 		let sno = document.querySelector('#sno');
 		let snoValue = sno.options[sno.selectedIndex].value;
-		
 		let position = document.querySelector('#position');
 		let positionValue = position.options[position.selectedIndex].value;
-		
 		let organ = document.querySelector('#organ');
 		let organValue = organ.options[organ.selectedIndex].value;
-		
 		let phone = document.querySelector('#phone').value;
-		
 		let phoneResult = checkPhone(phone);
-		
 		let postcode = document.querySelector('#postcode').value;
 		let addr1 = document.querySelector('#addr1').value;
 		let addr2 = document.querySelector('#addr2').value;
-		
 		let addResult = addCheck(postcode, addr1, addr2);
 		
+		let submitResult = true;
+		
 		if(mtypeValue == null){
-			$('#countCheck').modal();
-			$('#countContent').html('유저 타입을 확인하세요');
-			return false;
-		}
-		if(mtypeValue != 'user' && mtypeValue != 'pm'){
-			if(snoValue == "0"){
-				$('#countCheck').modal();
-				$('#countContent').html('시스템을 선택하세요');
-				return false;
-			}
+			$('.noTypeInput').html('유저 타입을 확인하세요');
+			submitResult = false;
 		} 
 		if (mid == '' || mid == null ){
-			$('#countCheck').modal();
-			$('#countContent').html('아이디를 입력하세요');
-			return false;
-		} 
-		if(idTest != 'true' ) {
-			$('#countCheck').modal();
-			$('#countContent').html('아이디 형식을 확인하세요');
-			return false;
+			$('.noIdInput').html('아이디입력');
+			submitResult = false;		
 		} 
 		if(mname == '' || mname == null){
- 			$('#countCheck').modal();
- 			$('#countContent').html('이름을 입력하세요');
- 			return false;
+ 			$('.noNameInput').html('이름 입력');
+ 			submitResult = false;
  		} 
-		if (nameResult != 'true'){
- 			$('#countCheck').modal();
- 			$('#countContent').html('이름을 정확히 입력하세요');
- 			return false;
+		if (!checkName(mname)){
+ 			$('.noNameInput').html('3~4글자');
+ 			submitResult = false;
  		} 
 		if(emailResult != 'true'){
- 			$('#countCheck').modal();
- 			$('#countContent').html('이메일 형식을 확인하세요');
- 			return false;
+ 			$('.noEmailInput').html('이메일 형식 확인');
+ 			submitResult = false;
  		} 
 		if(birth == ''){
- 			$('#countCheck').modal();
- 			$('#countContent').html('생년월일을 입력하세요');
- 			return false;
+ 			$('.noBirthInput').html('생년월일');
+ 			submitResult = false;
  		} 
 		if(positionValue == '0'){
- 			$('#countCheck').modal();
- 			$('#countContent').html('직급을 선택하세요');
- 			return false;
+ 			$('.noPositionInput').html('직급 선택');
+ 			submitResult = false;
  		}
 		if(organValue == '0'){
-			$('#countCheck').modal();
- 			$('#countContent').html('소속 기관을 선택하세요');
- 			return false;
+ 			$('.noOrganInput').html('소속 기관 선택');
+ 			submitResult = false;
 		}
 		if(phone == '' || phone == null){
-			$('#countCheck').modal();
- 			$('#countContent').html('핸드폰 번호를 입력하세요');
- 			return false;
+ 			$('.noPhoneInput').html('번호 입력');
+ 			submitResult = false;
 		} else if (phoneResult != 'true'){
-			$('#countCheck').modal();
- 			$('#countContent').html('핸드폰 번호를 확인하세요');
- 			return false;
+ 			$('.noPhoneInput').html('번호 확인');
+ 			submitResult = false;
 		}
 		if(addResult != 'true'){
+			$('.noAddressInput').html('주소 입력');
+			submitResult = false;
+		}
+		if(idTest != 'true' ) {
 			$('#countCheck').modal();
-			$('#countContent').html('주소를 입력하세요');
+			$('#countContent').html('아이디는 6~15자리 영숫자로 입력하세요');
+			submitResult = false;
+		} 
+		
+		if(submitResult == true){
+			return true;
+		} else {
 			return false;
 		}
-		let click = false;
 		
-		if(openModal()){
-			if(click){
-				return true;
-			} else {
-				return false;
-			}
-		}
 	}
 	
 
