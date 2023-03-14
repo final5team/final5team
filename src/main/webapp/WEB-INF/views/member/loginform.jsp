@@ -56,11 +56,11 @@
 				$('#loginInfo').text('아이디를 입력하세요.');
 				return;
 			}
-			if(password == "" || password == null){
-				console.log('password없음');
-				$('#loginInfo').text('비밀번호를 입력하세요.');
-				return;
-			}
+// 			if(password == "" || password == null){
+// 				console.log('password없음');
+// 				$('#loginInfo').text('비밀번호를 입력하세요.');
+// 				return;
+// 			}
 			$('#login-form').submit();
 		}
 		function showPwd() {
