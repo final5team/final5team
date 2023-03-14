@@ -80,9 +80,9 @@
 									  </thead>
 									  <tbody>
 									  	<c:forEach var="notice" items="${noticeList}">
-										  	<tr style="text-align: center;" class="classHover colored" onclick='location.href="${pageContext.request.contextPath}/noticedetail?nno=${notice.nno}"'>
+										  	<tr style="text-align: center;" class="classHover colored">
 										       <th scope="row">${notice.nno}</th>
-										       <td>${notice.noticeTitle}</td>
+										       <td><a href="${pageContext.request.contextPath}/noticedetail?nno=${notice.nno}">${notice.noticeTitle}</a></td>
 										       <td><fmt:formatDate value="${notice.noticeDate}" pattern="yyyy-MM-dd"/></td>
 										       <td>${notice.mid}</td>
 										    </tr>
