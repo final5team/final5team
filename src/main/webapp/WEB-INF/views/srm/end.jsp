@@ -149,10 +149,10 @@
 							</div>
 						</c:if>
 						<c:if test="${member.mtype == 'user'}">
-							<button class="btn btn-dark btn-sm ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'">목록</button>
+							<button class="btn btn-dark btn-sm ml-5 mt-2" onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'">목록</button>
 						</c:if>
 						<c:if test="${member.mtype != 'user'}">
-							<button class="btn btn-dark btn-sm ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
+							<button class="btn btn-dark btn-sm ml-5 mt-2" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
 						</c:if>
 						<!-- 접수결과 반려 end -->
 						<!-- 처리 완료 모달창 start -->

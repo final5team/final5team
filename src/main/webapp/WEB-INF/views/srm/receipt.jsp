@@ -80,10 +80,11 @@
 								<div class="card border-top-dark mt-3 mb-3">
 									<div class="card-block">
 										<div class="d-flex">
-											<div class="card-title-block">
+											<div class="card-title-block d-flex">
 			                	 				<h3 class="title">
 			                	 					요청 처리 계획 작성<i class="ml-1  fas fa-pen-alt"></i>
 		                	 					</h3>
+		                	 					<small class="ml-3">*는 필수 입력 사항입니다.</small>
 			                	 			</div>
 			                	 			<div class="d-flex justify-content-end" style="margin-left: auto; margin-right: 30px;">
 												<button class="navBtn active mt-3" type="button" id="receiptbtn">접수</button>
@@ -117,7 +118,7 @@
 													
 												<div class="row mb-2">
 													<label class=" col-2 text-right font-weight-bold">*개발 담당자</label>
-													<select class="dropdown-toggle col-3 calendarOpen developer" aria-haspopup="true" aria-expanded="false" name="developer">
+													<select class="dropdown-toggle col-3 calendarOpen developer text-center" aria-haspopup="true" aria-expanded="false" name="developer">
 														<option value="">개발 담당자 선택 </option>		
 														<c:forEach var="staff" items="${devStaffList}">
 															<option id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																												
@@ -125,7 +126,7 @@
 													</select>
 													<small class="noInputDev" style="color : red; position: absolute;"></small>		
 													<label class=" col-2 text-right font-weight-bold">*테스트 담당자</label>
-													<select class="dropdown-toggle col-3 calendarOpen tester" style="width:300px;" aria-haspopup="true" aria-expanded="false" name="tester">
+													<select class="dropdown-toggle col-3 calendarOpen tester text-center" style="width:300px;" aria-haspopup="true" aria-expanded="false" name="tester">
 														<option value="">테스트 담당자 선택 </option>	
 														<c:forEach var="staff" items="${tesStaffList}">
 															<option id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																													
@@ -135,7 +136,7 @@
 												</div>
 												<div class="row mb-2 text-right font-weight-bold" id="utester">
 													<label class=" col-2 ">*품질 담당자</label>
-													<select class="dropdown-toggle col-3 calendarOpen userTester"  aria-haspopup="true" aria-expanded="false" name="userTester" >
+													<select class="dropdown-toggle col-3 calendarOpen userTester text-center"  aria-haspopup="true" aria-expanded="false" name="userTester" >
 														<option value="">품질 담당자 선택 </option>	
 														<c:forEach var="staff" items="${uteStaffList}">
 															<option id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																													
@@ -143,7 +144,7 @@
 													</select>
 													<small class="noInputUtt" style="color : red; position: absolute;"></small>		
 													<label class=" col-2 text-right font-weight-bold">*배포 담당자</label>
-													<select class="dropdown-toggle col-3 calendarOpen distributor" aria-haspopup="true" aria-expanded="false" name="distributor">
+													<select class="dropdown-toggle col-3 calendarOpen distributor text-center" aria-haspopup="true" aria-expanded="false" name="distributor">
 														<option value="">배포 담당자 선택</option>	
 														<c:forEach var="staff" items="${disStaffList}">
 															<option id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																												
@@ -210,10 +211,11 @@
 									<div class="card border-top-dark mt-3 mb-1">
 										<div class="card-block">
 											<div class="d-flex">
-												<div class="card-title-block">
+												<div class="card-title-block d-flex">
 				                	 				<h3 class="title">
 				                	 					요청 반려 사유 작성<i class="ml-1 fas fa-external-link-alt"></i>
 			                	 					</h3>
+			                	 					<small class="ml-3">*는 필수 입력 사항입니다.</small>
 				                	 			</div>
 				                	 			<div class="d-flex justify-content-end" style="margin-left: auto; margin-right: 30px;">
 													<button class="navBtn mt-3" type="button" onclick="receiptbtn()">접수</button>
@@ -253,10 +255,11 @@
 							<div id="receiptUpdateForm" style="display:none;"> 						            
 									<div class="card border-top-primary mt-3 mb-3">
 										<div class="card-block">
-											<div class="card-title-block">
+											<div class="card-title-block d-flex">
 			                	 				<h3 class="title">
 				                	 				요청 처리 계획<i class="ml-1  fas fa-pen-alt"></i>
 			                	 				</h3>
+			                	 				<small class="ml-3">*는 필수 입력 사항입니다.</small>
 			                	 			</div>
 											<div class="card-body">
 												<form method="post" action="<c:url value='/pm/updatehistory'/>" enctype="multipart/form-data" id="updateForm" onsubmit="return validate()">
@@ -285,7 +288,7 @@
 													
 													<div class="row mb-2">
 														<label class=" col-2 text-right font-weight-bold">*개발 담당자</label>
-														<select class="dropdown-toggle col-3 calendarOpen developer" aria-haspopup="true" aria-expanded="false" name="developer">
+														<select class="dropdown-toggle col-3 calendarOpen developer text-center" aria-haspopup="true" aria-expanded="false" name="developer">
 															<option value="">개발 담당자 선택</option>		
 															<c:forEach var="staff" items="${devStaffList}">
 																<option <c:if test="${requestProcess.developer == staff.mid}">selected</c:if> id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																												
@@ -293,7 +296,7 @@
 														</select>
 														<small class="noInputDev" style="color : red; position: absolute;"></small>		
 														<label class=" col-2 text-right font-weight-bold">*테스트 담당자</label>
-														<select class="dropdown-toggle col-3 calendarOpen tester" style="width:300px;" aria-haspopup="true" aria-expanded="false" name="tester">
+														<select class="dropdown-toggle col-3 calendarOpen tester text-center" style="width:300px;" aria-haspopup="true" aria-expanded="false" name="tester">
 															<option value="">테스트 담당자 선택 </option>	
 															<c:forEach var="staff" items="${tesStaffList}">
 																<option <c:if test="${requestProcess.tester == staff.mid}">selected</c:if> id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																													
@@ -303,7 +306,7 @@
 													</div>
 													<div class="row mb-2 text-right font-weight-bold" id="utester">
 														<label class=" col-2 ">*품질 담당자</label>
-														<select class="dropdown-toggle col-3 calendarOpen userTester"  aria-haspopup="true" aria-expanded="false" name="userTester">
+														<select class="dropdown-toggle col-3 calendarOpen userTester text-center"  aria-haspopup="true" aria-expanded="false" name="userTester">
 															<option value="">품질 담당자 선택 </option>	
 															<c:forEach var="staff" items="${uteStaffList}">
 																<option <c:if test="${requestProcess.userTester == staff.mid}">selected</c:if> id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																													
@@ -311,7 +314,7 @@
 														</select>
 														<small class="noInputUtt" style="color : red; position: absolute;"></small>		
 														<label class=" col-2 text-right font-weight-bold">*배포 담당자</label>
-														<select class="dropdown-toggle col-3 calendarOpen distributor" aria-haspopup="true" aria-expanded="false" name="distributor">
+														<select class="dropdown-toggle col-3 calendarOpen distributor text-center" aria-haspopup="true" aria-expanded="false" name="distributor">
 															<option value="">배포 담당자 선택 </option>	
 															<c:forEach var="staff" items="${disStaffList}">
 																<option <c:if test="${requestProcess.distributor == staff.mid}">selected</c:if> id="${staff.mname}" value="${staff.mid}">${staff.mname} | 대기(${staff.quota['대기']})진행(${staff.quota['진행중']})</option>																												
@@ -358,7 +361,7 @@
 													</c:forEach>																																											
 													<div class="d-flex justify-content-end">						
 														<button class="btn btn-primary btn-md mt-3 ml-3" id="receiptUpdateButton" type="button" onclick="update()">완료</button>
-														<button class="btn btn-primary btn-md mt-3 ml-3" type="button" onclick="hideUpdateForm()">취소</button>										
+														<button class="btn btn-secondary btn-md mt-3 ml-3" type="button" onclick="hideUpdateForm()">취소</button>										
 													</div>
 												<input type="hidden" name="rno" value="${request.rno}">
 											</form>											
@@ -383,141 +386,156 @@
 									</div>
 								</div>
 							</c:if>
-							<c:if test="${(member.mtype == 'pm' && request.statusNo >= 2 && request.statusNo != 12) || (member.mtype != 'pm')}">
-								<div class="card border-top-dark my-3" id="receiptDetailForm">
-									<div class="card-block"> <!-- card-block -->
-										<div class="card-title-block">
-			               	 				<h3 class="title">
-			                	 				요청 처리 계획 <i class="far fa-calendar-check"></i>
-			               	 				</h3>
-			               	 			</div>
-										<div class="card-body">
-											<div class="row mt-3">
-												<div class="col-3 label">요청 유형</div>
-												<div class="col-2">
-													<c:if test="${requestProcess.reqType eq '정규'}">
-														<div>정규<i class="far fa-registered text-secondary"></i></div>
-													</c:if>
-													<c:if test="${requestProcess.reqType eq '긴급'}">
-														<div>긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
-													</c:if>
+							<c:if test="${(member.mtype == 'pm' && request.statusNo >= 2 && request.statusNo != 12) || (member.mtype != 'pm' && request.statusNo != 1 && request.statusNo != 12)}">
+								<div  id="receiptDetailForm">
+									<div class="card border-top-dark my-3">
+										<div class="card-block"> <!-- card-block -->
+											<div class="card-title-block">
+				               	 				<h3 class="title">
+				                	 				요청 처리 계획 <i class="far fa-calendar-check"></i>
+				               	 				</h3>
+				               	 			</div>
+											<div class="card-body">
+												<div class="row mt-3">
+													<div class="col-3 label">요청 유형</div>
+													<div class="col-2">
+														<c:if test="${requestProcess.reqType eq '정규'}">
+															<div>정규<i class="far fa-registered text-secondary"></i></div>
+														</c:if>
+														<c:if test="${requestProcess.reqType eq '긴급'}">
+															<div>긴급<i class="fas fa-exclamation-triangle text-secondary"></i></div>
+														</c:if>
+													</div>
+													<div class="col-3 label">중요도</div>
+													<div class="col-2">
+														<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
+															<span class="fa fa-star checked" style="color: orange;"></span>
+														</c:if>
+														<c:if test="${requestProcess.priority eq '중' || requestProcess.priority eq '상'}">
+															<span class="fa fa-star checked" style="color: orange;"></span>
+														</c:if>
+														<c:if test="${requestProcess.priority eq '상'}">
+															<span class="fa fa-star checked" style="color: orange;"></span>
+														</c:if>
+													</div>
 												</div>
-												<div class="col-3 label">중요도</div>
-												<div class="col-2">
-													<c:if test="${requestProcess.priority eq '하' || requestProcess.priority eq '중' ||requestProcess.priority eq '상'}">
-														<span class="fa fa-star checked" style="color: orange;"></span>
-													</c:if>
-													<c:if test="${requestProcess.priority eq '중' || requestProcess.priority eq '상'}">
-														<span class="fa fa-star checked" style="color: orange;"></span>
-													</c:if>
-													<c:if test="${requestProcess.priority eq '상'}">
-														<span class="fa fa-star checked" style="color: orange;"></span>
-													</c:if>
-												</div>
-											</div>
-											<hr/>
-			
-											<div class="row">
-												<div class="col-3 label">요청 완료 예정일</div>
-												<div class="col-7">
-													<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>
-												</div>
-											</div>
-											<hr/>
-											<div class="row">
-												<div class="col-3 label">개발 담당자</div>
-												<div class="col-2">${mnameList.developer}</div>
-												<div class="col-3 label">테스트 담당자</div>
-												<div class="col-2">${mnameList.tester}</div>
-											</div>	
-											<hr/>
-											<div class="row">
-													<div class="col-3 label">품질검토 담당자</div>
-												<c:if test="${requestProcess.reqType eq '정규'}">
-													<div class="col-2">${mnameList.userTester}</div>
-												</c:if>
-												<c:if test="${requestProcess.reqType eq '긴급'}">
-													<div class="col-2">-</div>
-												</c:if>
-												<div class="col-3 label">배포 담당자</div>
-												<div class="col-2">${mnameList.distributor}</div>
-											</div>	
-											<hr/>
-											<c:forEach var="statusHistory" items="${pmToAllHistories}">
+												<hr/>
+				
 												<div class="row">
-													<div class="col-3 label">검토 의견</div>
-													<div class="col-7 border" style="min-height:100px;">${statusHistory.reply}</div>
+													<div class="col-3 label">요청 완료 예정일</div>
+													<div class="col-7">
+														<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>
+													</div>
 												</div>
 												<hr/>
 												<div class="row">
-													<div class="col-3 label">검토 첨부파일</div>
-													<div class="col-7">
-														<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
-															<div>
-																<span>${statusHistoryFile.fileName}</span>
-																<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
-																	<i class="fas fa-cloud-download-alt"></i>
-																</a>
-															</div>
-														</c:forEach>
-													</div>
+													<div class="col-3 label">개발 담당자</div>
+													<div class="col-2">${mnameList.developer}</div>
+													<div class="col-3 label">테스트 담당자</div>
+													<div class="col-2">${mnameList.tester}</div>
 												</div>	
-											</c:forEach>
-											<c:if test="${request.statusNo == 2 && member.mtype == 'pm'}">
-												<div class="d-flex justify-content-end">
-													<button type="button" onclick="showUpdateForm()" class="btn btn-md btn-primary">수정</button>		
-												</div>
-											</c:if>
-										</div>
-									</div> <!-- card-block -->						
+												<hr/>
+												<div class="row">
+														<div class="col-3 label">품질검토 담당자</div>
+													<c:if test="${requestProcess.reqType eq '정규'}">
+														<div class="col-2">${mnameList.userTester}</div>
+													</c:if>
+													<c:if test="${requestProcess.reqType eq '긴급'}">
+														<div class="col-2">-</div>
+													</c:if>
+													<div class="col-3 label">배포 담당자</div>
+													<div class="col-2">${mnameList.distributor}</div>
+												</div>	
+												<hr/>
+												<c:forEach var="statusHistory" items="${pmToAllHistories}">
+													<div class="row">
+														<div class="col-3 label">검토 의견</div>
+														<div class="col-7 border" style="min-height:100px;">${statusHistory.reply}</div>
+													</div>
+													<hr/>
+													<div class="row">
+														<div class="col-3 label">검토 첨부파일</div>
+														<div class="col-7">
+															<c:forEach var="statusHistoryFile" items="${statusHistory.fileList}">
+																<div>
+																	<span>${statusHistoryFile.fileName}</span>
+																	<a href="${pageContext.request.contextPath}/filedouwnload/${statusHistoryFile.fno}" role="button">
+																		<i class="fas fa-cloud-download-alt"></i>
+																	</a>
+																</div>
+															</c:forEach>
+														</div>
+													</div>	
+												</c:forEach>
+												<c:if test="${request.statusNo == 2 && member.mtype == 'pm'}">
+													<div class="d-flex justify-content-end">
+														<button type="button" onclick="showUpdateForm()" class="btn btn-md btn-primary">수정</button>		
+													</div>
+												</c:if>
+											</div>
+										</div> <!-- card-block -->						
+									</div>
+									<c:if test="${member.mtype == 'user'}">
+										<button class="btn btn-dark btn-sm ml-5 mb-3" onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'">목록</button>
+									</c:if>
+									<c:if test="${member.mtype != 'user'}">
+										<button class="btn btn-dark btn-sm ml-5 mb-3" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
+									</c:if>
 								</div>
-							</c:if>
+							</c:if>							
 						<!-- 요청 처리 계획 end-->
 						
-						<!-- 반려 처리 정보 start -->
-						<c:if test="${request.statusNo==12}">
-							<div class="card border-top-danger mt-3 mb-1">
-								<h3 class="title m-3">						
-									요청 반려 처리 <i class="ml-1 fas fa-external-link-alt"></i>
-								</h3>
-								<div class="card-body">									
-									<div class="form-group row">
-										<label class="label col-3">반려 사유</label>
-										<textarea rows="2" class="form-control boxed col-7" name="reply" readonly>${rejectHistory.reply}</textarea>
-									</div>											
-									<div class="mt-3 row">
-										<c:if test="${request.files != null}">
-											<div class="col-3 label">첨부 파일</div>
-											<div class="col">
-												<c:forEach var="file" items="${rejectHistory.fileList}">
-													<div>
-														<span>${file.fileName}</span>
-														<a href="${pageContext.request.contextPath}/filedouwnload/${file.fno}" role="button">
-															<i class="fas fa-cloud-download-alt"></i>
-														</a>
-													</div>
-												</c:forEach>
-											</div>
-										</c:if>
-									</div>																														
-								</div>										
-							</div>
-						</c:if>
-						<!-- 반려 처리 정보 end-->
-						<!-- Calendar Card -->
-						<div id="calendarCard" class="card border-top-dark my-3" style="display:none;">
-							<div class="card-block"> <!-- card-block -->
-								<div class="card-title-block">
-	               	 				<h3 class="title" id="operator">
-	                	 				<i class="far fa-calendar-check"></i>
-	               	 				</h3>
-	               	 			</div>
-								<div class="card-body">
-									<div id="calendar"></div>
+							<!-- 반려 처리 정보 start -->
+							<c:if test="${request.statusNo==12}">
+								<div class="card border-top-danger mt-3 mb-1">
+									<h3 class="title m-3">						
+										요청 반려 처리 <i class="ml-1 fas fa-external-link-alt"></i>
+									</h3>
+									<div class="card-body">									
+										<div class="form-group row">
+											<label class="label col-3">반려 사유</label>
+											<textarea rows="2" class="form-control boxed col-7" name="reply" readonly>${rejectHistory.reply}</textarea>
+										</div>											
+										<div class="mt-3 row">
+											<c:if test="${request.files != null}">
+												<div class="col-3 label">첨부 파일</div>
+												<div class="col">
+													<c:forEach var="file" items="${rejectHistory.fileList}">
+														<div>
+															<span>${file.fileName}</span>
+															<a href="${pageContext.request.contextPath}/filedouwnload/${file.fno}" role="button">
+																<i class="fas fa-cloud-download-alt"></i>
+															</a>
+														</div>
+													</c:forEach>
+												</div>
+											</c:if>
+										</div>																														
+									</div>										
+								</div>
+								<c:if test="${member.mtype == 'user'}">
+									<button class="btn btn-dark btn-sm ml-5 mb-3 mt-2" onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'">목록</button>
+								</c:if>
+								<c:if test="${member.mtype != 'user'}">
+									<button class="btn btn-dark btn-sm ml-5 mb-3 mt-2" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
+								</c:if>							
+							</c:if>
+							<!-- 반려 처리 정보 end-->
+							<!-- Calendar Card -->
+							<div id="calendarCard" class="card border-top-dark my-3" style="display:none;">
+								<div class="card-block"> <!-- card-block -->
+									<div class="card-title-block">
+		               	 				<h3 class="title" id="operator">
+		                	 				<i class="far fa-calendar-check"></i>
+		               	 				</h3>
+		               	 			</div>
+									<div class="card-body">
+										<div id="calendar"></div>
+									</div>
 								</div>
 							</div>
+						<!-- 게시글 상세보기 end -->
 						</div>
-					<!-- 게시글 상세보기 end -->
 					</div>
                 <!-- 여기에 내용 담기 end -->
 
