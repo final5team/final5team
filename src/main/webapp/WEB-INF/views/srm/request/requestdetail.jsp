@@ -218,7 +218,7 @@
 												</div>
 											</article>
 											<article class="fileBody">
-	                	 							<div class="label" style="text-align:start;">첨부파일</div>
+	                	 							<div class="label pastfile" >첨부파일</div>
 	                	 							<div class="default_file">
 	                	 								<c:forEach var="file" items="${request.fileList}">
 															<div>
