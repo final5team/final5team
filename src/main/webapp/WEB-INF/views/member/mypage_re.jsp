@@ -231,7 +231,7 @@
 													</div>
 												</article>
 												<article class="submit-button">
-													<button class="btn btn-dark btn-sm" type="button" onclick = "check()">저장</button>
+													<button class="btn btn-dark btn-sm" type="button" id="updateButton" onclick = "check()">저장</button>
 												</article>
 												<article class="return-button">
 													<c:if test="${sessionScope.member.mtype == 'user'}">
@@ -450,6 +450,7 @@
 							$('.noPassInput').html('변경 가능');
 							$('.noPassInput').css('color', 'blue');
 							passwordResult = true;
+							
 						} else {
 							$('.noPassInput').html('변경 불가능');
 							$('.noPassInput').css('color', 'red');
@@ -565,6 +566,12 @@
 			if(submitResult == true){
 				$('#writeform').submit();
 			}
+			let target = document.getElementById('updateButton');
+	           target.disabled = true;
+	           
+	           setTimeout(function(), 3000)
+	           
+			
 		}
 		
 	</script>
