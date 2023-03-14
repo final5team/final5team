@@ -134,13 +134,32 @@ public class RequestController {
 		String address = member.getPostcode() + "-" + member.getAddr1() + "-" + member.getAddr2();
 		member.setAddress(address);
 		member.setSno(Sessionmember.getSno());
+		MultipartFile mfile = member.getMfile();
 		
-		//유저 정보 수정
-		int result = userRegisterService.updateUserInfo(member);
+		try {
+			
+			if (mfile != null && !mfile.isEmpty()) {
+				member.setFileName(mfile.getOriginalFilename());
+				member.setSavedDate(new Date());
+				member.setFileType(mfile.getContentType());
+				member.setFileData(mfile.getBytes());
+				//유저 정보 수정
+				int result = userRegisterService.updateUserInfo(member);
+				log.info(member.toString());
+				log.info("수정 완료" + result);
+				
+				return "/userhome";
+			}
+		} catch(Exception e) {
+			
+		}
 		
-		log.info("수정 완료" + result);
+			int result = userRegisterService.updateUserInfo(member);
+			log.info(member.toString());
+			log.info("수정 완료" + result);
+			
+			return "/userhome";
 		
-		return "member/mypage_re";
 	}
 	
 
