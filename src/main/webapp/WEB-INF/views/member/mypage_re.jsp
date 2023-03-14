@@ -86,7 +86,7 @@
 													</select>
 													<div class="data">
 														<div class="item">
-															<input type="text" class="form-control form-control-user" id="mid" name="mid" maxlength='15' onfocusout="checkId()" placeholder="아이디" value="${returnMember.mid}">
+															<input type="text" class="form-control form-control-user" id="mid" name="mid" maxlength='15' placeholder="아이디" value="${returnMember.mid}">
 														</div>
 														<div class="item">
 															<input type="text" class="form-control form-control-user" id="mname" name="mname" maxlength='4' placeholder="이름" value="${returnMember.mname}">
@@ -349,38 +349,38 @@
 			
 			return result;
 		}
-		// 아이디 중복 체크 ajax
-		let idTest = '';
-		function checkId(){
-			let id = $('#mid').val();
-			//알파벳 6자 이상 15자 이하
-			const idPattern = /^[a-zA-Z0-9]{6,15}$/;
-			idTest = idPattern.test(id);
-			if(!idTest){
-				$('#idconfirm').css('color', 'red');
-				$('#idconfirm').html('아이디 형식을 확인해주세요.');
-			} else {
-				data = {mid : id};	
-				$.ajax ({
-					url : "/srm/idconfrim",
-					method : "post",
-					data : JSON.stringify(data),
-					contentType: "application/json; charset=UTF-8",
-					success : function(result){
-						if(result <='1'){
-							$('#idconfirm').html('사용 가능한 아이디입니다.');
-							$('#idconfirm').css('color', 'blue');
-							idTest = 'true';
-							/* $('#mid').css('border', '1px solid #ced4da'); */
-						} else {
-							$('#idconfirm').html('중복된 아이디입니다.');
-							$('#idconfirm').css('color', 'red');
-							idTest = 'false';
-						}
-					}
-				});
-			}
-		}
+// 		// 아이디 중복 체크 ajax
+// 		let idTest = '';
+// 		function checkId(){
+// 			let id = $('#mid').val();
+// 			//알파벳 6자 이상 15자 이하
+// 			const idPattern = /^[a-zA-Z0-9]{6,15}$/;
+// 			idTest = idPattern.test(id);
+// 			if(!idTest){
+// 				$('#idconfirm').css('color', 'red');
+// 				$('#idconfirm').html('아이디 형식을 확인해주세요.');
+// 			} else {
+// 				data = {mid : id};	
+// 				$.ajax ({
+// 					url : "/srm/idconfrim",
+// 					method : "post",
+// 					data : JSON.stringify(data),
+// 					contentType: "application/json; charset=UTF-8",
+// 					success : function(result){
+// 						if(result <='1'){
+// // 							$('#idconfirm').html('사용 가능한 아이디입니다.');
+// // 							$('#idconfirm').css('color', 'blue');
+// 							idTest = 'true';
+// 							/* $('#mid').css('border', '1px solid #ced4da'); */
+// 						} else {
+// // 							$('#idconfirm').html('중복된 아이디입니다.');
+// // 							$('#idconfirm').css('color', 'red');
+// 							idTest = 'true';
+// 						}
+// 					}
+// 				});
+// 			}
+// 		}
 		//비밀번호 동일 체크 ajax
 		let passwordResult = '';
 		function passwordCheck(){
