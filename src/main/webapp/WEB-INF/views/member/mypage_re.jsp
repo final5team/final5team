@@ -570,8 +570,6 @@
 	           target.disabled = true;
 	           
 	           setTimeout(function(), 3000)
-	           
-			
 		}
 		
 	</script>
