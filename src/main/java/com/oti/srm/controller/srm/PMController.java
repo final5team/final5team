@@ -109,7 +109,7 @@ public class PMController {
 			Member me = (Member) session.getAttribute("member");
 			statusHistory.setWriter(me.getMid());
 			requestProcess.setPm(me.getMid());
-
+			
 			// 첨부파일 매핑
 			if (files != null) {
 				// 첨부파일 저장할 List 객체 생성
