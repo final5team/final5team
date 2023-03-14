@@ -73,7 +73,7 @@
 												</article>
 
 												<article class="data_one">
-													<select class="custom-select" id="mtype" name="mtype" onchange="changeUserType()">
+													<select class="custom-select" id="mtype" name="mtype" onchange="changeUserType()" >
 														<option value="${returnMember.mtype}" selected>${returnMember.mtype}</option>
 														<c:if test="${sessionScope.member.mtype == 'pm'}">
 															<option value="user">시스템 사용자(고객)</option>
@@ -86,16 +86,16 @@
 													</select>
 													<div class="data">
 														<div class="item">
-															<input type="text" class="form-control form-control-user" id="mid" name="mid" maxlength='15' placeholder="아이디" value="${returnMember.mid}">
+															<input type="text" class="form-control form-control-user" id="mid" name="mid" maxlength='15' placeholder="아이디" value="${returnMember.mid}" readonly>
 														</div>
 														<div class="item">
-															<input type="text" class="form-control form-control-user" id="mname" name="mname" maxlength='4' placeholder="이름" value="${returnMember.mname}">
+															<input type="text" class="form-control form-control-user" id="mname" name="mname" maxlength='4' placeholder="이름" value="${returnMember.mname}" readonly>
 														</div>
 														<div class="item">
 															<input type="text" class="form-control form-control-user" id="email" name="email" maxlength='33' placeholder="이메일" value="${returnMember.email}">
 														</div>
 														<div class="item">
-															<input type="date" id="birth" name="birth" class="form-control form-control-user" value="<fmt:formatDate value="${returnMember.birth}" pattern="yyyy-MM-dd" />">
+															<input type="date" id="birth" name="birth" class="form-control form-control-user" value="<fmt:formatDate value="${returnMember.birth}" pattern="yyyy-MM-dd" />" readonly>
 														</div>
 														<div class="item">
 															<input type="password" class="form-control form-control-user" id="password" name="password" onfocusout="passwordCheck()" maxlength='13' placeholder="비밀번호">
@@ -137,7 +137,7 @@
 													<div class="item">
 														<div class="input-group">
 															<select class="custom-select" id="position" name="position">
-																<option selected>${returnMember.position}</option>
+																<option value="${sessionScope.member.position}" selected>${returnMember.position}</option>
 																<c:if test="${sessionScope.member.mtype == 'pm'}">
 																	<option value="사원">사원</option>
 																	<option value="대리">대리</option>
@@ -239,6 +239,7 @@
 	<a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
 	</a>
 	<script>
+		
 		//이미지 검증
 		mfile.addEventListener('change',function() {
 		//파일 업로드 제약 자바스크립트
