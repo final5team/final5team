@@ -166,7 +166,7 @@
                 	 					<div>
                 	 						<div class="row">
 	                	 						<div class="col-2 label">작성자</div>
-	                	 						<div class="col-3 ">${statusHistory.writer}</div>
+	                	 						<div class="col-3 ">${statusHistory.writerName}</div>
 	                	 						<div class="col-2 label">개발 완료일</div>
 	                	 						<div class="col-3 "><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
                 	 						</div>
@@ -175,8 +175,8 @@
                 	 							<div class="col-8 border p-2 scroller" style="min-height: 100px;">${statusHistory.reply}</div>
                 	 						</div>
                 	 						<div class="row mt-3">
-	                	 						<div class="col-2 label">배포소스(url)</div>
-	                	 						<input class="col-8 form-control boxed mr-5" style=" height: 20px;" value="${statusHistory.distSource}" readonly>
+	                	 						<div class="col-2 label">배포소스</div>
+	                	 						<input class="col-8 form-control boxed mr-5" style=" height: 50px;" value="${statusHistory.distSource}" readonly>
                 	 						</div>
                 	 						<div class="row mt-3">
 	                	 						<div class="col-2 label">첨부파일</div>

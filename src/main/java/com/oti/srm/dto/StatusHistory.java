@@ -14,5 +14,6 @@ public class StatusHistory {
 	private String reply;
 	private String distSource;
 	private String writer;
+	private String writerName;
 	private List<StatusHistoryFile> fileList;
 }

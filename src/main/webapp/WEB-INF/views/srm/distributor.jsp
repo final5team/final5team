@@ -145,7 +145,7 @@
 	                	 					<div>
 	                	 						<div class="row">
 		                	 						<span class="col-2 label">작성자</span>
-		                	 						<span class="col-3">${statusHistory.writer}</span>
+		                	 						<span class="col-3">${statusHistory.writerName}</span>
 		                	 						<span class="col-2 label">*배포 완료일</span>
 		                	 						<span class="col-3"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></span>
 	                	 						</div>

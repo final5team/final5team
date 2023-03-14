@@ -159,7 +159,7 @@
 												<small id="noExpectDate" style="color : red; position: absolute;"></small>		
 												<div class="row mb-2">
 													<div class=" col-2 text-right font-weight-bold">*검토 의견</div>
-													<textarea class="form-control boxed col-7 pmcontent ml-2 receiptWrite" name="reply" style="padding: 0px" maxlength="300"></textarea>													
+													<textarea class="form-control boxed col-7 ml-2 receiptWrite" name="reply" style="padding: 0px" maxlength="300"></textarea>													
 													<small class="noReceiptWrite" style="color : red; position: absolute; right:89.4%"></small>
 												</div>	
 												<div class="filebox row mb-3">
@@ -222,7 +222,7 @@
 											</div>		
 											<div class="card-body">
 												<div class="form-group row">
-													<label class="col-2 text-right font-weight-bold">반려 사유</label>
+													<label class="col-2 text-right font-weight-bold">*반려 사유</label>
 													<textarea class="form-control boxed pmcontent receiptWrite" name="reply" maxlength="300"></textarea>
 													<small class="noRejectWrite" style="color : red; position: absolute; right:89.4%"></small>
 												</div>											
@@ -426,21 +426,21 @@
 											<hr/>
 											<div class="row">
 												<div class="col-3 label">개발 담당자</div>
-												<div class="col-2">${requestProcess.developer}</div>
+												<div class="col-2">${mnameList.developer}</div>
 												<div class="col-3 label">테스트 담당자</div>
-												<div class="col-2">${requestProcess.tester}</div>
+												<div class="col-2">${mnameList.tester}</div>
 											</div>	
 											<hr/>
 											<div class="row">
 													<div class="col-3 label">품질검토 담당자</div>
 												<c:if test="${requestProcess.reqType eq '정규'}">
-													<div class="col-2">${requestProcess.userTester}</div>
+													<div class="col-2">${mnameList.userTester}</div>
 												</c:if>
 												<c:if test="${requestProcess.reqType eq '긴급'}">
 													<div class="col-2">-</div>
 												</c:if>
 												<div class="col-3 label">배포 담당자</div>
-												<div class="col-2">${requestProcess.distributor}</div>
+												<div class="col-2">${mnameList.distributor}</div>
 											</div>	
 											<hr/>
 											<c:forEach var="statusHistory" items="${pmToAllHistories}">

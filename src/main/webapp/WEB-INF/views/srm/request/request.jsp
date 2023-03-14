@@ -152,7 +152,7 @@ a {
 
 .card-body .fileBody {
 	position: absolute;
-	width: 700px;
+	width: 800px;
 	left: 18%;
 	top: 77%;
 	overflow: hidden;
@@ -222,7 +222,7 @@ textarea:focus::placeholder {
 	z-index: 2;
 	display: inline-block;
 	height: 120px;
-	width: 495px;
+	width: 595px;
 	vertical-align: middle;
 	border: 1px solid #d1d3e2;
 	border-radius: 5px;

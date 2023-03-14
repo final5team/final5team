@@ -182,7 +182,7 @@
 	                	 					<div>
 	                	 						<div class="row">
 		                	 						<div class="col-2 label">작성자</div>
-		                	 						<div class="col-3">${statusHistory.writer}</div>
+		                	 						<div class="col-3">${statusHistory.writerName}</div>
 		                	 						<div class="col-2 label">테스트 완료일</div>
 		                	 						<div class="col-3"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></div>
 	                	 						</div>

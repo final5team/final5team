@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div style="height: 280px;">
 	<table class="table table-hover usertable table-striped">
-		<thead>
+		<thead thead style="background-color: #3A4651;" class="text-white" id="table-head-color">
 			<tr>
 				<th>번호</th>
 				<th>제목</th>
@@ -50,7 +50,7 @@
 	</table>
 </div>
 
-<div class="pager default mt-1">
+<div class="pager default" style="margin-top : 40px">
 	<div class="pagingButtonSet d-flex justify-content-center">
 		<a onclick="userRequestList('${searchStatus}', 1)" type="button" class="btn btn-muted shadow">처음</a>
 	<c:if test="${uPager.groupNo > 1}">
