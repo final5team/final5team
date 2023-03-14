@@ -87,6 +87,9 @@ public class HomeController {
 		model.addAttribute("requestProcessList", requestProcessList);
 		model.addAttribute("nPager", nPager);
 		model.addAttribute("noticeList", noticeList);
+		
+		//세션에 사이드 버튼 입력 주기
+		session.setAttribute("where", "dashboard");
 		return "/home";
 		
 	}
@@ -136,7 +139,10 @@ public class HomeController {
 		model.addAttribute("userRequestList", userRequestList);
 		model.addAttribute("nPager", nPager);
 		model.addAttribute("noticeList", noticeList);
-
+		
+		//세션에 사이드 버튼 입력 주기 
+		session.setAttribute("where", "dashboard");
+		
 		return "/userhome";
 	}
 	@GetMapping("/pmhome")
@@ -181,6 +187,10 @@ public class HomeController {
 		model.addAttribute("rpPager",rpPager);
 		model.addAttribute("requestProcessList",requestProcessList);
 		model.addAttribute("searchStatus", status);
+		
+		//세션에 사이드 버튼 입력 주기 (실무자들 = workers/ pm = pm / 유저 = user)
+		session.setAttribute("where", "dashboard");
+		
 		return "/pmhome";
 	}
 	@GetMapping("/userrequestlist")
