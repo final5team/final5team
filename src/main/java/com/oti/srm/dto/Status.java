@@ -7,4 +7,5 @@ public class Status {
 	private int statusNo;
 	private String statusName;
 	private int count;
+	private String reqType;
 }

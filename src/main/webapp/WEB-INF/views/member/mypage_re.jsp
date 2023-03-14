@@ -48,7 +48,7 @@
 										</h3>
 									</div>
 									<div class="card-body">
-										<form onsubmit="return check()" method="post" action="${pageContext.request.contextPath}/customer/mypageupdate" enctype="multipart/form-data">
+										<form method="post" id="writeform" action="${pageContext.request.contextPath}/customer/mypageupdate" enctype="multipart/form-data" >
 											<section class="section2">
 												<article class="photo">
 													<img id="preview" src="${pageContext.request.contextPath}/customer/mypage/${returnMember.mid}" onerror="this.src='${pageContext.request.contextPath}/resources/img/default-image.gif'" />
@@ -73,38 +73,60 @@
 												</article>
 
 												<article class="data_one">
-													<select class="custom-select" id="mtype" name="mtype" onchange="changeUserType()" >
-														<option value="${returnMember.mtype}" selected>${returnMember.mtype}</option>
-														<c:if test="${sessionScope.member.mtype == 'pm'}">
+													<select class="custom-select" id="mtype" name="mtype" onchange="changeUserType()">
+														<c:if test="${sessionScope.member.mtype == 'user'}">
 															<option value="user">시스템 사용자(고객)</option>
+														</c:if>	
+														<c:if test="${sessionScope.member.mtype == 'pm'}">
 															<option value="pm">PM</option>
+														</c:if>	
+														<c:if test="${sessionScope.member.mtype == 'developer'}">
 															<option value="developer">개발자</option>
+														</c:if>		
+														<c:if test="${sessionScope.member.mtype == 'distributor'}">
 															<option value="distributer">배포담당자</option>
+														</c:if>			
+														<c:if test="${sessionScope.member.mtype == 'tester'}">
 															<option value="tester">테스터</option>
-															<option value="user_tester">품질테스터</option>
-														</c:if>
+														</c:if>		
+														<c:if test="${sessionScope.member.mtype == 'usertester'}">
+															<option value="usertester">품질테스터</option>
+														</c:if>	
+														
 													</select>
+														<small class="noTypeInput" style="color : red; position : absolute; top : -17%; left : 100%; z-index:5; width:60px;"></small>	
 													<div class="data">
 														<div class="item">
-															<input type="text" class="form-control form-control-user" id="mid" name="mid" maxlength='15' placeholder="아이디" value="${returnMember.mid}" readonly>
+															<input type="text" class="form-control form-control-user" id="mid" name="mid" maxlength='15' placeholder="아이디" value="${returnMember.mid}">
+															<small class="noIdInput" style="color : red; position : absolute; top : 3%; left : 100%; z-index:5; width:60px;"></small>
 														</div>
 														<div class="item">
-															<input type="text" class="form-control form-control-user" id="mname" name="mname" maxlength='4' placeholder="이름" value="${returnMember.mname}" readonly>
+															<input type="text" class="form-control form-control-user" id="mname" name="mname" maxlength='4' placeholder="이름" value="${returnMember.mname}">
+															<small class="noNameInput" style="color : red; position : absolute; top : 23%; left : 100%; z-index:5; width:60px;"></small>	
 														</div>
 														<div class="item">
 															<input type="text" class="form-control form-control-user" id="email" name="email" maxlength='33' placeholder="이메일" value="${returnMember.email}">
+															<small class="noEmailInput"  style="color : red; position : absolute; top : 42%; left : 100%; z-index:5; width:60px;"></small>	
 														</div>
 														<div class="item">
-															<input type="date" id="birth" name="birth" class="form-control form-control-user" value="<fmt:formatDate value="${returnMember.birth}" pattern="yyyy-MM-dd" />" readonly>
+															<input type="date" id="birth" name="birth" class="form-control form-control-user" value="<fmt:formatDate value="${returnMember.birth}" pattern="yyyy-MM-dd" />">
+															<small class="noBirthInput"  style="color : red; position : absolute; top : 63%; left : 100%; z-index:5; width:60px;"></small>	
 														</div>
 														<div class="item">
 															<input type="password" class="form-control form-control-user" id="password" name="password" onfocusout="passwordCheck()" maxlength='13' placeholder="비밀번호">
+															<small class="noPassInput"  style="color : red; position : absolute; top : 82%; left : 100%; z-index:5; width:60px;"></small>	
 														</div>
 													</div>
 												</article>
 
 												<article class="label_two item">
-													<h6 id="system" style="visibility: hidden;">시스템</h6>
+													<c:if test="${returnMember.mtype != 'pm' && returnMember.mtype != 'user'}">
+														<h6 id="system" >시스템</h6>
+													</c:if>
+													<c:if test="${returnMember.mtype == 'pm' && returnMember.mtype == 'user'}">
+														<h6 id="system" style="visibility:hidden">시스템</h6>
+													</c:if>
+													
 													<h6>*성별</h6>
 													<h6>*직급</h6>
 													<h6>*소속 회사</h6>
@@ -114,12 +136,35 @@
 
 												<article class="data_two">
 													<div class="input-group">
-														<select class="custom-select" id="sno" name="sno" style="visibility: hidden;">
-															<option value="0" selected>시스템 선택</option>
-															<c:forEach var="system" items="${systemList}">
-																<option value="${system.sno}">${system.systemName}</option>
-															</c:forEach>
-														</select>
+														<c:if test="${returnMember.mtype != 'pm' && returnMember.mtype != 'user'}">
+															<select class="custom-select" id="sno" name="sno" >
+																<c:if test="${returnMember.sno == '1'}">
+																	<option value="1">가족관계정보</option>
+																</c:if>
+																<c:if test="${returnMember.sno == '2'}">
+																	<option value="2">쇼핑몰</option>
+																</c:if>
+																<c:if test="${returnMember.sno == '3'}">
+																	<option value="3">학사관리</option>
+																</c:if>
+																<c:if test="${returnMember.sno == '4'}">
+																	<option value="4">서비스요청</option>
+																</c:if>
+																<c:if test="${returnMember.mtype == 'pm' && returnMember.mtype == 'user'}">
+																	<option value="0">전체</option>
+																</c:if>
+															</select>
+															<small class="noSystemInput"  style="color : red; position : absolute; top : 20%; left : 100%; z-index:5; width:60px;"></small>
+														</c:if>
+														
+														<c:if test="${returnMember.mtype == 'pm' && returnMember.mtype == 'user'}">
+															<select class="custom-select" id="sno" name="sno" style="visibility:hidden">
+																<c:if test="${returnMember.sno == '1'}">
+																	<option value="0">전체 시스템</option>
+																</c:if>
+															</select>
+															<small class="noSystemInput"  style="color : red; position : absolute; top : 20%; left : 100%; z-index:5; width:60px;"></small>
+														</c:if>
 													</div>
 													<div class="item">
 														<div class="input-group">
@@ -131,13 +176,14 @@
 																	<option value="2" selected>여</option>
 																</c:if>
 															</select>
+															<small class="noGenderInput"  style="color : red; position : absolute; top : 20%; left : 100%; z-index:5; width:60px;"></small>	
 														</div>
 													</div>
 
 													<div class="item">
 														<div class="input-group">
 															<select class="custom-select" id="position" name="position">
-																<option value="${sessionScope.member.position}" selected>${returnMember.position}</option>
+																<option selected>${returnMember.position}</option>
 																<c:if test="${sessionScope.member.mtype == 'pm'}">
 																	<option value="사원">사원</option>
 																	<option value="대리">대리</option>
@@ -145,6 +191,7 @@
 																	<option value="차장">차장</option>
 																</c:if>
 															</select>
+															<small class="noPositionInput"  style="color : red; position : absolute; top : 20%; left : 100%; z-index:5; width:60px;"></small>
 														</div>
 													</div>
 
@@ -158,11 +205,13 @@
 																	<option value="학사관리">학사관리</option>
 																</c:if>
 															</select>
+															<small class="noOrganInput"  style="color : red; position : absolute; top : 19%; left : 100%; z-index:5; width:60px;"></small>	
 														</div>
 													</div>
 
 													<div class="item" style="margin-top: 10px;">
 														<input type="text" class="form-control form-control-user" id="phone" name="phone" maxlength='13' placeholder="핸드폰" value="${returnMember.phone}">
+														<small class="noPhoneInput"  style="color : red; position : absolute; top : 97%; left : 100%; z-index:5; width:60px;"></small>	
 													</div>
 												</article>
 
@@ -175,13 +224,14 @@
 													</div>
 													<div class="item address3">
 														<input type="text" id="addr2" name="addr2" class="form-control form-control-user" maxlength='25' placeholder="상세 주소" value="${returnMember.addr2}">
+														<small class="noAddressInput"  style="color : red; position : absolute; top : 52%; left : 90%; z-index:5; width:60px;"></small>	
 													</div>
 													<div class="item address-button">
 														<button type="button" class="btn btn-dark btn-sm" id="address" name="address" onclick="findAddress()">우편번호</button>
 													</div>
 												</article>
 												<article class="submit-button">
-													<button class="btn btn-dark btn-sm" type="submit">저장</button>
+													<button class="btn btn-dark btn-sm" type="button" id="updateButton" onclick = "check()">저장</button>
 												</article>
 												<article class="return-button">
 													<c:if test="${sessionScope.member.mtype == 'user'}">
@@ -239,7 +289,6 @@
 	<a class="scroll-to-top rounded" href="#page-top"> <i class="fas fa-angle-up"></i>
 	</a>
 	<script>
-		
 		//이미지 검증
 		mfile.addEventListener('change',function() {
 		//파일 업로드 제약 자바스크립트
@@ -385,6 +434,7 @@
 		//비밀번호 동일 체크 ajax
 		let passwordResult = '';
 		function passwordCheck(){
+			passwordResult = '';
 			let password = document.querySelector('#password').value;
 			if(password == '' || password == null){
 				return false;
@@ -397,140 +447,133 @@
 					contentType : "application/json; charset=UTF-8",
 					success : function(result){
 						if(!result){
-							$('#countCheck').modal();
-							$('#countContent').html('변경 가능한  비밀번호입니다.');
-							passwordResult = 'true';
+							$('.noPassInput').html('변경 가능');
+							$('.noPassInput').css('color', 'blue');
+							passwordResult = true;
+							
 						} else {
-							$('#countCheck').modal();
-							$('#countContent').html('기존과 동일한  비밀번호입니다.');
-							passwordResult = 'false';
+							$('.noPassInput').html('변경 불가능');
+							$('.noPassInput').css('color', 'red');
+							passwordResult = false;
 						}
 					}
 				})	;
 			}
 		}
 		
-		
-		
 		function check(){
+			console.log("체크 실행");
+			$('.noTypeInput').html('');
+			$('.noSystemInput').html('');
+			$('.noIdInput').html('');
+			$('.noNameInput').html('');
+			$('.noEmailInput').html('');
+			$('.noBirthInput').html('');
+			$('.noPositionInput').html('');
+			$('.noOrganInput').html('');
+			$('.noPhoneInput').html('');
+			$('.noAddressInput').html('');
+			$('.noPassInput').html('');
 			
 			let mtype = document.querySelector('#mtype');
 			let mtypeValue = mtype.options[mtype.selectedIndex].value;	
-			
 			let mid = document.querySelector('#mid').value;
-			
 			let mname = document.querySelector('#mname').value;
-			
 			let email = document.querySelector('#email').value;
-			
 			let birth = document.querySelector('#birth').value;
-			
 			let gender = document.querySelector('#gender');
 			let genderValue = gender.options[gender.selectedIndex].value;
 			let nameResult = checkName(mname);
 			let emailResult = checkEmail(email);
 			
-			let sno = document.querySelector('#sno');
-			let snoValue = sno.options[sno.selectedIndex].value;
+// 			let sno = document.querySelector('#sno');
+// 			let snoValue = sno.options[sno.selectedIndex].value;
+// 			console.log(snoValue);
 			
 			let position = document.querySelector('#position');
 			let positionValue = position.options[position.selectedIndex].value;
-			
 			let organ = document.querySelector('#organ');
 			let organValue = organ.options[organ.selectedIndex].value;
-			
 			let phone = document.querySelector('#phone').value;
-			
 			let phoneResult = checkPhone(phone);
-			
 			let postcode = document.querySelector('#postcode').value;
 			let addr1 = document.querySelector('#addr1').value;
 			let addr2 = document.querySelector('#addr2').value;
-			
 			let addResult = addCheck(postcode, addr1, addr2);
 			let password = document.querySelector('#password').value;
 			
-			
+			console.log(password);
+			let submitResult = true;
 			
 			if(mtypeValue == null){
-				$('#countCheck').modal();
-				$('#countContent').html('유저 타입을 확인하세요');
-				return false;
-			}
-			if(mtypeValue != 'user' && mtypeValue != 'pm'){
-				if(snoValue == "0"){
-					$('#countCheck').modal();
-					$('#countContent').html('시스템을 선택하세요');
-					return false;
-				}
+				$('.noTypeInput').html('유저 타입을 확인하세요');
+				submitResult = false;
 			} 
 			if (mid == '' || mid == null ){
-				$('#countCheck').modal();
-				$('#countContent').html('아이디를 입력하세요');
-				return false;
-			} 
-			if(idTest != 'true' ) {
-				$('#countCheck').modal();
-				$('#countContent').html('아이디 형식을 확인하세요');
-				return false;
+				$('.noIdInput').html('아이디입력');
+				submitResult = false;		
 			} 
 			if(mname == '' || mname == null){
-	 			$('#countCheck').modal();
-	 			$('#countContent').html('이름을 입력하세요');
-	 			return false;
+	 			$('.noNameInput').html('이름 입력');
+	 			submitResult = false;
 	 		} 
-			if (nameResult != 'true'){
-	 			$('#countCheck').modal();
-	 			$('#countContent').html('이름을 정확히 입력하세요');
-	 			return false;
+			if (!checkName(mname)){
+	 			$('.noNameInput').html('3~4글자');
+	 			submitResult = false;
 	 		} 
 			if(emailResult != 'true'){
-	 			$('#countCheck').modal();
-	 			$('#countContent').html('이메일 형식을 확인하세요');
-	 			return false;
+	 			$('.noEmailInput').html('이메일 형식 확인');
+	 			submitResult = false;
 	 		} 
 			if(birth == ''){
-	 			$('#countCheck').modal();
-	 			$('#countContent').html('생년월일을 입력하세요');
-	 			return false;
+	 			$('.noBirthInput').html('생년월일');
+	 			submitResult = false;
 	 		} 
 			if(positionValue == '0'){
-	 			$('#countCheck').modal();
-	 			$('#countContent').html('직급을 선택하세요');
-	 			return false;
+	 			$('.noPositionInput').html('직급 선택');
+	 			submitResult = false;
 	 		}
 			if(organValue == '0'){
-				$('#countCheck').modal();
-	 			$('#countContent').html('소속 기관을 선택하세요');
-	 			return false;
+	 			$('.noOrganInput').html('소속 기관 선택');
+	 			submitResult = false;
 			}
-			if(phone == '' || phone == null){
-				$('#countCheck').modal();
-	 			$('#countContent').html('핸드폰 번호를 입력하세요');
-	 			return false;
+			if(phone == '' && phone == null){
+	 			$('.noPhoneInput').html('번호 입력');
+	 			submitResult = false;
 			} else if (phoneResult != 'true'){
-				$('#countCheck').modal();
-	 			$('#countContent').html('핸드폰 번호를 확인하세요');
-	 			return false;
+	 			$('.noPhoneInput').html('번호 확인');
+	 			submitResult = false;
 			}
 			if(addResult != 'true'){
-				$('#countCheck').modal();
-				$('#countContent').html('주소를 입력하세요');
-				return false;
+				$('.noAddressInput').html('주소 입력');
+				submitResult = false;
 			}
 			if(password == '' || password == null){
-				$('#countCheck').modal();
-				$('#countContent').html('변경할 비밀번호를 입력하세요');
-				return false;
-			} 
-			if(passwordResult != 'true'){
-				$('#countCheck').modal();
-				$('#countContent').html('변경 비밀번호를 확인 하세요');
-				return false;
-			} 
+				$('.noPassInput').html('비밀번호');
+				submitResult = false;
+			}
+			if(!passwordResult){
+				submitResult = false;
+			}
+// 			if(mtypeValue != 'user' && mtypeValue != 'pm'){
+// 				if(snoValue == '0'){
+// 					console.log(snoValue);
+// 					console.log(typeof snoValue);
+// 					$('.noSystemInput').html('시스템선택');
+// 					submitResult = false;
+// 				}
+// 			}
+			if(submitResult == true){
+				$('#writeform').submit();
+			}
+			let target = document.getElementById('updateButton');
+	           target.disabled = true;
+	           
+	           setTimeout(function(), 3000)
+	           
 			
-			return true;			
 		}
+		
 	</script>
 
 

@@ -151,6 +151,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 
 	// 담당 업무 리스트 조회
 	@Override
+	@Transactional
 	public List<SelectPM> getMyWorkList(ListFilter listFilter, Pager pager, Member member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		/*map.put("request", request);*/
@@ -269,6 +270,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	//업무 처리 단계 필터링 메소드
 	public ListFilter statusFilterList(ListFilter listFilter) {
 			//1 접수
+		
 		if(listFilter.getStatusNo() == 1) {
 			listFilter.setStatusValue("접수");
 			//2, 3, 4 개발단계

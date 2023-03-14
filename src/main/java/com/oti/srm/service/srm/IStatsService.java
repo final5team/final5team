@@ -29,9 +29,8 @@ public interface IStatsService {
 	// 서비스 요청 추이 값 구하기
 	public List<ArrayList<Integer>> getSRChange(String year, int month);
 
-
-
+	public Map<String, Integer> getStageCount();
 	
-
+	public Map<String, Integer> getTaskCount();
 
 }

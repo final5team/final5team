@@ -84,14 +84,14 @@ public class RequestController {
 
 				int result = userRegisterService.register(member);
 				if (result == IUserRegisterService.REGISTER_FAIL) {
-					return "redirect:/";
+					return "redirect:/customer/register";
 				} else {
 					result = IUserRegisterService.REGISTER_SUCCESS;
-					return "redirect:/";
+					return "redirect:/customer/register";
 				}
 			} else {
 				int result = userRegisterService.register(member);
-				return "redirect:/";
+				return "redirect:/customer/register";
 			}
 			
 		} catch (Exception e) {
@@ -145,21 +145,30 @@ public class RequestController {
 				member.setFileData(mfile.getBytes());
 				//유저 정보 수정
 				int result = userRegisterService.updateUserInfo(member);
-				log.info(member.toString());
-				log.info("수정 완료" + result);
+				log.info(Sessionmember.getMtype());
 				
-				return "/userhome";
+				if(Sessionmember.getMtype().equals("pm")){
+					return "redirect:/pmhome";
+				} else if(Sessionmember.getMtype().equals("user")){
+					return "redirect:/userhome";
+				} else {
+					return "redirect:/";
+				}
+				
 			}
 		} catch(Exception e) {
 			
 		}
-		
 			int result = userRegisterService.updateUserInfo(member);
-			log.info(member.toString());
-			log.info("수정 완료" + result);
+			log.info(Sessionmember.getMtype());
 			
-			return "/userhome";
-		
+			if(Sessionmember.getMtype().equals("pm")){
+				return "redirect:/pmhome";
+			} else if(Sessionmember.getMtype().equals("user")){
+				return "redirect:/userhome";
+			} else {
+				return "redirect:/";
+			}
 	}
 	
 
@@ -301,6 +310,9 @@ public class RequestController {
 		ListFilter returnList = requestService.dateFilterList(listFilter);
 		// 보여줄 행 수 조회
 		int totalRows = requestService.getRequestListRows(listFilter, member);
+		if(listFilter.getPageNo()==0) {
+			listFilter.setPageNo(1);
+		}
 		Pager pager = new Pager(7, 5, totalRows, listFilter.getPageNo());
 		List<SelectPM> requestList = requestService.getMyRequestList(listFilter, pager, member);
 		
@@ -324,6 +336,9 @@ public class RequestController {
 			ListFilter returnList = requestService.dateFilterList(listFilter);
 			// 보여줄 행 수 조회
 			int totalRows = requestService.getWorkerRequestListRows(listFilter, member);
+			if(listFilter.getPageNo()==0) {
+				listFilter.setPageNo(1);
+			}
 			Pager pager = new Pager(7, 5, totalRows, listFilter.getPageNo());
 			List<SelectPM> requestList = requestService.getWorkerRequestList(listFilter, pager, member);
 			
@@ -383,15 +398,23 @@ public class RequestController {
 		//세션에 저장된 멤버 객체 전달
 		Member member = (Member) session.getAttribute("member");
 		int totalRows = requestService.getMyWorkRows(listFilter, member);
+		
+		if(listFilter.getPageNo()==0) {
+			listFilter.setPageNo(1);
+		}
+		
 		Pager pager = new Pager(7, 5, totalRows, listFilter.getPageNo());
 		List<SelectPM> requestList = requestService.getMyWorkList(listFilter, pager, member);
 		
 		log.info(pager.getTotalRows());
+		
+		log.info(listFilter.toString());
 		// 시스템 리스트 전달
 		model.addAttribute("systemList", systemList);
 		// 목록 리스트와 페이지 return
 		model.addAttribute("requestList", requestList);
 		model.addAttribute("pager", pager);
+		log.info(pager);
 		// filter 전달, 정렬 상태 전달
 		model.addAttribute("listFilter", returnList);
 		
