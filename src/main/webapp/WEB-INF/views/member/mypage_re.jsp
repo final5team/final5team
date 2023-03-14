@@ -120,10 +120,10 @@
 												</article>
 
 												<article class="label_two item">
-													<c:if test="${returnMember.mtype != 'pm' || returnMember.mtype != 'user'}">
+													<c:if test="${returnMember.mtype != 'pm' && returnMember.mtype != 'user'}">
 														<h6 id="system" >시스템</h6>
 													</c:if>
-													<c:if test="${returnMember.mtype == 'pm' || returnMember.mtype == 'user'}">
+													<c:if test="${returnMember.mtype == 'pm' && returnMember.mtype == 'user'}">
 														<h6 id="system" style="visibility:hidden">시스템</h6>
 													</c:if>
 													
@@ -157,15 +157,7 @@
 															<small class="noSystemInput"  style="color : red; position : absolute; top : 20%; left : 100%; z-index:5; width:60px;"></small>
 														</c:if>
 														
-														<c:if test="${returnMember.mtype == 'pm'}">
-															<select class="custom-select" id="sno" name="sno" style="visibility:hidden">
-																<c:if test="${returnMember.sno == '1'}">
-																	<option value="0">전체 시스템</option>
-																</c:if>
-															</select>
-															<small class="noSystemInput"  style="color : red; position : absolute; top : 20%; left : 100%; z-index:5; width:60px;"></small>
-														</c:if>
-														<c:if test="${returnMember.mtype == 'user'}">
+														<c:if test="${returnMember.mtype == 'pm' && returnMember.mtype == 'user'}">
 															<select class="custom-select" id="sno" name="sno" style="visibility:hidden">
 																<c:if test="${returnMember.sno == '1'}">
 																	<option value="0">전체 시스템</option>
