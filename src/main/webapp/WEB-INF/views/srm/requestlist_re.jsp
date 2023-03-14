@@ -626,13 +626,15 @@
 			let filterDateLast = document.getElementById('date_last');
 			let dateLast = filterDateLast.value
 			
-			let sno = '0';
-			if(document.getElementById('sno') != null) {
-				let filterSno = document.getElementById('sno');
-				let sno = filterSno.options[filterSno.selectedIndex].value
+			
+			let filterSno = document.getElementById('sno');
+			let sno = filterSno.options[filterSno.selectedIndex].value
+			
+			if(document.getElementById('sno') != '0') {
+				 filterSno = document.getElementById('sno');
+				 sno = filterSno.options[filterSno.selectedIndex].value
 			} else {
 				sno = document.querySelector('.sno').value
-				//console.log(sno);
 			}
 			let filterStatusNo = document.getElementById('statusNo');  
 			let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
