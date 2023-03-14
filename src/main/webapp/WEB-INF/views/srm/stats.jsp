@@ -92,10 +92,10 @@
 	      function drawBarChart() {
 	    	  // 각 단계 이름과 비율
 	    	  var data = google.visualization.arrayToDataTable([
-	    	        ['', '접수중', '개발중', '테스트중', '유저테스트중',
-	    	         '배포중', '완료' ],
-	    	        ['요청', ${allState[0]}/${allState[6]}, ${allState[1]}/${allState[6]}, ${allState[2]}/${allState[6]}, 
-	    	        	${allState[3]}/${allState[6]}, ${allState[4]}/${allState[6]}, ${allState[5]}/${allState[6]}]	    	      
+	    	        ['', '접수', '개발', '테스트', '품질검토',
+	    	         '배포', '완료' ],
+	    	        ['요청', ${stageCount['접수']}/${stageCount['전체']}, ${stageCount['개발']}/${stageCount['전체']}, ${stageCount['테스트']}/${stageCount['전체']}, 
+	    	        	${stageCount['품질검토']}/${stageCount['전체']}, ${stageCount['배포']}/${stageCount['전체']}, ${stageCount['완료']}/${stageCount['전체']}]	    	      
 	    	      ]);
 
 	    	  // 그래프 옵션
