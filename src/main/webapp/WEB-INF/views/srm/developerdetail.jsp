@@ -175,8 +175,8 @@
                 	 							<div class="col-8 border p-2 scroller" style="min-height: 100px;">${statusHistory.reply}</div>
                 	 						</div>
                 	 						<div class="row mt-3">
-	                	 						<div class="col-2 label">배포소스(url)</div>
-	                	 						<input class="col-8 form-control boxed mr-5" style=" height: 20px;" value="${statusHistory.distSource}" readonly>
+	                	 						<div class="col-2 label">배포소스</div>
+	                	 						<input class="col-8 form-control boxed mr-5" style=" height: 50px;" value="${statusHistory.distSource}" readonly>
                 	 						</div>
                 	 						<div class="row mt-3">
 	                	 						<div class="col-2 label">첨부파일</div>

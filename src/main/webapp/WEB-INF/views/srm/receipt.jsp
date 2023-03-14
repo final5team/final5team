@@ -159,7 +159,7 @@
 												<small id="noExpectDate" style="color : red; position: absolute;"></small>		
 												<div class="row mb-2">
 													<div class=" col-2 text-right font-weight-bold">*검토 의견</div>
-													<textarea class="form-control boxed col-7 pmcontent ml-2 receiptWrite" name="reply" style="padding: 0px" maxlength="300"></textarea>													
+													<textarea class="form-control boxed col-7 ml-2 receiptWrite" name="reply" style="padding: 0px" maxlength="300"></textarea>													
 													<small class="noReceiptWrite" style="color : red; position: absolute; right:89.4%"></small>
 												</div>	
 												<div class="filebox row mb-3">
