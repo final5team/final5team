@@ -269,6 +269,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	//업무 처리 단계 필터링 메소드
 	public ListFilter statusFilterList(ListFilter listFilter) {
 			//1 접수
+		
 		if(listFilter.getStatusNo() == 1) {
 			listFilter.setStatusValue("접수");
 			//2, 3, 4 개발단계

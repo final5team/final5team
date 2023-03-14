@@ -84,14 +84,14 @@ public class RequestController {
 
 				int result = userRegisterService.register(member);
 				if (result == IUserRegisterService.REGISTER_FAIL) {
-					return "redirect:/";
+					return "redirect:/customer/register";
 				} else {
 					result = IUserRegisterService.REGISTER_SUCCESS;
-					return "redirect:/";
+					return "redirect:/customer/register";
 				}
 			} else {
 				int result = userRegisterService.register(member);
-				return "redirect:/";
+				return "redirect:/customer/register";
 			}
 			
 		} catch (Exception e) {
@@ -145,21 +145,30 @@ public class RequestController {
 				member.setFileData(mfile.getBytes());
 				//유저 정보 수정
 				int result = userRegisterService.updateUserInfo(member);
-				log.info(member.toString());
-				log.info("수정 완료" + result);
+				log.info(Sessionmember.getMtype());
 				
-				return "/userhome";
+				if(Sessionmember.getMtype().equals("pm")){
+					return "redirect:/pmhome";
+				} else if(Sessionmember.getMtype().equals("user")){
+					return "redirect:/userhome";
+				} else {
+					return "redirect:/";
+				}
+				
 			}
 		} catch(Exception e) {
 			
 		}
-		
 			int result = userRegisterService.updateUserInfo(member);
-			log.info(member.toString());
-			log.info("수정 완료" + result);
+			log.info(Sessionmember.getMtype());
 			
-			return "/userhome";
-		
+			if(Sessionmember.getMtype().equals("pm")){
+				return "redirect:/pmhome";
+			} else if(Sessionmember.getMtype().equals("user")){
+				return "redirect:/userhome";
+			} else {
+				return "redirect:/";
+			}
 	}
 	
 

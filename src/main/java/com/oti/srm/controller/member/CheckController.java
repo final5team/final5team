@@ -47,9 +47,7 @@ public class CheckController {
 		ObjectMapper objectMapper = new ObjectMapper();
 		Member newMember = objectMapper.readValue(password, Member.class);
 		Member sessionMember = (Member) session.getAttribute("member");
-		
 		log.info(newMember.getPassword());
-		
 		boolean result = userRegisterService.passwordConfirm(newMember.getPassword(), sessionMember);
 		
 		return result;
