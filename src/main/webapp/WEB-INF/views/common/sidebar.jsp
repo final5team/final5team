@@ -20,7 +20,7 @@
         animation: keepturningLogo 7s ease-in-out infinite; 
 	}
 	
-	.nav-link .active{
+	.button.active{
 	color: white;
 	background-color: #85CE36 !important;
 	}
@@ -54,7 +54,7 @@
 		<!-- Nav Item - Dashboard -->
 		<li class="nav-item">
 			<c:if test="${member.mtype eq 'user'}">
-				<a class="nav-link" href="${pageContext.request.contextPath}/userhome">
+				<a class="nav-link button" href="${pageContext.request.contextPath}/userhome">
 					<i class="fas fa-fw fa-tachometer-alt"></i>
 					<span>Dashboard</span>
 				</a>
@@ -85,7 +85,7 @@
 
 		<!-- 사이드메뉴 start -->
 		<c:if test="${member.mtype == 'user'}">
-			<li class="nav-item">
+			<li class="nav-item button">
 				<a class="nav-link" href="${pageContext.request.contextPath}/customer/userrequestlist">
 					<i class="fas fa-fw fa-chart-area"></i>
 					<span>내 요청 목록</span></a>
@@ -93,7 +93,7 @@
 		</c:if>
 		
 		<c:if test="${member.mtype != 'user'}">
-			<li class="nav-item">
+			<li class="nav-item button">
 				<a class="nav-link" href="${pageContext.request.contextPath}/customer/requestlist">
 					<i class="fas fa-fw fa-chart-area"></i>
 					<span>담당 요청 목록</span></a>
@@ -101,20 +101,20 @@
 		</c:if>
 		
 
-		<li class="nav-item">
+		<li class="nav-item button">
 			<a class="nav-link" href="${pageContext.request.contextPath}/noticelist">
 				<i class="fas fa-fw fa-chart-area"></i>
 				<span>공지사항</span></a>
 		</li>
 		<c:if test="${member.mtype == 'pm'}">
-			<li class="nav-item">
+			<li class="nav-item button">
 				<a class="nav-link" href="${pageContext.request.contextPath}/stats/statistics">
 					<i class="fas fa-fw fa-chart-area"></i>
 					<span>현황통계</span></a>
 			</li>
 		</c:if>
 		<c:if test="${member.mtype == 'pm'}">
-			<li class="nav-item">
+			<li class="nav-item button">
 				<a class="nav-link" href="${pageContext.request.contextPath}/customer/register">
 					<i class="fas fa-fw fa-chart-area"></i>
 					<span>사용자 등록</span></a>
@@ -125,13 +125,15 @@
 
 	</ul>
 	<script type="text/javascript">
-		var button = $('nav-link');
-		$('nav-link').click(function(event){
-			button.each(function() {
+		$('.nav-link').click(function(event){
+			$('.button').each(function() {
 				$(this).removeClass("active");
 			});
-			$(event.target).addClass("active");
+			$(event.target).parent().addClass("active");
 		});
+		
+		
+		
 		
 		
 	</script>
