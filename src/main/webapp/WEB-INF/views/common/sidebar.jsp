@@ -101,7 +101,7 @@
 
 		<!-- 사이드메뉴 start -->
 		<c:if test="${member.mtype == 'user'}">
-			<li class="nav-item button user">
+			<li class="nav-item button user" id="userlist">
 				<a class="nav-link" href="${pageContext.request.contextPath}/customer/userrequestlist">
 					<i class="fas fa-fw fa-chart-area"></i>
 					<span>내 요청 목록</span></a>
@@ -109,14 +109,14 @@
 		</c:if>
 		
 		<c:if test="${member.mtype == 'pm'}">
-			<li class="nav-item button pm">
+			<li class="nav-item button pm" id="pmlist">
 				<a class="nav-link" href="${pageContext.request.contextPath}/customer/requestlist">
 					<i class="fas fa-fw fa-chart-area"></i>
 					<span>담당 요청 목록</span></a>
 			</li>
 		</c:if>
 		<c:if test="${member.mtype != 'user' && member.mtype != 'pm'}">
-			<li class="nav-item button workers">
+			<li class="nav-item button workers" id="workerslist">
 				<a class="nav-link" href="${pageContext.request.contextPath}/customer/requestlist">
 					<i class="fas fa-fw fa-chart-area"></i>
 					<span>담당 요청 목록</span></a>
@@ -131,7 +131,7 @@
 		</li>
 
 		<c:if test="${member.mtype == 'pm'}">
-			<li class="nav-item button pm">
+			<li class="nav-item button pm" id="pmstats">
 				<a class="nav-link" href="${pageContext.request.contextPath}/stats/statistics">
 					<i class="fas fa-fw fa-chart-area"></i>
 					<span>현황통계</span>
@@ -139,7 +139,7 @@
 			</li>
 		</c:if>
 		<c:if test="${member.mtype == 'pm'}">
-			<li class="nav-item button pm">
+			<li class="nav-item button pm" id="pmregister">
 				<a class="nav-link" href="${pageContext.request.contextPath}/customer/register">
 					<i class="fas fa-fw fa-chart-area"></i>
 					<span>사용자 등록</span></a>
@@ -165,7 +165,16 @@
 		$(document).ready(function(){
 			let where = '${where}';
  			let membertype = '${member.mtype}';
-			
+			if(membertype == 'user'){
+				$('#notice').addClass('user');
+			} else if(membertype == 'pm'){
+				$('#notice').addClass('pm');
+			}else{
+				$('#notice').addClass('workers');
+			}
+ 			
+ 			
+ 			
 			 if(where == 'dashboard'){
 				if(membertype == 'user'){
 					$('#userDashboard').css('background-color','#FF6161');
@@ -179,25 +188,38 @@
 				} else {
 					$('#workersDashboard').css('background-color','#85CE36');
 					$('#workersDashboard >a').css('color','#FFFFFF');
-					
 				}
 			
 			} else if(where == 'notice'){
 				if(membertype == 'user'){
-					$('#notice').addClass('user');
 					$('#notice').css('background-color','#FF6161');
 					$('#notice >a').css('color','#FFFFFF');
 					
 				} else if(membertype == 'pm'){
-					$('#notice').addClass('pm');
 					$('#notice').css('background-color','#52BCD3');
 					$('#notice >a').css('color','#FFFFFF');
 				}else{
-					$('#notice').addClass('workers');
 					$('#notice').css('background-color','#85CE36');
 					$('#notice >a').css('color','#FFFFFF');
 				}
-			} 
+			} else if(where == 'list'){
+				if(membertype == 'user'){
+					$('#userlist').css('background-color','#FF6161');
+					$('#userlist >a').css('color','#FFFFFF');
+				} else if(membertype == 'pm'){
+					$('#pmlist').css('background-color','#52BCD3');
+					$('#pmlist >a').css('color','#FFFFFF');
+				} else{
+					$('#workerslist').css('background-color','#85CE36');
+					$('#workerslist >a').css('color','#FFFFFF');
+				}
+			} else if(where == 'stat'){
+				$('#pmstats').css('background-color','#52BCD3');
+				$('#pmstats >a').css('color','#FFFFFF');
+			} else{
+				$('#pmregister').css('background-color','#52BCD3');
+				$('#pmregister >a').css('color','#FFFFFF');
+			}
 			
 		});
 		
