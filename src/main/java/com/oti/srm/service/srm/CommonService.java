@@ -176,8 +176,8 @@ public class CommonService implements ICommonService {
 		if (member.getMtype().equals("developer")) {
 			tempHistoryChange.setNextStatus(14);
 			StatusHistory temp = commonDao.selectTempStatusHistory(member, tempHistoryChange);
-			List<StatusHistoryFile> tempFiles = commonDao.selectStatusHistoryFiles(temp.getHno());
 			if (temp != null) {
+				List<StatusHistoryFile> tempFiles = commonDao.selectStatusHistoryFiles(temp.getHno());
 				if (tempFiles != null && tempFiles.size() > 0) {
 					for (StatusHistoryFile file : tempFiles) {
 						file.setHno(statusHistory.getHno());
@@ -190,8 +190,8 @@ public class CommonService implements ICommonService {
 		} else if (member.getMtype().equals("tester")) {
 			tempHistoryChange.setNextStatus(15);
 			StatusHistory temp = commonDao.selectTempStatusHistory(member, tempHistoryChange);
-			List<StatusHistoryFile> tempFiles = commonDao.selectStatusHistoryFiles(temp.getHno());
 			if (temp != null) {
+				List<StatusHistoryFile> tempFiles = commonDao.selectStatusHistoryFiles(temp.getHno());
 				if (tempFiles != null && tempFiles.size() > 0) {
 					for (StatusHistoryFile file : tempFiles) {
 						file.setHno(statusHistory.getHno());
@@ -204,8 +204,8 @@ public class CommonService implements ICommonService {
 		} else if (member.getMtype().equals("usertester")) {
 			tempHistoryChange.setNextStatus(17);
 			StatusHistory temp = commonDao.selectTempStatusHistory(member, tempHistoryChange);
-			List<StatusHistoryFile> tempFiles = commonDao.selectStatusHistoryFiles(temp.getHno());
 			if (temp != null) {
+				List<StatusHistoryFile> tempFiles = commonDao.selectStatusHistoryFiles(temp.getHno());
 				if (tempFiles != null && tempFiles.size() > 0) {
 					for (StatusHistoryFile file : tempFiles) {
 						file.setHno(statusHistory.getHno());
@@ -218,8 +218,8 @@ public class CommonService implements ICommonService {
 		} else if (member.getMtype().equals("distributor")) {
 			tempHistoryChange.setNextStatus(18);
 			StatusHistory temp = commonDao.selectTempStatusHistory(member, tempHistoryChange);
-			List<StatusHistoryFile> tempFiles = commonDao.selectStatusHistoryFiles(temp.getHno());
 			if (temp != null) {
+				List<StatusHistoryFile> tempFiles = commonDao.selectStatusHistoryFiles(temp.getHno());
 				if (tempFiles != null && tempFiles.size() > 0) {
 					for (StatusHistoryFile file : tempFiles) {
 						file.setHno(statusHistory.getHno());

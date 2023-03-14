@@ -146,12 +146,15 @@
 				</if>
 				<if test='listFilter.statusValue eq"유저테스트"'>
 				<![CDATA[
-					and status_no in (7, 8)
+					and (status_no = 8
+					or (status_no = 7 and req_type = '정규'))
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"배포"'>
 				<![CDATA[
-					and status_no in (9, 10)
+					and (status_no = 9 
+					or status_no = 10 
+					or (status_no = 7 and req_type = '긴급'))
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"완료"'>
@@ -248,12 +251,15 @@
 				</if>
 				<if test='listFilter.statusValue eq"유저테스트"'>
 				<![CDATA[
-					and status_no in (7, 8)
+					and (status_no = 8
+					or (status_no = 7 and req_type = '정규'))
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"배포"'>
 				<![CDATA[
-					and status_no in (9, 10)
+					and (status_no = 9 
+					or status_no = 10 
+					or (status_no = 7 and req_type = '긴급'))
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"완료"'>
@@ -515,12 +521,15 @@
 				</if>
 				<if test='listFilter.statusValue eq"유저테스트"'>
 				<![CDATA[
-					and status_no in (7, 8)
+					and (status_no = 8
+					or (status_no = 7 and req_type = '정규'))
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"배포"'>
 				<![CDATA[
-					and status_no in (9, 10)
+					and (status_no = 9 
+					or status_no = 10 
+					or (status_no = 7 and req_type = '긴급'))
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"완료"'>
@@ -597,12 +606,15 @@
 				</if>
 				<if test='listFilter.statusValue eq"유저테스트"'>
 				<![CDATA[
-					and status_no in (7, 8)
+					and (status_no = 8
+					or (status_no = 7 and req_type = '정규'))
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"배포"'>
 				<![CDATA[
-					and status_no in (9, 10)
+					and (status_no = 9 
+					or status_no = 10 
+					or (status_no = 7 and req_type = '긴급'))
 				]]>
 				</if>
 				<if test='listFilter.statusValue eq"완료"'>

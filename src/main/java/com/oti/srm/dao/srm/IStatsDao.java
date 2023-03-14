@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.oti.srm.dto.Member;
+import com.oti.srm.dto.Status;
 
 /**
  * @author KIM JI YOUNG
@@ -43,7 +44,8 @@ public interface IStatsDao {
 	public int selectSRChange(@Param("month")String month, @Param("sno")int sno);
 	// 서비스 요청 추이 월별 완료 건수 구하기
 	public int selectSRComChange(String month);
-
+	
+	public List<Status> selectStageCount();
 	
 
 	

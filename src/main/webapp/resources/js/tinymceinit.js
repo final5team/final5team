@@ -139,7 +139,7 @@ tinymce.init({
 tinymce.init({
 	language: 'ko_KR',
 	selector: '.receiptWrite',
-	width: '190mm',
+	width: '163mm',
 	height: '70mm',
 	theme: 'silver',
 	menubar: false,
@@ -148,7 +148,7 @@ tinymce.init({
 		'template searchreplace insertdatetime pagebreak emoticons',
 		'textcolor'
 		],
-		toolbar2: 'undo redo | insert | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | forecolor backcolor',
+		toolbar2: 'undo redo | insert | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify |forecolor backcolor',
 		template_mdate_format: '%m/%d/%Y : %H:%M',
 		save_enablewhendirty: false,
 		object_resizing : false,
