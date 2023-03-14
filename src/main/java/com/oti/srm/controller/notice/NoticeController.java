@@ -52,6 +52,10 @@ public class NoticeController {
 		List<Notice> noticeList = noticeService.getNoticeList(searchType, searchWord, member.getMtype(), pager);
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("pager", pager);
+		
+		//사이드바 세션에 저장
+		session.setAttribute("where", "notice");
+		
 		return "notice/noticeList";
 	}
 

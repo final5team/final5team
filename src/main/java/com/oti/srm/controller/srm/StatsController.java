@@ -86,7 +86,10 @@ public class StatsController {
 		model.addAttribute("SRChangeMonth", month);
 		// 월별 서비스 완료 건수 구하기
 		// model.addAttribute("SRComChange", statsService.getSRChange(1));
-
+		
+		//사이드바 버튼 저장
+		session.setAttribute("where", "stat");
+		
 		return "srm/stats";
 	}
 
