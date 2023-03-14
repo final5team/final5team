@@ -196,6 +196,7 @@ public class StatsService implements IStatsService {
 		return map;
 	}
 
+	
 	// 태스크별 서비스 요청 처리 현황
 	@Override
 	public Map<String, Integer> getTaskCount() {
