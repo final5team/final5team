@@ -310,6 +310,9 @@ public class RequestController {
 		ListFilter returnList = requestService.dateFilterList(listFilter);
 		// 보여줄 행 수 조회
 		int totalRows = requestService.getRequestListRows(listFilter, member);
+		if(listFilter.getPageNo()==0) {
+			listFilter.setPageNo(1);
+		}
 		Pager pager = new Pager(7, 5, totalRows, listFilter.getPageNo());
 		List<SelectPM> requestList = requestService.getMyRequestList(listFilter, pager, member);
 		
@@ -333,6 +336,9 @@ public class RequestController {
 			ListFilter returnList = requestService.dateFilterList(listFilter);
 			// 보여줄 행 수 조회
 			int totalRows = requestService.getWorkerRequestListRows(listFilter, member);
+			if(listFilter.getPageNo()==0) {
+				listFilter.setPageNo(1);
+			}
 			Pager pager = new Pager(7, 5, totalRows, listFilter.getPageNo());
 			List<SelectPM> requestList = requestService.getWorkerRequestList(listFilter, pager, member);
 			
@@ -392,6 +398,11 @@ public class RequestController {
 		//세션에 저장된 멤버 객체 전달
 		Member member = (Member) session.getAttribute("member");
 		int totalRows = requestService.getMyWorkRows(listFilter, member);
+		
+		if(listFilter.getPageNo()==0) {
+			listFilter.setPageNo(1);
+		}
+		
 		Pager pager = new Pager(7, 5, totalRows, listFilter.getPageNo());
 		List<SelectPM> requestList = requestService.getMyWorkList(listFilter, pager, member);
 		
@@ -403,6 +414,7 @@ public class RequestController {
 		// 목록 리스트와 페이지 return
 		model.addAttribute("requestList", requestList);
 		model.addAttribute("pager", pager);
+		log.info(pager);
 		// filter 전달, 정렬 상태 전달
 		model.addAttribute("listFilter", returnList);
 		

@@ -151,6 +151,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 
 	// 담당 업무 리스트 조회
 	@Override
+	@Transactional
 	public List<SelectPM> getMyWorkList(ListFilter listFilter, Pager pager, Member member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		/*map.put("request", request);*/
