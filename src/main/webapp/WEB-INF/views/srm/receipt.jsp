@@ -174,7 +174,7 @@
 												</div>																																											
 												<div class="d-flex justify-content-end">	
 													<input type="hidden" name="rno" value="${request.rno}">					
-													<button class="btn btn-primary btn-md mt-3 ml-3" type="submit" value=2 name="nextStatus">접수 완료</button>
+													<button class="btn btn-primary btn-md mt-3 ml-3" type="submit" value=2 name="nextStatus">접수</button>
 													<a class="btn btn-secondary btn-md mt-3 ml-3" type="button"onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">취소</a>												
 												</div>
 											</form>									
@@ -239,7 +239,7 @@
 												</div>												
 												<div class="d-flex justify-content-end">	
 													<input type="hidden" name="rno" value="${request.rno}">								
-													<button class="btn btn-danger btn-md mt-3 ml-3" type="submit" value=12 name="nextStatus">반려</button>												
+													<button class="btn btn-danger btn-md mt-3 ml-3" id="rejectButton" type="submit" value=12 name="nextStatus">반려</button>												
 													<a class="btn btn-secondary btn-md mt-3 ml-3" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">취소</a>								
 												</div>
 											</div>
@@ -357,7 +357,7 @@
 														</div>	
 													</c:forEach>																																											
 													<div class="d-flex justify-content-end">						
-														<button class="btn btn-primary btn-md mt-3 ml-3" type="button" onclick="update()">완료</button>
+														<button class="btn btn-primary btn-md mt-3 ml-3" id="receiptUpdateButton" type="button" onclick="update()">완료</button>
 														<button class="btn btn-primary btn-md mt-3 ml-3" type="button" onclick="hideUpdateForm()">취소</button>										
 													</div>
 												<input type="hidden" name="rno" value="${request.rno}">
@@ -721,7 +721,6 @@
 				$('.noExpectDate').text("예정일 입력");
 				result = false;
 			}
-			
 			// 유효성 검사 결과 반환
 			return result;
 		}
@@ -1042,6 +1041,7 @@
 		function hideUpdateForm(){
 			$('#receiptUpdateForm').hide();
 			$('#receiptDetailForm').show();
+			$('#calendarCard').hide();
 		}
 			
 	</script>
