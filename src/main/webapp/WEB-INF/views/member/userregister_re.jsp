@@ -48,7 +48,7 @@
 										<h3 class="title">
 											사용자 등록 <i class="fas fa-edit"></i>
 										</h3>
-										<h6><i class="fas fa-star-of-life"></i> 초기 비밀번호는 000 입니다.</h6>
+										<h6><i class="fas fa-star-of-life"></i> 초기 비밀번호는 0000 입니다.</h6>
 									</div>
 									<div class="card-body">
 										<form method="post" action="${pageContext.request.contextPath}/customer/register" enctype="multipart/form-data" onsubmit="return check()">
