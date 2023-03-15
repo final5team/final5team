@@ -194,7 +194,7 @@
 											<button type="button" class="close" data-dismiss="modal">&times;</button>
 										</div>
 										<div class="modal-body text-center">	
-											<p>글자수가 초과되었습니다. 300자 이하로 작성해주세요.</p>																				
+											<p>글자 수가 초과되었습니다. 300 자 이하로 작성해주세요.</p>																				
 										</div>
 										<div class="modal-footer">																				
 											<button class="btn btn-secondary" type="button" data-dismiss="modal">확인</button>					                    
