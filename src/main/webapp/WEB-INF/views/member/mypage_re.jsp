@@ -563,13 +563,10 @@
 // 					submitResult = false;
 // 				}
 // 			}
+
 			if(submitResult == true){
 				$('#writeform').submit();
 			}
-			let target = document.getElementById('updateButton');
-	           target.disabled = true;
-	           
-	           setTimeout(function(), 3000)
 		}
 		
 	</script>
