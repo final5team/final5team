@@ -563,6 +563,7 @@
 // 					submitResult = false;
 // 				}
 // 			}
+
 			if(submitResult == true){
 				$('#writeform').submit();
 			}
