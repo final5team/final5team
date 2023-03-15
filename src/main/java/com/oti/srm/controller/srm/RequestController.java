@@ -57,9 +57,13 @@ public class RequestController {
 	 * Kang Ji Seong 유저 등록 페이지 조회
 	 */
 	@GetMapping("/register")
-	public String register(Model model) {
+	public String register(Model model, HttpSession session) {
 		List<System> systemList = userRegisterService.getSystemList();
 		model.addAttribute("systemList", systemList);
+		
+		//사이드바 버튼 저장
+		session.setAttribute("where", "register");
+		
 		return "member/userregister_re";
 	}
 
@@ -297,6 +301,9 @@ public class RequestController {
 		// filter 전달
 		model.addAttribute("listFilter", returnList);
 		
+		//사이드바 버튼 저장
+		session.setAttribute("where", "list");
+		
 		return "srm/uesrrequestlist";
 	}
 	
@@ -380,6 +387,10 @@ public class RequestController {
 		model.addAttribute("pager", pager);
 		// filter 전달
 		model.addAttribute("listFilter", returnList);
+		
+		//사이드바 버튼 저장
+		session.setAttribute("where", "list");
+		
 		return "srm/requestlist_re";
 	}
 	//담당 요청 목록 조회 ajax
