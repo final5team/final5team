@@ -450,7 +450,7 @@
 												<c:forEach var="statusHistory" items="${pmToAllHistories}">
 													<div class="row">
 														<div class="col-3 label">검토 의견</div>
-														<div class="col-7 border" style="min-height:100px;">${statusHistory.reply}</div>
+														<div class="col-8 p-2 scoller border ml-2" style="min-height:100px;">${statusHistory.reply}</div>
 													</div>
 													<hr/>
 													<div class="row">

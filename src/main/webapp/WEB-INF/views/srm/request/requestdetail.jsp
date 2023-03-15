@@ -114,8 +114,8 @@
 										</div>
 										<hr/>
 										<div class="row">
-											<div class="col-3 label">내용</div>
-											<div class="col-8 border p-2 scroller">${request.reqContent}</div>
+											<div class="col-3 label" style="min-height: 100px;">내용</div>
+											<div class="col-8 border p-2 scroller mr-1">${request.reqContent}</div>
 										</div>
 										<hr/>
 										<div class="row">
