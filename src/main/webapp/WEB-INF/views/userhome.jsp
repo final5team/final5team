@@ -187,13 +187,13 @@
 								<div class="card border-left-info" style="height: 430.896px;">
 									<div class="card-header mb-2 d-flex">
 										<h3 class="title mr-auto">나의 요청 리스트</h3>
-										<div class="btn btn-sm btn-dark" onclick="window.location.reload()">전체보기</div>	
+										<div class="btn btn-sm text-white" style="background-color:#76d4f5;" onclick="window.location.reload()">전체보기</div>	
 									</div>
 									<div class="card-body py-0 " id="userRequestListContainer">
 										<div style="height: 280px;">
 											<table class="table table-hover usertable table-striped">
-												<thead style="background-color: #3A4651;" class="text-white" id="table-head-color">
-													<tr>
+												<thead class="text-white" id="table-head-color">
+													<tr style="background-color: #76d4f5;">
 														<th>번호</th>
 														<th>제목</th>
 														<th>시스템</th>
