@@ -381,6 +381,7 @@ margin: 0 0 1rem 0;
 				</c:if>
 			</li>
 			
+			
 		<!-- 단계 : 배포  -->		
 			<li class="<c:if test="${request.statusNo >= 11}">is_complete</c:if>
 						<c:if test="${request.statusNo >= 7 && request.statusNo <= 10}">is_active</c:if>" 
@@ -391,8 +392,8 @@ margin: 0 0 1rem 0;
 				<c:if test ="${request.statusNo >= 7}">	
 					<a href="${pageContext.request.contextPath}/distributedetail?rno=${request.rno}">
 						<span>
-							<c:if test="${request.statusNo < 9}">배포</c:if>
-							<c:if test="${request.statusNo == 9}">배포대기</c:if>
+							<c:if test="${request.statusNo < 7}">배포</c:if>
+							<c:if test="${request.statusNo == 7}">배포대기</c:if>
 							<c:if test="${request.statusNo == 10}">배포중</c:if>
 							<c:if test="${request.statusNo >= 11}">배포완료</c:if>
 						</span>
