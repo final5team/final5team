@@ -414,7 +414,13 @@ textarea:focus::placeholder {
 												<button class="btn btn-dark btn-sm" type="button" onclick="requestWrite()">작성</button>
 											</article>
 											<article class="return-button">
-												<button class="btn btn-dark btn-sm" type="button" onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'">취소</button>
+												<c:if test="${sessionScope.member.mtype != 'user'}">
+													<button class="btn btn-dark btn-sm" type="button" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">취소</button>
+												</c:if>
+												<c:if test="${sessionScope.member.mtype == 'user'}">
+													<button class="btn btn-dark btn-sm" type="button" onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'">취소</button>
+												</c:if>
+												
 											</article>
 										</form>
 									</div>
