@@ -336,7 +336,7 @@ input:checked + .slider:before {
 														<th>번호</th>
 														<th>요청유형</th>
 														<th>제목</th>
-														<th>우선순위</th>
+														<th>중요도</th>
 														<th>요청일</th>
 														<th>완료예정일</th>
 														<th>담당자</th>
