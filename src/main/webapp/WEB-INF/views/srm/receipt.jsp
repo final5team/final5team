@@ -68,7 +68,7 @@
                 <div class="container">
                 	<div id="main">
                 	 	<div class="title-block">
-                	 		<h3 class="title">요청 정보 조회</h3>
+                	 		<h3 class="title">접수 상세 보기</h3>
                 	 	</div>
                 	 	<div> <!-- 여기에 단계 상태 이력 넣기 -->
                 	 		<%@ include file="/WEB-INF/views/srm/restatus/stepperprogress.jsp" %>
