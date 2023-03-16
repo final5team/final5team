@@ -683,7 +683,12 @@ public class CommonService implements ICommonService {
 			rp.setRno(mySh.getRno());
 			commonDao.updateCompDateNull(member, rp);
 		}
-
+		// 신규 알림 취소
+		commonDao.updateCheck("developer", mySh.getRno());
+		commonDao.updateCheck("tester", mySh.getRno());
+		commonDao.updateCheck("usertester", mySh.getRno());
+		commonDao.updateCheck("distributor", mySh.getRno());
+		commonDao.updateCheck("pm", mySh.getRno());
 	}
 
 	
