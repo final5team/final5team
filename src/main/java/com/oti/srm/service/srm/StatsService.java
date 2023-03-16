@@ -164,7 +164,9 @@ public class StatsService implements IStatsService {
 	// 단계별 서비스 요청 처리 현황
 	@Override
 	public Map<String, Integer> getStageCount() {
+		// 값 저장할 Map 객체 생성하기
 		Map<String, Integer> map = new HashMap<String, Integer>();
+		// 단게별 값 저장하기
 		map.put("접수", 0);
 		map.put("개발", 0);
 		map.put("테스트", 0);
@@ -172,6 +174,7 @@ public class StatsService implements IStatsService {
 		map.put("배포", 0);
 		map.put("완료", 0);
 		map.put("전체", 0);
+		// 단계별 서비스 요청 처리 현황 구하기
 		List<Status> statList = statsDao.selectStageCount();
 		for (Status stat : statList) {
 			map.put("전체", map.get("전체") + stat.getCount());
@@ -202,6 +205,7 @@ public class StatsService implements IStatsService {
 	// 태스크별 서비스 요청 처리 현황
 	@Override
 	public Map<String, Integer> getTaskCount() {
+		// 값 저장할 Map 객체 생성하기
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("개발대기", 0);
 		map.put("개발중", 0);
@@ -215,6 +219,7 @@ public class StatsService implements IStatsService {
 		map.put("배포대기", 0);
 		map.put("배포중", 0);
 		map.put("배포완료", 0);
+		// 태스크별 업무 현황에 따른 서비스 요청 처리 현황 구하기
 		List<Status> statList = statsDao.selectStageCount();
 		for (Status stat : statList) {
 			if (stat.getStatusNo() == 2 || stat.getStatusNo() == 3) {
