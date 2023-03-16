@@ -254,10 +254,10 @@
 						<!-- 요청정보 수정 START-->
 						
 						<c:if test="${member.mtype == 'user'}">
-							<button class="btn btn-dark btn-sm ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'">목록</button>
+							<button class="btn btn-dark btn-sm ml-5 mt-3" onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'">목록</button>
 						</c:if>
 						<c:if test="${member.mtype != 'user'}">
-							<button class="btn btn-dark btn-sm ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
+							<button class="btn btn-dark btn-sm ml-5 mt-3" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
 						</c:if>
 					</div>
 				</div>

@@ -52,7 +52,7 @@
 				                <form action="${pageContext.request.contextPath}/noticeupdate" method="post" enctype="multipart/form-data">
 				                	<input type="hidden" name="nno" value="${notice.nno}"/>
 								  	<div class="form-group row">
-								    	<div class="col-2 label">공개 설정</div>
+								    	<div class="col-2 label">공개 대상</div>
 								    	<div class="form-group col-8">
 									    	<div class="form-check form-check-inline">
 									    		<span class="mr-2">시스템 사용자(고객)</span>
@@ -93,7 +93,7 @@
 								  	</div>
 								    <div class="form-group row">
 								    	<label for="noticeContent" class="col-2 label">내용</label>
-								    	<textarea class="form-control col-8" rows="10" id="noticeContent" name="noticeContent">${notice.noticeContent}</textarea>
+								    	<textarea class="form-control col-8 noticeContent" name="noticeContent">${notice.noticeContent}</textarea>
 								    </div>
 								    <div class="row p-2">
 								    	<div class="col-2 label">기존 첨부파일</div>
