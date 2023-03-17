@@ -60,7 +60,7 @@
 					<div id="main">
 						<!-- id=main div start -->
 						<div class="title-block">
-							<h3 class="title">요청 조회</h3>
+							<h3 class="title">요청 상세 보기</h3>
 						</div>
 						<!-- 여기에 단계 상태 이력 넣기 -->
 						<div>
