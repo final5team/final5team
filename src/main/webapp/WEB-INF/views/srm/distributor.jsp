@@ -293,7 +293,7 @@
 		}
 		 else{
 			$('#pContent').text('');
-			$('#pContent').text('입력하시겠습니까?. 확인을 누르시면 수정이 불가능합니다.');
+			$('#pContent').text('날짜를 입력하시겠습니까? 완료예정일은 수정이 불가능합니다.');
 			$('#alartDateTooMuch').modal('show');
 		}
 		
@@ -384,7 +384,6 @@
 	    
 	    // 파일 개수 확인 및 제한
 	    if (fileCount + filesArr.length > totalCount - existfiles.length) {
-	    	console.log("모달아 왜 안뜨냐");
 	    	$('#completeModal').modal();
 	    	$('#completeContent').html('파일은 최대 '+totalCount+ '개까지 업로드 할 수 있습니다.')
 	      return;
