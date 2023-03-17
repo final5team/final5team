@@ -73,6 +73,7 @@ public class PMController {
 		model.addAttribute("disStaffList", pMService.getStaffBySno(request.getSno(), "distributor"));
 		// 이전 정보 구하기
 		model.addAttribute("pmToAllHistories", commonService.getPmToAllHistories(rno));
+		model.addAttribute("testRejectExist", commonService.isThereTestReject(rno));
 		// 세션에 저장된 현재 로그인 사용자 정보 구하기
 		Member member = (Member) session.getAttribute("member");
 		// 확인 여부 
