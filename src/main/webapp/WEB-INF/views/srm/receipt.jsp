@@ -972,7 +972,6 @@
 		                         var rno = workingInfo.rno;
 		                         var reqType = workingInfo.reqType;
 		                         var priority = workingInfo.priority;
-		                         var mtype = workingInfo.mtype;
 		                         // realmname (분야) 분야별로 color 설정
 
 	                        	 events.push({

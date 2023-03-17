@@ -313,7 +313,6 @@ public class CommonService implements ICommonService {
 	 * 작성자: 장현 최신 요청 개수, 진행중인 요청 개수, 진행 완료 개수, 개발자일 경우 재검토, pm일 경우 반려건 개수 출력
 	 */
 	@Override
-	@Transactional
 	public HashMap<String, Integer> getWorkingStatus(Member member) {
 		HashMap<String, Integer> map = new HashMap<>();
 		// 각 status별 초기값 세팅
