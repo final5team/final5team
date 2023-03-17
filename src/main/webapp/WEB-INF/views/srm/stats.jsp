@@ -282,7 +282,7 @@
 	                                    <h6 class="m-0 font-weight-bold text-primary">시스템별 요청 비율</h6>	                                    
 	                                </div>
 	                                <!-- Card Body -->
-	                                <div class="card-body" style="width:300px; overflow: hidden;">
+	                                <div class="card-body" style="width:300px; height:205px; overflow: hidden;">
 	                                    <div id="3dchart" style="width:400px; position: relative; left:-30px"></div>
 	                                </div>
 	                            </div>
