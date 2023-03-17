@@ -68,7 +68,7 @@
                 <div class="container">
                 	<div id="main">
                 	 	<div class="title-block">
-                	 		<h3 class="title">요청 정보 조회</h3>
+                	 		<h3 class="title">접수 상세 보기</h3>
                 	 	</div>
                 	 	<div> <!-- 여기에 단계 상태 이력 넣기 -->
                 	 		<%@ include file="/WEB-INF/views/srm/restatus/stepperprogress.jsp" %>
@@ -87,7 +87,7 @@
 		                	 					<small class="ml-3">*는 필수 입력 사항입니다.</small>
 			                	 			</div>
 			                	 			<div class="d-flex justify-content-end" style="margin-left: auto; margin-right: 30px;">
-												<button class="navBtn active mt-3" type="button" id="receiptbtn">접수</button>
+												<button class="navBtn active mt-3" type="button" id="receiptbtn">승인</button>
 												<button class="navBtn mt-3" type="button" id="rejectbtn">반려</button>
 											</div>
 										</div>									
@@ -175,7 +175,7 @@
 												</div>																																											
 												<div class="d-flex justify-content-end">	
 													<input type="hidden" name="rno" value="${request.rno}">					
-													<button class="btn btn-primary btn-md mt-3 ml-3" type="submit" value=2 name="nextStatus">접수</button>
+													<button class="btn btn-primary btn-md mt-3 ml-3" type="submit" value=2 name="nextStatus">승인</button>
 													<a class="btn btn-secondary btn-md mt-3 ml-3" type="button"onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">취소</a>												
 												</div>
 											</form>									
@@ -194,7 +194,7 @@
 											<button type="button" class="close" data-dismiss="modal">&times;</button>
 										</div>
 										<div class="modal-body text-center">	
-											<p>글자수가 초과되었습니다. 300자 이하로 작성해주세요.</p>																				
+											<p>글자 수가 초과되었습니다. 300 자 이하로 작성해주세요.</p>																				
 										</div>
 										<div class="modal-footer">																				
 											<button class="btn btn-secondary" type="button" data-dismiss="modal">확인</button>					                    
@@ -218,7 +218,7 @@
 			                	 					<small class="ml-3">*는 필수 입력 사항입니다.</small>
 				                	 			</div>
 				                	 			<div class="d-flex justify-content-end" style="margin-left: auto; margin-right: 30px;">
-													<button class="navBtn mt-3" type="button" onclick="receiptbtn()">접수</button>
+													<button class="navBtn mt-3" type="button" onclick="receiptbtn()">승인</button>
 													<button class="navBtn active mt-3" type="button">반려</button>
 												</div>
 											</div>		
@@ -972,7 +972,6 @@
 		                         var rno = workingInfo.rno;
 		                         var reqType = workingInfo.reqType;
 		                         var priority = workingInfo.priority;
-		                         var mtype = workingInfo.mtype;
 		                         // realmname (분야) 분야별로 color 설정
 
 	                        	 events.push({

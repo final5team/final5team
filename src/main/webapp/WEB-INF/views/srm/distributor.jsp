@@ -58,12 +58,13 @@
 	                	 				<h3 class="title">
 		                	 				배포 내역 작성 <i class="fas fa-edit"></i>
 	                	 				</h3>
+	                	 				<small class="ml-3">*는 필수 입력 사항입니다.</small>
 	                	 			</div>
 	                	 			<div class="card-body">
 	                	 				<form id="dueDateForm" action="${pageContext.request.contextPath}/startwork" method="POST" >
 											<input type="hidden" name="rno" value="${request.rno}">
 											<div class="form-group d-flex">
-												<div class="label label-write">완료예정일</div>
+												<div class="label label-write">*완료예정일</div>
 												<div class="flex-grow-1">
 													<c:if test="${(request.statusNo == 7 && requestProcess.reqType == '긴급') || 
                 	 									(request.statusNo == 9 && requestProcess.reqType == '정규')}">
@@ -84,7 +85,7 @@
 											<!-- 임시 저장 글 status_no -->
 											<input type="hidden" name="nextStatus" value="18"/>
 											<div class="form-group d-flex">
-												<div class="label label-write">배포 내용</div>
+												<div class="label label-write">*배포 내용</div>
 												<div class="flex-grow-1">
 													<textarea name="reply" id="reply">${distributorTemp.reply}</textarea>
 												</div>
@@ -139,18 +140,17 @@
 		                	 				<h3 class="title d-flex">
 		                	 					배포 내역  <i class="far fa-bookmark success"></i>
 		                	 				</h3>
-		                	 				<small class="ml-3">*는 필수 입력 사항입니다.</small>
 		                	 			</div>
 		                	 			<div class="card-body">
 	                	 					<div>
 	                	 						<div class="row">
 		                	 						<span class="col-2 label">작성자</span>
 		                	 						<span class="col-3">${statusHistory.writerName}</span>
-		                	 						<span class="col-2 label">*배포 완료일</span>
+		                	 						<span class="col-2 label">배포 완료일</span>
 		                	 						<span class="col-3"><fmt:formatDate value="${statusHistory.changeDate}" pattern="yyyy-MM-dd"/></span>
 	                	 						</div>
 	                	 						<div class="row mt-3">
-	               	 								<span class="col-2 label">*배포 내용</span>
+	               	 								<span class="col-2 label">배포 내용</span>
 	                	 							<div class="col-8 border scoller p-2" style="min-height: 100px;">${statusHistory.reply}</div>
 	               	 							</div>
 	               	 							<div class="row mt-3">

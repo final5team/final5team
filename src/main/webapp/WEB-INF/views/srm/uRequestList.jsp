@@ -3,8 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div style="height: 280px;">
 	<table class="table table-hover usertable table-striped">
-		<thead thead style="background-color: #3A4651;" class="text-white" id="table-head-color">
-			<tr>
+		<thead class="text-white" id="table-head-color">
+			<tr style="background-color: #76d4f5;">
 				<th>번호</th>
 				<th>제목</th>
 				<th>시스템</th>
