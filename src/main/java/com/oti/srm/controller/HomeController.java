@@ -223,7 +223,6 @@ public class HomeController {
 		return "srm/7DaysList";
 	}
 	
-	
 	@GetMapping("/requestprocesslist")
 	public String getRequestProcessList(HttpSession session, Model model,@RequestParam(defaultValue = "n") String checkbox,
 			@RequestParam(defaultValue ="1") int workPageNo, @RequestParam(defaultValue ="전체") String status) {
