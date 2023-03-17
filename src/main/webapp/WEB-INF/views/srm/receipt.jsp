@@ -154,7 +154,7 @@
 												</div>
 												<div class="row mb-2">
 													<div class="col-2 text-right font-weight-bold">*완료예정일</div>
-													<input class="col-3 text-center p-0 allExpectDate" type="date" name="allExpectDate" pattern="\d{4}-\d{2}-\d{2}" required>
+													<input class="col-3 text-center p-0 allExpectDate" type="date" name="allExpectDate" pattern="\d{4}-\d{2}-\d{2}" id="allExpectDate" required>
 													<small class="noExpectDate" style="color : red; position: absolute; right:90.8%"></small>
 												</div>
 												<small id="noExpectDate" style="color : red; position: absolute;"></small>		
@@ -324,7 +324,7 @@
 													</div>
 													<div class="row mb-2">
 														<div class="col-2 text-right font-weight-bold">*완료예정일</div>
-														<input class="col-3 text-center p-0 allExpectDate" type="date" name="allExpectDate" value="<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>">
+														<input class="col-3 text-center p-0 allExpectDate" type="date" name="allExpectDate" id="allExpectDate" value="<fmt:formatDate value="${requestProcess.allExpectDate}" pattern="yyyy-MM-dd"/>">
 														<small class="noExpectDate" style="color : red; position: absolute; right:90.8%"></small>
 													</div>
 													<small id="noInputExd" style="color : red; position: absolute;"></small>		
@@ -979,8 +979,7 @@
 	                                    start: startdate,
 	                                    end: endExpectDate                                           
 	                                }); //.push()
-	                                                    
-		                        
+	                                                    		                        
 		                        }); 
 		                        console.log(events); 
 		                        
