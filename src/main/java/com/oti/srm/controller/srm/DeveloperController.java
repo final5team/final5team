@@ -218,13 +218,13 @@ public class DeveloperController {
 			commonService.updateStatusHistory(statusHistory);
 		}
 		
-		// 임시저장한 정보 가져오기
+		/*// 임시저장한 정보 가져오기
 		StatusHistory tempSh = new StatusHistory();
 		tempSh.setRno(rno);
 		tempSh.setNextStatus(14);
 
 		StatusHistory devTemp = commonService.getTempStatusHistory(member, tempSh);
-		model.addAttribute("devTemp", devTemp);
+		model.addAttribute("devTemp", devTemp);*/
 		
 		Map<String,String> map = new HashMap<>();
 		map.put("result", "success");
