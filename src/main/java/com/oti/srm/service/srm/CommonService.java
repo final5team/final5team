@@ -253,8 +253,8 @@ public class CommonService implements ICommonService {
 		tempHistoryChange.setDistSource(null);
 		tempHistoryChange.setNextStatus(15);
 		StatusHistory temp = commonDao.selectTempStatusHistory(member, tempHistoryChange);
-		List<StatusHistoryFile> tempFiles = commonDao.selectStatusHistoryFiles(temp.getHno());
 		if (temp != null) {
+			List<StatusHistoryFile> tempFiles = commonDao.selectStatusHistoryFiles(temp.getHno());
 			if (tempFiles != null && tempFiles.size() > 0) {
 				for (StatusHistoryFile file : tempFiles) {
 					file.setHno(statusHistory.getHno());

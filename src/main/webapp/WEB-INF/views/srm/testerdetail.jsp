@@ -360,7 +360,7 @@
 		}
 		 else{
 			$('#pContent').text('');
-			$('#pContent').text('입력하시겠습니까?. 확인을 누르시면 수정이 불가능합니다.');
+			$('#pContent').text('날짜를 입력하시겠습니까? 완료 예정일은 수정이 불가능합니다.');
 			$('#alartDateTooMuch').modal('show');
 		}
 		
