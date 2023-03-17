@@ -25,12 +25,14 @@ public interface IStatsService {
 	public List<Integer> getSRState();
 	// 태스크별 서비스 요청 처리 현황 구하기
 	public List<ArrayList<Integer>> getSRStateTask();
+	// 단계별 서비스 요청 처리 현황 구하기
+	public Map<String, Integer> getStageCount();
+	// 태스크별 업무 현황에 따른 서비스 요청 처리 현황 구하기
+	public Map<String, Integer> getTaskCount();
 	
 	// 서비스 요청 추이 값 구하기
 	public List<ArrayList<Integer>> getSRChange(String year, int month);
-
-	public Map<String, Integer> getStageCount();
 	
-	public Map<String, Integer> getTaskCount();
+	
 
 }

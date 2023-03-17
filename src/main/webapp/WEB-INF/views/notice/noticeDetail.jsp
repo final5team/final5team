@@ -72,7 +72,7 @@
                 			<div class="card-body">
 							  	<div class="row p-2">
 							    	<div class="col-2 d-flex justify-content-end">
-							    		<span style="font-size: 18px;">공개 설정</span>
+							    		<span style="font-size: 18px;">공개 대상</span>
 							    	</div>
 							    	<div class="col-9">
 						    		<img src="resources/img/multiple-users.png" class="checkboxIcon"/>

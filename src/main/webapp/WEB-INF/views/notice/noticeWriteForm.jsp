@@ -53,7 +53,7 @@
                 	 		<div class="card-block">
 				                <form action="${pageContext.request.contextPath}/noticewrite" method="post" enctype="multipart/form-data">
 								  	<div class="form-group row">
-								    	<div class="col-2 label">공개 설정</div>
+								    	<div class="col-2 label">공개 대상</div>
 								    	<div class="form-group col-8">
 									    	<div class="form-check form-check-inline">
 									    		<span class="mr-2">시스템 사용자(고객)</span>
@@ -89,10 +89,10 @@
 								  	</div>
 								    <div class="form-group row">
 								    	<label for="noticeContent" class="col-2 label">내용</label>
-								    	<textarea class="form-control col-9" id="noticeContent" name="noticeContent"></textarea>
+								    	<textarea class="form-control col-9 noticeContent" name="noticeContent"></textarea>
 								    </div>
 								  	<div class="form-group row">
-								    	<label for="files" class="col-2 label">첨부파일 등록</label>
+								    	<label for="files" class="col-2 label">첨부파일</label>
 								    	<input type="file" multiple class="form-control-file col-8" name="files" id="files">
 								  	</div>
 								  	<div class="form-group d-flex justify-content-end">

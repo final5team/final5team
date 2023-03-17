@@ -60,7 +60,7 @@
 					<div id="main">
 						<!-- id=main div start -->
 						<div class="title-block">
-							<h3 class="title">요청 조회</h3>
+							<h3 class="title">요청 상세 보기</h3>
 						</div>
 						<!-- 여기에 단계 상태 이력 넣기 -->
 						<div>
@@ -114,8 +114,8 @@
 										</div>
 										<hr/>
 										<div class="row">
-											<div class="col-3 label">내용</div>
-											<div class="col-8 border p-2 scroller">${request.reqContent}</div>
+											<div class="col-3 label" style="min-height: 100px;">내용</div>
+											<div class="col-8 border p-2 scroller mr-1">${request.reqContent}</div>
 										</div>
 										<hr/>
 										<div class="row">
@@ -254,10 +254,10 @@
 						<!-- 요청정보 수정 START-->
 						
 						<c:if test="${member.mtype == 'user'}">
-							<button class="btn btn-dark btn-sm ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'">목록</button>
+							<button class="btn btn-dark btn-sm ml-5 mt-3" onclick="location.href='${pageContext.request.contextPath}/customer/userrequestlist'">목록</button>
 						</c:if>
 						<c:if test="${member.mtype != 'user'}">
-							<button class="btn btn-dark btn-sm ml-5" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
+							<button class="btn btn-dark btn-sm ml-5 mt-3" onclick="location.href='${pageContext.request.contextPath}/customer/requestlist'">목록</button>
 						</c:if>
 					</div>
 				</div>
