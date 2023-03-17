@@ -1,7 +1,6 @@
 package com.oti.srm.controller.srm;
 
 import java.util.Calendar;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,17 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.oti.srm.dto.Member;
-import com.oti.srm.dto.Notice;
-import com.oti.srm.dto.Pager;
 import com.oti.srm.service.member.IUserRegisterService;
-import com.oti.srm.service.srm.IRequestRegisterService;
 import com.oti.srm.service.srm.IStatsService;
 
 import lombok.extern.log4j.Log4j2;
@@ -135,6 +128,7 @@ public class StatsController {
 	 * @return
 	 */
 	// Ajax로 분기별 서비스 요청 추이 구하기
+	@Transactional
 	@RequestMapping(value = "/curve/{year}/{month}", method = RequestMethod.GET)
 	public String getCurveSystem(HttpSession session, Model model, @PathVariable String year, @PathVariable int month) {
 		// 서비스 요청 추이
