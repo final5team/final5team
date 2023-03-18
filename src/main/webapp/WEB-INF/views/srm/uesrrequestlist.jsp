@@ -265,7 +265,6 @@
 		let statusNo = filterStatusNo.options[filterStatusNo.selectedIndex].value
 		
 		
-	
 		data = {pageNo : i, reqType : ReqType, dateFirst : dateFirst, dateLast : dateLast, sno : parseInt(sno), statusNo : parseInt(statusNo)}
 		$.ajax({
 			url : "myrequestlist",
@@ -287,6 +286,9 @@
 	
 // filter 검색 기능 ajax
 	function search(){
+		
+		$('#noResult').remove();
+	
 		let loading = document.querySelector(".loading");
 		loading.style.visibility = 'visible';	
 //		검색 filter 값 가져오기
@@ -328,6 +330,8 @@
 			
 		}).done((data) => {
 			$('#table_content').html(data);
+				
+			
 			if(document.querySelector('.default')) {
 				const pageDefault = document.querySelector('.default');
 				pageDefault.remove();
