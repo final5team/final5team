@@ -194,7 +194,6 @@
 															<small class="noPositionInput"  style="color : red; position : absolute; top : 20%; left : 100%; z-index:5; width:60px;"></small>
 														</div>
 													</div>
-
 													<div class="item">
 														<div class="input-group">
 															<select class="custom-select" id="organ" name="organ" required>
