@@ -51,7 +51,6 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 				statusHistory.setNextStatus(1);
 				statusHistory.setReply("요청 작성 단계");
 				statusHistory.setWriter(request.getClient());
-				log.info(request.getClient());
 
 				// 상태 변경 이력 작성하기
 				int historyResult = commonDao.insertStatusHistory(statusHistory);
@@ -85,7 +84,6 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	public int updateRequest(Request request, List<StatusHistoryFile> sFiles) {
 		try {
 			//요청 내용 수정
-			log.info(request.toString());
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			String formattedDate = dateFormat.format(request.getReqExpectDate());
 			java.sql.Date sqlDate = java.sql.Date.valueOf(formattedDate);
@@ -170,7 +168,6 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		map.put("member", member);
 		
 		int rows = requestDao.countRequestRows(map);
-		log.info(rows);
 		return rows;
 	}
 	//사용자가 작성한 요청목록 가져오기 
@@ -181,7 +178,6 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		map.put("pager", pager);
 		map.put("member", member);
 		List<SelectPM> result = requestDao.selectMyRequest(map);
-		log.info(result.size());
 		return result;
 	}
 	// (담당자) 작성한 요청의 개수 가져오기
@@ -192,7 +188,6 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 			map.put("member", member);
 			
 			int rows = requestDao.countWorkerRequestRows(map);
-			log.info(rows);
 			return rows;
 		}
 	
