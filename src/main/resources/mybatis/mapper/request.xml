@@ -751,6 +751,25 @@
 		fetch first (#{pager.rowsPerPage}) rows only
 	</select>
 	
+	<delete id="deleteRequest" parameterType="int">
+		delete 
+		from requests 
+		where rno = #{rno}
+	</delete>
+	
+	<delete id="deleteStatusHistories" parameterType="int">
+		delete 
+		from status_histories
+		where rno = #{rno}
+	</delete>
+	
+	<delete id="deleteStatusHistoryFiles" parameterType="int">
+		delete 
+		from status_histories_files 
+		where hno in (select hno from status_histories where rno = #{rno})
+	</delete>
+	
+
 
 
 

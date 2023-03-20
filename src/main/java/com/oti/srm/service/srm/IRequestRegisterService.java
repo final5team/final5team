@@ -52,4 +52,6 @@ public interface IRequestRegisterService {
 	public int getMainToWorkerListRows(StatusNoFilter statusNoFilter, Member member);
 	public List<SelectPM> getMainToWorkerList(StatusNoFilter statusNoFilter, Member member, Pager pager);
 	
+	public void deleteRequest(int rno);
+	
 }
