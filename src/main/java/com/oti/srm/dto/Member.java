@@ -7,8 +7,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString(exclude = "fileData")
 public class Member {
 	private String mid;    
 	private String mtype; 
