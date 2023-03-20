@@ -135,7 +135,6 @@ public class DeveloperController {
 	@PostMapping("/devdone")
 	public String switchDevDone(StatusHistory statusHistory, HttpSession session, @RequestParam MultipartFile[] files) {
 		log.info("실행");
-		log.info(files[0].getOriginalFilename());
 		Member member = (Member) session.getAttribute("member");
 		statusHistory.setWriter(member.getMid());
 		statusHistory.setNextStatus(5);
@@ -170,8 +169,6 @@ public class DeveloperController {
 	public Map<String,String> tempStore(int rno, StatusHistory statusHistory,RequestProcess rp, HttpSession session, Model model,
 			@RequestParam("files")MultipartFile[] files) {
 		log.info("실행");
-		log.info("rno : " + statusHistory.getRno());
-		log.info("nextStatus : " + statusHistory.getNextStatus());
 		
 		//rno 세팅
 		statusHistory.setRno(rno);
@@ -239,7 +236,6 @@ public class DeveloperController {
 		StatusHistory mySh = commonService.getStatusHistory(hno);
 		int rno = mySh.getRno();
 		commonService.rollBackStep(member, hno);
-		log.info(mySh);
 		if (member.getMtype().equals("developer")) {
 			return "redirect:/developerdetail?rno=" + rno;
 		} else if (member.getMtype().equals("tester")) {
