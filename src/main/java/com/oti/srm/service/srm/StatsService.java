@@ -255,7 +255,7 @@ public class StatsService implements IStatsService {
 			if (stat.getStatusNo() == 10) {
 				map.put("배포중", map.get("배포중") + stat.getCount());
 			}
-			if (stat.getStatusNo() >= 11 || stat.getStatusNo() == 13) {
+			if (stat.getStatusNo() == 11 || stat.getStatusNo() == 13) {
 				map.put("배포완료", map.get("배포완료") + stat.getCount());
 			}
 		}
