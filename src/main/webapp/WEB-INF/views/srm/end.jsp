@@ -128,7 +128,7 @@
 								<div class="card-body">									
 									<div class="form-group row">
 										<label class="label col-3">반려 사유</label>
-										<textarea rows="2" class="form-control boxed col-7" name="reply" readonly>${rejectHistory.reply}</textarea>
+										<div class="form-control boxed col-8" name="reply" style="min-height: 100px;">${rejectHistory.reply}</div>
 									</div>											
 									<div class="mt-3 row">
 										<c:if test="${request.files != null}">
