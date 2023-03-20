@@ -133,7 +133,11 @@
 										</div>	
 										<c:if test="${request.statusNo == 1 && member.mid == request.client}">
 										<div class="d-flex justify-content-end">
-											<button type="button" class="btn btn-md btn-primary" onclick="showUpdateForm()">수정</button>	
+											<button type="button" class="btn btn-md btn-primary mr-2" onclick="showUpdateForm()">수정</button>	
+											<form id="deleteForm" action="${pageContext.request.contextPath}/customer/requestdelete" method="post">
+												<input type="hidden" name="rno" value="${request.rno}"/>
+											</form>
+											<button type="button" class="btn btn-md btn-danger" onclick="deleteRequest(${request.rno})">삭제</button>	
 										</div>
 										</c:if>								
 	                	 			</div>
@@ -468,6 +472,10 @@
 		$('#requestDetailForm').show();
 		$('#requestUpdateForm').hide();
 	}
+	function deleteRequest(){
+		$('#deleteForm').submit();
+	}
+	
 	</script>
 </body>
 

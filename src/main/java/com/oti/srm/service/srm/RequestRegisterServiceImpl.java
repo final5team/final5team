@@ -339,6 +339,14 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		return requestDao.selectMainToWorkerList(statusNoFilter.getStatusNo(), member, pager);
 	}
 
+	@Transactional
+	@Override
+	public void deleteRequest(int rno) {
+		requestDao.deleteStatusHistoryFiles(rno);
+		requestDao.deleteStatusHistories(rno);
+		requestDao.deleteRequest(rno);
+	}
+
 
 
 
