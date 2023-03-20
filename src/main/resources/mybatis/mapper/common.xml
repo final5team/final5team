@@ -398,11 +398,7 @@
 			</if>
 			<if test="status == '재검토'"> and r.status_no <![CDATA[=]]> 3</if>
 		</where>
-		order by 
-			<if test="member.mtype == 'developer'">dev_expect_date</if>
-			<if test="member.mtype == 'tester'">test_expect_date</if>
-			<if test="member.mtype == 'usertester'">usertest_expect_date</if>
-			<if test="member.mtype == 'distributor'">dist_expect_date</if>
+		order by r.status_no desc
 		OFFSET (#{pager.pageNo} - 1) * #{pager.rowsPerPage} ROWS
 		FETCH NEXT #{pager.rowsPerPage} ROWS ONLY
 	</select>
