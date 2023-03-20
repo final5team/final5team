@@ -532,6 +532,19 @@ public class RequestController {
 		return 1;
 	}
 	
+	//요청 삭제
+		@PostMapping("/requestdelete")
+		public String deleteRequest(int rno, HttpSession session) throws IOException {
+			log.info("실행");
+			requestService.deleteRequest(rno);
+			Member member = (Member) session.getAttribute("member");
+			if(member.getMtype().equals("user")) {
+				return "redirect:/customer/userrequestlist";
+			}else {
+				return "redirect:/customer/requestlist";
+			}
+		}
+	
 
 	
 	

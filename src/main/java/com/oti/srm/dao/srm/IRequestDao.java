@@ -51,5 +51,10 @@ public interface IRequestDao {
 	public int selectMainToWorkerListRows(@Param("statusNoFilter") List<Integer> statusNoFilter, @Param("member") Member member);
 	public List<SelectPM> selectMainToWorkerList(@Param("statusNoFilter") List<Integer>  statusNoFilter, @Param("member") Member member, @Param("pager") Pager pager);
 	
+	// 요청 취소
+	public int deleteRequest(int rno);
+	public int deleteStatusHistories(int rno);
+	public int deleteStatusHistoryFiles(int rno);
+	
 	
 }
