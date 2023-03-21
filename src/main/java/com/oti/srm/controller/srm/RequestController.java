@@ -77,12 +77,11 @@ public class RequestController {
 	 */
 	@PostMapping("/register")
 	public String register(Member member, Model model) {
-		String address = member.getPostcode() + "-" + member.getAddr1() + "-" + member.getAddr2();
+		String address = member.getPostcode() + ":" + member.getAddr1() + ":" + member.getAddr2();
 		member.setAddress(address);
 		member.setPassword("0000");
 		MultipartFile mfile = member.getMfile();
-		log.info("유저 등록");
-		log.info(member.toString());
+		log.info(address);
 		
 		try {
 			if (mfile != null && !mfile.isEmpty()) {
@@ -139,7 +138,7 @@ public class RequestController {
 	@PostMapping("/mypageupdate")
 	public String myPageUpdate(Member member, Model model, HttpSession session) {
 		Member Sessionmember = (Member) session.getAttribute("member");
-		
+		log.info(Sessionmember);
 		String address = member.getPostcode() + ":" + member.getAddr1() + ":" + member.getAddr2();
 		member.setAddress(address);
 		member.setSno(Sessionmember.getSno());
