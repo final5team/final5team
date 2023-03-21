@@ -55,12 +55,12 @@ public class UserRegisterServiceImpl implements IUserRegisterService {
 		PasswordEncoder pe = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		//패스워드 암호화 처리
 		member.setPassword(pe.encode(member.getPassword()));
-		
 		//핸드폰 번호 암호화 처리
 		String phone = AesUtil.encrypt(member.getPhone());
 		member.setPhone(phone);
 		log.info("수정 확인");
 		int rows = memberDao.updateUserInfo(member);
+		
 		return rows;
 	}
 	//비밀번호 동일한지 확인

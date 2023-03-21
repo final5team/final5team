@@ -34,6 +34,7 @@ import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.SelectPM;
 import com.oti.srm.dto.StatusHistoryFile;
 import com.oti.srm.encrypt.AesUtil;
+import com.oti.srm.service.member.IMemberService;
 import com.oti.srm.service.member.IUserRegisterService;
 import com.oti.srm.service.srm.ICommonService;
 import com.oti.srm.service.srm.IPMService;
@@ -54,6 +55,9 @@ public class RequestController {
 	private ICommonService commonService;
 	@Autowired
 	private IPMService pMService;
+	@Autowired
+	private IMemberService memberService;
+	
 	/**
 	 * Kang Ji Seong 유저 등록 페이지 조회
 	 */
@@ -166,6 +170,8 @@ public class RequestController {
 		}
 			int result = userRegisterService.updateUserInfo(member);
 			log.info(Sessionmember.getMtype());
+			Member newMember = memberService.getMember(member);
+			session.setAttribute("member", newMember);
 			
 			if(Sessionmember.getMtype().equals("pm")){
 				return "redirect:/pmhome";
