@@ -133,7 +133,6 @@ public class CommonService implements ICommonService {
 	@Override
 	public RequestProcess getRequestProcess(int rno) {
 		RequestProcess requestProcess = commonDao.selectRequestProcess(rno);
-		log.info(requestProcess);
 		return requestProcess;
 	}
 

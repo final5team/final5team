@@ -519,7 +519,6 @@ public class RequestController {
 	public int uploadFile(@RequestParam HashMap<Object, Object> param, @RequestParam("files")MultipartFile[] files) throws IOException {
 		String rno = (String) param.get("rno");
 		log.info(rno);
-		log.info(files.toString());
 		List<StatusHistoryFile> fileList = new ArrayList<>();
 		if(files != null) {
 			for(MultipartFile file : files) {
