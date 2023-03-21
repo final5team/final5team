@@ -86,7 +86,7 @@
 								    	<span class="mr-1">테스터</span>
 							    	</c:if>
 							    	<c:if test="${notice.userTesterShow == 'Y'}">
-								    	<span class="mr-1">고객테스터</span>
+								    	<span class="mr-1">품질검토자</span>
 							    	</c:if>
 							    	<c:if test="${notice.distributorShow == 'Y'}">
 								    	<span class="mr-1">배포담당자</span>

@@ -76,7 +76,7 @@
 										    	<label class="form-check-label mr-4" for="distributorShow"></label>
 									    	</div>
 									    	<div class="form-check form-check-inline">
-									    		<span class="mr-2">유저테스터</span>
+									    		<span class="mr-2">품질검토자</span>
 									    		<input type="checkbox" class="form-check-input" id="userTesterShow" name="userTesterShow" value="Y">
 										    	<label class="form-check-label" for="userTesterShow"></label>
 									    	</div>
