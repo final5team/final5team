@@ -120,7 +120,7 @@ public class RequestController {
 		Member returnMember = userRegisterService.getUserInfo(Sessionmember.getMid());
 
 		// 주소 변환
-		String[] address = returnMember.getAddress().split("-");
+		String[] address = returnMember.getAddress().split(":");
 		returnMember.setPostcode(Integer.parseInt(address[0]));
 		returnMember.setAddr1(address[1]);
 		returnMember.setAddr2(address[2]);
@@ -140,7 +140,7 @@ public class RequestController {
 	public String myPageUpdate(Member member, Model model, HttpSession session) {
 		Member Sessionmember = (Member) session.getAttribute("member");
 		
-		String address = member.getPostcode() + "-" + member.getAddr1() + "-" + member.getAddr2();
+		String address = member.getPostcode() + ":" + member.getAddr1() + ":" + member.getAddr2();
 		member.setAddress(address);
 		member.setSno(Sessionmember.getSno());
 		MultipartFile mfile = member.getMfile();
