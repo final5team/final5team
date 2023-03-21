@@ -114,7 +114,7 @@
 											<c:if test="${request.statusNo == 8}">
 												<div class="d-flex justify-content-end">
 													<button class="btn btn-warning btn-md mx-3"  onclick="tempStore(${request.rno},17)" type="button">임시 저장</button>
-													<button class="btn btn-primary btn-md " onclick="userTestDone()" type="button">유저테스트 완료</button>
+													<button class="btn btn-primary btn-md " onclick="userTestDone()" type="button">품질테스트 완료</button>
 												</div>
 											</c:if>
 										</form>				
