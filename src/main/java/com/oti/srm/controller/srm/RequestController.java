@@ -34,6 +34,7 @@ import com.oti.srm.dto.RequestProcess;
 import com.oti.srm.dto.SelectPM;
 import com.oti.srm.dto.StatusHistoryFile;
 import com.oti.srm.encrypt.AesUtil;
+import com.oti.srm.service.member.IMemberService;
 import com.oti.srm.service.member.IUserRegisterService;
 import com.oti.srm.service.srm.ICommonService;
 import com.oti.srm.service.srm.IPMService;
@@ -54,6 +55,9 @@ public class RequestController {
 	private ICommonService commonService;
 	@Autowired
 	private IPMService pMService;
+	@Autowired
+	private IMemberService memberService;
+	
 	/**
 	 * Kang Ji Seong 유저 등록 페이지 조회
 	 */
@@ -116,7 +120,7 @@ public class RequestController {
 		Member returnMember = userRegisterService.getUserInfo(Sessionmember.getMid());
 
 		// 주소 변환
-		String[] address = returnMember.getAddress().split("-");
+		String[] address = returnMember.getAddress().split(":");
 		returnMember.setPostcode(Integer.parseInt(address[0]));
 		returnMember.setAddr1(address[1]);
 		returnMember.setAddr2(address[2]);
@@ -136,7 +140,7 @@ public class RequestController {
 	public String myPageUpdate(Member member, Model model, HttpSession session) {
 		Member Sessionmember = (Member) session.getAttribute("member");
 		
-		String address = member.getPostcode() + "-" + member.getAddr1() + "-" + member.getAddr2();
+		String address = member.getPostcode() + ":" + member.getAddr1() + ":" + member.getAddr2();
 		member.setAddress(address);
 		member.setSno(Sessionmember.getSno());
 		MultipartFile mfile = member.getMfile();
@@ -166,6 +170,8 @@ public class RequestController {
 		}
 			int result = userRegisterService.updateUserInfo(member);
 			log.info(Sessionmember.getMtype());
+			Member newMember = memberService.getMember(member);
+			session.setAttribute("member", newMember);
 			
 			if(Sessionmember.getMtype().equals("pm")){
 				return "redirect:/pmhome";
