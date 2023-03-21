@@ -155,6 +155,8 @@ public class RequestController {
 				//유저 정보 수정
 				int result = userRegisterService.updateUserInfo(member);
 				log.info(Sessionmember.getMtype());
+				Member newMember = memberService.getMember(member);
+				session.setAttribute("member", newMember);
 				
 				if(Sessionmember.getMtype().equals("pm")){
 					return "redirect:/pmhome";
