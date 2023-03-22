@@ -40,7 +40,7 @@
 			<a onclick="mainNoticeList(${i})" type="button" class="btn btn-white btn-sm shadow">${i}</a>
 		</c:if>
 		<c:if test="${nPager.pageNo == i}">
-			<a onclick="mainNoticeList(${i})" type="button" class="btn btn-dark btn-sm shadow">${i}</a>
+			<a onclick="mainNoticeList(${i})" type="button" class="btn btn-primary btn-sm shadow">${i}</a>
 		</c:if>
 	</c:forEach>
 
