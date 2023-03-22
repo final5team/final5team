@@ -88,7 +88,7 @@
 											<div class="col-3 label">직급</div>
 											<div class="col-2">${request.rposition}</div>
 											<div class="col-3 label">전화번호</div>
-											<div class="col-2">${request.rorgan}</div>
+											<div class="col-2">${request.rphone}</div>
 										</div>
 										<hr/>
 										<div class="row">
