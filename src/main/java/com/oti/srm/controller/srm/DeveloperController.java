@@ -40,6 +40,7 @@ public class DeveloperController {
 	 * @author : 장현
 	 * @param model view에 전달할 객체 주입
 	 * @param rno   Request객체 내용 출력위해 rno주입
+	 * @param session 세션에 저장된 Member객체 가져오기
 	 * @return developerdetail로 리턴
 	 */
 	@GetMapping("/developerdetail")
@@ -163,7 +164,17 @@ public class DeveloperController {
 
 		return "redirect:/developerdetail?rno=" + statusHistory.getRno();
 	}
-
+	
+	/**
+	 * @author : 장현
+	 * @param rno 요청번호 주입
+	 * @param statusHistory 내용, nextStatus 값
+	 * @param rp 개발자의 진척률 값
+	 * @param session 세션에 저장된 Member객체
+	 * @param model view에 전달할 객체 주입
+	 * @param files 파일객체 주입
+	 * @return json 으로 응답하기 위해 Map 타입으로 리턴
+	 */
 	@PostMapping("/tempstore")
 	@ResponseBody
 	public Map<String,String> tempStore(int rno, StatusHistory statusHistory,RequestProcess rp, HttpSession session, Model model,
@@ -215,20 +226,19 @@ public class DeveloperController {
 			commonService.updateStatusHistory(statusHistory);
 		}
 		
-		/*// 임시저장한 정보 가져오기
-		StatusHistory tempSh = new StatusHistory();
-		tempSh.setRno(rno);
-		tempSh.setNextStatus(14);
-
-		StatusHistory devTemp = commonService.getTempStatusHistory(member, tempSh);
-		model.addAttribute("devTemp", devTemp);*/
-		
 		Map<String,String> map = new HashMap<>();
 		map.put("result", "success");
 		return map;
 	}
 
 	// developer,tester,usertester,distributor 단계 롤백(수정)
+	/**
+	 * @author : 장현
+	 * @param hno 롤백 할 StatusHistory 객체 번호 받음
+	 * @param session 세션에 저장한 Member객체 주입
+	 * @param model view에 전달할 객체 주입
+	 * @return 상세보기 페이지로 redirect
+	 */
 	@PostMapping("rollbackstep")
 	public String rollBackStep(int hno, HttpSession session, Model model) {
 		log.info("실행");
