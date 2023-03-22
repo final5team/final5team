@@ -58,8 +58,11 @@ public class RequestController {
 	@Autowired
 	private IMemberService memberService;
 	
-	/**
-	 * Kang Ji Seong 유저 등록 페이지 조회
+	/** 작성자 : 강지성
+	 *  유저 등록 페이지 조회
+	 * @param model : return 정보 저장
+	 * @param session 로그인 사용자 정보
+	 * @return 유저 등록 JSP
 	 */
 	@GetMapping("/register")
 	public String register(Model model, HttpSession session) {
@@ -72,17 +75,19 @@ public class RequestController {
 		return "member/userregister_re";
 	}
 
-	/**
-	 * Kang Ji Seong 유저 등록
+	/**작성자 : 강지성
+	 * 유저 등록 기능
+	 * @param member 작성자 정보
+	 * @param model : return 정보 저장
+	 * @return 유저 등록 페이지 redirect
 	 */
 	@PostMapping("/register")
 	public String register(Member member, Model model) {
-		String address = member.getPostcode() + "-" + member.getAddr1() + "-" + member.getAddr2();
+		String address = member.getPostcode() + ":" + member.getAddr1() + ":" + member.getAddr2();
 		member.setAddress(address);
 		member.setPassword("0000");
 		MultipartFile mfile = member.getMfile();
-		log.info("유저 등록");
-		log.info(member.toString());
+		log.info(address);
 		
 		try {
 			if (mfile != null && !mfile.isEmpty()) {
@@ -110,8 +115,11 @@ public class RequestController {
 		}
 	}
 
-	/**
-	 * Kang Ji Seong 내 정보 조회
+	/**작성자 : 강지성
+	 * 내 정보 조회 기능 
+	 * @param session : 사용자 정보 조회
+	 * @param model : return 정보 저장
+	 * @return mypage JSP 
 	 */
 	@GetMapping("/mypage")
 	public String myPage(HttpSession session, Model model) {
@@ -136,10 +144,17 @@ public class RequestController {
 		return "member/mypage_re";
 	}
 	
+	/**작성자 : 강지성
+	 * 내 정보 수정 기능
+	 * @param member : 사용자 정보
+	 * @param model : return 정보 저장
+	 * @param session : 수정된 사용자 정보 저장 
+	 * @return home JSP redirect
+	 */
 	@PostMapping("/mypageupdate")
 	public String myPageUpdate(Member member, Model model, HttpSession session) {
 		Member Sessionmember = (Member) session.getAttribute("member");
-		
+		log.info(Sessionmember);
 		String address = member.getPostcode() + ":" + member.getAddr1() + ":" + member.getAddr2();
 		member.setAddress(address);
 		member.setSno(Sessionmember.getSno());
@@ -185,8 +200,10 @@ public class RequestController {
 	}
 	
 
-	/**
-	 * Kang Ji Seong img byte[] 변환 메소드
+	/**작성자 : 강지성
+	 * 내 정보 이미지 출력 메소드
+	 * @param mid : 이미지 찾기 위한 정보
+	 * @return 이미지 파일
 	 */
 	@GetMapping("/mypage/{mid}")
 	public ResponseEntity<byte[]> returnImg(@PathVariable String mid) {
@@ -205,7 +222,15 @@ public class RequestController {
 		
 	}
 
-	// 요청 작성 페이지
+	/**작성자 : 강지성
+	 * 요청 작성 페이지 조회
+	 * @param member : 사용자 정보
+	 * @param request : 요청 작성시 기본 상태값 저장, 전달
+	 * @param model : return 정보 저장
+	 * @param requestProcess : 요청 작성시 초기 단계값 저장
+	 * @param session : 사용자 정보 return
+	 * @return 요청 작성 페이지
+	 */
 	@GetMapping("/request")
 	public String customerRequest(Member member, Request request, Model model, RequestProcess requestProcess,
 			HttpSession session) {
@@ -231,8 +256,13 @@ public class RequestController {
 		return "srm/request/request";
 	}
 	
-	/**
-	 * 요청 등록 폼 작성
+	/**작성자 : 강지성
+	 * 요청 작성 등록 기능
+	 * @param request : 사용자가 작성한 요청 정보
+	 * @param model : return 정보 저장
+	 * @param session : 작성자 정보
+	 * @param files : 첨부된 파일 정보
+	 * @return 권한별 list JSP redirect
 	 */
 	@PostMapping("/request")
 	public String customerRequest(Request request, Model model, HttpSession session,
@@ -278,6 +308,12 @@ public class RequestController {
 	
 	//(유저) 요청 리스트 초기 조회
 
+	/**작성자 : 강지성
+	 * (User) 요청 목록 초기 조회, 출력
+	 * @param model : JSP에 담을 정보 전달
+	 * @param session : 사이드바 정보 저장
+	 * @return
+	 */
 	@GetMapping("/userrequestlist")
 	public String myrequestlist (Model model, HttpSession session) {
 		//시스템
@@ -316,7 +352,13 @@ public class RequestController {
 		return "srm/uesrrequestlist";
 	}
 	
-	//(유저) 요청 목록 조회 ajax
+	/**작성자 : 강지성
+	 * (User) 요청 목록 검색, 페이지 이동 조회 (AJAX)
+	 * @param listFilter : 사용자가 검색한 정보 저장
+	 * @param model : return 시 JSP 출력할 정보
+	 * @param session : 사용자 정보
+	 * @return
+	 */
 	@PostMapping("/myrequestlist")
 	public String myRequestList(@RequestBody ListFilter listFilter, Model model, HttpSession session) {
 		// 요청 조회 필터
@@ -343,6 +385,13 @@ public class RequestController {
 	}
 	
 	//(담당자) 요청 목록 조회 ajax
+		/**작성자 : 강지성
+		 * (담당자) 요청 목록 검색, 페이지 이동 조회 (AJAX)
+		 * @param listFilter : 사용자가 검색한 정보 저장
+		 * @param model : return 시 JSP 출력할 정보
+		 * @param session : 사용자 정보
+		 * @return
+		 */
 		@PostMapping("/workerrequestlist")
 		public String workerRequestList(@RequestBody ListFilter listFilter, Model model, HttpSession session) {
 			// 요청 조회 필터
@@ -370,7 +419,13 @@ public class RequestController {
 		}
 		
 		
-	//담당 요청 목록 이동 페이지
+	/**작성자 : 강지성
+	 * (담당자) 업무 목록 검색, 페이지 이동 조회
+	 * @param statusNo : 초기 조회시 전체 검색을 위한 상태값 지정
+	 * @param model : return 시 JSP 출력할 정보
+	 * @param session : 사용자 정보
+	 * @return
+	 */
 	@GetMapping("/requestlist")
 	public String requestList(@RequestParam(defaultValue="0") int statusNo, Model model, HttpSession session) {
 		List<System> systemList = userRegisterService.getSystemList();
@@ -403,6 +458,12 @@ public class RequestController {
 		return "srm/requestlist_re";
 	}
 	//담당 요청 목록 조회 ajax
+	/** (담당자) 업무 목록 검색, 페이지 이동 조회 (AJAX)
+	 * @param listFilter : 사용자가 지정한 검색 조건
+	 * @param model : JSP에 표시할 정보 
+	 * @param session : 사용자 정보
+	 * @return
+	 */
 	@PostMapping("/myworklist")
 	public String myWrokList(@RequestBody ListFilter listFilter, Model model, HttpSession session) {
 
@@ -441,26 +502,31 @@ public class RequestController {
 		
 		return "srm/list/ajaxmyworklist";
 	}
-	/**
-	 * Kang Ji Seong member type 단계 처리 가져오기
+	/**작성자 : 강지성
+	 * 목록에 출력할 단계 정보 불러오기
+	 * @param request : 단계를 가져올 요청 정보 출력
+	 * @return : 출력 결과 return
 	 */
 	@PostMapping("/viewstep")
 	@ResponseBody
-	public int viewStep(Model model, Request request) {
+	public int viewStep(Request request) {
 		int result = requestService.getPresentStep(request.getRno());
 		return result;
 	}
 	
-	//요청 글 상세보기
+	/**작성자 : 강지성
+	 * 요청 글 상세 조회
+	 * @param rno : 조회할 글 번호
+	 * @param session : 사용자 정보
+	 * @param model : JSP 표시할 정보 저장
+	 * @return : 상세 조회 JSP
+	 */
 	@GetMapping("/requestdetail")
 	@Transactional
 	public String userRequestDetail(int rno, HttpSession session, Model model) {
 		Request request = requestService.getRequestDetail(rno);
 		List<System> systemList = userRegisterService.getSystemList();
 		RequestProcess requestProcess = commonService.getRequestProcess(rno);
-		
-		
-		
 		if(request.getRphone().charAt(0) != '0') {
 			request.setRphone(AesUtil.decrypt(request.getRphone()));
 		}
@@ -473,9 +539,15 @@ public class RequestController {
 		return "srm/request/requestdetail";
 	}
 	
-	//요청 수정하기
+	/**작성자 : 강지성
+	 * 요청 수정 기능
+	 * @param request : 요청 수정 정보 저장
+	 * @param session : 요청 수정한 사용자의 정보
+	 * @param mulfiles : 수정 요청 시 사용할 file
+	 * @return : 해당 요청으로 redirect
+	 */
 	@PostMapping("/requestupdate")
-	public String requestUpdate(Request request, HttpSession session, Model model, MultipartFile[] mulfiles) {
+	public String requestUpdate(Request request, HttpSession session, MultipartFile[] mulfiles) {
 		
 		Member member = (Member) session.getAttribute("member");
 		request.setClient(member.getMid());
@@ -500,7 +572,12 @@ public class RequestController {
 		return "redirect:/customer/requestdetail?rno=" + request.getRno();
 	}
 	
-	//요청 글 파일 다운로드
+	/**작성자 : 강지성
+	 * 요청 글의 파일 다운로드 기능
+	 * @param fno : DB 내 파일이 저장된 게시글 번호
+	 * @return : 파일
+	 * @throws UnsupportedEncodingException
+	 */
 	@GetMapping("/requestdetail/filedownload/{fno}")
 	public ResponseEntity<byte[]> filDownload(@PathVariable int fno) throws UnsupportedEncodingException {
 		
@@ -515,7 +592,13 @@ public class RequestController {
 		return new ResponseEntity<byte[]>(file.getFileData(), headers, HttpStatus.OK);
 	}
 	
-	//요청 수정시, 파일 업로드
+	/**작성자 : 강지성
+	 * 요청 수정시 파일 업로드 AJAX
+	 * @param param : 사용자가 수정한 파일 정보
+	 * @param files : 사용자가 수정한 파일 정보
+	 * @return 실행 결과
+	 * @throws IOException
+	 */
 	@PostMapping("/requestfileupload")
 	@ResponseBody
 	public int uploadFile(@RequestParam HashMap<Object, Object> param, @RequestParam("files")MultipartFile[] files) throws IOException {

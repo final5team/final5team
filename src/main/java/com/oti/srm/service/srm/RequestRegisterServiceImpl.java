@@ -32,6 +32,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	@Autowired
 	private ICommonDao commonDao;
 	
+	//작성자 : 강지성	
 	//요청 작성
 	@Override
 	@Transactional
@@ -78,6 +79,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		return REQUEST_SUCCESS;
 	}
 	
+	//작성자 : 강지성	
 	//요청 수정
 	@Override
 	@Transactional
@@ -103,6 +105,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		return REQUEST_SUCCESS;
 	}
 	
+	//작성자 : 강지성	
 	// 요청 수정시 파일 추가
 	@Override
 	public int updateRequestFile(String rno, List<StatusHistoryFile> fileList) {
@@ -123,20 +126,24 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 
 	
 	
-
+	//작성자 : 강지성	
+	//요청 목록 조회
 	@Override
 	public List<Request> getRequestList(Request request, Pager pager) {
 		List<Request> requestList = requestDao.getRequestList();
 		return requestList;
 	}
-
+	
+	//작성자 : 강지성	
+	//요청의 현재 단계 조회
 	@Override
 	public int getPresentStep(int rno) {
 		int result = requestDao.getPresentStep(rno);
 		log.info("서비스" + result);
 		return result;
 	}
-
+	
+	//작성자 : 강지성
 	// 담당 업무 열 개수 조회
 	@Override
 	public int getMyWorkRows(ListFilter listFilter, Member member) {
@@ -146,7 +153,8 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		int rows = requestDao.countRows(map);
 		return rows;
 	}
-
+	
+	//작성자 : 강지성
 	// 담당 업무 리스트 조회
 	@Override
 	@Transactional
@@ -160,6 +168,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		return result;
 
 	}
+	//작성자 : 강지성
 	// (사용자) 작성한 요청의 개수 가져오기
 	@Override
 	public int getRequestListRows(ListFilter listFilter, Member member) {
@@ -170,6 +179,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		int rows = requestDao.countRequestRows(map);
 		return rows;
 	}
+	//작성자 : 강지성
 	//사용자가 작성한 요청목록 가져오기 
 	@Override
 	public List<SelectPM> getMyRequestList(ListFilter listFilter, Pager pager, Member member){
@@ -180,6 +190,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		List<SelectPM> result = requestDao.selectMyRequest(map);
 		return result;
 	}
+	//작성자 : 강지성
 	// (담당자) 작성한 요청의 개수 가져오기
 		@Override
 		public int getWorkerRequestListRows(ListFilter listFilter, Member member) {
@@ -191,7 +202,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 			return rows;
 		}
 	
-	
+	//작성자 : 강지성
 	//담당자의 요청 목록 가져오기
 	@Override
 	public List<SelectPM> getWorkerRequestList(ListFilter listFilter, Pager pager, Member member) {
@@ -204,6 +215,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		return result;
 	}
 	
+	//작성자 : 강지성
 	//작성한 요청 상세 정보 가져오기
 	@Override
 	@Transactional
@@ -216,6 +228,9 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		request.setFileList(requestDao.selectRequestFile(hno));
 		return request;
 	}
+	
+	//작성자 : 강지성
+	//요청에 저장된 파일 정보 조회
 	@Override
 	public StatusHistoryFile getMyRequestFile(int fno) {
 		StatusHistoryFile file = requestDao.selectFile(fno);
@@ -223,7 +238,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 	}
 	
 //	DB에 없거나, mapper에서 편하게 사용하기 위해 정의 내려준 메소드
-
+	//작성자 : 강지성
 	//날짜 필터링 메소드
 	public ListFilter dateFilterList(ListFilter listFilter) {
 		
@@ -262,6 +277,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		}
 		return listFilter;
 	}
+	//작성자 : 강지성
 	//업무 처리 단계 필터링 메소드
 	public ListFilter statusFilterList(ListFilter listFilter) {
 			//1 접수
@@ -290,7 +306,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		
 		return listFilter;
 	}
-	
+	//작성자 : 강지성
 	//내 요청 목록 단계 필터링 메소드
 		public ListFilter myStatusFilterList(ListFilter listFilter) {
 				//1 접수
@@ -307,7 +323,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 			return listFilter;
 		}
 	
-	
+		//작성자 : 강지성
 	// 서비스 이름명 주입
 	public ListFilter sysName(ListFilter listFilter) {
 		
@@ -323,7 +339,7 @@ public class RequestRegisterServiceImpl implements IRequestRegisterService {
 		
 		return listFilter;
 	}
-
+	
 	@Override
 	public int getMainToWorkerListRows(StatusNoFilter statusNoFilter, Member member) {
 		return requestDao.selectMainToWorkerListRows(statusNoFilter.getStatusNo(), member);

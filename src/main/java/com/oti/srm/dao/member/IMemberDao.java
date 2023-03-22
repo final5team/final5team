@@ -8,6 +8,7 @@ import com.oti.srm.dto.Member;
 
 @Mapper
 public interface IMemberDao {
+	// 작성자 : 강지성
 	public Member getMember(Member member);
 	//유저 등록
 	public int insertMember(Member member);
