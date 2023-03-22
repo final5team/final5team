@@ -31,6 +31,7 @@ public class PMService implements IPMService {
 	@Autowired
 	ICommonDao commonDao;
 
+	//각 시스템에 소속된 담당자 정보 얻기
 	@Override
 	@Transactional
 	public List<Member> getStaffBySno(int sno, String mtype) {
@@ -38,11 +39,13 @@ public class PMService implements IPMService {
 		List<Member> staffList = pMDao.selectStaffBySno(sno, mtype);
 		// 현재 담당 건수 구하기
 		for (Member staff : staffList) {
+			// 담당자별 업무 상황 구하기
 			List<Status> statusList = commonDao.selectMyWorkStatus(staff);
 			HashMap<String, Integer> map = new HashMap<>();
 			map.put("대기", 0);
 			map.put("진행중", 0);
 			for (Status status : statusList) {
+				// 개발 담당자일 때
 				if (staff.getMtype().equals("developer")) {
 					if (status.getStatusNo() < 4) {
 						map.put("대기", map.get("대기") + status.getCount());
@@ -51,6 +54,7 @@ public class PMService implements IPMService {
 						map.put("진행중", map.get("진행중") + status.getCount());
 					}
 				}
+				// 테스트 담당자일 때
 				else if (staff.getMtype().equals("tester")) {
 					if (status.getStatusNo() < 6) {
 						map.put("대기", map.get("대기") + status.getCount());
@@ -59,6 +63,7 @@ public class PMService implements IPMService {
 						map.put("진행중", map.get("진행중") + status.getCount());
 					}
 				}
+				// 품질 검토 담당자일 때
 				else if (staff.getMtype().equals("usertester")) {
 					if (status.getStatusNo() < 8) {
 						map.put("대기", map.get("대기") + status.getCount());
@@ -67,6 +72,7 @@ public class PMService implements IPMService {
 						map.put("진행중", map.get("진행중") + status.getCount());
 					}
 				}
+				// 배포 담당자일 때
 				else if (staff.getMtype().equals("distributor")) {
 					if (status.getStatusNo() < 10) {
 						map.put("대기", map.get("대기") + status.getCount());
@@ -76,11 +82,13 @@ public class PMService implements IPMService {
 					}
 				}
 			}
+			// 업무 현황 저장
 			staff.setQuota(map);
 		}
 		return staffList;
 	}
 
+	// 서비스 요청 접수하기
 	@Override
 	@Transactional
 	public int receipt(StatusHistory statusHistory, RequestProcess requestProcess) {
@@ -116,6 +124,7 @@ public class PMService implements IPMService {
 		return 0;
 	}
 
+	// 서비스 요청 처리 변경 이력 
 	@Override
 	@Transactional
 	public StatusHistory getStatusHistory(int rno, String string) {
@@ -124,6 +133,7 @@ public class PMService implements IPMService {
 		List<StatusHistory> histories = commonDao.selectRequestHistories(rno);
 		// 처리 내역 확인
 		for (StatusHistory sh : histories) {
+			// 서비스 요청 반려일 때
 			if (sh.getNextStatus() == 12) {
 				sh.setFileList(commonDao.selectStatusHistoryFiles(sh.getHno()));
 				reject = sh;
@@ -135,6 +145,7 @@ public class PMService implements IPMService {
 
 	@Override
 	public List<WorkingInfo> getWorkingInfo(Member member) {
+		// 각 시스템에 소속된 담당자 업무 정보 얻기
 		return pMDao.selectWorkingInfo(member);
 		
 	}

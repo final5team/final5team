@@ -67,7 +67,7 @@ public class PMController {
 		model.addAttribute("devStaffList", pMService.getStaffBySno(request.getSno(), "developer"));
 		// 테스터 정보
 		model.addAttribute("tesStaffList", pMService.getStaffBySno(request.getSno(), "tester"));
-		// 유저테스터 정보
+		// 품질 검토자 정보
 		model.addAttribute("uteStaffList", pMService.getStaffBySno(request.getSno(), "usertester"));
 		// 배포자 정보
 		model.addAttribute("disStaffList", pMService.getStaffBySno(request.getSno(), "distributor"));
@@ -218,6 +218,7 @@ public class PMController {
 		if(request.getStatusNo()==12) {
 			model.addAttribute("rejectHistory", pMService.getStatusHistory(rno, "reject"));
 		}
+		// 담당자 처리 정보
 		model.addAttribute("devStatusHistory", pMService.getStatusHistory(rno, "developer"));
 		model.addAttribute("tesStatusHistory", pMService.getStatusHistory(rno, "tester"));
 		model.addAttribute("uteStatusHistory", pMService.getStatusHistory(rno, "usertester"));
@@ -281,9 +282,12 @@ public class PMController {
 	 */
 	// 접수 수정하기
 	@PostMapping("/updatehistory")
-	public String updateHistory(@RequestParam("rno") String rno, RequestProcess rp, StatusHistory sh, HttpSession session, Model model, MultipartFile[] files) {
-		rp.setRno(Integer.parseInt(rno));
-		sh.setRno(Integer.parseInt(rno));
+	public String updateHistory(@RequestParam("rno") int rno, RequestProcess rp, StatusHistory sh, HttpSession session, Model model, MultipartFile[] files) {
+		// 서비스 요청 처리를 위한 RequestProcess 객체에 요청 번호 저장
+		rp.setRno(rno);
+		// 접수 이력 변경을 위한 StatusHistory에 요청 번호 저장
+		sh.setRno(rno);
+		// 현재 로그인된 회원 정보 확인
 		Member member = (Member) session.getAttribute("member");
 		
 		//MultipartFile[] 타입 파일 StatusHistoryFile 객체에 담아서 서비스 전달
@@ -302,11 +306,13 @@ public class PMController {
 						fileList.add(shfile);
 					}
 				}
+				// StatusHistory 객체에 첨부 파일 리스트 저장
 				sh.setFileList(fileList);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+		// 접수 내역 수정
 		commonService.updateHistory(rp, sh, member);
 		return "redirect:/pm/receiptdetail?rno=" + rp.getRno();
 		
