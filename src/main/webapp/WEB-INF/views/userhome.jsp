@@ -240,26 +240,26 @@
 										</div>
 										<div class="pager default" style="margin-top : 40px">
 											<div class="pagingButtonSet d-flex justify-content-center">
-												<a onclick="userRequestList('${searchStatus}', 1)" type="button" class="btn btn-muted shadow">처음</a>
+												<a onclick="userRequestList('${searchStatus}', 1)" type="button" class="btn btn-muted btn-sm shadow">처음</a>
 												<c:if test="${uPager.groupNo > 1}">
-													<a onclick="userRequestList('${searchStatus}', ${uPager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
+													<a onclick="userRequestList('${searchStatus}', ${uPager.startPageNo-1})" class="btn btn-muted btn-sm shadow">이전</a>
 				
 												</c:if>
 				
 												<c:forEach var="i" begin="${uPager.startPageNo}" end="${uPager.endPageNo}">
 													<c:if test="${uPager.pageNo != i}">
-														<a onclick="userRequestList('${searchStatus}', ${i})" type="button" class="btn btn-white shadow">${i}</a>
+														<a onclick="userRequestList('${searchStatus}', ${i})" type="button" class="btn btn-white btn-sm shadow">${i}</a>
 													</c:if>
 													<c:if test="${uPager.pageNo == i}">
-														<a onclick="userRequestList('${searchStatus}', ${i})" type="button" class="btn btn-dark shadow">${i}</a>
+														<a onclick="userRequestList('${searchStatus}', ${i})" type="button" class="btn btn-info btn-sm shadow">${i}</a>
 													</c:if>
 												</c:forEach>
 				
 												<c:if test="${uPager.groupNo < uPager.totalGroupNo }">
-													<a onclick="userRequestList('${searchStatus}', ${uPager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
+													<a onclick="userRequestList('${searchStatus}', ${uPager.endPageNo+1})" type="button" class="btn btn-muted btn-sm shadow">다음</a>
 				
 												</c:if>
-												<a onclick="userRequestList('${searchStatus}', ${uPager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
+												<a onclick="userRequestList('${searchStatus}', ${uPager.totalPageNo})" type="button" class="btn btn-muted btn-sm shadow">맨끝</a>
 											</div>
 										</div>
 									</div>
@@ -299,26 +299,26 @@
 										</div>
 										<div class="pager default mt-4">
 											<div class="pagingButtonSet d-flex justify-content-center">
-												<a onclick="mainNoticeList(1)" type="button" class="btn btn-muted shadow">처음</a>
+												<a onclick="mainNoticeList(1)" type="button" class="btn btn-muted btn-sm shadow">처음</a>
 												<c:if test="${nPager.groupNo > 1}">
-													<a onclick="mainNoticeList(${nPager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
+													<a onclick="mainNoticeList(${nPager.startPageNo-1})" class="btn btn-muted btn-sm shadow">이전</a>
 				
 												</c:if>
 				
 												<c:forEach var="i" begin="${nPager.startPageNo}" end="${nPager.endPageNo}">
 													<c:if test="${nPager.pageNo != i}">
-														<a onclick="mainNoticeList(${i})" type="button" class="btn btn-white shadow">${i}</a>
+														<a onclick="mainNoticeList(${i})" type="button" class="btn btn-white btn-sm shadow">${i}</a>
 													</c:if>
 													<c:if test="${nPager.pageNo == i}">
-														<a onclick="mainNoticeList(${i})" type="button" class="btn btn-dark shadow">${i}</a>
+														<a onclick="mainNoticeList(${i})" type="button" class="btn btn-primary btn-sm shadow">${i}</a>
 													</c:if>
 												</c:forEach>
 				
 												<c:if test="${nPager.groupNo < nPager.totalGroupNo }">
-													<a onclick="mainNoticeList(${nPager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
+													<a onclick="mainNoticeList(${nPager.endPageNo+1})" type="button" class="btn btn-muted btn-sm shadow">다음</a>
 				
 												</c:if>
-												<a onclick="mainNoticeList(${nPager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
+												<a onclick="mainNoticeList(${nPager.totalPageNo})" type="button" class="btn btn-muted btn-sm shadow">맨끝</a>
 											</div>
 										</div>
 									</div>
@@ -356,7 +356,7 @@
     			success : function(result){
     				$('#userRequestListContainer').html(result);
     				if(searchStatus == '전체'){
-    	    			$('#table-head-color').css("background-color", "#3A4651");
+    	    			$('#table-head-color').css("background-color", "#76D4F5");
     	    		}
     	    		else if(searchStatus == '진행중'){
     	    			$('#table-head-color').css("background-color", "#85ce36");

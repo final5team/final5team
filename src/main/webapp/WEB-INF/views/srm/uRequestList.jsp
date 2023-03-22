@@ -4,7 +4,7 @@
 <div style="height: 280px;">
 	<table class="table table-hover usertable table-striped">
 		<thead class="text-white" id="table-head-color">
-			<tr style="background-color: #76d4f5;">
+			<tr>
 				<th>번호</th>
 				<th>제목</th>
 				<th>시스템</th>
@@ -48,30 +48,35 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<c:if test="${userRequestList[0].reqTitle == null}">
+		<div class="d-flex justify-content-center">
+		내용이 없습니다.
+		</div>
+	</c:if>
 </div>
-
+<c:if test="${userRequestList[0].reqTitle != null}">
 <div class="pager default" style="margin-top : 40px">
 	<div class="pagingButtonSet d-flex justify-content-center">
-		<a onclick="userRequestList('${searchStatus}', 1)" type="button" class="btn btn-muted shadow">처음</a>
+		<a onclick="userRequestList('${searchStatus}', 1)" type="button" class="btn btn-muted btn-sm shadow">처음</a>
 	<c:if test="${uPager.groupNo > 1}">
-		<a onclick="userRequestList('${searchStatus}', ${uPager.startPageNo-1})" class="btn btn-muted shadow">이전</a>
+		<a onclick="userRequestList('${searchStatus}', ${uPager.startPageNo-1})" class="btn btn-muted btn-sm shadow">이전</a>
 	
 	</c:if>
 	
 	<c:forEach var="i" begin="${uPager.startPageNo}" end="${uPager.endPageNo}">
 		<c:if test="${uPager.pageNo != i}">
-			<a onclick="userRequestList('${searchStatus}', ${i})" type="button" class="btn btn-white shadow">${i}</a>
+			<a onclick="userRequestList('${searchStatus}', ${i})" type="button" class="btn btn-white btn-sm shadow">${i}</a>
 		</c:if>
 		<c:if test="${uPager.pageNo == i}">
-			<a onclick="userRequestList('${searchStatus}', ${i})" type="button" class="btn btn-dark shadow">${i}</a>
+			<a onclick="userRequestList('${searchStatus}', ${i})" type="button" class="btn btn-info btn-sm shadow">${i}</a>
 		</c:if>
 	</c:forEach>
 	
 	<c:if test="${uPager.groupNo < uPager.totalGroupNo }">
-		<a onclick="userRequestList('${searchStatus}', ${uPager.endPageNo+1})" type="button" class="btn btn-muted shadow">다음</a>
+		<a onclick="userRequestList('${searchStatus}', ${uPager.endPageNo+1})" type="button" class="btn btn-muted btn-sm shadow">다음</a>
 	
 	</c:if>
-	<a onclick="userRequestList('${searchStatus}', ${uPager.totalPageNo})" type="button" class="btn btn-muted shadow">맨끝</a>
+	<a onclick="userRequestList('${searchStatus}', ${uPager.totalPageNo})" type="button" class="btn btn-muted btn-sm shadow">맨끝</a>
 	</div>
 </div>
-
+</c:if>
