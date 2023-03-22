@@ -31,9 +31,7 @@ import com.oti.srm.service.srm.ICommonService;
 
 import lombok.extern.log4j.Log4j2;
 
-/**
- * Handles requests for the application home page.
- */
+
 @Controller
 @Log4j2
 public class HomeController {
@@ -46,10 +44,15 @@ public class HomeController {
 	INoticeService noticeService;
 
 	/**
-	 * @author : 장현
-	 * @param session 저장된 member객체를 서비스에 전달
-	 * @param model view에 전달할 객체 주입
-	 * @return home.jsp 로 리턴
+	 * 실무자 업무 리스트 AJAX
+	 * @author  				장현, 송영훈
+	 * @param session 			세션에 저장된 member객체 추출
+	 * @param model 			view에 전달할 객체 주입
+	 * @param checkbox  		내 SR / 전체 SR 구분을 위함 
+	 * @param workPageNo 		실무자 업무 리스트 페이지 번호 받기
+	 * @param noticePageNo		공지사항 리스트 페이지 번호 받기
+	 * @param status 			진행상태 받기 
+	 * @return 					home.jsp 
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpSession session, Model model,@RequestParam(defaultValue = "y") String checkbox,
@@ -95,13 +98,14 @@ public class HomeController {
 	}
 	
 	/**
-	 * @author : 장현
-	 * @param session 세션에 저장된 member객체 추출
-	 * @param model view에 보내기위함
-	 * @param noticePageNo 메인페이지의 공지사항 pageNo 받기
-	 * @param myReqestPageNo 나의 요청리스트 페이지 번호 받기
-	 * @param status 완료/진행중/전체 상태에 따라 데이터 추출
-	 * @return
+	 * 사용자의 메인페이지 조회
+	 * @author  				장현, 송영훈
+	 * @param session 			세션에 저장된 member객체 추출
+	 * @param model 			view에 전달할 객체 주입
+	 * @param noticePageNo 		메인페이지의 공지사항 pageNo 받기
+	 * @param myReqestPageNo 	나의 요청리스트 페이지 번호 받기
+	 * @param status 			완료/반려/진행중/전체 상태에 따라 데이터 추출
+	 * @return					userhome.jsp
 	 */
 	@GetMapping("/userhome")
 	public String userHome(HttpSession session, Model model,
@@ -145,6 +149,17 @@ public class HomeController {
 		
 		return "/userhome";
 	}
+	/**
+	 * 관리자(pm)의 메인페이지
+	 * @author  				장현, 송영훈
+	 * @param session 			세션에 저장된 member객체 추출
+	 * @param model				view에 전달할 객체 주입
+	 * @param noticePageNo 		메인페이지의 공지사항 페이지 번호 받기
+	 * @param pmWorkPageNo 		pm 업무리스트 페이지 번호 받기 
+	 * @param status 			접수대기/승인대기/진행중/완료및반려 진행상태 받기
+	 * @param dDay7PageNo 		D-7요청리스트 페이지 번호 받기
+	 * @return					pmhome.jsp 
+	 */
 	@GetMapping("/pmhome")
 	public String pmHome(HttpSession session, Model model,@RequestParam(defaultValue ="1") int noticePageNo, 
 			@RequestParam(defaultValue ="1") int dDay7PageNo,  @RequestParam(defaultValue ="1") int pmWorkPageNo, @RequestParam(defaultValue ="전체") String status) {
@@ -193,6 +208,14 @@ public class HomeController {
 		
 		return "/pmhome";
 	}
+	/**
+	 * 내 요청리스트(사용자) ajax 
+	 * @author  				장현, 송영훈
+	 * @param session 			세션에 저장된 member객체 추출
+	 * @param myRequestPageNo 	내 요청리스트 페이지 번호 받기
+	 * @param searchStatus 		진행중/완료/반려 진행상태 받기 
+	 * @return 					내 요청리스트 조각 jsp 
+	 */
 	@GetMapping("/userrequestlist")
 	public String getUserRequestList(HttpSession session, Model model, @RequestParam(defaultValue = "1") int myRequestPageNo,
 			@RequestParam(defaultValue ="전체") String searchStatus) {
@@ -209,6 +232,13 @@ public class HomeController {
 		return "srm/uRequestList";
 	}
 	
+	/**
+	 * D-7 요청리스트 ajax 
+	 * @author  				장현, 송영훈
+	 * @param session 			세션에 저장된 member객체 추출
+	 * @param dDay7PageNo 	    D-7 요청리스트 페이지 번호
+	 * @return 					D-7 요청리스트 조각 jsp 
+	 */
 	@GetMapping("/7dayslist")
 	public String get7DaysList(HttpSession session, Model model, @RequestParam(defaultValue ="1") int dDay7PageNo ) {
 		log.info("실행");
@@ -223,6 +253,15 @@ public class HomeController {
 		return "srm/7DaysList";
 	}
 	
+	/**
+	 * 실무자 업무 리스트 AJAX
+	 * @author  				장현, 송영훈
+	 * @param session 			세션에 저장된 member객체 추출
+	 * @param checkbox  		내 SR / 전체 SR 구분을 위함 
+	 * @param workPageNo 		실무자 업무 리스트 페이지 번호 받기
+	 * @param status 			진행상태 받기 
+	 * @return 					실무자 업무 리스트 조각 jsp 
+	 */
 	@GetMapping("/requestprocesslist")
 	public String getRequestProcessList(HttpSession session, Model model,@RequestParam(defaultValue = "n") String checkbox,
 			@RequestParam(defaultValue ="1") int workPageNo, @RequestParam(defaultValue ="전체") String status) {
@@ -241,6 +280,14 @@ public class HomeController {
 		return "srm/requestProcessList";
 	}
 	
+	/**
+	 * PM 업무리스트 ajax 
+	 * @author  				장현, 송영훈
+	 * @param session 			세션에 저장된 member객체 추출
+	 * @param pmWorkPageNo 		PM 업무리스트 페이지 번호 받기
+	 * @param status 			진행상태 받기 
+	 * @return 					PM 업무리스트 조각 jsp 
+	 */
 	@GetMapping("/pmrequestprocesslist")
 	public String getPmRequestProcessList(HttpSession session, Model model, @RequestParam(defaultValue ="1") int pmWorkPageNo, @RequestParam(defaultValue ="전체") String status) {
 		log.info("실행");
@@ -255,6 +302,13 @@ public class HomeController {
 		return "srm/pmRequestProcessList";
 	}
 	
+	/**
+	 * 공지사항 리스트 ajax 
+	 * @author  				장현, 송영훈
+	 * @param session 			세션에 저장된 member객체 추출
+	 * @param noticePageNo 		공지사항 리스트 페이지 번호 받기
+	 * @return 					내 요청리스트 조각 jsp 
+	 */
 	@GetMapping("/mainnoticelist")
 	public String getMainNoticeList(HttpSession session, Model model,@RequestParam(defaultValue ="1") int noticePageNo) {
 		log.info("실행");
@@ -271,6 +325,12 @@ public class HomeController {
 		return "srm/mainNoticeList";
 	}
 	
+	/**
+	 * 파일 다운로드 
+	 * @author  				장현, 송영훈
+	 * @param fno 				가져올 파일의 고유번호
+	 * @return 					파일 데이터가 포함된 ResponseEntity객체 
+	 */
 	@RequestMapping("/filedouwnload/{fno}")
 	public ResponseEntity<byte[]> getFile(@PathVariable int fno) throws Exception {
 		StatusHistoryFile file = commonService.getFile(fno);
