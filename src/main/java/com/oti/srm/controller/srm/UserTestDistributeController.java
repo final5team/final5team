@@ -25,18 +25,25 @@ import com.oti.srm.service.srm.ICommonService;
 
 import lombok.extern.log4j.Log4j2;
 
+
 @Log4j2
 @Controller
 public class UserTestDistributeController {
 	@Autowired
 	ICommonService commonService;
-
-	// 작성자 : 송영훈
-	// 고객테스트 단계(고객테스트 요청, 고객테스트 중)상세보기
+	
+	
+	/**
+	 * 품질검토단계 상세페이지 조회
+	 * @author 			송영훈
+	 * @param rno 		조회할 SR번호
+	 * @param sesssion  현재 로그인 사용자 정보 얻기
+	 * @param model     View에서 사용할 데이터 바인딩 
+	 * @return  		품질검토 상세 jsp
+	 */
 	@GetMapping("/usertestdetail")
 	public String userTestDetail(int rno, HttpSession session, Model model) {
 		log.info("요청번호" + rno);
-		// Validation(내 담당건 맞는지)
 		// 요청정보
 		Request request = commonService.getRequest(rno);
 		model.addAttribute("request", request);
@@ -63,7 +70,14 @@ public class UserTestDistributeController {
 		return "srm/userTester";
 	}
 
-	// 작성자 : 송영훈
+	/**
+	 * 배포 상세페이지 조회
+	 * @author 			송영훈
+	 * @param rno 		조회할 SR번호
+	 * @param sesssion  현재 로그인 사용자 정보 얻기
+	 * @param model     View에서 사용할 데이터 바인딩 
+	 * @return  		배포 상세 jsp
+	 */
 	@GetMapping("/distributedetail")
 	public String distributeDetail(int rno, HttpSession session, Model model) {
 		log.info("요청번호" + rno);
@@ -94,9 +108,14 @@ public class UserTestDistributeController {
 		return "srm/distributor";
 	}
 
-	// 작성자 : 송영훈
-	// 작업 시작(고객테스터 / 배포자 공용)
-	// => requests테이블(현재단계 최신화 + 완료예정일 기입) + status_histories테이블(단계 변경 이력 추가)
+	/**
+	 * 품질검토/배포 시작
+	 * @author 						송영훈
+	 * @param statusHistory 		업무 시작할 SR번호와 다음 진행상태 값 
+	 * @param sesssion  			현재 로그인 사용자 정보 얻기
+	 * @param model     			View에서 사용할 데이터 바인딩 
+	 * @return  					배포자 : 배포상세 jsp / 품질검토자 : 품질겅토상세 jsp
+	 */
 	@PostMapping("/startwork")
 	public String startWork(StatusHistory statusHistory,
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date expectDate, HttpSession session, Model model) {
@@ -114,10 +133,15 @@ public class UserTestDistributeController {
 		}
 	}
 
-	// 작성자 : 송영훈
-	// 작업 완료(고객테스터 / 배포자 공용)
-	// => requests테이블(현재단계 최신화) + status_histories테이블(단계 변경 이력 추가)
-	// + status_histories_files테이블(단계 변경 이력에 첨부파일 등록)
+	/**
+	 * 품질검토/배포 완료
+	 * @author 						송영훈
+	 * @param statusHistory 		업무 완료할 SR번호와 다음 진행상태 값 
+	 * @param files					업무 완료 시 첨부한 파일 데이터 
+	 * @param sesssion  			현재 로그인 사용자 정보 얻기
+	 * @param model     			View에서 사용할 데이터 바인딩 
+	 * @return  					배포자 : 배포상세 jsp / 품질검토자 : 품질겅토상세 jsp
+	 */
 	@PostMapping("/endwork")
 	public String endWork(StatusHistory statusHistory, HttpSession session, MultipartFile[] files) {
 		log.info("실행");
