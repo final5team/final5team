@@ -95,12 +95,16 @@ public interface ICommonDao {
 	//직무별 요청리스트 행의 수 출력
 	public int selectRequestProcessRows(@Param("member")Member member,@Param("checkbox") String checkbox, @Param("status") String status);
 
+	//사용자 요청 리스트 행 가져오기
 	public int selectUserRequestListCount(@Param("searchStatus") String searchStatus,@Param("member")  Member member);
-
+	
+	//사용자 요청 리스트 가져오기
 	public List<Request> selectUserRequestList(@Param("searchStatus") String searchStatus, @Param("member") Member member, @Param("uPager") Pager uPager);
 
+	//임시저장 객체 가져오기
 	public StatusHistory selectTempStatusHistory(@Param("member") Member member, @Param("statusHistory") StatusHistory statusHistory);
-
+	
+	//개발자의 진척률 갱신하기
 	public void updateDevProgress(RequestProcess rp);
 	
 	// 요청 처리 정보 수정
@@ -109,20 +113,27 @@ public interface ICommonDao {
 	// 단계 처리 이력 수정
 	public void updateRealStatusHistory(StatusHistory sh);
 	
+	//pm의 requestProcess 리스트 가져오기
 	public List<RequestProcess> selectPmRequestProcessList(@Param("status") String status, @Param("pager") Pager rpPager);
 	
+	//pm의 requestProcess 행 가져오기
 	public int selectPmRequestProcessRows(@Param("status") String status);
 
 	// 서비스 변경 사항 확인 여부 변경(확인)
 	public int updateCheck(@Param("mtype")String mtype, @Param("rno")int rno);
+	
 	// 서비스 변경 사항 확인 여부 변경(미확인)
 	public int updateNotCheck(@Param("mtype")String mtype, @Param("rno")int rno);
+	
 	// 서비스 변경 알림
 	public List<Request> selectNewAlertList(Member member);
 	
 	// 단계 변경 이력 삭제 
 	public int deleteStatusHistory(int hno);
+	
+	// 단계 변경 이력 파일 삭제 
 	public int deleteStautsHistoryFiles(int hno);
-
+	
+	//완료일 null 로 업데이트
 	public int updateCompDateNull(@Param("member") Member member, @Param("rp") RequestProcess rp);
 }
