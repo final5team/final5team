@@ -15,6 +15,7 @@ import com.oti.srm.dto.StatusNoFilter;
 
 @Mapper
 public interface IRequestDao {
+	// 작성자 : 강지성	
 	// 요청 작성 : 모든 유저
 	public int insertRequest(Request request);
 	// 요청 수정 
@@ -46,6 +47,7 @@ public interface IRequestDao {
 	public List<StatusHistoryFile> setRequestFiles(int rno);
 	public List<StatusHistoryFile> selectRequestFile(int fno);
 	public StatusHistoryFile selectFile(int fno);
+	// ---------------------------------------------------------------------------------------------------
 	
 	// 메인에서 업무현황 클릭 후 담당목록 조회
 	public int selectMainToWorkerListRows(@Param("statusNoFilter") List<Integer> statusNoFilter, @Param("member") Member member);

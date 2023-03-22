@@ -26,7 +26,13 @@ public class CheckController {
 	@Autowired
 	IUserRegisterService userRegisterService;
 	
-	//아이디 확인 ajax
+	/**작성자 : 강지성
+	 * 아이디 중복 확인 (AJAX)
+	 * @param mid
+	 * @return
+	 * @throws JsonMappingException
+	 * @throws JsonProcessingException
+	 */
 	@PostMapping("/idconfrim")
 	@ResponseBody
 	public int idConfirm(@RequestBody String mid) throws JsonMappingException, JsonProcessingException {
@@ -40,7 +46,14 @@ public class CheckController {
 		return result;
 	}
 	
-	//비밀번호 check
+	/**작성자 : 강지성
+	 * 비밀번호 동일 여부 확인 (AJAX)
+	 * @param password
+	 * @param session
+	 * @return
+	 * @throws JsonMappingException
+	 * @throws JsonProcessingException
+	 */
 	@PostMapping("/passwordConfirm")
 	@ResponseBody
 	public boolean passwordConfirm(@RequestBody String password, HttpSession session) throws JsonMappingException, JsonProcessingException {
