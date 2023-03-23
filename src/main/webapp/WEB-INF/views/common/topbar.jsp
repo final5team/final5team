@@ -33,9 +33,9 @@
 				<li class="nav-item dropdown no-arrow mx-1">
 					<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="fas fa-bell fa-fw"></i>
+						<i class="fas fa-bell fa-fw" style="font-size:30px;"></i>
 						<!-- Counter - Alerts -->
-						<span class="badge badge-danger badge-counter">${fn:length(newAlertList)}</span>
+						<span class="badge badge-danger badge-counter" style="font-size:20px;">${fn:length(newAlertList)}</span>
 					</a>
 					<!-- Dropdown - Alerts -->
 					<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -146,8 +146,8 @@
 				</li>
 				<li class="nav-item dropdown no-arrow mx-1">
 					<a class="nav-link dropdown-toggle" data-toggle="modal" data-target="#logoutModal" role="button" style="color: #5C6B7A;">
-						<i class="fas fa-sign-out-alt"></i>
-						Logout
+						<i class="fas fa-sign-out-alt" style="font-size:25px;"></i>
+						<h5>Logout</h5>
 					</a>
 					
 				</li>
