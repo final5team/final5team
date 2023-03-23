@@ -454,6 +454,8 @@ public class RequestController {
 		
 		//사이드바 버튼 저장
 		session.setAttribute("where", "list");
+		// 신규 내역 알림 갱신
+		session.setAttribute("newAlertList", commonService.getNewAlertList(member));	
 		
 		return "srm/requestlist_re";
 	}
