@@ -114,7 +114,7 @@
 											<c:if test="${request.statusNo == 8}">
 												<div class="d-flex justify-content-end">
 													<button class="btn btn-warning btn-md mx-3"  onclick="tempStore(${request.rno},17)" type="button">임시 저장</button>
-													<button class="btn btn-primary btn-md " onclick="userTestDone()" type="button">품질테스트 완료</button>
+													<button class="btn btn-primary btn-md " onclick="checkDevEnd()" type="button">품질테스트 완료</button>
 												</div>
 											</c:if>
 										</form>				
@@ -271,6 +271,29 @@
 		</div>
 	</div>
 	<!-- 데이트 입력 확인 /-->
+	
+	<!-- 테스트 완료 입력 확인 -->
+	<div class="modal fade" id="devCheckModal" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>
+						Check
+					</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" style="display: flex; justify-content: center;">
+					<p id="devCheckModalContent"></p>
+				</div>
+				<div class="modal-footer" style="justify-content: center;">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <a class="btn btn-primary" data-dismiss="modal" onclick="userTestDone()" type="button">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 완료 입력 확인 /-->
+	
 	<script>
 
 	function checkDate(){
@@ -467,6 +490,11 @@
 			
 		}
 	}
+	//개발 완료 버튼 클릭시 모달 팝업
+	function checkDevEnd(){
+		$('#devCheckModalContent').text('품질 테스트 완료 하시겠습니까?');
+		$('#devCheckModal').modal();
+	}
 	
 	/* '유저테스트완료' 버튼 입력시 form데이터 전달 */
 	function userTestDone(){
@@ -513,7 +541,6 @@
 				deleteDiv.remove();
 			}
 		});
-		
 		
 	});
 	/****** update() '수정'버튼 클릭 ******/
