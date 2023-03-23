@@ -205,6 +205,8 @@ public class HomeController {
 		
 		//세션에 사이드 버튼 입력 주기 (실무자들 = workers/ pm = pm / 유저 = user)
 		session.setAttribute("where", "dashboard");
+		// 신규 내역 알림 갱신
+		session.setAttribute("newAlertList", commonService.getNewAlertList(member));	
 		
 		return "/pmhome";
 	}
