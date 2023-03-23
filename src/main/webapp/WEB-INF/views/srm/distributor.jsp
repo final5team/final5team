@@ -118,7 +118,7 @@
 											<c:if test="${request.statusNo == 10}">
 												<div class="d-flex justify-content-end">
 													<button class="btn btn-warning btn-md mx-3"  onclick="tempStore(${request.rno},18)" type=button>임시 저장</button>
-													<button class="btn btn-primary btn-md " onclick="endDistribute()" type=button>배포 완료</button>
+													<button class="btn btn-primary btn-md " onclick="checkDevEnd()" type=button>배포 완료</button>
 												</div>
 											</c:if>
 										</form>
@@ -273,6 +273,29 @@
 		</div>
 	</div>
 	<!-- 데이트 입력 확인 /-->
+	
+	<!-- 개발완료 입력 확인 -->
+	<div class="modal fade" id="devCheckModal" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5>
+						Check
+					</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body" style="display: flex; justify-content: center;">
+					<p id="devCheckModalContent"></p>
+				</div>
+				<div class="modal-footer" style="justify-content: center;">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <a class="btn btn-primary" data-dismiss="modal" onclick="endDistribute()" type="button">확인</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 개발완료 입력 확인 /-->
+	
 	<script>
 
 	function checkDate(){
@@ -450,6 +473,13 @@
 			
 		}
 	}
+	
+	//배포 완료 버튼 클릭시 모달 팝업
+	function checkDevEnd(){
+		$('#devCheckModalContent').text('배포 완료 하시겠습니까?');
+		$('#devCheckModal').modal();
+	}
+	
 	
 	/* '배포완료'버튼 입력시 */
 	function endDistribute(){

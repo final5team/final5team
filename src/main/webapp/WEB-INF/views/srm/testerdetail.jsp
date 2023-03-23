@@ -144,7 +144,7 @@
 										<div class="d-flex justify-content-end">
 											<c:if test="${member.mid == requestProcess.tester && request.statusNo == 6}">
 											<button class="btn btn-warning btn-md " onclick="tempStore(${request.rno})" type='button' >임시저장</button>
-											<button class="btn btn-primary btn-md mx-3" id="testButton" onclick="testdone()" type='button'>테스트 완료</button>
+											<button class="btn btn-primary btn-md mx-3" id="testButton" onclick="checkDevEnd()" type='button'>테스트 완료</button>
 											<!-- <button class="btn btn-dark btn-md " type="button" onclick="location.href='{pageContext.request.contextPath}/customer/requestlist'">취소</button> -->
 											<button class="btn btn-dark btn-md " type="button">취소</button>
 											</c:if>
@@ -389,7 +389,6 @@
 		/* 버튼 바꿔주기 */
 		$('#testButton').text('테스트 완료');
 		$('#writeform').attr('action', '${pageContext.request.contextPath}/testdone');
-		
 	}
 	function turnReexam(){
 		$('#reexam').addClass('active');
@@ -540,8 +539,8 @@
 	//개발 완료 버튼 클릭시 모달 팝업
 	function checkDevEnd(){
 		console.log("모달 까지 띄울 준비");
-		/* $('#devCheckModalContent').text('개발 완료 하시겠습니까?');
-		$('#devCheckModal').modal(); */
+		$('#devCheckModalContent').text('완료 하시겠습니까?');
+		$('#devCheckModal').modal();
 	}
 	
 	/* 테스트 완료 버튼 누를 시 */
