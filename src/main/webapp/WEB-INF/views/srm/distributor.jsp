@@ -365,7 +365,7 @@
 		// 현재 날짜 구하기
 		var now = new Date();
 		// 완료 예정일에 현재 날짜 이후 날짜만 선택 가능하게 만들기(최소값)
-	   document.getElementById("expectDate").min
+	   document.getElementById("distExpectDate").min
 	   = now.toISOString().slice(0, 10);
 		
 		/****** window로딩 시, 개발시작 버튼 눌렀는지 확인하고, 작성칸 readonly 만들어주기 *****/
