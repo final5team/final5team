@@ -84,7 +84,7 @@
 															<option value="developer">개발자</option>
 														</c:if>		
 														<c:if test="${sessionScope.member.mtype == 'distributor'}">
-															<option value="distributer">배포담당자</option>
+															<option value="distributor">배포담당자</option>
 														</c:if>			
 														<c:if test="${sessionScope.member.mtype == 'tester'}">
 															<option value="tester">테스터</option>
